@@ -1,0 +1,77 @@
+@import "tailwindcss";
+
+:root {
+  --background: #f8fafc;
+  --foreground: #0f172a;
+}
+
+@theme inline {
+  --font-sans: "Geist", "Geist Fallback", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "Geist Mono", "Geist Mono Fallback", ui-monospace, monospace;
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  min-width: 320px;
+}
+
+body {
+  margin: 0;
+  background: var(--background);
+  color: var(--foreground);
+}
+
+button,
+input,
+select {
+  font: inherit;
+}
+
+@keyframes streak-pop {
+  0% {
+    opacity: 0;
+    transform: translateY(8px) scale(0.96);
+  }
+  60% {
+    opacity: 1;
+    transform: translateY(-2px) scale(1.02);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes celebration-burst {
+  0% {
+    opacity: 0;
+    transform: translateY(20px) scale(0.92);
+  }
+  20% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.75;
+    transform: translateY(-12px) scale(1.05);
+  }
+}
+
+.streak-pop {
+  animation: streak-pop 420ms ease-out both;
+}
+
+.celebration-burst {
+  position: absolute;
+  inset: -20%;
+  background:
+    radial-gradient(circle at 20% 30%, rgba(255, 255, 255, 0.9) 0 4px, transparent 5px),
+    radial-gradient(circle at 70% 20%, rgba(190, 242, 100, 0.9) 0 5px, transparent 6px),
+    radial-gradient(circle at 82% 60%, rgba(34, 211, 238, 0.8) 0 4px, transparent 5px),
+    radial-gradient(circle at 35% 75%, rgba(255, 255, 255, 0.8) 0 5px, transparent 6px);
+  animation: celebration-burst 1200ms ease-out infinite alternate;
+}

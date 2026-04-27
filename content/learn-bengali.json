@@ -1,0 +1,380 @@
+{
+  "units": [
+    {
+      "id": "unit-1",
+      "number": 1,
+      "title": "Greetings",
+      "description": "Start tiny conversations with warmth and confidence.",
+      "lessons": [
+        {
+          "id": "lesson-1-greetings",
+          "unitId": "unit-1",
+          "unitNumber": 1,
+          "title": "Hello, Rachel",
+          "difficulty": "Beginner",
+          "summary": "Say hello, ask how someone is, and introduce your name.",
+          "phrases": [
+            {
+              "id": "p-hello",
+              "english": "hello",
+              "pronunciation": "Say it like English; common in casual Bengali conversation.",
+              "category": "greetings",
+              "romanized": "hello",
+              "bengaliScript": "হ্যালো"
+            },
+            {
+              "id": "p-kemon-acho",
+              "english": "how are you",
+              "pronunciation": "KEH-mon AH-cho",
+              "category": "greetings",
+              "romanized": "kemon acho",
+              "bengaliScript": "কেমন আছো"
+            },
+            {
+              "id": "p-ami-bhalo-achi",
+              "english": "I am good",
+              "pronunciation": "AH-mee BHA-lo AH-chee",
+              "category": "greetings",
+              "romanized": "ami bhalo achi",
+              "bengaliScript": "আমি ভালো আছি"
+            },
+            {
+              "id": "p-tomar-naam-ki",
+              "english": "what is your name",
+              "pronunciation": "to-MAR naam kee",
+              "category": "greetings",
+              "romanized": "tomar naam ki",
+              "bengaliScript": "তোমার নাম কী"
+            },
+            {
+              "id": "p-amar-naam-rachel",
+              "english": "my name is Rachel",
+              "pronunciation": "AH-mar naam Rachel",
+              "category": "greetings",
+              "romanized": "amar naam Rachel",
+              "bengaliScript": "আমার নাম র‍্যাচেল"
+            }
+          ],
+          "exercises": [
+            {
+              "id": "ex-greet-1",
+              "type": "multiple-choice",
+              "prompt": "What does “kemon acho” mean?",
+              "answer": "how are you",
+              "options": [
+                "how are you",
+                "my name is Rachel",
+                "I am good",
+                "hello"
+              ],
+              "phraseId": "p-kemon-acho"
+            },
+            {
+              "id": "ex-greet-2",
+              "type": "translation",
+              "prompt": "Type the Bengali phrase for “I am good”.",
+              "answer": "ami bhalo achi",
+              "phraseId": "p-ami-bhalo-achi"
+            },
+            {
+              "id": "ex-greet-3",
+              "type": "matching",
+              "prompt": "Match each Bengali phrase to its English meaning.",
+              "answer": "matched",
+              "pairs": [
+                {
+                  "left": "tomar naam ki",
+                  "right": "what is your name"
+                },
+                {
+                  "left": "amar naam Rachel",
+                  "right": "my name is Rachel"
+                },
+                {
+                  "left": "kemon acho",
+                  "right": "how are you"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "unit-2",
+      "number": 2,
+      "title": "Family",
+      "description": "Learn names for close family and simple introductions.",
+      "lessons": [
+        {
+          "id": "lesson-2-family",
+          "unitId": "unit-2",
+          "unitNumber": 2,
+          "title": "My Family",
+          "difficulty": "Beginner",
+          "summary": "Talk about mother, father, siblings, and home.",
+          "phrases": [
+            {
+              "id": "p-ma",
+              "english": "mother",
+              "pronunciation": "mah",
+              "category": "family",
+              "romanized": "ma",
+              "bengaliScript": "মা"
+            },
+            {
+              "id": "p-baba",
+              "english": "father",
+              "pronunciation": "BAH-bah",
+              "category": "family",
+              "romanized": "baba",
+              "bengaliScript": "বাবা"
+            },
+            {
+              "id": "p-bon",
+              "english": "sister",
+              "pronunciation": "bone",
+              "category": "family",
+              "romanized": "bon",
+              "bengaliScript": "বোন"
+            },
+            {
+              "id": "p-bhai",
+              "english": "brother",
+              "pronunciation": "bh-eye",
+              "category": "family",
+              "romanized": "bhai",
+              "bengaliScript": "ভাই"
+            }
+          ],
+          "exercises": [
+            {
+              "id": "ex-family-1",
+              "type": "multiple-choice",
+              "prompt": "What does “baba” mean?",
+              "answer": "father",
+              "options": [
+                "father",
+                "mother",
+                "sister",
+                "brother"
+              ],
+              "phraseId": "p-baba"
+            },
+            {
+              "id": "ex-family-2",
+              "type": "translation",
+              "prompt": "Type the Bengali word for “sister”.",
+              "answer": "bon",
+              "phraseId": "p-bon"
+            },
+            {
+              "id": "ex-family-3",
+              "type": "matching",
+              "prompt": "Match the family words.",
+              "answer": "matched",
+              "pairs": [
+                {
+                  "left": "ma",
+                  "right": "mother"
+                },
+                {
+                  "left": "baba",
+                  "right": "father"
+                },
+                {
+                  "left": "bhai",
+                  "right": "brother"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "unit-3",
+      "number": 3,
+      "title": "Food",
+      "description": "Recognize common food words and polite food phrases.",
+      "lessons": [
+        {
+          "id": "lesson-3-food",
+          "unitId": "unit-3",
+          "unitNumber": 3,
+          "title": "Food Basics",
+          "difficulty": "Beginner",
+          "summary": "Say rice, water, tea, and ask for food.",
+          "phrases": [
+            {
+              "id": "p-bhat",
+              "english": "rice",
+              "pronunciation": "bhaat",
+              "category": "food",
+              "romanized": "bhat",
+              "bengaliScript": "ভাত"
+            },
+            {
+              "id": "p-pani",
+              "english": "water",
+              "pronunciation": "PAH-nee",
+              "category": "food",
+              "romanized": "pani",
+              "bengaliScript": "পানি"
+            },
+            {
+              "id": "p-cha",
+              "english": "tea",
+              "pronunciation": "chah",
+              "category": "food",
+              "romanized": "cha",
+              "bengaliScript": "চা"
+            },
+            {
+              "id": "p-ami-cha-chai",
+              "english": "I want tea",
+              "pronunciation": "AH-mee chah chai",
+              "category": "food",
+              "romanized": "ami cha chai",
+              "bengaliScript": "আমি চা চাই"
+            }
+          ],
+          "exercises": [
+            {
+              "id": "ex-food-1",
+              "type": "multiple-choice",
+              "prompt": "What does “pani” mean?",
+              "answer": "water",
+              "options": [
+                "tea",
+                "rice",
+                "water",
+                "food"
+              ],
+              "phraseId": "p-pani"
+            },
+            {
+              "id": "ex-food-2",
+              "type": "translation",
+              "prompt": "Type the Bengali phrase for “I want tea”.",
+              "answer": "ami cha chai",
+              "phraseId": "p-ami-cha-chai"
+            },
+            {
+              "id": "ex-food-3",
+              "type": "matching",
+              "prompt": "Match the food words.",
+              "answer": "matched",
+              "pairs": [
+                {
+                  "left": "bhat",
+                  "right": "rice"
+                },
+                {
+                  "left": "pani",
+                  "right": "water"
+                },
+                {
+                  "left": "cha",
+                  "right": "tea"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "unit-4",
+      "number": 4,
+      "title": "Basic Questions",
+      "description": "Ask simple practical questions in everyday conversations.",
+      "lessons": [
+        {
+          "id": "lesson-4-questions",
+          "unitId": "unit-4",
+          "unitNumber": 4,
+          "title": "Ask Something",
+          "difficulty": "Beginner",
+          "summary": "Use where, what, and yes/no words.",
+          "phrases": [
+            {
+              "id": "p-eta-ki",
+              "english": "what is this",
+              "pronunciation": "EH-ta kee",
+              "category": "questions",
+              "romanized": "eta ki",
+              "bengaliScript": "এটা কী"
+            },
+            {
+              "id": "p-kothay",
+              "english": "where",
+              "pronunciation": "KO-thai",
+              "category": "questions",
+              "romanized": "kothay",
+              "bengaliScript": "কোথায়"
+            },
+            {
+              "id": "p-ha",
+              "english": "yes",
+              "pronunciation": "haa",
+              "category": "questions",
+              "romanized": "ha",
+              "bengaliScript": "হ্যাঁ"
+            },
+            {
+              "id": "p-na",
+              "english": "no",
+              "pronunciation": "nah",
+              "category": "questions",
+              "romanized": "na",
+              "bengaliScript": "না"
+            }
+          ],
+          "exercises": [
+            {
+              "id": "ex-questions-1",
+              "type": "multiple-choice",
+              "prompt": "What does “eta ki” mean?",
+              "answer": "what is this",
+              "options": [
+                "where",
+                "what is this",
+                "yes",
+                "no"
+              ],
+              "phraseId": "p-eta-ki"
+            },
+            {
+              "id": "ex-questions-2",
+              "type": "translation",
+              "prompt": "Type the Bengali word for “where”.",
+              "answer": "kothay",
+              "phraseId": "p-kothay"
+            },
+            {
+              "id": "ex-questions-3",
+              "type": "matching",
+              "prompt": "Match the short answers.",
+              "answer": "matched",
+              "pairs": [
+                {
+                  "left": "ha",
+                  "right": "yes"
+                },
+                {
+                  "left": "na",
+                  "right": "no"
+                },
+                {
+                  "left": "eta ki",
+                  "right": "what is this"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
