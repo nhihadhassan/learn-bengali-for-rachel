@@ -1,6 +1,6 @@
 # Learn Bengali for Rachel
 
-A small Duolingo-style Bengali learning app focused on beginner, romanized Bengali phrases.
+A small Duolingo-style Bengali learning app focused on beginner spoken Bengali phrases.
 
 ## Stack
 
