@@ -130,6 +130,10 @@ export function LessonFlow({ lesson }: { lesson: Lesson }) {
   }
 
   function skipListening() {
+    if (answerState !== "idle") {
+      return;
+    }
+
     if (!isListeningStep(step)) {
       return;
     }
@@ -146,6 +150,10 @@ export function LessonFlow({ lesson }: { lesson: Lesson }) {
   }
 
   function checkAnswer() {
+    if (answerState !== "idle") {
+      return;
+    }
+
     if (step.type === "recognize") {
       finishQuestion(selectedAnswer === step.phrase.english, selectedAnswer, step.phrase.english);
     }
@@ -222,7 +230,9 @@ export function LessonFlow({ lesson }: { lesson: Lesson }) {
           </p>
           <div className="mt-6 grid gap-3 rounded-3xl border border-white/15 bg-white/10 p-4 shadow-inner sm:grid-cols-3">
             <div>
-              <p className="text-sm font-bold text-emerald-100">Correct checks</p>
+              <p className="text-sm font-bold text-emerald-100">
+                {isHistoryLesson ? "Story checks" : "Correct checks"}
+              </p>
               <p className="text-3xl font-black">{correctCount}</p>
             </div>
             <div>
@@ -319,6 +329,7 @@ export function LessonFlow({ lesson }: { lesson: Lesson }) {
             options={step.options}
             selectedAnswer={selectedAnswer}
             setSelectedAnswer={setSelectedAnswer}
+            isLocked={answerState !== "idle"}
           />
         </QuestionStep>
       )}
@@ -350,6 +361,7 @@ export function LessonFlow({ lesson }: { lesson: Lesson }) {
               options={step.exercise.options ?? []}
               selectedAnswer={selectedAnswer}
               setSelectedAnswer={setSelectedAnswer}
+              isLocked={answerState !== "idle"}
             />
           )}
 
@@ -358,6 +370,7 @@ export function LessonFlow({ lesson }: { lesson: Lesson }) {
               value={typedAnswer}
               onChange={(event) => setTypedAnswer(event.target.value)}
               placeholder="Type your answer"
+              disabled={answerState !== "idle"}
               className="mt-5 w-full rounded-2xl border border-slate-200 bg-white px-4 py-4 text-lg font-bold shadow-inner outline-none transition focus:border-violet-500 focus:ring-4 focus:ring-violet-100"
             />
           )}
@@ -367,6 +380,7 @@ export function LessonFlow({ lesson }: { lesson: Lesson }) {
               pairs={step.exercise.pairs ?? []}
               matches={matches}
               setMatches={setMatches}
+              isLocked={answerState !== "idle"}
             />
           )}
         </QuestionStep>
@@ -638,10 +652,12 @@ function QuestionStep({
 }
 
 function MultipleChoiceOptions({
+  isLocked = false,
   options,
   selectedAnswer,
   setSelectedAnswer,
 }: {
+  isLocked?: boolean;
   options: string[];
   selectedAnswer: string;
   setSelectedAnswer: (answer: string) => void;
@@ -654,6 +670,7 @@ function MultipleChoiceOptions({
           type="button"
           onClick={() => setSelectedAnswer(option)}
           isSelected={selectedAnswer === option}
+          disabled={isLocked}
         >
           {option}
         </AnswerButton>
@@ -663,10 +680,12 @@ function MultipleChoiceOptions({
 }
 
 function MatchingExercise({
+  isLocked = false,
   pairs,
   matches,
   setMatches,
 }: {
+  isLocked?: boolean;
   pairs: MatchingPair[];
   matches: Record<string, string>;
   setMatches: (matches: Record<string, string>) => void;
@@ -688,6 +707,7 @@ function MatchingExercise({
             onChange={(event) =>
               setMatches({ ...matches, [pair.left]: event.target.value })
             }
+            disabled={isLocked}
             className="rounded-xl border border-slate-200 bg-white px-4 py-3 font-bold outline-none transition focus:border-violet-500 focus:ring-4 focus:ring-violet-100"
           >
             <option value="">Choose meaning</option>

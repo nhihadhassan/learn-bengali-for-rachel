@@ -252,3 +252,14 @@ select:focus-visible {
     radial-gradient(circle at 35% 75%, rgba(255, 255, 255, 0.8) 0 5px, transparent 6px);
   animation: celebration-burst 1200ms ease-out infinite alternate;
 }
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+}

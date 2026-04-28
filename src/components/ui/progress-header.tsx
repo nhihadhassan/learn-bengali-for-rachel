@@ -9,7 +9,8 @@ export function ProgressHeader({
   current: number;
   total: number;
 }) {
-  const percent = Math.min(100, Math.round((current / total) * 100));
+  const percent =
+    total > 0 ? Math.min(100, Math.round((current / total) * 100)) : 0;
 
   return (
     <div className={cn("space-y-2", className)}>
@@ -28,7 +29,7 @@ export function ProgressHeader({
         aria-valuenow={percent}
       >
         <div
-          className="progress-shine h-full rounded-full transition-all duration-700 ease-out"
+          className="progress-shine h-full rounded-full transition-[width] duration-700 ease-out"
           style={{ width: `${percent}%` }}
         />
       </div>

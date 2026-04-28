@@ -12,7 +12,10 @@ import { AnswerButton, AppButton } from "@/components/ui/app-button";
 import { ExerciseCard } from "@/components/ui/exercise-card";
 
 export function MistakeReview() {
-  const [index, setIndex] = useState(0);
+  const [reviewPosition, setReviewPosition] = useState({
+    curriculumId: "",
+    index: 0,
+  });
   const { activeCurriculumId, activeMistakes } = useProgress();
   const languageLabel =
     activeCurriculumId === "history"
@@ -22,10 +25,19 @@ export function MistakeReview() {
         : "Bengali";
   const reviewSubject =
     activeCurriculumId === "history" ? "story moments" : "phrases";
+  const index =
+    reviewPosition.curriculumId === activeCurriculumId
+      ? reviewPosition.index
+      : 0;
   const currentIndex = Math.min(index, Math.max(activeMistakes.length - 1, 0));
   const currentMistake = activeMistakes[currentIndex];
 
   if (activeMistakes.length === 0 || !currentMistake) {
+    const emptyCopy =
+      activeCurriculumId === "history"
+        ? "Missed answers will show up here after a story check, so Rachel can revisit the tricky moment before moving on."
+        : `Missed answers will show up here after a lesson, so Rachel can repeat weak ${languageLabel} ${reviewSubject} before moving on.`;
+
     return (
       <section className="animate-soft-rise rounded-[34px] bg-gradient-to-br from-emerald-600 to-cyan-600 p-6 text-white shadow-[0_24px_80px_rgba(5,150,105,0.25)] ring-1 ring-white/20 sm:p-8">
         <p className="text-sm font-black uppercase tracking-[0.14em] text-emerald-100">
@@ -33,8 +45,7 @@ export function MistakeReview() {
         </p>
         <h1 className="mt-2 text-4xl font-black">Nothing to review yet.</h1>
         <p className="mt-3 max-w-xl text-emerald-50">
-          Missed answers will show up here after a lesson, so Rachel can repeat
-          weak {languageLabel} {reviewSubject} before moving on.
+          {emptyCopy}
         </p>
         <Link
           href="/lessons"
@@ -65,9 +76,13 @@ export function MistakeReview() {
           currentIndex={currentIndex}
           mistake={currentMistake}
           onMoveNext={() =>
-            setIndex((current) =>
-              Math.min(current + 1, Math.max(activeMistakes.length - 2, 0)),
-            )
+            setReviewPosition({
+              curriculumId: activeCurriculumId,
+              index: Math.min(
+                currentIndex + 1,
+                Math.max(activeMistakes.length - 2, 0),
+              ),
+            })
           }
           total={activeMistakes.length}
         />
@@ -112,6 +127,10 @@ function MistakeCard({
       : answer.trim().length > 0;
 
   function checkReviewAnswer() {
+    if (feedback === "correct") {
+      return;
+    }
+
     const isCorrect = multipleChoiceReview
       ? selectedAnswer === multipleChoiceReview.answer
       : hasMatchingReview
@@ -179,7 +198,7 @@ function MistakeCard({
 
       <AppButton
         type="button"
-        disabled={!canCheck}
+        disabled={!canCheck || feedback === "correct"}
         onClick={checkReviewAnswer}
         className="mt-4"
       >

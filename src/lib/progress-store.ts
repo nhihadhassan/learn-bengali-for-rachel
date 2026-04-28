@@ -157,7 +157,9 @@ function updateCurriculumProgress(
     ...current,
     byCurriculum: {
       ...current.byCurriculum,
-      [curriculumId]: updater(current.byCurriculum[curriculumId]),
+      [curriculumId]: updater(
+        current.byCurriculum[curriculumId] ?? cloneInitialProgress(),
+      ),
     },
   }));
 }
@@ -203,7 +205,8 @@ export function useProgress() {
     getServerSnapshot,
   );
   const activeCurriculumId = store.activeCurriculumId;
-  const progress = store.byCurriculum[activeCurriculumId];
+  const progress =
+    store.byCurriculum[activeCurriculumId] ?? cloneInitialProgress();
 
   const activeMistakes = useMemo(() => {
     const currentLessonIds = getLessonIdsForCurriculum(activeCurriculumId);
