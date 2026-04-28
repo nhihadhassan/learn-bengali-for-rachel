@@ -29,6 +29,7 @@ const initialStore: ProgressStore = {
   activeCurriculumId: defaultCurriculumId,
   byCurriculum: {
     bengali: cloneInitialProgress(),
+    history: cloneInitialProgress(),
     "spanish-peru": cloneInitialProgress(),
   },
 };
@@ -70,6 +71,10 @@ function isProgressStore(value: unknown): value is Partial<ProgressStore> {
 }
 
 function normalizeCurriculumId(value: unknown): CurriculumId {
+  if (value === "history") {
+    return "history";
+  }
+
   return value === "spanish-peru" ? "spanish-peru" : defaultCurriculumId;
 }
 
@@ -83,6 +88,7 @@ function normalizeStore(value: unknown): ProgressStore {
       activeCurriculumId: normalizeCurriculumId(value.activeCurriculumId),
       byCurriculum: {
         bengali: normalizeProgress(byCurriculum.bengali),
+        history: normalizeProgress(byCurriculum.history),
         "spanish-peru": normalizeProgress(byCurriculum["spanish-peru"]),
       },
     };
@@ -92,6 +98,7 @@ function normalizeStore(value: unknown): ProgressStore {
     activeCurriculumId: defaultCurriculumId,
     byCurriculum: {
       bengali: normalizeProgress(value),
+      history: cloneInitialProgress(),
       "spanish-peru": cloneInitialProgress(),
     },
   };

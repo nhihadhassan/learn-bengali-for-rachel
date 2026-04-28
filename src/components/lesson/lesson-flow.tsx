@@ -10,13 +10,14 @@ import { useProgress } from "@/lib/progress-store";
 import { playFeedbackSound } from "@/lib/sound-effects";
 import { cn } from "@/lib/utils";
 import type { AudioPrompt, Exercise, Lesson, MatchingPair, Phrase } from "@/types/learning";
+import { HistoryIcon } from "@/components/lesson/history-icon";
 import { SpeakerButton } from "@/components/lesson/speaker-button";
 import { AnswerButton, AppButton } from "@/components/ui/app-button";
 import { ExerciseCard } from "@/components/ui/exercise-card";
 import { ProgressHeader } from "@/components/ui/progress-header";
 
 type LessonStep =
-  | { id: string; type: "intro"; title: string; body: string }
+  | { id: string; type: "intro"; lesson: Lesson; title: string; body: string }
   | { id: string; type: "learn"; phrase: Phrase; position: number; total: number }
   | {
       id: string;
@@ -50,6 +51,7 @@ export function LessonFlow({ lesson }: { lesson: Lesson }) {
   } = useProgress();
   const step = steps[stepIndex];
   const lessonCurriculumId = lesson.curriculumId ?? activeCurriculumId;
+  const isHistoryLesson = lessonCurriculumId === "history";
   const nextLesson = getNextLesson(lesson.id);
   const audioPromptsById = useMemo(
     () =>
@@ -210,12 +212,13 @@ export function LessonFlow({ lesson }: { lesson: Lesson }) {
             <PartyPopper size={28} />
           </span>
           <p className="mt-5 text-sm font-black uppercase tracking-[0.14em] text-emerald-100">
-            Lesson complete
+            {isHistoryLesson ? "Story complete" : "Lesson complete"}
           </p>
           <h2 className="mt-2 text-4xl font-black">Nice work, Rachel.</h2>
           <p className="mt-3 max-w-xl text-emerald-50">
-            You got {correctCount} practice checks right and earned XP. Missed
-            questions are waiting in review.
+            {isHistoryLesson
+              ? `You connected this story moment and earned XP. Missed recap questions are waiting in review.`
+              : `You got ${correctCount} practice checks right and earned XP. Missed questions are waiting in review.`}
           </p>
           <div className="mt-6 grid gap-3 rounded-3xl border border-white/15 bg-white/10 p-4 shadow-inner sm:grid-cols-3">
             <div>
@@ -278,7 +281,12 @@ export function LessonFlow({ lesson }: { lesson: Lesson }) {
       )}
 
       {step.type === "intro" && (
-        <IntroStep title={step.title} body={step.body} onContinue={moveNext} />
+        <IntroStep
+          title={step.title}
+          body={step.body}
+          lesson={step.lesson}
+          onContinue={moveNext}
+        />
       )}
 
       {step.type === "learn" && (
@@ -398,13 +406,62 @@ function ExerciseAudioPrompt({
 
 function IntroStep({
   body,
+  lesson,
   onContinue,
   title,
 }: {
   body: string;
+  lesson: Lesson;
   onContinue: () => void;
   title: string;
 }) {
+  if (lesson.curriculumId === "history" && lesson.history) {
+    return (
+      <div>
+        <span className="grid size-12 place-items-center rounded-2xl bg-amber-50 text-amber-700">
+          <HistoryIcon name={lesson.history.icon} size={25} />
+        </span>
+        <p className="mt-5 text-sm font-black uppercase tracking-[0.14em] text-amber-700">
+          Story moment
+        </p>
+        <h2 className="mt-2 text-3xl font-black">{title}</h2>
+        <div className="mt-5 grid gap-3">
+          {lesson.history.story.map((sentence, index) => (
+            <div
+              key={sentence}
+              className="grid grid-cols-[auto_1fr] gap-3 rounded-3xl border border-amber-100 bg-amber-50 p-4 shadow-inner"
+            >
+              <span className="mt-1 grid size-7 place-items-center rounded-full bg-white text-sm font-black text-amber-700 shadow-sm">
+                {index + 1}
+              </span>
+              <p className="text-base leading-7 text-slate-700">{sentence}</p>
+            </div>
+          ))}
+        </div>
+        <div className="mt-4 rounded-3xl border border-violet-100 bg-violet-50 p-4">
+          <p className="text-xs font-black uppercase tracking-[0.14em] text-violet-700">
+            Key takeaway
+          </p>
+          <p className="mt-2 text-lg font-black text-slate-900">
+            {lesson.history.keyTakeaway}
+          </p>
+          {lesson.history.whyItMatters && (
+            <p className="mt-2 text-sm font-semibold leading-6 text-slate-600">
+              {lesson.history.whyItMatters}
+            </p>
+          )}
+        </div>
+        <AppButton
+          type="button"
+          onClick={onContinue}
+          className="mt-6"
+        >
+          Connect the story <ArrowRight size={18} />
+        </AppButton>
+      </div>
+    );
+  }
+
   return (
     <div>
       <span className="grid size-12 place-items-center rounded-2xl bg-emerald-50 text-emerald-700">
@@ -653,6 +710,7 @@ function buildLessonSteps(lesson: Lesson): LessonStep[] {
     {
       id: `${lesson.id}-intro`,
       type: "intro",
+      lesson,
       title: lesson.title,
       body: lesson.summary,
     },
@@ -708,6 +766,10 @@ function getStepPrompt(step: LessonStep) {
 }
 
 function getExerciseMode(exercise: Exercise) {
+  if (exercise.sourceType?.startsWith("history-")) {
+    return "Story check";
+  }
+
   if (exercise.type === "multiple-choice") {
     return "Choose";
   }

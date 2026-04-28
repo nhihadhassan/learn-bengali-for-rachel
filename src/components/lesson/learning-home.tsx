@@ -7,6 +7,7 @@ import {
   BookOpen,
   CheckCircle2,
   Ear,
+  Flag,
   Flame,
   MessageCircle,
   Sparkles,
@@ -15,6 +16,7 @@ import {
 import { getCurriculum } from "@/lib/content";
 import { useProgress } from "@/lib/progress-store";
 import type { Unit } from "@/types/learning";
+import { HistoryIcon } from "@/components/lesson/history-icon";
 import { LessonPath } from "@/components/lesson/lesson-path";
 
 export function LearningHome() {
@@ -23,10 +25,12 @@ export function LearningHome() {
   const units = curriculum.units;
   const firstLessonId = units[0]?.lessons[0]?.id;
   const lessonCount = units.flatMap((unit) => unit.lessons).length;
+  const isHistory = curriculum.mode === "history";
   const phraseCount = units.flatMap((unit) =>
     unit.lessons.flatMap((lesson) => lesson.phrases),
   ).length;
   const featuredPhrases = units[0]?.lessons[0]?.phrases.slice(0, 3) ?? [];
+  const featuredLessons = units[0]?.lessons.slice(0, 3) ?? [];
 
   return (
     <div className="space-y-10">
@@ -49,11 +53,15 @@ export function LearningHome() {
             <h1 className="max-w-3xl text-4xl font-black leading-[1.04] [text-wrap:balance] sm:text-5xl lg:text-[3.45rem]">
               {activeCurriculumId === "spanish-peru"
                 ? "Travel Spanish for the moments that matter."
+                : isHistory
+                  ? "Follow history like a story map."
                 : "Learn the Bengali Rachel will actually say."}
             </h1>
             <p className="mt-5 max-w-xl text-base leading-7 text-slate-200 sm:text-lg">
-              {curriculum.description} Bite-size lessons build practical phrases
-              with listening, typing, and review.
+              {curriculum.description}{" "}
+              {isHistory
+                ? "Short event cards connect causes, turning points, and consequences."
+                : "Bite-size lessons build practical phrases with listening, typing, and review."}
             </p>
 
             <div className="mt-7 grid gap-3 sm:flex sm:flex-wrap">
@@ -71,22 +79,96 @@ export function LearningHome() {
                 className="inline-flex min-h-[52px] items-center justify-center gap-2 rounded-2xl border border-white/15 bg-white/10 px-5 py-3 font-black text-white shadow-inner transition hover:-translate-y-0.5 hover:bg-white hover:text-slate-950"
               >
                 <BookOpen size={18} />
-                Word bank
+                {isHistory ? "Timeline recap" : "Word bank"}
               </Link>
             </div>
 
             <div className="mt-7 grid gap-3 sm:grid-cols-3">
-              <HeroStat icon={MessageCircle} label="Phrases" value={`${phraseCount}`} />
-              <HeroStat icon={CheckCircle2} label="Lessons" value={`${lessonCount}`} />
+              <HeroStat
+                icon={MessageCircle}
+                label={isHistory ? "Story cards" : "Phrases"}
+                value={`${isHistory ? lessonCount : phraseCount}`}
+              />
+              <HeroStat
+                icon={CheckCircle2}
+                label={isHistory ? "Units" : "Lessons"}
+                value={`${isHistory ? units.length : lessonCount}`}
+              />
               <HeroStat icon={Flame} label="Streaks" value="Daily" />
             </div>
           </div>
 
-          <HeroPreview phrases={featuredPhrases} />
+          {isHistory ? (
+            <HistoryHeroPreview lessons={featuredLessons} />
+          ) : (
+            <HeroPreview phrases={featuredPhrases} />
+          )}
         </div>
       </section>
 
       <LessonPath units={units} />
+    </div>
+  );
+}
+
+function HistoryHeroPreview({
+  lessons,
+}: {
+  lessons: Unit["lessons"];
+}) {
+  return (
+    <div className="animate-soft-rise w-full justify-self-center lg:justify-self-end">
+      <div className="rounded-[34px] border border-white/14 bg-white/10 p-3 shadow-[0_24px_70px_rgba(0,0,0,0.2)] backdrop-blur-md sm:p-4">
+        <div className="rounded-[28px] bg-[#fffefa] p-4 text-slate-950 shadow-[0_8px_0_rgba(255,255,255,0.18)] sm:p-5">
+          <div className="flex items-start justify-between gap-4">
+            <div>
+              <p className="text-xs font-black uppercase tracking-[0.14em] text-violet-700">
+                Timeline preview
+              </p>
+              <h2 className="mt-1 text-2xl font-black">Story path</h2>
+              <p className="mt-1 text-sm font-bold text-slate-500">
+                Read, connect, and choose what mattered.
+              </p>
+            </div>
+            <span className="grid size-12 shrink-0 place-items-center rounded-2xl bg-orange-400 text-slate-950 shadow-[0_10px_24px_rgba(249,115,22,0.24)]">
+              <Flag size={23} fill="currentColor" />
+            </span>
+          </div>
+
+          <div className="mt-5 grid gap-3">
+            {lessons.map((lesson, index) => (
+              <div
+                key={lesson.id}
+                className="group grid grid-cols-[auto_1fr] items-start gap-3 rounded-3xl border border-slate-100 bg-white p-4 shadow-[0_8px_24px_rgba(15,23,42,0.06)] transition hover:-translate-y-0.5 hover:border-violet-100 hover:bg-violet-50"
+              >
+                <span className="grid size-11 shrink-0 place-items-center rounded-2xl bg-violet-500 text-white transition group-hover:scale-105 group-hover:bg-cyan-500">
+                  <HistoryIcon name={lesson.history?.icon} />
+                </span>
+                <div className="min-w-0">
+                  <p className="text-xs font-black uppercase tracking-[0.12em] text-slate-400">
+                    Event {index + 1}
+                  </p>
+                  <p className="mt-1 truncate text-xl font-black">
+                    {lesson.title}
+                  </p>
+                  <p className="mt-1 line-clamp-2 text-sm font-bold text-slate-500">
+                    {lesson.history?.keyTakeaway ?? lesson.summary}
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <div className="mt-5 rounded-3xl bg-slate-950 p-4 text-white">
+            <p className="text-sm font-black text-cyan-100">Cause to effect</p>
+            <div className="mt-3 grid grid-cols-[auto_1fr_auto] items-center gap-3">
+              <span className="size-3 rounded-full bg-violet-400" />
+              <div className="progress-shine h-3 rounded-full" />
+              <span className="size-3 rounded-full bg-amber-400" />
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }

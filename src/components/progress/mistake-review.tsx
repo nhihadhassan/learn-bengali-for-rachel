@@ -15,7 +15,13 @@ export function MistakeReview() {
   const [index, setIndex] = useState(0);
   const { activeCurriculumId, activeMistakes } = useProgress();
   const languageLabel =
-    activeCurriculumId === "spanish-peru" ? "Spanish" : "Bengali";
+    activeCurriculumId === "history"
+      ? "History"
+      : activeCurriculumId === "spanish-peru"
+        ? "Spanish"
+        : "Bengali";
+  const reviewSubject =
+    activeCurriculumId === "history" ? "story moments" : "phrases";
   const currentIndex = Math.min(index, Math.max(activeMistakes.length - 1, 0));
   const currentMistake = activeMistakes[currentIndex];
 
@@ -28,7 +34,7 @@ export function MistakeReview() {
         <h1 className="mt-2 text-4xl font-black">Nothing to review yet.</h1>
         <p className="mt-3 max-w-xl text-emerald-50">
           Missed answers will show up here after a lesson, so Rachel can repeat
-          weak {languageLabel} phrases before moving on.
+          weak {languageLabel} {reviewSubject} before moving on.
         </p>
         <Link
           href="/lessons"

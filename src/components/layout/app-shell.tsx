@@ -10,7 +10,7 @@ import { cn } from "@/lib/utils";
 
 const navItems = [
   { href: "/lessons", label: "Lessons", icon: BookOpen },
-  { href: "/vocabulary", label: "Words", icon: Library },
+  { href: "/vocabulary", label: "Words", historyLabel: "Recap", icon: Library },
   { href: "/review", label: "Review", icon: RotateCcw },
   { href: "/progress", label: "Progress", icon: Flame },
 ];
@@ -26,7 +26,11 @@ export function AppShell({ children }: { children: ReactNode }) {
   } = useProgress();
 
   function handleCurriculumChange(value: string) {
-    setActiveCurriculumId(value === "spanish-peru" ? "spanish-peru" : "bengali");
+    if (value === "history" || value === "spanish-peru") {
+      setActiveCurriculumId(value);
+    } else {
+      setActiveCurriculumId("bengali");
+    }
 
     if (pathname.startsWith("/practice")) {
       router.push("/lessons");
@@ -55,6 +59,10 @@ export function AppShell({ children }: { children: ReactNode }) {
             {navItems.map((item) => {
               const Icon = item.icon;
               const isActive = pathname.startsWith(item.href);
+              const label =
+                activeCurriculumId === "history" && item.historyLabel
+                  ? item.historyLabel
+                  : item.label;
 
               return (
                 <Link
@@ -67,7 +75,7 @@ export function AppShell({ children }: { children: ReactNode }) {
                   )}
                 >
                   <Icon size={17} />
-                  {item.label}
+                  {label}
                 </Link>
               );
             })}
@@ -139,6 +147,10 @@ export function AppShell({ children }: { children: ReactNode }) {
           {navItems.map((item) => {
             const Icon = item.icon;
             const isActive = pathname.startsWith(item.href);
+            const label =
+              activeCurriculumId === "history" && item.historyLabel
+                ? item.historyLabel
+                : item.label;
 
             return (
               <Link
@@ -150,7 +162,7 @@ export function AppShell({ children }: { children: ReactNode }) {
                 )}
               >
                 <Icon size={20} />
-                {item.label}
+                {label}
               </Link>
             );
           })}

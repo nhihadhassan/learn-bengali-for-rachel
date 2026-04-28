@@ -2,15 +2,22 @@
 
 import { useMemo, useState } from "react";
 import Link from "next/link";
-import { BookOpen, Search } from "lucide-react";
+import { BookOpen, CheckCircle2, Search } from "lucide-react";
+import { getCurriculum } from "@/lib/content";
 import { getLearnedWords, getVocabularyUnitOptions } from "@/lib/learned-words";
 import { useProgress } from "@/lib/progress-store";
+import { HistoryIcon } from "@/components/lesson/history-icon";
 import { SpeakerButton } from "@/components/lesson/speaker-button";
 
 export function LearnedWordsReview() {
   const { activeCurriculumId, progress } = useProgress();
+  const curriculum = getCurriculum(activeCurriculumId);
   const languageLabel =
-    activeCurriculumId === "spanish-peru" ? "Spanish" : "Bengali";
+    activeCurriculumId === "history"
+      ? "History"
+      : activeCurriculumId === "spanish-peru"
+        ? "Spanish"
+        : "Bengali";
   const [query, setQuery] = useState("");
   const [unitFilter, setUnitFilter] = useState("all");
   const learnedWords = useMemo(
@@ -39,6 +46,19 @@ export function LearnedWordsReview() {
       return matchesUnit && searchable.includes(normalizedQuery);
     });
   }, [learnedWords, query, unitFilter]);
+
+  if (curriculum.mode === "history") {
+    return (
+      <HistoryRecap
+        curriculum={curriculum}
+        progress={progress}
+        query={query}
+        setQuery={setQuery}
+        setUnitFilter={setUnitFilter}
+        unitFilter={unitFilter}
+      />
+    );
+  }
 
   if (learnedWords.length === 0) {
     return (
@@ -159,6 +179,137 @@ export function LearnedWordsReview() {
           ))}
         </div>
       )}
+    </div>
+  );
+}
+
+function HistoryRecap({
+  curriculum,
+  progress,
+  query,
+  setQuery,
+  setUnitFilter,
+  unitFilter,
+}: {
+  curriculum: ReturnType<typeof getCurriculum>;
+  progress: ReturnType<typeof useProgress>["progress"];
+  query: string;
+  setQuery: (query: string) => void;
+  setUnitFilter: (unitId: string) => void;
+  unitFilter: string;
+}) {
+  const completed = new Set(progress.completedLessons);
+  const lessons = curriculum.units.flatMap((unit) =>
+    unit.lessons.map((lesson) => ({ lesson, unit })),
+  );
+  const unitOptions = curriculum.units.map((unit) => ({
+    id: unit.id,
+    label: `Unit ${unit.number}: ${unit.title}`,
+  }));
+  const filteredLessons = lessons.filter(({ lesson, unit }) => {
+    const normalizedQuery = query.trim().toLowerCase();
+    const matchesUnit = unitFilter === "all" ? true : unit.id === unitFilter;
+    const searchable = [
+      lesson.title,
+      lesson.summary,
+      lesson.history?.keyTakeaway,
+      lesson.history?.whyItMatters,
+      unit.title,
+    ]
+      .join(" ")
+      .toLowerCase();
+
+    return matchesUnit && searchable.includes(normalizedQuery);
+  });
+
+  return (
+    <div className="space-y-6">
+      <section className="animate-soft-rise rounded-[34px] bg-slate-950 p-6 text-white shadow-[0_24px_80px_rgba(15,23,42,0.22)] ring-1 ring-white/10 sm:p-8">
+        <p className="text-sm font-black uppercase tracking-[0.14em] text-amber-100">
+          Timeline recap
+        </p>
+        <h1 className="mt-2 text-4xl font-black">History story map</h1>
+        <p className="mt-3 max-w-xl text-slate-300">
+          Revisit completed moments, scan key takeaways, and jump back into any
+          event card when you want the story again.
+        </p>
+      </section>
+
+      <section className="rounded-[30px] border border-white/80 bg-white/95 p-4 shadow-[0_18px_55px_rgba(15,23,42,0.08)] ring-1 ring-slate-900/5 sm:p-5">
+        <div className="grid gap-3 md:grid-cols-[1fr_260px]">
+          <label className="relative block">
+            <span className="sr-only">Search history recap</span>
+            <Search
+              size={19}
+              className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"
+            />
+            <input
+              value={query}
+              onChange={(event) => setQuery(event.target.value)}
+              placeholder="Search events, causes, or consequences"
+              className="min-h-12 w-full rounded-2xl border border-slate-200 bg-[#fffdfa] px-11 py-3 font-bold shadow-inner outline-none transition focus:border-violet-500 focus:ring-4 focus:ring-violet-100"
+            />
+          </label>
+
+          <label>
+            <span className="sr-only">Filter by unit</span>
+            <select
+              value={unitFilter}
+              onChange={(event) => setUnitFilter(event.target.value)}
+              className="min-h-12 w-full rounded-2xl border border-slate-200 bg-[#fffdfa] px-4 py-3 font-bold shadow-inner outline-none transition focus:border-violet-500 focus:ring-4 focus:ring-violet-100"
+            >
+              <option value="all">All units</option>
+              {unitOptions.map((unit) => (
+                <option key={unit.id} value={unit.id}>
+                  {unit.label}
+                </option>
+              ))}
+            </select>
+          </label>
+        </div>
+      </section>
+
+      <div className="grid gap-4 md:grid-cols-2">
+        {filteredLessons.map(({ lesson, unit }) => {
+          const isCompleted = completed.has(lesson.id);
+
+          return (
+            <Link
+              key={lesson.id}
+              href={`/practice/${lesson.id}`}
+              className="group rounded-[30px] border border-white/80 bg-white/95 p-5 shadow-[0_14px_42px_rgba(15,23,42,0.07)] ring-1 ring-slate-900/5 transition hover:-translate-y-1 hover:shadow-[0_22px_58px_rgba(15,23,42,0.1)]"
+            >
+              <div className="flex items-start justify-between gap-4">
+                <div className="flex items-start gap-3">
+                  <span className="grid size-12 shrink-0 place-items-center rounded-2xl bg-violet-50 text-violet-700 transition group-hover:bg-violet-600 group-hover:text-white">
+                    <HistoryIcon name={lesson.history?.icon} size={22} />
+                  </span>
+                  <div>
+                    <p className="text-xs font-black uppercase tracking-[0.14em] text-slate-400">
+                      Unit {unit.number}: {unit.title}
+                    </p>
+                    <h2 className="mt-1 text-xl font-black">{lesson.title}</h2>
+                  </div>
+                </div>
+                {isCompleted && (
+                  <span className="grid size-9 place-items-center rounded-full bg-emerald-100 text-emerald-700">
+                    <CheckCircle2 size={19} />
+                  </span>
+                )}
+              </div>
+
+              <p className="mt-4 text-sm leading-6 text-slate-600">
+                {lesson.history?.keyTakeaway ?? lesson.summary}
+              </p>
+              {lesson.history?.whyItMatters && (
+                <p className="mt-3 rounded-2xl bg-amber-50 px-3 py-2 text-sm font-bold text-amber-900">
+                  {lesson.history.whyItMatters}
+                </p>
+              )}
+            </Link>
+          );
+        })}
+      </div>
     </div>
   );
 }

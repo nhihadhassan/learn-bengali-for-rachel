@@ -1,4 +1,4 @@
-export type CurriculumId = "bengali" | "spanish-peru";
+export type CurriculumId = "bengali" | "spanish-peru" | "history";
 
 export type ExerciseType = "multiple-choice" | "translation" | "matching";
 
@@ -101,6 +101,13 @@ export type Lesson = {
   uiText?: LessonUiText;
   metadata?: LessonMetadata;
   reviewSchedule?: ReviewSchedule;
+  history?: {
+    icon: string;
+    story: string[];
+    keyTakeaway: string;
+    whyItMatters?: string;
+    interactionType?: string;
+  };
 };
 
 export type UnitMetadata = {
@@ -130,6 +137,7 @@ export type Curriculum = {
   shortLabel: string;
   description: string;
   locale: string;
+  mode?: "language" | "history";
   travelTheme?: string;
   units: Unit[];
 };

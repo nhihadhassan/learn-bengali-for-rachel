@@ -1,4 +1,5 @@
 import rawContent from "../../content/learn-bengali.json";
+import rawHistoryContent from "../../content/learn-history.json";
 import rawSpanishContent from "../../content/learn-spanish-peru.json";
 import { normalizeAnswer } from "@/lib/answer-checking";
 import type {
@@ -28,6 +29,7 @@ function withCurriculum(
 }
 
 export const content = rawContent as LearningContent;
+export const historyContent = rawHistoryContent as LearningContent;
 export const spanishPeruContent = rawSpanishContent as LearningContent;
 
 export const curricula: Curriculum[] = [
@@ -37,6 +39,7 @@ export const curricula: Curriculum[] = [
     shortLabel: "Bengali",
     description: "Simple spoken Bengali phrases for everyday conversation.",
     locale: "bn-BD",
+    mode: "language",
     units: withCurriculum(content, "bengali", "bn-BD"),
   },
   {
@@ -45,8 +48,18 @@ export const curricula: Curriculum[] = [
     shortLabel: "Spanish",
     description: "Travel Spanish for Peru: taxis, food, hotels, tours, and emergencies.",
     locale: "es-PE",
+    mode: "language",
     travelTheme: "Peru travel",
     units: withCurriculum(spanishPeruContent, "spanish-peru", "es-PE"),
+  },
+  {
+    id: "history",
+    label: "History",
+    shortLabel: "History",
+    description: "Bite-size story lessons about causes, turning points, and consequences.",
+    locale: "en-US",
+    mode: "history",
+    units: withCurriculum(historyContent, "history", "en-US"),
   },
 ];
 
