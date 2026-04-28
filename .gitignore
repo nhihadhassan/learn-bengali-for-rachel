@@ -11,6 +11,9 @@ dist/
 # Test output
 coverage/
 
+# TypeScript incremental build info
+*.tsbuildinfo
+
 # Environment variables
 .env
 .env*.local

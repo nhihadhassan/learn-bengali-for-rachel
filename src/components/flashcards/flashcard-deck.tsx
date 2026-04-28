@@ -60,11 +60,6 @@ export function FlashcardDeck({ phrases }: { phrases: Phrase[] }) {
             <p className="mt-2 text-5xl font-black leading-tight">
               {phrase.romanized}
             </p>
-            {phrase.bengaliScript && (
-              <p className="mt-3 text-2xl font-black text-slate-400">
-                {phrase.bengaliScript}
-              </p>
-            )}
           </div>
         )}
       </button>

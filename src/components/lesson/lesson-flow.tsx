@@ -9,7 +9,7 @@ import { getNextLesson } from "@/lib/content";
 import { useProgress } from "@/lib/progress-store";
 import { playFeedbackSound } from "@/lib/sound-effects";
 import { cn } from "@/lib/utils";
-import type { Exercise, Lesson, MatchingPair, Phrase } from "@/types/learning";
+import type { AudioPrompt, Exercise, Lesson, MatchingPair, Phrase } from "@/types/learning";
 import { SpeakerButton } from "@/components/lesson/speaker-button";
 import { AnswerButton, AppButton } from "@/components/ui/app-button";
 import { ExerciseCard } from "@/components/ui/exercise-card";
@@ -43,6 +43,16 @@ export function LessonFlow({ lesson }: { lesson: Lesson }) {
   const { completeLesson, recordEncounteredPhrase, recordMistake } = useProgress();
   const step = steps[stepIndex];
   const nextLesson = getNextLesson(lesson.id);
+  const audioPromptsById = useMemo(
+    () =>
+      new Map(
+        (lesson.audioPrompts ?? []).map((audioPrompt) => [
+          audioPrompt.id,
+          audioPrompt,
+        ]),
+      ),
+    [lesson.audioPrompts],
+  );
 
   useEffect(() => {
     if (step.type === "learn") {
@@ -248,7 +258,6 @@ export function LessonFlow({ lesson }: { lesson: Lesson }) {
             <SpeakerButton
               audioUrl={step.phrase.audioUrl}
               romanized={step.phrase.romanized}
-              script={step.phrase.bengaliScript}
             />
           </div>
           <MultipleChoiceOptions
@@ -271,6 +280,12 @@ export function LessonFlow({ lesson }: { lesson: Lesson }) {
             {getExerciseMode(step.exercise)}
           </p>
           <h2 className="mt-2 text-2xl font-black">{step.exercise.prompt}</h2>
+
+          {step.exercise.audioPromptId && (
+            <ExerciseAudioPrompt
+              audioPrompt={audioPromptsById.get(step.exercise.audioPromptId)}
+            />
+          )}
 
           {step.exercise.type === "multiple-choice" && (
             <MultipleChoiceOptions
@@ -299,6 +314,32 @@ export function LessonFlow({ lesson }: { lesson: Lesson }) {
         </QuestionStep>
       )}
     </ExerciseCard>
+  );
+}
+
+function ExerciseAudioPrompt({
+  audioPrompt,
+}: {
+  audioPrompt: AudioPrompt | undefined;
+}) {
+  if (!audioPrompt) {
+    return null;
+  }
+
+  return (
+    <div className="mt-5 flex items-center justify-between gap-4 rounded-3xl border border-cyan-100 bg-cyan-50 p-4 shadow-inner">
+      <div>
+        <p className="text-xs font-black uppercase tracking-[0.14em] text-cyan-700">
+          Audio
+        </p>
+        <p className="mt-1 text-sm font-bold text-slate-600">
+          Listen, then choose the matching Bengali.
+        </p>
+      </div>
+      <SpeakerButton
+        romanized={audioPrompt.roman}
+      />
+    </div>
   );
 }
 
@@ -349,16 +390,10 @@ function LearnStep({
           <h2 className="mt-3 text-5xl font-black leading-tight text-slate-950">
             {step.phrase.romanized}
           </h2>
-          {step.phrase.bengaliScript && (
-            <p className="mt-2 text-2xl font-black text-slate-400">
-              {step.phrase.bengaliScript}
-            </p>
-          )}
         </div>
         <SpeakerButton
           audioUrl={step.phrase.audioUrl}
           romanized={step.phrase.romanized}
-          script={step.phrase.bengaliScript}
         />
       </div>
 

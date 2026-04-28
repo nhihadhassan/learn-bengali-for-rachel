@@ -43,9 +43,8 @@ export function LearningHome() {
               Learn the Bengali Rachel will actually say.
             </h1>
             <p className="mt-5 max-w-xl text-base leading-7 text-slate-200 sm:text-lg">
-              Bite-size lessons build from romanized Bengali into script,
-              listening, typing, and review, with progress that feels rewarding
-              every day.
+              Bite-size lessons build simple spoken phrases with listening,
+              typing, and review, with progress that feels rewarding every day.
             </p>
 
             <div className="mt-7 grid gap-3 sm:flex sm:flex-wrap">
@@ -99,7 +98,7 @@ function HeroPreview({
               </p>
               <h2 className="mt-1 text-2xl font-black">First greetings</h2>
               <p className="mt-1 text-sm font-bold text-slate-500">
-                Listen, read, and choose the meaning.
+                Listen, say, and choose the meaning.
               </p>
             </div>
             <span className="grid size-12 shrink-0 place-items-center rounded-2xl bg-amber-400 text-slate-950 shadow-[0_10px_24px_rgba(245,158,11,0.24)]">
@@ -118,7 +117,7 @@ function HeroPreview({
                     {phrase.romanized}
                   </p>
                   <p className="mt-1 truncate text-sm font-bold text-slate-500">
-                    {phrase.bengaliScript} · {phrase.english}
+                    {phrase.english}
                   </p>
                 </div>
                 <span className="grid size-10 shrink-0 place-items-center rounded-2xl bg-emerald-500 text-white transition group-hover:scale-105 group-hover:bg-cyan-500">

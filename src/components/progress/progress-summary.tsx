@@ -1,14 +1,22 @@
 "use client";
 
 import type { ComponentType } from "react";
+import { useMemo } from "react";
 import { Flame, RotateCcw, Trophy } from "lucide-react";
 import { lessons } from "@/lib/content";
 import { useProgress } from "@/lib/progress-store";
 
 export function ProgressSummary() {
   const { activeMistakes, progress, resetProgress } = useProgress();
+  const lessonIds = useMemo(
+    () => new Set(lessons.map((lesson) => lesson.id)),
+    [],
+  );
+  const completedCurrentLessons = progress.completedLessons.filter((lessonId) =>
+    lessonIds.has(lessonId),
+  );
   const completionPercent = Math.round(
-    (progress.completedLessons.length / lessons.length) * 100,
+    (completedCurrentLessons.length / lessons.length) * 100,
   );
 
   return (
@@ -39,7 +47,7 @@ export function ProgressSummary() {
           <div>
             <h2 className="text-2xl font-black">Lesson completion</h2>
             <p className="text-sm text-slate-600">
-              {progress.completedLessons.length} of {lessons.length} lessons complete
+              {completedCurrentLessons.length} of {lessons.length} lessons complete
             </p>
           </div>
           <p className="text-2xl font-black text-emerald-700">

@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useMemo, useSyncExternalStore } from "react";
+import { lessons } from "@/lib/content";
 import type { Mistake, ProgressState } from "@/types/learning";
 
 const STORAGE_KEY = "learn-bengali-rachel-progress";
@@ -18,6 +19,7 @@ const initialProgress: ProgressState = {
 const listeners = new Set<() => void>();
 let progressCache = initialProgress;
 let hasLoadedFromStorage = false;
+const currentLessonIds = new Set(lessons.map((lesson) => lesson.id));
 
 function todayKey(date = new Date()) {
   return date.toISOString().slice(0, 10);
@@ -106,7 +108,11 @@ export function useProgress() {
   );
 
   const activeMistakes = useMemo(
-    () => progress.mistakes.filter((mistake) => !mistake.resolved),
+    () =>
+      progress.mistakes.filter(
+        (mistake) =>
+          !mistake.resolved && currentLessonIds.has(mistake.lessonId),
+      ),
     [progress.mistakes],
   );
 

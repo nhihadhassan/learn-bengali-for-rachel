@@ -25,7 +25,6 @@ export function LearnedWordsReview() {
       const searchable = [
         word.phrase.english,
         word.phrase.romanized,
-        word.phrase.bengaliScript ?? "",
         word.lessonTitle,
         word.unitTitle,
       ]
@@ -82,7 +81,7 @@ export function LearnedWordsReview() {
             <input
               value={query}
               onChange={(event) => setQuery(event.target.value)}
-              placeholder="Search English, romanized Bengali, or Bengali script"
+              placeholder="Search English or romanized Bengali"
               className="min-h-12 w-full rounded-2xl border border-slate-200 bg-[#fffdfa] px-11 py-3 font-bold shadow-inner outline-none transition focus:border-emerald-500 focus:ring-4 focus:ring-emerald-100"
             />
           </label>
@@ -109,7 +108,7 @@ export function LearnedWordsReview() {
         <section className="rounded-[30px] border border-white/80 bg-white/95 p-6 text-center shadow-[0_14px_40px_rgba(15,23,42,0.07)]">
           <h2 className="text-2xl font-black">No matching words</h2>
           <p className="mt-2 text-slate-600">
-            Try a different English meaning, romanized spelling, or Bengali script.
+            Try a different English meaning or romanized spelling.
           </p>
         </section>
       ) : (
@@ -122,16 +121,15 @@ export function LearnedWordsReview() {
               <div className="flex items-start justify-between gap-4">
                 <div>
                   <p className="text-4xl font-black leading-tight">
-                    {word.phrase.bengaliScript ?? word.phrase.romanized}
-                  </p>
-                  <p className="mt-2 text-2xl font-black text-slate-900">
                     {word.phrase.romanized}
+                  </p>
+                  <p className="mt-2 text-lg font-bold text-slate-500">
+                    {word.phrase.english}
                   </p>
                 </div>
                 <SpeakerButton
                   audioUrl={word.phrase.audioUrl}
                   romanized={word.phrase.romanized}
-                  script={word.phrase.bengaliScript}
                 />
               </div>
 

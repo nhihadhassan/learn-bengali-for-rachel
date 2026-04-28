@@ -4,9 +4,11 @@ import { useMemo, useState } from "react";
 import Link from "next/link";
 import { ArrowRight, Check, RotateCcw } from "lucide-react";
 import { checkTypedAnswer } from "@/lib/answer-checking";
+import { getLesson } from "@/lib/content";
 import { useProgress } from "@/lib/progress-store";
-import type { MatchingPair, Mistake } from "@/types/learning";
-import { AppButton } from "@/components/ui/app-button";
+import type { AudioPrompt, MatchingPair, Mistake } from "@/types/learning";
+import { SpeakerButton } from "@/components/lesson/speaker-button";
+import { AnswerButton, AppButton } from "@/components/ui/app-button";
 import { ExerciseCard } from "@/components/ui/exercise-card";
 
 export function MistakeReview() {
@@ -78,9 +80,14 @@ function MistakeCard({
   total: number;
 }) {
   const [answer, setAnswer] = useState("");
+  const [selectedAnswer, setSelectedAnswer] = useState("");
   const [matches, setMatches] = useState<Record<string, string>>({});
   const [feedback, setFeedback] = useState<"idle" | "correct" | "wrong">("idle");
   const { resolveMistake } = useProgress();
+  const multipleChoiceReview = useMemo(
+    () => getMultipleChoiceReview(mistake),
+    [mistake],
+  );
   const matchingPairs = useMemo(
     () => parseMatchingAnswer(mistake.correctAnswer),
     [mistake.correctAnswer],
@@ -90,14 +97,18 @@ function MistakeCard({
     [answer, mistake.correctAnswer],
   );
   const hasMatchingReview = matchingPairs.length > 0;
-  const canCheck = hasMatchingReview
-    ? matchingPairs.every((pair) => matches[pair.left])
-    : answer.trim().length > 0;
+  const canCheck = multipleChoiceReview
+    ? selectedAnswer.length > 0
+    : hasMatchingReview
+      ? matchingPairs.every((pair) => matches[pair.left])
+      : answer.trim().length > 0;
 
   function checkReviewAnswer() {
-    const isCorrect = hasMatchingReview
-      ? matchingPairs.every((pair) => matches[pair.left] === pair.right)
-      : check.isCorrect;
+    const isCorrect = multipleChoiceReview
+      ? selectedAnswer === multipleChoiceReview.answer
+      : hasMatchingReview
+        ? matchingPairs.every((pair) => matches[pair.left] === pair.right)
+        : check.isCorrect;
 
     if (isCorrect) {
       resolveMistake(mistake.id);
@@ -128,7 +139,16 @@ function MistakeCard({
         </div>
       </div>
 
-      {hasMatchingReview ? (
+      {multipleChoiceReview ? (
+        <MultipleChoiceReview
+          review={multipleChoiceReview}
+          selectedAnswer={selectedAnswer}
+          setSelectedAnswer={(nextAnswer) => {
+            setSelectedAnswer(nextAnswer);
+            setFeedback("idle");
+          }}
+        />
+      ) : hasMatchingReview ? (
         <MatchingReview
           matches={matches}
           pairs={matchingPairs}
@@ -188,6 +208,55 @@ function MistakeCard({
   );
 }
 
+type MultipleChoiceReviewData = {
+  answer: string;
+  audioPrompt?: AudioPrompt;
+  options: string[];
+};
+
+function MultipleChoiceReview({
+  review,
+  selectedAnswer,
+  setSelectedAnswer,
+}: {
+  review: MultipleChoiceReviewData;
+  selectedAnswer: string;
+  setSelectedAnswer: (answer: string) => void;
+}) {
+  return (
+    <div>
+      {review.audioPrompt && (
+        <div className="mb-4 flex items-center justify-between gap-4 rounded-3xl border border-cyan-100 bg-cyan-50 p-4 shadow-inner">
+          <div>
+            <p className="text-xs font-black uppercase tracking-[0.14em] text-cyan-700">
+              Listen again
+            </p>
+            <p className="mt-1 text-sm font-bold text-slate-600">
+              Replay the prompt, then choose the matching answer.
+            </p>
+          </div>
+          <SpeakerButton
+            romanized={review.audioPrompt.roman}
+          />
+        </div>
+      )}
+
+      <div className="grid gap-3 sm:grid-cols-2">
+        {review.options.map((option) => (
+          <AnswerButton
+            key={option}
+            type="button"
+            onClick={() => setSelectedAnswer(option)}
+            isSelected={selectedAnswer === option}
+          >
+            {option}
+          </AnswerButton>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 function MatchingReview({
   matches,
   pairs,
@@ -227,6 +296,29 @@ function MatchingReview({
       ))}
     </div>
   );
+}
+
+function getMultipleChoiceReview(
+  mistake: Mistake,
+): MultipleChoiceReviewData | null {
+  const lesson = getLesson(mistake.lessonId);
+  const exerciseId = mistake.exerciseId.replace(
+    `${mistake.lessonId}-review-`,
+    "",
+  );
+  const exercise = lesson?.exercises.find((item) => item.id === exerciseId);
+
+  if (exercise?.type !== "multiple-choice" || !exercise.options?.length) {
+    return null;
+  }
+
+  return {
+    answer: exercise.answer,
+    audioPrompt: lesson?.audioPrompts?.find(
+      (audioPrompt) => audioPrompt.id === exercise.audioPromptId,
+    ),
+    options: exercise.options,
+  };
 }
 
 function parseMatchingAnswer(answer: string): MatchingPair[] {
