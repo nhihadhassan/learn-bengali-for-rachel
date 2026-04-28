@@ -11,7 +11,7 @@ export function normalizeAnswer(answer: string): string {
     .replace(/[\u0300-\u036f]/g, "")
     .trim()
     .toLowerCase()
-    .replace(/[“”"'‘’.,?!:;()]/g, "")
+    .replace(/[“”"'‘’.,?!¿¡:;()]/g, "")
     .replace(/-/g, " ")
     .replace(/\s+/g, " ");
 }

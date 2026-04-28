@@ -1,0 +1,4564 @@
+{
+  "units": [
+    {
+      "id": "es-u01",
+      "number": 1,
+      "title": "Survival Basics",
+      "description": "Start with polite essentials for quick travel moments in Peru.",
+      "lessons": [
+        {
+          "id": "es-u01-l01-hello-and-thanks",
+          "unitId": "es-u01",
+          "unitNumber": 1,
+          "title": "Hello and Thanks",
+          "slug": "hello-and-thanks",
+          "locale": "es-PE",
+          "difficulty": "beginner",
+          "summary": "Say hello, goodbye, please, and thank you in friendly travel Spanish.",
+          "objectives": [
+            "Greet someone politely",
+            "Say please and thank you",
+            "End a simple interaction"
+          ],
+          "vocabulary": [
+            {
+              "bn": "hola",
+              "roman": "hola",
+              "en": "hello",
+              "tags": [
+                "survival-basics",
+                "travel-spanish",
+                "peru"
+              ]
+            },
+            {
+              "bn": "buenos días",
+              "roman": "buenos días",
+              "en": "good morning",
+              "tags": [
+                "survival-basics",
+                "travel-spanish",
+                "peru"
+              ]
+            },
+            {
+              "bn": "gracias",
+              "roman": "gracias",
+              "en": "thank you",
+              "tags": [
+                "survival-basics",
+                "travel-spanish",
+                "peru"
+              ]
+            },
+            {
+              "bn": "por favor",
+              "roman": "por favor",
+              "en": "please",
+              "tags": [
+                "survival-basics",
+                "travel-spanish",
+                "peru"
+              ]
+            },
+            {
+              "bn": "adiós",
+              "roman": "adiós",
+              "en": "goodbye",
+              "tags": [
+                "survival-basics",
+                "travel-spanish",
+                "peru"
+              ]
+            },
+            {
+              "bn": "disculpe",
+              "roman": "disculpe",
+              "en": "excuse me",
+              "tags": [
+                "survival-basics",
+                "travel-spanish",
+                "peru"
+              ]
+            }
+          ],
+          "grammar": [
+            {
+              "point": "Spoken travel phrase",
+              "notes": "Practice this as a practical phrase for Peru travel. Focus on speaking, listening, and meaning."
+            }
+          ],
+          "phrases": [
+            {
+              "id": "p-es-u01-l01-hello-and-thanks-01",
+              "romanized": "hola",
+              "english": "hello",
+              "pronunciation": "OH-lah",
+              "category": "survival-basics"
+            },
+            {
+              "id": "p-es-u01-l01-hello-and-thanks-02",
+              "romanized": "buenos días",
+              "english": "good morning",
+              "pronunciation": "BWEH-nos DEE-as",
+              "category": "survival-basics"
+            },
+            {
+              "id": "p-es-u01-l01-hello-and-thanks-03",
+              "romanized": "gracias",
+              "english": "thank you",
+              "pronunciation": "GRAH-see-as",
+              "category": "survival-basics"
+            },
+            {
+              "id": "p-es-u01-l01-hello-and-thanks-04",
+              "romanized": "por favor",
+              "english": "please",
+              "pronunciation": "por fah-VOR",
+              "category": "survival-basics"
+            },
+            {
+              "id": "p-es-u01-l01-hello-and-thanks-05",
+              "romanized": "adiós",
+              "english": "goodbye",
+              "pronunciation": "ah-DYOS",
+              "category": "survival-basics"
+            },
+            {
+              "id": "p-es-u01-l01-hello-and-thanks-06",
+              "romanized": "disculpe",
+              "english": "excuse me",
+              "pronunciation": "dees-KOOL-peh",
+              "category": "survival-basics"
+            }
+          ],
+          "exercises": [
+            {
+              "id": "es-u01-l01-hello-and-thanks-ex-1",
+              "type": "multiple-choice",
+              "sourceType": "listenSelect",
+              "prompt": "Listen first. Then tap what you hear.",
+              "answer": "hola",
+              "options": [
+                "hola",
+                "buenos días",
+                "gracias",
+                "por favor",
+                "adiós"
+              ],
+              "audioPromptId": "a1"
+            },
+            {
+              "id": "es-u01-l01-hello-and-thanks-ex-2",
+              "type": "multiple-choice",
+              "sourceType": "meaningSelect",
+              "prompt": "What does “buenos días” mean?",
+              "answer": "good morning",
+              "options": [
+                "hello",
+                "good morning",
+                "thank you",
+                "please",
+                "goodbye"
+              ],
+              "phraseId": "p-es-u01-l01-hello-and-thanks-02"
+            },
+            {
+              "id": "es-u01-l01-hello-and-thanks-ex-3",
+              "type": "translation",
+              "sourceType": "translateType",
+              "prompt": "Type the Spanish for “thank you”.",
+              "answer": "gracias",
+              "acceptedAnswers": [
+                "gracias"
+              ],
+              "phraseId": "p-es-u01-l01-hello-and-thanks-03"
+            },
+            {
+              "id": "es-u01-l01-hello-and-thanks-ex-4",
+              "type": "matching",
+              "sourceType": "tapMatch",
+              "prompt": "Match Spanish to English.",
+              "answer": "hola -> hello, buenos días -> good morning, gracias -> thank you, por favor -> please",
+              "pairs": [
+                {
+                  "left": "hola",
+                  "right": "hello"
+                },
+                {
+                  "left": "buenos días",
+                  "right": "good morning"
+                },
+                {
+                  "left": "gracias",
+                  "right": "thank you"
+                },
+                {
+                  "left": "por favor",
+                  "right": "please"
+                }
+              ]
+            },
+            {
+              "id": "es-u01-l01-hello-and-thanks-ex-5",
+              "type": "multiple-choice",
+              "sourceType": "quickReply",
+              "prompt": "Choose the Spanish for “please”.",
+              "answer": "por favor",
+              "options": [
+                "hola",
+                "buenos días",
+                "gracias",
+                "por favor",
+                "adiós"
+              ],
+              "phraseId": "p-es-u01-l01-hello-and-thanks-04"
+            }
+          ],
+          "audioPrompts": [
+            {
+              "id": "a1",
+              "locale": "es-PE",
+              "voiceStyle": "warm-travel",
+              "textBn": "hola",
+              "roman": "hola",
+              "textEn": "hello",
+              "speed": 0.9
+            },
+            {
+              "id": "a2",
+              "locale": "es-PE",
+              "voiceStyle": "warm-travel",
+              "textBn": "gracias",
+              "roman": "gracias",
+              "textEn": "thank you",
+              "speed": 0.92
+            },
+            {
+              "id": "a3",
+              "locale": "es-PE",
+              "voiceStyle": "warm-travel",
+              "textBn": "adiós",
+              "roman": "adiós",
+              "textEn": "goodbye",
+              "speed": 0.92
+            }
+          ],
+          "uiText": {
+            "startCta": "Start lesson",
+            "lessonGoal": "Learn a few useful Peru travel phrases, then quiz them.",
+            "correct": "Nice work — that sounded travel-ready.",
+            "almost": "Almost — listen once more and try the phrase again.",
+            "complete": "Lesson complete. You can use these phrases on your trip."
+          },
+          "metadata": {
+            "estimatedMinutes": 6,
+            "difficulty": "beginner",
+            "tags": [
+              "survival-basics",
+              "spanish-for-peru",
+              "spoken-phrases"
+            ],
+            "xp": 15,
+            "unlockAfter": [],
+            "assessment": {
+              "attempted": "Started the travel Spanish phrase lesson.",
+              "passed": "Understood the key meanings.",
+              "strong": "Answered with only one or two misses.",
+              "mastered": "Answered accurately after a later review."
+            }
+          },
+          "reviewSchedule": {
+            "initialReviewDays": [
+              1,
+              3,
+              7,
+              14,
+              30
+            ],
+            "masteryThreshold": 0.9,
+            "recycleOnMistake": true
+          }
+        },
+        {
+          "id": "es-u01-l02-slowly-and-english",
+          "unitId": "es-u01",
+          "unitNumber": 1,
+          "title": "Slowly and English?",
+          "slug": "slowly-and-english",
+          "locale": "es-PE",
+          "difficulty": "beginner",
+          "summary": "Ask for slower speech and say when you do not understand.",
+          "objectives": [
+            "Say yes and no",
+            "Ask someone to speak slowly",
+            "Ask if someone speaks English"
+          ],
+          "vocabulary": [
+            {
+              "bn": "sí",
+              "roman": "sí",
+              "en": "yes",
+              "tags": [
+                "survival-basics",
+                "travel-spanish",
+                "peru"
+              ]
+            },
+            {
+              "bn": "no",
+              "roman": "no",
+              "en": "no",
+              "tags": [
+                "survival-basics",
+                "travel-spanish",
+                "peru"
+              ]
+            },
+            {
+              "bn": "lo siento",
+              "roman": "lo siento",
+              "en": "I am sorry",
+              "tags": [
+                "survival-basics",
+                "travel-spanish",
+                "peru"
+              ]
+            },
+            {
+              "bn": "no entiendo",
+              "roman": "no entiendo",
+              "en": "I do not understand",
+              "tags": [
+                "survival-basics",
+                "travel-spanish",
+                "peru"
+              ]
+            },
+            {
+              "bn": "más despacio, por favor",
+              "roman": "más despacio, por favor",
+              "en": "more slowly, please",
+              "tags": [
+                "survival-basics",
+                "travel-spanish",
+                "peru"
+              ]
+            },
+            {
+              "bn": "¿habla inglés?",
+              "roman": "¿habla inglés?",
+              "en": "do you speak English?",
+              "tags": [
+                "survival-basics",
+                "travel-spanish",
+                "peru"
+              ]
+            }
+          ],
+          "grammar": [
+            {
+              "point": "Spoken travel phrase",
+              "notes": "Practice this as a practical phrase for Peru travel. Focus on speaking, listening, and meaning."
+            }
+          ],
+          "phrases": [
+            {
+              "id": "p-es-u01-l02-slowly-and-english-01",
+              "romanized": "sí",
+              "english": "yes",
+              "pronunciation": "see",
+              "category": "survival-basics"
+            },
+            {
+              "id": "p-es-u01-l02-slowly-and-english-02",
+              "romanized": "no",
+              "english": "no",
+              "pronunciation": "no",
+              "category": "survival-basics"
+            },
+            {
+              "id": "p-es-u01-l02-slowly-and-english-03",
+              "romanized": "lo siento",
+              "english": "I am sorry",
+              "pronunciation": "loh SYEN-toh",
+              "category": "survival-basics"
+            },
+            {
+              "id": "p-es-u01-l02-slowly-and-english-04",
+              "romanized": "no entiendo",
+              "english": "I do not understand",
+              "pronunciation": "no en-TYEN-doh",
+              "category": "survival-basics"
+            },
+            {
+              "id": "p-es-u01-l02-slowly-and-english-05",
+              "romanized": "más despacio, por favor",
+              "english": "more slowly, please",
+              "pronunciation": "mas des-PAH-syo por fah-VOR",
+              "category": "survival-basics"
+            },
+            {
+              "id": "p-es-u01-l02-slowly-and-english-06",
+              "romanized": "¿habla inglés?",
+              "english": "do you speak English?",
+              "pronunciation": "AH-blah een-GLES",
+              "category": "survival-basics"
+            }
+          ],
+          "exercises": [
+            {
+              "id": "es-u01-l02-slowly-and-english-ex-1",
+              "type": "multiple-choice",
+              "sourceType": "listenSelect",
+              "prompt": "Listen first. Then tap what you hear.",
+              "answer": "sí",
+              "options": [
+                "sí",
+                "no",
+                "lo siento",
+                "no entiendo",
+                "más despacio, por favor"
+              ],
+              "audioPromptId": "a1"
+            },
+            {
+              "id": "es-u01-l02-slowly-and-english-ex-2",
+              "type": "multiple-choice",
+              "sourceType": "meaningSelect",
+              "prompt": "What does “no” mean?",
+              "answer": "no",
+              "options": [
+                "yes",
+                "no",
+                "I am sorry",
+                "I do not understand",
+                "more slowly, please"
+              ],
+              "phraseId": "p-es-u01-l02-slowly-and-english-02"
+            },
+            {
+              "id": "es-u01-l02-slowly-and-english-ex-3",
+              "type": "translation",
+              "sourceType": "translateType",
+              "prompt": "Type the Spanish for “I am sorry”.",
+              "answer": "lo siento",
+              "acceptedAnswers": [
+                "lo siento"
+              ],
+              "phraseId": "p-es-u01-l02-slowly-and-english-03"
+            },
+            {
+              "id": "es-u01-l02-slowly-and-english-ex-4",
+              "type": "matching",
+              "sourceType": "tapMatch",
+              "prompt": "Match Spanish to English.",
+              "answer": "sí -> yes, no -> no, lo siento -> I am sorry, no entiendo -> I do not understand",
+              "pairs": [
+                {
+                  "left": "sí",
+                  "right": "yes"
+                },
+                {
+                  "left": "no",
+                  "right": "no"
+                },
+                {
+                  "left": "lo siento",
+                  "right": "I am sorry"
+                },
+                {
+                  "left": "no entiendo",
+                  "right": "I do not understand"
+                }
+              ]
+            },
+            {
+              "id": "es-u01-l02-slowly-and-english-ex-5",
+              "type": "multiple-choice",
+              "sourceType": "quickReply",
+              "prompt": "Choose the Spanish for “I do not understand”.",
+              "answer": "no entiendo",
+              "options": [
+                "sí",
+                "no",
+                "lo siento",
+                "no entiendo",
+                "más despacio, por favor"
+              ],
+              "phraseId": "p-es-u01-l02-slowly-and-english-04"
+            }
+          ],
+          "audioPrompts": [
+            {
+              "id": "a1",
+              "locale": "es-PE",
+              "voiceStyle": "warm-travel",
+              "textBn": "sí",
+              "roman": "sí",
+              "textEn": "yes",
+              "speed": 0.9
+            },
+            {
+              "id": "a2",
+              "locale": "es-PE",
+              "voiceStyle": "warm-travel",
+              "textBn": "lo siento",
+              "roman": "lo siento",
+              "textEn": "I am sorry",
+              "speed": 0.92
+            },
+            {
+              "id": "a3",
+              "locale": "es-PE",
+              "voiceStyle": "warm-travel",
+              "textBn": "más despacio, por favor",
+              "roman": "más despacio, por favor",
+              "textEn": "more slowly, please",
+              "speed": 0.92
+            }
+          ],
+          "uiText": {
+            "startCta": "Start lesson",
+            "lessonGoal": "Learn a few useful Peru travel phrases, then quiz them.",
+            "correct": "Nice work — that sounded travel-ready.",
+            "almost": "Almost — listen once more and try the phrase again.",
+            "complete": "Lesson complete. You can use these phrases on your trip."
+          },
+          "metadata": {
+            "estimatedMinutes": 7,
+            "difficulty": "beginner",
+            "tags": [
+              "survival-basics",
+              "spanish-for-peru",
+              "spoken-phrases"
+            ],
+            "xp": 15,
+            "unlockAfter": [],
+            "assessment": {
+              "attempted": "Started the travel Spanish phrase lesson.",
+              "passed": "Understood the key meanings.",
+              "strong": "Answered with only one or two misses.",
+              "mastered": "Answered accurately after a later review."
+            }
+          },
+          "reviewSchedule": {
+            "initialReviewDays": [
+              1,
+              3,
+              7,
+              14,
+              30
+            ],
+            "masteryThreshold": 0.9,
+            "recycleOnMistake": true
+          }
+        }
+      ],
+      "lessonIds": [
+        "es-u01-l01-hello-and-thanks",
+        "es-u01-l02-slowly-and-english"
+      ],
+      "checkpointLessonId": "es-u01-l02-slowly-and-english",
+      "metadata": {
+        "difficultyBand": "beginner-travel",
+        "estimatedTotalMinutes": 13,
+        "tags": [
+          "spanish-for-peru",
+          "travel",
+          "spoken-phrases"
+        ]
+      }
+    },
+    {
+      "id": "es-u02",
+      "number": 2,
+      "title": "Introductions",
+      "description": "Share who you are and keep a tiny conversation going.",
+      "lessons": [
+        {
+          "id": "es-u02-l01-my-name-is",
+          "unitId": "es-u02",
+          "unitNumber": 2,
+          "title": "My Name Is",
+          "slug": "my-name-is",
+          "locale": "es-PE",
+          "difficulty": "beginner",
+          "summary": "Introduce yourself and ask for someone’s name.",
+          "objectives": [
+            "Say your name",
+            "Ask someone their name",
+            "Say nice to meet you"
+          ],
+          "vocabulary": [
+            {
+              "bn": "me llamo Rachel",
+              "roman": "me llamo Rachel",
+              "en": "my name is Rachel",
+              "tags": [
+                "introductions",
+                "travel-spanish",
+                "peru"
+              ]
+            },
+            {
+              "bn": "¿cómo se llama?",
+              "roman": "¿cómo se llama?",
+              "en": "what is your name?",
+              "tags": [
+                "introductions",
+                "travel-spanish",
+                "peru"
+              ]
+            },
+            {
+              "bn": "mucho gusto",
+              "roman": "mucho gusto",
+              "en": "nice to meet you",
+              "tags": [
+                "introductions",
+                "travel-spanish",
+                "peru"
+              ]
+            },
+            {
+              "bn": "soy de Canadá",
+              "roman": "soy de Canadá",
+              "en": "I am from Canada",
+              "tags": [
+                "introductions",
+                "travel-spanish",
+                "peru"
+              ]
+            },
+            {
+              "bn": "soy turista",
+              "roman": "soy turista",
+              "en": "I am a tourist",
+              "tags": [
+                "introductions",
+                "travel-spanish",
+                "peru"
+              ]
+            },
+            {
+              "bn": "encantada",
+              "roman": "encantada",
+              "en": "pleased to meet you",
+              "tags": [
+                "introductions",
+                "travel-spanish",
+                "peru"
+              ]
+            }
+          ],
+          "grammar": [
+            {
+              "point": "Spoken travel phrase",
+              "notes": "Practice this as a practical phrase for Peru travel. Focus on speaking, listening, and meaning."
+            }
+          ],
+          "phrases": [
+            {
+              "id": "p-es-u02-l01-my-name-is-01",
+              "romanized": "me llamo Rachel",
+              "english": "my name is Rachel",
+              "pronunciation": "meh YAH-moh Rachel",
+              "category": "introductions"
+            },
+            {
+              "id": "p-es-u02-l01-my-name-is-02",
+              "romanized": "¿cómo se llama?",
+              "english": "what is your name?",
+              "pronunciation": "KOH-moh seh YAH-mah",
+              "category": "introductions"
+            },
+            {
+              "id": "p-es-u02-l01-my-name-is-03",
+              "romanized": "mucho gusto",
+              "english": "nice to meet you",
+              "pronunciation": "MOO-choh GOOS-toh",
+              "category": "introductions"
+            },
+            {
+              "id": "p-es-u02-l01-my-name-is-04",
+              "romanized": "soy de Canadá",
+              "english": "I am from Canada",
+              "pronunciation": "soy deh kah-nah-DA",
+              "category": "introductions"
+            },
+            {
+              "id": "p-es-u02-l01-my-name-is-05",
+              "romanized": "soy turista",
+              "english": "I am a tourist",
+              "pronunciation": "soy too-REES-tah",
+              "category": "introductions"
+            },
+            {
+              "id": "p-es-u02-l01-my-name-is-06",
+              "romanized": "encantada",
+              "english": "pleased to meet you",
+              "pronunciation": "en-kahn-TAH-dah",
+              "category": "introductions"
+            }
+          ],
+          "exercises": [
+            {
+              "id": "es-u02-l01-my-name-is-ex-1",
+              "type": "multiple-choice",
+              "sourceType": "listenSelect",
+              "prompt": "Listen first. Then tap what you hear.",
+              "answer": "me llamo Rachel",
+              "options": [
+                "me llamo Rachel",
+                "¿cómo se llama?",
+                "mucho gusto",
+                "soy de Canadá",
+                "soy turista"
+              ],
+              "audioPromptId": "a1"
+            },
+            {
+              "id": "es-u02-l01-my-name-is-ex-2",
+              "type": "multiple-choice",
+              "sourceType": "meaningSelect",
+              "prompt": "What does “¿cómo se llama?” mean?",
+              "answer": "what is your name?",
+              "options": [
+                "my name is Rachel",
+                "what is your name?",
+                "nice to meet you",
+                "I am from Canada",
+                "I am a tourist"
+              ],
+              "phraseId": "p-es-u02-l01-my-name-is-02"
+            },
+            {
+              "id": "es-u02-l01-my-name-is-ex-3",
+              "type": "translation",
+              "sourceType": "translateType",
+              "prompt": "Type the Spanish for “nice to meet you”.",
+              "answer": "mucho gusto",
+              "acceptedAnswers": [
+                "mucho gusto"
+              ],
+              "phraseId": "p-es-u02-l01-my-name-is-03"
+            },
+            {
+              "id": "es-u02-l01-my-name-is-ex-4",
+              "type": "matching",
+              "sourceType": "tapMatch",
+              "prompt": "Match Spanish to English.",
+              "answer": "me llamo Rachel -> my name is Rachel, ¿cómo se llama? -> what is your name?, mucho gusto -> nice to meet you, soy de Canadá -> I am from Canada",
+              "pairs": [
+                {
+                  "left": "me llamo Rachel",
+                  "right": "my name is Rachel"
+                },
+                {
+                  "left": "¿cómo se llama?",
+                  "right": "what is your name?"
+                },
+                {
+                  "left": "mucho gusto",
+                  "right": "nice to meet you"
+                },
+                {
+                  "left": "soy de Canadá",
+                  "right": "I am from Canada"
+                }
+              ]
+            },
+            {
+              "id": "es-u02-l01-my-name-is-ex-5",
+              "type": "multiple-choice",
+              "sourceType": "quickReply",
+              "prompt": "Choose the Spanish for “I am from Canada”.",
+              "answer": "soy de Canadá",
+              "options": [
+                "me llamo Rachel",
+                "¿cómo se llama?",
+                "mucho gusto",
+                "soy de Canadá",
+                "soy turista"
+              ],
+              "phraseId": "p-es-u02-l01-my-name-is-04"
+            }
+          ],
+          "audioPrompts": [
+            {
+              "id": "a1",
+              "locale": "es-PE",
+              "voiceStyle": "warm-travel",
+              "textBn": "me llamo Rachel",
+              "roman": "me llamo Rachel",
+              "textEn": "my name is Rachel",
+              "speed": 0.9
+            },
+            {
+              "id": "a2",
+              "locale": "es-PE",
+              "voiceStyle": "warm-travel",
+              "textBn": "mucho gusto",
+              "roman": "mucho gusto",
+              "textEn": "nice to meet you",
+              "speed": 0.92
+            },
+            {
+              "id": "a3",
+              "locale": "es-PE",
+              "voiceStyle": "warm-travel",
+              "textBn": "soy turista",
+              "roman": "soy turista",
+              "textEn": "I am a tourist",
+              "speed": 0.92
+            }
+          ],
+          "uiText": {
+            "startCta": "Start lesson",
+            "lessonGoal": "Learn a few useful Peru travel phrases, then quiz them.",
+            "correct": "Nice work — that sounded travel-ready.",
+            "almost": "Almost — listen once more and try the phrase again.",
+            "complete": "Lesson complete. You can use these phrases on your trip."
+          },
+          "metadata": {
+            "estimatedMinutes": 6,
+            "difficulty": "beginner",
+            "tags": [
+              "introductions",
+              "spanish-for-peru",
+              "spoken-phrases"
+            ],
+            "xp": 15,
+            "unlockAfter": [],
+            "assessment": {
+              "attempted": "Started the travel Spanish phrase lesson.",
+              "passed": "Understood the key meanings.",
+              "strong": "Answered with only one or two misses.",
+              "mastered": "Answered accurately after a later review."
+            }
+          },
+          "reviewSchedule": {
+            "initialReviewDays": [
+              1,
+              3,
+              7,
+              14,
+              30
+            ],
+            "masteryThreshold": 0.9,
+            "recycleOnMistake": true
+          }
+        },
+        {
+          "id": "es-u02-l02-traveling-in-peru",
+          "unitId": "es-u02",
+          "unitNumber": 2,
+          "title": "Traveling in Peru",
+          "slug": "traveling-in-peru",
+          "locale": "es-PE",
+          "difficulty": "beginner",
+          "summary": "Say you are traveling in Peru and learning Spanish.",
+          "objectives": [
+            "Say you are traveling in Peru",
+            "Say you are learning Spanish",
+            "Ask a simple friendly question"
+          ],
+          "vocabulary": [
+            {
+              "bn": "estoy viajando en Perú",
+              "roman": "estoy viajando en Perú",
+              "en": "I am traveling in Peru",
+              "tags": [
+                "introductions",
+                "travel-spanish",
+                "peru"
+              ]
+            },
+            {
+              "bn": "estoy aprendiendo español",
+              "roman": "estoy aprendiendo español",
+              "en": "I am learning Spanish",
+              "tags": [
+                "introductions",
+                "travel-spanish",
+                "peru"
+              ]
+            },
+            {
+              "bn": "hablo un poco de español",
+              "roman": "hablo un poco de español",
+              "en": "I speak a little Spanish",
+              "tags": [
+                "introductions",
+                "travel-spanish",
+                "peru"
+              ]
+            },
+            {
+              "bn": "¿cómo está?",
+              "roman": "¿cómo está?",
+              "en": "how are you?",
+              "tags": [
+                "introductions",
+                "travel-spanish",
+                "peru"
+              ]
+            },
+            {
+              "bn": "estoy bien",
+              "roman": "estoy bien",
+              "en": "I am well",
+              "tags": [
+                "introductions",
+                "travel-spanish",
+                "peru"
+              ]
+            },
+            {
+              "bn": "gracias por su ayuda",
+              "roman": "gracias por su ayuda",
+              "en": "thank you for your help",
+              "tags": [
+                "introductions",
+                "travel-spanish",
+                "peru"
+              ]
+            }
+          ],
+          "grammar": [
+            {
+              "point": "Spoken travel phrase",
+              "notes": "Practice this as a practical phrase for Peru travel. Focus on speaking, listening, and meaning."
+            }
+          ],
+          "phrases": [
+            {
+              "id": "p-es-u02-l02-traveling-in-peru-01",
+              "romanized": "estoy viajando en Perú",
+              "english": "I am traveling in Peru",
+              "pronunciation": "es-TOY bya-HAHN-doh en peh-ROO",
+              "category": "introductions"
+            },
+            {
+              "id": "p-es-u02-l02-traveling-in-peru-02",
+              "romanized": "estoy aprendiendo español",
+              "english": "I am learning Spanish",
+              "pronunciation": "es-TOY ah-pren-DYEN-doh es-pah-NYOL",
+              "category": "introductions"
+            },
+            {
+              "id": "p-es-u02-l02-traveling-in-peru-03",
+              "romanized": "hablo un poco de español",
+              "english": "I speak a little Spanish",
+              "pronunciation": "AH-bloh oon POH-koh deh es-pah-NYOL",
+              "category": "introductions"
+            },
+            {
+              "id": "p-es-u02-l02-traveling-in-peru-04",
+              "romanized": "¿cómo está?",
+              "english": "how are you?",
+              "pronunciation": "KOH-moh es-TA",
+              "category": "introductions"
+            },
+            {
+              "id": "p-es-u02-l02-traveling-in-peru-05",
+              "romanized": "estoy bien",
+              "english": "I am well",
+              "pronunciation": "es-TOY byen",
+              "category": "introductions"
+            },
+            {
+              "id": "p-es-u02-l02-traveling-in-peru-06",
+              "romanized": "gracias por su ayuda",
+              "english": "thank you for your help",
+              "pronunciation": "GRAH-see-as por soo ah-YOO-dah",
+              "category": "introductions"
+            }
+          ],
+          "exercises": [
+            {
+              "id": "es-u02-l02-traveling-in-peru-ex-1",
+              "type": "multiple-choice",
+              "sourceType": "listenSelect",
+              "prompt": "Listen first. Then tap what you hear.",
+              "answer": "estoy viajando en Perú",
+              "options": [
+                "estoy viajando en Perú",
+                "estoy aprendiendo español",
+                "hablo un poco de español",
+                "¿cómo está?",
+                "estoy bien"
+              ],
+              "audioPromptId": "a1"
+            },
+            {
+              "id": "es-u02-l02-traveling-in-peru-ex-2",
+              "type": "multiple-choice",
+              "sourceType": "meaningSelect",
+              "prompt": "What does “estoy aprendiendo español” mean?",
+              "answer": "I am learning Spanish",
+              "options": [
+                "I am traveling in Peru",
+                "I am learning Spanish",
+                "I speak a little Spanish",
+                "how are you?",
+                "I am well"
+              ],
+              "phraseId": "p-es-u02-l02-traveling-in-peru-02"
+            },
+            {
+              "id": "es-u02-l02-traveling-in-peru-ex-3",
+              "type": "translation",
+              "sourceType": "translateType",
+              "prompt": "Type the Spanish for “I speak a little Spanish”.",
+              "answer": "hablo un poco de español",
+              "acceptedAnswers": [
+                "hablo un poco de español"
+              ],
+              "phraseId": "p-es-u02-l02-traveling-in-peru-03"
+            },
+            {
+              "id": "es-u02-l02-traveling-in-peru-ex-4",
+              "type": "matching",
+              "sourceType": "tapMatch",
+              "prompt": "Match Spanish to English.",
+              "answer": "estoy viajando en Perú -> I am traveling in Peru, estoy aprendiendo español -> I am learning Spanish, hablo un poco de español -> I speak a little Spanish, ¿cómo está? -> how are you?",
+              "pairs": [
+                {
+                  "left": "estoy viajando en Perú",
+                  "right": "I am traveling in Peru"
+                },
+                {
+                  "left": "estoy aprendiendo español",
+                  "right": "I am learning Spanish"
+                },
+                {
+                  "left": "hablo un poco de español",
+                  "right": "I speak a little Spanish"
+                },
+                {
+                  "left": "¿cómo está?",
+                  "right": "how are you?"
+                }
+              ]
+            },
+            {
+              "id": "es-u02-l02-traveling-in-peru-ex-5",
+              "type": "multiple-choice",
+              "sourceType": "quickReply",
+              "prompt": "Choose the Spanish for “how are you?”.",
+              "answer": "¿cómo está?",
+              "options": [
+                "estoy viajando en Perú",
+                "estoy aprendiendo español",
+                "hablo un poco de español",
+                "¿cómo está?",
+                "estoy bien"
+              ],
+              "phraseId": "p-es-u02-l02-traveling-in-peru-04"
+            }
+          ],
+          "audioPrompts": [
+            {
+              "id": "a1",
+              "locale": "es-PE",
+              "voiceStyle": "warm-travel",
+              "textBn": "estoy viajando en Perú",
+              "roman": "estoy viajando en Perú",
+              "textEn": "I am traveling in Peru",
+              "speed": 0.9
+            },
+            {
+              "id": "a2",
+              "locale": "es-PE",
+              "voiceStyle": "warm-travel",
+              "textBn": "hablo un poco de español",
+              "roman": "hablo un poco de español",
+              "textEn": "I speak a little Spanish",
+              "speed": 0.92
+            },
+            {
+              "id": "a3",
+              "locale": "es-PE",
+              "voiceStyle": "warm-travel",
+              "textBn": "estoy bien",
+              "roman": "estoy bien",
+              "textEn": "I am well",
+              "speed": 0.92
+            }
+          ],
+          "uiText": {
+            "startCta": "Start lesson",
+            "lessonGoal": "Learn a few useful Peru travel phrases, then quiz them.",
+            "correct": "Nice work — that sounded travel-ready.",
+            "almost": "Almost — listen once more and try the phrase again.",
+            "complete": "Lesson complete. You can use these phrases on your trip."
+          },
+          "metadata": {
+            "estimatedMinutes": 7,
+            "difficulty": "beginner",
+            "tags": [
+              "introductions",
+              "spanish-for-peru",
+              "spoken-phrases"
+            ],
+            "xp": 15,
+            "unlockAfter": [],
+            "assessment": {
+              "attempted": "Started the travel Spanish phrase lesson.",
+              "passed": "Understood the key meanings.",
+              "strong": "Answered with only one or two misses.",
+              "mastered": "Answered accurately after a later review."
+            }
+          },
+          "reviewSchedule": {
+            "initialReviewDays": [
+              1,
+              3,
+              7,
+              14,
+              30
+            ],
+            "masteryThreshold": 0.9,
+            "recycleOnMistake": true
+          }
+        }
+      ],
+      "lessonIds": [
+        "es-u02-l01-my-name-is",
+        "es-u02-l02-traveling-in-peru"
+      ],
+      "checkpointLessonId": "es-u02-l02-traveling-in-peru",
+      "metadata": {
+        "difficultyBand": "beginner-travel",
+        "estimatedTotalMinutes": 13,
+        "tags": [
+          "spanish-for-peru",
+          "travel",
+          "spoken-phrases"
+        ]
+      }
+    },
+    {
+      "id": "es-u03",
+      "number": 3,
+      "title": "Directions and Getting Around",
+      "description": "Find useful places and handle taxis or basic movement.",
+      "lessons": [
+        {
+          "id": "es-u03-l01-where-is-it",
+          "unitId": "es-u03",
+          "unitNumber": 3,
+          "title": "Where Is It?",
+          "slug": "where-is-it",
+          "locale": "es-PE",
+          "difficulty": "travel-beginner",
+          "summary": "Ask where important travel places are.",
+          "objectives": [
+            "Ask where something is",
+            "Name common travel places",
+            "Understand near and far"
+          ],
+          "vocabulary": [
+            {
+              "bn": "¿dónde está el baño?",
+              "roman": "¿dónde está el baño?",
+              "en": "where is the bathroom?",
+              "tags": [
+                "directions",
+                "travel-spanish",
+                "peru"
+              ]
+            },
+            {
+              "bn": "¿dónde está mi hotel?",
+              "roman": "¿dónde está mi hotel?",
+              "en": "where is my hotel?",
+              "tags": [
+                "directions",
+                "travel-spanish",
+                "peru"
+              ]
+            },
+            {
+              "bn": "el restaurante",
+              "roman": "el restaurante",
+              "en": "the restaurant",
+              "tags": [
+                "directions",
+                "travel-spanish",
+                "peru"
+              ]
+            },
+            {
+              "bn": "el aeropuerto",
+              "roman": "el aeropuerto",
+              "en": "the airport",
+              "tags": [
+                "directions",
+                "travel-spanish",
+                "peru"
+              ]
+            },
+            {
+              "bn": "está cerca",
+              "roman": "está cerca",
+              "en": "it is near",
+              "tags": [
+                "directions",
+                "travel-spanish",
+                "peru"
+              ]
+            },
+            {
+              "bn": "está lejos",
+              "roman": "está lejos",
+              "en": "it is far",
+              "tags": [
+                "directions",
+                "travel-spanish",
+                "peru"
+              ]
+            }
+          ],
+          "grammar": [
+            {
+              "point": "Spoken travel phrase",
+              "notes": "Practice this as a practical phrase for Peru travel. Focus on speaking, listening, and meaning."
+            }
+          ],
+          "phrases": [
+            {
+              "id": "p-es-u03-l01-where-is-it-01",
+              "romanized": "¿dónde está el baño?",
+              "english": "where is the bathroom?",
+              "pronunciation": "DON-deh es-TA el BAH-nyoh",
+              "category": "directions"
+            },
+            {
+              "id": "p-es-u03-l01-where-is-it-02",
+              "romanized": "¿dónde está mi hotel?",
+              "english": "where is my hotel?",
+              "pronunciation": "DON-deh es-TA mee oh-TEL",
+              "category": "directions"
+            },
+            {
+              "id": "p-es-u03-l01-where-is-it-03",
+              "romanized": "el restaurante",
+              "english": "the restaurant",
+              "pronunciation": "el res-tow-RAHN-teh",
+              "category": "directions"
+            },
+            {
+              "id": "p-es-u03-l01-where-is-it-04",
+              "romanized": "el aeropuerto",
+              "english": "the airport",
+              "pronunciation": "el ah-eh-roh-PWER-toh",
+              "category": "directions"
+            },
+            {
+              "id": "p-es-u03-l01-where-is-it-05",
+              "romanized": "está cerca",
+              "english": "it is near",
+              "pronunciation": "es-TA SER-kah",
+              "category": "directions"
+            },
+            {
+              "id": "p-es-u03-l01-where-is-it-06",
+              "romanized": "está lejos",
+              "english": "it is far",
+              "pronunciation": "es-TA LEH-hos",
+              "category": "directions"
+            }
+          ],
+          "exercises": [
+            {
+              "id": "es-u03-l01-where-is-it-ex-1",
+              "type": "multiple-choice",
+              "sourceType": "listenSelect",
+              "prompt": "Listen first. Then tap what you hear.",
+              "answer": "¿dónde está el baño?",
+              "options": [
+                "¿dónde está el baño?",
+                "¿dónde está mi hotel?",
+                "el restaurante",
+                "el aeropuerto",
+                "está cerca"
+              ],
+              "audioPromptId": "a1"
+            },
+            {
+              "id": "es-u03-l01-where-is-it-ex-2",
+              "type": "multiple-choice",
+              "sourceType": "meaningSelect",
+              "prompt": "What does “¿dónde está mi hotel?” mean?",
+              "answer": "where is my hotel?",
+              "options": [
+                "where is the bathroom?",
+                "where is my hotel?",
+                "the restaurant",
+                "the airport",
+                "it is near"
+              ],
+              "phraseId": "p-es-u03-l01-where-is-it-02"
+            },
+            {
+              "id": "es-u03-l01-where-is-it-ex-3",
+              "type": "translation",
+              "sourceType": "translateType",
+              "prompt": "Type the Spanish for “the restaurant”.",
+              "answer": "el restaurante",
+              "acceptedAnswers": [
+                "el restaurante"
+              ],
+              "phraseId": "p-es-u03-l01-where-is-it-03"
+            },
+            {
+              "id": "es-u03-l01-where-is-it-ex-4",
+              "type": "matching",
+              "sourceType": "tapMatch",
+              "prompt": "Match Spanish to English.",
+              "answer": "¿dónde está el baño? -> where is the bathroom?, ¿dónde está mi hotel? -> where is my hotel?, el restaurante -> the restaurant, el aeropuerto -> the airport",
+              "pairs": [
+                {
+                  "left": "¿dónde está el baño?",
+                  "right": "where is the bathroom?"
+                },
+                {
+                  "left": "¿dónde está mi hotel?",
+                  "right": "where is my hotel?"
+                },
+                {
+                  "left": "el restaurante",
+                  "right": "the restaurant"
+                },
+                {
+                  "left": "el aeropuerto",
+                  "right": "the airport"
+                }
+              ]
+            },
+            {
+              "id": "es-u03-l01-where-is-it-ex-5",
+              "type": "multiple-choice",
+              "sourceType": "quickReply",
+              "prompt": "Choose the Spanish for “the airport”.",
+              "answer": "el aeropuerto",
+              "options": [
+                "¿dónde está el baño?",
+                "¿dónde está mi hotel?",
+                "el restaurante",
+                "el aeropuerto",
+                "está cerca"
+              ],
+              "phraseId": "p-es-u03-l01-where-is-it-04"
+            }
+          ],
+          "audioPrompts": [
+            {
+              "id": "a1",
+              "locale": "es-PE",
+              "voiceStyle": "warm-travel",
+              "textBn": "¿dónde está el baño?",
+              "roman": "¿dónde está el baño?",
+              "textEn": "where is the bathroom?",
+              "speed": 0.9
+            },
+            {
+              "id": "a2",
+              "locale": "es-PE",
+              "voiceStyle": "warm-travel",
+              "textBn": "el restaurante",
+              "roman": "el restaurante",
+              "textEn": "the restaurant",
+              "speed": 0.92
+            },
+            {
+              "id": "a3",
+              "locale": "es-PE",
+              "voiceStyle": "warm-travel",
+              "textBn": "está cerca",
+              "roman": "está cerca",
+              "textEn": "it is near",
+              "speed": 0.92
+            }
+          ],
+          "uiText": {
+            "startCta": "Start lesson",
+            "lessonGoal": "Learn a few useful Peru travel phrases, then quiz them.",
+            "correct": "Nice work — that sounded travel-ready.",
+            "almost": "Almost — listen once more and try the phrase again.",
+            "complete": "Lesson complete. You can use these phrases on your trip."
+          },
+          "metadata": {
+            "estimatedMinutes": 6,
+            "difficulty": "travel-beginner",
+            "tags": [
+              "directions",
+              "spanish-for-peru",
+              "spoken-phrases"
+            ],
+            "xp": 15,
+            "unlockAfter": [],
+            "assessment": {
+              "attempted": "Started the travel Spanish phrase lesson.",
+              "passed": "Understood the key meanings.",
+              "strong": "Answered with only one or two misses.",
+              "mastered": "Answered accurately after a later review."
+            }
+          },
+          "reviewSchedule": {
+            "initialReviewDays": [
+              1,
+              3,
+              7,
+              14,
+              30
+            ],
+            "masteryThreshold": 0.9,
+            "recycleOnMistake": true
+          }
+        },
+        {
+          "id": "es-u03-l02-taxi-and-directions",
+          "unitId": "es-u03",
+          "unitNumber": 3,
+          "title": "Taxi and Directions",
+          "slug": "taxi-and-directions",
+          "locale": "es-PE",
+          "difficulty": "travel-beginner",
+          "summary": "Ask for a taxi, prices, and simple directions.",
+          "objectives": [
+            "Ask for a taxi",
+            "Ask the price",
+            "Understand left, right, and straight ahead"
+          ],
+          "vocabulary": [
+            {
+              "bn": "necesito un taxi",
+              "roman": "necesito un taxi",
+              "en": "I need a taxi",
+              "tags": [
+                "directions",
+                "travel-spanish",
+                "peru"
+              ]
+            },
+            {
+              "bn": "¿cuánto cuesta?",
+              "roman": "¿cuánto cuesta?",
+              "en": "how much does it cost?",
+              "tags": [
+                "directions",
+                "travel-spanish",
+                "peru"
+              ]
+            },
+            {
+              "bn": "a la izquierda",
+              "roman": "a la izquierda",
+              "en": "to the left",
+              "tags": [
+                "directions",
+                "travel-spanish",
+                "peru"
+              ]
+            },
+            {
+              "bn": "a la derecha",
+              "roman": "a la derecha",
+              "en": "to the right",
+              "tags": [
+                "directions",
+                "travel-spanish",
+                "peru"
+              ]
+            },
+            {
+              "bn": "todo recto",
+              "roman": "todo recto",
+              "en": "straight ahead",
+              "tags": [
+                "directions",
+                "travel-spanish",
+                "peru"
+              ]
+            },
+            {
+              "bn": "la estación",
+              "roman": "la estación",
+              "en": "the station",
+              "tags": [
+                "directions",
+                "travel-spanish",
+                "peru"
+              ]
+            }
+          ],
+          "grammar": [
+            {
+              "point": "Spoken travel phrase",
+              "notes": "Practice this as a practical phrase for Peru travel. Focus on speaking, listening, and meaning."
+            }
+          ],
+          "phrases": [
+            {
+              "id": "p-es-u03-l02-taxi-and-directions-01",
+              "romanized": "necesito un taxi",
+              "english": "I need a taxi",
+              "pronunciation": "neh-seh-SEE-toh oon TAK-see",
+              "category": "directions"
+            },
+            {
+              "id": "p-es-u03-l02-taxi-and-directions-02",
+              "romanized": "¿cuánto cuesta?",
+              "english": "how much does it cost?",
+              "pronunciation": "KWAN-toh KWES-tah",
+              "category": "directions"
+            },
+            {
+              "id": "p-es-u03-l02-taxi-and-directions-03",
+              "romanized": "a la izquierda",
+              "english": "to the left",
+              "pronunciation": "ah lah ees-KYER-dah",
+              "category": "directions"
+            },
+            {
+              "id": "p-es-u03-l02-taxi-and-directions-04",
+              "romanized": "a la derecha",
+              "english": "to the right",
+              "pronunciation": "ah lah deh-REH-chah",
+              "category": "directions"
+            },
+            {
+              "id": "p-es-u03-l02-taxi-and-directions-05",
+              "romanized": "todo recto",
+              "english": "straight ahead",
+              "pronunciation": "TOH-doh REK-toh",
+              "category": "directions"
+            },
+            {
+              "id": "p-es-u03-l02-taxi-and-directions-06",
+              "romanized": "la estación",
+              "english": "the station",
+              "pronunciation": "lah es-tah-SYON",
+              "category": "directions"
+            }
+          ],
+          "exercises": [
+            {
+              "id": "es-u03-l02-taxi-and-directions-ex-1",
+              "type": "multiple-choice",
+              "sourceType": "listenSelect",
+              "prompt": "Listen first. Then tap what you hear.",
+              "answer": "necesito un taxi",
+              "options": [
+                "necesito un taxi",
+                "¿cuánto cuesta?",
+                "a la izquierda",
+                "a la derecha",
+                "todo recto"
+              ],
+              "audioPromptId": "a1"
+            },
+            {
+              "id": "es-u03-l02-taxi-and-directions-ex-2",
+              "type": "multiple-choice",
+              "sourceType": "meaningSelect",
+              "prompt": "What does “¿cuánto cuesta?” mean?",
+              "answer": "how much does it cost?",
+              "options": [
+                "I need a taxi",
+                "how much does it cost?",
+                "to the left",
+                "to the right",
+                "straight ahead"
+              ],
+              "phraseId": "p-es-u03-l02-taxi-and-directions-02"
+            },
+            {
+              "id": "es-u03-l02-taxi-and-directions-ex-3",
+              "type": "translation",
+              "sourceType": "translateType",
+              "prompt": "Type the Spanish for “to the left”.",
+              "answer": "a la izquierda",
+              "acceptedAnswers": [
+                "a la izquierda"
+              ],
+              "phraseId": "p-es-u03-l02-taxi-and-directions-03"
+            },
+            {
+              "id": "es-u03-l02-taxi-and-directions-ex-4",
+              "type": "matching",
+              "sourceType": "tapMatch",
+              "prompt": "Match Spanish to English.",
+              "answer": "necesito un taxi -> I need a taxi, ¿cuánto cuesta? -> how much does it cost?, a la izquierda -> to the left, a la derecha -> to the right",
+              "pairs": [
+                {
+                  "left": "necesito un taxi",
+                  "right": "I need a taxi"
+                },
+                {
+                  "left": "¿cuánto cuesta?",
+                  "right": "how much does it cost?"
+                },
+                {
+                  "left": "a la izquierda",
+                  "right": "to the left"
+                },
+                {
+                  "left": "a la derecha",
+                  "right": "to the right"
+                }
+              ]
+            },
+            {
+              "id": "es-u03-l02-taxi-and-directions-ex-5",
+              "type": "multiple-choice",
+              "sourceType": "quickReply",
+              "prompt": "Choose the Spanish for “to the right”.",
+              "answer": "a la derecha",
+              "options": [
+                "necesito un taxi",
+                "¿cuánto cuesta?",
+                "a la izquierda",
+                "a la derecha",
+                "todo recto"
+              ],
+              "phraseId": "p-es-u03-l02-taxi-and-directions-04"
+            }
+          ],
+          "audioPrompts": [
+            {
+              "id": "a1",
+              "locale": "es-PE",
+              "voiceStyle": "warm-travel",
+              "textBn": "necesito un taxi",
+              "roman": "necesito un taxi",
+              "textEn": "I need a taxi",
+              "speed": 0.9
+            },
+            {
+              "id": "a2",
+              "locale": "es-PE",
+              "voiceStyle": "warm-travel",
+              "textBn": "a la izquierda",
+              "roman": "a la izquierda",
+              "textEn": "to the left",
+              "speed": 0.92
+            },
+            {
+              "id": "a3",
+              "locale": "es-PE",
+              "voiceStyle": "warm-travel",
+              "textBn": "todo recto",
+              "roman": "todo recto",
+              "textEn": "straight ahead",
+              "speed": 0.92
+            }
+          ],
+          "uiText": {
+            "startCta": "Start lesson",
+            "lessonGoal": "Learn a few useful Peru travel phrases, then quiz them.",
+            "correct": "Nice work — that sounded travel-ready.",
+            "almost": "Almost — listen once more and try the phrase again.",
+            "complete": "Lesson complete. You can use these phrases on your trip."
+          },
+          "metadata": {
+            "estimatedMinutes": 7,
+            "difficulty": "travel-beginner",
+            "tags": [
+              "directions",
+              "spanish-for-peru",
+              "spoken-phrases"
+            ],
+            "xp": 15,
+            "unlockAfter": [],
+            "assessment": {
+              "attempted": "Started the travel Spanish phrase lesson.",
+              "passed": "Understood the key meanings.",
+              "strong": "Answered with only one or two misses.",
+              "mastered": "Answered accurately after a later review."
+            }
+          },
+          "reviewSchedule": {
+            "initialReviewDays": [
+              1,
+              3,
+              7,
+              14,
+              30
+            ],
+            "masteryThreshold": 0.9,
+            "recycleOnMistake": true
+          }
+        }
+      ],
+      "lessonIds": [
+        "es-u03-l01-where-is-it",
+        "es-u03-l02-taxi-and-directions"
+      ],
+      "checkpointLessonId": "es-u03-l02-taxi-and-directions",
+      "metadata": {
+        "difficultyBand": "beginner-travel",
+        "estimatedTotalMinutes": 13,
+        "tags": [
+          "spanish-for-peru",
+          "travel",
+          "spoken-phrases"
+        ]
+      }
+    },
+    {
+      "id": "es-u04",
+      "number": 4,
+      "title": "Food and Restaurants",
+      "description": "Order simple food and handle common restaurant needs.",
+      "lessons": [
+        {
+          "id": "es-u04-l01-ordering-food",
+          "unitId": "es-u04",
+          "unitNumber": 4,
+          "title": "Ordering Food",
+          "slug": "ordering-food",
+          "locale": "es-PE",
+          "difficulty": "travel-beginner",
+          "summary": "Ask for food and drinks politely.",
+          "objectives": [
+            "Say what you want",
+            "Order common food and drinks",
+            "Ask for the bill"
+          ],
+          "vocabulary": [
+            {
+              "bn": "quiero agua",
+              "roman": "quiero agua",
+              "en": "I want water",
+              "tags": [
+                "food",
+                "travel-spanish",
+                "peru"
+              ]
+            },
+            {
+              "bn": "quisiera café",
+              "roman": "quisiera café",
+              "en": "I would like coffee",
+              "tags": [
+                "food",
+                "travel-spanish",
+                "peru"
+              ]
+            },
+            {
+              "bn": "quiero té",
+              "roman": "quiero té",
+              "en": "I want tea",
+              "tags": [
+                "food",
+                "travel-spanish",
+                "peru"
+              ]
+            },
+            {
+              "bn": "pollo con arroz",
+              "roman": "pollo con arroz",
+              "en": "chicken with rice",
+              "tags": [
+                "food",
+                "travel-spanish",
+                "peru"
+              ]
+            },
+            {
+              "bn": "sopa, por favor",
+              "roman": "sopa, por favor",
+              "en": "soup, please",
+              "tags": [
+                "food",
+                "travel-spanish",
+                "peru"
+              ]
+            },
+            {
+              "bn": "la cuenta, por favor",
+              "roman": "la cuenta, por favor",
+              "en": "the bill, please",
+              "tags": [
+                "food",
+                "travel-spanish",
+                "peru"
+              ]
+            }
+          ],
+          "grammar": [
+            {
+              "point": "Spoken travel phrase",
+              "notes": "Practice this as a practical phrase for Peru travel. Focus on speaking, listening, and meaning."
+            }
+          ],
+          "phrases": [
+            {
+              "id": "p-es-u04-l01-ordering-food-01",
+              "romanized": "quiero agua",
+              "english": "I want water",
+              "pronunciation": "KYEH-roh AH-gwah",
+              "category": "food"
+            },
+            {
+              "id": "p-es-u04-l01-ordering-food-02",
+              "romanized": "quisiera café",
+              "english": "I would like coffee",
+              "pronunciation": "kee-SYEH-rah kah-FEH",
+              "category": "food"
+            },
+            {
+              "id": "p-es-u04-l01-ordering-food-03",
+              "romanized": "quiero té",
+              "english": "I want tea",
+              "pronunciation": "KYEH-roh teh",
+              "category": "food"
+            },
+            {
+              "id": "p-es-u04-l01-ordering-food-04",
+              "romanized": "pollo con arroz",
+              "english": "chicken with rice",
+              "pronunciation": "POH-yoh kon ah-ROS",
+              "category": "food"
+            },
+            {
+              "id": "p-es-u04-l01-ordering-food-05",
+              "romanized": "sopa, por favor",
+              "english": "soup, please",
+              "pronunciation": "SOH-pah por fah-VOR",
+              "category": "food"
+            },
+            {
+              "id": "p-es-u04-l01-ordering-food-06",
+              "romanized": "la cuenta, por favor",
+              "english": "the bill, please",
+              "pronunciation": "lah KWEN-tah por fah-VOR",
+              "category": "food"
+            }
+          ],
+          "exercises": [
+            {
+              "id": "es-u04-l01-ordering-food-ex-1",
+              "type": "multiple-choice",
+              "sourceType": "listenSelect",
+              "prompt": "Listen first. Then tap what you hear.",
+              "answer": "quiero agua",
+              "options": [
+                "quiero agua",
+                "quisiera café",
+                "quiero té",
+                "pollo con arroz",
+                "sopa, por favor"
+              ],
+              "audioPromptId": "a1"
+            },
+            {
+              "id": "es-u04-l01-ordering-food-ex-2",
+              "type": "multiple-choice",
+              "sourceType": "meaningSelect",
+              "prompt": "What does “quisiera café” mean?",
+              "answer": "I would like coffee",
+              "options": [
+                "I want water",
+                "I would like coffee",
+                "I want tea",
+                "chicken with rice",
+                "soup, please"
+              ],
+              "phraseId": "p-es-u04-l01-ordering-food-02"
+            },
+            {
+              "id": "es-u04-l01-ordering-food-ex-3",
+              "type": "translation",
+              "sourceType": "translateType",
+              "prompt": "Type the Spanish for “I want tea”.",
+              "answer": "quiero té",
+              "acceptedAnswers": [
+                "quiero té"
+              ],
+              "phraseId": "p-es-u04-l01-ordering-food-03"
+            },
+            {
+              "id": "es-u04-l01-ordering-food-ex-4",
+              "type": "matching",
+              "sourceType": "tapMatch",
+              "prompt": "Match Spanish to English.",
+              "answer": "quiero agua -> I want water, quisiera café -> I would like coffee, quiero té -> I want tea, pollo con arroz -> chicken with rice",
+              "pairs": [
+                {
+                  "left": "quiero agua",
+                  "right": "I want water"
+                },
+                {
+                  "left": "quisiera café",
+                  "right": "I would like coffee"
+                },
+                {
+                  "left": "quiero té",
+                  "right": "I want tea"
+                },
+                {
+                  "left": "pollo con arroz",
+                  "right": "chicken with rice"
+                }
+              ]
+            },
+            {
+              "id": "es-u04-l01-ordering-food-ex-5",
+              "type": "multiple-choice",
+              "sourceType": "quickReply",
+              "prompt": "Choose the Spanish for “chicken with rice”.",
+              "answer": "pollo con arroz",
+              "options": [
+                "quiero agua",
+                "quisiera café",
+                "quiero té",
+                "pollo con arroz",
+                "sopa, por favor"
+              ],
+              "phraseId": "p-es-u04-l01-ordering-food-04"
+            }
+          ],
+          "audioPrompts": [
+            {
+              "id": "a1",
+              "locale": "es-PE",
+              "voiceStyle": "warm-travel",
+              "textBn": "quiero agua",
+              "roman": "quiero agua",
+              "textEn": "I want water",
+              "speed": 0.9
+            },
+            {
+              "id": "a2",
+              "locale": "es-PE",
+              "voiceStyle": "warm-travel",
+              "textBn": "quiero té",
+              "roman": "quiero té",
+              "textEn": "I want tea",
+              "speed": 0.92
+            },
+            {
+              "id": "a3",
+              "locale": "es-PE",
+              "voiceStyle": "warm-travel",
+              "textBn": "sopa, por favor",
+              "roman": "sopa, por favor",
+              "textEn": "soup, please",
+              "speed": 0.92
+            }
+          ],
+          "uiText": {
+            "startCta": "Start lesson",
+            "lessonGoal": "Learn a few useful Peru travel phrases, then quiz them.",
+            "correct": "Nice work — that sounded travel-ready.",
+            "almost": "Almost — listen once more and try the phrase again.",
+            "complete": "Lesson complete. You can use these phrases on your trip."
+          },
+          "metadata": {
+            "estimatedMinutes": 6,
+            "difficulty": "travel-beginner",
+            "tags": [
+              "food",
+              "spanish-for-peru",
+              "spoken-phrases"
+            ],
+            "xp": 15,
+            "unlockAfter": [],
+            "assessment": {
+              "attempted": "Started the travel Spanish phrase lesson.",
+              "passed": "Understood the key meanings.",
+              "strong": "Answered with only one or two misses.",
+              "mastered": "Answered accurately after a later review."
+            }
+          },
+          "reviewSchedule": {
+            "initialReviewDays": [
+              1,
+              3,
+              7,
+              14,
+              30
+            ],
+            "masteryThreshold": 0.9,
+            "recycleOnMistake": true
+          }
+        },
+        {
+          "id": "es-u04-l02-food-needs",
+          "unitId": "es-u04",
+          "unitNumber": 4,
+          "title": "Food Needs",
+          "slug": "food-needs",
+          "locale": "es-PE",
+          "difficulty": "travel-beginner",
+          "summary": "Ask about spice, meat, and allergies.",
+          "objectives": [
+            "Say no meat",
+            "Ask if food is spicy",
+            "Mention an allergy"
+          ],
+          "vocabulary": [
+            {
+              "bn": "sin carne",
+              "roman": "sin carne",
+              "en": "no meat",
+              "tags": [
+                "food",
+                "travel-spanish",
+                "peru"
+              ]
+            },
+            {
+              "bn": "¿esto es picante?",
+              "roman": "¿esto es picante?",
+              "en": "is this spicy?",
+              "tags": [
+                "food",
+                "travel-spanish",
+                "peru"
+              ]
+            },
+            {
+              "bn": "tengo alergia a los maníes",
+              "roman": "tengo alergia a los maníes",
+              "en": "I have an allergy to peanuts",
+              "tags": [
+                "food",
+                "travel-spanish",
+                "peru"
+              ]
+            },
+            {
+              "bn": "no puedo comer eso",
+              "roman": "no puedo comer eso",
+              "en": "I cannot eat that",
+              "tags": [
+                "food",
+                "travel-spanish",
+                "peru"
+              ]
+            },
+            {
+              "bn": "solo verduras",
+              "roman": "solo verduras",
+              "en": "only vegetables",
+              "tags": [
+                "food",
+                "travel-spanish",
+                "peru"
+              ]
+            },
+            {
+              "bn": "muy rico",
+              "roman": "muy rico",
+              "en": "very delicious",
+              "tags": [
+                "food",
+                "travel-spanish",
+                "peru"
+              ]
+            }
+          ],
+          "grammar": [
+            {
+              "point": "Spoken travel phrase",
+              "notes": "Practice this as a practical phrase for Peru travel. Focus on speaking, listening, and meaning."
+            }
+          ],
+          "phrases": [
+            {
+              "id": "p-es-u04-l02-food-needs-01",
+              "romanized": "sin carne",
+              "english": "no meat",
+              "pronunciation": "seen KAR-neh",
+              "category": "food"
+            },
+            {
+              "id": "p-es-u04-l02-food-needs-02",
+              "romanized": "¿esto es picante?",
+              "english": "is this spicy?",
+              "pronunciation": "ES-toh es pee-KAHN-teh",
+              "category": "food"
+            },
+            {
+              "id": "p-es-u04-l02-food-needs-03",
+              "romanized": "tengo alergia a los maníes",
+              "english": "I have an allergy to peanuts",
+              "pronunciation": "TEN-goh ah-LER-hyah ah los mah-NEE-es",
+              "category": "food"
+            },
+            {
+              "id": "p-es-u04-l02-food-needs-04",
+              "romanized": "no puedo comer eso",
+              "english": "I cannot eat that",
+              "pronunciation": "no PWEH-doh koh-MER EH-soh",
+              "category": "food"
+            },
+            {
+              "id": "p-es-u04-l02-food-needs-05",
+              "romanized": "solo verduras",
+              "english": "only vegetables",
+              "pronunciation": "SOH-loh ver-DOO-rahs",
+              "category": "food"
+            },
+            {
+              "id": "p-es-u04-l02-food-needs-06",
+              "romanized": "muy rico",
+              "english": "very delicious",
+              "pronunciation": "mwee REE-koh",
+              "category": "food"
+            }
+          ],
+          "exercises": [
+            {
+              "id": "es-u04-l02-food-needs-ex-1",
+              "type": "multiple-choice",
+              "sourceType": "listenSelect",
+              "prompt": "Listen first. Then tap what you hear.",
+              "answer": "sin carne",
+              "options": [
+                "sin carne",
+                "¿esto es picante?",
+                "tengo alergia a los maníes",
+                "no puedo comer eso",
+                "solo verduras"
+              ],
+              "audioPromptId": "a1"
+            },
+            {
+              "id": "es-u04-l02-food-needs-ex-2",
+              "type": "multiple-choice",
+              "sourceType": "meaningSelect",
+              "prompt": "What does “¿esto es picante?” mean?",
+              "answer": "is this spicy?",
+              "options": [
+                "no meat",
+                "is this spicy?",
+                "I have an allergy to peanuts",
+                "I cannot eat that",
+                "only vegetables"
+              ],
+              "phraseId": "p-es-u04-l02-food-needs-02"
+            },
+            {
+              "id": "es-u04-l02-food-needs-ex-3",
+              "type": "translation",
+              "sourceType": "translateType",
+              "prompt": "Type the Spanish for “I have an allergy to peanuts”.",
+              "answer": "tengo alergia a los maníes",
+              "acceptedAnswers": [
+                "tengo alergia a los maníes"
+              ],
+              "phraseId": "p-es-u04-l02-food-needs-03"
+            },
+            {
+              "id": "es-u04-l02-food-needs-ex-4",
+              "type": "matching",
+              "sourceType": "tapMatch",
+              "prompt": "Match Spanish to English.",
+              "answer": "sin carne -> no meat, ¿esto es picante? -> is this spicy?, tengo alergia a los maníes -> I have an allergy to peanuts, no puedo comer eso -> I cannot eat that",
+              "pairs": [
+                {
+                  "left": "sin carne",
+                  "right": "no meat"
+                },
+                {
+                  "left": "¿esto es picante?",
+                  "right": "is this spicy?"
+                },
+                {
+                  "left": "tengo alergia a los maníes",
+                  "right": "I have an allergy to peanuts"
+                },
+                {
+                  "left": "no puedo comer eso",
+                  "right": "I cannot eat that"
+                }
+              ]
+            },
+            {
+              "id": "es-u04-l02-food-needs-ex-5",
+              "type": "multiple-choice",
+              "sourceType": "quickReply",
+              "prompt": "Choose the Spanish for “I cannot eat that”.",
+              "answer": "no puedo comer eso",
+              "options": [
+                "sin carne",
+                "¿esto es picante?",
+                "tengo alergia a los maníes",
+                "no puedo comer eso",
+                "solo verduras"
+              ],
+              "phraseId": "p-es-u04-l02-food-needs-04"
+            }
+          ],
+          "audioPrompts": [
+            {
+              "id": "a1",
+              "locale": "es-PE",
+              "voiceStyle": "warm-travel",
+              "textBn": "sin carne",
+              "roman": "sin carne",
+              "textEn": "no meat",
+              "speed": 0.9
+            },
+            {
+              "id": "a2",
+              "locale": "es-PE",
+              "voiceStyle": "warm-travel",
+              "textBn": "tengo alergia a los maníes",
+              "roman": "tengo alergia a los maníes",
+              "textEn": "I have an allergy to peanuts",
+              "speed": 0.92
+            },
+            {
+              "id": "a3",
+              "locale": "es-PE",
+              "voiceStyle": "warm-travel",
+              "textBn": "solo verduras",
+              "roman": "solo verduras",
+              "textEn": "only vegetables",
+              "speed": 0.92
+            }
+          ],
+          "uiText": {
+            "startCta": "Start lesson",
+            "lessonGoal": "Learn a few useful Peru travel phrases, then quiz them.",
+            "correct": "Nice work — that sounded travel-ready.",
+            "almost": "Almost — listen once more and try the phrase again.",
+            "complete": "Lesson complete. You can use these phrases on your trip."
+          },
+          "metadata": {
+            "estimatedMinutes": 7,
+            "difficulty": "travel-beginner",
+            "tags": [
+              "food",
+              "spanish-for-peru",
+              "spoken-phrases"
+            ],
+            "xp": 15,
+            "unlockAfter": [],
+            "assessment": {
+              "attempted": "Started the travel Spanish phrase lesson.",
+              "passed": "Understood the key meanings.",
+              "strong": "Answered with only one or two misses.",
+              "mastered": "Answered accurately after a later review."
+            }
+          },
+          "reviewSchedule": {
+            "initialReviewDays": [
+              1,
+              3,
+              7,
+              14,
+              30
+            ],
+            "masteryThreshold": 0.9,
+            "recycleOnMistake": true
+          }
+        }
+      ],
+      "lessonIds": [
+        "es-u04-l01-ordering-food",
+        "es-u04-l02-food-needs"
+      ],
+      "checkpointLessonId": "es-u04-l02-food-needs",
+      "metadata": {
+        "difficultyBand": "beginner-travel",
+        "estimatedTotalMinutes": 13,
+        "tags": [
+          "spanish-for-peru",
+          "travel",
+          "spoken-phrases"
+        ]
+      }
+    },
+    {
+      "id": "es-u05",
+      "number": 5,
+      "title": "Hotels and Tours",
+      "description": "Manage reservations, tour times, meeting points, and repeats.",
+      "lessons": [
+        {
+          "id": "es-u05-l01-hotel-basics",
+          "unitId": "es-u05",
+          "unitNumber": 5,
+          "title": "Hotel Basics",
+          "slug": "hotel-basics",
+          "locale": "es-PE",
+          "difficulty": "travel-beginner",
+          "summary": "Check in and ask basic hotel questions.",
+          "objectives": [
+            "Say you have a reservation",
+            "Ask breakfast time",
+            "Ask for help"
+          ],
+          "vocabulary": [
+            {
+              "bn": "tengo una reserva",
+              "roman": "tengo una reserva",
+              "en": "I have a reservation",
+              "tags": [
+                "hotel",
+                "travel-spanish",
+                "peru"
+              ]
+            },
+            {
+              "bn": "la reserva está a nombre de Rachel",
+              "roman": "la reserva está a nombre de Rachel",
+              "en": "the reservation is under Rachel",
+              "tags": [
+                "hotel",
+                "travel-spanish",
+                "peru"
+              ]
+            },
+            {
+              "bn": "¿a qué hora es el desayuno?",
+              "roman": "¿a qué hora es el desayuno?",
+              "en": "what time is breakfast?",
+              "tags": [
+                "hotel",
+                "travel-spanish",
+                "peru"
+              ]
+            },
+            {
+              "bn": "necesito ayuda",
+              "roman": "necesito ayuda",
+              "en": "I need help",
+              "tags": [
+                "hotel",
+                "travel-spanish",
+                "peru"
+              ]
+            },
+            {
+              "bn": "la llave, por favor",
+              "roman": "la llave, por favor",
+              "en": "the key, please",
+              "tags": [
+                "hotel",
+                "travel-spanish",
+                "peru"
+              ]
+            },
+            {
+              "bn": "¿hay wifi?",
+              "roman": "¿hay wifi?",
+              "en": "is there wifi?",
+              "tags": [
+                "hotel",
+                "travel-spanish",
+                "peru"
+              ]
+            }
+          ],
+          "grammar": [
+            {
+              "point": "Spoken travel phrase",
+              "notes": "Practice this as a practical phrase for Peru travel. Focus on speaking, listening, and meaning."
+            }
+          ],
+          "phrases": [
+            {
+              "id": "p-es-u05-l01-hotel-basics-01",
+              "romanized": "tengo una reserva",
+              "english": "I have a reservation",
+              "pronunciation": "TEN-goh OO-nah reh-SER-vah",
+              "category": "hotel"
+            },
+            {
+              "id": "p-es-u05-l01-hotel-basics-02",
+              "romanized": "la reserva está a nombre de Rachel",
+              "english": "the reservation is under Rachel",
+              "pronunciation": "lah reh-SER-vah es-TA ah NOM-breh deh Rachel",
+              "category": "hotel"
+            },
+            {
+              "id": "p-es-u05-l01-hotel-basics-03",
+              "romanized": "¿a qué hora es el desayuno?",
+              "english": "what time is breakfast?",
+              "pronunciation": "ah keh OH-rah es el deh-sah-YOO-noh",
+              "category": "hotel"
+            },
+            {
+              "id": "p-es-u05-l01-hotel-basics-04",
+              "romanized": "necesito ayuda",
+              "english": "I need help",
+              "pronunciation": "neh-seh-SEE-toh ah-YOO-dah",
+              "category": "hotel"
+            },
+            {
+              "id": "p-es-u05-l01-hotel-basics-05",
+              "romanized": "la llave, por favor",
+              "english": "the key, please",
+              "pronunciation": "lah YAH-veh por fah-VOR",
+              "category": "hotel"
+            },
+            {
+              "id": "p-es-u05-l01-hotel-basics-06",
+              "romanized": "¿hay wifi?",
+              "english": "is there wifi?",
+              "pronunciation": "eye WEE-fee",
+              "category": "hotel"
+            }
+          ],
+          "exercises": [
+            {
+              "id": "es-u05-l01-hotel-basics-ex-1",
+              "type": "multiple-choice",
+              "sourceType": "listenSelect",
+              "prompt": "Listen first. Then tap what you hear.",
+              "answer": "tengo una reserva",
+              "options": [
+                "tengo una reserva",
+                "la reserva está a nombre de Rachel",
+                "¿a qué hora es el desayuno?",
+                "necesito ayuda",
+                "la llave, por favor"
+              ],
+              "audioPromptId": "a1"
+            },
+            {
+              "id": "es-u05-l01-hotel-basics-ex-2",
+              "type": "multiple-choice",
+              "sourceType": "meaningSelect",
+              "prompt": "What does “la reserva está a nombre de Rachel” mean?",
+              "answer": "the reservation is under Rachel",
+              "options": [
+                "I have a reservation",
+                "the reservation is under Rachel",
+                "what time is breakfast?",
+                "I need help",
+                "the key, please"
+              ],
+              "phraseId": "p-es-u05-l01-hotel-basics-02"
+            },
+            {
+              "id": "es-u05-l01-hotel-basics-ex-3",
+              "type": "translation",
+              "sourceType": "translateType",
+              "prompt": "Type the Spanish for “what time is breakfast?”.",
+              "answer": "¿a qué hora es el desayuno?",
+              "acceptedAnswers": [
+                "¿a qué hora es el desayuno?"
+              ],
+              "phraseId": "p-es-u05-l01-hotel-basics-03"
+            },
+            {
+              "id": "es-u05-l01-hotel-basics-ex-4",
+              "type": "matching",
+              "sourceType": "tapMatch",
+              "prompt": "Match Spanish to English.",
+              "answer": "tengo una reserva -> I have a reservation, la reserva está a nombre de Rachel -> the reservation is under Rachel, ¿a qué hora es el desayuno? -> what time is breakfast?, necesito ayuda -> I need help",
+              "pairs": [
+                {
+                  "left": "tengo una reserva",
+                  "right": "I have a reservation"
+                },
+                {
+                  "left": "la reserva está a nombre de Rachel",
+                  "right": "the reservation is under Rachel"
+                },
+                {
+                  "left": "¿a qué hora es el desayuno?",
+                  "right": "what time is breakfast?"
+                },
+                {
+                  "left": "necesito ayuda",
+                  "right": "I need help"
+                }
+              ]
+            },
+            {
+              "id": "es-u05-l01-hotel-basics-ex-5",
+              "type": "multiple-choice",
+              "sourceType": "quickReply",
+              "prompt": "Choose the Spanish for “I need help”.",
+              "answer": "necesito ayuda",
+              "options": [
+                "tengo una reserva",
+                "la reserva está a nombre de Rachel",
+                "¿a qué hora es el desayuno?",
+                "necesito ayuda",
+                "la llave, por favor"
+              ],
+              "phraseId": "p-es-u05-l01-hotel-basics-04"
+            }
+          ],
+          "audioPrompts": [
+            {
+              "id": "a1",
+              "locale": "es-PE",
+              "voiceStyle": "warm-travel",
+              "textBn": "tengo una reserva",
+              "roman": "tengo una reserva",
+              "textEn": "I have a reservation",
+              "speed": 0.9
+            },
+            {
+              "id": "a2",
+              "locale": "es-PE",
+              "voiceStyle": "warm-travel",
+              "textBn": "¿a qué hora es el desayuno?",
+              "roman": "¿a qué hora es el desayuno?",
+              "textEn": "what time is breakfast?",
+              "speed": 0.92
+            },
+            {
+              "id": "a3",
+              "locale": "es-PE",
+              "voiceStyle": "warm-travel",
+              "textBn": "la llave, por favor",
+              "roman": "la llave, por favor",
+              "textEn": "the key, please",
+              "speed": 0.92
+            }
+          ],
+          "uiText": {
+            "startCta": "Start lesson",
+            "lessonGoal": "Learn a few useful Peru travel phrases, then quiz them.",
+            "correct": "Nice work — that sounded travel-ready.",
+            "almost": "Almost — listen once more and try the phrase again.",
+            "complete": "Lesson complete. You can use these phrases on your trip."
+          },
+          "metadata": {
+            "estimatedMinutes": 6,
+            "difficulty": "travel-beginner",
+            "tags": [
+              "hotel",
+              "spanish-for-peru",
+              "spoken-phrases"
+            ],
+            "xp": 15,
+            "unlockAfter": [],
+            "assessment": {
+              "attempted": "Started the travel Spanish phrase lesson.",
+              "passed": "Understood the key meanings.",
+              "strong": "Answered with only one or two misses.",
+              "mastered": "Answered accurately after a later review."
+            }
+          },
+          "reviewSchedule": {
+            "initialReviewDays": [
+              1,
+              3,
+              7,
+              14,
+              30
+            ],
+            "masteryThreshold": 0.9,
+            "recycleOnMistake": true
+          }
+        },
+        {
+          "id": "es-u05-l02-tour-questions",
+          "unitId": "es-u05",
+          "unitNumber": 5,
+          "title": "Tour Questions",
+          "slug": "tour-questions",
+          "locale": "es-PE",
+          "difficulty": "travel-beginner",
+          "summary": "Ask when to leave, where to meet, and request repetition.",
+          "objectives": [
+            "Ask departure time",
+            "Ask where to meet",
+            "Ask someone to repeat"
+          ],
+          "vocabulary": [
+            {
+              "bn": "¿a qué hora salimos?",
+              "roman": "¿a qué hora salimos?",
+              "en": "what time do we leave?",
+              "tags": [
+                "hotel",
+                "travel-spanish",
+                "peru"
+              ]
+            },
+            {
+              "bn": "¿dónde nos encontramos?",
+              "roman": "¿dónde nos encontramos?",
+              "en": "where do we meet?",
+              "tags": [
+                "hotel",
+                "travel-spanish",
+                "peru"
+              ]
+            },
+            {
+              "bn": "¿puede repetir eso?",
+              "roman": "¿puede repetir eso?",
+              "en": "can you repeat that?",
+              "tags": [
+                "hotel",
+                "travel-spanish",
+                "peru"
+              ]
+            },
+            {
+              "bn": "un momento, por favor",
+              "roman": "un momento, por favor",
+              "en": "one moment, please",
+              "tags": [
+                "hotel",
+                "travel-spanish",
+                "peru"
+              ]
+            },
+            {
+              "bn": "¿incluye transporte?",
+              "roman": "¿incluye transporte?",
+              "en": "does it include transportation?",
+              "tags": [
+                "hotel",
+                "travel-spanish",
+                "peru"
+              ]
+            },
+            {
+              "bn": "estoy lista",
+              "roman": "estoy lista",
+              "en": "I am ready",
+              "tags": [
+                "hotel",
+                "travel-spanish",
+                "peru"
+              ]
+            }
+          ],
+          "grammar": [
+            {
+              "point": "Spoken travel phrase",
+              "notes": "Practice this as a practical phrase for Peru travel. Focus on speaking, listening, and meaning."
+            }
+          ],
+          "phrases": [
+            {
+              "id": "p-es-u05-l02-tour-questions-01",
+              "romanized": "¿a qué hora salimos?",
+              "english": "what time do we leave?",
+              "pronunciation": "ah keh OH-rah sah-LEE-mos",
+              "category": "hotel"
+            },
+            {
+              "id": "p-es-u05-l02-tour-questions-02",
+              "romanized": "¿dónde nos encontramos?",
+              "english": "where do we meet?",
+              "pronunciation": "DON-deh nos en-kon-TRAH-mos",
+              "category": "hotel"
+            },
+            {
+              "id": "p-es-u05-l02-tour-questions-03",
+              "romanized": "¿puede repetir eso?",
+              "english": "can you repeat that?",
+              "pronunciation": "PWEH-deh reh-peh-TEER EH-soh",
+              "category": "hotel"
+            },
+            {
+              "id": "p-es-u05-l02-tour-questions-04",
+              "romanized": "un momento, por favor",
+              "english": "one moment, please",
+              "pronunciation": "oon moh-MEN-toh por fah-VOR",
+              "category": "hotel"
+            },
+            {
+              "id": "p-es-u05-l02-tour-questions-05",
+              "romanized": "¿incluye transporte?",
+              "english": "does it include transportation?",
+              "pronunciation": "een-KLOO-yeh trans-POR-teh",
+              "category": "hotel"
+            },
+            {
+              "id": "p-es-u05-l02-tour-questions-06",
+              "romanized": "estoy lista",
+              "english": "I am ready",
+              "pronunciation": "es-TOY LEES-tah",
+              "category": "hotel"
+            }
+          ],
+          "exercises": [
+            {
+              "id": "es-u05-l02-tour-questions-ex-1",
+              "type": "multiple-choice",
+              "sourceType": "listenSelect",
+              "prompt": "Listen first. Then tap what you hear.",
+              "answer": "¿a qué hora salimos?",
+              "options": [
+                "¿a qué hora salimos?",
+                "¿dónde nos encontramos?",
+                "¿puede repetir eso?",
+                "un momento, por favor",
+                "¿incluye transporte?"
+              ],
+              "audioPromptId": "a1"
+            },
+            {
+              "id": "es-u05-l02-tour-questions-ex-2",
+              "type": "multiple-choice",
+              "sourceType": "meaningSelect",
+              "prompt": "What does “¿dónde nos encontramos?” mean?",
+              "answer": "where do we meet?",
+              "options": [
+                "what time do we leave?",
+                "where do we meet?",
+                "can you repeat that?",
+                "one moment, please",
+                "does it include transportation?"
+              ],
+              "phraseId": "p-es-u05-l02-tour-questions-02"
+            },
+            {
+              "id": "es-u05-l02-tour-questions-ex-3",
+              "type": "translation",
+              "sourceType": "translateType",
+              "prompt": "Type the Spanish for “can you repeat that?”.",
+              "answer": "¿puede repetir eso?",
+              "acceptedAnswers": [
+                "¿puede repetir eso?"
+              ],
+              "phraseId": "p-es-u05-l02-tour-questions-03"
+            },
+            {
+              "id": "es-u05-l02-tour-questions-ex-4",
+              "type": "matching",
+              "sourceType": "tapMatch",
+              "prompt": "Match Spanish to English.",
+              "answer": "¿a qué hora salimos? -> what time do we leave?, ¿dónde nos encontramos? -> where do we meet?, ¿puede repetir eso? -> can you repeat that?, un momento, por favor -> one moment, please",
+              "pairs": [
+                {
+                  "left": "¿a qué hora salimos?",
+                  "right": "what time do we leave?"
+                },
+                {
+                  "left": "¿dónde nos encontramos?",
+                  "right": "where do we meet?"
+                },
+                {
+                  "left": "¿puede repetir eso?",
+                  "right": "can you repeat that?"
+                },
+                {
+                  "left": "un momento, por favor",
+                  "right": "one moment, please"
+                }
+              ]
+            },
+            {
+              "id": "es-u05-l02-tour-questions-ex-5",
+              "type": "multiple-choice",
+              "sourceType": "quickReply",
+              "prompt": "Choose the Spanish for “one moment, please”.",
+              "answer": "un momento, por favor",
+              "options": [
+                "¿a qué hora salimos?",
+                "¿dónde nos encontramos?",
+                "¿puede repetir eso?",
+                "un momento, por favor",
+                "¿incluye transporte?"
+              ],
+              "phraseId": "p-es-u05-l02-tour-questions-04"
+            }
+          ],
+          "audioPrompts": [
+            {
+              "id": "a1",
+              "locale": "es-PE",
+              "voiceStyle": "warm-travel",
+              "textBn": "¿a qué hora salimos?",
+              "roman": "¿a qué hora salimos?",
+              "textEn": "what time do we leave?",
+              "speed": 0.9
+            },
+            {
+              "id": "a2",
+              "locale": "es-PE",
+              "voiceStyle": "warm-travel",
+              "textBn": "¿puede repetir eso?",
+              "roman": "¿puede repetir eso?",
+              "textEn": "can you repeat that?",
+              "speed": 0.92
+            },
+            {
+              "id": "a3",
+              "locale": "es-PE",
+              "voiceStyle": "warm-travel",
+              "textBn": "¿incluye transporte?",
+              "roman": "¿incluye transporte?",
+              "textEn": "does it include transportation?",
+              "speed": 0.92
+            }
+          ],
+          "uiText": {
+            "startCta": "Start lesson",
+            "lessonGoal": "Learn a few useful Peru travel phrases, then quiz them.",
+            "correct": "Nice work — that sounded travel-ready.",
+            "almost": "Almost — listen once more and try the phrase again.",
+            "complete": "Lesson complete. You can use these phrases on your trip."
+          },
+          "metadata": {
+            "estimatedMinutes": 7,
+            "difficulty": "travel-beginner",
+            "tags": [
+              "hotel",
+              "spanish-for-peru",
+              "spoken-phrases"
+            ],
+            "xp": 15,
+            "unlockAfter": [],
+            "assessment": {
+              "attempted": "Started the travel Spanish phrase lesson.",
+              "passed": "Understood the key meanings.",
+              "strong": "Answered with only one or two misses.",
+              "mastered": "Answered accurately after a later review."
+            }
+          },
+          "reviewSchedule": {
+            "initialReviewDays": [
+              1,
+              3,
+              7,
+              14,
+              30
+            ],
+            "masteryThreshold": 0.9,
+            "recycleOnMistake": true
+          }
+        }
+      ],
+      "lessonIds": [
+        "es-u05-l01-hotel-basics",
+        "es-u05-l02-tour-questions"
+      ],
+      "checkpointLessonId": "es-u05-l02-tour-questions",
+      "metadata": {
+        "difficultyBand": "survival-travel",
+        "estimatedTotalMinutes": 13,
+        "tags": [
+          "spanish-for-peru",
+          "travel",
+          "spoken-phrases"
+        ]
+      }
+    },
+    {
+      "id": "es-u06",
+      "number": 6,
+      "title": "Shopping and Markets",
+      "description": "Shop politely in markets and ask about prices and payment.",
+      "lessons": [
+        {
+          "id": "es-u06-l01-market-prices",
+          "unitId": "es-u06",
+          "unitNumber": 6,
+          "title": "Market Prices",
+          "slug": "market-prices",
+          "locale": "es-PE",
+          "difficulty": "travel-beginner",
+          "summary": "Ask prices and respond naturally while browsing.",
+          "objectives": [
+            "Ask how much something costs",
+            "Say it is too expensive",
+            "Say you are just looking"
+          ],
+          "vocabulary": [
+            {
+              "bn": "¿cuánto cuesta esto?",
+              "roman": "¿cuánto cuesta esto?",
+              "en": "how much is this?",
+              "tags": [
+                "shopping",
+                "travel-spanish",
+                "peru"
+              ]
+            },
+            {
+              "bn": "es muy caro",
+              "roman": "es muy caro",
+              "en": "it is too expensive",
+              "tags": [
+                "shopping",
+                "travel-spanish",
+                "peru"
+              ]
+            },
+            {
+              "bn": "solo estoy mirando",
+              "roman": "solo estoy mirando",
+              "en": "I am just looking",
+              "tags": [
+                "shopping",
+                "travel-spanish",
+                "peru"
+              ]
+            },
+            {
+              "bn": "me gusta esto",
+              "roman": "me gusta esto",
+              "en": "I like this",
+              "tags": [
+                "shopping",
+                "travel-spanish",
+                "peru"
+              ]
+            },
+            {
+              "bn": "¿tiene otro color?",
+              "roman": "¿tiene otro color?",
+              "en": "do you have another color?",
+              "tags": [
+                "shopping",
+                "travel-spanish",
+                "peru"
+              ]
+            },
+            {
+              "bn": "gracias, vuelvo luego",
+              "roman": "gracias, vuelvo luego",
+              "en": "thanks, I will come back later",
+              "tags": [
+                "shopping",
+                "travel-spanish",
+                "peru"
+              ]
+            }
+          ],
+          "grammar": [
+            {
+              "point": "Spoken travel phrase",
+              "notes": "Practice this as a practical phrase for Peru travel. Focus on speaking, listening, and meaning."
+            }
+          ],
+          "phrases": [
+            {
+              "id": "p-es-u06-l01-market-prices-01",
+              "romanized": "¿cuánto cuesta esto?",
+              "english": "how much is this?",
+              "pronunciation": "KWAN-toh KWES-tah ES-toh",
+              "category": "shopping"
+            },
+            {
+              "id": "p-es-u06-l01-market-prices-02",
+              "romanized": "es muy caro",
+              "english": "it is too expensive",
+              "pronunciation": "es mwee KAH-roh",
+              "category": "shopping"
+            },
+            {
+              "id": "p-es-u06-l01-market-prices-03",
+              "romanized": "solo estoy mirando",
+              "english": "I am just looking",
+              "pronunciation": "SOH-loh es-TOY mee-RAHN-doh",
+              "category": "shopping"
+            },
+            {
+              "id": "p-es-u06-l01-market-prices-04",
+              "romanized": "me gusta esto",
+              "english": "I like this",
+              "pronunciation": "meh GOOS-tah ES-toh",
+              "category": "shopping"
+            },
+            {
+              "id": "p-es-u06-l01-market-prices-05",
+              "romanized": "¿tiene otro color?",
+              "english": "do you have another color?",
+              "pronunciation": "TYEH-neh OH-troh koh-LOR",
+              "category": "shopping"
+            },
+            {
+              "id": "p-es-u06-l01-market-prices-06",
+              "romanized": "gracias, vuelvo luego",
+              "english": "thanks, I will come back later",
+              "pronunciation": "GRAH-see-as VWEL-voh LWEH-goh",
+              "category": "shopping"
+            }
+          ],
+          "exercises": [
+            {
+              "id": "es-u06-l01-market-prices-ex-1",
+              "type": "multiple-choice",
+              "sourceType": "listenSelect",
+              "prompt": "Listen first. Then tap what you hear.",
+              "answer": "¿cuánto cuesta esto?",
+              "options": [
+                "¿cuánto cuesta esto?",
+                "es muy caro",
+                "solo estoy mirando",
+                "me gusta esto",
+                "¿tiene otro color?"
+              ],
+              "audioPromptId": "a1"
+            },
+            {
+              "id": "es-u06-l01-market-prices-ex-2",
+              "type": "multiple-choice",
+              "sourceType": "meaningSelect",
+              "prompt": "What does “es muy caro” mean?",
+              "answer": "it is too expensive",
+              "options": [
+                "how much is this?",
+                "it is too expensive",
+                "I am just looking",
+                "I like this",
+                "do you have another color?"
+              ],
+              "phraseId": "p-es-u06-l01-market-prices-02"
+            },
+            {
+              "id": "es-u06-l01-market-prices-ex-3",
+              "type": "translation",
+              "sourceType": "translateType",
+              "prompt": "Type the Spanish for “I am just looking”.",
+              "answer": "solo estoy mirando",
+              "acceptedAnswers": [
+                "solo estoy mirando"
+              ],
+              "phraseId": "p-es-u06-l01-market-prices-03"
+            },
+            {
+              "id": "es-u06-l01-market-prices-ex-4",
+              "type": "matching",
+              "sourceType": "tapMatch",
+              "prompt": "Match Spanish to English.",
+              "answer": "¿cuánto cuesta esto? -> how much is this?, es muy caro -> it is too expensive, solo estoy mirando -> I am just looking, me gusta esto -> I like this",
+              "pairs": [
+                {
+                  "left": "¿cuánto cuesta esto?",
+                  "right": "how much is this?"
+                },
+                {
+                  "left": "es muy caro",
+                  "right": "it is too expensive"
+                },
+                {
+                  "left": "solo estoy mirando",
+                  "right": "I am just looking"
+                },
+                {
+                  "left": "me gusta esto",
+                  "right": "I like this"
+                }
+              ]
+            },
+            {
+              "id": "es-u06-l01-market-prices-ex-5",
+              "type": "multiple-choice",
+              "sourceType": "quickReply",
+              "prompt": "Choose the Spanish for “I like this”.",
+              "answer": "me gusta esto",
+              "options": [
+                "¿cuánto cuesta esto?",
+                "es muy caro",
+                "solo estoy mirando",
+                "me gusta esto",
+                "¿tiene otro color?"
+              ],
+              "phraseId": "p-es-u06-l01-market-prices-04"
+            }
+          ],
+          "audioPrompts": [
+            {
+              "id": "a1",
+              "locale": "es-PE",
+              "voiceStyle": "warm-travel",
+              "textBn": "¿cuánto cuesta esto?",
+              "roman": "¿cuánto cuesta esto?",
+              "textEn": "how much is this?",
+              "speed": 0.9
+            },
+            {
+              "id": "a2",
+              "locale": "es-PE",
+              "voiceStyle": "warm-travel",
+              "textBn": "solo estoy mirando",
+              "roman": "solo estoy mirando",
+              "textEn": "I am just looking",
+              "speed": 0.92
+            },
+            {
+              "id": "a3",
+              "locale": "es-PE",
+              "voiceStyle": "warm-travel",
+              "textBn": "¿tiene otro color?",
+              "roman": "¿tiene otro color?",
+              "textEn": "do you have another color?",
+              "speed": 0.92
+            }
+          ],
+          "uiText": {
+            "startCta": "Start lesson",
+            "lessonGoal": "Learn a few useful Peru travel phrases, then quiz them.",
+            "correct": "Nice work — that sounded travel-ready.",
+            "almost": "Almost — listen once more and try the phrase again.",
+            "complete": "Lesson complete. You can use these phrases on your trip."
+          },
+          "metadata": {
+            "estimatedMinutes": 6,
+            "difficulty": "travel-beginner",
+            "tags": [
+              "shopping",
+              "spanish-for-peru",
+              "spoken-phrases"
+            ],
+            "xp": 15,
+            "unlockAfter": [],
+            "assessment": {
+              "attempted": "Started the travel Spanish phrase lesson.",
+              "passed": "Understood the key meanings.",
+              "strong": "Answered with only one or two misses.",
+              "mastered": "Answered accurately after a later review."
+            }
+          },
+          "reviewSchedule": {
+            "initialReviewDays": [
+              1,
+              3,
+              7,
+              14,
+              30
+            ],
+            "masteryThreshold": 0.9,
+            "recycleOnMistake": true
+          }
+        },
+        {
+          "id": "es-u06-l02-buying-and-paying",
+          "unitId": "es-u06",
+          "unitNumber": 6,
+          "title": "Buying and Paying",
+          "slug": "buying-and-paying",
+          "locale": "es-PE",
+          "difficulty": "travel-beginner",
+          "summary": "Ask for a discount and pay with cash or card.",
+          "objectives": [
+            "Ask for a discount",
+            "Say you will take something",
+            "Ask about card or cash"
+          ],
+          "vocabulary": [
+            {
+              "bn": "¿me puede hacer un descuento?",
+              "roman": "¿me puede hacer un descuento?",
+              "en": "can you give me a discount?",
+              "tags": [
+                "shopping",
+                "travel-spanish",
+                "peru"
+              ]
+            },
+            {
+              "bn": "me llevo esto",
+              "roman": "me llevo esto",
+              "en": "I will take this",
+              "tags": [
+                "shopping",
+                "travel-spanish",
+                "peru"
+              ]
+            },
+            {
+              "bn": "pago en efectivo",
+              "roman": "pago en efectivo",
+              "en": "I pay in cash",
+              "tags": [
+                "shopping",
+                "travel-spanish",
+                "peru"
+              ]
+            },
+            {
+              "bn": "¿acepta tarjeta?",
+              "roman": "¿acepta tarjeta?",
+              "en": "do you accept card?",
+              "tags": [
+                "shopping",
+                "travel-spanish",
+                "peru"
+              ]
+            },
+            {
+              "bn": "necesito una bolsa",
+              "roman": "necesito una bolsa",
+              "en": "I need a bag",
+              "tags": [
+                "shopping",
+                "travel-spanish",
+                "peru"
+              ]
+            },
+            {
+              "bn": "está bien, gracias",
+              "roman": "está bien, gracias",
+              "en": "that is okay, thanks",
+              "tags": [
+                "shopping",
+                "travel-spanish",
+                "peru"
+              ]
+            }
+          ],
+          "grammar": [
+            {
+              "point": "Spoken travel phrase",
+              "notes": "Practice this as a practical phrase for Peru travel. Focus on speaking, listening, and meaning."
+            }
+          ],
+          "phrases": [
+            {
+              "id": "p-es-u06-l02-buying-and-paying-01",
+              "romanized": "¿me puede hacer un descuento?",
+              "english": "can you give me a discount?",
+              "pronunciation": "meh PWEH-deh ah-SER oon des-KWEN-toh",
+              "category": "shopping"
+            },
+            {
+              "id": "p-es-u06-l02-buying-and-paying-02",
+              "romanized": "me llevo esto",
+              "english": "I will take this",
+              "pronunciation": "meh YEH-voh ES-toh",
+              "category": "shopping"
+            },
+            {
+              "id": "p-es-u06-l02-buying-and-paying-03",
+              "romanized": "pago en efectivo",
+              "english": "I pay in cash",
+              "pronunciation": "PAH-goh en eh-fek-TEE-voh",
+              "category": "shopping"
+            },
+            {
+              "id": "p-es-u06-l02-buying-and-paying-04",
+              "romanized": "¿acepta tarjeta?",
+              "english": "do you accept card?",
+              "pronunciation": "ak-SEP-tah tar-HEH-tah",
+              "category": "shopping"
+            },
+            {
+              "id": "p-es-u06-l02-buying-and-paying-05",
+              "romanized": "necesito una bolsa",
+              "english": "I need a bag",
+              "pronunciation": "neh-seh-SEE-toh OO-nah BOL-sah",
+              "category": "shopping"
+            },
+            {
+              "id": "p-es-u06-l02-buying-and-paying-06",
+              "romanized": "está bien, gracias",
+              "english": "that is okay, thanks",
+              "pronunciation": "es-TA byen GRAH-see-as",
+              "category": "shopping"
+            }
+          ],
+          "exercises": [
+            {
+              "id": "es-u06-l02-buying-and-paying-ex-1",
+              "type": "multiple-choice",
+              "sourceType": "listenSelect",
+              "prompt": "Listen first. Then tap what you hear.",
+              "answer": "¿me puede hacer un descuento?",
+              "options": [
+                "¿me puede hacer un descuento?",
+                "me llevo esto",
+                "pago en efectivo",
+                "¿acepta tarjeta?",
+                "necesito una bolsa"
+              ],
+              "audioPromptId": "a1"
+            },
+            {
+              "id": "es-u06-l02-buying-and-paying-ex-2",
+              "type": "multiple-choice",
+              "sourceType": "meaningSelect",
+              "prompt": "What does “me llevo esto” mean?",
+              "answer": "I will take this",
+              "options": [
+                "can you give me a discount?",
+                "I will take this",
+                "I pay in cash",
+                "do you accept card?",
+                "I need a bag"
+              ],
+              "phraseId": "p-es-u06-l02-buying-and-paying-02"
+            },
+            {
+              "id": "es-u06-l02-buying-and-paying-ex-3",
+              "type": "translation",
+              "sourceType": "translateType",
+              "prompt": "Type the Spanish for “I pay in cash”.",
+              "answer": "pago en efectivo",
+              "acceptedAnswers": [
+                "pago en efectivo"
+              ],
+              "phraseId": "p-es-u06-l02-buying-and-paying-03"
+            },
+            {
+              "id": "es-u06-l02-buying-and-paying-ex-4",
+              "type": "matching",
+              "sourceType": "tapMatch",
+              "prompt": "Match Spanish to English.",
+              "answer": "¿me puede hacer un descuento? -> can you give me a discount?, me llevo esto -> I will take this, pago en efectivo -> I pay in cash, ¿acepta tarjeta? -> do you accept card?",
+              "pairs": [
+                {
+                  "left": "¿me puede hacer un descuento?",
+                  "right": "can you give me a discount?"
+                },
+                {
+                  "left": "me llevo esto",
+                  "right": "I will take this"
+                },
+                {
+                  "left": "pago en efectivo",
+                  "right": "I pay in cash"
+                },
+                {
+                  "left": "¿acepta tarjeta?",
+                  "right": "do you accept card?"
+                }
+              ]
+            },
+            {
+              "id": "es-u06-l02-buying-and-paying-ex-5",
+              "type": "multiple-choice",
+              "sourceType": "quickReply",
+              "prompt": "Choose the Spanish for “do you accept card?”.",
+              "answer": "¿acepta tarjeta?",
+              "options": [
+                "¿me puede hacer un descuento?",
+                "me llevo esto",
+                "pago en efectivo",
+                "¿acepta tarjeta?",
+                "necesito una bolsa"
+              ],
+              "phraseId": "p-es-u06-l02-buying-and-paying-04"
+            }
+          ],
+          "audioPrompts": [
+            {
+              "id": "a1",
+              "locale": "es-PE",
+              "voiceStyle": "warm-travel",
+              "textBn": "¿me puede hacer un descuento?",
+              "roman": "¿me puede hacer un descuento?",
+              "textEn": "can you give me a discount?",
+              "speed": 0.9
+            },
+            {
+              "id": "a2",
+              "locale": "es-PE",
+              "voiceStyle": "warm-travel",
+              "textBn": "pago en efectivo",
+              "roman": "pago en efectivo",
+              "textEn": "I pay in cash",
+              "speed": 0.92
+            },
+            {
+              "id": "a3",
+              "locale": "es-PE",
+              "voiceStyle": "warm-travel",
+              "textBn": "necesito una bolsa",
+              "roman": "necesito una bolsa",
+              "textEn": "I need a bag",
+              "speed": 0.92
+            }
+          ],
+          "uiText": {
+            "startCta": "Start lesson",
+            "lessonGoal": "Learn a few useful Peru travel phrases, then quiz them.",
+            "correct": "Nice work — that sounded travel-ready.",
+            "almost": "Almost — listen once more and try the phrase again.",
+            "complete": "Lesson complete. You can use these phrases on your trip."
+          },
+          "metadata": {
+            "estimatedMinutes": 7,
+            "difficulty": "travel-beginner",
+            "tags": [
+              "shopping",
+              "spanish-for-peru",
+              "spoken-phrases"
+            ],
+            "xp": 15,
+            "unlockAfter": [],
+            "assessment": {
+              "attempted": "Started the travel Spanish phrase lesson.",
+              "passed": "Understood the key meanings.",
+              "strong": "Answered with only one or two misses.",
+              "mastered": "Answered accurately after a later review."
+            }
+          },
+          "reviewSchedule": {
+            "initialReviewDays": [
+              1,
+              3,
+              7,
+              14,
+              30
+            ],
+            "masteryThreshold": 0.9,
+            "recycleOnMistake": true
+          }
+        }
+      ],
+      "lessonIds": [
+        "es-u06-l01-market-prices",
+        "es-u06-l02-buying-and-paying"
+      ],
+      "checkpointLessonId": "es-u06-l02-buying-and-paying",
+      "metadata": {
+        "difficultyBand": "survival-travel",
+        "estimatedTotalMinutes": 13,
+        "tags": [
+          "spanish-for-peru",
+          "travel",
+          "spoken-phrases"
+        ]
+      }
+    },
+    {
+      "id": "es-u07",
+      "number": 7,
+      "title": "Emergencies and Problems",
+      "description": "Get help when something goes wrong.",
+      "lessons": [
+        {
+          "id": "es-u07-l01-help-and-health",
+          "unitId": "es-u07",
+          "unitNumber": 7,
+          "title": "Help and Health",
+          "slug": "help-and-health",
+          "locale": "es-PE",
+          "difficulty": "survival-travel",
+          "summary": "Say you need help, feel sick, or need a doctor.",
+          "objectives": [
+            "Ask for help urgently",
+            "Say you are sick",
+            "Ask for a doctor or pharmacy"
+          ],
+          "vocabulary": [
+            {
+              "bn": "ayuda, por favor",
+              "roman": "ayuda, por favor",
+              "en": "help, please",
+              "tags": [
+                "emergency",
+                "travel-spanish",
+                "peru"
+              ]
+            },
+            {
+              "bn": "estoy perdida",
+              "roman": "estoy perdida",
+              "en": "I am lost",
+              "tags": [
+                "emergency",
+                "travel-spanish",
+                "peru"
+              ]
+            },
+            {
+              "bn": "estoy enferma",
+              "roman": "estoy enferma",
+              "en": "I am sick",
+              "tags": [
+                "emergency",
+                "travel-spanish",
+                "peru"
+              ]
+            },
+            {
+              "bn": "llame a un doctor",
+              "roman": "llame a un doctor",
+              "en": "call a doctor",
+              "tags": [
+                "emergency",
+                "travel-spanish",
+                "peru"
+              ]
+            },
+            {
+              "bn": "¿dónde está la farmacia?",
+              "roman": "¿dónde está la farmacia?",
+              "en": "where is the pharmacy?",
+              "tags": [
+                "emergency",
+                "travel-spanish",
+                "peru"
+              ]
+            },
+            {
+              "bn": "me duele la cabeza",
+              "roman": "me duele la cabeza",
+              "en": "my head hurts",
+              "tags": [
+                "emergency",
+                "travel-spanish",
+                "peru"
+              ]
+            }
+          ],
+          "grammar": [
+            {
+              "point": "Spoken travel phrase",
+              "notes": "Practice this as a practical phrase for Peru travel. Focus on speaking, listening, and meaning."
+            }
+          ],
+          "phrases": [
+            {
+              "id": "p-es-u07-l01-help-and-health-01",
+              "romanized": "ayuda, por favor",
+              "english": "help, please",
+              "pronunciation": "ah-YOO-dah por fah-VOR",
+              "category": "emergency"
+            },
+            {
+              "id": "p-es-u07-l01-help-and-health-02",
+              "romanized": "estoy perdida",
+              "english": "I am lost",
+              "pronunciation": "es-TOY per-DEE-dah",
+              "category": "emergency"
+            },
+            {
+              "id": "p-es-u07-l01-help-and-health-03",
+              "romanized": "estoy enferma",
+              "english": "I am sick",
+              "pronunciation": "es-TOY en-FER-mah",
+              "category": "emergency"
+            },
+            {
+              "id": "p-es-u07-l01-help-and-health-04",
+              "romanized": "llame a un doctor",
+              "english": "call a doctor",
+              "pronunciation": "YAH-meh ah oon dok-TOR",
+              "category": "emergency"
+            },
+            {
+              "id": "p-es-u07-l01-help-and-health-05",
+              "romanized": "¿dónde está la farmacia?",
+              "english": "where is the pharmacy?",
+              "pronunciation": "DON-deh es-TA lah far-MAH-syah",
+              "category": "emergency"
+            },
+            {
+              "id": "p-es-u07-l01-help-and-health-06",
+              "romanized": "me duele la cabeza",
+              "english": "my head hurts",
+              "pronunciation": "meh DWEH-leh lah kah-BEH-sah",
+              "category": "emergency"
+            }
+          ],
+          "exercises": [
+            {
+              "id": "es-u07-l01-help-and-health-ex-1",
+              "type": "multiple-choice",
+              "sourceType": "listenSelect",
+              "prompt": "Listen first. Then tap what you hear.",
+              "answer": "ayuda, por favor",
+              "options": [
+                "ayuda, por favor",
+                "estoy perdida",
+                "estoy enferma",
+                "llame a un doctor",
+                "¿dónde está la farmacia?"
+              ],
+              "audioPromptId": "a1"
+            },
+            {
+              "id": "es-u07-l01-help-and-health-ex-2",
+              "type": "multiple-choice",
+              "sourceType": "meaningSelect",
+              "prompt": "What does “estoy perdida” mean?",
+              "answer": "I am lost",
+              "options": [
+                "help, please",
+                "I am lost",
+                "I am sick",
+                "call a doctor",
+                "where is the pharmacy?"
+              ],
+              "phraseId": "p-es-u07-l01-help-and-health-02"
+            },
+            {
+              "id": "es-u07-l01-help-and-health-ex-3",
+              "type": "translation",
+              "sourceType": "translateType",
+              "prompt": "Type the Spanish for “I am sick”.",
+              "answer": "estoy enferma",
+              "acceptedAnswers": [
+                "estoy enferma"
+              ],
+              "phraseId": "p-es-u07-l01-help-and-health-03"
+            },
+            {
+              "id": "es-u07-l01-help-and-health-ex-4",
+              "type": "matching",
+              "sourceType": "tapMatch",
+              "prompt": "Match Spanish to English.",
+              "answer": "ayuda, por favor -> help, please, estoy perdida -> I am lost, estoy enferma -> I am sick, llame a un doctor -> call a doctor",
+              "pairs": [
+                {
+                  "left": "ayuda, por favor",
+                  "right": "help, please"
+                },
+                {
+                  "left": "estoy perdida",
+                  "right": "I am lost"
+                },
+                {
+                  "left": "estoy enferma",
+                  "right": "I am sick"
+                },
+                {
+                  "left": "llame a un doctor",
+                  "right": "call a doctor"
+                }
+              ]
+            },
+            {
+              "id": "es-u07-l01-help-and-health-ex-5",
+              "type": "multiple-choice",
+              "sourceType": "quickReply",
+              "prompt": "Choose the Spanish for “call a doctor”.",
+              "answer": "llame a un doctor",
+              "options": [
+                "ayuda, por favor",
+                "estoy perdida",
+                "estoy enferma",
+                "llame a un doctor",
+                "¿dónde está la farmacia?"
+              ],
+              "phraseId": "p-es-u07-l01-help-and-health-04"
+            }
+          ],
+          "audioPrompts": [
+            {
+              "id": "a1",
+              "locale": "es-PE",
+              "voiceStyle": "warm-travel",
+              "textBn": "ayuda, por favor",
+              "roman": "ayuda, por favor",
+              "textEn": "help, please",
+              "speed": 0.9
+            },
+            {
+              "id": "a2",
+              "locale": "es-PE",
+              "voiceStyle": "warm-travel",
+              "textBn": "estoy enferma",
+              "roman": "estoy enferma",
+              "textEn": "I am sick",
+              "speed": 0.92
+            },
+            {
+              "id": "a3",
+              "locale": "es-PE",
+              "voiceStyle": "warm-travel",
+              "textBn": "¿dónde está la farmacia?",
+              "roman": "¿dónde está la farmacia?",
+              "textEn": "where is the pharmacy?",
+              "speed": 0.92
+            }
+          ],
+          "uiText": {
+            "startCta": "Start lesson",
+            "lessonGoal": "Learn a few useful Peru travel phrases, then quiz them.",
+            "correct": "Nice work — that sounded travel-ready.",
+            "almost": "Almost — listen once more and try the phrase again.",
+            "complete": "Lesson complete. You can use these phrases on your trip."
+          },
+          "metadata": {
+            "estimatedMinutes": 6,
+            "difficulty": "survival-travel",
+            "tags": [
+              "emergency",
+              "spanish-for-peru",
+              "spoken-phrases"
+            ],
+            "xp": 15,
+            "unlockAfter": [],
+            "assessment": {
+              "attempted": "Started the travel Spanish phrase lesson.",
+              "passed": "Understood the key meanings.",
+              "strong": "Answered with only one or two misses.",
+              "mastered": "Answered accurately after a later review."
+            }
+          },
+          "reviewSchedule": {
+            "initialReviewDays": [
+              1,
+              3,
+              7,
+              14,
+              30
+            ],
+            "masteryThreshold": 0.9,
+            "recycleOnMistake": true
+          }
+        },
+        {
+          "id": "es-u07-l02-lost-documents",
+          "unitId": "es-u07",
+          "unitNumber": 7,
+          "title": "Lost Documents",
+          "slug": "lost-documents",
+          "locale": "es-PE",
+          "difficulty": "survival-travel",
+          "summary": "Talk about lost items and ask for police or help.",
+          "objectives": [
+            "Say you lost your phone",
+            "Say you lost your passport",
+            "Ask someone to call the police"
+          ],
+          "vocabulary": [
+            {
+              "bn": "perdí mi teléfono",
+              "roman": "perdí mi teléfono",
+              "en": "I lost my phone",
+              "tags": [
+                "emergency",
+                "travel-spanish",
+                "peru"
+              ]
+            },
+            {
+              "bn": "perdí mi pasaporte",
+              "roman": "perdí mi pasaporte",
+              "en": "I lost my passport",
+              "tags": [
+                "emergency",
+                "travel-spanish",
+                "peru"
+              ]
+            },
+            {
+              "bn": "llame a la policía",
+              "roman": "llame a la policía",
+              "en": "call the police",
+              "tags": [
+                "emergency",
+                "travel-spanish",
+                "peru"
+              ]
+            },
+            {
+              "bn": "necesito la embajada",
+              "roman": "necesito la embajada",
+              "en": "I need the embassy",
+              "tags": [
+                "emergency",
+                "travel-spanish",
+                "peru"
+              ]
+            },
+            {
+              "bn": "¿me puede ayudar?",
+              "roman": "¿me puede ayudar?",
+              "en": "can you help me?",
+              "tags": [
+                "emergency",
+                "travel-spanish",
+                "peru"
+              ]
+            },
+            {
+              "bn": "es una emergencia",
+              "roman": "es una emergencia",
+              "en": "it is an emergency",
+              "tags": [
+                "emergency",
+                "travel-spanish",
+                "peru"
+              ]
+            }
+          ],
+          "grammar": [
+            {
+              "point": "Spoken travel phrase",
+              "notes": "Practice this as a practical phrase for Peru travel. Focus on speaking, listening, and meaning."
+            }
+          ],
+          "phrases": [
+            {
+              "id": "p-es-u07-l02-lost-documents-01",
+              "romanized": "perdí mi teléfono",
+              "english": "I lost my phone",
+              "pronunciation": "per-DEE mee teh-LEH-foh-noh",
+              "category": "emergency"
+            },
+            {
+              "id": "p-es-u07-l02-lost-documents-02",
+              "romanized": "perdí mi pasaporte",
+              "english": "I lost my passport",
+              "pronunciation": "per-DEE mee pah-sah-POR-teh",
+              "category": "emergency"
+            },
+            {
+              "id": "p-es-u07-l02-lost-documents-03",
+              "romanized": "llame a la policía",
+              "english": "call the police",
+              "pronunciation": "YAH-meh ah lah poh-lee-SEE-ah",
+              "category": "emergency"
+            },
+            {
+              "id": "p-es-u07-l02-lost-documents-04",
+              "romanized": "necesito la embajada",
+              "english": "I need the embassy",
+              "pronunciation": "neh-seh-SEE-toh lah em-bah-HAH-dah",
+              "category": "emergency"
+            },
+            {
+              "id": "p-es-u07-l02-lost-documents-05",
+              "romanized": "¿me puede ayudar?",
+              "english": "can you help me?",
+              "pronunciation": "meh PWEH-deh ah-yoo-DAR",
+              "category": "emergency"
+            },
+            {
+              "id": "p-es-u07-l02-lost-documents-06",
+              "romanized": "es una emergencia",
+              "english": "it is an emergency",
+              "pronunciation": "es OO-nah eh-mer-HEN-syah",
+              "category": "emergency"
+            }
+          ],
+          "exercises": [
+            {
+              "id": "es-u07-l02-lost-documents-ex-1",
+              "type": "multiple-choice",
+              "sourceType": "listenSelect",
+              "prompt": "Listen first. Then tap what you hear.",
+              "answer": "perdí mi teléfono",
+              "options": [
+                "perdí mi teléfono",
+                "perdí mi pasaporte",
+                "llame a la policía",
+                "necesito la embajada",
+                "¿me puede ayudar?"
+              ],
+              "audioPromptId": "a1"
+            },
+            {
+              "id": "es-u07-l02-lost-documents-ex-2",
+              "type": "multiple-choice",
+              "sourceType": "meaningSelect",
+              "prompt": "What does “perdí mi pasaporte” mean?",
+              "answer": "I lost my passport",
+              "options": [
+                "I lost my phone",
+                "I lost my passport",
+                "call the police",
+                "I need the embassy",
+                "can you help me?"
+              ],
+              "phraseId": "p-es-u07-l02-lost-documents-02"
+            },
+            {
+              "id": "es-u07-l02-lost-documents-ex-3",
+              "type": "translation",
+              "sourceType": "translateType",
+              "prompt": "Type the Spanish for “call the police”.",
+              "answer": "llame a la policía",
+              "acceptedAnswers": [
+                "llame a la policía"
+              ],
+              "phraseId": "p-es-u07-l02-lost-documents-03"
+            },
+            {
+              "id": "es-u07-l02-lost-documents-ex-4",
+              "type": "matching",
+              "sourceType": "tapMatch",
+              "prompt": "Match Spanish to English.",
+              "answer": "perdí mi teléfono -> I lost my phone, perdí mi pasaporte -> I lost my passport, llame a la policía -> call the police, necesito la embajada -> I need the embassy",
+              "pairs": [
+                {
+                  "left": "perdí mi teléfono",
+                  "right": "I lost my phone"
+                },
+                {
+                  "left": "perdí mi pasaporte",
+                  "right": "I lost my passport"
+                },
+                {
+                  "left": "llame a la policía",
+                  "right": "call the police"
+                },
+                {
+                  "left": "necesito la embajada",
+                  "right": "I need the embassy"
+                }
+              ]
+            },
+            {
+              "id": "es-u07-l02-lost-documents-ex-5",
+              "type": "multiple-choice",
+              "sourceType": "quickReply",
+              "prompt": "Choose the Spanish for “I need the embassy”.",
+              "answer": "necesito la embajada",
+              "options": [
+                "perdí mi teléfono",
+                "perdí mi pasaporte",
+                "llame a la policía",
+                "necesito la embajada",
+                "¿me puede ayudar?"
+              ],
+              "phraseId": "p-es-u07-l02-lost-documents-04"
+            }
+          ],
+          "audioPrompts": [
+            {
+              "id": "a1",
+              "locale": "es-PE",
+              "voiceStyle": "warm-travel",
+              "textBn": "perdí mi teléfono",
+              "roman": "perdí mi teléfono",
+              "textEn": "I lost my phone",
+              "speed": 0.9
+            },
+            {
+              "id": "a2",
+              "locale": "es-PE",
+              "voiceStyle": "warm-travel",
+              "textBn": "llame a la policía",
+              "roman": "llame a la policía",
+              "textEn": "call the police",
+              "speed": 0.92
+            },
+            {
+              "id": "a3",
+              "locale": "es-PE",
+              "voiceStyle": "warm-travel",
+              "textBn": "¿me puede ayudar?",
+              "roman": "¿me puede ayudar?",
+              "textEn": "can you help me?",
+              "speed": 0.92
+            }
+          ],
+          "uiText": {
+            "startCta": "Start lesson",
+            "lessonGoal": "Learn a few useful Peru travel phrases, then quiz them.",
+            "correct": "Nice work — that sounded travel-ready.",
+            "almost": "Almost — listen once more and try the phrase again.",
+            "complete": "Lesson complete. You can use these phrases on your trip."
+          },
+          "metadata": {
+            "estimatedMinutes": 7,
+            "difficulty": "survival-travel",
+            "tags": [
+              "emergency",
+              "spanish-for-peru",
+              "spoken-phrases"
+            ],
+            "xp": 15,
+            "unlockAfter": [],
+            "assessment": {
+              "attempted": "Started the travel Spanish phrase lesson.",
+              "passed": "Understood the key meanings.",
+              "strong": "Answered with only one or two misses.",
+              "mastered": "Answered accurately after a later review."
+            }
+          },
+          "reviewSchedule": {
+            "initialReviewDays": [
+              1,
+              3,
+              7,
+              14,
+              30
+            ],
+            "masteryThreshold": 0.9,
+            "recycleOnMistake": true
+          }
+        }
+      ],
+      "lessonIds": [
+        "es-u07-l01-help-and-health",
+        "es-u07-l02-lost-documents"
+      ],
+      "checkpointLessonId": "es-u07-l02-lost-documents",
+      "metadata": {
+        "difficultyBand": "survival-travel",
+        "estimatedTotalMinutes": 13,
+        "tags": [
+          "spanish-for-peru",
+          "travel",
+          "spoken-phrases"
+        ]
+      }
+    },
+    {
+      "id": "es-u08",
+      "number": 8,
+      "title": "Peru Travel Phrases",
+      "description": "Use Peru-specific phrases for landmarks, tours, altitude, and photos.",
+      "lessons": [
+        {
+          "id": "es-u08-l01-machu-picchu-and-tours",
+          "unitId": "es-u08",
+          "unitNumber": 8,
+          "title": "Machu Picchu and Tours",
+          "slug": "machu-picchu-and-tours",
+          "locale": "es-PE",
+          "difficulty": "survival-travel",
+          "summary": "Ask about tickets, guides, entrances, and meeting points.",
+          "objectives": [
+            "Say major Peru place names",
+            "Ask about tickets and guides",
+            "Find the meeting point"
+          ],
+          "vocabulary": [
+            {
+              "bn": "Machu Picchu",
+              "roman": "Machu Picchu",
+              "en": "Machu Picchu",
+              "tags": [
+                "peru-travel",
+                "travel-spanish",
+                "peru"
+              ]
+            },
+            {
+              "bn": "Cusco",
+              "roman": "Cusco",
+              "en": "Cusco",
+              "tags": [
+                "peru-travel",
+                "travel-spanish",
+                "peru"
+              ]
+            },
+            {
+              "bn": "Lima",
+              "roman": "Lima",
+              "en": "Lima",
+              "tags": [
+                "peru-travel",
+                "travel-spanish",
+                "peru"
+              ]
+            },
+            {
+              "bn": "necesito un boleto",
+              "roman": "necesito un boleto",
+              "en": "I need a ticket",
+              "tags": [
+                "peru-travel",
+                "travel-spanish",
+                "peru"
+              ]
+            },
+            {
+              "bn": "¿dónde está la entrada?",
+              "roman": "¿dónde está la entrada?",
+              "en": "where is the entrance?",
+              "tags": [
+                "peru-travel",
+                "travel-spanish",
+                "peru"
+              ]
+            },
+            {
+              "bn": "¿dónde está el punto de encuentro?",
+              "roman": "¿dónde está el punto de encuentro?",
+              "en": "where is the meeting point?",
+              "tags": [
+                "peru-travel",
+                "travel-spanish",
+                "peru"
+              ]
+            }
+          ],
+          "grammar": [
+            {
+              "point": "Spoken travel phrase",
+              "notes": "Practice this as a practical phrase for Peru travel. Focus on speaking, listening, and meaning."
+            }
+          ],
+          "phrases": [
+            {
+              "id": "p-es-u08-l01-machu-picchu-and-tours-01",
+              "romanized": "Machu Picchu",
+              "english": "Machu Picchu",
+              "pronunciation": "MAH-choo PEEK-choo",
+              "category": "peru-travel"
+            },
+            {
+              "id": "p-es-u08-l01-machu-picchu-and-tours-02",
+              "romanized": "Cusco",
+              "english": "Cusco",
+              "pronunciation": "KOOS-koh",
+              "category": "peru-travel"
+            },
+            {
+              "id": "p-es-u08-l01-machu-picchu-and-tours-03",
+              "romanized": "Lima",
+              "english": "Lima",
+              "pronunciation": "LEE-mah",
+              "category": "peru-travel"
+            },
+            {
+              "id": "p-es-u08-l01-machu-picchu-and-tours-04",
+              "romanized": "necesito un boleto",
+              "english": "I need a ticket",
+              "pronunciation": "neh-seh-SEE-toh oon boh-LEH-toh",
+              "category": "peru-travel"
+            },
+            {
+              "id": "p-es-u08-l01-machu-picchu-and-tours-05",
+              "romanized": "¿dónde está la entrada?",
+              "english": "where is the entrance?",
+              "pronunciation": "DON-deh es-TA lah en-TRAH-dah",
+              "category": "peru-travel"
+            },
+            {
+              "id": "p-es-u08-l01-machu-picchu-and-tours-06",
+              "romanized": "¿dónde está el punto de encuentro?",
+              "english": "where is the meeting point?",
+              "pronunciation": "DON-deh es-TA el POON-toh deh en-KWEN-troh",
+              "category": "peru-travel"
+            }
+          ],
+          "exercises": [
+            {
+              "id": "es-u08-l01-machu-picchu-and-tours-ex-1",
+              "type": "multiple-choice",
+              "sourceType": "listenSelect",
+              "prompt": "Listen first. Then tap what you hear.",
+              "answer": "Machu Picchu",
+              "options": [
+                "Machu Picchu",
+                "Cusco",
+                "Lima",
+                "necesito un boleto",
+                "¿dónde está la entrada?"
+              ],
+              "audioPromptId": "a1"
+            },
+            {
+              "id": "es-u08-l01-machu-picchu-and-tours-ex-2",
+              "type": "multiple-choice",
+              "sourceType": "meaningSelect",
+              "prompt": "What does “Cusco” mean?",
+              "answer": "Cusco",
+              "options": [
+                "Machu Picchu",
+                "Cusco",
+                "Lima",
+                "I need a ticket",
+                "where is the entrance?"
+              ],
+              "phraseId": "p-es-u08-l01-machu-picchu-and-tours-02"
+            },
+            {
+              "id": "es-u08-l01-machu-picchu-and-tours-ex-3",
+              "type": "translation",
+              "sourceType": "translateType",
+              "prompt": "Type the Spanish for “Lima”.",
+              "answer": "Lima",
+              "acceptedAnswers": [
+                "Lima"
+              ],
+              "phraseId": "p-es-u08-l01-machu-picchu-and-tours-03"
+            },
+            {
+              "id": "es-u08-l01-machu-picchu-and-tours-ex-4",
+              "type": "matching",
+              "sourceType": "tapMatch",
+              "prompt": "Match Spanish to English.",
+              "answer": "Machu Picchu -> Machu Picchu, Cusco -> Cusco, Lima -> Lima, necesito un boleto -> I need a ticket",
+              "pairs": [
+                {
+                  "left": "Machu Picchu",
+                  "right": "Machu Picchu"
+                },
+                {
+                  "left": "Cusco",
+                  "right": "Cusco"
+                },
+                {
+                  "left": "Lima",
+                  "right": "Lima"
+                },
+                {
+                  "left": "necesito un boleto",
+                  "right": "I need a ticket"
+                }
+              ]
+            },
+            {
+              "id": "es-u08-l01-machu-picchu-and-tours-ex-5",
+              "type": "multiple-choice",
+              "sourceType": "quickReply",
+              "prompt": "Choose the Spanish for “I need a ticket”.",
+              "answer": "necesito un boleto",
+              "options": [
+                "Machu Picchu",
+                "Cusco",
+                "Lima",
+                "necesito un boleto",
+                "¿dónde está la entrada?"
+              ],
+              "phraseId": "p-es-u08-l01-machu-picchu-and-tours-04"
+            }
+          ],
+          "audioPrompts": [
+            {
+              "id": "a1",
+              "locale": "es-PE",
+              "voiceStyle": "warm-travel",
+              "textBn": "Machu Picchu",
+              "roman": "Machu Picchu",
+              "textEn": "Machu Picchu",
+              "speed": 0.9
+            },
+            {
+              "id": "a2",
+              "locale": "es-PE",
+              "voiceStyle": "warm-travel",
+              "textBn": "Lima",
+              "roman": "Lima",
+              "textEn": "Lima",
+              "speed": 0.92
+            },
+            {
+              "id": "a3",
+              "locale": "es-PE",
+              "voiceStyle": "warm-travel",
+              "textBn": "¿dónde está la entrada?",
+              "roman": "¿dónde está la entrada?",
+              "textEn": "where is the entrance?",
+              "speed": 0.92
+            }
+          ],
+          "uiText": {
+            "startCta": "Start lesson",
+            "lessonGoal": "Learn a few useful Peru travel phrases, then quiz them.",
+            "correct": "Nice work — that sounded travel-ready.",
+            "almost": "Almost — listen once more and try the phrase again.",
+            "complete": "Lesson complete. You can use these phrases on your trip."
+          },
+          "metadata": {
+            "estimatedMinutes": 6,
+            "difficulty": "survival-travel",
+            "tags": [
+              "peru-travel",
+              "spanish-for-peru",
+              "spoken-phrases"
+            ],
+            "xp": 15,
+            "unlockAfter": [],
+            "assessment": {
+              "attempted": "Started the travel Spanish phrase lesson.",
+              "passed": "Understood the key meanings.",
+              "strong": "Answered with only one or two misses.",
+              "mastered": "Answered accurately after a later review."
+            }
+          },
+          "reviewSchedule": {
+            "initialReviewDays": [
+              1,
+              3,
+              7,
+              14,
+              30
+            ],
+            "masteryThreshold": 0.9,
+            "recycleOnMistake": true
+          }
+        },
+        {
+          "id": "es-u08-l02-altitude-and-photos",
+          "unitId": "es-u08",
+          "unitNumber": 8,
+          "title": "Altitude and Photos",
+          "slug": "altitude-and-photos",
+          "locale": "es-PE",
+          "difficulty": "survival-travel",
+          "summary": "Handle altitude sickness, guides, markets, and photos politely.",
+          "objectives": [
+            "Mention altitude sickness",
+            "Ask to take a photo",
+            "Ask for a guide or tour"
+          ],
+          "vocabulary": [
+            {
+              "bn": "tengo mal de altura",
+              "roman": "tengo mal de altura",
+              "en": "I have altitude sickness",
+              "tags": [
+                "peru-travel",
+                "travel-spanish",
+                "peru"
+              ]
+            },
+            {
+              "bn": "necesito descansar",
+              "roman": "necesito descansar",
+              "en": "I need to rest",
+              "tags": [
+                "peru-travel",
+                "travel-spanish",
+                "peru"
+              ]
+            },
+            {
+              "bn": "¿puedo tomar una foto?",
+              "roman": "¿puedo tomar una foto?",
+              "en": "can I take a photo?",
+              "tags": [
+                "peru-travel",
+                "travel-spanish",
+                "peru"
+              ]
+            },
+            {
+              "bn": "busco un guía",
+              "roman": "busco un guía",
+              "en": "I am looking for a guide",
+              "tags": [
+                "peru-travel",
+                "travel-spanish",
+                "peru"
+              ]
+            },
+            {
+              "bn": "la plaza",
+              "roman": "la plaza",
+              "en": "the plaza",
+              "tags": [
+                "peru-travel",
+                "travel-spanish",
+                "peru"
+              ]
+            },
+            {
+              "bn": "el mercado",
+              "roman": "el mercado",
+              "en": "the market",
+              "tags": [
+                "peru-travel",
+                "travel-spanish",
+                "peru"
+              ]
+            }
+          ],
+          "grammar": [
+            {
+              "point": "Spoken travel phrase",
+              "notes": "Practice this as a practical phrase for Peru travel. Focus on speaking, listening, and meaning."
+            }
+          ],
+          "phrases": [
+            {
+              "id": "p-es-u08-l02-altitude-and-photos-01",
+              "romanized": "tengo mal de altura",
+              "english": "I have altitude sickness",
+              "pronunciation": "TEN-goh mal deh al-TOO-rah",
+              "category": "peru-travel"
+            },
+            {
+              "id": "p-es-u08-l02-altitude-and-photos-02",
+              "romanized": "necesito descansar",
+              "english": "I need to rest",
+              "pronunciation": "neh-seh-SEE-toh des-kahn-SAR",
+              "category": "peru-travel"
+            },
+            {
+              "id": "p-es-u08-l02-altitude-and-photos-03",
+              "romanized": "¿puedo tomar una foto?",
+              "english": "can I take a photo?",
+              "pronunciation": "PWEH-doh toh-MAR OO-nah FOH-toh",
+              "category": "peru-travel"
+            },
+            {
+              "id": "p-es-u08-l02-altitude-and-photos-04",
+              "romanized": "busco un guía",
+              "english": "I am looking for a guide",
+              "pronunciation": "BOOS-koh oon GHEE-ah",
+              "category": "peru-travel"
+            },
+            {
+              "id": "p-es-u08-l02-altitude-and-photos-05",
+              "romanized": "la plaza",
+              "english": "the plaza",
+              "pronunciation": "lah PLAH-sah",
+              "category": "peru-travel"
+            },
+            {
+              "id": "p-es-u08-l02-altitude-and-photos-06",
+              "romanized": "el mercado",
+              "english": "the market",
+              "pronunciation": "el mer-KAH-doh",
+              "category": "peru-travel"
+            }
+          ],
+          "exercises": [
+            {
+              "id": "es-u08-l02-altitude-and-photos-ex-1",
+              "type": "multiple-choice",
+              "sourceType": "listenSelect",
+              "prompt": "Listen first. Then tap what you hear.",
+              "answer": "tengo mal de altura",
+              "options": [
+                "tengo mal de altura",
+                "necesito descansar",
+                "¿puedo tomar una foto?",
+                "busco un guía",
+                "la plaza"
+              ],
+              "audioPromptId": "a1"
+            },
+            {
+              "id": "es-u08-l02-altitude-and-photos-ex-2",
+              "type": "multiple-choice",
+              "sourceType": "meaningSelect",
+              "prompt": "What does “necesito descansar” mean?",
+              "answer": "I need to rest",
+              "options": [
+                "I have altitude sickness",
+                "I need to rest",
+                "can I take a photo?",
+                "I am looking for a guide",
+                "the plaza"
+              ],
+              "phraseId": "p-es-u08-l02-altitude-and-photos-02"
+            },
+            {
+              "id": "es-u08-l02-altitude-and-photos-ex-3",
+              "type": "translation",
+              "sourceType": "translateType",
+              "prompt": "Type the Spanish for “can I take a photo?”.",
+              "answer": "¿puedo tomar una foto?",
+              "acceptedAnswers": [
+                "¿puedo tomar una foto?"
+              ],
+              "phraseId": "p-es-u08-l02-altitude-and-photos-03"
+            },
+            {
+              "id": "es-u08-l02-altitude-and-photos-ex-4",
+              "type": "matching",
+              "sourceType": "tapMatch",
+              "prompt": "Match Spanish to English.",
+              "answer": "tengo mal de altura -> I have altitude sickness, necesito descansar -> I need to rest, ¿puedo tomar una foto? -> can I take a photo?, busco un guía -> I am looking for a guide",
+              "pairs": [
+                {
+                  "left": "tengo mal de altura",
+                  "right": "I have altitude sickness"
+                },
+                {
+                  "left": "necesito descansar",
+                  "right": "I need to rest"
+                },
+                {
+                  "left": "¿puedo tomar una foto?",
+                  "right": "can I take a photo?"
+                },
+                {
+                  "left": "busco un guía",
+                  "right": "I am looking for a guide"
+                }
+              ]
+            },
+            {
+              "id": "es-u08-l02-altitude-and-photos-ex-5",
+              "type": "multiple-choice",
+              "sourceType": "quickReply",
+              "prompt": "Choose the Spanish for “I am looking for a guide”.",
+              "answer": "busco un guía",
+              "options": [
+                "tengo mal de altura",
+                "necesito descansar",
+                "¿puedo tomar una foto?",
+                "busco un guía",
+                "la plaza"
+              ],
+              "phraseId": "p-es-u08-l02-altitude-and-photos-04"
+            }
+          ],
+          "audioPrompts": [
+            {
+              "id": "a1",
+              "locale": "es-PE",
+              "voiceStyle": "warm-travel",
+              "textBn": "tengo mal de altura",
+              "roman": "tengo mal de altura",
+              "textEn": "I have altitude sickness",
+              "speed": 0.9
+            },
+            {
+              "id": "a2",
+              "locale": "es-PE",
+              "voiceStyle": "warm-travel",
+              "textBn": "¿puedo tomar una foto?",
+              "roman": "¿puedo tomar una foto?",
+              "textEn": "can I take a photo?",
+              "speed": 0.92
+            },
+            {
+              "id": "a3",
+              "locale": "es-PE",
+              "voiceStyle": "warm-travel",
+              "textBn": "la plaza",
+              "roman": "la plaza",
+              "textEn": "the plaza",
+              "speed": 0.92
+            }
+          ],
+          "uiText": {
+            "startCta": "Start lesson",
+            "lessonGoal": "Learn a few useful Peru travel phrases, then quiz them.",
+            "correct": "Nice work — that sounded travel-ready.",
+            "almost": "Almost — listen once more and try the phrase again.",
+            "complete": "Lesson complete. You can use these phrases on your trip."
+          },
+          "metadata": {
+            "estimatedMinutes": 7,
+            "difficulty": "survival-travel",
+            "tags": [
+              "peru-travel",
+              "spanish-for-peru",
+              "spoken-phrases"
+            ],
+            "xp": 15,
+            "unlockAfter": [],
+            "assessment": {
+              "attempted": "Started the travel Spanish phrase lesson.",
+              "passed": "Understood the key meanings.",
+              "strong": "Answered with only one or two misses.",
+              "mastered": "Answered accurately after a later review."
+            }
+          },
+          "reviewSchedule": {
+            "initialReviewDays": [
+              1,
+              3,
+              7,
+              14,
+              30
+            ],
+            "masteryThreshold": 0.9,
+            "recycleOnMistake": true
+          }
+        }
+      ],
+      "lessonIds": [
+        "es-u08-l01-machu-picchu-and-tours",
+        "es-u08-l02-altitude-and-photos"
+      ],
+      "checkpointLessonId": "es-u08-l02-altitude-and-photos",
+      "metadata": {
+        "difficultyBand": "survival-travel",
+        "estimatedTotalMinutes": 13,
+        "tags": [
+          "spanish-for-peru",
+          "travel",
+          "spoken-phrases"
+        ]
+      }
+    }
+  ]
+}

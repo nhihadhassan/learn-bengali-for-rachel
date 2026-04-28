@@ -1,3 +1,5 @@
+"use client";
+
 import Link from "next/link";
 import type { ComponentType } from "react";
 import {
@@ -10,10 +12,15 @@ import {
   Sparkles,
   Volume2,
 } from "lucide-react";
-import { units } from "@/lib/content";
+import { getCurriculum } from "@/lib/content";
+import { useProgress } from "@/lib/progress-store";
+import type { Unit } from "@/types/learning";
 import { LessonPath } from "@/components/lesson/lesson-path";
 
 export function LearningHome() {
+  const { activeCurriculumId } = useProgress();
+  const curriculum = getCurriculum(activeCurriculumId);
+  const units = curriculum.units;
   const firstLessonId = units[0]?.lessons[0]?.id;
   const lessonCount = units.flatMap((unit) => unit.lessons).length;
   const phraseCount = units.flatMap((unit) =>
@@ -37,14 +44,16 @@ export function LearningHome() {
           <div className="animate-soft-rise max-w-2xl">
             <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-white/12 bg-white/10 px-3 py-2 text-sm font-bold text-violet-100 shadow-inner">
               <Sparkles size={16} />
-              Bengali made gentle for beginners
+              {curriculum.label} made gentle for beginners
             </div>
             <h1 className="max-w-3xl text-4xl font-black leading-[1.04] [text-wrap:balance] sm:text-5xl lg:text-[3.45rem]">
-              Learn the Bengali Rachel will actually say.
+              {activeCurriculumId === "spanish-peru"
+                ? "Travel Spanish for the moments that matter."
+                : "Learn the Bengali Rachel will actually say."}
             </h1>
             <p className="mt-5 max-w-xl text-base leading-7 text-slate-200 sm:text-lg">
-              Bite-size lessons build simple spoken phrases with listening,
-              typing, and review, with progress that feels rewarding every day.
+              {curriculum.description} Bite-size lessons build practical phrases
+              with listening, typing, and review.
             </p>
 
             <div className="mt-7 grid gap-3 sm:flex sm:flex-wrap">
@@ -85,7 +94,7 @@ export function LearningHome() {
 function HeroPreview({
   phrases,
 }: {
-  phrases: typeof units[number]["lessons"][number]["phrases"];
+  phrases: Unit["lessons"][number]["phrases"];
 }) {
   return (
     <div className="animate-soft-rise w-full justify-self-center lg:justify-self-end">

@@ -3,6 +3,7 @@
 export type PronunciationInput = {
   audioUrl?: string;
   debug?: boolean;
+  locale?: string;
   romanized: string;
   script?: string;
 };
@@ -42,6 +43,15 @@ const preferredVoiceHints = [
   "microsoft bengali",
   "bangla",
   "bengali",
+];
+
+const spanishVoiceHints = [
+  "google español",
+  "google spanish",
+  "microsoft sabina",
+  "microsoft spanish",
+  "español",
+  "spanish",
 ];
 
 function getSpeechSynthesis() {
@@ -93,26 +103,35 @@ async function getVoices(): Promise<SpeechSynthesisVoice[]> {
   });
 }
 
-function rankVoice(voice: SpeechSynthesisVoice): RankedVoice {
+function rankVoice(voice: SpeechSynthesisVoice, locale = "bn-BD"): RankedVoice {
   const lang = voice.lang.toLowerCase();
   const name = voice.name.toLowerCase();
   const haystack = `${lang} ${name}`;
+  const preferredLocale = locale.toLowerCase();
+  const baseLanguage = preferredLocale.split("-")[0];
+  const isSpanish = baseLanguage === "es";
   let score = 0;
 
-  if (lang === "bn-bd") {
+  if (lang === preferredLocale) {
     score += 120;
-  } else if (lang === "bn-in") {
+  } else if (isSpanish && lang === "es-pe") {
+    score += 118;
+  } else if (lang.startsWith(`${baseLanguage}-`)) {
     score += 110;
-  } else if (lang.startsWith("bn")) {
+  } else if (lang.startsWith(baseLanguage)) {
     score += 100;
   }
 
+  const hints = isSpanish ? spanishVoiceHints : preferredVoiceHints;
   const hintIndex = preferredVoiceHints.findIndex((hint) =>
     haystack.includes(hint),
   );
+  const matchedHintIndex = hints.findIndex((hint) => haystack.includes(hint));
 
-  if (hintIndex >= 0) {
-    score += 30 - hintIndex;
+  if (matchedHintIndex >= 0) {
+    score += 30 - matchedHintIndex;
+  } else if (hintIndex >= 0) {
+    score += 20 - hintIndex;
   }
 
   if (voice.localService) {
@@ -124,8 +143,19 @@ function rankVoice(voice: SpeechSynthesisVoice): RankedVoice {
 
 export async function getAvailablePronunciationVoices() {
   return (await getVoices())
-    .map(rankVoice)
+    .map((voice) => rankVoice(voice))
     .sort((left, right) => right.score - left.score);
+}
+
+export async function getAvailableVoicesForLocale(locale = "bn-BD") {
+  return (await getVoices())
+    .map((voice) => rankVoice(voice, locale))
+    .sort((left, right) => right.score - left.score);
+}
+
+export async function getBestVoice(locale = "bn-BD") {
+  const voices = await getAvailableVoicesForLocale(locale);
+  return voices.find((item) => item.score >= 100)?.voice ?? null;
 }
 
 export async function getBestBengaliVoice() {
@@ -188,15 +218,16 @@ const browserTtsProvider: PronunciationProvider = {
       };
     }
 
-    const voice = await getBestBengaliVoice();
+    const locale = input.locale ?? "bn-BD";
+    const voice = await getBestVoice(locale);
     const text = input.script && hasBengaliScript(input.script)
       ? input.script
       : input.romanized;
     const utterance = new SpeechSynthesisUtterance(text);
 
-    utterance.lang = voice?.lang ?? "bn-BD";
+    utterance.lang = voice?.lang ?? locale;
     utterance.voice = voice;
-    utterance.rate = voice ? 0.68 : 0.62;
+    utterance.rate = locale.startsWith("es") ? 0.82 : voice ? 0.68 : 0.62;
     utterance.pitch = 0.96;
     utterance.volume = 1;
 

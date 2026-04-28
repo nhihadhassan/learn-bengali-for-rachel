@@ -15,8 +15,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Learn Bengali for Rachel",
-  description: "A beginner Bengali practice app with flashcards and quick quizzes.",
+  title: "Learning Bengali",
+  description: "A beginner phrase practice app with Bengali and Spanish for Peru.",
 };
 
 export default function RootLayout({

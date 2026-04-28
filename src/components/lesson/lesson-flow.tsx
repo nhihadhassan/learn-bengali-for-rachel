@@ -41,12 +41,15 @@ export function LessonFlow({ lesson }: { lesson: Lesson }) {
   const [streakMilestone, setStreakMilestone] = useState<number | null>(null);
   const [isComplete, setIsComplete] = useState(false);
   const {
+    activeCurriculumId,
     completeLesson,
     recordEncounteredPhrase,
     recordMistake,
     recordSkippedListening,
+    setActiveCurriculumId,
   } = useProgress();
   const step = steps[stepIndex];
+  const lessonCurriculumId = lesson.curriculumId ?? activeCurriculumId;
   const nextLesson = getNextLesson(lesson.id);
   const audioPromptsById = useMemo(
     () =>
@@ -60,10 +63,16 @@ export function LessonFlow({ lesson }: { lesson: Lesson }) {
   );
 
   useEffect(() => {
-    if (step.type === "learn") {
-      recordEncounteredPhrase(step.phrase.id);
+    if (lesson.curriculumId && lesson.curriculumId !== activeCurriculumId) {
+      setActiveCurriculumId(lesson.curriculumId);
     }
-  }, [recordEncounteredPhrase, step]);
+  }, [activeCurriculumId, lesson.curriculumId, setActiveCurriculumId]);
+
+  useEffect(() => {
+    if (step.type === "learn") {
+      recordEncounteredPhrase(step.phrase.id, lessonCurriculumId);
+    }
+  }, [lessonCurriculumId, recordEncounteredPhrase, step]);
 
   function resetInteraction() {
     setAnswerState("idle");
@@ -75,7 +84,7 @@ export function LessonFlow({ lesson }: { lesson: Lesson }) {
 
   function moveNext() {
     if (stepIndex + 1 >= steps.length) {
-      completeLesson(lesson.id, lesson.unitNumber, correctCount);
+      completeLesson(lesson.id, lesson.unitNumber, correctCount, lessonCurriculumId);
       playFeedbackSound("complete");
       setIsComplete(true);
       return;
@@ -106,13 +115,16 @@ export function LessonFlow({ lesson }: { lesson: Lesson }) {
     }
 
     setCorrectStreak(0);
-    recordMistake({
-      exerciseId: step.id,
-      lessonId: lesson.id,
-      prompt: getStepPrompt(step),
-      correctAnswer,
-      wrongAnswer: wrongAnswer || "No answer",
-    });
+    recordMistake(
+      {
+        exerciseId: step.id,
+        lessonId: lesson.id,
+        prompt: getStepPrompt(step),
+        correctAnswer,
+        wrongAnswer: wrongAnswer || "No answer",
+      },
+      lessonCurriculumId,
+    );
   }
 
   function skipListening() {
@@ -121,11 +133,14 @@ export function LessonFlow({ lesson }: { lesson: Lesson }) {
     }
 
     setAnswerState("skipped");
-    recordSkippedListening({
-      exerciseId: step.id,
-      lessonId: lesson.id,
-      prompt: getStepPrompt(step),
-    });
+    recordSkippedListening(
+      {
+        exerciseId: step.id,
+        lessonId: lesson.id,
+        prompt: getStepPrompt(step),
+      },
+      lessonCurriculumId,
+    );
   }
 
   function checkAnswer() {
@@ -142,8 +157,14 @@ export function LessonFlow({ lesson }: { lesson: Lesson }) {
     }
 
     if (step.type === "exercise" && step.exercise.type === "translation") {
-      const result = checkTypedAnswer(typedAnswer, step.exercise.answer);
-      finishQuestion(result.isCorrect, typedAnswer, step.exercise.answer);
+      const acceptedAnswers = [
+        step.exercise.answer,
+        ...(step.exercise.acceptedAnswers ?? []),
+      ];
+      const isCorrect = acceptedAnswers.some(
+        (answer) => checkTypedAnswer(typedAnswer, answer).isCorrect,
+      );
+      finishQuestion(isCorrect, typedAnswer, step.exercise.answer);
     }
 
     if (step.type === "exercise" && step.exercise.type === "matching") {
@@ -261,7 +282,7 @@ export function LessonFlow({ lesson }: { lesson: Lesson }) {
       )}
 
       {step.type === "learn" && (
-        <LearnStep step={step} onContinue={moveNext} />
+        <LearnStep locale={lesson.locale} step={step} onContinue={moveNext} />
       )}
 
       {step.type === "recognize" && (
@@ -282,6 +303,7 @@ export function LessonFlow({ lesson }: { lesson: Lesson }) {
             <p className="text-3xl font-black">{step.phrase.romanized}</p>
             <SpeakerButton
               audioUrl={step.phrase.audioUrl}
+              locale={lesson.locale}
               romanized={step.phrase.romanized}
             />
           </div>
@@ -311,6 +333,7 @@ export function LessonFlow({ lesson }: { lesson: Lesson }) {
           {step.exercise.audioPromptId && (
             <ExerciseAudioPrompt
               audioPrompt={audioPromptsById.get(step.exercise.audioPromptId)}
+              locale={lesson.locale}
             />
           )}
 
@@ -326,7 +349,7 @@ export function LessonFlow({ lesson }: { lesson: Lesson }) {
             <input
               value={typedAnswer}
               onChange={(event) => setTypedAnswer(event.target.value)}
-              placeholder="Type the romanized Bengali answer"
+              placeholder="Type your answer"
               className="mt-5 w-full rounded-2xl border border-slate-200 bg-white px-4 py-4 text-lg font-bold shadow-inner outline-none transition focus:border-violet-500 focus:ring-4 focus:ring-violet-100"
             />
           )}
@@ -346,8 +369,10 @@ export function LessonFlow({ lesson }: { lesson: Lesson }) {
 
 function ExerciseAudioPrompt({
   audioPrompt,
+  locale,
 }: {
   audioPrompt: AudioPrompt | undefined;
+  locale?: string;
 }) {
   if (!audioPrompt) {
     return null;
@@ -360,10 +385,11 @@ function ExerciseAudioPrompt({
           Audio
         </p>
         <p className="mt-1 text-sm font-bold text-slate-600">
-          Listen, then choose the matching Bengali.
+          Listen, then choose the matching phrase.
         </p>
       </div>
       <SpeakerButton
+        locale={audioPrompt.locale ?? locale}
         romanized={audioPrompt.roman}
       />
     </div>
@@ -401,9 +427,11 @@ function IntroStep({
 }
 
 function LearnStep({
+  locale,
   onContinue,
   step,
 }: {
+  locale?: string;
   onContinue: () => void;
   step: Extract<LessonStep, { type: "learn" }>;
 }) {
@@ -420,6 +448,7 @@ function LearnStep({
         </div>
         <SpeakerButton
           audioUrl={step.phrase.audioUrl}
+          locale={locale}
           romanized={step.phrase.romanized}
         />
       </div>

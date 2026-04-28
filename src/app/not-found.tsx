@@ -5,7 +5,7 @@ export default function NotFound() {
     <section className="rounded-3xl bg-white p-8 text-center shadow-sm">
       <h1 className="text-4xl font-black">Lesson not found</h1>
       <p className="mt-3 text-slate-600">
-        This lesson does not exist in the current Bengali path.
+        This lesson does not exist in the current learning path.
       </p>
       <Link
         href="/lessons"

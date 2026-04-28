@@ -8,10 +8,15 @@ import { useProgress } from "@/lib/progress-store";
 import { SpeakerButton } from "@/components/lesson/speaker-button";
 
 export function LearnedWordsReview() {
-  const { progress } = useProgress();
+  const { activeCurriculumId, progress } = useProgress();
+  const languageLabel =
+    activeCurriculumId === "spanish-peru" ? "Spanish" : "Bengali";
   const [query, setQuery] = useState("");
   const [unitFilter, setUnitFilter] = useState("all");
-  const learnedWords = useMemo(() => getLearnedWords(progress), [progress]);
+  const learnedWords = useMemo(
+    () => getLearnedWords(progress, activeCurriculumId),
+    [activeCurriculumId, progress],
+  );
   const unitOptions = useMemo(
     () => getVocabularyUnitOptions(learnedWords),
     [learnedWords],
@@ -42,7 +47,7 @@ export function LearnedWordsReview() {
           <BookOpen size={28} />
         </span>
         <p className="mt-5 text-sm font-black uppercase tracking-[0.14em] text-emerald-100">
-          Vocabulary
+          {languageLabel} Vocabulary
         </p>
         <h1 className="mt-2 text-4xl font-black">Your word bank is ready.</h1>
         <p className="mt-3 max-w-xl text-slate-300">
@@ -64,9 +69,9 @@ export function LearnedWordsReview() {
         <p className="text-sm font-black uppercase tracking-[0.14em] text-emerald-100">
           Learned Words
         </p>
-        <h1 className="mt-2 text-4xl font-black">Rachel&apos;s word bank</h1>
+        <h1 className="mt-2 text-4xl font-black">{languageLabel} word bank</h1>
         <p className="mt-3 max-w-xl text-slate-300">
-          Review every Bengali word and phrase you have encountered so far.
+          Review every {languageLabel} word and phrase you have encountered so far.
         </p>
       </section>
 
@@ -81,7 +86,7 @@ export function LearnedWordsReview() {
             <input
               value={query}
               onChange={(event) => setQuery(event.target.value)}
-              placeholder="Search English or romanized Bengali"
+              placeholder={`Search English or ${languageLabel}`}
               className="min-h-12 w-full rounded-2xl border border-slate-200 bg-[#fffdfa] px-11 py-3 font-bold shadow-inner outline-none transition focus:border-emerald-500 focus:ring-4 focus:ring-emerald-100"
             />
           </label>
@@ -129,6 +134,7 @@ export function LearnedWordsReview() {
                 </div>
                 <SpeakerButton
                   audioUrl={word.phrase.audioUrl}
+                  locale={word.locale}
                   romanized={word.phrase.romanized}
                 />
               </div>

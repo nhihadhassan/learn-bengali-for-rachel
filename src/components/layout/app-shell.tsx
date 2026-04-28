@@ -2,8 +2,9 @@
 
 import type { ReactNode } from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { BookOpen, Flame, GraduationCap, Library, RotateCcw, Trophy } from "lucide-react";
+import { curricula } from "@/lib/content";
 import { useProgress } from "@/lib/progress-store";
 import { cn } from "@/lib/utils";
 
@@ -16,7 +17,21 @@ const navItems = [
 
 export function AppShell({ children }: { children: ReactNode }) {
   const pathname = usePathname();
-  const { activeMistakes, progress } = useProgress();
+  const router = useRouter();
+  const {
+    activeCurriculumId,
+    activeMistakes,
+    progress,
+    setActiveCurriculumId,
+  } = useProgress();
+
+  function handleCurriculumChange(value: string) {
+    setActiveCurriculumId(value === "spanish-peru" ? "spanish-peru" : "bengali");
+
+    if (pathname.startsWith("/practice")) {
+      router.push("/lessons");
+    }
+  }
 
   return (
     <div className="min-h-screen text-slate-950">
@@ -28,7 +43,7 @@ export function AppShell({ children }: { children: ReactNode }) {
             </span>
             <span>
               <span className="block text-xs font-black uppercase tracking-[0.14em] text-violet-700">
-                Learn Bengali
+                Learning Bengali
               </span>
               <span className="block text-lg font-black leading-tight">
                 For Rachel
@@ -59,6 +74,21 @@ export function AppShell({ children }: { children: ReactNode }) {
           </nav>
 
           <div className="hidden items-center gap-2 sm:flex">
+            <label className="sr-only" htmlFor="curriculum-switcher">
+              Curriculum
+            </label>
+            <select
+              id="curriculum-switcher"
+              value={activeCurriculumId}
+              onChange={(event) => handleCurriculumChange(event.target.value)}
+              className="min-h-10 rounded-full border border-white bg-white px-3 py-2 text-sm font-black text-violet-700 shadow-[0_8px_20px_rgba(15,23,42,0.07)] outline-none ring-1 ring-slate-900/5 transition hover:-translate-y-0.5 focus:border-violet-300 focus:ring-4 focus:ring-violet-100"
+            >
+              {curricula.map((curriculum) => (
+                <option key={curriculum.id} value={curriculum.id}>
+                  {curriculum.label}
+                </option>
+              ))}
+            </select>
             <span className="inline-flex items-center gap-2 rounded-full bg-white px-3 py-2 text-sm font-black shadow-[0_8px_20px_rgba(15,23,42,0.07)] ring-1 ring-slate-900/5 transition hover:-translate-y-0.5">
               <Trophy size={15} className="text-amber-500" />
               {progress.xp} XP
@@ -84,6 +114,23 @@ export function AppShell({ children }: { children: ReactNode }) {
       </header>
 
       <main className="mx-auto max-w-6xl px-4 py-6 pb-28 sm:py-8">
+        <div className="mb-4 sm:hidden">
+          <label className="sr-only" htmlFor="mobile-curriculum-switcher">
+            Curriculum
+          </label>
+          <select
+            id="mobile-curriculum-switcher"
+            value={activeCurriculumId}
+            onChange={(event) => handleCurriculumChange(event.target.value)}
+            className="min-h-12 w-full rounded-2xl border border-white bg-white px-4 py-3 font-black text-violet-700 shadow-[0_8px_20px_rgba(15,23,42,0.07)] outline-none ring-1 ring-slate-900/5 focus:border-violet-300 focus:ring-4 focus:ring-violet-100"
+          >
+            {curricula.map((curriculum) => (
+              <option key={curriculum.id} value={curriculum.id}>
+                {curriculum.label}
+              </option>
+            ))}
+          </select>
+        </div>
         {children}
       </main>
 

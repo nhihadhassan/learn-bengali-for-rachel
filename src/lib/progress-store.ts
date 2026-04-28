@@ -1,8 +1,11 @@
 "use client";
 
 import { useCallback, useMemo, useSyncExternalStore } from "react";
-import { lessons } from "@/lib/content";
-import type { Mistake, ProgressState } from "@/types/learning";
+import {
+  defaultCurriculumId,
+  getLessonIdsForCurriculum,
+} from "@/lib/content";
+import type { CurriculumId, Mistake, ProgressState } from "@/types/learning";
 
 const STORAGE_KEY = "learn-bengali-rachel-progress";
 
@@ -17,10 +20,82 @@ const initialProgress: ProgressState = {
   skippedListening: [],
 };
 
+type ProgressStore = {
+  activeCurriculumId: CurriculumId;
+  byCurriculum: Record<CurriculumId, ProgressState>;
+};
+
+const initialStore: ProgressStore = {
+  activeCurriculumId: defaultCurriculumId,
+  byCurriculum: {
+    bengali: cloneInitialProgress(),
+    "spanish-peru": cloneInitialProgress(),
+  },
+};
+
 const listeners = new Set<() => void>();
-let progressCache = initialProgress;
+let progressCache = initialStore;
 let hasLoadedFromStorage = false;
-const currentLessonIds = new Set(lessons.map((lesson) => lesson.id));
+
+function cloneInitialProgress(): ProgressState {
+  return {
+    ...initialProgress,
+    completedLessons: [],
+    encounteredPhraseIds: [],
+    mistakes: [],
+    skippedListening: [],
+  };
+}
+
+function normalizeProgress(value: unknown): ProgressState {
+  const maybeProgress = value as Partial<ProgressState> | null | undefined;
+
+  return {
+    ...cloneInitialProgress(),
+    ...(maybeProgress ?? {}),
+    completedLessons: maybeProgress?.completedLessons ?? [],
+    encounteredPhraseIds: maybeProgress?.encounteredPhraseIds ?? [],
+    mistakes: maybeProgress?.mistakes ?? [],
+    skippedListening: maybeProgress?.skippedListening ?? [],
+  };
+}
+
+function isProgressStore(value: unknown): value is Partial<ProgressStore> {
+  return Boolean(
+    value &&
+      typeof value === "object" &&
+      "byCurriculum" in value &&
+      "activeCurriculumId" in value,
+  );
+}
+
+function normalizeCurriculumId(value: unknown): CurriculumId {
+  return value === "spanish-peru" ? "spanish-peru" : defaultCurriculumId;
+}
+
+function normalizeStore(value: unknown): ProgressStore {
+  if (isProgressStore(value)) {
+    const byCurriculum = (value.byCurriculum ?? {}) as Partial<
+      Record<CurriculumId, unknown>
+    >;
+
+    return {
+      activeCurriculumId: normalizeCurriculumId(value.activeCurriculumId),
+      byCurriculum: {
+        bengali: normalizeProgress(byCurriculum.bengali),
+        "spanish-peru": normalizeProgress(byCurriculum["spanish-peru"]),
+      },
+    };
+  }
+
+  return {
+    activeCurriculumId: defaultCurriculumId,
+    byCurriculum: {
+      bengali: normalizeProgress(value),
+      "spanish-peru": cloneInitialProgress(),
+    },
+  };
+}
 
 function todayKey(date = new Date()) {
   return date.toISOString().slice(0, 10);
@@ -45,16 +120,16 @@ function ensureLoaded() {
   }
 
   try {
-    progressCache = { ...initialProgress, ...JSON.parse(stored) };
+    progressCache = normalizeStore(JSON.parse(stored));
   } catch {
-    progressCache = initialProgress;
+    progressCache = initialStore;
   }
 
   return progressCache;
 }
 
-function saveProgress(nextProgress: ProgressState) {
-  progressCache = nextProgress;
+function saveStore(nextStore: ProgressStore) {
+  progressCache = nextStore;
 
   if (typeof window !== "undefined") {
     window.localStorage.setItem(STORAGE_KEY, JSON.stringify(progressCache));
@@ -63,8 +138,21 @@ function saveProgress(nextProgress: ProgressState) {
   listeners.forEach((listener) => listener());
 }
 
-function updateProgress(updater: (current: ProgressState) => ProgressState) {
-  saveProgress(updater(ensureLoaded()));
+function updateStore(updater: (current: ProgressStore) => ProgressStore) {
+  saveStore(updater(ensureLoaded()));
+}
+
+function updateCurriculumProgress(
+  curriculumId: CurriculumId,
+  updater: (current: ProgressState) => ProgressState,
+) {
+  updateStore((current) => ({
+    ...current,
+    byCurriculum: {
+      ...current.byCurriculum,
+      [curriculumId]: updater(current.byCurriculum[curriculumId]),
+    },
+  }));
 }
 
 function applyPracticeDay(progress: ProgressState): ProgressState {
@@ -98,31 +186,43 @@ function getClientSnapshot() {
 }
 
 function getServerSnapshot() {
-  return initialProgress;
+  return initialStore;
 }
 
 export function useProgress() {
-  const progress = useSyncExternalStore(
+  const store = useSyncExternalStore(
     subscribe,
     getClientSnapshot,
     getServerSnapshot,
   );
+  const activeCurriculumId = store.activeCurriculumId;
+  const progress = store.byCurriculum[activeCurriculumId];
 
-  const activeMistakes = useMemo(
-    () =>
-      progress.mistakes.filter(
-        (mistake) =>
-          !mistake.resolved && currentLessonIds.has(mistake.lessonId),
-      ),
-    [progress.mistakes],
-  );
+  const activeMistakes = useMemo(() => {
+    const currentLessonIds = getLessonIdsForCurriculum(activeCurriculumId);
+
+    return progress.mistakes.filter(
+      (mistake) =>
+        !mistake.resolved && currentLessonIds.has(mistake.lessonId),
+    );
+  }, [activeCurriculumId, progress.mistakes]);
+
+  const setActiveCurriculumId = useCallback(function setActiveCurriculumId(
+    curriculumId: CurriculumId,
+  ) {
+    updateStore((current) => ({
+      ...current,
+      activeCurriculumId: curriculumId,
+    }));
+  }, []);
 
   const completeLesson = useCallback(function completeLesson(
     lessonId: string,
     unitNumber: number,
     correctCount: number,
+    curriculumId = activeCurriculumId,
   ) {
-    updateProgress((current) => {
+    updateCurriculumProgress(curriculumId, (current) => {
       const practiced = applyPracticeDay(current);
       const isNewCompletion = !practiced.completedLessons.includes(lessonId);
       const earnedXp = 10 + correctCount * 5;
@@ -136,12 +236,13 @@ export function useProgress() {
         currentUnit: Math.max(practiced.currentUnit, unitNumber),
       };
     });
-  }, []);
+  }, [activeCurriculumId]);
 
   const recordEncounteredPhrase = useCallback(function recordEncounteredPhrase(
     phraseId: string,
+    curriculumId = activeCurriculumId,
   ) {
-    updateProgress((current) => {
+    updateCurriculumProgress(curriculumId, (current) => {
       if (current.encounteredPhraseIds.includes(phraseId)) {
         return current;
       }
@@ -151,12 +252,13 @@ export function useProgress() {
         encounteredPhraseIds: [...current.encounteredPhraseIds, phraseId],
       };
     });
-  }, []);
+  }, [activeCurriculumId]);
 
   const recordMistake = useCallback(function recordMistake(
     mistake: Omit<Mistake, "id" | "createdAt" | "resolved">,
+    curriculumId = activeCurriculumId,
   ) {
-    updateProgress((current) => {
+    updateCurriculumProgress(curriculumId, (current) => {
       const duplicate = current.mistakes.some(
         (item) =>
           !item.resolved &&
@@ -181,12 +283,13 @@ export function useProgress() {
         ],
       });
     });
-  }, []);
+  }, [activeCurriculumId]);
 
   const recordSkippedListening = useCallback(function recordSkippedListening(
     skipped: Omit<ProgressState["skippedListening"][number], "id" | "createdAt">,
+    curriculumId = activeCurriculumId,
   ) {
-    updateProgress((current) => {
+    updateCurriculumProgress(curriculumId, (current) => {
       const duplicate = current.skippedListening.some(
         (item) =>
           item.exerciseId === skipped.exerciseId &&
@@ -209,10 +312,10 @@ export function useProgress() {
         ],
       });
     });
-  }, []);
+  }, [activeCurriculumId]);
 
   const resolveMistake = useCallback(function resolveMistake(mistakeId: string) {
-    updateProgress((current) =>
+    updateCurriculumProgress(activeCurriculumId, (current) =>
       applyPracticeDay({
         ...current,
         xp: current.xp + 5,
@@ -221,13 +324,14 @@ export function useProgress() {
         ),
       }),
     );
-  }, []);
+  }, [activeCurriculumId]);
 
   const resetProgress = useCallback(function resetProgress() {
-    saveProgress(initialProgress);
-  }, []);
+    updateCurriculumProgress(activeCurriculumId, () => cloneInitialProgress());
+  }, [activeCurriculumId]);
 
   return {
+    activeCurriculumId,
     activeMistakes,
     completeLesson,
     progress,
@@ -236,5 +340,7 @@ export function useProgress() {
     recordSkippedListening,
     resetProgress,
     resolveMistake,
+    setActiveCurriculumId,
+    store,
   };
 }

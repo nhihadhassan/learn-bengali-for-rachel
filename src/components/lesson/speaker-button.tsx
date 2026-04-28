@@ -8,11 +8,13 @@ import { cn } from "@/lib/utils";
 export function SpeakerButton({
   audioUrl,
   debug = true,
+  locale,
   romanized,
   script,
 }: {
   audioUrl?: string;
   debug?: boolean;
+  locale?: string;
   romanized: string;
   script?: string;
 }) {
@@ -27,6 +29,7 @@ export function SpeakerButton({
     const nextResult = await playPronunciation({
       audioUrl,
       debug,
+      locale,
       romanized,
       script,
     });

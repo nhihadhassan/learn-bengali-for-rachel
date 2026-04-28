@@ -3,14 +3,19 @@
 import type { ComponentType } from "react";
 import { useMemo } from "react";
 import { Flame, RotateCcw, Trophy } from "lucide-react";
-import { lessons } from "@/lib/content";
+import { getCurriculum } from "@/lib/content";
 import { useProgress } from "@/lib/progress-store";
 
 export function ProgressSummary() {
-  const { activeMistakes, progress, resetProgress } = useProgress();
+  const { activeCurriculumId, activeMistakes, progress, resetProgress } = useProgress();
+  const curriculum = getCurriculum(activeCurriculumId);
+  const lessons = useMemo(
+    () => curriculum.units.flatMap((unit) => unit.lessons),
+    [curriculum.units],
+  );
   const lessonIds = useMemo(
     () => new Set(lessons.map((lesson) => lesson.id)),
-    [],
+    [lessons],
   );
   const completedCurrentLessons = progress.completedLessons.filter((lessonId) =>
     lessonIds.has(lessonId),
@@ -27,8 +32,8 @@ export function ProgressSummary() {
         </p>
         <h1 className="mt-2 text-4xl font-black">Keep the streak alive.</h1>
         <p className="mt-3 max-w-xl text-slate-300">
-          Progress is saved in this browser for now. The Supabase boundary is in
-          place for account-based progress later.
+          You are viewing {curriculum.label} progress. Progress is saved in this
+          browser for now.
         </p>
       </section>
 

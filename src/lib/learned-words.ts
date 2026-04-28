@@ -1,10 +1,14 @@
-import { units } from "@/lib/content";
-import type { LearnedWord, ProgressState } from "@/types/learning";
+import { getCurriculum } from "@/lib/content";
+import type { CurriculumId, LearnedWord, ProgressState } from "@/types/learning";
 
-export function getLearnedWords(progress: ProgressState): LearnedWord[] {
+export function getLearnedWords(
+  progress: ProgressState,
+  curriculumId: CurriculumId,
+): LearnedWord[] {
   const completedLessons = new Set(progress.completedLessons);
   const encounteredPhrases = new Set(progress.encounteredPhraseIds);
   const learnedWords = new Map<string, LearnedWord>();
+  const units = getCurriculum(curriculumId).units;
 
   for (const unit of units) {
     for (const lesson of unit.lessons) {
@@ -18,6 +22,8 @@ export function getLearnedWords(progress: ProgressState): LearnedWord[] {
         if (!learnedWords.has(phrase.id)) {
           learnedWords.set(phrase.id, {
             phrase,
+            curriculumId,
+            locale: lesson.locale,
             lessonId: lesson.id,
             lessonTitle: lesson.title,
             unitId: unit.id,

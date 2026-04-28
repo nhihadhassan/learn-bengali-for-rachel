@@ -1,3 +1,5 @@
+export type CurriculumId = "bengali" | "spanish-peru";
+
 export type ExerciseType = "multiple-choice" | "translation" | "matching";
 
 export type Phrase = {
@@ -89,6 +91,8 @@ export type Lesson = {
   summary: string;
   phrases: Phrase[];
   exercises: Exercise[];
+  curriculumId?: CurriculumId;
+  locale?: string;
   slug?: string;
   objectives?: string[];
   vocabulary?: VocabularyItem[];
@@ -117,6 +121,16 @@ export type Unit = {
 };
 
 export type LearningContent = {
+  units: Unit[];
+};
+
+export type Curriculum = {
+  id: CurriculumId;
+  label: string;
+  shortLabel: string;
+  description: string;
+  locale: string;
+  travelTheme?: string;
   units: Unit[];
 };
 
@@ -152,6 +166,8 @@ export type ProgressState = {
 
 export type LearnedWord = {
   phrase: Phrase;
+  curriculumId: CurriculumId;
+  locale?: string;
   lessonId: string;
   lessonTitle: string;
   unitId: string;
