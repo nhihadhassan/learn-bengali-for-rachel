@@ -14,6 +14,22 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+const themeScript = `
+(() => {
+  try {
+    const key = "learning-bengali-theme";
+    const saved = localStorage.getItem(key);
+    const systemDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+    const theme = saved === "light" || saved === "dark" ? saved : systemDark ? "dark" : "light";
+    const root = document.documentElement;
+    root.classList.toggle("dark", theme === "dark");
+    root.style.colorScheme = theme;
+  } catch {
+    document.documentElement.style.colorScheme = "light";
+  }
+})();
+`;
+
 export const metadata: Metadata = {
   title: "Learning Bengali",
   description:
@@ -35,8 +51,17 @@ export default function RootLayout({
   children: ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${geistSans.variable} ${geistMono.variable}`}>
+    <html
+      lang="en"
+      className={`${geistSans.variable} ${geistMono.variable}`}
+      suppressHydrationWarning
+    >
       <body className="font-sans antialiased">
+        <script
+          async
+          id="theme-script"
+          dangerouslySetInnerHTML={{ __html: themeScript }}
+        />
         <AppShell>{children}</AppShell>
       </body>
     </html>

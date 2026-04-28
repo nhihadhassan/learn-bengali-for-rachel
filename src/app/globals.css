@@ -1,5 +1,7 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 :root {
   --background: #fbf7ff;
   --foreground: #0f172a;
@@ -14,6 +16,14 @@
   --reward: #fbbf24;
   --lesson-accent: #06b6d4;
   --locked: #94a3b8;
+}
+
+.dark {
+  --background: #120f1f;
+  --foreground: #f8fafc;
+  --surface: #1e1b2e;
+  --ink-soft: #cbd5e1;
+  --brand-primary-soft: #2e2450;
 }
 
 @theme inline {
@@ -40,6 +50,18 @@ body {
     linear-gradient(180deg, #fbf7ff 0%, #f8fafc 72%, #f8fafc 100%),
     var(--background);
   color: var(--foreground);
+  transition:
+    background-color 240ms ease,
+    color 240ms ease;
+}
+
+.dark body {
+  background:
+    radial-gradient(circle at 10% 0%, rgba(124, 58, 237, 0.24), transparent 31rem),
+    radial-gradient(circle at 92% 10%, rgba(6, 182, 212, 0.16), transparent 28rem),
+    radial-gradient(circle at 45% 18%, rgba(251, 191, 36, 0.08), transparent 22rem),
+    linear-gradient(180deg, #120f1f 0%, #171426 58%, #0f172a 100%),
+    var(--background);
 }
 
 button,

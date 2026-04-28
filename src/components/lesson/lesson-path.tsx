@@ -20,27 +20,27 @@ export function LessonPath({ units }: { units: Unit[] }) {
       {units.map((unit) => (
         <section
           key={unit.id}
-          className="animate-soft-rise overflow-hidden rounded-[30px] border border-white/80 bg-white/95 shadow-[0_22px_70px_rgba(15,23,42,0.08)] ring-1 ring-slate-900/5 backdrop-blur"
+          className="animate-soft-rise overflow-hidden rounded-[30px] border border-white/80 bg-white/95 shadow-[0_22px_70px_rgba(15,23,42,0.08)] ring-1 ring-slate-900/5 backdrop-blur transition-colors duration-300 dark:border-white/10 dark:bg-slate-950/80 dark:shadow-[0_22px_70px_rgba(0,0,0,0.3)] dark:ring-white/10"
         >
           <div
             className={cn(
-              "border-b border-slate-100 p-5 sm:p-6",
+              "border-b border-slate-100 p-5 transition-colors duration-300 dark:border-white/10 sm:p-6",
               isHistory
-                ? "bg-[linear-gradient(120deg,#fff7ed,#f5f3ff_54%,#ecfeff)]"
-                : "bg-[linear-gradient(120deg,#f5f3ff,#ecfeff_54%,#fff7ed)]",
+                ? "bg-[linear-gradient(120deg,#fff7ed,#f5f3ff_54%,#ecfeff)] dark:bg-[linear-gradient(120deg,rgba(249,115,22,0.16),rgba(124,58,237,0.16)_54%,rgba(6,182,212,0.12))]"
+                : "bg-[linear-gradient(120deg,#f5f3ff,#ecfeff_54%,#fff7ed)] dark:bg-[linear-gradient(120deg,rgba(124,58,237,0.16),rgba(6,182,212,0.12)_54%,rgba(249,115,22,0.12))]",
             )}
           >
             <div className="flex flex-wrap items-start justify-between gap-4">
               <div>
-                <p className="text-sm font-black uppercase tracking-[0.14em] text-violet-700">
+                <p className="text-sm font-black uppercase tracking-[0.14em] text-violet-700 dark:text-violet-300">
                   Unit {unit.number}
                 </p>
                 <h2 className="mt-1 text-2xl font-black">{unit.title}</h2>
-                <p className="mt-1 max-w-2xl text-sm leading-6 text-slate-600">
+                <p className="mt-1 max-w-2xl text-sm leading-6 text-slate-600 dark:text-slate-300">
                   {unit.description}
                 </p>
               </div>
-              <span className="inline-flex items-center gap-2 rounded-full bg-white px-3 py-2 text-sm font-black text-slate-700 shadow-sm ring-1 ring-slate-900/5">
+              <span className="inline-flex items-center gap-2 rounded-full bg-white px-3 py-2 text-sm font-black text-slate-700 shadow-sm ring-1 ring-slate-900/5 dark:bg-white/10 dark:text-slate-200 dark:ring-white/10">
                 {unit.lessons.length}{" "}
                 {isHistory
                   ? unit.lessons.length === 1 ? "event" : "events"
@@ -58,7 +58,7 @@ export function LessonPath({ units }: { units: Unit[] }) {
             {isHistory && (
               <span
                 aria-hidden="true"
-                className="absolute bottom-7 left-10 top-7 hidden w-1 rounded-full bg-gradient-to-b from-violet-200 via-cyan-200 to-amber-200 md:block"
+                className="absolute bottom-7 left-10 top-7 hidden w-1 rounded-full bg-gradient-to-b from-violet-200 via-cyan-200 to-amber-200 dark:from-violet-400/70 dark:via-cyan-400/55 dark:to-amber-300/60 md:block"
               />
             )}
             {unit.lessons.map((lesson) => (
@@ -100,39 +100,44 @@ function LessonCard({
       href={`/practice/${lesson.id}`}
       className={cn(
         "group relative flex min-h-36 items-center justify-between gap-4 overflow-hidden rounded-3xl border-2 p-4 transition duration-200 ease-out focus-visible:outline focus-visible:outline-4 focus-visible:outline-offset-2 focus-visible:outline-teal-200 active:translate-y-1",
-        "before:absolute before:inset-x-4 before:top-0 before:h-px before:bg-white/80 before:content-['']",
+        "before:absolute before:inset-x-4 before:top-0 before:h-px before:bg-white/80 before:content-[''] dark:before:bg-white/10",
         isHistory && "ml-0 md:ml-8 md:min-h-28",
         isCompleted &&
-          "border-emerald-200 bg-emerald-50 shadow-[0_6px_0_#a7f3d0,0_16px_32px_rgba(16,185,129,0.12)] hover:-translate-y-1 hover:shadow-[0_9px_0_#a7f3d0,0_22px_40px_rgba(16,185,129,0.18)]",
+          "border-emerald-200 bg-emerald-50 shadow-[0_6px_0_#a7f3d0,0_16px_32px_rgba(16,185,129,0.12)] hover:-translate-y-1 hover:shadow-[0_9px_0_#a7f3d0,0_22px_40px_rgba(16,185,129,0.18)] dark:border-emerald-300/30 dark:bg-emerald-400/14 dark:shadow-[0_6px_0_rgba(16,185,129,0.24),0_16px_32px_rgba(0,0,0,0.24)]",
         isCurrent &&
           !isCompleted &&
-          "border-violet-200 bg-violet-50 shadow-[0_6px_0_#ddd6fe,0_16px_32px_rgba(124,58,237,0.12)] hover:-translate-y-1 hover:shadow-[0_9px_0_#ddd6fe,0_22px_40px_rgba(124,58,237,0.18)]",
+          "border-violet-200 bg-violet-50 shadow-[0_6px_0_#ddd6fe,0_16px_32px_rgba(124,58,237,0.12)] hover:-translate-y-1 hover:shadow-[0_9px_0_#ddd6fe,0_22px_40px_rgba(124,58,237,0.18)] dark:border-violet-300/35 dark:bg-violet-400/16 dark:shadow-[0_6px_0_rgba(167,139,250,0.26),0_16px_32px_rgba(0,0,0,0.24)]",
         !isCompleted &&
           !isCurrent &&
-          "border-slate-200 bg-[#fffdfa] shadow-[0_6px_0_#e2e8f0,0_14px_28px_rgba(15,23,42,0.06)] hover:-translate-y-1 hover:border-violet-200 hover:shadow-[0_9px_0_#ddd6fe,0_22px_40px_rgba(15,23,42,0.1)]",
+          "border-slate-200 bg-[#fffdfa] shadow-[0_6px_0_#e2e8f0,0_14px_28px_rgba(15,23,42,0.06)] hover:-translate-y-1 hover:border-violet-200 hover:shadow-[0_9px_0_#ddd6fe,0_22px_40px_rgba(15,23,42,0.1)] dark:border-white/10 dark:bg-white/[0.08] dark:shadow-[0_6px_0_rgba(255,255,255,0.08),0_14px_28px_rgba(0,0,0,0.25)] dark:hover:border-violet-300/35",
       )}
     >
       {isHistory && (
-        <span className="absolute -left-8 top-1/2 hidden size-6 -translate-y-1/2 rounded-full border-4 border-white bg-violet-500 shadow-[0_0_0_4px_rgba(124,58,237,0.14)] transition group-hover:scale-110 md:block" />
+        <span className="absolute -left-8 top-1/2 hidden size-6 -translate-y-1/2 rounded-full border-4 border-white bg-violet-500 shadow-[0_0_0_4px_rgba(124,58,237,0.14)] transition group-hover:scale-110 dark:border-slate-950 dark:shadow-[0_0_0_4px_rgba(167,139,250,0.22)] md:block" />
       )}
       <div className="min-w-0">
         <span
           className={cn(
             "inline-flex items-center gap-2 rounded-full px-3 py-1 text-xs font-black uppercase tracking-[0.12em] shadow-sm",
-            isCompleted && "bg-white text-emerald-700 [&>svg]:animate-pulse",
-            isCurrent && !isCompleted && "bg-white text-violet-700 [&>svg]:animate-pulse",
-            !isCompleted && !isCurrent && "bg-slate-100 text-slate-500",
+            isCompleted &&
+              "bg-white text-emerald-700 dark:bg-emerald-400/15 dark:text-emerald-200 [&>svg]:animate-pulse",
+            isCurrent &&
+              !isCompleted &&
+              "bg-white text-violet-700 dark:bg-violet-400/15 dark:text-violet-200 [&>svg]:animate-pulse",
+            !isCompleted &&
+              !isCurrent &&
+              "bg-slate-100 text-slate-500 dark:bg-white/10 dark:text-slate-300",
           )}
         >
           <StatusIcon size={14} />
           {statusLabel}
         </span>
         <h3 className="mt-3 text-lg font-black leading-tight">{lesson.title}</h3>
-        <p className="mt-2 text-sm leading-5 text-slate-600">
+        <p className="mt-2 text-sm leading-5 text-slate-600 dark:text-slate-300">
           {isHistory ? lesson.history?.keyTakeaway ?? lesson.summary : lesson.summary}
         </p>
         {isHistory && lesson.history?.whyItMatters && (
-          <p className="mt-2 text-xs font-bold uppercase tracking-[0.1em] text-violet-600">
+          <p className="mt-2 text-xs font-bold uppercase tracking-[0.1em] text-violet-600 dark:text-violet-300">
             {lesson.history.whyItMatters}
           </p>
         )}
@@ -145,7 +150,7 @@ function LessonCard({
             ? "bg-emerald-600 shadow-emerald-600/25"
             : isCurrent
               ? "bg-violet-600 shadow-violet-600/25"
-              : "bg-slate-950 shadow-slate-950/20",
+              : "bg-slate-950 shadow-slate-950/20 dark:bg-slate-700 dark:shadow-slate-950/30",
         )}
       >
         {isCompleted ? (

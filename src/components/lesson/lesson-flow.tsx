@@ -274,17 +274,17 @@ export function LessonFlow({ lesson }: { lesson: Lesson }) {
 
   return (
     <ExerciseCard>
-      <div className="sticky top-[73px] z-10 -mx-2 mb-6 rounded-2xl bg-white/95 px-2 py-2 backdrop-blur sm:top-[81px]">
+      <div className="sticky top-[73px] z-10 -mx-2 mb-6 rounded-2xl bg-white/95 px-2 py-2 backdrop-blur transition-colors duration-300 dark:bg-slate-950/90 sm:top-[81px]">
         <ProgressHeader current={stepIndex + 1} total={steps.length} />
       </div>
 
       {streakMilestone && (
-        <div className="milestone-spark mb-5 flex items-center gap-3 rounded-3xl border border-orange-200 bg-gradient-to-r from-amber-50 via-orange-50 to-fuchsia-50 p-3 font-black text-orange-900 shadow-[0_14px_30px_rgba(245,158,11,0.16)]">
+        <div className="milestone-spark mb-5 flex items-center gap-3 rounded-3xl border border-orange-200 bg-gradient-to-r from-amber-50 via-orange-50 to-fuchsia-50 p-3 font-black text-orange-900 shadow-[0_14px_30px_rgba(245,158,11,0.16)] dark:border-orange-300/30 dark:from-amber-400/18 dark:via-orange-400/16 dark:to-fuchsia-400/14 dark:text-orange-100">
           <span className="warm-glow grid size-10 place-items-center rounded-2xl bg-amber-400 text-white">
             <Flame size={18} className="flame-dance" fill="currentColor" />
           </span>
           <span>{streakMilestone} correct in a row</span>
-          <span className="xp-pop ml-auto rounded-full bg-white px-3 py-1 text-xs text-violet-800 shadow-sm">
+          <span className="xp-pop ml-auto rounded-full bg-white px-3 py-1 text-xs text-violet-800 shadow-sm dark:bg-white/12 dark:text-violet-100">
             +streak
           </span>
         </div>
@@ -314,10 +314,10 @@ export function LessonFlow({ lesson }: { lesson: Lesson }) {
           skipLabel="Skip for now"
         >
           <h2 className="text-2xl font-black">{step.prompt}</h2>
-          <p className="mt-2 text-sm font-semibold text-slate-600">
+          <p className="mt-2 text-sm font-semibold text-slate-600 dark:text-slate-300">
             Listen to the phrase, then choose the English meaning.
           </p>
-          <div className="mt-5 flex items-center justify-between rounded-3xl border border-cyan-100 bg-cyan-50 p-4 shadow-inner">
+          <div className="mt-5 flex items-center justify-between rounded-3xl border border-cyan-100 bg-cyan-50 p-4 shadow-inner dark:border-cyan-300/20 dark:bg-cyan-400/12">
             <p className="text-3xl font-black">{step.phrase.romanized}</p>
             <SpeakerButton
               audioUrl={step.phrase.audioUrl}
@@ -344,7 +344,7 @@ export function LessonFlow({ lesson }: { lesson: Lesson }) {
           onSkip={isListeningStep(step) ? skipListening : undefined}
           skipLabel="Skip for now"
         >
-          <p className="text-sm font-black uppercase tracking-[0.14em] text-violet-700">
+          <p className="text-sm font-black uppercase tracking-[0.14em] text-violet-700 dark:text-violet-300">
             {getExerciseMode(step.exercise)}
           </p>
           <h2 className="mt-2 text-2xl font-black">{step.exercise.prompt}</h2>
@@ -371,7 +371,7 @@ export function LessonFlow({ lesson }: { lesson: Lesson }) {
               onChange={(event) => setTypedAnswer(event.target.value)}
               placeholder="Type your answer"
               disabled={answerState !== "idle"}
-              className="mt-5 w-full rounded-2xl border border-slate-200 bg-white px-4 py-4 text-lg font-bold shadow-inner outline-none transition focus:border-violet-500 focus:ring-4 focus:ring-violet-100"
+              className="mt-5 w-full rounded-2xl border border-slate-200 bg-white px-4 py-4 text-lg font-bold shadow-inner outline-none transition focus:border-violet-500 focus:ring-4 focus:ring-violet-100 dark:border-white/10 dark:bg-white/10 dark:text-slate-50 dark:placeholder:text-slate-500 dark:focus:ring-violet-400/20"
             />
           )}
 
@@ -401,12 +401,12 @@ function ExerciseAudioPrompt({
   }
 
   return (
-    <div className="mt-5 flex items-center justify-between gap-4 rounded-3xl border border-cyan-100 bg-cyan-50 p-4 shadow-inner">
+    <div className="mt-5 flex items-center justify-between gap-4 rounded-3xl border border-cyan-100 bg-cyan-50 p-4 shadow-inner dark:border-cyan-300/20 dark:bg-cyan-400/12">
       <div>
         <p className="text-xs font-black uppercase tracking-[0.14em] text-cyan-700">
           Audio
         </p>
-        <p className="mt-1 text-sm font-bold text-slate-600">
+        <p className="mt-1 text-sm font-bold text-slate-600 dark:text-slate-300">
           Listen, then choose the matching phrase.
         </p>
       </div>
@@ -432,10 +432,10 @@ function IntroStep({
   if (lesson.curriculumId === "history" && lesson.history) {
     return (
       <div>
-        <span className="grid size-12 place-items-center rounded-2xl bg-amber-50 text-amber-700">
+        <span className="grid size-12 place-items-center rounded-2xl bg-amber-50 text-amber-700 dark:bg-amber-400/15 dark:text-amber-200">
           <HistoryIcon name={lesson.history.icon} size={25} />
         </span>
-        <p className="mt-5 text-sm font-black uppercase tracking-[0.14em] text-amber-700">
+        <p className="mt-5 text-sm font-black uppercase tracking-[0.14em] text-amber-700 dark:text-amber-200">
           Story moment
         </p>
         <h2 className="mt-2 text-3xl font-black">{title}</h2>
@@ -443,24 +443,24 @@ function IntroStep({
           {lesson.history.story.map((sentence, index) => (
             <div
               key={sentence}
-              className="grid grid-cols-[auto_1fr] gap-3 rounded-3xl border border-amber-100 bg-amber-50 p-4 shadow-inner"
+              className="grid grid-cols-[auto_1fr] gap-3 rounded-3xl border border-amber-100 bg-amber-50 p-4 shadow-inner dark:border-amber-300/20 dark:bg-amber-400/12"
             >
-              <span className="mt-1 grid size-7 place-items-center rounded-full bg-white text-sm font-black text-amber-700 shadow-sm">
+              <span className="mt-1 grid size-7 place-items-center rounded-full bg-white text-sm font-black text-amber-700 shadow-sm dark:bg-white/12 dark:text-amber-100">
                 {index + 1}
               </span>
-              <p className="text-base leading-7 text-slate-700">{sentence}</p>
+              <p className="text-base leading-7 text-slate-700 dark:text-slate-200">{sentence}</p>
             </div>
           ))}
         </div>
-        <div className="mt-4 rounded-3xl border border-violet-100 bg-violet-50 p-4">
-          <p className="text-xs font-black uppercase tracking-[0.14em] text-violet-700">
+        <div className="mt-4 rounded-3xl border border-violet-100 bg-violet-50 p-4 dark:border-violet-300/20 dark:bg-violet-400/12">
+          <p className="text-xs font-black uppercase tracking-[0.14em] text-violet-700 dark:text-violet-200">
             Key takeaway
           </p>
-          <p className="mt-2 text-lg font-black text-slate-900">
+          <p className="mt-2 text-lg font-black text-slate-900 dark:text-slate-50">
             {lesson.history.keyTakeaway}
           </p>
           {lesson.history.whyItMatters && (
-            <p className="mt-2 text-sm font-semibold leading-6 text-slate-600">
+            <p className="mt-2 text-sm font-semibold leading-6 text-slate-600 dark:text-slate-300">
               {lesson.history.whyItMatters}
             </p>
           )}
@@ -478,14 +478,14 @@ function IntroStep({
 
   return (
     <div>
-      <span className="grid size-12 place-items-center rounded-2xl bg-emerald-50 text-emerald-700">
+      <span className="grid size-12 place-items-center rounded-2xl bg-emerald-50 text-emerald-700 dark:bg-emerald-400/15 dark:text-emerald-200">
         <GraduationCap size={25} />
       </span>
-      <p className="mt-5 text-sm font-black uppercase tracking-[0.14em] text-emerald-700">
+      <p className="mt-5 text-sm font-black uppercase tracking-[0.14em] text-emerald-700 dark:text-emerald-200">
         Short lesson
       </p>
       <h2 className="mt-2 text-3xl font-black">{title}</h2>
-      <p className="mt-3 text-base leading-7 text-slate-600">{body}</p>
+      <p className="mt-3 text-base leading-7 text-slate-600 dark:text-slate-300">{body}</p>
       <AppButton
         type="button"
         onClick={onContinue}
@@ -510,10 +510,10 @@ function LearnStep({
     <div>
       <div className="flex items-start justify-between gap-4">
         <div>
-          <p className="text-sm font-black uppercase tracking-[0.14em] text-cyan-700">
+          <p className="text-sm font-black uppercase tracking-[0.14em] text-cyan-700 dark:text-cyan-200">
             New phrase {step.position} of {step.total}
           </p>
-          <h2 className="mt-3 text-5xl font-black leading-tight text-slate-950">
+          <h2 className="mt-3 text-5xl font-black leading-tight text-slate-950 dark:text-slate-50">
             {step.phrase.romanized}
           </h2>
         </div>
@@ -525,17 +525,17 @@ function LearnStep({
       </div>
 
       <div className="mt-6 grid gap-3">
-        <div className="rounded-3xl border border-cyan-100 bg-cyan-50 p-4 shadow-inner">
-          <p className="text-xs font-black uppercase tracking-[0.14em] text-cyan-700">
+        <div className="rounded-3xl border border-cyan-100 bg-cyan-50 p-4 shadow-inner dark:border-cyan-300/20 dark:bg-cyan-400/12">
+          <p className="text-xs font-black uppercase tracking-[0.14em] text-cyan-700 dark:text-cyan-200">
             Meaning
           </p>
           <p className="mt-1 text-2xl font-black">{step.phrase.english}</p>
         </div>
-        <div className="rounded-3xl border border-slate-100 bg-slate-50 p-4">
-          <p className="text-xs font-black uppercase tracking-[0.14em] text-slate-500">
+        <div className="rounded-3xl border border-slate-100 bg-slate-50 p-4 dark:border-white/10 dark:bg-white/[0.08]">
+          <p className="text-xs font-black uppercase tracking-[0.14em] text-slate-500 dark:text-slate-400">
             Pronunciation
           </p>
-          <p className="mt-1 text-lg font-bold text-slate-700">
+          <p className="mt-1 text-lg font-bold text-slate-700 dark:text-slate-200">
             {step.phrase.pronunciation}
           </p>
         </div>
@@ -580,10 +580,10 @@ function QuestionStep({
           className={cn(
             "streak-pop mt-5 flex items-start gap-3 rounded-2xl p-4 font-bold shadow-sm",
             answerState === "correct"
-              ? "correct-pop border border-emerald-100 bg-emerald-50 text-emerald-800"
+              ? "correct-pop border border-emerald-100 bg-emerald-50 text-emerald-800 dark:border-emerald-300/25 dark:bg-emerald-400/14 dark:text-emerald-100"
               : answerState === "skipped"
-                ? "border border-violet-100 bg-violet-50 text-violet-800"
-                : "border border-rose-100 bg-rose-50 text-rose-800",
+                ? "border border-violet-100 bg-violet-50 text-violet-800 dark:border-violet-300/25 dark:bg-violet-400/14 dark:text-violet-100"
+                : "border border-rose-100 bg-rose-50 text-rose-800 dark:border-rose-300/25 dark:bg-rose-400/14 dark:text-rose-100",
           )}
         >
           {answerState === "correct" ? (
@@ -602,7 +602,7 @@ function QuestionStep({
                   : "Not quite"}
             </p>
             {answerState === "correct" && (
-              <p className="xp-pop mt-1 text-sm font-black text-emerald-700">
+              <p className="xp-pop mt-1 text-sm font-black text-emerald-700 dark:text-emerald-200">
                 +5 XP energy
               </p>
             )}
@@ -697,9 +697,9 @@ function MatchingExercise({
       {pairs.map((pair) => (
         <div
           key={pair.left}
-          className="grid gap-3 rounded-2xl border border-slate-200 bg-slate-50 p-3 shadow-sm sm:grid-cols-[1fr_1fr]"
+          className="grid gap-3 rounded-2xl border border-slate-200 bg-slate-50 p-3 shadow-sm dark:border-white/10 dark:bg-white/[0.08] sm:grid-cols-[1fr_1fr]"
         >
-          <div className="rounded-xl bg-white px-4 py-3 text-lg font-black shadow-sm">
+          <div className="rounded-xl bg-white px-4 py-3 text-lg font-black shadow-sm dark:bg-white/10">
             {pair.left}
           </div>
           <select
@@ -708,7 +708,7 @@ function MatchingExercise({
               setMatches({ ...matches, [pair.left]: event.target.value })
             }
             disabled={isLocked}
-            className="rounded-xl border border-slate-200 bg-white px-4 py-3 font-bold outline-none transition focus:border-violet-500 focus:ring-4 focus:ring-violet-100"
+            className="rounded-xl border border-slate-200 bg-white px-4 py-3 font-bold outline-none transition focus:border-violet-500 focus:ring-4 focus:ring-violet-100 dark:border-white/10 dark:bg-slate-950/70 dark:text-slate-50 dark:focus:ring-violet-400/20"
           >
             <option value="">Choose meaning</option>
             {rightOptions.map((right) => (

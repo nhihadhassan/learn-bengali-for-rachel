@@ -119,14 +119,14 @@ function HistoryHeroPreview({
   return (
     <div className="animate-soft-rise w-full justify-self-center lg:justify-self-end">
       <div className="rounded-[34px] border border-white/14 bg-white/10 p-3 shadow-[0_24px_70px_rgba(0,0,0,0.2)] backdrop-blur-md sm:p-4">
-        <div className="rounded-[28px] bg-[#fffefa] p-4 text-slate-950 shadow-[0_8px_0_rgba(255,255,255,0.18)] sm:p-5">
+        <div className="rounded-[28px] bg-[#fffefa] p-4 text-slate-950 shadow-[0_8px_0_rgba(255,255,255,0.18)] transition-colors duration-300 dark:bg-slate-950/88 dark:text-slate-50 dark:shadow-[0_8px_0_rgba(255,255,255,0.08)] sm:p-5">
           <div className="flex items-start justify-between gap-4">
             <div>
-              <p className="text-xs font-black uppercase tracking-[0.14em] text-violet-700">
+              <p className="text-xs font-black uppercase tracking-[0.14em] text-violet-700 dark:text-violet-300">
                 Timeline preview
               </p>
               <h2 className="mt-1 text-2xl font-black">Story path</h2>
-              <p className="mt-1 text-sm font-bold text-slate-500">
+              <p className="mt-1 text-sm font-bold text-slate-500 dark:text-slate-300">
                 Read, connect, and choose what mattered.
               </p>
             </div>
@@ -139,19 +139,19 @@ function HistoryHeroPreview({
             {lessons.map((lesson, index) => (
               <div
                 key={lesson.id}
-                className="group grid grid-cols-[auto_1fr] items-start gap-3 rounded-3xl border border-slate-100 bg-white p-4 shadow-[0_8px_24px_rgba(15,23,42,0.06)] transition hover:-translate-y-0.5 hover:border-violet-100 hover:bg-violet-50"
+                className="group grid grid-cols-[auto_1fr] items-start gap-3 rounded-3xl border border-slate-100 bg-white p-4 shadow-[0_8px_24px_rgba(15,23,42,0.06)] transition hover:-translate-y-0.5 hover:border-violet-100 hover:bg-violet-50 dark:border-white/10 dark:bg-white/10 dark:shadow-[0_8px_24px_rgba(0,0,0,0.24)] dark:hover:border-violet-300/35 dark:hover:bg-violet-400/15"
               >
                 <span className="grid size-11 shrink-0 place-items-center rounded-2xl bg-violet-500 text-white transition group-hover:scale-105 group-hover:bg-cyan-500">
                   <HistoryIcon name={lesson.history?.icon} />
                 </span>
                 <div className="min-w-0">
-                  <p className="text-xs font-black uppercase tracking-[0.12em] text-slate-400">
+                  <p className="text-xs font-black uppercase tracking-[0.12em] text-slate-400 dark:text-slate-500">
                     Event {index + 1}
                   </p>
                   <p className="mt-1 truncate text-xl font-black">
                     {lesson.title}
                   </p>
-                  <p className="mt-1 line-clamp-2 text-sm font-bold text-slate-500">
+                  <p className="mt-1 line-clamp-2 text-sm font-bold text-slate-500 dark:text-slate-300">
                     {lesson.history?.keyTakeaway ?? lesson.summary}
                   </p>
                 </div>
@@ -181,14 +181,14 @@ function HeroPreview({
   return (
     <div className="animate-soft-rise w-full justify-self-center lg:justify-self-end">
       <div className="rounded-[34px] border border-white/14 bg-white/10 p-3 shadow-[0_24px_70px_rgba(0,0,0,0.2)] backdrop-blur-md sm:p-4">
-        <div className="rounded-[28px] bg-[#fffefa] p-4 text-slate-950 shadow-[0_8px_0_rgba(255,255,255,0.18)] sm:p-5">
+        <div className="rounded-[28px] bg-[#fffefa] p-4 text-slate-950 shadow-[0_8px_0_rgba(255,255,255,0.18)] transition-colors duration-300 dark:bg-slate-950/88 dark:text-slate-50 dark:shadow-[0_8px_0_rgba(255,255,255,0.08)] sm:p-5">
           <div className="flex items-start justify-between gap-4">
             <div>
-              <p className="text-xs font-black uppercase tracking-[0.14em] text-violet-700">
+              <p className="text-xs font-black uppercase tracking-[0.14em] text-violet-700 dark:text-violet-300">
                 Lesson preview
               </p>
               <h2 className="mt-1 text-2xl font-black">First greetings</h2>
-              <p className="mt-1 text-sm font-bold text-slate-500">
+              <p className="mt-1 text-sm font-bold text-slate-500 dark:text-slate-300">
                 Listen, say, and choose the meaning.
               </p>
             </div>
@@ -201,13 +201,13 @@ function HeroPreview({
             {phrases.map((phrase, index) => (
               <div
                 key={phrase.id}
-                className="group grid grid-cols-[1fr_auto] items-center gap-3 rounded-3xl border border-slate-100 bg-white p-4 shadow-[0_8px_24px_rgba(15,23,42,0.06)] transition hover:-translate-y-0.5 hover:border-violet-100 hover:bg-violet-50"
+                className="group grid grid-cols-[1fr_auto] items-center gap-3 rounded-3xl border border-slate-100 bg-white p-4 shadow-[0_8px_24px_rgba(15,23,42,0.06)] transition hover:-translate-y-0.5 hover:border-violet-100 hover:bg-violet-50 dark:border-white/10 dark:bg-white/10 dark:shadow-[0_8px_24px_rgba(0,0,0,0.24)] dark:hover:border-violet-300/35 dark:hover:bg-violet-400/15"
               >
                 <div className="min-w-0">
                   <p className="truncate text-2xl font-black">
                     {phrase.romanized}
                   </p>
-                  <p className="mt-1 truncate text-sm font-bold text-slate-500">
+                  <p className="mt-1 truncate text-sm font-bold text-slate-500 dark:text-slate-300">
                     {phrase.english}
                   </p>
                 </div>
@@ -250,7 +250,7 @@ function HeroStat({
 }) {
   return (
     <div className="rounded-3xl border border-white/10 bg-white/[0.09] p-4 shadow-inner backdrop-blur">
-      <div className="mb-3 grid size-10 place-items-center rounded-2xl bg-white text-violet-700">
+      <div className="mb-3 grid size-10 place-items-center rounded-2xl bg-white text-violet-700 dark:bg-white/12 dark:text-violet-200">
         <Icon size={19} />
       </div>
       <p className="text-2xl font-black">{value}</p>

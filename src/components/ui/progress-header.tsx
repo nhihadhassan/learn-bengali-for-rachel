@@ -14,7 +14,7 @@ export function ProgressHeader({
 
   return (
     <div className={cn("space-y-2", className)}>
-      <div className="flex items-center justify-between text-xs font-black uppercase tracking-[0.14em] text-slate-500">
+      <div className="flex items-center justify-between text-xs font-black uppercase tracking-[0.14em] text-slate-500 dark:text-slate-400">
         <span>
           Step {current} of {total}
         </span>
@@ -22,7 +22,7 @@ export function ProgressHeader({
       </div>
       <div
         aria-label={`Lesson progress ${percent}%`}
-        className="h-3 overflow-hidden rounded-full bg-slate-100 shadow-inner ring-1 ring-slate-900/5"
+        className="h-3 overflow-hidden rounded-full bg-slate-100 shadow-inner ring-1 ring-slate-900/5 dark:bg-white/10 dark:ring-white/10"
         role="progressbar"
         aria-valuemin={0}
         aria-valuemax={100}

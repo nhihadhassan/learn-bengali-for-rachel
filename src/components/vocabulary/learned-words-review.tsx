@@ -95,19 +95,19 @@ export function LearnedWordsReview() {
         </p>
       </section>
 
-      <section className="rounded-[30px] border border-white/80 bg-white/95 p-4 shadow-[0_18px_55px_rgba(15,23,42,0.08)] ring-1 ring-slate-900/5 sm:p-5">
+      <section className="rounded-[30px] border border-white/80 bg-white/95 p-4 shadow-[0_18px_55px_rgba(15,23,42,0.08)] ring-1 ring-slate-900/5 transition-colors duration-300 dark:border-white/10 dark:bg-slate-950/80 dark:shadow-[0_18px_55px_rgba(0,0,0,0.28)] dark:ring-white/10 sm:p-5">
         <div className="grid gap-3 md:grid-cols-[1fr_260px]">
           <label className="relative block">
             <span className="sr-only">Search vocabulary</span>
             <Search
               size={19}
-              className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"
+              className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 dark:text-slate-500"
             />
             <input
               value={query}
               onChange={(event) => setQuery(event.target.value)}
               placeholder={`Search English or ${languageLabel}`}
-              className="min-h-12 w-full rounded-2xl border border-slate-200 bg-[#fffdfa] px-11 py-3 font-bold shadow-inner outline-none transition focus:border-emerald-500 focus:ring-4 focus:ring-emerald-100"
+              className="min-h-12 w-full rounded-2xl border border-slate-200 bg-[#fffdfa] px-11 py-3 font-bold shadow-inner outline-none transition focus:border-emerald-500 focus:ring-4 focus:ring-emerald-100 dark:border-white/10 dark:bg-white/10 dark:text-slate-50 dark:placeholder:text-slate-500 dark:focus:ring-emerald-400/20"
             />
           </label>
 
@@ -116,7 +116,7 @@ export function LearnedWordsReview() {
             <select
               value={unitFilter}
               onChange={(event) => setUnitFilter(event.target.value)}
-              className="min-h-12 w-full rounded-2xl border border-slate-200 bg-[#fffdfa] px-4 py-3 font-bold shadow-inner outline-none transition focus:border-emerald-500 focus:ring-4 focus:ring-emerald-100"
+              className="min-h-12 w-full rounded-2xl border border-slate-200 bg-[#fffdfa] px-4 py-3 font-bold shadow-inner outline-none transition focus:border-emerald-500 focus:ring-4 focus:ring-emerald-100 dark:border-white/10 dark:bg-white/10 dark:text-slate-50 dark:focus:ring-emerald-400/20"
             >
               <option value="all">All units</option>
               {unitOptions.map((unit) => (
@@ -130,9 +130,9 @@ export function LearnedWordsReview() {
       </section>
 
       {filteredWords.length === 0 ? (
-        <section className="rounded-[30px] border border-white/80 bg-white/95 p-6 text-center shadow-[0_14px_40px_rgba(15,23,42,0.07)]">
+        <section className="rounded-[30px] border border-white/80 bg-white/95 p-6 text-center shadow-[0_14px_40px_rgba(15,23,42,0.07)] dark:border-white/10 dark:bg-slate-950/80 dark:shadow-[0_14px_40px_rgba(0,0,0,0.26)]">
           <h2 className="text-2xl font-black">No matching words</h2>
-          <p className="mt-2 text-slate-600">
+          <p className="mt-2 text-slate-600 dark:text-slate-300">
             Try a different English meaning or romanized spelling.
           </p>
         </section>
@@ -141,14 +141,14 @@ export function LearnedWordsReview() {
           {filteredWords.map((word) => (
             <article
               key={word.phrase.id}
-              className="group rounded-[30px] border border-white/80 bg-white/95 p-5 shadow-[0_14px_42px_rgba(15,23,42,0.07)] ring-1 ring-slate-900/5 transition hover:-translate-y-1 hover:shadow-[0_22px_58px_rgba(15,23,42,0.1)]"
+              className="group rounded-[30px] border border-white/80 bg-white/95 p-5 shadow-[0_14px_42px_rgba(15,23,42,0.07)] ring-1 ring-slate-900/5 transition hover:-translate-y-1 hover:shadow-[0_22px_58px_rgba(15,23,42,0.1)] dark:border-white/10 dark:bg-slate-950/80 dark:shadow-[0_14px_42px_rgba(0,0,0,0.26)] dark:ring-white/10 dark:hover:shadow-[0_22px_58px_rgba(0,0,0,0.34)]"
             >
               <div className="flex items-start justify-between gap-4">
                 <div>
                   <p className="text-4xl font-black leading-tight">
                     {word.phrase.romanized}
                   </p>
-                  <p className="mt-2 text-lg font-bold text-slate-500">
+                  <p className="mt-2 text-lg font-bold text-slate-500 dark:text-slate-300">
                     {word.phrase.english}
                   </p>
                 </div>
@@ -160,17 +160,17 @@ export function LearnedWordsReview() {
               </div>
 
               <div className="mt-5 grid gap-3">
-                <div className="rounded-3xl border border-emerald-100 bg-emerald-50 p-4 shadow-inner">
-                  <p className="text-xs font-black uppercase tracking-[0.14em] text-emerald-700">
+                <div className="rounded-3xl border border-emerald-100 bg-emerald-50 p-4 shadow-inner dark:border-emerald-300/20 dark:bg-emerald-400/12">
+                  <p className="text-xs font-black uppercase tracking-[0.14em] text-emerald-700 dark:text-emerald-200">
                     Meaning
                   </p>
                   <p className="mt-1 text-xl font-black">{word.phrase.english}</p>
                 </div>
-                <div className="rounded-3xl border border-slate-100 bg-slate-50 p-4">
-                  <p className="text-xs font-black uppercase tracking-[0.14em] text-slate-500">
+                <div className="rounded-3xl border border-slate-100 bg-slate-50 p-4 dark:border-white/10 dark:bg-white/[0.08]">
+                  <p className="text-xs font-black uppercase tracking-[0.14em] text-slate-500 dark:text-slate-400">
                     Source
                   </p>
-                  <p className="mt-1 text-sm font-bold text-slate-700">
+                  <p className="mt-1 text-sm font-bold text-slate-700 dark:text-slate-200">
                     Unit {word.unitNumber}: {word.unitTitle} · {word.lessonTitle}
                   </p>
                 </div>
@@ -235,19 +235,19 @@ function HistoryRecap({
         </p>
       </section>
 
-      <section className="rounded-[30px] border border-white/80 bg-white/95 p-4 shadow-[0_18px_55px_rgba(15,23,42,0.08)] ring-1 ring-slate-900/5 sm:p-5">
+      <section className="rounded-[30px] border border-white/80 bg-white/95 p-4 shadow-[0_18px_55px_rgba(15,23,42,0.08)] ring-1 ring-slate-900/5 transition-colors duration-300 dark:border-white/10 dark:bg-slate-950/80 dark:shadow-[0_18px_55px_rgba(0,0,0,0.28)] dark:ring-white/10 sm:p-5">
         <div className="grid gap-3 md:grid-cols-[1fr_260px]">
           <label className="relative block">
             <span className="sr-only">Search history recap</span>
             <Search
               size={19}
-              className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"
+              className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 dark:text-slate-500"
             />
             <input
               value={query}
               onChange={(event) => setQuery(event.target.value)}
               placeholder="Search events, causes, or consequences"
-              className="min-h-12 w-full rounded-2xl border border-slate-200 bg-[#fffdfa] px-11 py-3 font-bold shadow-inner outline-none transition focus:border-violet-500 focus:ring-4 focus:ring-violet-100"
+              className="min-h-12 w-full rounded-2xl border border-slate-200 bg-[#fffdfa] px-11 py-3 font-bold shadow-inner outline-none transition focus:border-violet-500 focus:ring-4 focus:ring-violet-100 dark:border-white/10 dark:bg-white/10 dark:text-slate-50 dark:placeholder:text-slate-500 dark:focus:ring-violet-400/20"
             />
           </label>
 
@@ -256,7 +256,7 @@ function HistoryRecap({
             <select
               value={unitFilter}
               onChange={(event) => setUnitFilter(event.target.value)}
-              className="min-h-12 w-full rounded-2xl border border-slate-200 bg-[#fffdfa] px-4 py-3 font-bold shadow-inner outline-none transition focus:border-violet-500 focus:ring-4 focus:ring-violet-100"
+              className="min-h-12 w-full rounded-2xl border border-slate-200 bg-[#fffdfa] px-4 py-3 font-bold shadow-inner outline-none transition focus:border-violet-500 focus:ring-4 focus:ring-violet-100 dark:border-white/10 dark:bg-white/10 dark:text-slate-50 dark:focus:ring-violet-400/20"
             >
               <option value="all">All units</option>
               {unitOptions.map((unit) => (
@@ -277,15 +277,15 @@ function HistoryRecap({
             <Link
               key={lesson.id}
               href={`/practice/${lesson.id}`}
-              className="group rounded-[30px] border border-white/80 bg-white/95 p-5 shadow-[0_14px_42px_rgba(15,23,42,0.07)] ring-1 ring-slate-900/5 transition hover:-translate-y-1 hover:shadow-[0_22px_58px_rgba(15,23,42,0.1)]"
+              className="group rounded-[30px] border border-white/80 bg-white/95 p-5 shadow-[0_14px_42px_rgba(15,23,42,0.07)] ring-1 ring-slate-900/5 transition hover:-translate-y-1 hover:shadow-[0_22px_58px_rgba(15,23,42,0.1)] dark:border-white/10 dark:bg-slate-950/80 dark:shadow-[0_14px_42px_rgba(0,0,0,0.26)] dark:ring-white/10 dark:hover:shadow-[0_22px_58px_rgba(0,0,0,0.34)]"
             >
               <div className="flex items-start justify-between gap-4">
                 <div className="flex items-start gap-3">
-                  <span className="grid size-12 shrink-0 place-items-center rounded-2xl bg-violet-50 text-violet-700 transition group-hover:bg-violet-600 group-hover:text-white">
+                  <span className="grid size-12 shrink-0 place-items-center rounded-2xl bg-violet-50 text-violet-700 transition group-hover:bg-violet-600 group-hover:text-white dark:bg-violet-400/15 dark:text-violet-200 dark:group-hover:bg-violet-500">
                     <HistoryIcon name={lesson.history?.icon} size={22} />
                   </span>
                   <div>
-                    <p className="text-xs font-black uppercase tracking-[0.14em] text-slate-400">
+                    <p className="text-xs font-black uppercase tracking-[0.14em] text-slate-400 dark:text-slate-500">
                       Unit {unit.number}: {unit.title}
                     </p>
                     <h2 className="mt-1 text-xl font-black">{lesson.title}</h2>
@@ -298,11 +298,11 @@ function HistoryRecap({
                 )}
               </div>
 
-              <p className="mt-4 text-sm leading-6 text-slate-600">
+              <p className="mt-4 text-sm leading-6 text-slate-600 dark:text-slate-300">
                 {lesson.history?.keyTakeaway ?? lesson.summary}
               </p>
               {lesson.history?.whyItMatters && (
-                <p className="mt-3 rounded-2xl bg-amber-50 px-3 py-2 text-sm font-bold text-amber-900">
+                <p className="mt-3 rounded-2xl bg-amber-50 px-3 py-2 text-sm font-bold text-amber-900 dark:bg-amber-400/14 dark:text-amber-100">
                   {lesson.history.whyItMatters}
                 </p>
               )}

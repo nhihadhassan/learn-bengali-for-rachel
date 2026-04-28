@@ -25,7 +25,7 @@ export default async function PracticePage({
     <div className="space-y-5">
       <Link
         href="/lessons"
-        className="inline-flex items-center gap-2 rounded-xl border border-slate-200 bg-white px-4 py-3 font-black text-slate-700 transition hover:bg-slate-50"
+        className="inline-flex items-center gap-2 rounded-xl border border-slate-200 bg-white px-4 py-3 font-black text-slate-700 transition hover:bg-slate-50 dark:border-white/10 dark:bg-white/10 dark:text-slate-100 dark:hover:bg-white/15"
       >
         <ArrowLeft size={18} /> Lesson path
       </Link>

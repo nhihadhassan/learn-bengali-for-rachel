@@ -151,15 +151,15 @@ function MistakeCard({
     <ExerciseCard>
       <div className="mb-5 flex items-start justify-between gap-3">
         <div className="flex items-start gap-3">
-          <span className="grid size-10 shrink-0 place-items-center rounded-xl bg-rose-50 text-rose-700">
+          <span className="grid size-10 shrink-0 place-items-center rounded-xl bg-rose-50 text-rose-700 dark:bg-rose-400/15 dark:text-rose-200">
             <RotateCcw size={20} />
           </span>
           <div>
-            <p className="text-sm font-black uppercase tracking-[0.14em] text-slate-500">
+            <p className="text-sm font-black uppercase tracking-[0.14em] text-slate-500 dark:text-slate-400">
               Mistake {currentIndex + 1} of {total}
             </p>
             <h2 className="mt-1 text-xl font-black">{mistake.prompt}</h2>
-            <p className="mt-1 text-sm font-semibold text-slate-600">
+            <p className="mt-1 text-sm font-semibold text-slate-600 dark:text-slate-300">
               Last answer: {mistake.wrongAnswer}
             </p>
           </div>
@@ -192,7 +192,7 @@ function MistakeCard({
             setFeedback("idle");
           }}
           placeholder="Type the correct answer"
-          className="w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 font-bold shadow-inner outline-none transition focus:border-emerald-500 focus:ring-4 focus:ring-emerald-100"
+          className="w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 font-bold shadow-inner outline-none transition focus:border-emerald-500 focus:ring-4 focus:ring-emerald-100 dark:border-white/10 dark:bg-white/10 dark:text-slate-50 dark:placeholder:text-slate-500 dark:focus:ring-emerald-400/20"
         />
       )}
 
@@ -206,15 +206,15 @@ function MistakeCard({
       </AppButton>
 
       {feedback === "correct" && (
-        <p className="streak-pop mt-3 inline-flex items-center gap-2 rounded-2xl border border-emerald-100 bg-emerald-50 px-3 py-2 font-bold text-emerald-800 shadow-sm">
+        <p className="streak-pop mt-3 inline-flex items-center gap-2 rounded-2xl border border-emerald-100 bg-emerald-50 px-3 py-2 font-bold text-emerald-800 shadow-sm dark:border-emerald-300/25 dark:bg-emerald-400/14 dark:text-emerald-100">
           <Check size={18} /> Cleared
         </p>
       )}
 
       {feedback === "wrong" && (
-        <div className="streak-pop mt-3 rounded-2xl border border-rose-100 bg-rose-50 px-3 py-2 font-bold text-rose-800 shadow-sm">
+        <div className="streak-pop mt-3 rounded-2xl border border-rose-100 bg-rose-50 px-3 py-2 font-bold text-rose-800 shadow-sm dark:border-rose-300/25 dark:bg-rose-400/14 dark:text-rose-100">
           <p>Correct answer: {formatCorrectAnswer(mistake.correctAnswer)}</p>
-          <p className="mt-1 text-sm font-semibold text-rose-700">
+          <p className="mt-1 text-sm font-semibold text-rose-700 dark:text-rose-200">
             Minor spelling variations are okay, but the answer still needs to
             match the meaning.
           </p>
@@ -253,12 +253,12 @@ function MultipleChoiceReview({
   return (
     <div>
       {review.audioPrompt && (
-        <div className="mb-4 flex items-center justify-between gap-4 rounded-3xl border border-cyan-100 bg-cyan-50 p-4 shadow-inner">
+        <div className="mb-4 flex items-center justify-between gap-4 rounded-3xl border border-cyan-100 bg-cyan-50 p-4 shadow-inner dark:border-cyan-300/20 dark:bg-cyan-400/12">
           <div>
             <p className="text-xs font-black uppercase tracking-[0.14em] text-cyan-700">
               Listen again
             </p>
-            <p className="mt-1 text-sm font-bold text-slate-600">
+            <p className="mt-1 text-sm font-bold text-slate-600 dark:text-slate-300">
               Replay the prompt, then choose the matching answer.
             </p>
           </div>
@@ -301,9 +301,9 @@ function MatchingReview({
       {pairs.map((pair) => (
         <div
           key={pair.left}
-          className="grid gap-3 rounded-2xl border border-slate-200 bg-slate-50 p-3 shadow-sm sm:grid-cols-[1fr_1fr]"
+          className="grid gap-3 rounded-2xl border border-slate-200 bg-slate-50 p-3 shadow-sm dark:border-white/10 dark:bg-white/[0.08] sm:grid-cols-[1fr_1fr]"
         >
-          <div className="rounded-xl bg-white px-4 py-3 text-lg font-black shadow-sm">
+          <div className="rounded-xl bg-white px-4 py-3 text-lg font-black shadow-sm dark:bg-white/10">
             {pair.left}
           </div>
           <select
@@ -311,7 +311,7 @@ function MatchingReview({
             onChange={(event) =>
               setMatches({ ...matches, [pair.left]: event.target.value })
             }
-            className="rounded-xl border border-slate-200 bg-white px-4 py-3 font-bold outline-none transition focus:border-emerald-500 focus:ring-4 focus:ring-emerald-100"
+            className="rounded-xl border border-slate-200 bg-white px-4 py-3 font-bold outline-none transition focus:border-emerald-500 focus:ring-4 focus:ring-emerald-100 dark:border-white/10 dark:bg-slate-950/70 dark:text-slate-50 dark:focus:ring-emerald-400/20"
           >
             <option value="">Choose meaning</option>
             {rightOptions.map((right) => (
