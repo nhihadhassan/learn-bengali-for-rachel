@@ -22,7 +22,7 @@ export function ProgressSummary() {
   return (
     <div className="space-y-5">
       <section className="animate-soft-rise overflow-hidden rounded-[34px] bg-slate-950 p-6 text-white shadow-[0_24px_80px_rgba(15,23,42,0.22)] ring-1 ring-white/10 sm:p-8">
-        <p className="text-sm font-black uppercase tracking-[0.14em] text-emerald-100">
+        <p className="text-sm font-black uppercase tracking-[0.14em] text-violet-100">
           Rachel&apos;s progress
         </p>
         <h1 className="mt-2 text-4xl font-black">Keep the streak alive.</h1>
@@ -50,7 +50,7 @@ export function ProgressSummary() {
               {completedCurrentLessons.length} of {lessons.length} lessons complete
             </p>
           </div>
-          <p className="text-2xl font-black text-emerald-700">
+          <p className="text-2xl font-black text-violet-700">
             {completionPercent}%
           </p>
         </div>
@@ -84,7 +84,7 @@ function MetricCard({
 }) {
   return (
     <section className="group rounded-3xl border border-white/80 bg-white/95 p-5 shadow-[0_14px_40px_rgba(15,23,42,0.07)] ring-1 ring-slate-900/5 transition hover:-translate-y-1 hover:shadow-[0_22px_55px_rgba(15,23,42,0.1)]">
-      <div className="mb-5 grid size-11 place-items-center rounded-2xl bg-emerald-50 text-emerald-700 transition group-hover:scale-105 group-hover:bg-emerald-100">
+      <div className="mb-5 grid size-11 place-items-center rounded-2xl bg-violet-50 text-violet-700 transition group-hover:scale-105 group-hover:bg-violet-100">
         <Icon size={22} />
       </div>
       <p className="text-sm font-black uppercase tracking-[0.14em] text-slate-500">

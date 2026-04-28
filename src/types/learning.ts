@@ -131,6 +131,14 @@ export type Mistake = {
   createdAt: string;
 };
 
+export type SkippedListeningExercise = {
+  id: string;
+  exerciseId: string;
+  lessonId: string;
+  prompt: string;
+  createdAt: string;
+};
+
 export type ProgressState = {
   completedLessons: string[];
   encounteredPhraseIds: string[];
@@ -139,6 +147,7 @@ export type ProgressState = {
   currentUnit: number;
   lastPracticeDate: string | null;
   mistakes: Mistake[];
+  skippedListening: SkippedListeningExercise[];
 };
 
 export type LearnedWord = {

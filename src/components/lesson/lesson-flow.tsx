@@ -3,7 +3,7 @@
 import type { ReactNode } from "react";
 import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
-import { ArrowRight, Check, Flame, GraduationCap, PartyPopper, X } from "lucide-react";
+import { ArrowRight, Check, Flame, GraduationCap, PartyPopper, VolumeX, X } from "lucide-react";
 import { checkTypedAnswer } from "@/lib/answer-checking";
 import { getNextLesson } from "@/lib/content";
 import { useProgress } from "@/lib/progress-store";
@@ -27,7 +27,7 @@ type LessonStep =
     }
   | { id: string; type: "exercise"; exercise: Exercise };
 
-type AnswerState = "idle" | "correct" | "wrong";
+type AnswerState = "idle" | "correct" | "wrong" | "skipped";
 
 export function LessonFlow({ lesson }: { lesson: Lesson }) {
   const steps = useMemo(() => buildLessonSteps(lesson), [lesson]);
@@ -38,9 +38,14 @@ export function LessonFlow({ lesson }: { lesson: Lesson }) {
   const [matches, setMatches] = useState<Record<string, string>>({});
   const [correctCount, setCorrectCount] = useState(0);
   const [correctStreak, setCorrectStreak] = useState(0);
-  const [showStreakBoost, setShowStreakBoost] = useState(false);
+  const [streakMilestone, setStreakMilestone] = useState<number | null>(null);
   const [isComplete, setIsComplete] = useState(false);
-  const { completeLesson, recordEncounteredPhrase, recordMistake } = useProgress();
+  const {
+    completeLesson,
+    recordEncounteredPhrase,
+    recordMistake,
+    recordSkippedListening,
+  } = useProgress();
   const step = steps[stepIndex];
   const nextLesson = getNextLesson(lesson.id);
   const audioPromptsById = useMemo(
@@ -65,7 +70,7 @@ export function LessonFlow({ lesson }: { lesson: Lesson }) {
     setSelectedAnswer("");
     setTypedAnswer("");
     setMatches({});
-    setShowStreakBoost(false);
+    setStreakMilestone(null);
   }
 
   function moveNext() {
@@ -88,9 +93,11 @@ export function LessonFlow({ lesson }: { lesson: Lesson }) {
       setCorrectCount((count) => count + 1);
       setCorrectStreak(nextStreak);
 
-      if (nextStreak > 0 && nextStreak % 3 === 0) {
-        setShowStreakBoost(true);
-        playFeedbackSound("streak");
+      const milestone = getStreakMilestone(nextStreak);
+
+      if (milestone) {
+        setStreakMilestone(milestone);
+        playFeedbackSound(`streak-${milestone}` as const);
       } else {
         playFeedbackSound("correct");
       }
@@ -105,6 +112,19 @@ export function LessonFlow({ lesson }: { lesson: Lesson }) {
       prompt: getStepPrompt(step),
       correctAnswer,
       wrongAnswer: wrongAnswer || "No answer",
+    });
+  }
+
+  function skipListening() {
+    if (!isListeningStep(step)) {
+      return;
+    }
+
+    setAnswerState("skipped");
+    recordSkippedListening({
+      exerciseId: step.id,
+      lessonId: lesson.id,
+      prompt: getStepPrompt(step),
     });
   }
 
@@ -224,12 +244,15 @@ export function LessonFlow({ lesson }: { lesson: Lesson }) {
         <ProgressHeader current={stepIndex + 1} total={steps.length} />
       </div>
 
-      {showStreakBoost && (
-        <div className="streak-pop mb-5 flex items-center gap-3 rounded-3xl border border-amber-200 bg-gradient-to-r from-amber-50 to-orange-50 p-3 font-black text-amber-900 shadow-[0_14px_30px_rgba(245,158,11,0.16)]">
+      {streakMilestone && (
+        <div className="milestone-spark mb-5 flex items-center gap-3 rounded-3xl border border-orange-200 bg-gradient-to-r from-amber-50 via-orange-50 to-fuchsia-50 p-3 font-black text-orange-900 shadow-[0_14px_30px_rgba(245,158,11,0.16)]">
           <span className="warm-glow grid size-10 place-items-center rounded-2xl bg-amber-400 text-white">
             <Flame size={18} className="flame-dance" fill="currentColor" />
           </span>
-          <span>3 correct in a row</span>
+          <span>{streakMilestone} correct in a row</span>
+          <span className="xp-pop ml-auto rounded-full bg-white px-3 py-1 text-xs text-violet-800 shadow-sm">
+            +streak
+          </span>
         </div>
       )}
 
@@ -248,6 +271,8 @@ export function LessonFlow({ lesson }: { lesson: Lesson }) {
           correctAnswer={step.phrase.english}
           onCheck={checkAnswer}
           onContinue={moveNext}
+          onSkip={skipListening}
+          skipLabel="Skip for now"
         >
           <h2 className="text-2xl font-black">{step.prompt}</h2>
           <p className="mt-2 text-sm font-semibold text-slate-600">
@@ -275,8 +300,10 @@ export function LessonFlow({ lesson }: { lesson: Lesson }) {
           correctAnswer={getCorrectAnswerLabel(step.exercise)}
           onCheck={checkAnswer}
           onContinue={moveNext}
+          onSkip={isListeningStep(step) ? skipListening : undefined}
+          skipLabel="Skip for now"
         >
-          <p className="text-sm font-black uppercase tracking-[0.14em] text-emerald-700">
+          <p className="text-sm font-black uppercase tracking-[0.14em] text-violet-700">
             {getExerciseMode(step.exercise)}
           </p>
           <h2 className="mt-2 text-2xl font-black">{step.exercise.prompt}</h2>
@@ -300,7 +327,7 @@ export function LessonFlow({ lesson }: { lesson: Lesson }) {
               value={typedAnswer}
               onChange={(event) => setTypedAnswer(event.target.value)}
               placeholder="Type the romanized Bengali answer"
-              className="mt-5 w-full rounded-2xl border border-slate-200 bg-white px-4 py-4 text-lg font-bold shadow-inner outline-none transition focus:border-emerald-500 focus:ring-4 focus:ring-emerald-100"
+              className="mt-5 w-full rounded-2xl border border-slate-200 bg-white px-4 py-4 text-lg font-bold shadow-inner outline-none transition focus:border-violet-500 focus:ring-4 focus:ring-violet-100"
             />
           )}
 
@@ -432,6 +459,8 @@ function QuestionStep({
   correctAnswer,
   onCheck,
   onContinue,
+  onSkip,
+  skipLabel,
 }: {
   answerState: AnswerState;
   canCheck: boolean;
@@ -439,6 +468,8 @@ function QuestionStep({
   correctAnswer: string;
   onCheck: () => void;
   onContinue: () => void;
+  onSkip?: () => void;
+  skipLabel?: string;
 }) {
   return (
     <div>
@@ -449,13 +480,37 @@ function QuestionStep({
           className={cn(
             "streak-pop mt-5 flex items-start gap-3 rounded-2xl p-4 font-bold shadow-sm",
             answerState === "correct"
-              ? "border border-emerald-100 bg-emerald-50 text-emerald-800"
-              : "border border-rose-100 bg-rose-50 text-rose-800",
+              ? "correct-pop border border-emerald-100 bg-emerald-50 text-emerald-800"
+              : answerState === "skipped"
+                ? "border border-violet-100 bg-violet-50 text-violet-800"
+                : "border border-rose-100 bg-rose-50 text-rose-800",
           )}
         >
-          {answerState === "correct" ? <Check size={20} /> : <X size={20} />}
+          {answerState === "correct" ? (
+            <Check size={20} />
+          ) : answerState === "skipped" ? (
+            <VolumeX size={20} />
+          ) : (
+            <X size={20} />
+          )}
           <div>
-            <p>{answerState === "correct" ? "Correct" : "Not quite"}</p>
+            <p>
+              {answerState === "correct"
+                ? "Correct"
+                : answerState === "skipped"
+                  ? "Skipped"
+                  : "Not quite"}
+            </p>
+            {answerState === "correct" && (
+              <p className="xp-pop mt-1 text-sm font-black text-emerald-700">
+                +5 XP energy
+              </p>
+            )}
+            {answerState === "skipped" && (
+              <p className="mt-1 text-sm font-semibold">
+                Skipped. You can review listening practice later.
+              </p>
+            )}
             {answerState === "wrong" && (
               <p className="mt-1 text-sm font-semibold">
                 Correct answer: {correctAnswer}
@@ -465,20 +520,28 @@ function QuestionStep({
         </div>
       )}
 
-      <div className="mt-5 flex justify-end">
+      <div className="mt-5 flex flex-wrap justify-end gap-3">
         {answerState === "idle" ? (
-          <AppButton
-            type="button"
-            disabled={!canCheck}
-            onClick={onCheck}
-          >
-            Check
-          </AppButton>
+          <>
+            {onSkip && (
+              <AppButton type="button" variant="secondary" onClick={onSkip}>
+                <VolumeX size={18} />
+                {skipLabel}
+              </AppButton>
+            )}
+            <AppButton
+              type="button"
+              disabled={!canCheck}
+              onClick={onCheck}
+            >
+              Check
+            </AppButton>
+          </>
         ) : (
           <AppButton
             type="button"
             onClick={onContinue}
-            variant="success"
+            variant={answerState === "skipped" ? "primary" : "success"}
           >
             Continue <ArrowRight size={18} />
           </AppButton>
@@ -539,7 +602,7 @@ function MatchingExercise({
             onChange={(event) =>
               setMatches({ ...matches, [pair.left]: event.target.value })
             }
-            className="rounded-xl border border-slate-200 bg-white px-4 py-3 font-bold outline-none transition focus:border-emerald-500 focus:ring-4 focus:ring-emerald-100"
+            className="rounded-xl border border-slate-200 bg-white px-4 py-3 font-bold outline-none transition focus:border-violet-500 focus:ring-4 focus:ring-violet-100"
           >
             <option value="">Choose meaning</option>
             {rightOptions.map((right) => (
@@ -625,6 +688,23 @@ function getExerciseMode(exercise: Exercise) {
   }
 
   return "Match";
+}
+
+function getStreakMilestone(streak: number): 3 | 5 | 10 | null {
+  if (streak === 3 || streak === 5 || streak === 10) {
+    return streak;
+  }
+
+  return null;
+}
+
+function isListeningStep(step: LessonStep) {
+  return (
+    step.type === "recognize" ||
+    (step.type === "exercise" &&
+      (Boolean(step.exercise.audioPromptId) ||
+        step.exercise.sourceType === "listenSelect"))
+  );
 }
 
 function getCorrectAnswerLabel(exercise: Exercise) {

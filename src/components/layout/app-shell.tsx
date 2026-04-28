@@ -20,14 +20,14 @@ export function AppShell({ children }: { children: ReactNode }) {
 
   return (
     <div className="min-h-screen text-slate-950">
-      <header className="sticky top-0 z-20 border-b border-white/70 bg-[#fff8ed]/88 shadow-[0_10px_35px_rgba(15,23,42,0.06)] backdrop-blur-xl">
+      <header className="sticky top-0 z-20 border-b border-white/70 bg-[#fbf7ff]/88 shadow-[0_10px_35px_rgba(15,23,42,0.06)] backdrop-blur-xl">
         <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3">
           <Link href="/lessons" className="flex items-center gap-3">
-            <span className="grid size-10 place-items-center rounded-2xl bg-gradient-to-br from-emerald-500 to-cyan-500 text-white shadow-[0_10px_24px_rgba(16,185,129,0.28)] transition hover:-rotate-3 hover:scale-105">
+            <span className="grid size-10 place-items-center rounded-2xl bg-gradient-to-br from-violet-600 to-cyan-500 text-white shadow-[0_10px_24px_rgba(124,58,237,0.28)] transition hover:-rotate-3 hover:scale-105">
               <GraduationCap size={22} />
             </span>
             <span>
-              <span className="block text-xs font-black uppercase tracking-[0.14em] text-emerald-700">
+              <span className="block text-xs font-black uppercase tracking-[0.14em] text-violet-700">
                 Learn Bengali
               </span>
               <span className="block text-lg font-black leading-tight">
@@ -46,9 +46,9 @@ export function AppShell({ children }: { children: ReactNode }) {
                   key={item.href}
                   href={item.href}
                   className={cn(
-                    "group inline-flex items-center gap-2 rounded-2xl px-3 py-2 text-sm font-black text-slate-600 transition duration-200 hover:-translate-y-0.5 hover:bg-white hover:text-emerald-700 hover:shadow-[0_8px_20px_rgba(15,23,42,0.08)] [&>svg]:transition-transform",
+                    "group inline-flex items-center gap-2 rounded-2xl px-3 py-2 text-sm font-black text-slate-600 transition duration-200 hover:-translate-y-0.5 hover:bg-white hover:text-violet-700 hover:shadow-[0_8px_20px_rgba(15,23,42,0.08)] [&>svg]:transition-transform",
                     isActive &&
-                      "bg-white text-emerald-700 shadow-[0_8px_20px_rgba(15,23,42,0.08)]",
+                      "bg-white text-violet-700 shadow-[0_8px_20px_rgba(15,23,42,0.08)]",
                   )}
                 >
                   <Icon size={17} />
@@ -99,7 +99,7 @@ export function AppShell({ children }: { children: ReactNode }) {
                 href={item.href}
                 className={cn(
                   "flex flex-col items-center gap-1 rounded-2xl px-3 py-2 text-xs font-bold text-slate-500 transition active:scale-95",
-                  isActive && "bg-emerald-50 text-emerald-700 shadow-inner",
+                  isActive && "bg-violet-50 text-violet-700 shadow-inner",
                 )}
               >
                 <Icon size={20} />

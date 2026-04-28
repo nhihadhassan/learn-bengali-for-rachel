@@ -47,12 +47,12 @@ export function SpeakerButton({
             : `Hear ${label}`
       }
       className={cn(
-        "group inline-grid size-11 place-items-center rounded-full text-white shadow-lg transition duration-200 ease-out hover:-translate-y-0.5 focus-visible:outline focus-visible:outline-4 focus-visible:outline-offset-2 focus-visible:outline-cyan-200 active:translate-y-1 [&>svg]:transition-transform",
+        "group inline-grid size-11 place-items-center rounded-full text-white shadow-lg transition duration-200 ease-out hover:-translate-y-0.5 focus-visible:outline focus-visible:outline-4 focus-visible:outline-offset-2 focus-visible:outline-violet-200 active:translate-y-1 [&>svg]:transition-transform",
         isUnavailable
           ? "bg-slate-400 shadow-slate-400/20"
           : isBrowserTts
             ? "bg-cyan-600 shadow-cyan-600/25 hover:bg-cyan-700 hover:shadow-cyan-600/35 hover:[&>svg]:scale-110"
-            : "bg-emerald-600 shadow-emerald-600/25 hover:bg-emerald-700 hover:shadow-emerald-600/35 hover:[&>svg]:scale-110",
+            : "bg-violet-600 shadow-violet-600/25 hover:bg-violet-500 hover:shadow-violet-600/35 hover:[&>svg]:scale-110",
       )}
     >
       {isLoading ? (

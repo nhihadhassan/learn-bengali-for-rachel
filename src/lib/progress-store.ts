@@ -14,6 +14,7 @@ const initialProgress: ProgressState = {
   currentUnit: 1,
   lastPracticeDate: null,
   mistakes: [],
+  skippedListening: [],
 };
 
 const listeners = new Set<() => void>();
@@ -182,6 +183,34 @@ export function useProgress() {
     });
   }, []);
 
+  const recordSkippedListening = useCallback(function recordSkippedListening(
+    skipped: Omit<ProgressState["skippedListening"][number], "id" | "createdAt">,
+  ) {
+    updateProgress((current) => {
+      const duplicate = current.skippedListening.some(
+        (item) =>
+          item.exerciseId === skipped.exerciseId &&
+          item.lessonId === skipped.lessonId,
+      );
+
+      if (duplicate) {
+        return applyPracticeDay(current);
+      }
+
+      return applyPracticeDay({
+        ...current,
+        skippedListening: [
+          {
+            ...skipped,
+            id: `${skipped.exerciseId}-skipped-${Date.now()}`,
+            createdAt: new Date().toISOString(),
+          },
+          ...current.skippedListening,
+        ],
+      });
+    });
+  }, []);
+
   const resolveMistake = useCallback(function resolveMistake(mistakeId: string) {
     updateProgress((current) =>
       applyPracticeDay({
@@ -204,6 +233,7 @@ export function useProgress() {
     progress,
     recordEncounteredPhrase,
     recordMistake,
+    recordSkippedListening,
     resetProgress,
     resolveMistake,
   };
