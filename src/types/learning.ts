@@ -23,6 +23,61 @@ export type Exercise = {
   options?: string[];
   pairs?: MatchingPair[];
   phraseId?: string;
+  sourceType?: string;
+  audioPromptId?: string;
+  acceptedAnswers?: string[];
+  tokens?: string[];
+  feedback?: string;
+};
+
+export type VocabularyItem = {
+  bn: string;
+  roman: string;
+  en: string;
+  tags: string[];
+};
+
+export type GrammarPoint = {
+  point: string;
+  notes: string;
+};
+
+export type AudioPrompt = {
+  id: string;
+  locale: string;
+  voiceStyle: string;
+  textBn: string;
+  roman: string;
+  textEn: string;
+  speed: number;
+};
+
+export type LessonUiText = {
+  startCta: string;
+  lessonGoal: string;
+  correct: string;
+  almost: string;
+  complete: string;
+};
+
+export type LessonMetadata = {
+  estimatedMinutes: number;
+  difficulty: string;
+  tags: string[];
+  xp: number;
+  unlockAfter?: string[];
+  assessment?: {
+    attempted: string;
+    passed: string;
+    strong: string;
+    mastered: string;
+  };
+};
+
+export type ReviewSchedule = {
+  initialReviewDays: number[];
+  masteryThreshold: number;
+  recycleOnMistake: boolean;
 };
 
 export type Lesson = {
@@ -34,6 +89,20 @@ export type Lesson = {
   summary: string;
   phrases: Phrase[];
   exercises: Exercise[];
+  slug?: string;
+  objectives?: string[];
+  vocabulary?: VocabularyItem[];
+  grammar?: GrammarPoint[];
+  audioPrompts?: AudioPrompt[];
+  uiText?: LessonUiText;
+  metadata?: LessonMetadata;
+  reviewSchedule?: ReviewSchedule;
+};
+
+export type UnitMetadata = {
+  difficultyBand: string;
+  estimatedTotalMinutes: number;
+  tags: string[];
 };
 
 export type Unit = {
@@ -42,6 +111,9 @@ export type Unit = {
   title: string;
   description: string;
   lessons: Lesson[];
+  lessonIds?: string[];
+  checkpointLessonId?: string | null;
+  metadata?: UnitMetadata;
 };
 
 export type LearningContent = {

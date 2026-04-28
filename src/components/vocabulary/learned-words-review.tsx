@@ -38,7 +38,7 @@ export function LearnedWordsReview() {
 
   if (learnedWords.length === 0) {
     return (
-      <section className="rounded-[32px] bg-slate-950 p-6 text-white shadow-[0_20px_70px_rgba(15,23,42,0.18)] sm:p-8">
+      <section className="animate-soft-rise rounded-[34px] bg-slate-950 p-6 text-white shadow-[0_24px_80px_rgba(15,23,42,0.22)] ring-1 ring-white/10 sm:p-8">
         <span className="grid size-14 place-items-center rounded-2xl bg-white/10 text-emerald-100">
           <BookOpen size={28} />
         </span>
@@ -61,7 +61,7 @@ export function LearnedWordsReview() {
 
   return (
     <div className="space-y-6">
-      <section className="rounded-[32px] bg-slate-950 p-6 text-white shadow-[0_20px_70px_rgba(15,23,42,0.18)] sm:p-8">
+      <section className="animate-soft-rise rounded-[34px] bg-slate-950 p-6 text-white shadow-[0_24px_80px_rgba(15,23,42,0.22)] ring-1 ring-white/10 sm:p-8">
         <p className="text-sm font-black uppercase tracking-[0.14em] text-emerald-100">
           Learned Words
         </p>
@@ -71,7 +71,7 @@ export function LearnedWordsReview() {
         </p>
       </section>
 
-      <section className="rounded-[28px] border border-slate-200 bg-white p-4 shadow-[0_18px_50px_rgba(15,23,42,0.06)] sm:p-5">
+      <section className="rounded-[30px] border border-white/80 bg-white/95 p-4 shadow-[0_18px_55px_rgba(15,23,42,0.08)] ring-1 ring-slate-900/5 sm:p-5">
         <div className="grid gap-3 md:grid-cols-[1fr_260px]">
           <label className="relative block">
             <span className="sr-only">Search vocabulary</span>
@@ -83,7 +83,7 @@ export function LearnedWordsReview() {
               value={query}
               onChange={(event) => setQuery(event.target.value)}
               placeholder="Search English, romanized Bengali, or Bengali script"
-              className="min-h-12 w-full rounded-2xl border border-slate-200 bg-[#fffdfa] px-11 py-3 font-bold outline-none transition focus:border-emerald-500 focus:ring-4 focus:ring-emerald-100"
+              className="min-h-12 w-full rounded-2xl border border-slate-200 bg-[#fffdfa] px-11 py-3 font-bold shadow-inner outline-none transition focus:border-emerald-500 focus:ring-4 focus:ring-emerald-100"
             />
           </label>
 
@@ -92,7 +92,7 @@ export function LearnedWordsReview() {
             <select
               value={unitFilter}
               onChange={(event) => setUnitFilter(event.target.value)}
-              className="min-h-12 w-full rounded-2xl border border-slate-200 bg-[#fffdfa] px-4 py-3 font-bold outline-none transition focus:border-emerald-500 focus:ring-4 focus:ring-emerald-100"
+              className="min-h-12 w-full rounded-2xl border border-slate-200 bg-[#fffdfa] px-4 py-3 font-bold shadow-inner outline-none transition focus:border-emerald-500 focus:ring-4 focus:ring-emerald-100"
             >
               <option value="all">All units</option>
               {unitOptions.map((unit) => (
@@ -106,7 +106,7 @@ export function LearnedWordsReview() {
       </section>
 
       {filteredWords.length === 0 ? (
-        <section className="rounded-[28px] border border-slate-200 bg-white p-6 text-center shadow-sm">
+        <section className="rounded-[30px] border border-white/80 bg-white/95 p-6 text-center shadow-[0_14px_40px_rgba(15,23,42,0.07)]">
           <h2 className="text-2xl font-black">No matching words</h2>
           <p className="mt-2 text-slate-600">
             Try a different English meaning, romanized spelling, or Bengali script.
@@ -117,7 +117,7 @@ export function LearnedWordsReview() {
           {filteredWords.map((word) => (
             <article
               key={word.phrase.id}
-              className="rounded-[28px] border border-slate-200 bg-white p-5 shadow-[0_10px_35px_rgba(15,23,42,0.06)]"
+              className="group rounded-[30px] border border-white/80 bg-white/95 p-5 shadow-[0_14px_42px_rgba(15,23,42,0.07)] ring-1 ring-slate-900/5 transition hover:-translate-y-1 hover:shadow-[0_22px_58px_rgba(15,23,42,0.1)]"
             >
               <div className="flex items-start justify-between gap-4">
                 <div>
@@ -136,13 +136,13 @@ export function LearnedWordsReview() {
               </div>
 
               <div className="mt-5 grid gap-3">
-                <div className="rounded-2xl bg-emerald-50 p-4">
+                <div className="rounded-3xl border border-emerald-100 bg-emerald-50 p-4 shadow-inner">
                   <p className="text-xs font-black uppercase tracking-[0.14em] text-emerald-700">
                     Meaning
                   </p>
                   <p className="mt-1 text-xl font-black">{word.phrase.english}</p>
                 </div>
-                <div className="rounded-2xl bg-slate-50 p-4">
+                <div className="rounded-3xl border border-slate-100 bg-slate-50 p-4">
                   <p className="text-xs font-black uppercase tracking-[0.14em] text-slate-500">
                     Source
                   </p>

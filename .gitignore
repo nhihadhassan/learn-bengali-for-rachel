@@ -26,3 +26,43 @@ pnpm-debug.log*
 
 # Local bundled tooling
 .tools/
+
+# Agent skill installer symlinks for non-Codex tools.
+# The canonical project skills live in .agents/skills and skills-lock.json.
+.adal/
+.aider-desk/
+.augment/
+.bob/
+.claude/
+.codeartsdoer/
+.codebuddy/
+.codemaker/
+.codestudio/
+.commandcode/
+.continue/
+.cortex/
+.crush/
+.devin/
+.factory/
+.forge/
+.goose/
+.iflow/
+.junie/
+.kilocode/
+.kiro/
+.kode/
+.mcpjam/
+.mux/
+.neovate/
+.openhands/
+.pi/
+.pochi/
+.qoder/
+.qwen/
+.roo/
+.rovodev/
+.tabnine/
+.trae/
+.vibe/
+.windsurf/
+.zencoder/

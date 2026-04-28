@@ -152,10 +152,10 @@ export function LessonFlow({ lesson }: { lesson: Lesson }) {
 
   if (isComplete) {
     return (
-      <section className="relative overflow-hidden rounded-[32px] bg-emerald-600 p-6 text-white shadow-[0_20px_70px_rgba(5,150,105,0.25)] sm:p-8">
+      <section className="animate-soft-rise relative overflow-hidden rounded-[36px] bg-gradient-to-br from-emerald-600 via-teal-600 to-cyan-600 p-6 text-white shadow-[0_28px_90px_rgba(5,150,105,0.3)] ring-1 ring-white/20 sm:p-8">
         <div className="celebration-burst" aria-hidden="true" />
         <div className="relative z-10">
-          <span className="grid size-14 place-items-center rounded-2xl bg-white text-emerald-700">
+          <span className="warm-glow grid size-16 place-items-center rounded-3xl bg-white text-emerald-700">
             <PartyPopper size={28} />
           </span>
           <p className="mt-5 text-sm font-black uppercase tracking-[0.14em] text-emerald-100">
@@ -166,25 +166,39 @@ export function LessonFlow({ lesson }: { lesson: Lesson }) {
             You got {correctCount} practice checks right and earned XP. Missed
             questions are waiting in review.
           </p>
+          <div className="mt-6 grid gap-3 rounded-3xl border border-white/15 bg-white/10 p-4 shadow-inner sm:grid-cols-3">
+            <div>
+              <p className="text-sm font-bold text-emerald-100">Correct checks</p>
+              <p className="text-3xl font-black">{correctCount}</p>
+            </div>
+            <div>
+              <p className="text-sm font-bold text-emerald-100">XP earned</p>
+              <p className="text-3xl font-black">{10 + correctCount * 5}</p>
+            </div>
+            <div>
+              <p className="text-sm font-bold text-emerald-100">Review</p>
+              <p className="text-3xl font-black">Ready</p>
+            </div>
+          </div>
           <div className="mt-6 flex flex-wrap gap-3">
             {nextLesson ? (
               <Link
                 href={`/practice/${nextLesson.id}`}
-                className="inline-flex min-h-12 items-center gap-2 rounded-2xl bg-white px-5 py-3 font-black text-emerald-800 transition hover:bg-emerald-50"
+                className="group inline-flex min-h-12 items-center gap-2 rounded-2xl bg-white px-5 py-3 font-black text-emerald-800 shadow-[0_6px_0_rgba(255,255,255,0.45)] transition hover:-translate-y-0.5 hover:bg-emerald-50 active:translate-y-1"
               >
-                Next lesson <ArrowRight size={18} />
+                Next lesson <ArrowRight size={18} className="transition group-hover:translate-x-0.5" />
               </Link>
             ) : (
               <Link
                 href="/review"
-                className="inline-flex min-h-12 items-center gap-2 rounded-2xl bg-white px-5 py-3 font-black text-emerald-800 transition hover:bg-emerald-50"
+                className="group inline-flex min-h-12 items-center gap-2 rounded-2xl bg-white px-5 py-3 font-black text-emerald-800 shadow-[0_6px_0_rgba(255,255,255,0.45)] transition hover:-translate-y-0.5 hover:bg-emerald-50 active:translate-y-1"
               >
-                Review mistakes <ArrowRight size={18} />
+                Review mistakes <ArrowRight size={18} className="transition group-hover:translate-x-0.5" />
               </Link>
             )}
             <Link
               href="/lessons"
-              className="inline-flex min-h-12 items-center gap-2 rounded-2xl bg-emerald-700 px-5 py-3 font-black text-white transition hover:bg-emerald-800"
+              className="inline-flex min-h-12 items-center gap-2 rounded-2xl bg-emerald-800/80 px-5 py-3 font-black text-white shadow-inner transition hover:-translate-y-0.5 hover:bg-emerald-900 active:translate-y-1"
             >
               Lesson path
             </Link>
@@ -201,11 +215,11 @@ export function LessonFlow({ lesson }: { lesson: Lesson }) {
       </div>
 
       {showStreakBoost && (
-        <div className="streak-pop mb-5 flex items-center gap-3 rounded-2xl border border-amber-200 bg-amber-50 p-3 font-black text-amber-800">
-          <span className="grid size-9 place-items-center rounded-xl bg-amber-400 text-white">
-            <Flame size={18} />
+        <div className="streak-pop mb-5 flex items-center gap-3 rounded-3xl border border-amber-200 bg-gradient-to-r from-amber-50 to-orange-50 p-3 font-black text-amber-900 shadow-[0_14px_30px_rgba(245,158,11,0.16)]">
+          <span className="warm-glow grid size-10 place-items-center rounded-2xl bg-amber-400 text-white">
+            <Flame size={18} className="flame-dance" fill="currentColor" />
           </span>
-          3 correct in a row
+          <span>3 correct in a row</span>
         </div>
       )}
 
@@ -229,7 +243,7 @@ export function LessonFlow({ lesson }: { lesson: Lesson }) {
           <p className="mt-2 text-sm font-semibold text-slate-600">
             Listen to the phrase, then choose the English meaning.
           </p>
-          <div className="mt-5 flex items-center justify-between rounded-2xl bg-cyan-50 p-4">
+          <div className="mt-5 flex items-center justify-between rounded-3xl border border-cyan-100 bg-cyan-50 p-4 shadow-inner">
             <p className="text-3xl font-black">{step.phrase.romanized}</p>
             <SpeakerButton
               audioUrl={step.phrase.audioUrl}
@@ -271,7 +285,7 @@ export function LessonFlow({ lesson }: { lesson: Lesson }) {
               value={typedAnswer}
               onChange={(event) => setTypedAnswer(event.target.value)}
               placeholder="Type the romanized Bengali answer"
-              className="mt-5 w-full rounded-xl border border-slate-200 bg-white px-4 py-4 text-lg font-bold outline-none transition focus:border-emerald-500 focus:ring-4 focus:ring-emerald-100"
+              className="mt-5 w-full rounded-2xl border border-slate-200 bg-white px-4 py-4 text-lg font-bold shadow-inner outline-none transition focus:border-emerald-500 focus:ring-4 focus:ring-emerald-100"
             />
           )}
 
@@ -332,7 +346,7 @@ function LearnStep({
           <p className="text-sm font-black uppercase tracking-[0.14em] text-cyan-700">
             New phrase {step.position} of {step.total}
           </p>
-          <h2 className="mt-3 text-5xl font-black leading-tight">
+          <h2 className="mt-3 text-5xl font-black leading-tight text-slate-950">
             {step.phrase.romanized}
           </h2>
           {step.phrase.bengaliScript && (
@@ -349,13 +363,13 @@ function LearnStep({
       </div>
 
       <div className="mt-6 grid gap-3">
-        <div className="rounded-2xl bg-cyan-50 p-4">
+        <div className="rounded-3xl border border-cyan-100 bg-cyan-50 p-4 shadow-inner">
           <p className="text-xs font-black uppercase tracking-[0.14em] text-cyan-700">
             Meaning
           </p>
           <p className="mt-1 text-2xl font-black">{step.phrase.english}</p>
         </div>
-        <div className="rounded-2xl bg-slate-50 p-4">
+        <div className="rounded-3xl border border-slate-100 bg-slate-50 p-4">
           <p className="text-xs font-black uppercase tracking-[0.14em] text-slate-500">
             Pronunciation
           </p>
@@ -398,10 +412,10 @@ function QuestionStep({
       {answerState !== "idle" && (
         <div
           className={cn(
-            "mt-5 flex items-start gap-3 rounded-xl p-4 font-bold",
+            "streak-pop mt-5 flex items-start gap-3 rounded-2xl p-4 font-bold shadow-sm",
             answerState === "correct"
-              ? "bg-emerald-50 text-emerald-800"
-              : "bg-rose-50 text-rose-800",
+              ? "border border-emerald-100 bg-emerald-50 text-emerald-800"
+              : "border border-rose-100 bg-rose-50 text-rose-800",
           )}
         >
           {answerState === "correct" ? <Check size={20} /> : <X size={20} />}
@@ -480,9 +494,9 @@ function MatchingExercise({
       {pairs.map((pair) => (
         <div
           key={pair.left}
-          className="grid gap-3 rounded-xl border border-slate-200 bg-slate-50 p-3 sm:grid-cols-[1fr_1fr]"
+          className="grid gap-3 rounded-2xl border border-slate-200 bg-slate-50 p-3 shadow-sm sm:grid-cols-[1fr_1fr]"
         >
-          <div className="rounded-lg bg-white px-4 py-3 text-lg font-black">
+          <div className="rounded-xl bg-white px-4 py-3 text-lg font-black shadow-sm">
             {pair.left}
           </div>
           <select
@@ -490,7 +504,7 @@ function MatchingExercise({
             onChange={(event) =>
               setMatches({ ...matches, [pair.left]: event.target.value })
             }
-            className="rounded-lg border border-slate-200 bg-white px-4 py-3 font-bold outline-none focus:border-emerald-500 focus:ring-4 focus:ring-emerald-100"
+            className="rounded-xl border border-slate-200 bg-white px-4 py-3 font-bold outline-none transition focus:border-emerald-500 focus:ring-4 focus:ring-emerald-100"
           >
             <option value="">Choose meaning</option>
             {rightOptions.map((right) => (

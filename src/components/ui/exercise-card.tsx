@@ -11,7 +11,7 @@ export function ExerciseCard({
   return (
     <section
       className={cn(
-        "mx-auto max-w-2xl rounded-[28px] border border-slate-200 bg-white p-5 shadow-[0_18px_50px_rgba(15,23,42,0.08)] sm:p-7",
+        "animate-soft-rise mx-auto max-w-2xl rounded-[30px] border border-white/80 bg-white/95 p-5 shadow-[0_22px_70px_rgba(15,23,42,0.1)] ring-1 ring-slate-900/5 backdrop-blur sm:p-7",
         className,
       )}
     >

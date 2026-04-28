@@ -17,7 +17,7 @@ export function MistakeReview() {
 
   if (activeMistakes.length === 0 || !currentMistake) {
     return (
-      <section className="rounded-[32px] bg-emerald-600 p-6 text-white shadow-[0_18px_60px_rgba(5,150,105,0.2)] sm:p-8">
+      <section className="animate-soft-rise rounded-[34px] bg-gradient-to-br from-emerald-600 to-cyan-600 p-6 text-white shadow-[0_24px_80px_rgba(5,150,105,0.25)] ring-1 ring-white/20 sm:p-8">
         <p className="text-sm font-black uppercase tracking-[0.14em] text-emerald-100">
           Mistake review
         </p>
@@ -38,7 +38,7 @@ export function MistakeReview() {
 
   return (
     <div className="space-y-5">
-      <section className="rounded-3xl bg-slate-950 p-6 text-white shadow-sm sm:p-8">
+      <section className="animate-soft-rise rounded-[34px] bg-slate-950 p-6 text-white shadow-[0_24px_80px_rgba(15,23,42,0.22)] ring-1 ring-white/10 sm:p-8">
         <p className="text-sm font-black uppercase tracking-[0.14em] text-rose-100">
           Mistake review
         </p>
@@ -121,7 +121,7 @@ function MistakeCard({
               Mistake {currentIndex + 1} of {total}
             </p>
             <h2 className="mt-1 text-xl font-black">{mistake.prompt}</h2>
-            <p className="mt-1 text-sm text-slate-600">
+            <p className="mt-1 text-sm font-semibold text-slate-600">
               Last answer: {mistake.wrongAnswer}
             </p>
           </div>
@@ -145,7 +145,7 @@ function MistakeCard({
             setFeedback("idle");
           }}
           placeholder="Type the correct answer"
-          className="w-full rounded-xl border border-slate-200 bg-white px-4 py-3 font-bold outline-none focus:border-emerald-500 focus:ring-4 focus:ring-emerald-100"
+          className="w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 font-bold shadow-inner outline-none transition focus:border-emerald-500 focus:ring-4 focus:ring-emerald-100"
         />
       )}
 
@@ -159,13 +159,13 @@ function MistakeCard({
       </AppButton>
 
       {feedback === "correct" && (
-        <p className="mt-3 inline-flex items-center gap-2 rounded-xl bg-emerald-50 px-3 py-2 font-bold text-emerald-800">
+        <p className="streak-pop mt-3 inline-flex items-center gap-2 rounded-2xl border border-emerald-100 bg-emerald-50 px-3 py-2 font-bold text-emerald-800 shadow-sm">
           <Check size={18} /> Cleared
         </p>
       )}
 
       {feedback === "wrong" && (
-        <div className="mt-3 rounded-xl bg-rose-50 px-3 py-2 font-bold text-rose-800">
+        <div className="streak-pop mt-3 rounded-2xl border border-rose-100 bg-rose-50 px-3 py-2 font-bold text-rose-800 shadow-sm">
           <p>Correct answer: {formatCorrectAnswer(mistake.correctAnswer)}</p>
           <p className="mt-1 text-sm font-semibold text-rose-700">
             Minor spelling variations are okay, but the answer still needs to
@@ -204,9 +204,9 @@ function MatchingReview({
       {pairs.map((pair) => (
         <div
           key={pair.left}
-          className="grid gap-3 rounded-xl border border-slate-200 bg-slate-50 p-3 sm:grid-cols-[1fr_1fr]"
+          className="grid gap-3 rounded-2xl border border-slate-200 bg-slate-50 p-3 shadow-sm sm:grid-cols-[1fr_1fr]"
         >
-          <div className="rounded-lg bg-white px-4 py-3 text-lg font-black">
+          <div className="rounded-xl bg-white px-4 py-3 text-lg font-black shadow-sm">
             {pair.left}
           </div>
           <select
@@ -214,7 +214,7 @@ function MatchingReview({
             onChange={(event) =>
               setMatches({ ...matches, [pair.left]: event.target.value })
             }
-            className="rounded-lg border border-slate-200 bg-white px-4 py-3 font-bold outline-none focus:border-emerald-500 focus:ring-4 focus:ring-emerald-100"
+            className="rounded-xl border border-slate-200 bg-white px-4 py-3 font-bold outline-none transition focus:border-emerald-500 focus:ring-4 focus:ring-emerald-100"
           >
             <option value="">Choose meaning</option>
             {rightOptions.map((right) => (
