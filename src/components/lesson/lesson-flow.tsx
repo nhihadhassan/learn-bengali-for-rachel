@@ -43,6 +43,7 @@ function HistoryStoryFlow({ lesson }: { lesson: Lesson }) {
   const {
     activeCurriculumId,
     completeLesson,
+    recordLessonPosition,
     setActiveCurriculumId,
   } = useProgress();
   const lessonCurriculumId = lesson.curriculumId ?? activeCurriculumId;
@@ -54,6 +55,12 @@ function HistoryStoryFlow({ lesson }: { lesson: Lesson }) {
       setActiveCurriculumId(lesson.curriculumId);
     }
   }, [activeCurriculumId, lesson.curriculumId, setActiveCurriculumId]);
+
+  useEffect(() => {
+    if (!isComplete) {
+      recordLessonPosition(lesson.id, 0, lessonCurriculumId);
+    }
+  }, [isComplete, lesson.id, lessonCurriculumId, recordLessonPosition]);
 
   function completeChapter() {
     completeLesson(lesson.id, lesson.unitNumber, 0, lessonCurriculumId);
@@ -218,7 +225,22 @@ function RememberItem({ label, value }: { label: string; value: string }) {
 
 function PracticeLessonFlow({ lesson }: { lesson: Lesson }) {
   const steps = useMemo(() => buildLessonSteps(lesson), [lesson]);
-  const [stepIndex, setStepIndex] = useState(0);
+  const {
+    activeCurriculumId,
+    completeLesson,
+    progress,
+    recordEncounteredPhrase,
+    recordLessonPosition,
+    recordMistake,
+    recordSkippedListening,
+    setActiveCurriculumId,
+  } = useProgress();
+  const restoredStepIndex =
+    progress.lastLessonId === lesson.id &&
+    !progress.completedLessons.includes(lesson.id)
+      ? Math.min(Math.max(progress.lastStepIndex, 0), Math.max(steps.length - 1, 0))
+      : 0;
+  const [stepIndex, setStepIndex] = useState(restoredStepIndex);
   const [answerState, setAnswerState] = useState<AnswerState>("idle");
   const [selectedAnswer, setSelectedAnswer] = useState("");
   const [typedAnswer, setTypedAnswer] = useState("");
@@ -227,14 +249,6 @@ function PracticeLessonFlow({ lesson }: { lesson: Lesson }) {
   const [correctStreak, setCorrectStreak] = useState(0);
   const [streakMilestone, setStreakMilestone] = useState<number | null>(null);
   const [isComplete, setIsComplete] = useState(false);
-  const {
-    activeCurriculumId,
-    completeLesson,
-    recordEncounteredPhrase,
-    recordMistake,
-    recordSkippedListening,
-    setActiveCurriculumId,
-  } = useProgress();
   const step = steps[stepIndex];
   const lessonCurriculumId = lesson.curriculumId ?? activeCurriculumId;
   const isHistoryLesson = lessonCurriculumId === "history";
@@ -270,6 +284,12 @@ function PracticeLessonFlow({ lesson }: { lesson: Lesson }) {
     setStreakMilestone(null);
   }
 
+  useEffect(() => {
+    if (!isComplete) {
+      recordLessonPosition(lesson.id, stepIndex, lessonCurriculumId);
+    }
+  }, [isComplete, lesson.id, lessonCurriculumId, recordLessonPosition, stepIndex]);
+
   function moveNext() {
     if (stepIndex + 1 >= steps.length) {
       completeLesson(lesson.id, lesson.unitNumber, correctCount, lessonCurriculumId);
@@ -278,7 +298,9 @@ function PracticeLessonFlow({ lesson }: { lesson: Lesson }) {
       return;
     }
 
-    setStepIndex((current) => current + 1);
+    const nextStepIndex = stepIndex + 1;
+    recordLessonPosition(lesson.id, nextStepIndex, lessonCurriculumId);
+    setStepIndex(nextStepIndex);
     resetInteraction();
   }
 
@@ -465,13 +487,24 @@ function PracticeLessonFlow({ lesson }: { lesson: Lesson }) {
       </div>
 
       {streakMilestone && (
-        <div className="milestone-spark mb-5 flex items-center gap-3 rounded-3xl border border-orange-200 bg-gradient-to-r from-amber-50 via-orange-50 to-fuchsia-50 p-3 font-black text-orange-900 shadow-[0_14px_30px_rgba(245,158,11,0.16)] dark:border-orange-300/30 dark:from-amber-400/18 dark:via-orange-400/16 dark:to-fuchsia-400/14 dark:text-orange-100">
-          <span className="warm-glow grid size-10 place-items-center rounded-2xl bg-amber-400 text-white">
+        <div
+          className={cn(
+            "milestone-spark mb-5 flex items-center gap-3 rounded-3xl border border-orange-200 bg-gradient-to-r from-amber-50 via-orange-50 to-fuchsia-50 p-3 font-black text-orange-900 shadow-[0_14px_30px_rgba(245,158,11,0.16)] dark:border-orange-300/30 dark:from-amber-400/18 dark:via-orange-400/16 dark:to-fuchsia-400/14 dark:text-orange-100",
+            streakMilestone >= 10 && "scale-[1.02] ring-4 ring-amber-300/25",
+            streakMilestone === 5 && "ring-2 ring-orange-300/20",
+          )}
+        >
+          <span
+            className={cn(
+              "warm-glow grid place-items-center rounded-2xl bg-amber-400 text-white transition-all",
+              streakMilestone >= 10 ? "size-12" : "size-10",
+            )}
+          >
             <Flame size={18} className="flame-dance" fill="currentColor" />
           </span>
           <span>{streakMilestone} correct in a row</span>
           <span className="xp-pop ml-auto rounded-full bg-white px-3 py-1 text-xs text-violet-800 shadow-sm dark:bg-white/12 dark:text-violet-100">
-            +streak
+            +{streakMilestone >= 10 ? 10 : 5} XP rush
           </span>
         </div>
       )}
@@ -789,7 +822,7 @@ function QuestionStep({
             </p>
             {answerState === "correct" && (
               <p className="xp-pop mt-1 text-sm font-black text-emerald-700 dark:text-emerald-200">
-                +5 XP energy
+                +5 XP
               </p>
             )}
             {answerState === "skipped" && (

@@ -38,7 +38,7 @@ export default async function PracticePage({
         <p className="mt-3 max-w-xl text-slate-300">{lesson.summary}</p>
       </section>
 
-      <LessonFlow lesson={lesson} />
+      <LessonFlow key={lesson.id} lesson={lesson} />
     </div>
   );
 }

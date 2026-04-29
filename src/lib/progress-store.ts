@@ -16,6 +16,9 @@ const initialProgress: ProgressState = {
   streak: 0,
   currentUnit: 1,
   lastPracticeDate: null,
+  lastLessonId: null,
+  lastStepIndex: 0,
+  lastActiveAt: null,
   mistakes: [],
   skippedListening: [],
 };
@@ -56,6 +59,9 @@ function normalizeProgress(value: unknown): ProgressState {
     ...(maybeProgress ?? {}),
     completedLessons: maybeProgress?.completedLessons ?? [],
     encounteredPhraseIds: maybeProgress?.encounteredPhraseIds ?? [],
+    lastLessonId: maybeProgress?.lastLessonId ?? null,
+    lastStepIndex: maybeProgress?.lastStepIndex ?? 0,
+    lastActiveAt: maybeProgress?.lastActiveAt ?? null,
     mistakes: maybeProgress?.mistakes ?? [],
     skippedListening: maybeProgress?.skippedListening ?? [],
   };
@@ -210,12 +216,49 @@ export function useProgress() {
 
   const activeMistakes = useMemo(() => {
     const currentLessonIds = getLessonIdsForCurriculum(activeCurriculumId);
+    const frequency = new Map<string, number>();
 
-    return progress.mistakes.filter(
-      (mistake) =>
-        !mistake.resolved && currentLessonIds.has(mistake.lessonId),
-    );
+    progress.mistakes.forEach((mistake) => {
+      if (!mistake.resolved && currentLessonIds.has(mistake.lessonId)) {
+        frequency.set(
+          mistake.exerciseId,
+          (frequency.get(mistake.exerciseId) ?? 0) + 1,
+        );
+      }
+    });
+
+    return progress.mistakes
+      .filter(
+        (mistake) =>
+          !mistake.resolved && currentLessonIds.has(mistake.lessonId),
+      )
+      .sort((first, second) => {
+        const frequencyDelta =
+          (frequency.get(second.exerciseId) ?? 0) -
+          (frequency.get(first.exerciseId) ?? 0);
+
+        if (frequencyDelta !== 0) {
+          return frequencyDelta;
+        }
+
+        return (
+          new Date(second.createdAt).getTime() -
+          new Date(first.createdAt).getTime()
+        );
+      });
   }, [activeCurriculumId, progress.mistakes]);
+
+  const activeSkippedListening = useMemo(() => {
+    const currentLessonIds = getLessonIdsForCurriculum(activeCurriculumId);
+
+    return progress.skippedListening
+      .filter((skipped) => currentLessonIds.has(skipped.lessonId))
+      .sort(
+        (first, second) =>
+          new Date(second.createdAt).getTime() -
+          new Date(first.createdAt).getTime(),
+      );
+  }, [activeCurriculumId, progress.skippedListening]);
 
   const setActiveCurriculumId = useCallback(function setActiveCurriculumId(
     curriculumId: CurriculumId,
@@ -244,8 +287,24 @@ export function useProgress() {
           : practiced.completedLessons,
         xp: practiced.xp + earnedXp,
         currentUnit: Math.max(practiced.currentUnit, unitNumber),
+        lastLessonId: lessonId,
+        lastStepIndex: 0,
+        lastActiveAt: new Date().toISOString(),
       };
     });
+  }, [activeCurriculumId]);
+
+  const recordLessonPosition = useCallback(function recordLessonPosition(
+    lessonId: string,
+    stepIndex: number,
+    curriculumId = activeCurriculumId,
+  ) {
+    updateCurriculumProgress(curriculumId, (current) => ({
+      ...current,
+      lastLessonId: lessonId,
+      lastStepIndex: Math.max(0, stepIndex),
+      lastActiveAt: new Date().toISOString(),
+    }));
   }, [activeCurriculumId]);
 
   const recordEncounteredPhrase = useCallback(function recordEncounteredPhrase(
@@ -336,6 +395,19 @@ export function useProgress() {
     );
   }, [activeCurriculumId]);
 
+  const resolveSkippedListening = useCallback(function resolveSkippedListening(
+    skippedId: string,
+  ) {
+    updateCurriculumProgress(activeCurriculumId, (current) =>
+      applyPracticeDay({
+        ...current,
+        skippedListening: current.skippedListening.filter(
+          (skipped) => skipped.id !== skippedId,
+        ),
+      }),
+    );
+  }, [activeCurriculumId]);
+
   const resetProgress = useCallback(function resetProgress() {
     updateCurriculumProgress(activeCurriculumId, () => cloneInitialProgress());
   }, [activeCurriculumId]);
@@ -343,13 +415,16 @@ export function useProgress() {
   return {
     activeCurriculumId,
     activeMistakes,
+    activeSkippedListening,
     completeLesson,
     progress,
     recordEncounteredPhrase,
+    recordLessonPosition,
     recordMistake,
     recordSkippedListening,
     resetProgress,
     resolveMistake,
+    resolveSkippedListening,
     setActiveCurriculumId,
     store,
   };

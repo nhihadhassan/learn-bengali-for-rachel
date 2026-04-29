@@ -3,6 +3,7 @@ import type { ReactNode } from "react";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { AppShell } from "@/components/layout/app-shell";
+import { ServiceWorkerRegister } from "@/components/offline/service-worker-register";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -62,6 +63,7 @@ export default function RootLayout({
           id="theme-script"
           dangerouslySetInnerHTML={{ __html: themeScript }}
         />
+        <ServiceWorkerRegister />
         <AppShell>{children}</AppShell>
       </body>
     </html>

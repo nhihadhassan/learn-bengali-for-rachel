@@ -174,6 +174,9 @@ export type ProgressState = {
   streak: number;
   currentUnit: number;
   lastPracticeDate: string | null;
+  lastLessonId: string | null;
+  lastStepIndex: number;
+  lastActiveAt: string | null;
   mistakes: Mistake[];
   skippedListening: SkippedListeningExercise[];
 };

@@ -10,6 +10,7 @@ import {
   Flag,
   Flame,
   MessageCircle,
+  RotateCcw,
   Sparkles,
   Volume2,
 } from "lucide-react";
@@ -20,17 +21,34 @@ import { HistoryIcon } from "@/components/lesson/history-icon";
 import { LessonPath } from "@/components/lesson/lesson-path";
 
 export function LearningHome() {
-  const { activeCurriculumId } = useProgress();
+  const {
+    activeCurriculumId,
+    activeMistakes,
+    activeSkippedListening,
+    progress,
+  } = useProgress();
   const curriculum = getCurriculum(activeCurriculumId);
   const units = curriculum.units;
+  const allLessons = units.flatMap((unit) => unit.lessons);
   const firstLessonId = units[0]?.lessons[0]?.id;
-  const lessonCount = units.flatMap((unit) => unit.lessons).length;
+  const lessonCount = allLessons.length;
   const isHistory = curriculum.mode === "history";
   const phraseCount = units.flatMap((unit) =>
     unit.lessons.flatMap((lesson) => lesson.phrases),
   ).length;
   const featuredPhrases = units[0]?.lessons[0]?.phrases.slice(0, 3) ?? [];
   const featuredLessons = units[0]?.lessons.slice(0, 3) ?? [];
+  const resumeLesson = progress.lastLessonId
+    ? allLessons.find(
+        (lesson) =>
+          lesson.id === progress.lastLessonId &&
+          !progress.completedLessons.includes(lesson.id),
+      )
+    : undefined;
+  const resumeLessonNumber = resumeLesson
+    ? allLessons.findIndex((lesson) => lesson.id === resumeLesson.id) + 1
+    : 0;
+  const weakItemCount = activeMistakes.length + activeSkippedListening.length;
 
   return (
     <div className="space-y-10">
@@ -65,6 +83,15 @@ export function LearningHome() {
             </p>
 
             <div className="mt-7 grid gap-3 sm:flex sm:flex-wrap">
+              {resumeLesson && (
+                <Link
+                  href={`/practice/${resumeLesson.id}`}
+                  className="group inline-flex min-h-[52px] items-center justify-center gap-2 rounded-2xl bg-white px-5 py-3 font-black text-violet-800 shadow-[0_7px_0_rgba(255,255,255,0.5),0_20px_36px_rgba(255,255,255,0.14)] transition duration-200 hover:-translate-y-0.5 hover:bg-violet-50 active:translate-y-1"
+                >
+                  Resume {isHistory ? "Chapter" : "Lesson"} {resumeLessonNumber}
+                  <ArrowRight size={19} className="transition group-hover:translate-x-0.5" />
+                </Link>
+              )}
               {firstLessonId && (
                 <Link
                   href={`/practice/${firstLessonId}`}
@@ -82,6 +109,27 @@ export function LearningHome() {
                 {isHistory ? "Timeline recap" : "Word bank"}
               </Link>
             </div>
+
+            {weakItemCount > 0 && (
+              <Link
+                href="/review"
+                className="mt-5 flex max-w-xl items-center gap-3 rounded-3xl border border-white/12 bg-white/10 p-3 text-left shadow-inner transition hover:-translate-y-0.5 hover:bg-white/15"
+              >
+                <span className="grid size-11 shrink-0 place-items-center rounded-2xl bg-amber-400 text-slate-950">
+                  <RotateCcw size={20} />
+                </span>
+                <span className="min-w-0">
+                  <span className="block text-sm font-black text-white">
+                    Smart Review
+                  </span>
+                  <span className="block text-sm font-semibold text-slate-300">
+                    Review {weakItemCount} weak{" "}
+                    {weakItemCount === 1 ? "item" : "items"}
+                  </span>
+                </span>
+                <ArrowRight size={18} className="ml-auto shrink-0" />
+              </Link>
+            )}
 
             <div className="mt-7 grid gap-3 sm:grid-cols-3">
               <HeroStat

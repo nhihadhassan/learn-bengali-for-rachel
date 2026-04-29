@@ -2,11 +2,16 @@
 
 import { useMemo, useState } from "react";
 import Link from "next/link";
-import { ArrowRight, Check, RotateCcw } from "lucide-react";
+import { ArrowRight, Check, RotateCcw, VolumeX } from "lucide-react";
 import { checkTypedAnswer } from "@/lib/answer-checking";
 import { getLesson } from "@/lib/content";
 import { useProgress } from "@/lib/progress-store";
-import type { AudioPrompt, MatchingPair, Mistake } from "@/types/learning";
+import type {
+  AudioPrompt,
+  MatchingPair,
+  Mistake,
+  SkippedListeningExercise,
+} from "@/types/learning";
 import { SpeakerButton } from "@/components/lesson/speaker-button";
 import { AnswerButton, AppButton } from "@/components/ui/app-button";
 import { ExerciseCard } from "@/components/ui/exercise-card";
@@ -16,7 +21,7 @@ export function MistakeReview() {
     curriculumId: "",
     index: 0,
   });
-  const { activeCurriculumId, activeMistakes } = useProgress();
+  const { activeCurriculumId, activeMistakes, activeSkippedListening } = useProgress();
   const languageLabel =
     activeCurriculumId === "history"
       ? "History"
@@ -31,6 +36,26 @@ export function MistakeReview() {
       : 0;
   const currentIndex = Math.min(index, Math.max(activeMistakes.length - 1, 0));
   const currentMistake = activeMistakes[currentIndex];
+  const currentSkipped = activeSkippedListening[0];
+
+  if (activeMistakes.length === 0 && currentSkipped) {
+    return (
+      <div className="space-y-5">
+        <ReviewHero
+          eyebrow="Smart Review"
+          title="Catch up on skipped listening."
+          body="These are not mistakes. They are listening prompts Rachel saved for later."
+        />
+
+        <div className="mx-auto max-w-2xl">
+          <SkippedListeningCard
+            skipped={currentSkipped}
+            total={activeSkippedListening.length}
+          />
+        </div>
+      </div>
+    );
+  }
 
   if (activeMistakes.length === 0 || !currentMistake) {
     const emptyCopy =
@@ -41,7 +66,7 @@ export function MistakeReview() {
     return (
       <section className="animate-soft-rise rounded-[34px] bg-gradient-to-br from-emerald-600 to-cyan-600 p-6 text-white shadow-[0_24px_80px_rgba(5,150,105,0.25)] ring-1 ring-white/20 sm:p-8">
         <p className="text-sm font-black uppercase tracking-[0.14em] text-emerald-100">
-          Mistake review
+          Smart Review
         </p>
         <h1 className="mt-2 text-4xl font-black">Nothing to review yet.</h1>
         <p className="mt-3 max-w-xl text-emerald-50">
@@ -59,16 +84,15 @@ export function MistakeReview() {
 
   return (
     <div className="space-y-5">
-      <section className="animate-soft-rise rounded-[34px] bg-slate-950 p-6 text-white shadow-[0_24px_80px_rgba(15,23,42,0.22)] ring-1 ring-white/10 sm:p-8">
-        <p className="text-sm font-black uppercase tracking-[0.14em] text-rose-100">
-          Mistake review
-        </p>
-        <h1 className="mt-2 text-4xl font-black">Practice the sticky parts.</h1>
-        <p className="mt-3 max-w-xl text-slate-300">
-          Retry missed questions one at a time. A correct answer clears the
-          mistake and earns a little XP.
-        </p>
-      </section>
+      <ReviewHero
+        eyebrow="Smart Review"
+        title="Practice the sticky parts."
+        body={`Retry missed questions one at a time. A correct answer clears the mistake and earns a little XP.${
+          activeSkippedListening.length > 0
+            ? ` ${activeSkippedListening.length} skipped listening ${activeSkippedListening.length === 1 ? "prompt is" : "prompts are"} waiting after mistakes.`
+            : ""
+        }`}
+      />
 
       <div className="mx-auto max-w-2xl">
         <MistakeCard
@@ -88,6 +112,82 @@ export function MistakeReview() {
         />
       </div>
     </div>
+  );
+}
+
+function ReviewHero({
+  body,
+  eyebrow,
+  title,
+}: {
+  body: string;
+  eyebrow: string;
+  title: string;
+}) {
+  return (
+    <section className="animate-soft-rise rounded-[34px] bg-slate-950 p-6 text-white shadow-[0_24px_80px_rgba(15,23,42,0.22)] ring-1 ring-white/10 sm:p-8">
+      <p className="text-sm font-black uppercase tracking-[0.14em] text-rose-100">
+        {eyebrow}
+      </p>
+      <h1 className="mt-2 text-4xl font-black">{title}</h1>
+      <p className="mt-3 max-w-xl text-slate-300">
+        {body}
+      </p>
+    </section>
+  );
+}
+
+function SkippedListeningCard({
+  skipped,
+  total,
+}: {
+  skipped: SkippedListeningExercise;
+  total: number;
+}) {
+  const { resolveSkippedListening } = useProgress();
+  const lesson = getLesson(skipped.lessonId);
+
+  return (
+    <ExerciseCard>
+      <div className="mb-5 flex items-start gap-3">
+        <span className="grid size-10 shrink-0 place-items-center rounded-xl bg-violet-50 text-violet-700 dark:bg-violet-400/15 dark:text-violet-200">
+          <VolumeX size={20} />
+        </span>
+        <div>
+          <p className="text-sm font-black uppercase tracking-[0.14em] text-slate-500 dark:text-slate-400">
+            Skipped listening 1 of {total}
+          </p>
+          <h2 className="mt-1 text-xl font-black">{skipped.prompt}</h2>
+          {lesson && (
+            <p className="mt-1 text-sm font-semibold text-slate-600 dark:text-slate-300">
+              From {lesson.title}
+            </p>
+          )}
+        </div>
+      </div>
+
+      <div className="rounded-3xl border border-violet-100 bg-violet-50 p-4 text-violet-900 dark:border-violet-300/25 dark:bg-violet-400/14 dark:text-violet-100">
+        <p className="font-bold">
+          This was skipped, not missed. Replay it when audio is convenient.
+        </p>
+      </div>
+
+      <div className="mt-5 flex flex-wrap gap-3">
+        <Link
+          href={`/practice/${skipped.lessonId}`}
+          className="inline-flex min-h-12 items-center gap-2 rounded-2xl bg-violet-600 px-5 py-3 font-black text-white shadow-[0_6px_0_#5b21b6] transition hover:-translate-y-0.5 hover:bg-fuchsia-500 active:translate-y-1"
+        >
+          Open lesson <ArrowRight size={18} />
+        </Link>
+        <AppButton
+          type="button"
+          variant="secondary"
+          onClick={() => resolveSkippedListening(skipped.id)}
+        >
+          Clear skip
+        </AppButton>
+      </div>
+    </ExerciseCard>
   );
 }
 

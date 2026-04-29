@@ -14,6 +14,10 @@ export function LessonPath({ units }: { units: Unit[] }) {
   const isHistory = allLessons[0]?.curriculumId === "history";
   const currentLessonId =
     allLessons.find((lesson) => !completed.has(lesson.id))?.id ?? allLessons[0]?.id;
+  const currentLessonIndex = Math.max(
+    0,
+    allLessons.findIndex((lesson) => lesson.id === currentLessonId),
+  );
 
   return (
     <div className="space-y-6">
@@ -49,27 +53,27 @@ export function LessonPath({ units }: { units: Unit[] }) {
             </div>
           </div>
 
-          <div
-            className={cn(
-              "grid gap-3 p-4 sm:p-5",
-              isHistory ? "relative md:grid-cols-1" : "md:grid-cols-2",
-            )}
-          >
-            {isHistory && (
-              <span
-                aria-hidden="true"
-                className="absolute bottom-7 left-10 top-7 hidden w-1 rounded-full bg-gradient-to-b from-violet-200 via-cyan-200 to-amber-200 dark:from-violet-400/70 dark:via-cyan-400/55 dark:to-amber-300/60 md:block"
-              />
-            )}
-            {unit.lessons.map((lesson) => (
-              <LessonCard
-                key={lesson.id}
-                isCompleted={completed.has(lesson.id)}
-                isCurrent={lesson.id === currentLessonId}
-                isHistory={isHistory}
-                lesson={lesson}
-              />
-            ))}
+          <div className="relative grid gap-3 p-4 sm:p-5 md:grid-cols-1">
+            <span
+              aria-hidden="true"
+              className="absolute bottom-7 left-10 top-7 hidden w-1 rounded-full bg-gradient-to-b from-violet-200 via-cyan-200 to-amber-200 dark:from-violet-400/70 dark:via-cyan-400/55 dark:to-amber-300/60 md:block"
+            />
+            {unit.lessons.map((lesson) => {
+              const lessonIndex = allLessons.findIndex((item) => item.id === lesson.id);
+
+              return (
+                <LessonCard
+                  key={lesson.id}
+                  isAhead={
+                    lessonIndex > currentLessonIndex && !completed.has(lesson.id)
+                  }
+                  isCompleted={completed.has(lesson.id)}
+                  isCurrent={lesson.id === currentLessonId}
+                  isHistory={isHistory}
+                  lesson={lesson}
+                />
+              );
+            })}
           </div>
         </section>
       ))}
@@ -80,11 +84,13 @@ export function LessonPath({ units }: { units: Unit[] }) {
 function LessonCard({
   isCompleted,
   isCurrent,
+  isAhead,
   isHistory,
   lesson,
 }: {
   isCompleted: boolean;
   isCurrent: boolean;
+  isAhead: boolean;
   isHistory: boolean;
   lesson: Lesson;
 }) {
@@ -92,7 +98,9 @@ function LessonCard({
     ? "Completed"
     : isCurrent
       ? "Recommended"
-      : "Open";
+      : isAhead
+        ? "Ahead"
+        : "Open";
   const StatusIcon = isCompleted ? Check : isCurrent ? Sparkles : Circle;
 
   return (
@@ -101,7 +109,8 @@ function LessonCard({
       className={cn(
         "group relative flex min-h-36 items-center justify-between gap-4 overflow-hidden rounded-3xl border-2 p-4 transition duration-200 ease-out focus-visible:outline focus-visible:outline-4 focus-visible:outline-offset-2 focus-visible:outline-teal-200 active:translate-y-1",
         "before:absolute before:inset-x-4 before:top-0 before:h-px before:bg-white/80 before:content-[''] dark:before:bg-white/10",
-        isHistory && "ml-0 md:ml-8 md:min-h-28",
+        "ml-0 md:ml-8 md:min-h-28",
+        isAhead && "opacity-75 hover:opacity-100",
         isCompleted &&
           "border-emerald-200 bg-emerald-50 shadow-[0_6px_0_#a7f3d0,0_16px_32px_rgba(16,185,129,0.12)] hover:-translate-y-1 hover:shadow-[0_9px_0_#a7f3d0,0_22px_40px_rgba(16,185,129,0.18)] dark:border-emerald-300/30 dark:bg-emerald-400/14 dark:shadow-[0_6px_0_rgba(16,185,129,0.24),0_16px_32px_rgba(0,0,0,0.24)]",
         isCurrent &&
@@ -112,9 +121,16 @@ function LessonCard({
           "border-slate-200 bg-[#fffdfa] shadow-[0_6px_0_#e2e8f0,0_14px_28px_rgba(15,23,42,0.06)] hover:-translate-y-1 hover:border-violet-200 hover:shadow-[0_9px_0_#ddd6fe,0_22px_40px_rgba(15,23,42,0.1)] dark:border-white/10 dark:bg-white/[0.08] dark:shadow-[0_6px_0_rgba(255,255,255,0.08),0_14px_28px_rgba(0,0,0,0.25)] dark:hover:border-violet-300/35",
       )}
     >
-      {isHistory && (
-        <span className="absolute -left-8 top-1/2 hidden size-6 -translate-y-1/2 rounded-full border-4 border-white bg-violet-500 shadow-[0_0_0_4px_rgba(124,58,237,0.14)] transition group-hover:scale-110 dark:border-slate-950 dark:shadow-[0_0_0_4px_rgba(167,139,250,0.22)] md:block" />
-      )}
+      <span
+        className={cn(
+          "absolute -left-8 top-1/2 hidden size-6 -translate-y-1/2 rounded-full border-4 border-white shadow-[0_0_0_4px_rgba(124,58,237,0.14)] transition group-hover:scale-110 dark:border-slate-950 dark:shadow-[0_0_0_4px_rgba(167,139,250,0.22)] md:block",
+          isCompleted
+            ? "bg-emerald-500"
+            : isCurrent
+              ? "bg-violet-500"
+              : "bg-slate-300 dark:bg-slate-600",
+        )}
+      />
       <div className="min-w-0">
         <span
           className={cn(
