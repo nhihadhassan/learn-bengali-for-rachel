@@ -53,6 +53,23 @@ export function LessonPath({ units }: { units: Unit[] }) {
             </div>
           </div>
 
+          {unit.lessons.length === 0 ? (
+            <div className="p-4 sm:p-5">
+              <div className="flex items-center gap-4 rounded-3xl border-2 border-dashed border-slate-200 bg-slate-50 p-5 text-slate-600 dark:border-white/10 dark:bg-white/[0.06] dark:text-slate-300">
+                <span className="grid size-12 shrink-0 place-items-center rounded-2xl bg-white text-violet-600 shadow-sm dark:bg-white/10 dark:text-violet-200">
+                  <Circle size={22} />
+                </span>
+                <div>
+                  <p className="text-lg font-black text-slate-900 dark:text-slate-50">
+                    Coming soon
+                  </p>
+                  <p className="mt-1 text-sm font-semibold">
+                    This history path is paused while the Peru story gets built first.
+                  </p>
+                </div>
+              </div>
+            </div>
+          ) : (
           <div className="relative grid gap-3 p-4 sm:p-5 md:grid-cols-1">
             <span
               aria-hidden="true"
@@ -75,6 +92,7 @@ export function LessonPath({ units }: { units: Unit[] }) {
               );
             })}
           </div>
+          )}
         </section>
       ))}
     </div>

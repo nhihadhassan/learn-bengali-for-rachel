@@ -49,6 +49,7 @@ function HistoryStoryFlow({ lesson }: { lesson: Lesson }) {
   const lessonCurriculumId = lesson.curriculumId ?? activeCurriculumId;
   const nextLesson = getNextLesson(lesson.id);
   const history = lesson.history;
+  const isTravelStory = history?.layout === "travel-story";
 
   useEffect(() => {
     if (lesson.curriculumId && lesson.curriculumId !== activeCurriculumId) {
@@ -81,7 +82,9 @@ function HistoryStoryFlow({ lesson }: { lesson: Lesson }) {
           </p>
           <h2 className="mt-2 text-4xl font-black">Chapter added to your timeline.</h2>
           <p className="mt-3 max-w-xl text-violet-50">
-            You read the chapter, connected the key idea, and earned XP for this History path.
+            {isTravelStory
+              ? "You finished a Peru chapter and moved your travel story forward."
+              : "You read the chapter, connected the key idea, and earned XP for this History path."}
           </p>
           <div className="mt-6 grid gap-3 rounded-3xl border border-white/15 bg-white/10 p-4 shadow-inner sm:grid-cols-3">
             <div>
@@ -103,7 +106,7 @@ function HistoryStoryFlow({ lesson }: { lesson: Lesson }) {
                 href={`/practice/${nextLesson.id}`}
                 className="group inline-flex min-h-12 items-center gap-2 rounded-2xl bg-white px-5 py-3 font-black text-violet-800 shadow-[0_6px_0_rgba(255,255,255,0.45)] transition hover:-translate-y-0.5 hover:bg-violet-50 active:translate-y-1"
               >
-                Continue story <ArrowRight size={18} className="transition group-hover:translate-x-0.5" />
+                Continue <ArrowRight size={18} className="transition group-hover:translate-x-0.5" />
               </Link>
             ) : (
               <Link
@@ -130,6 +133,34 @@ function HistoryStoryFlow({ lesson }: { lesson: Lesson }) {
       <div className="sticky top-[73px] z-10 -mx-2 mb-6 rounded-2xl bg-white/95 px-2 py-2 backdrop-blur transition-colors duration-300 dark:bg-slate-950/90 sm:top-[81px]">
         <ProgressHeader current={1} total={1} />
       </div>
+      {isTravelStory ? (
+        <article className="animate-soft-rise mx-auto max-w-3xl">
+          <div className="rounded-[30px] border border-violet-100 bg-gradient-to-br from-violet-50 via-white to-cyan-50 p-5 shadow-inner dark:border-violet-300/20 dark:from-violet-400/12 dark:via-white/[0.08] dark:to-cyan-400/10 sm:p-7">
+            <div className="flex items-start justify-between gap-4">
+              <h1 className="text-4xl font-black leading-tight text-slate-950 dark:text-slate-50">
+                {lesson.title}
+              </h1>
+              <span className="grid size-14 shrink-0 place-items-center rounded-3xl bg-violet-600 text-white shadow-[0_14px_30px_rgba(124,58,237,0.22)]">
+                <HistoryIcon name={history?.icon} size={28} />
+              </span>
+            </div>
+
+            <div className="mt-7 space-y-5 text-lg leading-8 text-slate-700 dark:text-slate-200">
+              {(history?.story ?? [lesson.summary]).map((paragraph, index) => (
+                <p key={`${lesson.id}-paragraph-${index}`}>
+                  {paragraph}
+                </p>
+              ))}
+            </div>
+          </div>
+
+          <div className="mt-6 flex justify-end">
+            <AppButton type="button" onClick={completeChapter}>
+              Complete chapter <ArrowRight size={18} />
+            </AppButton>
+          </div>
+        </article>
+      ) : (
       <div className="animate-soft-rise">
         <div className="flex flex-wrap items-start justify-between gap-4">
           <div>
@@ -206,6 +237,7 @@ function HistoryStoryFlow({ lesson }: { lesson: Lesson }) {
           </AppButton>
         </div>
       </div>
+      )}
     </ExerciseCard>
   );
 }

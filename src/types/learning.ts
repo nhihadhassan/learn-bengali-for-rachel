@@ -103,9 +103,10 @@ export type Lesson = {
   reviewSchedule?: ReviewSchedule;
   history?: {
     icon: string;
+    layout?: "story-cards" | "travel-story";
     hook?: string;
     story: string[];
-    keyTakeaway: string;
+    keyTakeaway?: string;
     whyItMatters?: string;
     remember?: {
       person?: string;
