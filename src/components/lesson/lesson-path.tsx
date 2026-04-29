@@ -43,7 +43,7 @@ export function LessonPath({ units }: { units: Unit[] }) {
               <span className="inline-flex items-center gap-2 rounded-full bg-white px-3 py-2 text-sm font-black text-slate-700 shadow-sm ring-1 ring-slate-900/5 dark:bg-white/10 dark:text-slate-200 dark:ring-white/10">
                 {unit.lessons.length}{" "}
                 {isHistory
-                  ? unit.lessons.length === 1 ? "event" : "events"
+                  ? unit.lessons.length === 1 ? "chapter" : "chapters"
                   : unit.lessons.length === 1 ? "lesson" : "lessons"}
               </span>
             </div>

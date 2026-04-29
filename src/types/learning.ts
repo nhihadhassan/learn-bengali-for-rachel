@@ -103,10 +103,16 @@ export type Lesson = {
   reviewSchedule?: ReviewSchedule;
   history?: {
     icon: string;
+    hook?: string;
     story: string[];
     keyTakeaway: string;
     whyItMatters?: string;
-    interactionType?: string;
+    remember?: {
+      person?: string;
+      place?: string;
+      theme?: string;
+      consequence?: string;
+    };
   };
 };
 

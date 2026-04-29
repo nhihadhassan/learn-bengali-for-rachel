@@ -60,7 +60,7 @@ export function LearningHome() {
             <p className="mt-5 max-w-xl text-base leading-7 text-slate-200 sm:text-lg">
               {curriculum.description}{" "}
               {isHistory
-                ? "Short event cards connect causes, turning points, and consequences."
+                ? "Short chapters connect causes, turning points, and consequences."
                 : "Bite-size lessons build practical phrases with listening, typing, and review."}
             </p>
 
@@ -70,7 +70,7 @@ export function LearningHome() {
                   href={`/practice/${firstLessonId}`}
                   className="group inline-flex min-h-[52px] items-center justify-center gap-2 rounded-2xl bg-violet-500 px-5 py-3 font-black text-white shadow-[0_7px_0_#5b21b6,0_20px_36px_rgba(124,58,237,0.28)] transition duration-200 hover:-translate-y-0.5 hover:bg-fuchsia-500 hover:shadow-[0_9px_0_#5b21b6,0_26px_44px_rgba(217,70,239,0.24)] active:translate-y-1"
                 >
-                  Start Lesson 1
+                  {isHistory ? "Start Story 1" : "Start Lesson 1"}
                   <ArrowRight size={19} className="transition group-hover:translate-x-0.5" />
                 </Link>
               )}
@@ -127,7 +127,7 @@ function HistoryHeroPreview({
               </p>
               <h2 className="mt-1 text-2xl font-black">Story path</h2>
               <p className="mt-1 text-sm font-bold text-slate-500 dark:text-slate-300">
-                Read, connect, and choose what mattered.
+                Read quick chapters that unfold like a timeline.
               </p>
             </div>
             <span className="grid size-12 shrink-0 place-items-center rounded-2xl bg-orange-400 text-slate-950 shadow-[0_10px_24px_rgba(249,115,22,0.24)]">
@@ -146,7 +146,7 @@ function HistoryHeroPreview({
                 </span>
                 <div className="min-w-0">
                   <p className="text-xs font-black uppercase tracking-[0.12em] text-slate-400 dark:text-slate-500">
-                    Event {index + 1}
+                    Chapter {index + 1}
                   </p>
                   <p className="mt-1 truncate text-xl font-black">
                     {lesson.title}
