@@ -20,6 +20,7 @@ export default async function PracticePage({
     notFound();
   }
   const curriculum = getCurriculumForLesson(lesson.id);
+  const topic = curriculum.units.find((unit) => unit.id === lesson.unitId);
 
   return (
     <div className="space-y-5">
@@ -32,7 +33,7 @@ export default async function PracticePage({
 
       <section className="rounded-3xl bg-slate-950 p-6 text-white shadow-sm sm:p-8">
         <p className="text-sm font-black uppercase tracking-[0.14em] text-emerald-100">
-          {curriculum.label} · Unit {lesson.unitNumber}
+          {curriculum.label} · {topic?.title ?? lesson.title}
         </p>
         <h1 className="mt-2 text-4xl font-black">{lesson.title}</h1>
         <p className="mt-3 max-w-xl text-slate-300">{lesson.summary}</p>

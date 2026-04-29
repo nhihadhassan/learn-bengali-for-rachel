@@ -22,7 +22,6 @@ export function SpeakerButton({
   const [isLoading, setIsLoading] = useState(false);
   const isUnavailable = result?.status === "unavailable";
   const isBrowserTts = result?.provider === "browser-tts";
-  const label = script ? `${romanized} (${script})` : romanized;
 
   async function handlePlay() {
     setIsLoading(true);
@@ -46,8 +45,8 @@ export function SpeakerButton({
         isUnavailable
           ? "Audio is unavailable in this browser"
           : isBrowserTts
-            ? `Using ${result.voiceName ?? result.lang} for ${label}`
-            : `Hear ${label}`
+            ? `Using ${result.voiceName ?? result.lang} for ${romanized}`
+            : `Hear ${romanized}`
       }
       className={cn(
         "group inline-grid size-11 place-items-center rounded-full text-white shadow-lg transition duration-200 ease-out hover:-translate-y-0.5 focus-visible:outline focus-visible:outline-4 focus-visible:outline-offset-2 focus-visible:outline-violet-200 active:translate-y-1 [&>svg]:transition-transform",

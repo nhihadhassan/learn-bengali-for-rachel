@@ -50,7 +50,7 @@ export function getVocabularyUnitOptions(words: LearnedWord[]) {
         word.unitId,
         {
           id: word.unitId,
-          label: `Unit ${word.unitNumber}: ${word.unitTitle}`,
+          label: word.unitTitle,
         },
       ]),
     ).values(),

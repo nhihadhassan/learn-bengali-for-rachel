@@ -15,9 +15,7 @@ export function ProgressHeader({
   return (
     <div className={cn("space-y-2", className)}>
       <div className="flex items-center justify-between text-xs font-black uppercase tracking-[0.14em] text-slate-500 dark:text-slate-400">
-        <span>
-          Step {current} of {total}
-        </span>
+        <span>Progress</span>
         <span>{percent}%</span>
       </div>
       <div

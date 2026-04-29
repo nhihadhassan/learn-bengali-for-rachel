@@ -4,20 +4,23 @@ This curriculum has been simplified back to the app's core objective: helping Ra
 
 ## Scope
 
-- 5 units
-- 10 bite-size lessons
-- 60 romanized spoken phrases
+- 8 topic groups
+- 16 bite-size lessons
+- 96 romanized spoken phrases
 - No Bengali script, alphabet, vowel, consonant, reading, or writing lessons
 - Exercises use the existing app types: multiple-choice, translation, and matching
-- Audio prompt metadata is kept using romanized text so existing speaker controls still work
+- Learner-facing text stays romanized; hidden `bengaliScript` metadata is used only for better pronunciation fallback
 
 ## Units
 
-- Unit 1: First Conversations (2 lessons)
-- Unit 2: Names and People (2 lessons)
-- Unit 3: Food and Water (2 lessons)
-- Unit 4: Questions and Replies (2 lessons)
-- Unit 5: Feelings and Help (2 lessons)
+- First Conversations (2 lessons)
+- Names and People (2 lessons)
+- Food and Water (2 lessons)
+- Questions and Replies (2 lessons)
+- Feelings and Help (2 lessons)
+- Visiting Someone’s Home (2 lessons)
+- Travel and Getting Around (2 lessons)
+- Daily Talk and Care (2 lessons)
 
 ## Design Principle
 

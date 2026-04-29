@@ -8,10 +8,16 @@ import { cn } from "@/lib/utils";
 import { HistoryIcon } from "@/components/lesson/history-icon";
 
 export function LessonPath({ units }: { units: Unit[] }) {
-  const { progress } = useProgress();
+  const { activeCurriculumId, progress } = useProgress();
   const completed = new Set(progress.completedLessons);
   const allLessons = units.flatMap((unit) => unit.lessons);
   const isHistory = allLessons[0]?.curriculumId === "history";
+  const pathLabel =
+    activeCurriculumId === "spanish-peru"
+      ? "Spanish for Peru"
+      : activeCurriculumId === "history"
+        ? "History"
+        : "Bengali";
   const currentLessonId =
     allLessons.find((lesson) => !completed.has(lesson.id))?.id ?? allLessons[0]?.id;
   const currentLessonIndex = Math.max(
@@ -37,7 +43,7 @@ export function LessonPath({ units }: { units: Unit[] }) {
             <div className="flex flex-wrap items-start justify-between gap-4">
               <div>
                 <p className="text-sm font-black uppercase tracking-[0.14em] text-violet-700 dark:text-violet-300">
-                  Unit {unit.number}
+                  {pathLabel} · {unit.title}
                 </p>
                 <h2 className="mt-1 text-2xl font-black">{unit.title}</h2>
                 <p className="mt-1 max-w-2xl text-sm leading-6 text-slate-600 dark:text-slate-300">
@@ -95,6 +101,14 @@ export function LessonPath({ units }: { units: Unit[] }) {
           )}
         </section>
       ))}
+      {activeCurriculumId === "bengali" && (
+        <section className="animate-soft-rise rounded-[30px] border border-dashed border-violet-200 bg-violet-50/80 p-5 text-violet-900 shadow-inner dark:border-violet-300/25 dark:bg-violet-400/12 dark:text-violet-100 sm:p-6">
+          <p className="text-lg font-black">More Bengali lessons coming soon.</p>
+          <p className="mt-1 text-sm font-semibold">
+            Keep practicing what you&apos;ve learned. New family, travel, and daily conversation topics can slot into this path without resetting progress.
+          </p>
+        </section>
+      )}
     </div>
   );
 }

@@ -15,6 +15,7 @@ import {
   Volume2,
 } from "lucide-react";
 import { getCurriculum } from "@/lib/content";
+import { capitalizeDisplayText, formatRomanizedDisplay } from "@/lib/display-text";
 import { useProgress } from "@/lib/progress-store";
 import type { Unit } from "@/types/learning";
 import { HistoryIcon } from "@/components/lesson/history-icon";
@@ -253,10 +254,10 @@ function HeroPreview({
               >
                 <div className="min-w-0">
                   <p className="truncate text-2xl font-black">
-                    {phrase.romanized}
+                    {formatRomanizedDisplay(phrase.romanized)}
                   </p>
                   <p className="mt-1 truncate text-sm font-bold text-slate-500 dark:text-slate-300">
-                    {phrase.english}
+                    {capitalizeDisplayText(phrase.english)}
                   </p>
                 </div>
                 <span className="grid size-10 shrink-0 place-items-center rounded-2xl bg-violet-500 text-white transition group-hover:scale-105 group-hover:bg-cyan-500">

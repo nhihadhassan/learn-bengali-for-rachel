@@ -4,6 +4,7 @@ import { useMemo, useState } from "react";
 import Link from "next/link";
 import { BookOpen, CheckCircle2, Search } from "lucide-react";
 import { getCurriculum } from "@/lib/content";
+import { capitalizeDisplayText, formatRomanizedDisplay } from "@/lib/display-text";
 import { getLearnedWords, getVocabularyUnitOptions } from "@/lib/learned-words";
 import { useProgress } from "@/lib/progress-store";
 import { HistoryIcon } from "@/components/lesson/history-icon";
@@ -73,6 +74,18 @@ export function LearnedWordsReview() {
         <p className="mt-3 max-w-xl text-slate-300">
           Complete a lesson to start building your word bank.
         </p>
+        <div className="mt-6 max-w-sm rounded-3xl border border-white/10 bg-white/10 p-4 shadow-inner">
+          <p className="text-xs font-black uppercase tracking-[0.14em] text-violet-100">
+            Preview
+          </p>
+          <p className="mt-2 text-3xl font-black text-white">Nomoskar</p>
+          <p className="mt-1 font-bold text-slate-300">
+            Hello / respectful greeting
+          </p>
+          <p className="mt-3 text-sm font-semibold text-slate-400">
+            Words and phrases you meet in lessons will appear here with audio.
+          </p>
+        </div>
         <Link
           href="/lessons"
           className="mt-6 inline-flex min-h-12 items-center rounded-2xl bg-emerald-500 px-5 py-3 font-black text-slate-950 transition hover:bg-emerald-400"
@@ -146,16 +159,17 @@ export function LearnedWordsReview() {
               <div className="flex items-start justify-between gap-4">
                 <div>
                   <p className="text-4xl font-black leading-tight">
-                    {word.phrase.romanized}
+                    {formatRomanizedDisplay(word.phrase.romanized)}
                   </p>
                   <p className="mt-2 text-lg font-bold text-slate-500 dark:text-slate-300">
-                    {word.phrase.english}
+                    {capitalizeDisplayText(word.phrase.english)}
                   </p>
                 </div>
                 <SpeakerButton
                   audioUrl={word.phrase.audioUrl}
                   locale={word.locale}
                   romanized={word.phrase.romanized}
+                  script={word.phrase.bengaliScript}
                 />
               </div>
 
@@ -164,14 +178,16 @@ export function LearnedWordsReview() {
                   <p className="text-xs font-black uppercase tracking-[0.14em] text-emerald-700 dark:text-emerald-200">
                     Meaning
                   </p>
-                  <p className="mt-1 text-xl font-black">{word.phrase.english}</p>
+                  <p className="mt-1 text-xl font-black">
+                    {capitalizeDisplayText(word.phrase.english)}
+                  </p>
                 </div>
                 <div className="rounded-3xl border border-slate-100 bg-slate-50 p-4 dark:border-white/10 dark:bg-white/[0.08]">
                   <p className="text-xs font-black uppercase tracking-[0.14em] text-slate-500 dark:text-slate-400">
                     Source
                   </p>
                   <p className="mt-1 text-sm font-bold text-slate-700 dark:text-slate-200">
-                    Unit {word.unitNumber}: {word.unitTitle} · {word.lessonTitle}
+                    {word.unitTitle} · {word.lessonTitle}
                   </p>
                 </div>
               </div>

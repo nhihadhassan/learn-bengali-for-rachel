@@ -1,6 +1,12 @@
 export type CurriculumId = "bengali" | "spanish-peru" | "history";
 
-export type ExerciseType = "multiple-choice" | "translation" | "matching";
+export type ExerciseType =
+  | "multiple-choice"
+  | "translation"
+  | "matching"
+  | "listen-type"
+  | "fill-blank"
+  | "speaking";
 
 export type Phrase = {
   id: string;
@@ -28,6 +34,8 @@ export type Exercise = {
   sourceType?: string;
   audioPromptId?: string;
   acceptedAnswers?: string[];
+  after?: string;
+  before?: string;
   tokens?: string[];
   feedback?: string;
 };
@@ -46,6 +54,7 @@ export type GrammarPoint = {
 
 export type AudioPrompt = {
   id: string;
+  audioUrl?: string;
   locale: string;
   voiceStyle: string;
   textBn: string;

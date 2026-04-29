@@ -2,7 +2,7 @@
 
 import type { ComponentType } from "react";
 import { useMemo } from "react";
-import { Flame, RotateCcw, Trophy } from "lucide-react";
+import { CheckCircle2, Flame, RotateCcw, Trophy } from "lucide-react";
 import { getCurriculum } from "@/lib/content";
 import { useProgress } from "@/lib/progress-store";
 
@@ -21,8 +21,9 @@ export function ProgressSummary() {
     lessonIds.has(lessonId),
   );
   const completionPercent = Math.round(
-    (completedCurrentLessons.length / lessons.length) * 100,
+    lessons.length > 0 ? (completedCurrentLessons.length / lessons.length) * 100 : 0,
   );
+  const hasProgress = progress.xp > 0 || completedCurrentLessons.length > 0;
 
   return (
     <div className="space-y-5">
@@ -46,6 +47,23 @@ export function ProgressSummary() {
           value={activeMistakes.length.toString()}
         />
       </div>
+
+      {!hasProgress && (
+        <section className="rounded-3xl border border-violet-100 bg-violet-50 p-5 shadow-inner dark:border-violet-300/20 dark:bg-violet-400/12">
+          <div className="flex items-start gap-3">
+            <span className="grid size-11 shrink-0 place-items-center rounded-2xl bg-white text-violet-700 shadow-sm dark:bg-white/10 dark:text-violet-200">
+              <CheckCircle2 size={22} />
+            </span>
+            <div>
+              <h2 className="text-xl font-black">Progress will fill in here.</h2>
+              <p className="mt-1 text-sm font-semibold leading-6 text-slate-600 dark:text-slate-300">
+                After a lesson, this page shows XP, streaks, completed topics,
+                and review items for the selected curriculum.
+              </p>
+            </div>
+          </div>
+        </section>
+      )}
 
       <section className="rounded-3xl border border-white/80 bg-white/95 p-5 shadow-[0_18px_55px_rgba(15,23,42,0.08)] ring-1 ring-slate-900/5 transition-colors duration-300 dark:border-white/10 dark:bg-slate-950/80 dark:shadow-[0_18px_55px_rgba(0,0,0,0.28)] dark:ring-white/10">
         <div className="mb-3 flex items-center justify-between gap-3">

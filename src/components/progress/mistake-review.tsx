@@ -73,6 +73,16 @@ export function MistakeReview() {
         <p className="mt-3 max-w-xl text-emerald-50">
           {emptyCopy}
         </p>
+        <div className="mt-6 max-w-lg rounded-3xl border border-white/10 bg-white/10 p-4 shadow-inner">
+          <p className="text-xs font-black uppercase tracking-[0.14em] text-emerald-100">
+            Preview
+          </p>
+          <p className="mt-2 text-lg font-black">Mistakes and skipped listening will appear here.</p>
+          <p className="mt-1 text-sm font-semibold text-emerald-50">
+            Smart Review keeps the sticky parts separate for Bengali, Spanish,
+            and History.
+          </p>
+        </div>
         <Link
           href="/lessons"
           className="mt-6 inline-flex items-center gap-2 rounded-xl bg-white px-5 py-3 font-black text-emerald-800"
@@ -371,8 +381,10 @@ function MultipleChoiceReview({
             </p>
           </div>
           <SpeakerButton
+            audioUrl={review.audioPrompt.audioUrl}
             locale={review.audioPrompt.locale}
             romanized={review.audioPrompt.roman}
+            script={review.audioPrompt.textBn}
           />
         </div>
       )}

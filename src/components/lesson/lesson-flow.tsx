@@ -3,10 +3,27 @@
 import type { ReactNode } from "react";
 import { useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
-import { ArrowRight, Check, Flame, GraduationCap, PartyPopper, VolumeX, X } from "lucide-react";
+import {
+  ArrowRight,
+  Check,
+  Clock3,
+  Flame,
+  GraduationCap,
+  ListChecks,
+  Mic2,
+  PartyPopper,
+  Volume2,
+  VolumeX,
+  X,
+} from "lucide-react";
 import { checkTypedAnswer } from "@/lib/answer-checking";
 import { getNextLesson } from "@/lib/content";
-import { capitalizeDisplayText } from "@/lib/display-text";
+import {
+  capitalizeDisplayText,
+  formatPromptDisplay,
+  formatRomanizedDisplay,
+} from "@/lib/display-text";
+import { playPronunciation } from "@/lib/pronunciation";
 import { useProgress } from "@/lib/progress-store";
 import { playFeedbackSound } from "@/lib/sound-effects";
 import { cn } from "@/lib/utils";
@@ -20,6 +37,7 @@ import { ProgressHeader } from "@/components/ui/progress-header";
 type LessonStep =
   | { id: string; type: "intro"; lesson: Lesson; title: string; body: string }
   | { id: string; type: "learn"; phrase: Phrase; position: number; total: number }
+  | { id: string; type: "speak"; phrase: Phrase; prompt: string }
   | {
       id: string;
       type: "recognize";
@@ -386,18 +404,7 @@ function PracticeLessonFlow({ lesson }: { lesson: Lesson }) {
     setAnswerState(isCorrect ? "correct" : "wrong");
 
     if (isCorrect) {
-      const nextStreak = correctStreak + 1;
-      setCorrectCount((count) => count + 1);
-      setCorrectStreak(nextStreak);
-
-      const milestone = getStreakMilestone(nextStreak);
-
-      if (milestone) {
-        setStreakMilestone(milestone);
-        playFeedbackSound(`streak-${milestone}` as const);
-      } else {
-        playFeedbackSound("correct");
-      }
+      applyCorrectFeedback();
 
       return;
     }
@@ -413,6 +420,26 @@ function PracticeLessonFlow({ lesson }: { lesson: Lesson }) {
       },
       lessonCurriculumId,
     );
+  }
+
+  function applyCorrectFeedback() {
+    const nextStreak = correctStreak + 1;
+    setCorrectCount((count) => count + 1);
+    setCorrectStreak(nextStreak);
+
+    const milestone = getStreakMilestone(nextStreak);
+
+    if (milestone) {
+      setStreakMilestone(milestone);
+      playFeedbackSound(`streak-${milestone}` as const);
+    } else {
+      playFeedbackSound("correct");
+    }
+  }
+
+  function finishSpeakingPractice() {
+    applyCorrectFeedback();
+    moveNext();
   }
 
   function skipListening() {
@@ -452,7 +479,12 @@ function PracticeLessonFlow({ lesson }: { lesson: Lesson }) {
       );
     }
 
-    if (step.type === "exercise" && step.exercise.type === "translation") {
+    if (
+      step.type === "exercise" &&
+      (step.exercise.type === "translation" ||
+        step.exercise.type === "listen-type" ||
+        step.exercise.type === "fill-blank")
+    ) {
       const acceptedAnswers = [
         step.exercise.answer,
         ...(step.exercise.acceptedAnswers ?? []),
@@ -487,6 +519,10 @@ function PracticeLessonFlow({ lesson }: { lesson: Lesson }) {
     }
 
     if (step.exercise.type === "translation") {
+      return typedAnswer.trim().length > 0;
+    }
+
+    if (step.exercise.type === "listen-type" || step.exercise.type === "fill-blank") {
       return typedAnswer.trim().length > 0;
     }
 
@@ -590,6 +626,7 @@ function PracticeLessonFlow({ lesson }: { lesson: Lesson }) {
       {step.type === "intro" && (
         <IntroStep
           title={step.title}
+          activityCount={Math.max(steps.length - 1, 1)}
           body={step.body}
           lesson={step.lesson}
           onContinue={moveNext}
@@ -598,6 +635,15 @@ function PracticeLessonFlow({ lesson }: { lesson: Lesson }) {
 
       {step.type === "learn" && (
         <LearnStep locale={lesson.locale} step={step} onContinue={moveNext} />
+      )}
+
+      {step.type === "speak" && (
+        <SpeakPracticeStep
+          locale={lesson.locale}
+          onDone={finishSpeakingPractice}
+          onSkip={moveNext}
+          step={step}
+        />
       )}
 
       {step.type === "recognize" && (
@@ -611,17 +657,20 @@ function PracticeLessonFlow({ lesson }: { lesson: Lesson }) {
           skipLabel="Skip for now"
         >
           <h2 className="text-2xl font-black">
-            {capitalizeDisplayText(step.prompt)}
+            {formatPromptDisplay(step.prompt)}
           </h2>
           <p className="mt-2 text-sm font-semibold text-slate-600 dark:text-slate-300">
             Listen to the phrase, then choose the English meaning.
           </p>
           <div className="mt-5 flex items-center justify-between rounded-3xl border border-cyan-100 bg-cyan-50 p-4 shadow-inner dark:border-cyan-300/20 dark:bg-cyan-400/12">
-            <p className="text-3xl font-black">{step.phrase.romanized}</p>
+            <p className="text-3xl font-black">
+              {formatRomanizedDisplay(step.phrase.romanized)}
+            </p>
             <SpeakerButton
               audioUrl={step.phrase.audioUrl}
               locale={lesson.locale}
               romanized={step.phrase.romanized}
+              script={step.phrase.bengaliScript}
             />
           </div>
           <MultipleChoiceOptions
@@ -647,7 +696,7 @@ function PracticeLessonFlow({ lesson }: { lesson: Lesson }) {
             {getExerciseMode(step.exercise)}
           </p>
           <h2 className="mt-2 text-2xl font-black">
-            {capitalizeDisplayText(step.exercise.prompt)}
+            {formatPromptDisplay(step.exercise.prompt)}
           </h2>
 
           {step.exercise.audioPromptId && (
@@ -666,14 +715,31 @@ function PracticeLessonFlow({ lesson }: { lesson: Lesson }) {
             />
           )}
 
-          {step.exercise.type === "translation" && (
+          {(step.exercise.type === "translation" ||
+            step.exercise.type === "listen-type" ||
+            step.exercise.type === "fill-blank") && (
+            <>
+              {step.exercise.type === "fill-blank" && (
+                <div className="mt-5 rounded-3xl border border-violet-100 bg-violet-50 p-4 text-xl font-black dark:border-violet-300/20 dark:bg-violet-400/12">
+                  {formatRomanizedDisplay(step.exercise.before ?? "")}
+                  <span className="mx-2 inline-block min-w-16 rounded-xl border-b-4 border-violet-400 px-3 text-center text-violet-700 dark:text-violet-200">
+                    ...
+                  </span>
+                  {formatRomanizedDisplay(step.exercise.after ?? "")}
+                </div>
+              )}
             <input
               value={typedAnswer}
               onChange={(event) => setTypedAnswer(event.target.value)}
-              placeholder="Type your answer"
+              placeholder={
+                step.exercise.type === "listen-type"
+                  ? "Type what you hear"
+                  : "Type your answer"
+              }
               disabled={answerState !== "idle"}
               className="mt-5 w-full rounded-2xl border border-slate-200 bg-white px-4 py-4 text-lg font-bold shadow-inner outline-none transition focus:border-violet-500 focus:ring-4 focus:ring-violet-100 dark:border-white/10 dark:bg-white/10 dark:text-slate-50 dark:placeholder:text-slate-500 dark:focus:ring-violet-400/20"
             />
+            </>
           )}
 
           {step.exercise.type === "matching" && (
@@ -712,19 +778,23 @@ function ExerciseAudioPrompt({
         </p>
       </div>
       <SpeakerButton
+        audioUrl={audioPrompt.audioUrl}
         locale={audioPrompt.locale ?? locale}
         romanized={audioPrompt.roman}
+        script={audioPrompt.textBn}
       />
     </div>
   );
 }
 
 function IntroStep({
+  activityCount,
   body,
   lesson,
   onContinue,
   title,
 }: {
+  activityCount: number;
   body: string;
   lesson: Lesson;
   onContinue: () => void;
@@ -779,21 +849,48 @@ function IntroStep({
 
   return (
     <div>
-      <span className="grid size-12 place-items-center rounded-2xl bg-emerald-50 text-emerald-700 dark:bg-emerald-400/15 dark:text-emerald-200">
-        <GraduationCap size={25} />
-      </span>
-      <p className="mt-5 text-sm font-black uppercase tracking-[0.14em] text-emerald-700 dark:text-emerald-200">
-        Short lesson
-      </p>
-      <h2 className="mt-2 text-3xl font-black">{title}</h2>
-      <p className="mt-3 text-base leading-7 text-slate-600 dark:text-slate-300">{body}</p>
+      <div className="rounded-[30px] border border-violet-100 bg-gradient-to-br from-violet-50 via-white to-cyan-50 p-5 shadow-inner dark:border-violet-300/20 dark:from-violet-400/12 dark:via-white/[0.08] dark:to-cyan-400/10 sm:p-6">
+        <span className="grid size-14 place-items-center rounded-3xl bg-violet-600 text-white shadow-[0_14px_30px_rgba(124,58,237,0.22)]">
+          <GraduationCap size={27} />
+        </span>
+        <p className="mt-5 text-sm font-black uppercase tracking-[0.14em] text-violet-700 dark:text-violet-200">
+          Start topic
+        </p>
+        <h2 className="mt-2 text-4xl font-black leading-tight">{title}</h2>
+        <p className="mt-3 max-w-2xl text-base leading-7 text-slate-600 dark:text-slate-300">
+          {body}
+        </p>
+
+        <div className="mt-5 grid gap-3 sm:grid-cols-3">
+          <IntroDetail icon={<Clock3 size={19} />} label={`${lesson.metadata?.estimatedMinutes ?? 5} minutes`} />
+          <IntroDetail icon={<ListChecks size={19} />} label={`${activityCount} activities`} />
+          <IntroDetail icon={<Mic2 size={19} />} label="Listen, speak, practice" />
+        </div>
+      </div>
       <AppButton
         type="button"
         onClick={onContinue}
-        className="mt-6"
+        className="mt-6 min-h-14 w-full text-base sm:w-auto"
       >
-        Start <ArrowRight size={18} />
+        Start {title} <ArrowRight size={20} />
       </AppButton>
+    </div>
+  );
+}
+
+function IntroDetail({
+  icon,
+  label,
+}: {
+  icon: ReactNode;
+  label: string;
+}) {
+  return (
+    <div className="flex items-center gap-3 rounded-2xl border border-white/80 bg-white/80 px-4 py-3 font-black text-slate-700 shadow-sm dark:border-white/10 dark:bg-white/10 dark:text-slate-100">
+      <span className="grid size-9 shrink-0 place-items-center rounded-xl bg-violet-100 text-violet-700 dark:bg-violet-400/15 dark:text-violet-200">
+        {icon}
+      </span>
+      <span className="text-sm">{label}</span>
     </div>
   );
 }
@@ -812,16 +909,17 @@ function LearnStep({
       <div className="flex items-start justify-between gap-4">
         <div>
           <p className="text-sm font-black uppercase tracking-[0.14em] text-cyan-700 dark:text-cyan-200">
-            New phrase {step.position} of {step.total}
+            New Phrase
           </p>
           <h2 className="mt-3 text-5xl font-black leading-tight text-slate-950 dark:text-slate-50">
-            {step.phrase.romanized}
+            {formatRomanizedDisplay(step.phrase.romanized)}
           </h2>
         </div>
         <SpeakerButton
           audioUrl={step.phrase.audioUrl}
           locale={locale}
           romanized={step.phrase.romanized}
+          script={step.phrase.bengaliScript}
         />
       </div>
 
@@ -830,7 +928,9 @@ function LearnStep({
           <p className="text-xs font-black uppercase tracking-[0.14em] text-cyan-700 dark:text-cyan-200">
             Meaning
           </p>
-          <p className="mt-1 text-2xl font-black">{step.phrase.english}</p>
+          <p className="mt-1 text-2xl font-black">
+            {capitalizeDisplayText(step.phrase.english)}
+          </p>
         </div>
         <div className="rounded-3xl border border-slate-100 bg-slate-50 p-4 dark:border-white/10 dark:bg-white/[0.08]">
           <p className="text-xs font-black uppercase tracking-[0.14em] text-slate-500 dark:text-slate-400">
@@ -849,6 +949,71 @@ function LearnStep({
       >
         Practice it <ArrowRight size={18} />
       </AppButton>
+    </div>
+  );
+}
+
+function SpeakPracticeStep({
+  locale,
+  onDone,
+  onSkip,
+  step,
+}: {
+  locale?: string;
+  onDone: () => void;
+  onSkip: () => void;
+  step: Extract<LessonStep, { type: "speak" }>;
+}) {
+  function playAgain() {
+    void playPronunciation({
+      audioUrl: step.phrase.audioUrl,
+      debug: true,
+      locale,
+      romanized: step.phrase.romanized,
+      script: step.phrase.bengaliScript,
+    });
+  }
+
+  return (
+    <div>
+      <p className="text-sm font-black uppercase tracking-[0.14em] text-fuchsia-700 dark:text-fuchsia-200">
+        Speak
+      </p>
+      <h2 className="mt-2 text-2xl font-black">{step.prompt}</h2>
+      <p className="mt-2 text-sm font-semibold text-slate-600 dark:text-slate-300">
+        Say it out loud. No microphone needed.
+      </p>
+
+      <div className="mt-5 flex items-center justify-between gap-4 rounded-3xl border border-fuchsia-100 bg-fuchsia-50 p-5 shadow-inner dark:border-fuchsia-300/20 dark:bg-fuchsia-400/12">
+        <div>
+          <p className="text-4xl font-black leading-tight">
+            {formatRomanizedDisplay(step.phrase.romanized)}
+          </p>
+          <p className="mt-2 text-lg font-bold text-slate-600 dark:text-slate-300">
+            {capitalizeDisplayText(step.phrase.english)}
+          </p>
+        </div>
+        <SpeakerButton
+          audioUrl={step.phrase.audioUrl}
+          locale={locale}
+          romanized={step.phrase.romanized}
+          script={step.phrase.bengaliScript}
+        />
+      </div>
+
+      <div className="mt-5 flex flex-wrap justify-end gap-3">
+        <AppButton type="button" variant="secondary" onClick={onSkip}>
+          <VolumeX size={18} />
+          Skip for now
+        </AppButton>
+        <AppButton type="button" variant="secondary" onClick={playAgain}>
+          <Volume2 size={18} />
+          Play again
+        </AppButton>
+        <AppButton type="button" onClick={onDone}>
+          I said it <ArrowRight size={18} />
+        </AppButton>
+      </div>
     </div>
   );
 }
@@ -1050,9 +1215,18 @@ function buildLessonSteps(lesson: Lesson): LessonStep[] {
       id: `${lesson.id}-recognize-${phrase.id}`,
       type: "recognize",
       phrase,
-      prompt: `What does "${phrase.romanized}" mean?`,
+      prompt: `What does "${formatRomanizedDisplay(phrase.romanized)}" mean?`,
       options: buildMeaningOptions(phrase.english, phraseMeanings),
     });
+
+    if (index === 1 || index === 3) {
+      steps.push({
+        id: `${lesson.id}-speak-${phrase.id}`,
+        type: "speak",
+        phrase,
+        prompt: "Practice saying this phrase.",
+      });
+    }
   });
 
   steps.push(...lesson.exercises.map((exercise) => ({
@@ -1079,6 +1253,10 @@ function getStepPrompt(step: LessonStep) {
     return step.prompt;
   }
 
+  if (step.type === "speak") {
+    return step.prompt;
+  }
+
   if (step.type === "exercise") {
     return step.exercise.prompt;
   }
@@ -1099,6 +1277,18 @@ function getExerciseMode(exercise: Exercise) {
     return "Type";
   }
 
+  if (exercise.type === "listen-type") {
+    return "Listen";
+  }
+
+  if (exercise.type === "fill-blank") {
+    return "Practice";
+  }
+
+  if (exercise.type === "speaking") {
+    return "Speak";
+  }
+
   return "Match";
 }
 
@@ -1115,7 +1305,8 @@ function isListeningStep(step: LessonStep) {
     step.type === "recognize" ||
     (step.type === "exercise" &&
       (Boolean(step.exercise.audioPromptId) ||
-        step.exercise.sourceType === "listenSelect"))
+        step.exercise.sourceType === "listenSelect" ||
+        step.exercise.type === "listen-type"))
   );
 }
 

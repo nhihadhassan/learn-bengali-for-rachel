@@ -84,42 +84,48 @@
               "romanized": "nomoskar",
               "english": "hello / respectful greeting",
               "pronunciation": "NOMOSKAR",
-              "category": "greetings"
+              "category": "greetings",
+              "bengaliScript": "নমস্কার"
             },
             {
               "id": "p-u01-l01-greetings-02",
               "romanized": "hello",
               "english": "hello",
               "pronunciation": "HELLO",
-              "category": "greetings"
+              "category": "greetings",
+              "bengaliScript": "হ্যালো"
             },
             {
               "id": "p-u01-l01-greetings-03",
               "romanized": "dhonnobad",
               "english": "thank you",
               "pronunciation": "DHONNOBAD",
-              "category": "greetings"
+              "category": "greetings",
+              "bengaliScript": "ধন্যবাদ"
             },
             {
               "id": "p-u01-l01-greetings-04",
               "romanized": "abar dekha hobe",
               "english": "see you again",
               "pronunciation": "ABAR DEKHA HOBE",
-              "category": "greetings"
+              "category": "greetings",
+              "bengaliScript": "আবার দেখা হবে"
             },
             {
               "id": "p-u01-l01-greetings-05",
               "romanized": "bhalo thako",
               "english": "stay well",
               "pronunciation": "BHALO THAKO",
-              "category": "greetings"
+              "category": "greetings",
+              "bengaliScript": "ভালো থাকো"
             },
             {
               "id": "p-u01-l01-greetings-06",
               "romanized": "shuvo shokal",
               "english": "good morning",
               "pronunciation": "SHUVO SHOKAL",
-              "category": "greetings"
+              "category": "greetings",
+              "bengaliScript": "শুভ সকাল"
             }
           ],
           "exercises": [
@@ -210,7 +216,7 @@
               "id": "a1",
               "locale": "bn-BD",
               "voiceStyle": "warm-neutral",
-              "textBn": "nomoskar",
+              "textBn": "নমস্কার",
               "roman": "nomoskar",
               "textEn": "Hello.",
               "speed": 0.9
@@ -219,7 +225,7 @@
               "id": "a2",
               "locale": "bn-BD",
               "voiceStyle": "warm-neutral",
-              "textBn": "dhonnobad",
+              "textBn": "ধন্যবাদ",
               "roman": "dhonnobad",
               "textEn": "Thank you.",
               "speed": 0.92
@@ -228,7 +234,7 @@
               "id": "a3",
               "locale": "bn-BD",
               "voiceStyle": "warm-neutral",
-              "textBn": "abar dekha hobe",
+              "textBn": "আবার দেখা হবে",
               "roman": "abar dekha hobe",
               "textEn": "See you again.",
               "speed": 0.92
@@ -346,42 +352,48 @@
               "romanized": "tumi kemon acho?",
               "english": "how are you?",
               "pronunciation": "TUMI KEMON ACHO",
-              "category": "how-are-you"
+              "category": "how-are-you",
+              "bengaliScript": "তুমি কেমন আছো?"
             },
             {
               "id": "p-u01-l02-how-are-you-02",
               "romanized": "ami bhalo achi",
               "english": "I am good",
               "pronunciation": "AMI BHALO ACHI",
-              "category": "how-are-you"
+              "category": "how-are-you",
+              "bengaliScript": "আমি ভালো আছি"
             },
             {
               "id": "p-u01-l02-how-are-you-03",
               "romanized": "khub bhalo",
               "english": "very good",
               "pronunciation": "KHUB BHALO",
-              "category": "how-are-you"
+              "category": "how-are-you",
+              "bengaliScript": "খুব ভালো"
             },
             {
               "id": "p-u01-l02-how-are-you-04",
               "romanized": "motamuti",
               "english": "so-so",
               "pronunciation": "MOTAMUTI",
-              "category": "how-are-you"
+              "category": "how-are-you",
+              "bengaliScript": "মোটামুটি"
             },
             {
               "id": "p-u01-l02-how-are-you-05",
               "romanized": "ami thik achi",
               "english": "I am okay",
               "pronunciation": "AMI THIK ACHI",
-              "category": "how-are-you"
+              "category": "how-are-you",
+              "bengaliScript": "আমি ঠিক আছি"
             },
             {
               "id": "p-u01-l02-how-are-you-06",
               "romanized": "ar tumi?",
               "english": "and you?",
               "pronunciation": "AR TUMI",
-              "category": "how-are-you"
+              "category": "how-are-you",
+              "bengaliScript": "আর তুমি?"
             }
           ],
           "exercises": [
@@ -472,7 +484,7 @@
               "id": "a1",
               "locale": "bn-BD",
               "voiceStyle": "warm-neutral",
-              "textBn": "tumi kemon acho?",
+              "textBn": "তুমি কেমন আছো?",
               "roman": "tumi kemon acho?",
               "textEn": "How are you?",
               "speed": 0.9
@@ -481,7 +493,7 @@
               "id": "a2",
               "locale": "bn-BD",
               "voiceStyle": "warm-neutral",
-              "textBn": "ami bhalo achi",
+              "textBn": "আমি ভালো আছি",
               "roman": "ami bhalo achi",
               "textEn": "I am good.",
               "speed": 0.92
@@ -490,7 +502,7 @@
               "id": "a3",
               "locale": "bn-BD",
               "voiceStyle": "warm-neutral",
-              "textBn": "ar tumi?",
+              "textBn": "আর তুমি?",
               "roman": "ar tumi?",
               "textEn": "And you?",
               "speed": 0.92
@@ -631,42 +643,48 @@
               "romanized": "ami Rachel",
               "english": "I am Rachel",
               "pronunciation": "AMI RACHEL",
-              "category": "introduce-yourself"
+              "category": "introduce-yourself",
+              "bengaliScript": "আমি র‍্যাচেল"
             },
             {
               "id": "p-u02-l01-introduce-yourself-02",
               "romanized": "amar naam Rachel",
               "english": "my name is Rachel",
               "pronunciation": "AMAR NAAM RACHEL",
-              "category": "introduce-yourself"
+              "category": "introduce-yourself",
+              "bengaliScript": "আমার নাম র‍্যাচেল"
             },
             {
               "id": "p-u02-l01-introduce-yourself-03",
               "romanized": "tomar naam ki?",
               "english": "what is your name?",
               "pronunciation": "TOMAR NAAM KI",
-              "category": "introduce-yourself"
+              "category": "introduce-yourself",
+              "bengaliScript": "তোমার নাম কী?"
             },
             {
               "id": "p-u02-l01-introduce-yourself-04",
               "romanized": "amar naam...",
               "english": "my name is...",
               "pronunciation": "AMAR NAAM...",
-              "category": "introduce-yourself"
+              "category": "introduce-yourself",
+              "bengaliScript": "আমার নাম..."
             },
             {
               "id": "p-u02-l01-introduce-yourself-05",
               "romanized": "ami Bangla shikchi",
               "english": "I am learning Bengali",
               "pronunciation": "AMI BANGLA SHIKCHI",
-              "category": "introduce-yourself"
+              "category": "introduce-yourself",
+              "bengaliScript": "আমি বাংলা শিখছি"
             },
             {
               "id": "p-u02-l01-introduce-yourself-06",
               "romanized": "ami ektu Bangla boli",
               "english": "I speak a little Bengali",
               "pronunciation": "AMI EKTU BANGLA BOLI",
-              "category": "introduce-yourself"
+              "category": "introduce-yourself",
+              "bengaliScript": "আমি একটু বাংলা বলি"
             }
           ],
           "exercises": [
@@ -757,7 +775,7 @@
               "id": "a1",
               "locale": "bn-BD",
               "voiceStyle": "warm-neutral",
-              "textBn": "amar naam Rachel",
+              "textBn": "আমার নাম র‍্যাচেল",
               "roman": "amar naam Rachel",
               "textEn": "My name is Rachel.",
               "speed": 0.9
@@ -766,7 +784,7 @@
               "id": "a2",
               "locale": "bn-BD",
               "voiceStyle": "warm-neutral",
-              "textBn": "tomar naam ki?",
+              "textBn": "তোমার নাম কী?",
               "roman": "tomar naam ki?",
               "textEn": "What is your name?",
               "speed": 0.92
@@ -775,7 +793,7 @@
               "id": "a3",
               "locale": "bn-BD",
               "voiceStyle": "warm-neutral",
-              "textBn": "ami Bangla shikchi",
+              "textBn": "আমি বাংলা শিখছি",
               "roman": "ami Bangla shikchi",
               "textEn": "I am learning Bengali.",
               "speed": 0.92
@@ -893,42 +911,48 @@
               "romanized": "ma",
               "english": "mother",
               "pronunciation": "MA",
-              "category": "family-words"
+              "category": "family-words",
+              "bengaliScript": "মা"
             },
             {
               "id": "p-u02-l02-family-words-02",
               "romanized": "baba",
               "english": "father",
               "pronunciation": "BABA",
-              "category": "family-words"
+              "category": "family-words",
+              "bengaliScript": "বাবা"
             },
             {
               "id": "p-u02-l02-family-words-03",
               "romanized": "bon",
               "english": "sister",
               "pronunciation": "BON",
-              "category": "family-words"
+              "category": "family-words",
+              "bengaliScript": "বোন"
             },
             {
               "id": "p-u02-l02-family-words-04",
               "romanized": "bhai",
               "english": "brother",
               "pronunciation": "BHAI",
-              "category": "family-words"
+              "category": "family-words",
+              "bengaliScript": "ভাই"
             },
             {
               "id": "p-u02-l02-family-words-05",
               "romanized": "amar ma",
               "english": "my mother",
               "pronunciation": "AMAR MA",
-              "category": "family-words"
+              "category": "family-words",
+              "bengaliScript": "আমার মা"
             },
             {
               "id": "p-u02-l02-family-words-06",
               "romanized": "eta amar bhai",
               "english": "this is my brother",
               "pronunciation": "ETA AMAR BHAI",
-              "category": "family-words"
+              "category": "family-words",
+              "bengaliScript": "এটা আমার ভাই"
             }
           ],
           "exercises": [
@@ -1019,7 +1043,7 @@
               "id": "a1",
               "locale": "bn-BD",
               "voiceStyle": "warm-neutral",
-              "textBn": "amar ma",
+              "textBn": "আমার মা",
               "roman": "amar ma",
               "textEn": "My mother.",
               "speed": 0.9
@@ -1028,7 +1052,7 @@
               "id": "a2",
               "locale": "bn-BD",
               "voiceStyle": "warm-neutral",
-              "textBn": "eta amar bhai",
+              "textBn": "এটা আমার ভাই",
               "roman": "eta amar bhai",
               "textEn": "This is my brother.",
               "speed": 0.92
@@ -1037,7 +1061,7 @@
               "id": "a3",
               "locale": "bn-BD",
               "voiceStyle": "warm-neutral",
-              "textBn": "amar bon",
+              "textBn": "আমার বোন",
               "roman": "amar bon",
               "textEn": "My sister.",
               "speed": 0.92
@@ -1181,42 +1205,48 @@
               "romanized": "ami pani chai",
               "english": "I want water",
               "pronunciation": "AMI PANI CHAI",
-              "category": "food-and-water"
+              "category": "food-and-water",
+              "bengaliScript": "আমি পানি চাই"
             },
             {
               "id": "p-u03-l01-food-and-water-02",
               "romanized": "ami cha chai",
               "english": "I want tea",
               "pronunciation": "AMI CHA CHAI",
-              "category": "food-and-water"
+              "category": "food-and-water",
+              "bengaliScript": "আমি চা চাই"
             },
             {
               "id": "p-u03-l01-food-and-water-03",
               "romanized": "ami bhaat chai",
               "english": "I want rice",
               "pronunciation": "AMI BHAAT CHAI",
-              "category": "food-and-water"
+              "category": "food-and-water",
+              "bengaliScript": "আমি ভাত চাই"
             },
             {
               "id": "p-u03-l01-food-and-water-04",
               "romanized": "pani",
               "english": "water",
               "pronunciation": "PANI",
-              "category": "food-and-water"
+              "category": "food-and-water",
+              "bengaliScript": "পানি"
             },
             {
               "id": "p-u03-l01-food-and-water-05",
               "romanized": "cha",
               "english": "tea",
               "pronunciation": "CHA",
-              "category": "food-and-water"
+              "category": "food-and-water",
+              "bengaliScript": "চা"
             },
             {
               "id": "p-u03-l01-food-and-water-06",
               "romanized": "bhaat",
               "english": "rice",
               "pronunciation": "BHAAT",
-              "category": "food-and-water"
+              "category": "food-and-water",
+              "bengaliScript": "ভাত"
             }
           ],
           "exercises": [
@@ -1307,7 +1337,7 @@
               "id": "a1",
               "locale": "bn-BD",
               "voiceStyle": "warm-neutral",
-              "textBn": "ami pani chai",
+              "textBn": "আমি পানি চাই",
               "roman": "ami pani chai",
               "textEn": "I want water.",
               "speed": 0.9
@@ -1316,7 +1346,7 @@
               "id": "a2",
               "locale": "bn-BD",
               "voiceStyle": "warm-neutral",
-              "textBn": "ami cha chai",
+              "textBn": "আমি চা চাই",
               "roman": "ami cha chai",
               "textEn": "I want tea.",
               "speed": 0.92
@@ -1325,7 +1355,7 @@
               "id": "a3",
               "locale": "bn-BD",
               "voiceStyle": "warm-neutral",
-              "textBn": "ami bhaat chai",
+              "textBn": "আমি ভাত চাই",
               "roman": "ami bhaat chai",
               "textEn": "I want rice.",
               "speed": 0.92
@@ -1445,42 +1475,48 @@
               "romanized": "amar khide peyechhe",
               "english": "I am hungry",
               "pronunciation": "AMAR KHIDE PEYECHHE",
-              "category": "hungry-and-thirsty"
+              "category": "hungry-and-thirsty",
+              "bengaliScript": "আমার খিদে পেয়েছে"
             },
             {
               "id": "p-u03-l02-hungry-and-thirsty-02",
               "romanized": "amar pipasha peyechhe",
               "english": "I am thirsty",
               "pronunciation": "AMAR PIPASHA PEYECHHE",
-              "category": "hungry-and-thirsty"
+              "category": "hungry-and-thirsty",
+              "bengaliScript": "আমার পিপাসা পেয়েছে"
             },
             {
               "id": "p-u03-l02-hungry-and-thirsty-03",
               "romanized": "amar pet bhore geche",
               "english": "I am full",
               "pronunciation": "AMAR PET BHORE GECHE",
-              "category": "hungry-and-thirsty"
+              "category": "hungry-and-thirsty",
+              "bengaliScript": "আমার পেট ভরে গেছে"
             },
             {
               "id": "p-u03-l02-hungry-and-thirsty-04",
               "romanized": "eta bhalo",
               "english": "this is good",
               "pronunciation": "ETA BHALO",
-              "category": "hungry-and-thirsty"
+              "category": "hungry-and-thirsty",
+              "bengaliScript": "এটা ভালো"
             },
             {
               "id": "p-u03-l02-hungry-and-thirsty-05",
               "romanized": "ami eta pochondo kori",
               "english": "I like this",
               "pronunciation": "AMI ETA POCHONDO KORI",
-              "category": "hungry-and-thirsty"
+              "category": "hungry-and-thirsty",
+              "bengaliScript": "আমি এটা পছন্দ করি"
             },
             {
               "id": "p-u03-l02-hungry-and-thirsty-06",
               "romanized": "ami eta chai na",
               "english": "I do not want this",
               "pronunciation": "AMI ETA CHAI NA",
-              "category": "hungry-and-thirsty"
+              "category": "hungry-and-thirsty",
+              "bengaliScript": "আমি এটা চাই না"
             }
           ],
           "exercises": [
@@ -1571,7 +1607,7 @@
               "id": "a1",
               "locale": "bn-BD",
               "voiceStyle": "warm-neutral",
-              "textBn": "amar khide peyechhe",
+              "textBn": "আমার খিদে পেয়েছে",
               "roman": "amar khide peyechhe",
               "textEn": "I am hungry.",
               "speed": 0.9
@@ -1580,7 +1616,7 @@
               "id": "a2",
               "locale": "bn-BD",
               "voiceStyle": "warm-neutral",
-              "textBn": "amar pipasha peyechhe",
+              "textBn": "আমার পিপাসা পেয়েছে",
               "roman": "amar pipasha peyechhe",
               "textEn": "I am thirsty.",
               "speed": 0.92
@@ -1589,7 +1625,7 @@
               "id": "a3",
               "locale": "bn-BD",
               "voiceStyle": "warm-neutral",
-              "textBn": "ami eta chai na",
+              "textBn": "আমি এটা চাই না",
               "roman": "ami eta chai na",
               "textEn": "I do not want this.",
               "speed": 0.92
@@ -1730,42 +1766,48 @@
               "romanized": "ha",
               "english": "yes",
               "pronunciation": "HA",
-              "category": "yes-no-replies"
+              "category": "yes-no-replies",
+              "bengaliScript": "হ্যাঁ"
             },
             {
               "id": "p-u04-l01-yes-no-replies-02",
               "romanized": "na",
               "english": "no",
               "pronunciation": "NA",
-              "category": "yes-no-replies"
+              "category": "yes-no-replies",
+              "bengaliScript": "না"
             },
             {
               "id": "p-u04-l01-yes-no-replies-03",
               "romanized": "thik ache",
               "english": "okay",
               "pronunciation": "THIK ACHE",
-              "category": "yes-no-replies"
+              "category": "yes-no-replies",
+              "bengaliScript": "ঠিক আছে"
             },
             {
               "id": "p-u04-l01-yes-no-replies-04",
               "romanized": "kono shomossha nei",
               "english": "no problem",
               "pronunciation": "KONO SHOMOSSHA NEI",
-              "category": "yes-no-replies"
+              "category": "yes-no-replies",
+              "bengaliScript": "কোনো সমস্যা নেই"
             },
             {
               "id": "p-u04-l01-yes-no-replies-05",
               "romanized": "maf koro",
               "english": "sorry",
               "pronunciation": "MAF KORO",
-              "category": "yes-no-replies"
+              "category": "yes-no-replies",
+              "bengaliScript": "মাফ করো"
             },
             {
               "id": "p-u04-l01-yes-no-replies-06",
               "romanized": "abar bolo",
               "english": "say it again",
               "pronunciation": "ABAR BOLO",
-              "category": "yes-no-replies"
+              "category": "yes-no-replies",
+              "bengaliScript": "আবার বলো"
             }
           ],
           "exercises": [
@@ -1856,7 +1898,7 @@
               "id": "a1",
               "locale": "bn-BD",
               "voiceStyle": "warm-neutral",
-              "textBn": "thik ache",
+              "textBn": "ঠিক আছে",
               "roman": "thik ache",
               "textEn": "Okay.",
               "speed": 0.9
@@ -1865,7 +1907,7 @@
               "id": "a2",
               "locale": "bn-BD",
               "voiceStyle": "warm-neutral",
-              "textBn": "kono shomossha nei",
+              "textBn": "কোনো সমস্যা নেই",
               "roman": "kono shomossha nei",
               "textEn": "No problem.",
               "speed": 0.92
@@ -1874,7 +1916,7 @@
               "id": "a3",
               "locale": "bn-BD",
               "voiceStyle": "warm-neutral",
-              "textBn": "abar bolo",
+              "textBn": "আবার বলো",
               "roman": "abar bolo",
               "textEn": "Say it again.",
               "speed": 0.92
@@ -1994,42 +2036,48 @@
               "romanized": "eta ki?",
               "english": "what is this?",
               "pronunciation": "ETA KI",
-              "category": "simple-questions"
+              "category": "simple-questions",
+              "bengaliScript": "এটা কী?"
             },
             {
               "id": "p-u04-l02-simple-questions-02",
               "romanized": "tumi kothay?",
               "english": "where are you?",
               "pronunciation": "TUMI KOTHAY",
-              "category": "simple-questions"
+              "category": "simple-questions",
+              "bengaliScript": "তুমি কোথায়?"
             },
             {
               "id": "p-u04-l02-simple-questions-03",
               "romanized": "bathroom kothay?",
               "english": "where is the bathroom?",
               "pronunciation": "BATHROOM KOTHAY",
-              "category": "simple-questions"
+              "category": "simple-questions",
+              "bengaliScript": "বাথরুম কোথায়?"
             },
             {
               "id": "p-u04-l02-simple-questions-04",
               "romanized": "keno?",
               "english": "why?",
               "pronunciation": "KENO",
-              "category": "simple-questions"
+              "category": "simple-questions",
+              "bengaliScript": "কেন?"
             },
             {
               "id": "p-u04-l02-simple-questions-05",
               "romanized": "koto?",
               "english": "how much?",
               "pronunciation": "KOTO",
-              "category": "simple-questions"
+              "category": "simple-questions",
+              "bengaliScript": "কত?"
             },
             {
               "id": "p-u04-l02-simple-questions-06",
               "romanized": "ekhon?",
               "english": "now?",
               "pronunciation": "EKHON",
-              "category": "simple-questions"
+              "category": "simple-questions",
+              "bengaliScript": "এখন?"
             }
           ],
           "exercises": [
@@ -2120,7 +2168,7 @@
               "id": "a1",
               "locale": "bn-BD",
               "voiceStyle": "warm-neutral",
-              "textBn": "eta ki?",
+              "textBn": "এটা কী?",
               "roman": "eta ki?",
               "textEn": "What is this?",
               "speed": 0.9
@@ -2129,7 +2177,7 @@
               "id": "a2",
               "locale": "bn-BD",
               "voiceStyle": "warm-neutral",
-              "textBn": "bathroom kothay?",
+              "textBn": "বাথরুম কোথায়?",
               "roman": "bathroom kothay?",
               "textEn": "Where is the bathroom?",
               "speed": 0.92
@@ -2138,7 +2186,7 @@
               "id": "a3",
               "locale": "bn-BD",
               "voiceStyle": "warm-neutral",
-              "textBn": "koto?",
+              "textBn": "কত?",
               "roman": "koto?",
               "textEn": "How much?",
               "speed": 0.92
@@ -2279,42 +2327,48 @@
               "romanized": "ami khushi",
               "english": "I am happy",
               "pronunciation": "AMI KHUSHI",
-              "category": "basic-feelings"
+              "category": "basic-feelings",
+              "bengaliScript": "আমি খুশি"
             },
             {
               "id": "p-u05-l01-basic-feelings-02",
               "romanized": "ami klanto",
               "english": "I am tired",
               "pronunciation": "AMI KLANTO",
-              "category": "basic-feelings"
+              "category": "basic-feelings",
+              "bengaliScript": "আমি ক্লান্ত"
             },
             {
               "id": "p-u05-l01-basic-feelings-03",
               "romanized": "ami osustho",
               "english": "I am sick",
               "pronunciation": "AMI OSUSTHO",
-              "category": "basic-feelings"
+              "category": "basic-feelings",
+              "bengaliScript": "আমি অসুস্থ"
             },
             {
               "id": "p-u05-l01-basic-feelings-04",
               "romanized": "ami chinta korchi",
               "english": "I am worried",
               "pronunciation": "AMI CHINTA KORCHI",
-              "category": "basic-feelings"
+              "category": "basic-feelings",
+              "bengaliScript": "আমি চিন্তা করছি"
             },
             {
               "id": "p-u05-l01-basic-feelings-05",
               "romanized": "amar matha betha",
               "english": "my head hurts",
               "pronunciation": "AMAR MATHA BETHA",
-              "category": "basic-feelings"
+              "category": "basic-feelings",
+              "bengaliScript": "আমার মাথা ব্যথা"
             },
             {
               "id": "p-u05-l01-basic-feelings-06",
               "romanized": "ami bhalo nei",
               "english": "I am not well",
               "pronunciation": "AMI BHALO NEI",
-              "category": "basic-feelings"
+              "category": "basic-feelings",
+              "bengaliScript": "আমি ভালো নেই"
             }
           ],
           "exercises": [
@@ -2405,7 +2459,7 @@
               "id": "a1",
               "locale": "bn-BD",
               "voiceStyle": "warm-neutral",
-              "textBn": "ami khushi",
+              "textBn": "আমি খুশি",
               "roman": "ami khushi",
               "textEn": "I am happy.",
               "speed": 0.9
@@ -2414,7 +2468,7 @@
               "id": "a2",
               "locale": "bn-BD",
               "voiceStyle": "warm-neutral",
-              "textBn": "ami klanto",
+              "textBn": "আমি ক্লান্ত",
               "roman": "ami klanto",
               "textEn": "I am tired.",
               "speed": 0.92
@@ -2423,7 +2477,7 @@
               "id": "a3",
               "locale": "bn-BD",
               "voiceStyle": "warm-neutral",
-              "textBn": "ami bhalo nei",
+              "textBn": "আমি ভালো নেই",
               "roman": "ami bhalo nei",
               "textEn": "I am not well.",
               "speed": 0.92
@@ -2540,42 +2594,48 @@
               "romanized": "amake shahajjo koro",
               "english": "help me",
               "pronunciation": "AMAKE SHAHAJJO KORO",
-              "category": "asking-for-help"
+              "category": "asking-for-help",
+              "bengaliScript": "আমাকে সাহায্য করো"
             },
             {
               "id": "p-u05-l02-asking-for-help-02",
               "romanized": "aste bolo",
               "english": "speak slowly",
               "pronunciation": "ASTE BOLO",
-              "category": "asking-for-help"
+              "category": "asking-for-help",
+              "bengaliScript": "আস্তে বলো"
             },
             {
               "id": "p-u05-l02-asking-for-help-03",
               "romanized": "ami bujhte parchi na",
               "english": "I do not understand",
               "pronunciation": "AMI BUJHTE PARCHI NA",
-              "category": "asking-for-help"
+              "category": "asking-for-help",
+              "bengaliScript": "আমি বুঝতে পারছি না"
             },
             {
               "id": "p-u05-l02-asking-for-help-04",
               "romanized": "ektu opekkha koro",
               "english": "wait a little",
               "pronunciation": "EKTU OPEKKHA KORO",
-              "category": "asking-for-help"
+              "category": "asking-for-help",
+              "bengaliScript": "একটু অপেক্ষা করো"
             },
             {
               "id": "p-u05-l02-asking-for-help-05",
               "romanized": "eta abar bolo",
               "english": "say this again",
               "pronunciation": "ETA ABAR BOLO",
-              "category": "asking-for-help"
+              "category": "asking-for-help",
+              "bengaliScript": "এটা আবার বলো"
             },
             {
               "id": "p-u05-l02-asking-for-help-06",
               "romanized": "dhire dhire bolo",
               "english": "say it slowly",
               "pronunciation": "DHIRE DHIRE BOLO",
-              "category": "asking-for-help"
+              "category": "asking-for-help",
+              "bengaliScript": "ধীরে ধীরে বলো"
             }
           ],
           "exercises": [
@@ -2666,7 +2726,7 @@
               "id": "a1",
               "locale": "bn-BD",
               "voiceStyle": "warm-neutral",
-              "textBn": "amake shahajjo koro",
+              "textBn": "আমাকে সাহায্য করো",
               "roman": "amake shahajjo koro",
               "textEn": "Help me.",
               "speed": 0.9
@@ -2675,7 +2735,7 @@
               "id": "a2",
               "locale": "bn-BD",
               "voiceStyle": "warm-neutral",
-              "textBn": "ami bujhte parchi na",
+              "textBn": "আমি বুঝতে পারছি না",
               "roman": "ami bujhte parchi na",
               "textEn": "I do not understand.",
               "speed": 0.92
@@ -2684,7 +2744,7 @@
               "id": "a3",
               "locale": "bn-BD",
               "voiceStyle": "warm-neutral",
-              "textBn": "dhire dhire bolo",
+              "textBn": "ধীরে ধীরে বলো",
               "roman": "dhire dhire bolo",
               "textEn": "Say it slowly.",
               "speed": 0.92
@@ -2740,6 +2800,1654 @@
         "tags": [
           "spoken-bengali",
           "romanized-only"
+        ]
+      }
+    },
+    {
+      "id": "u06",
+      "number": 6,
+      "title": "Visiting Someone’s Home",
+      "description": "Warm phrases for arriving, sitting, thanking, and leaving politely.",
+      "lessons": [
+        {
+          "id": "u06-l01-visiting-home",
+          "unitId": "u06",
+          "unitNumber": 6,
+          "title": "Visiting a Home",
+          "difficulty": "beginner",
+          "summary": "Learn what to say when you arrive at someone’s home and want to be polite.",
+          "phrases": [
+            {
+              "id": "p-u06-l01-visiting-home-01",
+              "romanized": "ami eshechi",
+              "bengaliScript": "আমি এসেছি",
+              "english": "I have arrived",
+              "pronunciation": "AMI ESHECHI",
+              "category": "home"
+            },
+            {
+              "id": "p-u06-l01-visiting-home-02",
+              "romanized": "bhitore ashbo?",
+              "bengaliScript": "ভিতরে আসব?",
+              "english": "may I come inside?",
+              "pronunciation": "BHITORE ASHBO?",
+              "category": "home"
+            },
+            {
+              "id": "p-u06-l01-visiting-home-03",
+              "romanized": "boshte pari?",
+              "bengaliScript": "বসতে পারি?",
+              "english": "may I sit?",
+              "pronunciation": "BOSHTE PARI?",
+              "category": "home"
+            },
+            {
+              "id": "p-u06-l01-visiting-home-04",
+              "romanized": "ektu pani dao",
+              "bengaliScript": "একটু পানি দাও",
+              "english": "give me a little water",
+              "pronunciation": "EKTU PANI DAO",
+              "category": "home"
+            },
+            {
+              "id": "p-u06-l01-visiting-home-05",
+              "romanized": "khub shundor bari",
+              "bengaliScript": "খুব সুন্দর বাড়ি",
+              "english": "very beautiful home",
+              "pronunciation": "KHUB SHUNDOR BARI",
+              "category": "home"
+            },
+            {
+              "id": "p-u06-l01-visiting-home-06",
+              "romanized": "ami khushi",
+              "bengaliScript": "আমি খুশি",
+              "english": "I am happy",
+              "pronunciation": "AMI KHUSHI",
+              "category": "home"
+            }
+          ],
+          "exercises": [
+            {
+              "id": "ex1",
+              "type": "multiple-choice",
+              "sourceType": "listenSelect",
+              "prompt": "Listen first. Then tap what you hear.",
+              "answer": "ami eshechi",
+              "options": [
+                "ami eshechi",
+                "bhitore ashbo?",
+                "boshte pari?",
+                "khub shundor bari"
+              ],
+              "audioPromptId": "a1"
+            },
+            {
+              "id": "ex2",
+              "type": "multiple-choice",
+              "prompt": "What does “ami eshechi” mean?",
+              "answer": "I have arrived",
+              "options": [
+                "I have arrived",
+                "may I sit?",
+                "very beautiful home",
+                "give me water"
+              ]
+            },
+            {
+              "id": "ex3",
+              "type": "listen-type",
+              "prompt": "Listen and type the romanized Bengali.",
+              "answer": "bhitore ashbo?",
+              "acceptedAnswers": [
+                "bhitore ashbo?"
+              ],
+              "audioPromptId": "a2"
+            },
+            {
+              "id": "ex4",
+              "type": "matching",
+              "prompt": "Match Bengali to English.",
+              "answer": "ami eshechi -> I have arrived, boshte pari? -> may I sit?, ektu pani dao -> give me a little water, khub shundor bari -> very beautiful home",
+              "pairs": [
+                {
+                  "left": "ami eshechi",
+                  "right": "I have arrived"
+                },
+                {
+                  "left": "boshte pari?",
+                  "right": "may I sit?"
+                },
+                {
+                  "left": "ektu pani dao",
+                  "right": "give me a little water"
+                },
+                {
+                  "left": "khub shundor bari",
+                  "right": "very beautiful home"
+                }
+              ]
+            },
+            {
+              "id": "ex5",
+              "type": "fill-blank",
+              "prompt": "Complete the phrase: khub ___ bari",
+              "answer": "shundor",
+              "acceptedAnswers": [
+                "shundor"
+              ],
+              "before": "khub",
+              "after": "bari"
+            }
+          ],
+          "slug": "visiting-home",
+          "objectives": [
+            "Understand simple spoken phrases for visiting a home.",
+            "Recognize the phrases by listening and meaning.",
+            "Practice saying short Bengali phrases out loud."
+          ],
+          "vocabulary": [
+            {
+              "bn": "আমি এসেছি",
+              "roman": "ami eshechi",
+              "en": "I have arrived",
+              "tags": [
+                "home",
+                "spoken"
+              ]
+            },
+            {
+              "bn": "ভিতরে আসব?",
+              "roman": "bhitore ashbo?",
+              "en": "may I come inside?",
+              "tags": [
+                "home",
+                "spoken"
+              ]
+            },
+            {
+              "bn": "বসতে পারি?",
+              "roman": "boshte pari?",
+              "en": "may I sit?",
+              "tags": [
+                "home",
+                "spoken"
+              ]
+            },
+            {
+              "bn": "একটু পানি দাও",
+              "roman": "ektu pani dao",
+              "en": "give me a little water",
+              "tags": [
+                "home",
+                "spoken"
+              ]
+            },
+            {
+              "bn": "খুব সুন্দর বাড়ি",
+              "roman": "khub shundor bari",
+              "en": "very beautiful home",
+              "tags": [
+                "home",
+                "spoken"
+              ]
+            },
+            {
+              "bn": "আমি খুশি",
+              "roman": "ami khushi",
+              "en": "I am happy",
+              "tags": [
+                "home",
+                "spoken"
+              ]
+            }
+          ],
+          "grammar": [
+            {
+              "point": "Spoken phrase pattern",
+              "notes": "Memorize the whole phrase first. Grammar can come later."
+            }
+          ],
+          "audioPrompts": [
+            {
+              "id": "a1",
+              "locale": "bn-BD",
+              "voiceStyle": "soft-clear",
+              "textBn": "আমি এসেছি",
+              "roman": "ami eshechi",
+              "textEn": "I have arrived.",
+              "speed": 0.88
+            },
+            {
+              "id": "a2",
+              "locale": "bn-BD",
+              "voiceStyle": "soft-clear",
+              "textBn": "ভিতরে আসব?",
+              "roman": "bhitore ashbo?",
+              "textEn": "May I come inside?",
+              "speed": 0.88
+            },
+            {
+              "id": "a3",
+              "locale": "bn-BD",
+              "voiceStyle": "soft-clear",
+              "textBn": "খুব সুন্দর বাড়ি",
+              "roman": "khub shundor bari",
+              "textEn": "Very beautiful home.",
+              "speed": 0.88
+            }
+          ],
+          "uiText": {
+            "startCta": "Start lesson",
+            "lessonGoal": "Learn useful spoken phrases, then practice them.",
+            "correct": "Nice work — that sounded natural.",
+            "almost": "Almost — listen once more and try the phrase again.",
+            "complete": "Lesson complete. You can use these phrases in conversation."
+          },
+          "metadata": {
+            "estimatedMinutes": 7,
+            "difficulty": "beginner",
+            "tags": [
+              "home",
+              "visiting",
+              "spoken-bengali",
+              "romanized-only"
+            ],
+            "xp": 15,
+            "unlockAfter": [
+              "u05-l02-asking-for-help"
+            ],
+            "assessment": {
+              "attempted": "Started the spoken phrase lesson.",
+              "passed": "Understood the key meanings.",
+              "strong": "Answered with only one or two misses.",
+              "mastered": "Answered accurately after a later review."
+            }
+          },
+          "reviewSchedule": {
+            "initialReviewDays": [
+              1,
+              3,
+              7,
+              14,
+              30
+            ],
+            "masteryThreshold": 0.9,
+            "recycleOnMistake": true
+          }
+        },
+        {
+          "id": "u06-l02-politeness-at-home",
+          "unitId": "u06",
+          "unitNumber": 6,
+          "title": "Polite Home Phrases",
+          "difficulty": "beginner",
+          "summary": "Use warm, simple phrases for tea, thanks, and saying goodbye.",
+          "phrases": [
+            {
+              "id": "p-u06-l02-politeness-at-home-01",
+              "romanized": "ektu cha hobe?",
+              "bengaliScript": "একটু চা হবে?",
+              "english": "could I have a little tea?",
+              "pronunciation": "EKTU CHA HOBE?",
+              "category": "politeness"
+            },
+            {
+              "id": "p-u06-l02-politeness-at-home-02",
+              "romanized": "apnake dhonnobad",
+              "bengaliScript": "আপনাকে ধন্যবাদ",
+              "english": "thank you",
+              "pronunciation": "APNAKE DHONNOBAD",
+              "category": "politeness"
+            },
+            {
+              "id": "p-u06-l02-politeness-at-home-03",
+              "romanized": "onek bhalo legeche",
+              "bengaliScript": "অনেক ভালো লেগেছে",
+              "english": "I liked it a lot",
+              "pronunciation": "ONEK BHALO LEGECHE",
+              "category": "politeness"
+            },
+            {
+              "id": "p-u06-l02-politeness-at-home-04",
+              "romanized": "ami ekhon jai",
+              "bengaliScript": "আমি এখন যাই",
+              "english": "I will go now",
+              "pronunciation": "AMI EKHON JAI",
+              "category": "politeness"
+            },
+            {
+              "id": "p-u06-l02-politeness-at-home-05",
+              "romanized": "abar ashbo",
+              "bengaliScript": "আবার আসব",
+              "english": "I will come again",
+              "pronunciation": "ABAR ASHBO",
+              "category": "politeness"
+            },
+            {
+              "id": "p-u06-l02-politeness-at-home-06",
+              "romanized": "sobai bhalo thakben",
+              "bengaliScript": "সবাই ভালো থাকবেন",
+              "english": "everyone stay well",
+              "pronunciation": "SOBAI BHALO THAKBEN",
+              "category": "politeness"
+            }
+          ],
+          "exercises": [
+            {
+              "id": "ex1",
+              "type": "multiple-choice",
+              "sourceType": "listenSelect",
+              "prompt": "Listen first. Then tap what you hear.",
+              "answer": "ektu cha hobe?",
+              "options": [
+                "ektu cha hobe?",
+                "apnake dhonnobad",
+                "onek bhalo legeche",
+                "ami ekhon jai"
+              ],
+              "audioPromptId": "a1"
+            },
+            {
+              "id": "ex2",
+              "type": "multiple-choice",
+              "prompt": "What does “ektu cha hobe?” mean?",
+              "answer": "could I have a little tea?",
+              "options": [
+                "could I have a little tea?",
+                "I will go now",
+                "everyone stay well",
+                "I will come again"
+              ]
+            },
+            {
+              "id": "ex3",
+              "type": "listen-type",
+              "prompt": "Listen and type the romanized Bengali.",
+              "answer": "onek bhalo legeche",
+              "acceptedAnswers": [
+                "onek bhalo legeche"
+              ],
+              "audioPromptId": "a2"
+            },
+            {
+              "id": "ex4",
+              "type": "matching",
+              "prompt": "Match Bengali to English.",
+              "answer": "ektu cha hobe? -> could I have tea?, apnake dhonnobad -> thank you, ami ekhon jai -> I will go now, abar ashbo -> I will come again",
+              "pairs": [
+                {
+                  "left": "ektu cha hobe?",
+                  "right": "could I have tea?"
+                },
+                {
+                  "left": "apnake dhonnobad",
+                  "right": "thank you"
+                },
+                {
+                  "left": "ami ekhon jai",
+                  "right": "I will go now"
+                },
+                {
+                  "left": "abar ashbo",
+                  "right": "I will come again"
+                }
+              ]
+            },
+            {
+              "id": "ex5",
+              "type": "fill-blank",
+              "prompt": "Complete the phrase: abar ___",
+              "answer": "ashbo",
+              "acceptedAnswers": [
+                "ashbo"
+              ],
+              "before": "abar",
+              "after": ""
+            }
+          ],
+          "slug": "politeness-at-home",
+          "objectives": [
+            "Understand simple spoken phrases for polite home phrases.",
+            "Recognize the phrases by listening and meaning.",
+            "Practice saying short Bengali phrases out loud."
+          ],
+          "vocabulary": [
+            {
+              "bn": "একটু চা হবে?",
+              "roman": "ektu cha hobe?",
+              "en": "could I have a little tea?",
+              "tags": [
+                "politeness",
+                "spoken"
+              ]
+            },
+            {
+              "bn": "আপনাকে ধন্যবাদ",
+              "roman": "apnake dhonnobad",
+              "en": "thank you",
+              "tags": [
+                "politeness",
+                "spoken"
+              ]
+            },
+            {
+              "bn": "অনেক ভালো লেগেছে",
+              "roman": "onek bhalo legeche",
+              "en": "I liked it a lot",
+              "tags": [
+                "politeness",
+                "spoken"
+              ]
+            },
+            {
+              "bn": "আমি এখন যাই",
+              "roman": "ami ekhon jai",
+              "en": "I will go now",
+              "tags": [
+                "politeness",
+                "spoken"
+              ]
+            },
+            {
+              "bn": "আবার আসব",
+              "roman": "abar ashbo",
+              "en": "I will come again",
+              "tags": [
+                "politeness",
+                "spoken"
+              ]
+            },
+            {
+              "bn": "সবাই ভালো থাকবেন",
+              "roman": "sobai bhalo thakben",
+              "en": "everyone stay well",
+              "tags": [
+                "politeness",
+                "spoken"
+              ]
+            }
+          ],
+          "grammar": [
+            {
+              "point": "Spoken phrase pattern",
+              "notes": "Memorize the whole phrase first. Grammar can come later."
+            }
+          ],
+          "audioPrompts": [
+            {
+              "id": "a1",
+              "locale": "bn-BD",
+              "voiceStyle": "soft-clear",
+              "textBn": "একটু চা হবে?",
+              "roman": "ektu cha hobe?",
+              "textEn": "Could I have a little tea?",
+              "speed": 0.88
+            },
+            {
+              "id": "a2",
+              "locale": "bn-BD",
+              "voiceStyle": "soft-clear",
+              "textBn": "অনেক ভালো লেগেছে",
+              "roman": "onek bhalo legeche",
+              "textEn": "I liked it a lot.",
+              "speed": 0.88
+            },
+            {
+              "id": "a3",
+              "locale": "bn-BD",
+              "voiceStyle": "soft-clear",
+              "textBn": "আবার আসব",
+              "roman": "abar ashbo",
+              "textEn": "I will come again.",
+              "speed": 0.88
+            }
+          ],
+          "uiText": {
+            "startCta": "Start lesson",
+            "lessonGoal": "Learn useful spoken phrases, then practice them.",
+            "correct": "Nice work — that sounded natural.",
+            "almost": "Almost — listen once more and try the phrase again.",
+            "complete": "Lesson complete. You can use these phrases in conversation."
+          },
+          "metadata": {
+            "estimatedMinutes": 7,
+            "difficulty": "beginner",
+            "tags": [
+              "home",
+              "politeness",
+              "spoken-bengali",
+              "romanized-only"
+            ],
+            "xp": 15,
+            "unlockAfter": [
+              "u06-l01-visiting-home"
+            ],
+            "assessment": {
+              "attempted": "Started the spoken phrase lesson.",
+              "passed": "Understood the key meanings.",
+              "strong": "Answered with only one or two misses.",
+              "mastered": "Answered accurately after a later review."
+            }
+          },
+          "reviewSchedule": {
+            "initialReviewDays": [
+              1,
+              3,
+              7,
+              14,
+              30
+            ],
+            "masteryThreshold": 0.9,
+            "recycleOnMistake": true
+          }
+        }
+      ],
+      "checkpointLessonId": null,
+      "metadata": {
+        "difficultyBand": "beginner",
+        "estimatedTotalMinutes": 14,
+        "tags": [
+          "home",
+          "politeness"
+        ]
+      }
+    },
+    {
+      "id": "u07",
+      "number": 7,
+      "title": "Travel and Getting Around",
+      "description": "Short phrases for directions, taxis, and finding your way.",
+      "lessons": [
+        {
+          "id": "u07-l01-getting-around",
+          "unitId": "u07",
+          "unitNumber": 7,
+          "title": "Getting Around",
+          "difficulty": "beginner",
+          "summary": "Learn simple direction phrases for moving around town.",
+          "phrases": [
+            {
+              "id": "p-u07-l01-getting-around-01",
+              "romanized": "cholo jai",
+              "bengaliScript": "চলো যাই",
+              "english": "let’s go",
+              "pronunciation": "CHOLO JAI",
+              "category": "travel"
+            },
+            {
+              "id": "p-u07-l01-getting-around-02",
+              "romanized": "ekhane thamo",
+              "bengaliScript": "এখানে থামো",
+              "english": "stop here",
+              "pronunciation": "EKHANE THAMO",
+              "category": "travel"
+            },
+            {
+              "id": "p-u07-l01-getting-around-03",
+              "romanized": "dan dike",
+              "bengaliScript": "ডান দিকে",
+              "english": "to the right",
+              "pronunciation": "DAN DIKE",
+              "category": "directions"
+            },
+            {
+              "id": "p-u07-l01-getting-around-04",
+              "romanized": "bam dike",
+              "bengaliScript": "বাম দিকে",
+              "english": "to the left",
+              "pronunciation": "BAM DIKE",
+              "category": "directions"
+            },
+            {
+              "id": "p-u07-l01-getting-around-05",
+              "romanized": "shamne jao",
+              "bengaliScript": "সামনে যাও",
+              "english": "go straight ahead",
+              "pronunciation": "SHAMNE JAO",
+              "category": "directions"
+            },
+            {
+              "id": "p-u07-l01-getting-around-06",
+              "romanized": "eta koto dur?",
+              "bengaliScript": "এটা কত দূর?",
+              "english": "how far is it?",
+              "pronunciation": "ETA KOTO DUR?",
+              "category": "directions"
+            }
+          ],
+          "exercises": [
+            {
+              "id": "ex1",
+              "type": "multiple-choice",
+              "sourceType": "listenSelect",
+              "prompt": "Listen first. Then tap what you hear.",
+              "answer": "cholo jai",
+              "options": [
+                "cholo jai",
+                "ekhane thamo",
+                "dan dike",
+                "bam dike"
+              ],
+              "audioPromptId": "a1"
+            },
+            {
+              "id": "ex2",
+              "type": "multiple-choice",
+              "prompt": "What does “cholo jai” mean?",
+              "answer": "let’s go",
+              "options": [
+                "let’s go",
+                "stop here",
+                "to the left",
+                "go straight ahead"
+              ]
+            },
+            {
+              "id": "ex3",
+              "type": "listen-type",
+              "prompt": "Listen and type the romanized Bengali.",
+              "answer": "eta koto dur?",
+              "acceptedAnswers": [
+                "eta koto dur?"
+              ],
+              "audioPromptId": "a3"
+            },
+            {
+              "id": "ex4",
+              "type": "matching",
+              "prompt": "Match Bengali to English.",
+              "answer": "cholo jai -> let’s go, ekhane thamo -> stop here, dan dike -> right, bam dike -> left",
+              "pairs": [
+                {
+                  "left": "cholo jai",
+                  "right": "let’s go"
+                },
+                {
+                  "left": "ekhane thamo",
+                  "right": "stop here"
+                },
+                {
+                  "left": "dan dike",
+                  "right": "right"
+                },
+                {
+                  "left": "bam dike",
+                  "right": "left"
+                }
+              ]
+            },
+            {
+              "id": "ex5",
+              "type": "fill-blank",
+              "prompt": "Complete the phrase: shamne ___",
+              "answer": "jao",
+              "acceptedAnswers": [
+                "jao"
+              ],
+              "before": "shamne",
+              "after": ""
+            }
+          ],
+          "slug": "getting-around",
+          "objectives": [
+            "Understand simple spoken phrases for getting around.",
+            "Recognize the phrases by listening and meaning.",
+            "Practice saying short Bengali phrases out loud."
+          ],
+          "vocabulary": [
+            {
+              "bn": "চলো যাই",
+              "roman": "cholo jai",
+              "en": "let’s go",
+              "tags": [
+                "travel",
+                "spoken"
+              ]
+            },
+            {
+              "bn": "এখানে থামো",
+              "roman": "ekhane thamo",
+              "en": "stop here",
+              "tags": [
+                "travel",
+                "spoken"
+              ]
+            },
+            {
+              "bn": "ডান দিকে",
+              "roman": "dan dike",
+              "en": "to the right",
+              "tags": [
+                "directions",
+                "spoken"
+              ]
+            },
+            {
+              "bn": "বাম দিকে",
+              "roman": "bam dike",
+              "en": "to the left",
+              "tags": [
+                "directions",
+                "spoken"
+              ]
+            },
+            {
+              "bn": "সামনে যাও",
+              "roman": "shamne jao",
+              "en": "go straight ahead",
+              "tags": [
+                "directions",
+                "spoken"
+              ]
+            },
+            {
+              "bn": "এটা কত দূর?",
+              "roman": "eta koto dur?",
+              "en": "how far is it?",
+              "tags": [
+                "directions",
+                "spoken"
+              ]
+            }
+          ],
+          "grammar": [
+            {
+              "point": "Spoken phrase pattern",
+              "notes": "Memorize the whole phrase first. Grammar can come later."
+            }
+          ],
+          "audioPrompts": [
+            {
+              "id": "a1",
+              "locale": "bn-BD",
+              "voiceStyle": "soft-clear",
+              "textBn": "চলো যাই",
+              "roman": "cholo jai",
+              "textEn": "Let’s go.",
+              "speed": 0.88
+            },
+            {
+              "id": "a2",
+              "locale": "bn-BD",
+              "voiceStyle": "soft-clear",
+              "textBn": "ডান দিকে",
+              "roman": "dan dike",
+              "textEn": "To the right.",
+              "speed": 0.88
+            },
+            {
+              "id": "a3",
+              "locale": "bn-BD",
+              "voiceStyle": "soft-clear",
+              "textBn": "এটা কত দূর?",
+              "roman": "eta koto dur?",
+              "textEn": "How far is it?",
+              "speed": 0.88
+            }
+          ],
+          "uiText": {
+            "startCta": "Start lesson",
+            "lessonGoal": "Learn useful spoken phrases, then practice them.",
+            "correct": "Nice work — that sounded natural.",
+            "almost": "Almost — listen once more and try the phrase again.",
+            "complete": "Lesson complete. You can use these phrases in conversation."
+          },
+          "metadata": {
+            "estimatedMinutes": 7,
+            "difficulty": "beginner",
+            "tags": [
+              "travel",
+              "directions",
+              "spoken-bengali",
+              "romanized-only"
+            ],
+            "xp": 15,
+            "unlockAfter": [
+              "u06-l02-politeness-at-home"
+            ],
+            "assessment": {
+              "attempted": "Started the spoken phrase lesson.",
+              "passed": "Understood the key meanings.",
+              "strong": "Answered with only one or two misses.",
+              "mastered": "Answered accurately after a later review."
+            }
+          },
+          "reviewSchedule": {
+            "initialReviewDays": [
+              1,
+              3,
+              7,
+              14,
+              30
+            ],
+            "masteryThreshold": 0.9,
+            "recycleOnMistake": true
+          }
+        },
+        {
+          "id": "u07-l02-transport-help",
+          "unitId": "u07",
+          "unitNumber": 7,
+          "title": "Transport Help",
+          "difficulty": "beginner",
+          "summary": "Ask for a taxi, station, or help when you are not sure where to go.",
+          "phrases": [
+            {
+              "id": "p-u07-l02-transport-help-01",
+              "romanized": "bus kothay?",
+              "bengaliScript": "বাস কোথায়?",
+              "english": "where is the bus?",
+              "pronunciation": "BUS KOTHAY?",
+              "category": "travel"
+            },
+            {
+              "id": "p-u07-l02-transport-help-02",
+              "romanized": "taxi chai",
+              "bengaliScript": "ট্যাক্সি চাই",
+              "english": "I want a taxi",
+              "pronunciation": "TAXI CHAI",
+              "category": "travel"
+            },
+            {
+              "id": "p-u07-l02-transport-help-03",
+              "romanized": "station kothay?",
+              "bengaliScript": "স্টেশন কোথায়?",
+              "english": "where is the station?",
+              "pronunciation": "STATION KOTHAY?",
+              "category": "travel"
+            },
+            {
+              "id": "p-u07-l02-transport-help-04",
+              "romanized": "ami hariye gechi",
+              "bengaliScript": "আমি হারিয়ে গেছি",
+              "english": "I am lost",
+              "pronunciation": "AMI HARIYE GECHI",
+              "category": "help"
+            },
+            {
+              "id": "p-u07-l02-transport-help-05",
+              "romanized": "ektu shahajjo korben?",
+              "bengaliScript": "একটু সাহায্য করবেন?",
+              "english": "will you help a little?",
+              "pronunciation": "EKTU SHAHAJJO KORBEN?",
+              "category": "help"
+            },
+            {
+              "id": "p-u07-l02-transport-help-06",
+              "romanized": "ami ekhane nambo",
+              "bengaliScript": "আমি এখানে নামব",
+              "english": "I will get off here",
+              "pronunciation": "AMI EKHANE NAMBO",
+              "category": "travel"
+            }
+          ],
+          "exercises": [
+            {
+              "id": "ex1",
+              "type": "multiple-choice",
+              "sourceType": "listenSelect",
+              "prompt": "Listen first. Then tap what you hear.",
+              "answer": "taxi chai",
+              "options": [
+                "bus kothay?",
+                "taxi chai",
+                "ami hariye gechi",
+                "ami ekhane nambo"
+              ],
+              "audioPromptId": "a1"
+            },
+            {
+              "id": "ex2",
+              "type": "multiple-choice",
+              "prompt": "What does “taxi chai” mean?",
+              "answer": "I want a taxi",
+              "options": [
+                "I want a taxi",
+                "where is the station?",
+                "I am lost",
+                "I will get off here"
+              ]
+            },
+            {
+              "id": "ex3",
+              "type": "listen-type",
+              "prompt": "Listen and type the romanized Bengali.",
+              "answer": "ami hariye gechi",
+              "acceptedAnswers": [
+                "ami hariye gechi"
+              ],
+              "audioPromptId": "a2"
+            },
+            {
+              "id": "ex4",
+              "type": "matching",
+              "prompt": "Match Bengali to English.",
+              "answer": "bus kothay? -> where is the bus?, taxi chai -> I want a taxi, ami hariye gechi -> I am lost, ami ekhane nambo -> I will get off here",
+              "pairs": [
+                {
+                  "left": "bus kothay?",
+                  "right": "where is the bus?"
+                },
+                {
+                  "left": "taxi chai",
+                  "right": "I want a taxi"
+                },
+                {
+                  "left": "ami hariye gechi",
+                  "right": "I am lost"
+                },
+                {
+                  "left": "ami ekhane nambo",
+                  "right": "I will get off here"
+                }
+              ]
+            },
+            {
+              "id": "ex5",
+              "type": "fill-blank",
+              "prompt": "Complete the phrase: station ___",
+              "answer": "kothay?",
+              "acceptedAnswers": [
+                "kothay?"
+              ],
+              "before": "station",
+              "after": ""
+            }
+          ],
+          "slug": "transport-help",
+          "objectives": [
+            "Understand simple spoken phrases for transport help.",
+            "Recognize the phrases by listening and meaning.",
+            "Practice saying short Bengali phrases out loud."
+          ],
+          "vocabulary": [
+            {
+              "bn": "বাস কোথায়?",
+              "roman": "bus kothay?",
+              "en": "where is the bus?",
+              "tags": [
+                "travel",
+                "spoken"
+              ]
+            },
+            {
+              "bn": "ট্যাক্সি চাই",
+              "roman": "taxi chai",
+              "en": "I want a taxi",
+              "tags": [
+                "travel",
+                "spoken"
+              ]
+            },
+            {
+              "bn": "স্টেশন কোথায়?",
+              "roman": "station kothay?",
+              "en": "where is the station?",
+              "tags": [
+                "travel",
+                "spoken"
+              ]
+            },
+            {
+              "bn": "আমি হারিয়ে গেছি",
+              "roman": "ami hariye gechi",
+              "en": "I am lost",
+              "tags": [
+                "help",
+                "spoken"
+              ]
+            },
+            {
+              "bn": "একটু সাহায্য করবেন?",
+              "roman": "ektu shahajjo korben?",
+              "en": "will you help a little?",
+              "tags": [
+                "help",
+                "spoken"
+              ]
+            },
+            {
+              "bn": "আমি এখানে নামব",
+              "roman": "ami ekhane nambo",
+              "en": "I will get off here",
+              "tags": [
+                "travel",
+                "spoken"
+              ]
+            }
+          ],
+          "grammar": [
+            {
+              "point": "Spoken phrase pattern",
+              "notes": "Memorize the whole phrase first. Grammar can come later."
+            }
+          ],
+          "audioPrompts": [
+            {
+              "id": "a1",
+              "locale": "bn-BD",
+              "voiceStyle": "soft-clear",
+              "textBn": "ট্যাক্সি চাই",
+              "roman": "taxi chai",
+              "textEn": "I want a taxi.",
+              "speed": 0.88
+            },
+            {
+              "id": "a2",
+              "locale": "bn-BD",
+              "voiceStyle": "soft-clear",
+              "textBn": "আমি হারিয়ে গেছি",
+              "roman": "ami hariye gechi",
+              "textEn": "I am lost.",
+              "speed": 0.88
+            },
+            {
+              "id": "a3",
+              "locale": "bn-BD",
+              "voiceStyle": "soft-clear",
+              "textBn": "একটু সাহায্য করবেন?",
+              "roman": "ektu shahajjo korben?",
+              "textEn": "Will you help a little?",
+              "speed": 0.88
+            }
+          ],
+          "uiText": {
+            "startCta": "Start lesson",
+            "lessonGoal": "Learn useful spoken phrases, then practice them.",
+            "correct": "Nice work — that sounded natural.",
+            "almost": "Almost — listen once more and try the phrase again.",
+            "complete": "Lesson complete. You can use these phrases in conversation."
+          },
+          "metadata": {
+            "estimatedMinutes": 7,
+            "difficulty": "beginner",
+            "tags": [
+              "travel",
+              "help",
+              "spoken-bengali",
+              "romanized-only"
+            ],
+            "xp": 15,
+            "unlockAfter": [
+              "u07-l01-getting-around"
+            ],
+            "assessment": {
+              "attempted": "Started the spoken phrase lesson.",
+              "passed": "Understood the key meanings.",
+              "strong": "Answered with only one or two misses.",
+              "mastered": "Answered accurately after a later review."
+            }
+          },
+          "reviewSchedule": {
+            "initialReviewDays": [
+              1,
+              3,
+              7,
+              14,
+              30
+            ],
+            "masteryThreshold": 0.9,
+            "recycleOnMistake": true
+          }
+        }
+      ],
+      "checkpointLessonId": null,
+      "metadata": {
+        "difficultyBand": "beginner",
+        "estimatedTotalMinutes": 14,
+        "tags": [
+          "travel",
+          "directions"
+        ]
+      }
+    },
+    {
+      "id": "u08",
+      "number": 8,
+      "title": "Daily Talk and Care",
+      "description": "Small talk, affection, care, and urgent help in simple Bengali.",
+      "lessons": [
+        {
+          "id": "u08-l01-small-talk",
+          "unitId": "u08",
+          "unitNumber": 8,
+          "title": "Questions and Small Talk",
+          "difficulty": "beginner",
+          "summary": "Use quick everyday lines for weather, work, and casual conversation.",
+          "phrases": [
+            {
+              "id": "p-u08-l01-small-talk-01",
+              "romanized": "ajke kemon?",
+              "bengaliScript": "আজকে কেমন?",
+              "english": "how is today?",
+              "pronunciation": "AJKE KEMON?",
+              "category": "small-talk"
+            },
+            {
+              "id": "p-u08-l01-small-talk-02",
+              "romanized": "abohawa bhalo",
+              "bengaliScript": "আবহাওয়া ভালো",
+              "english": "the weather is good",
+              "pronunciation": "ABOHAWA BHALO",
+              "category": "small-talk"
+            },
+            {
+              "id": "p-u08-l01-small-talk-03",
+              "romanized": "tumi ki korcho?",
+              "bengaliScript": "তুমি কী করছ?",
+              "english": "what are you doing?",
+              "pronunciation": "TUMI KI KORCHO?",
+              "category": "small-talk"
+            },
+            {
+              "id": "p-u08-l01-small-talk-04",
+              "romanized": "ami kaj korchi",
+              "bengaliScript": "আমি কাজ করছি",
+              "english": "I am working",
+              "pronunciation": "AMI KAJ KORCHI",
+              "category": "daily"
+            },
+            {
+              "id": "p-u08-l01-small-talk-05",
+              "romanized": "pore dekha hobe",
+              "bengaliScript": "পরে দেখা হবে",
+              "english": "see you later",
+              "pronunciation": "PORE DEKHA HOBE",
+              "category": "daily"
+            },
+            {
+              "id": "p-u08-l01-small-talk-06",
+              "romanized": "khub moja",
+              "bengaliScript": "খুব মজা",
+              "english": "very fun",
+              "pronunciation": "KHUB MOJA",
+              "category": "daily"
+            }
+          ],
+          "exercises": [
+            {
+              "id": "ex1",
+              "type": "multiple-choice",
+              "sourceType": "listenSelect",
+              "prompt": "Listen first. Then tap what you hear.",
+              "answer": "tumi ki korcho?",
+              "options": [
+                "ajke kemon?",
+                "tumi ki korcho?",
+                "ami kaj korchi",
+                "pore dekha hobe"
+              ],
+              "audioPromptId": "a1"
+            },
+            {
+              "id": "ex2",
+              "type": "multiple-choice",
+              "prompt": "What does “tumi ki korcho?” mean?",
+              "answer": "what are you doing?",
+              "options": [
+                "what are you doing?",
+                "the weather is good",
+                "I am working",
+                "see you later"
+              ]
+            },
+            {
+              "id": "ex3",
+              "type": "listen-type",
+              "prompt": "Listen and type the romanized Bengali.",
+              "answer": "ami kaj korchi",
+              "acceptedAnswers": [
+                "ami kaj korchi"
+              ],
+              "audioPromptId": "a2"
+            },
+            {
+              "id": "ex4",
+              "type": "matching",
+              "prompt": "Match Bengali to English.",
+              "answer": "ajke kemon? -> how is today?, abohawa bhalo -> the weather is good, ami kaj korchi -> I am working, pore dekha hobe -> see you later",
+              "pairs": [
+                {
+                  "left": "ajke kemon?",
+                  "right": "how is today?"
+                },
+                {
+                  "left": "abohawa bhalo",
+                  "right": "the weather is good"
+                },
+                {
+                  "left": "ami kaj korchi",
+                  "right": "I am working"
+                },
+                {
+                  "left": "pore dekha hobe",
+                  "right": "see you later"
+                }
+              ]
+            },
+            {
+              "id": "ex5",
+              "type": "fill-blank",
+              "prompt": "Complete the phrase: khub ___",
+              "answer": "moja",
+              "acceptedAnswers": [
+                "moja"
+              ],
+              "before": "khub",
+              "after": ""
+            }
+          ],
+          "slug": "small-talk",
+          "objectives": [
+            "Understand simple spoken phrases for questions and small talk.",
+            "Recognize the phrases by listening and meaning.",
+            "Practice saying short Bengali phrases out loud."
+          ],
+          "vocabulary": [
+            {
+              "bn": "আজকে কেমন?",
+              "roman": "ajke kemon?",
+              "en": "how is today?",
+              "tags": [
+                "small-talk",
+                "spoken"
+              ]
+            },
+            {
+              "bn": "আবহাওয়া ভালো",
+              "roman": "abohawa bhalo",
+              "en": "the weather is good",
+              "tags": [
+                "small-talk",
+                "spoken"
+              ]
+            },
+            {
+              "bn": "তুমি কী করছ?",
+              "roman": "tumi ki korcho?",
+              "en": "what are you doing?",
+              "tags": [
+                "small-talk",
+                "spoken"
+              ]
+            },
+            {
+              "bn": "আমি কাজ করছি",
+              "roman": "ami kaj korchi",
+              "en": "I am working",
+              "tags": [
+                "daily",
+                "spoken"
+              ]
+            },
+            {
+              "bn": "পরে দেখা হবে",
+              "roman": "pore dekha hobe",
+              "en": "see you later",
+              "tags": [
+                "daily",
+                "spoken"
+              ]
+            },
+            {
+              "bn": "খুব মজা",
+              "roman": "khub moja",
+              "en": "very fun",
+              "tags": [
+                "daily",
+                "spoken"
+              ]
+            }
+          ],
+          "grammar": [
+            {
+              "point": "Spoken phrase pattern",
+              "notes": "Memorize the whole phrase first. Grammar can come later."
+            }
+          ],
+          "audioPrompts": [
+            {
+              "id": "a1",
+              "locale": "bn-BD",
+              "voiceStyle": "soft-clear",
+              "textBn": "তুমি কী করছ?",
+              "roman": "tumi ki korcho?",
+              "textEn": "What are you doing?",
+              "speed": 0.88
+            },
+            {
+              "id": "a2",
+              "locale": "bn-BD",
+              "voiceStyle": "soft-clear",
+              "textBn": "আমি কাজ করছি",
+              "roman": "ami kaj korchi",
+              "textEn": "I am working.",
+              "speed": 0.88
+            },
+            {
+              "id": "a3",
+              "locale": "bn-BD",
+              "voiceStyle": "soft-clear",
+              "textBn": "পরে দেখা হবে",
+              "roman": "pore dekha hobe",
+              "textEn": "See you later.",
+              "speed": 0.88
+            }
+          ],
+          "uiText": {
+            "startCta": "Start lesson",
+            "lessonGoal": "Learn useful spoken phrases, then practice them.",
+            "correct": "Nice work — that sounded natural.",
+            "almost": "Almost — listen once more and try the phrase again.",
+            "complete": "Lesson complete. You can use these phrases in conversation."
+          },
+          "metadata": {
+            "estimatedMinutes": 7,
+            "difficulty": "beginner",
+            "tags": [
+              "small-talk",
+              "daily",
+              "spoken-bengali",
+              "romanized-only"
+            ],
+            "xp": 15,
+            "unlockAfter": [
+              "u07-l02-transport-help"
+            ],
+            "assessment": {
+              "attempted": "Started the spoken phrase lesson.",
+              "passed": "Understood the key meanings.",
+              "strong": "Answered with only one or two misses.",
+              "mastered": "Answered accurately after a later review."
+            }
+          },
+          "reviewSchedule": {
+            "initialReviewDays": [
+              1,
+              3,
+              7,
+              14,
+              30
+            ],
+            "masteryThreshold": 0.9,
+            "recycleOnMistake": true
+          }
+        },
+        {
+          "id": "u08-l02-care-and-emergencies",
+          "unitId": "u08",
+          "unitNumber": 8,
+          "title": "Care and Emergencies",
+          "difficulty": "beginner",
+          "summary": "Say warm caring phrases and ask for serious help when needed.",
+          "phrases": [
+            {
+              "id": "p-u08-l02-care-and-emergencies-01",
+              "romanized": "ami tomake bhalobashi",
+              "bengaliScript": "আমি তোমাকে ভালোবাসি",
+              "english": "I love you",
+              "pronunciation": "AMI TOMAKE BHALOBASHI",
+              "category": "care"
+            },
+            {
+              "id": "p-u08-l02-care-and-emergencies-02",
+              "romanized": "ami tomar kheyal rakhi",
+              "bengaliScript": "আমি তোমার খেয়াল রাখি",
+              "english": "I care about you",
+              "pronunciation": "AMI TOMAR KHEYAL RAKHI",
+              "category": "care"
+            },
+            {
+              "id": "p-u08-l02-care-and-emergencies-03",
+              "romanized": "chinta koro na",
+              "bengaliScript": "চিন্তা করো না",
+              "english": "do not worry",
+              "pronunciation": "CHINTA KORO NA",
+              "category": "care"
+            },
+            {
+              "id": "p-u08-l02-care-and-emergencies-04",
+              "romanized": "amar daktar chai",
+              "bengaliScript": "আমার ডাক্তার চাই",
+              "english": "I need a doctor",
+              "pronunciation": "AMAR DAKTAR CHAI",
+              "category": "emergency"
+            },
+            {
+              "id": "p-u08-l02-care-and-emergencies-05",
+              "romanized": "police dakun",
+              "bengaliScript": "পুলিশ ডাকুন",
+              "english": "call the police",
+              "pronunciation": "POLICE DAKUN",
+              "category": "emergency"
+            },
+            {
+              "id": "p-u08-l02-care-and-emergencies-06",
+              "romanized": "eta emergency",
+              "bengaliScript": "এটা ইমার্জেন্সি",
+              "english": "this is an emergency",
+              "pronunciation": "ETA EMERGENCY",
+              "category": "emergency"
+            }
+          ],
+          "exercises": [
+            {
+              "id": "ex1",
+              "type": "multiple-choice",
+              "sourceType": "listenSelect",
+              "prompt": "Listen first. Then tap what you hear.",
+              "answer": "chinta koro na",
+              "options": [
+                "ami tomake bhalobashi",
+                "chinta koro na",
+                "amar daktar chai",
+                "eta emergency"
+              ],
+              "audioPromptId": "a2"
+            },
+            {
+              "id": "ex2",
+              "type": "multiple-choice",
+              "prompt": "What does “chinta koro na” mean?",
+              "answer": "do not worry",
+              "options": [
+                "do not worry",
+                "I care about you",
+                "I need a doctor",
+                "call the police"
+              ]
+            },
+            {
+              "id": "ex3",
+              "type": "listen-type",
+              "prompt": "Listen and type the romanized Bengali.",
+              "answer": "amar daktar chai",
+              "acceptedAnswers": [
+                "amar daktar chai"
+              ],
+              "audioPromptId": "a3"
+            },
+            {
+              "id": "ex4",
+              "type": "matching",
+              "prompt": "Match Bengali to English.",
+              "answer": "ami tomar kheyal rakhi -> I care about you, chinta koro na -> do not worry, amar daktar chai -> I need a doctor, police dakun -> call the police",
+              "pairs": [
+                {
+                  "left": "ami tomar kheyal rakhi",
+                  "right": "I care about you"
+                },
+                {
+                  "left": "chinta koro na",
+                  "right": "do not worry"
+                },
+                {
+                  "left": "amar daktar chai",
+                  "right": "I need a doctor"
+                },
+                {
+                  "left": "police dakun",
+                  "right": "call the police"
+                }
+              ]
+            },
+            {
+              "id": "ex5",
+              "type": "fill-blank",
+              "prompt": "Complete the phrase: eta ___",
+              "answer": "emergency",
+              "acceptedAnswers": [
+                "emergency"
+              ],
+              "before": "eta",
+              "after": ""
+            }
+          ],
+          "slug": "care-and-emergencies",
+          "objectives": [
+            "Understand simple spoken phrases for care and emergencies.",
+            "Recognize the phrases by listening and meaning.",
+            "Practice saying short Bengali phrases out loud."
+          ],
+          "vocabulary": [
+            {
+              "bn": "আমি তোমাকে ভালোবাসি",
+              "roman": "ami tomake bhalobashi",
+              "en": "I love you",
+              "tags": [
+                "care",
+                "spoken"
+              ]
+            },
+            {
+              "bn": "আমি তোমার খেয়াল রাখি",
+              "roman": "ami tomar kheyal rakhi",
+              "en": "I care about you",
+              "tags": [
+                "care",
+                "spoken"
+              ]
+            },
+            {
+              "bn": "চিন্তা করো না",
+              "roman": "chinta koro na",
+              "en": "do not worry",
+              "tags": [
+                "care",
+                "spoken"
+              ]
+            },
+            {
+              "bn": "আমার ডাক্তার চাই",
+              "roman": "amar daktar chai",
+              "en": "I need a doctor",
+              "tags": [
+                "emergency",
+                "spoken"
+              ]
+            },
+            {
+              "bn": "পুলিশ ডাকুন",
+              "roman": "police dakun",
+              "en": "call the police",
+              "tags": [
+                "emergency",
+                "spoken"
+              ]
+            },
+            {
+              "bn": "এটা ইমার্জেন্সি",
+              "roman": "eta emergency",
+              "en": "this is an emergency",
+              "tags": [
+                "emergency",
+                "spoken"
+              ]
+            }
+          ],
+          "grammar": [
+            {
+              "point": "Spoken phrase pattern",
+              "notes": "Memorize the whole phrase first. Grammar can come later."
+            }
+          ],
+          "audioPrompts": [
+            {
+              "id": "a1",
+              "locale": "bn-BD",
+              "voiceStyle": "soft-clear",
+              "textBn": "আমি তোমাকে ভালোবাসি",
+              "roman": "ami tomake bhalobashi",
+              "textEn": "I love you.",
+              "speed": 0.88
+            },
+            {
+              "id": "a2",
+              "locale": "bn-BD",
+              "voiceStyle": "soft-clear",
+              "textBn": "চিন্তা করো না",
+              "roman": "chinta koro na",
+              "textEn": "Do not worry.",
+              "speed": 0.88
+            },
+            {
+              "id": "a3",
+              "locale": "bn-BD",
+              "voiceStyle": "soft-clear",
+              "textBn": "আমার ডাক্তার চাই",
+              "roman": "amar daktar chai",
+              "textEn": "I need a doctor.",
+              "speed": 0.88
+            }
+          ],
+          "uiText": {
+            "startCta": "Start lesson",
+            "lessonGoal": "Learn useful spoken phrases, then practice them.",
+            "correct": "Nice work — that sounded natural.",
+            "almost": "Almost — listen once more and try the phrase again.",
+            "complete": "Lesson complete. You can use these phrases in conversation."
+          },
+          "metadata": {
+            "estimatedMinutes": 7,
+            "difficulty": "beginner",
+            "tags": [
+              "care",
+              "emergency",
+              "spoken-bengali",
+              "romanized-only"
+            ],
+            "xp": 15,
+            "unlockAfter": [
+              "u08-l01-small-talk"
+            ],
+            "assessment": {
+              "attempted": "Started the spoken phrase lesson.",
+              "passed": "Understood the key meanings.",
+              "strong": "Answered with only one or two misses.",
+              "mastered": "Answered accurately after a later review."
+            }
+          },
+          "reviewSchedule": {
+            "initialReviewDays": [
+              1,
+              3,
+              7,
+              14,
+              30
+            ],
+            "masteryThreshold": 0.9,
+            "recycleOnMistake": true
+          }
+        }
+      ],
+      "checkpointLessonId": null,
+      "metadata": {
+        "difficultyBand": "beginner",
+        "estimatedTotalMinutes": 14,
+        "tags": [
+          "daily",
+          "care",
+          "emergency"
         ]
       }
     }
