@@ -1,11 +1,12 @@
 "use client";
 
 import type { ReactNode } from "react";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
 import { ArrowRight, Check, Flame, GraduationCap, PartyPopper, VolumeX, X } from "lucide-react";
 import { checkTypedAnswer } from "@/lib/answer-checking";
 import { getNextLesson } from "@/lib/content";
+import { capitalizeDisplayText } from "@/lib/display-text";
 import { useProgress } from "@/lib/progress-store";
 import { playFeedbackSound } from "@/lib/sound-effects";
 import { cn } from "@/lib/utils";
@@ -281,6 +282,7 @@ function PracticeLessonFlow({ lesson }: { lesson: Lesson }) {
   const [correctStreak, setCorrectStreak] = useState(0);
   const [streakMilestone, setStreakMilestone] = useState<number | null>(null);
   const [isComplete, setIsComplete] = useState(false);
+  const isRestoringStepRef = useRef(false);
   const step = steps[stepIndex];
   const lessonCurriculumId = lesson.curriculumId ?? activeCurriculumId;
   const isHistoryLesson = lessonCurriculumId === "history";
@@ -303,6 +305,44 @@ function PracticeLessonFlow({ lesson }: { lesson: Lesson }) {
   }, [activeCurriculumId, lesson.curriculumId, setActiveCurriculumId]);
 
   useEffect(() => {
+    if (isComplete || progress.completedLessons.includes(lesson.id)) {
+      return;
+    }
+
+    if (progress.lastLessonId !== lesson.id) {
+      return;
+    }
+
+    const savedStepIndex = Math.min(
+      Math.max(progress.lastStepIndex, 0),
+      Math.max(steps.length - 1, 0),
+    );
+
+    if (savedStepIndex === stepIndex) {
+      return;
+    }
+
+    isRestoringStepRef.current = true;
+    const frame = window.requestAnimationFrame(() => {
+      setStepIndex(savedStepIndex);
+      isRestoringStepRef.current = false;
+    });
+
+    return () => {
+      window.cancelAnimationFrame(frame);
+      isRestoringStepRef.current = false;
+    };
+  }, [
+    isComplete,
+    lesson.id,
+    progress.completedLessons,
+    progress.lastLessonId,
+    progress.lastStepIndex,
+    stepIndex,
+    steps.length,
+  ]);
+
+  useEffect(() => {
     if (step.type === "learn") {
       recordEncounteredPhrase(step.phrase.id, lessonCurriculumId);
     }
@@ -317,10 +357,16 @@ function PracticeLessonFlow({ lesson }: { lesson: Lesson }) {
   }
 
   useEffect(() => {
-    if (!isComplete) {
+    if (!isComplete && !isRestoringStepRef.current) {
       recordLessonPosition(lesson.id, stepIndex, lessonCurriculumId);
     }
-  }, [isComplete, lesson.id, lessonCurriculumId, recordLessonPosition, stepIndex]);
+  }, [
+    isComplete,
+    lesson.id,
+    lessonCurriculumId,
+    recordLessonPosition,
+    stepIndex,
+  ]);
 
   function moveNext() {
     if (stepIndex + 1 >= steps.length) {
@@ -564,7 +610,9 @@ function PracticeLessonFlow({ lesson }: { lesson: Lesson }) {
           onSkip={skipListening}
           skipLabel="Skip for now"
         >
-          <h2 className="text-2xl font-black">{step.prompt}</h2>
+          <h2 className="text-2xl font-black">
+            {capitalizeDisplayText(step.prompt)}
+          </h2>
           <p className="mt-2 text-sm font-semibold text-slate-600 dark:text-slate-300">
             Listen to the phrase, then choose the English meaning.
           </p>
@@ -598,7 +646,9 @@ function PracticeLessonFlow({ lesson }: { lesson: Lesson }) {
           <p className="text-sm font-black uppercase tracking-[0.14em] text-violet-700 dark:text-violet-300">
             {getExerciseMode(step.exercise)}
           </p>
-          <h2 className="mt-2 text-2xl font-black">{step.exercise.prompt}</h2>
+          <h2 className="mt-2 text-2xl font-black">
+            {capitalizeDisplayText(step.exercise.prompt)}
+          </h2>
 
           {step.exercise.audioPromptId && (
             <ExerciseAudioPrompt
@@ -864,7 +914,7 @@ function QuestionStep({
             )}
             {answerState === "wrong" && (
               <p className="mt-1 text-sm font-semibold">
-                Correct answer: {correctAnswer}
+                Correct answer: {capitalizeDisplayText(correctAnswer)}
               </p>
             )}
           </div>
@@ -923,7 +973,7 @@ function MultipleChoiceOptions({
           isSelected={selectedAnswer === option}
           disabled={isLocked}
         >
-          {option}
+          {capitalizeDisplayText(option)}
         </AnswerButton>
       ))}
     </div>
@@ -951,7 +1001,7 @@ function MatchingExercise({
           className="grid gap-3 rounded-2xl border border-slate-200 bg-slate-50 p-3 shadow-sm dark:border-white/10 dark:bg-white/[0.08] sm:grid-cols-[1fr_1fr]"
         >
           <div className="rounded-xl bg-white px-4 py-3 text-lg font-black shadow-sm dark:bg-white/10">
-            {pair.left}
+            {capitalizeDisplayText(pair.left)}
           </div>
           <select
             value={matches[pair.left] ?? ""}
@@ -964,7 +1014,7 @@ function MatchingExercise({
             <option value="">Choose meaning</option>
             {rightOptions.map((right) => (
               <option key={right} value={right}>
-                {right}
+                {capitalizeDisplayText(right)}
               </option>
             ))}
           </select>

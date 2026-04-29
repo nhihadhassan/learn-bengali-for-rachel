@@ -1,10 +1,46 @@
-const CACHE_NAME = "learning-bengali-offline-v1";
+const CACHE_NAME = "learning-bengali-offline-v2";
 const PRECACHE_URLS = [
   "/",
   "/lessons",
   "/review",
   "/progress",
   "/vocabulary",
+  "/practice/u01-l01-greetings",
+  "/practice/u01-l02-how-are-you",
+  "/practice/u02-l01-introduce-yourself",
+  "/practice/u02-l02-family-words",
+  "/practice/u03-l01-food-and-water",
+  "/practice/u03-l02-hungry-and-thirsty",
+  "/practice/u04-l01-yes-no-replies",
+  "/practice/u04-l02-simple-questions",
+  "/practice/u05-l01-basic-feelings",
+  "/practice/u05-l02-asking-for-help",
+  "/practice/es-u01-l01-hello-and-thanks",
+  "/practice/es-u01-l02-slowly-and-english",
+  "/practice/es-u02-l01-my-name-is",
+  "/practice/es-u02-l02-traveling-in-peru",
+  "/practice/es-u03-l01-where-is-it",
+  "/practice/es-u03-l02-taxi-and-directions",
+  "/practice/es-u04-l01-ordering-food",
+  "/practice/es-u04-l02-food-needs",
+  "/practice/es-u05-l01-hotel-basics",
+  "/practice/es-u05-l02-tour-questions",
+  "/practice/es-u06-l01-market-prices",
+  "/practice/es-u06-l02-buying-and-paying",
+  "/practice/es-u07-l01-help-and-health",
+  "/practice/es-u07-l02-lost-documents",
+  "/practice/es-u08-l01-machu-picchu-and-tours",
+  "/practice/es-u08-l02-altitude-and-photos",
+  "/practice/hist-u13-l01-ancient-peru-before-the-inca",
+  "/practice/hist-u13-l02-the-inca-empire",
+  "/practice/hist-u13-l03-cusco-as-a-capital",
+  "/practice/hist-u13-l04-roads-terraces-and-mountain-life",
+  "/practice/hist-u13-l05-machu-picchu",
+  "/practice/hist-u13-l06-spanish-conquest",
+  "/practice/hist-u13-l07-colonial-peru-and-lima",
+  "/practice/hist-u13-l08-independence-from-spain",
+  "/practice/hist-u13-l09-indigenous-culture-and-modern-peru",
+  "/practice/hist-u13-l10-peru-today-cities-tourism-and-memory",
   "/favicon.ico",
   "/favicon-16x16.png",
   "/favicon-32x32.png",
@@ -15,7 +51,13 @@ self.addEventListener("install", (event) => {
   event.waitUntil(
     caches
       .open(CACHE_NAME)
-      .then((cache) => cache.addAll(PRECACHE_URLS))
+      .then((cache) =>
+        Promise.allSettled(
+          PRECACHE_URLS.map((url) =>
+            cache.add(new Request(url, { cache: "reload" })),
+          ),
+        ),
+      )
       .then(() => self.skipWaiting()),
   );
 });

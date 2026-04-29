@@ -5,6 +5,7 @@ import Link from "next/link";
 import { ArrowRight, Check, RotateCcw, VolumeX } from "lucide-react";
 import { checkTypedAnswer } from "@/lib/answer-checking";
 import { getLesson } from "@/lib/content";
+import { capitalizeDisplayText } from "@/lib/display-text";
 import { useProgress } from "@/lib/progress-store";
 import type {
   AudioPrompt,
@@ -157,7 +158,9 @@ function SkippedListeningCard({
           <p className="text-sm font-black uppercase tracking-[0.14em] text-slate-500 dark:text-slate-400">
             Skipped listening 1 of {total}
           </p>
-          <h2 className="mt-1 text-xl font-black">{skipped.prompt}</h2>
+          <h2 className="mt-1 text-xl font-black">
+            {capitalizeDisplayText(skipped.prompt)}
+          </h2>
           {lesson && (
             <p className="mt-1 text-sm font-semibold text-slate-600 dark:text-slate-300">
               From {lesson.title}
@@ -258,9 +261,11 @@ function MistakeCard({
             <p className="text-sm font-black uppercase tracking-[0.14em] text-slate-500 dark:text-slate-400">
               Mistake {currentIndex + 1} of {total}
             </p>
-            <h2 className="mt-1 text-xl font-black">{mistake.prompt}</h2>
+            <h2 className="mt-1 text-xl font-black">
+              {capitalizeDisplayText(mistake.prompt)}
+            </h2>
             <p className="mt-1 text-sm font-semibold text-slate-600 dark:text-slate-300">
-              Last answer: {mistake.wrongAnswer}
+              Last answer: {capitalizeDisplayText(mistake.wrongAnswer)}
             </p>
           </div>
         </div>
@@ -313,7 +318,10 @@ function MistakeCard({
 
       {feedback === "wrong" && (
         <div className="streak-pop mt-3 rounded-2xl border border-rose-100 bg-rose-50 px-3 py-2 font-bold text-rose-800 shadow-sm dark:border-rose-300/25 dark:bg-rose-400/14 dark:text-rose-100">
-          <p>Correct answer: {formatCorrectAnswer(mistake.correctAnswer)}</p>
+          <p>
+            Correct answer:{" "}
+            {capitalizeDisplayText(formatCorrectAnswer(mistake.correctAnswer))}
+          </p>
           <p className="mt-1 text-sm font-semibold text-rose-700 dark:text-rose-200">
             Minor spelling variations are okay, but the answer still needs to
             match the meaning.
@@ -377,7 +385,7 @@ function MultipleChoiceReview({
             onClick={() => setSelectedAnswer(option)}
             isSelected={selectedAnswer === option}
           >
-            {option}
+            {capitalizeDisplayText(option)}
           </AnswerButton>
         ))}
       </div>
@@ -404,7 +412,7 @@ function MatchingReview({
           className="grid gap-3 rounded-2xl border border-slate-200 bg-slate-50 p-3 shadow-sm dark:border-white/10 dark:bg-white/[0.08] sm:grid-cols-[1fr_1fr]"
         >
           <div className="rounded-xl bg-white px-4 py-3 text-lg font-black shadow-sm dark:bg-white/10">
-            {pair.left}
+            {capitalizeDisplayText(pair.left)}
           </div>
           <select
             value={matches[pair.left] ?? ""}
@@ -416,7 +424,7 @@ function MatchingReview({
             <option value="">Choose meaning</option>
             {rightOptions.map((right) => (
               <option key={right} value={right}>
-                {right}
+                {capitalizeDisplayText(right)}
               </option>
             ))}
           </select>
