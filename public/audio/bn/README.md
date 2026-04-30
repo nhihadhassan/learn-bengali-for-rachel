@@ -52,3 +52,19 @@ Current sample phrases with Bengali-script TTS fallback:
 To add real recordings later, drop MP3 files into this folder and add
 `"audioUrl": "/audio/bn/file-name.mp3"` to the matching phrase in
 `content/learn-bengali.json`.
+
+## Local Voice Testing
+
+Open DevTools on any lesson page and run:
+
+```js
+window.learnBengaliPronunciation.diagnose()
+window.learnBengaliPronunciation.listVoices()
+window.learnBengaliPronunciation.getBestVoice()
+window.learnBengaliPronunciation.speak("তুমি কেমন আছো?", "tumi kemon acho?")
+```
+
+The app prefers recorded MP3 files first. Without a recording, it uses Bengali
+script with the best available `bn-BD`, `bn-IN`, Bangla, or Bengali browser
+voice. If the browser has no usable Bengali voice, the speaker button shows an
+unavailable state instead of failing silently.

@@ -57,12 +57,13 @@ export default function RootLayout({
       className={`${geistSans.variable} ${geistMono.variable}`}
       suppressHydrationWarning
     >
-      <body className="font-sans antialiased">
+      <head>
         <script
-          async
           id="theme-script"
           dangerouslySetInnerHTML={{ __html: themeScript }}
         />
+      </head>
+      <body className="font-sans antialiased">
         <ServiceWorkerRegister />
         <AppShell>{children}</AppShell>
       </body>

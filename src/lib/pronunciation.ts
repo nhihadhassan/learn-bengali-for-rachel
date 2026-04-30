@@ -15,7 +15,9 @@ export type PronunciationResult =
       status: "played";
     }
   | {
+      fallbackUsed: boolean;
       lang: string;
+      message: string;
       provider: "browser-tts";
       status: "played";
       voiceName: string | null;
@@ -49,6 +51,22 @@ const preferredVoiceHints = [
   "bengali",
 ];
 
+const softVoiceHints = [
+  "female",
+  "woman",
+  "zira",
+  "aria",
+  "jenny",
+  "neerja",
+  "natasha",
+  "sonia",
+  "samantha",
+  "susan",
+  "premium",
+  "enhanced",
+  "natural",
+];
+
 const spanishVoiceHints = [
   "google español",
   "google spanish",
@@ -68,6 +86,22 @@ function getSpeechSynthesis() {
 
 function hasBengaliScript(text: string) {
   return /[\u0980-\u09FF]/.test(text);
+}
+
+function voiceIsBengali(voice: SpeechSynthesisVoice | null) {
+  if (!voice) {
+    return false;
+  }
+
+  const lang = voice.lang.toLowerCase();
+  const name = voice.name.toLowerCase();
+
+  return (
+    lang.startsWith("bn") ||
+    name.includes("bangla") ||
+    name.includes("bengali") ||
+    name.includes("বাংলা")
+  );
 }
 
 function isBengaliLocale(locale: string) {
@@ -106,12 +140,53 @@ async function getVoices(): Promise<SpeechSynthesisVoice[]> {
   }
 
   return new Promise((resolve) => {
-    const timeout = window.setTimeout(() => resolve(synth.getVoices()), 700);
+    let attempts = 0;
+    let settled = false;
+    let pollTimer: number | null = null;
+    let fallbackTimer: number | null = null;
 
-    synth.onvoiceschanged = () => {
-      window.clearTimeout(timeout);
-      resolve(synth.getVoices());
+    const cleanup = () => {
+      if (pollTimer !== null) {
+        window.clearTimeout(pollTimer);
+      }
+
+      if (fallbackTimer !== null) {
+        window.clearTimeout(fallbackTimer);
+      }
+
+      synth.removeEventListener?.("voiceschanged", handleVoicesChanged);
     };
+
+    const finish = () => {
+      if (settled) {
+        return;
+      }
+
+      const nextVoices = synth.getVoices();
+
+      if (nextVoices.length > 0 || attempts >= 14) {
+        settled = true;
+        cleanup();
+        resolve(nextVoices);
+        return;
+      }
+
+      attempts += 1;
+      pollTimer = window.setTimeout(finish, 150);
+    };
+
+    const handleVoicesChanged = () => {
+      const nextVoices = synth.getVoices();
+
+      if (nextVoices.length > 0) {
+        settled = true;
+        cleanup();
+        resolve(nextVoices);
+      }
+    };
+
+    synth.addEventListener?.("voiceschanged", handleVoicesChanged);
+    fallbackTimer = window.setTimeout(finish, 150);
   });
 }
 
@@ -155,6 +230,14 @@ function rankVoice(voice: SpeechSynthesisVoice, locale = "bn-BD"): RankedVoice {
     score += 30 - matchedHintIndex;
   } else if (hintIndex >= 0) {
     score += 20 - hintIndex;
+  }
+
+  const softHintIndex = softVoiceHints.findIndex((hint) =>
+    haystack.includes(hint),
+  );
+
+  if (softHintIndex >= 0) {
+    score += 8 - Math.min(softHintIndex, 7);
   }
 
   if (voice.localService) {
@@ -201,6 +284,23 @@ async function debugAvailableVoicesForLocale(locale = "bn-BD") {
 
 let currentAudio: HTMLAudioElement | null = null;
 
+function stopCurrentAudio() {
+  if (!currentAudio) {
+    return;
+  }
+
+  currentAudio.pause();
+  currentAudio.currentTime = 0;
+}
+
+function stopCurrentSpeech() {
+  const synth = getSpeechSynthesis();
+
+  if (synth) {
+    synth.cancel();
+  }
+}
+
 const recordedAudioProvider: PronunciationProvider = {
   name: "recorded-audio",
   async speak(input) {
@@ -213,10 +313,8 @@ const recordedAudioProvider: PronunciationProvider = {
     }
 
     try {
-      if (currentAudio) {
-        currentAudio.pause();
-        currentAudio.currentTime = 0;
-      }
+      stopCurrentSpeech();
+      stopCurrentAudio();
 
       const audio = new Audio(input.audioUrl);
       currentAudio = audio;
@@ -247,6 +345,121 @@ function resolveTtsText(input: PronunciationInput) {
   return script || input.romanized;
 }
 
+function getSpeechSettings(locale: string) {
+  if (isBengaliLocale(locale)) {
+    return {
+      pitch: 1.02,
+      rate: 0.7,
+      volume: 1,
+    };
+  }
+
+  if (locale.toLowerCase().startsWith("es")) {
+    return {
+      pitch: 1,
+      rate: 0.84,
+      volume: 1,
+    };
+  }
+
+  return {
+    pitch: 1,
+    rate: 0.9,
+    volume: 1,
+  };
+}
+
+function createVoiceMessage({
+  fallbackUsed,
+  lang,
+  locale,
+  voice,
+}: {
+  fallbackUsed: boolean;
+  lang: string;
+  locale: string;
+  voice: SpeechSynthesisVoice | null;
+}) {
+  if (voice && !fallbackUsed) {
+    return `Using ${voice.name} (${voice.lang}).`;
+  }
+
+  if (isBengaliLocale(locale)) {
+    return `No dedicated Bengali/Bangla voice was found. Trying the browser's ${lang} speech fallback.`;
+  }
+
+  return `Using the browser's ${lang} speech fallback.`;
+}
+
+function speakUtterance(
+  synth: SpeechSynthesis,
+  utterance: SpeechSynthesisUtterance,
+) {
+  return new Promise<void>((resolve, reject) => {
+    let settled = false;
+    let started = false;
+
+    const settle = (callback: () => void) => {
+      if (settled) {
+        return;
+      }
+
+      settled = true;
+      callback();
+    };
+
+    const startWatchdog = window.setTimeout(() => {
+      if (!settled && (started || synth.speaking || synth.pending)) {
+        settle(resolve);
+      }
+    }, 350);
+
+    const failureWatchdog = window.setTimeout(() => {
+      if (!settled) {
+        settle(() =>
+          reject(
+            new Error(
+              "Speech synthesis did not start. This browser may not have a usable voice installed.",
+            ),
+          ),
+        );
+      }
+    }, 1800);
+
+    const cleanup = () => {
+      window.clearTimeout(startWatchdog);
+      window.clearTimeout(failureWatchdog);
+    };
+
+    utterance.onstart = () => {
+      started = true;
+      cleanup();
+      settle(resolve);
+    };
+
+    utterance.onerror = (event) => {
+      cleanup();
+      settle(() =>
+        reject(
+          new Error(
+            event.error
+              ? `Speech synthesis error: ${event.error}.`
+              : "Speech synthesis failed.",
+          ),
+        ),
+      );
+    };
+
+    stopCurrentAudio();
+    synth.cancel();
+    synth.speak(utterance);
+
+    if (synth.paused) {
+      synth.resume();
+    }
+  });
+}
+
 const browserTtsProvider: PronunciationProvider = {
   name: "browser-tts",
   async speak(input) {
@@ -263,6 +476,8 @@ const browserTtsProvider: PronunciationProvider = {
     const locale = input.locale ?? "bn-BD";
     const voice = await getBestVoice(locale);
     const text = resolveTtsText(input);
+    const isBengali = isBengaliLocale(locale);
+    const hasBengaliVoice = isBengali ? voiceIsBengali(voice) : Boolean(voice);
 
     if (!text) {
       return {
@@ -274,18 +489,38 @@ const browserTtsProvider: PronunciationProvider = {
     }
 
     const utterance = new SpeechSynthesisUtterance(text);
+    const fallbackLang = isBengali ? "bn-BD" : locale;
+    const settings = getSpeechSettings(locale);
+    const fallbackUsed = isBengali ? !hasBengaliVoice : !voice;
 
-    utterance.lang = voice?.lang ?? (isBengaliLocale(locale) ? "bn-BD" : locale);
+    utterance.lang = voice?.lang ?? fallbackLang;
     utterance.voice = voice;
-    utterance.rate = locale.startsWith("es") ? 0.84 : 0.72;
-    utterance.pitch = isBengaliLocale(locale) ? 0.92 : 0.98;
-    utterance.volume = 1;
+    utterance.rate = settings.rate;
+    utterance.pitch = settings.pitch;
+    utterance.volume = settings.volume;
 
-    synth.cancel();
-    synth.speak(utterance);
+    try {
+      await speakUtterance(synth, utterance);
+    } catch (error) {
+      return {
+        provider: "none",
+        reason:
+          error instanceof Error
+            ? error.message
+            : "Speech synthesis failed in this browser.",
+        status: "unavailable",
+      };
+    }
 
     return {
+      fallbackUsed,
       lang: utterance.lang,
+      message: createVoiceMessage({
+        fallbackUsed,
+        lang: utterance.lang,
+        locale,
+        voice,
+      }),
       provider: "browser-tts",
       status: "played",
       voiceName: voice?.name ?? null,
@@ -303,6 +538,8 @@ export async function playPronunciation(
       debugPronunciation(input, audioResult);
       return audioResult;
     }
+
+    debugPronunciation(input, audioResult);
   }
 
   const ttsResult = await browserTtsProvider.speak(input);
@@ -310,8 +547,43 @@ export async function playPronunciation(
   return ttsResult;
 }
 
+export function stopPronunciation() {
+  stopCurrentAudio();
+  stopCurrentSpeech();
+}
+
+export async function getPronunciationDiagnostics(locale = "bn-BD") {
+  const synth = getSpeechSynthesis();
+  const voices = await getAvailableVoicesForLocale(locale);
+  const bestVoice = await getBestVoice(locale);
+
+  return {
+    bestVoice: bestVoice
+      ? {
+          lang: bestVoice.lang,
+          localService: bestVoice.localService,
+          name: bestVoice.name,
+        }
+      : null,
+    browserHasSpeechSynthesis: Boolean(synth),
+    locale,
+    voiceCount: voices.length,
+    voices: voices.slice(0, 12).map((item) => ({
+      lang: item.lang,
+      localService: item.voice.localService,
+      name: item.name,
+      score: item.score,
+    })),
+  };
+}
+
 if (typeof window !== "undefined") {
   window.learnBengaliPronunciation = {
+    diagnose: async (locale = "bn-BD") => {
+      const diagnostics = await getPronunciationDiagnostics(locale);
+      console.info("[Pronunciation] Diagnostics", diagnostics);
+      return diagnostics;
+    },
     getBestVoice: async (locale = "bn-BD") => {
       const voice = await getBestVoice(locale);
       const summary = voice
@@ -332,6 +604,22 @@ if (typeof window !== "undefined") {
 declare global {
   interface Window {
     learnBengaliPronunciation?: {
+      diagnose: (locale?: string) => Promise<{
+        bestVoice: {
+          lang: string;
+          localService: boolean;
+          name: string;
+        } | null;
+        browserHasSpeechSynthesis: boolean;
+        locale: string;
+        voiceCount: number;
+        voices: Array<{
+          lang: string;
+          localService: boolean;
+          name: string;
+          score: number;
+        }>;
+      }>;
       getBestVoice: (locale?: string) => Promise<{
         lang: string;
         localService: boolean;
