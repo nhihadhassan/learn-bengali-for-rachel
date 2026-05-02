@@ -86,7 +86,7 @@ export function LearnedWordsReview() {
           <p className="mt-1 font-bold text-slate-300">
             {activeCurriculumId === "malayalam"
               ? "Hello / respectful greeting"
-              : "Peace be upon you / a common respectful greeting"}
+              : "Hello"}
           </p>
           <p className="mt-3 text-sm font-semibold text-slate-400">
             Words and phrases you meet in lessons will appear here with audio.

@@ -23,7 +23,7 @@
           "vocabulary": [
             {
               "roman": "assalamualaikum",
-              "en": "peace be upon you / a common respectful greeting",
+              "en": "hello",
               "tags": [
                 "greeting",
                 "polite"
@@ -32,7 +32,7 @@
             },
             {
               "roman": "walaikum assalam",
-              "en": "and peace be upon you / greeting reply",
+              "en": "Hello (Response)",
               "tags": [
                 "greeting",
                 "polite"
@@ -83,7 +83,7 @@
             {
               "id": "p-u01-l01-greetings-01",
               "romanized": "assalamualaikum",
-              "english": "peace be upon you / a common respectful greeting",
+              "english": "hello",
               "pronunciation": "as-sa-laa-mu a-lay-kum",
               "category": "greetings",
               "bengaliScript": "আসসালামু আলাইকুম",
@@ -103,14 +103,14 @@
             {
               "id": "p-u01-l01-greetings-02",
               "romanized": "walaikum assalam",
-              "english": "and peace be upon you / greeting reply",
-              "pronunciation": "wa-a-lay-kum as-sa-laam",
+              "english": "Hello (Response)",
+              "pronunciation": "wa-lay-kum as-sa-laam",
               "category": "greetings",
               "bengaliScript": "ওয়ালাইকুম আসসালাম",
               "breakdown": [
                 {
                   "word": "Walaikum",
-                  "pronunciation": "wa-a-lay-kum",
+                  "pronunciation": "wa-lay-kum",
                   "meaning": "and upon you"
                 },
                 {
@@ -215,10 +215,10 @@
               "type": "multiple-choice",
               "sourceType": "meaningSelect",
               "prompt": "What does “walaikum assalam” mean?",
-              "answer": "and peace be upon you / greeting reply",
+              "answer": "Hello (Response)",
               "options": [
-                "peace be upon you / a common respectful greeting",
-                "and peace be upon you / greeting reply",
+                "hello",
+                "Hello (Response)",
                 "thank you",
                 "see you again",
                 "stay well"
@@ -241,15 +241,15 @@
               "type": "matching",
               "sourceType": "tapMatch",
               "prompt": "Match Bengali to English.",
-              "answer": "assalamualaikum -> peace be upon you / a common respectful greeting, walaikum assalam -> and peace be upon you / greeting reply, dhonnobad -> thank you, abar dekha hobe -> see you again",
+              "answer": "assalamualaikum -> hello, walaikum assalam -> Hello (Response), dhonnobad -> thank you, abar dekha hobe -> see you again",
               "pairs": [
                 {
                   "left": "assalamualaikum",
-                  "right": "peace be upon you / a common respectful greeting"
+                  "right": "hello"
                 },
                 {
                   "left": "walaikum assalam",
-                  "right": "and peace be upon you / greeting reply"
+                  "right": "Hello (Response)"
                 },
                 {
                   "left": "dhonnobad",
