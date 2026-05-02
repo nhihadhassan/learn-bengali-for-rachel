@@ -18,7 +18,9 @@ export function LearnedWordsReview() {
       ? "History"
       : activeCurriculumId === "spanish-peru"
         ? "Spanish"
-        : "Bengali";
+        : activeCurriculumId === "malayalam"
+          ? "Malayalam"
+          : "Bengali";
   const [query, setQuery] = useState("");
   const [unitFilter, setUnitFilter] = useState("all");
   const learnedWords = useMemo(
@@ -78,9 +80,13 @@ export function LearnedWordsReview() {
           <p className="text-xs font-black uppercase tracking-[0.14em] text-violet-100">
             Preview
           </p>
-          <p className="mt-2 text-3xl font-black text-white">Assalamualaikum</p>
+          <p className="mt-2 text-3xl font-black text-white">
+            {activeCurriculumId === "malayalam" ? "Namaskaram" : "Assalamualaikum"}
+          </p>
           <p className="mt-1 font-bold text-slate-300">
-            Peace be upon you / a common respectful greeting
+            {activeCurriculumId === "malayalam"
+              ? "Hello / respectful greeting"
+              : "Peace be upon you / a common respectful greeting"}
           </p>
           <p className="mt-3 text-sm font-semibold text-slate-400">
             Words and phrases you meet in lessons will appear here with audio.
@@ -125,13 +131,13 @@ export function LearnedWordsReview() {
           </label>
 
           <label>
-            <span className="sr-only">Filter by unit</span>
+            <span className="sr-only">Filter by topic</span>
             <select
               value={unitFilter}
               onChange={(event) => setUnitFilter(event.target.value)}
               className="min-h-12 w-full rounded-2xl border border-slate-200 bg-[#fffdfa] px-4 py-3 font-bold shadow-inner outline-none transition focus:border-emerald-500 focus:ring-4 focus:ring-emerald-100 dark:border-white/10 dark:bg-white/10 dark:text-slate-50 dark:focus:ring-emerald-400/20"
             >
-              <option value="all">All units</option>
+              <option value="all">All topics</option>
               {unitOptions.map((unit) => (
                 <option key={unit.id} value={unit.id}>
                   {unit.label}
@@ -220,7 +226,7 @@ function HistoryRecap({
   );
   const unitOptions = curriculum.units.map((unit) => ({
     id: unit.id,
-    label: `Unit ${unit.number}: ${unit.title}`,
+    label: unit.title,
   }));
   const filteredLessons = lessons.filter(({ lesson, unit }) => {
     const normalizedQuery = query.trim().toLowerCase();
@@ -268,13 +274,13 @@ function HistoryRecap({
           </label>
 
           <label>
-            <span className="sr-only">Filter by unit</span>
+            <span className="sr-only">Filter by topic</span>
             <select
               value={unitFilter}
               onChange={(event) => setUnitFilter(event.target.value)}
               className="min-h-12 w-full rounded-2xl border border-slate-200 bg-[#fffdfa] px-4 py-3 font-bold shadow-inner outline-none transition focus:border-violet-500 focus:ring-4 focus:ring-violet-100 dark:border-white/10 dark:bg-white/10 dark:text-slate-50 dark:focus:ring-violet-400/20"
             >
-              <option value="all">All units</option>
+              <option value="all">All topics</option>
               {unitOptions.map((unit) => (
                 <option key={unit.id} value={unit.id}>
                   {unit.label}
@@ -302,7 +308,7 @@ function HistoryRecap({
                   </span>
                   <div>
                     <p className="text-xs font-black uppercase tracking-[0.14em] text-slate-400 dark:text-slate-500">
-                      Unit {unit.number}: {unit.title}
+                      {unit.title}
                     </p>
                     <h2 className="mt-1 text-xl font-black">{lesson.title}</h2>
                   </div>

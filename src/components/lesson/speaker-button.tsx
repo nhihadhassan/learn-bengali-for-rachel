@@ -22,6 +22,13 @@ export function SpeakerButton({
   const [isLoading, setIsLoading] = useState(false);
   const isUnavailable = result?.status === "unavailable";
   const isBrowserTts = result?.provider === "browser-tts";
+  const languageName = locale?.toLowerCase().startsWith("ml")
+    ? "Malayalam"
+    : locale?.toLowerCase().startsWith("bn")
+      ? "Bengali"
+      : locale?.toLowerCase().startsWith("es")
+        ? "Spanish"
+        : "pronunciation";
   const unavailableMessage =
     result?.status === "unavailable"
       ? result.reason
@@ -33,7 +40,7 @@ export function SpeakerButton({
       : `Hear ${romanized}`;
   const ariaLabel = isUnavailable
     ? `Audio unavailable for ${romanized}. ${unavailableMessage}`
-    : `Hear ${romanized}`;
+    : `Play ${languageName} pronunciation for ${romanized}`;
 
   async function handlePlay() {
     if (isLoading) {

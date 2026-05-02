@@ -27,7 +27,7 @@ export function AppShell({ children }: { children: ReactNode }) {
   } = useProgress();
 
   function handleCurriculumChange(value: string) {
-    if (value === "history" || value === "spanish-peru") {
+    if (value === "history" || value === "spanish-peru" || value === "malayalam") {
       setActiveCurriculumId(value);
     } else {
       setActiveCurriculumId("bengali");
@@ -84,22 +84,22 @@ export function AppShell({ children }: { children: ReactNode }) {
 
           <div className="flex items-center gap-2">
             <ThemeToggle />
+            <label className="sr-only" htmlFor="curriculum-switcher">
+              Curriculum
+            </label>
+            <select
+              id="curriculum-switcher"
+              value={activeCurriculumId}
+              onChange={(event) => handleCurriculumChange(event.target.value)}
+              className="min-h-10 w-[132px] rounded-full border border-white bg-white px-3 py-2 text-sm font-black text-violet-700 shadow-[0_8px_20px_rgba(15,23,42,0.07)] outline-none ring-1 ring-slate-900/5 transition hover:-translate-y-0.5 focus:border-violet-300 focus:ring-4 focus:ring-violet-100 dark:border-white/10 dark:bg-white/10 dark:text-violet-200 dark:ring-white/10 dark:focus:ring-violet-400/20 sm:w-auto"
+            >
+              {curricula.map((curriculum) => (
+                <option key={curriculum.id} value={curriculum.id}>
+                  {curriculum.label}
+                </option>
+              ))}
+            </select>
             <div className="hidden items-center gap-2 sm:flex">
-              <label className="sr-only" htmlFor="curriculum-switcher">
-                Curriculum
-              </label>
-              <select
-                id="curriculum-switcher"
-                value={activeCurriculumId}
-                onChange={(event) => handleCurriculumChange(event.target.value)}
-                className="min-h-10 rounded-full border border-white bg-white px-3 py-2 text-sm font-black text-violet-700 shadow-[0_8px_20px_rgba(15,23,42,0.07)] outline-none ring-1 ring-slate-900/5 transition hover:-translate-y-0.5 focus:border-violet-300 focus:ring-4 focus:ring-violet-100 dark:border-white/10 dark:bg-white/10 dark:text-violet-200 dark:ring-white/10 dark:focus:ring-violet-400/20"
-              >
-                {curricula.map((curriculum) => (
-                  <option key={curriculum.id} value={curriculum.id}>
-                    {curriculum.label}
-                  </option>
-                ))}
-              </select>
               <span className="inline-flex items-center gap-2 rounded-full bg-white px-3 py-2 text-sm font-black shadow-[0_8px_20px_rgba(15,23,42,0.07)] ring-1 ring-slate-900/5 transition hover:-translate-y-0.5 dark:bg-white/10 dark:ring-white/10">
                 <Trophy size={15} className="text-amber-500" />
                 {progress.xp} XP
@@ -130,23 +130,6 @@ export function AppShell({ children }: { children: ReactNode }) {
       </header>
 
       <main className="mx-auto max-w-6xl px-4 py-6 pb-28 sm:py-8">
-        <div className="mb-4 sm:hidden">
-          <label className="sr-only" htmlFor="mobile-curriculum-switcher">
-            Curriculum
-          </label>
-          <select
-            id="mobile-curriculum-switcher"
-            value={activeCurriculumId}
-            onChange={(event) => handleCurriculumChange(event.target.value)}
-            className="min-h-12 w-full rounded-2xl border border-white bg-white px-4 py-3 font-black text-violet-700 shadow-[0_8px_20px_rgba(15,23,42,0.07)] outline-none ring-1 ring-slate-900/5 focus:border-violet-300 focus:ring-4 focus:ring-violet-100 dark:border-white/10 dark:bg-white/10 dark:text-violet-200 dark:ring-white/10 dark:focus:ring-violet-400/20"
-          >
-            {curricula.map((curriculum) => (
-              <option key={curriculum.id} value={curriculum.id}>
-                {curriculum.label}
-              </option>
-            ))}
-          </select>
-        </div>
         {children}
       </main>
 

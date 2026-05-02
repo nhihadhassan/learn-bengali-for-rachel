@@ -72,9 +72,11 @@ export function LearningHome() {
             <h1 className="max-w-3xl text-4xl font-black leading-[1.04] [text-wrap:balance] sm:text-5xl lg:text-[3.45rem]">
               {activeCurriculumId === "spanish-peru"
                 ? "Travel Spanish for the moments that matter."
+                : activeCurriculumId === "malayalam"
+                  ? "Malayalam made gentle for first conversations."
                 : isHistory
                   ? "Follow history like a story map."
-                : "Learn the Bengali Rachel will actually say."}
+                  : "Learn the Bengali Rachel will actually say."}
             </h1>
             <p className="mt-5 max-w-xl text-base leading-7 text-slate-200 sm:text-lg">
               {curriculum.description}{" "}

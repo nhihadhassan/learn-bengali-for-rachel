@@ -1,0 +1,785 @@
+{
+  "units": [
+    {
+      "id": "ml-u01",
+      "number": 1,
+      "title": "Gentle Openings",
+      "description": "Start with respectful greetings, wellness, names, and family words.",
+      "lessons": [
+        {
+          "id": "ml-u01-l01-greetings-and-respect",
+          "unitId": "ml-u01",
+          "unitNumber": 1,
+          "title": "Greetings and Respect",
+          "slug": "greetings-and-respect",
+          "difficulty": "beginner",
+          "summary": "Say hello, thank you, sorry, please, and goodbye in gentle spoken Malayalam.",
+          "phrases": [
+            {
+              "id": "p-ml-u01-l01-01",
+              "romanized": "Namaskaram",
+              "english": "hello / respectful greeting",
+              "pronunciation": "na-mas-ka-ram",
+              "category": "greetings"
+            },
+            {
+              "id": "p-ml-u01-l01-02",
+              "romanized": "Nanni",
+              "english": "thank you",
+              "pronunciation": "nan-nee",
+              "category": "greetings"
+            },
+            {
+              "id": "p-ml-u01-l01-03",
+              "romanized": "Kshamikkanam",
+              "english": "sorry / excuse me",
+              "pronunciation": "ksha-mik-ka-nam",
+              "category": "greetings"
+            },
+            {
+              "id": "p-ml-u01-l01-04",
+              "romanized": "Pinne Kaanam",
+              "english": "see you later",
+              "pronunciation": "pin-neh kaa-nam",
+              "category": "greetings",
+              "breakdown": [
+                {
+                  "word": "Pinne",
+                  "pronunciation": "pin-neh",
+                  "meaning": "later"
+                },
+                {
+                  "word": "Kaanam",
+                  "pronunciation": "kaa-nam",
+                  "meaning": "can see / meet"
+                }
+              ]
+            },
+            {
+              "id": "p-ml-u01-l01-05",
+              "romanized": "Dayavaayi",
+              "english": "please",
+              "pronunciation": "da-ya-vaa-yi",
+              "category": "greetings"
+            },
+            {
+              "id": "p-ml-u01-l01-06",
+              "romanized": "Shari",
+              "english": "okay",
+              "pronunciation": "sha-ree",
+              "category": "greetings"
+            }
+          ],
+          "exercises": [
+            {
+              "id": "ml-u01-l01-ex-1",
+              "type": "multiple-choice",
+              "sourceType": "listenSelect",
+              "prompt": "Listen first. Then tap what you hear.",
+              "answer": "Namaskaram",
+              "options": ["Namaskaram", "Nanni", "Kshamikkanam", "Pinne Kaanam"],
+              "audioPromptId": "a1"
+            },
+            {
+              "id": "ml-u01-l01-ex-2",
+              "type": "multiple-choice",
+              "sourceType": "meaningSelect",
+              "prompt": "What does Nanni mean?",
+              "answer": "thank you",
+              "options": ["hello", "thank you", "please", "okay"],
+              "phraseId": "p-ml-u01-l01-02"
+            },
+            {
+              "id": "ml-u01-l01-ex-3",
+              "type": "translation",
+              "sourceType": "translateType",
+              "prompt": "Type the Malayalam for sorry.",
+              "answer": "Kshamikkanam",
+              "acceptedAnswers": ["kshamikkanam", "kshamikkanam"],
+              "phraseId": "p-ml-u01-l01-03"
+            },
+            {
+              "id": "ml-u01-l01-ex-4",
+              "type": "matching",
+              "sourceType": "tapMatch",
+              "prompt": "Match Malayalam to English.",
+              "answer": "Namaskaram -> hello / respectful greeting, Nanni -> thank you, Dayavaayi -> please, Shari -> okay",
+              "pairs": [
+                { "left": "Namaskaram", "right": "hello / respectful greeting" },
+                { "left": "Nanni", "right": "thank you" },
+                { "left": "Dayavaayi", "right": "please" },
+                { "left": "Shari", "right": "okay" }
+              ]
+            },
+            {
+              "id": "ml-u01-l01-ex-5",
+              "type": "listen-type",
+              "sourceType": "listenType",
+              "prompt": "Listen and type what you hear.",
+              "answer": "Pinne Kaanam",
+              "acceptedAnswers": ["pinne kaanam", "pinne kanam"],
+              "audioPromptId": "a2",
+              "phraseId": "p-ml-u01-l01-04"
+            }
+          ],
+          "audioPrompts": [
+            {
+              "id": "a1",
+              "locale": "ml-IN",
+              "voiceStyle": "warm-neutral",
+              "textBn": "Namaskaram",
+              "roman": "Namaskaram",
+              "textEn": "hello / respectful greeting",
+              "speed": 0.86
+            },
+            {
+              "id": "a2",
+              "locale": "ml-IN",
+              "voiceStyle": "warm-neutral",
+              "textBn": "Pinne kaanam",
+              "roman": "Pinne Kaanam",
+              "textEn": "see you later",
+              "speed": 0.86
+            }
+          ],
+          "metadata": {
+            "estimatedMinutes": 5,
+            "difficulty": "beginner",
+            "tags": ["malayalam", "greetings", "spoken"],
+            "xp": 15
+          }
+        },
+        {
+          "id": "ml-u01-l02-how-are-you",
+          "unitId": "ml-u01",
+          "unitNumber": 1,
+          "title": "How Are You?",
+          "slug": "how-are-you",
+          "difficulty": "beginner",
+          "summary": "Ask how someone is and answer with simple wellness phrases.",
+          "phrases": [
+            {
+              "id": "p-ml-u01-l02-01",
+              "romanized": "Sukhamano?",
+              "english": "are you well?",
+              "pronunciation": "su-kha-maa-no",
+              "category": "wellness"
+            },
+            {
+              "id": "p-ml-u01-l02-02",
+              "romanized": "Sukham Aanu",
+              "english": "I am well",
+              "pronunciation": "su-kham aa-nu",
+              "category": "wellness",
+              "breakdown": [
+                { "word": "Sukham", "pronunciation": "su-kham", "meaning": "wellness / well" },
+                { "word": "Aanu", "pronunciation": "aa-nu", "meaning": "is / am" }
+              ]
+            },
+            {
+              "id": "p-ml-u01-l02-03",
+              "romanized": "Enikku Sukham Alla",
+              "english": "I am not well",
+              "pronunciation": "eh-nik-ku su-kham al-la",
+              "category": "wellness",
+              "breakdown": [
+                { "word": "Enikku", "pronunciation": "eh-nik-ku", "meaning": "to me / I feel" },
+                { "word": "Sukham", "pronunciation": "su-kham", "meaning": "well" },
+                { "word": "Alla", "pronunciation": "al-la", "meaning": "not" }
+              ]
+            },
+            {
+              "id": "p-ml-u01-l02-04",
+              "romanized": "Ningal Sukhamano?",
+              "english": "are you well?",
+              "pronunciation": "ning-gal su-kha-maa-no",
+              "category": "wellness",
+              "breakdown": [
+                { "word": "Ningal", "pronunciation": "ning-gal", "meaning": "you" },
+                { "word": "Sukhamano", "pronunciation": "su-kha-maa-no", "meaning": "are you well" }
+              ]
+            },
+            {
+              "id": "p-ml-u01-l02-05",
+              "romanized": "Njan Nannayi Irikkunnu",
+              "english": "I am doing well",
+              "pronunciation": "nyan nan-naa-yi i-rik-kun-nu",
+              "category": "wellness",
+              "breakdown": [
+                { "word": "Njan", "pronunciation": "nyan", "meaning": "I" },
+                { "word": "Nannayi", "pronunciation": "nan-naa-yi", "meaning": "well" },
+                { "word": "Irikkunnu", "pronunciation": "i-rik-kun-nu", "meaning": "am staying / doing" }
+              ]
+            },
+            {
+              "id": "p-ml-u01-l02-06",
+              "romanized": "Valare Nanni",
+              "english": "thank you very much",
+              "pronunciation": "va-la-reh nan-nee",
+              "category": "wellness",
+              "breakdown": [
+                { "word": "Valare", "pronunciation": "va-la-reh", "meaning": "very" },
+                { "word": "Nanni", "pronunciation": "nan-nee", "meaning": "thanks" }
+              ]
+            }
+          ],
+          "exercises": [
+            {
+              "id": "ml-u01-l02-ex-1",
+              "type": "multiple-choice",
+              "sourceType": "listenSelect",
+              "prompt": "Listen first. Then tap what you hear.",
+              "answer": "Sukhamano?",
+              "options": ["Sukhamano?", "Sukham Aanu", "Enikku Sukham Alla", "Valare Nanni"],
+              "audioPromptId": "a1"
+            },
+            {
+              "id": "ml-u01-l02-ex-2",
+              "type": "multiple-choice",
+              "sourceType": "meaningSelect",
+              "prompt": "What does Sukham Aanu mean?",
+              "answer": "I am well",
+              "options": ["I am well", "I am not well", "thank you very much", "are you well?"],
+              "phraseId": "p-ml-u01-l02-02"
+            },
+            {
+              "id": "ml-u01-l02-ex-3",
+              "type": "translation",
+              "sourceType": "translateType",
+              "prompt": "Type the Malayalam for I am not well.",
+              "answer": "Enikku Sukham Alla",
+              "acceptedAnswers": ["enikku sukham alla", "sukham alla"],
+              "phraseId": "p-ml-u01-l02-03"
+            },
+            {
+              "id": "ml-u01-l02-ex-4",
+              "type": "matching",
+              "sourceType": "tapMatch",
+              "prompt": "Match Malayalam to English.",
+              "answer": "Sukhamano? -> are you well?, Sukham Aanu -> I am well, Enikku Sukham Alla -> I am not well, Valare Nanni -> thank you very much",
+              "pairs": [
+                { "left": "Sukhamano?", "right": "are you well?" },
+                { "left": "Sukham Aanu", "right": "I am well" },
+                { "left": "Enikku Sukham Alla", "right": "I am not well" },
+                { "left": "Valare Nanni", "right": "thank you very much" }
+              ]
+            },
+            {
+              "id": "ml-u01-l02-ex-5",
+              "type": "fill-blank",
+              "sourceType": "fillBlank",
+              "prompt": "Complete the phrase for thank you very much.",
+              "before": "Valare",
+              "after": "",
+              "answer": "Nanni",
+              "acceptedAnswers": ["nanni"],
+              "phraseId": "p-ml-u01-l02-06"
+            }
+          ],
+          "audioPrompts": [
+            {
+              "id": "a1",
+              "locale": "ml-IN",
+              "voiceStyle": "warm-neutral",
+              "textBn": "Sukhamano?",
+              "roman": "Sukhamano?",
+              "textEn": "are you well?",
+              "speed": 0.86
+            },
+            {
+              "id": "a2",
+              "locale": "ml-IN",
+              "voiceStyle": "warm-neutral",
+              "textBn": "Enikku sukham alla",
+              "roman": "Enikku Sukham Alla",
+              "textEn": "I am not well",
+              "speed": 0.86
+            }
+          ],
+          "metadata": {
+            "estimatedMinutes": 6,
+            "difficulty": "beginner",
+            "tags": ["malayalam", "wellness", "spoken"],
+            "xp": 15
+          }
+        },
+        {
+          "id": "ml-u01-l03-names-and-introductions",
+          "unitId": "ml-u01",
+          "unitNumber": 1,
+          "title": "Names and Introductions",
+          "slug": "names-and-introductions",
+          "difficulty": "beginner",
+          "summary": "Say your name, ask someone else's name, and explain that you know a little Malayalam.",
+          "phrases": [
+            {
+              "id": "p-ml-u01-l03-01",
+              "romanized": "Ente Peru Rachel Aanu",
+              "english": "my name is Rachel",
+              "pronunciation": "en-teh pay-ru Rachel aa-nu",
+              "category": "introductions",
+              "breakdown": [
+                { "word": "Ente", "pronunciation": "en-teh", "meaning": "my" },
+                { "word": "Peru", "pronunciation": "pay-ru", "meaning": "name" },
+                { "word": "Rachel", "pronunciation": "Rachel", "meaning": "Rachel" },
+                { "word": "Aanu", "pronunciation": "aa-nu", "meaning": "is" }
+              ]
+            },
+            {
+              "id": "p-ml-u01-l03-02",
+              "romanized": "Ningalude Peru Enthaanu?",
+              "english": "what is your name?",
+              "pronunciation": "ning-ga-lu-deh pay-ru en-thaa-nu",
+              "category": "introductions",
+              "breakdown": [
+                { "word": "Ningalude", "pronunciation": "ning-ga-lu-deh", "meaning": "your" },
+                { "word": "Peru", "pronunciation": "pay-ru", "meaning": "name" },
+                { "word": "Enthaanu", "pronunciation": "en-thaa-nu", "meaning": "what is" }
+              ]
+            },
+            {
+              "id": "p-ml-u01-l03-03",
+              "romanized": "Njan Canada-yil Ninnanu",
+              "english": "I am from Canada",
+              "pronunciation": "nyan Canada-yil nin-naa-nu",
+              "category": "introductions",
+              "breakdown": [
+                { "word": "Njan", "pronunciation": "nyan", "meaning": "I" },
+                { "word": "Canada-yil", "pronunciation": "Canada-yil", "meaning": "in Canada" },
+                { "word": "Ninnanu", "pronunciation": "nin-naa-nu", "meaning": "am from" }
+              ]
+            },
+            {
+              "id": "p-ml-u01-l03-04",
+              "romanized": "Enikku Malayalam Kurachu Ariyam",
+              "english": "I know a little Malayalam",
+              "pronunciation": "eh-nik-ku ma-la-yaa-lam ku-ra-chu a-ri-yam",
+              "category": "introductions",
+              "breakdown": [
+                { "word": "Enikku", "pronunciation": "eh-nik-ku", "meaning": "to me / I" },
+                { "word": "Malayalam", "pronunciation": "ma-la-yaa-lam", "meaning": "Malayalam" },
+                { "word": "Kurachu", "pronunciation": "ku-ra-chu", "meaning": "a little" },
+                { "word": "Ariyam", "pronunciation": "a-ri-yam", "meaning": "know" }
+              ]
+            },
+            {
+              "id": "p-ml-u01-l03-05",
+              "romanized": "Enikku Manassilayilla",
+              "english": "I did not understand",
+              "pronunciation": "eh-nik-ku ma-nas-si-laa-yil-la",
+              "category": "introductions",
+              "breakdown": [
+                { "word": "Enikku", "pronunciation": "eh-nik-ku", "meaning": "to me / I" },
+                { "word": "Manassilayilla", "pronunciation": "ma-nas-si-laa-yil-la", "meaning": "did not understand" }
+              ]
+            },
+            {
+              "id": "p-ml-u01-l03-06",
+              "romanized": "Veendum Parayamo?",
+              "english": "can you say it again?",
+              "pronunciation": "veen-dum pa-ra-yaa-mo",
+              "category": "introductions",
+              "breakdown": [
+                { "word": "Veendum", "pronunciation": "veen-dum", "meaning": "again" },
+                { "word": "Parayamo", "pronunciation": "pa-ra-yaa-mo", "meaning": "can you say" }
+              ]
+            }
+          ],
+          "exercises": [
+            {
+              "id": "ml-u01-l03-ex-1",
+              "type": "multiple-choice",
+              "sourceType": "listenSelect",
+              "prompt": "Listen first. Then tap what you hear.",
+              "answer": "Ente Peru Rachel Aanu",
+              "options": ["Ente Peru Rachel Aanu", "Ningalude Peru Enthaanu?", "Enikku Manassilayilla", "Veendum Parayamo?"],
+              "audioPromptId": "a1"
+            },
+            {
+              "id": "ml-u01-l03-ex-2",
+              "type": "multiple-choice",
+              "sourceType": "meaningSelect",
+              "prompt": "What does Ningalude Peru Enthaanu? mean?",
+              "answer": "what is your name?",
+              "options": ["what is your name?", "my name is Rachel", "I am from Canada", "I know a little Malayalam"],
+              "phraseId": "p-ml-u01-l03-02"
+            },
+            {
+              "id": "ml-u01-l03-ex-3",
+              "type": "translation",
+              "sourceType": "translateType",
+              "prompt": "Type the Malayalam for I did not understand.",
+              "answer": "Enikku Manassilayilla",
+              "acceptedAnswers": ["enikku manassilayilla", "manassilayilla"],
+              "phraseId": "p-ml-u01-l03-05"
+            },
+            {
+              "id": "ml-u01-l03-ex-4",
+              "type": "matching",
+              "sourceType": "tapMatch",
+              "prompt": "Match Malayalam to English.",
+              "answer": "Ente Peru Rachel Aanu -> my name is Rachel, Ningalude Peru Enthaanu? -> what is your name?, Enikku Malayalam Kurachu Ariyam -> I know a little Malayalam, Veendum Parayamo? -> can you say it again?",
+              "pairs": [
+                { "left": "Ente Peru Rachel Aanu", "right": "my name is Rachel" },
+                { "left": "Ningalude Peru Enthaanu?", "right": "what is your name?" },
+                { "left": "Enikku Malayalam Kurachu Ariyam", "right": "I know a little Malayalam" },
+                { "left": "Veendum Parayamo?", "right": "can you say it again?" }
+              ]
+            },
+            {
+              "id": "ml-u01-l03-ex-5",
+              "type": "listen-type",
+              "sourceType": "listenType",
+              "prompt": "Listen and type what you hear.",
+              "answer": "Veendum Parayamo?",
+              "acceptedAnswers": ["veendum parayamo", "veendum parayamo?"],
+              "audioPromptId": "a2",
+              "phraseId": "p-ml-u01-l03-06"
+            }
+          ],
+          "audioPrompts": [
+            {
+              "id": "a1",
+              "locale": "ml-IN",
+              "voiceStyle": "warm-neutral",
+              "textBn": "Ente peru Rachel aanu",
+              "roman": "Ente Peru Rachel Aanu",
+              "textEn": "my name is Rachel",
+              "speed": 0.86
+            },
+            {
+              "id": "a2",
+              "locale": "ml-IN",
+              "voiceStyle": "warm-neutral",
+              "textBn": "Veendum parayamo?",
+              "roman": "Veendum Parayamo?",
+              "textEn": "can you say it again?",
+              "speed": 0.86
+            }
+          ],
+          "metadata": {
+            "estimatedMinutes": 7,
+            "difficulty": "beginner",
+            "tags": ["malayalam", "introductions", "spoken"],
+            "xp": 15
+          }
+        },
+        {
+          "id": "ml-u01-l04-family-and-people",
+          "unitId": "ml-u01",
+          "unitNumber": 1,
+          "title": "Family and People",
+          "slug": "family-and-people",
+          "difficulty": "beginner",
+          "summary": "Learn warm family words you may hear in homes and conversations.",
+          "phrases": [
+            { "id": "p-ml-u01-l04-01", "romanized": "Amma", "english": "mother", "pronunciation": "am-ma", "category": "family" },
+            { "id": "p-ml-u01-l04-02", "romanized": "Achan", "english": "father", "pronunciation": "a-chan", "category": "family" },
+            { "id": "p-ml-u01-l04-03", "romanized": "Chechi", "english": "older sister", "pronunciation": "cheh-chee", "category": "family" },
+            { "id": "p-ml-u01-l04-04", "romanized": "Chettan", "english": "older brother", "pronunciation": "chet-tan", "category": "family" },
+            { "id": "p-ml-u01-l04-05", "romanized": "Aniyan", "english": "younger brother", "pronunciation": "a-ni-yan", "category": "family" },
+            { "id": "p-ml-u01-l04-06", "romanized": "Aniyathi", "english": "younger sister", "pronunciation": "a-ni-ya-thi", "category": "family" }
+          ],
+          "exercises": [
+            { "id": "ml-u01-l04-ex-1", "type": "multiple-choice", "sourceType": "listenSelect", "prompt": "Listen first. Then tap what you hear.", "answer": "Amma", "options": ["Amma", "Achan", "Chechi", "Chettan"], "audioPromptId": "a1" },
+            { "id": "ml-u01-l04-ex-2", "type": "multiple-choice", "sourceType": "meaningSelect", "prompt": "What does Achan mean?", "answer": "father", "options": ["mother", "father", "older sister", "older brother"], "phraseId": "p-ml-u01-l04-02" },
+            { "id": "ml-u01-l04-ex-3", "type": "translation", "sourceType": "translateType", "prompt": "Type the Malayalam for older sister.", "answer": "Chechi", "acceptedAnswers": ["chechi"], "phraseId": "p-ml-u01-l04-03" },
+            { "id": "ml-u01-l04-ex-4", "type": "matching", "sourceType": "tapMatch", "prompt": "Match Malayalam to English.", "answer": "Amma -> mother, Achan -> father, Chechi -> older sister, Chettan -> older brother", "pairs": [{ "left": "Amma", "right": "mother" }, { "left": "Achan", "right": "father" }, { "left": "Chechi", "right": "older sister" }, { "left": "Chettan", "right": "older brother" }] },
+            { "id": "ml-u01-l04-ex-5", "type": "listen-type", "sourceType": "listenType", "prompt": "Listen and type what you hear.", "answer": "Aniyathi", "acceptedAnswers": ["aniyathi"], "audioPromptId": "a2", "phraseId": "p-ml-u01-l04-06" }
+          ],
+          "audioPrompts": [
+            { "id": "a1", "locale": "ml-IN", "voiceStyle": "warm-neutral", "textBn": "Amma", "roman": "Amma", "textEn": "mother", "speed": 0.86 },
+            { "id": "a2", "locale": "ml-IN", "voiceStyle": "warm-neutral", "textBn": "Aniyathi", "roman": "Aniyathi", "textEn": "younger sister", "speed": 0.86 }
+          ],
+          "metadata": { "estimatedMinutes": 5, "difficulty": "beginner", "tags": ["malayalam", "family", "spoken"], "xp": 15 }
+        }
+      ]
+    },
+    {
+      "id": "ml-u02",
+      "number": 2,
+      "title": "Home and Daily Life",
+      "description": "Practice food, home visits, daily phrases, and simple questions.",
+      "lessons": [
+        {
+          "id": "ml-u02-l01-food-and-drinks",
+          "unitId": "ml-u02",
+          "unitNumber": 2,
+          "title": "Food and Drinks",
+          "slug": "food-and-drinks",
+          "difficulty": "beginner",
+          "summary": "Ask for water, tea, rice, and simple food help.",
+          "phrases": [
+            { "id": "p-ml-u02-l01-01", "romanized": "Vellam Venam", "english": "I want water", "pronunciation": "vel-lam vay-nam", "category": "food", "breakdown": [{ "word": "Vellam", "pronunciation": "vel-lam", "meaning": "water" }, { "word": "Venam", "pronunciation": "vay-nam", "meaning": "want / need" }] },
+            { "id": "p-ml-u02-l01-02", "romanized": "Choru Venam", "english": "I want rice", "pronunciation": "cho-ru vay-nam", "category": "food", "breakdown": [{ "word": "Choru", "pronunciation": "cho-ru", "meaning": "rice / meal" }, { "word": "Venam", "pronunciation": "vay-nam", "meaning": "want / need" }] },
+            { "id": "p-ml-u02-l01-03", "romanized": "Enikku Chaaya Venam", "english": "I want tea", "pronunciation": "eh-nik-ku chaa-ya vay-nam", "category": "food", "breakdown": [{ "word": "Enikku", "pronunciation": "eh-nik-ku", "meaning": "to me / I need" }, { "word": "Chaaya", "pronunciation": "chaa-ya", "meaning": "tea" }, { "word": "Venam", "pronunciation": "vay-nam", "meaning": "want / need" }] },
+            { "id": "p-ml-u02-l01-04", "romanized": "Ith Nalla Aanu", "english": "this is good", "pronunciation": "ith nal-la aa-nu", "category": "food", "breakdown": [{ "word": "Ith", "pronunciation": "ith", "meaning": "this" }, { "word": "Nalla", "pronunciation": "nal-la", "meaning": "good" }, { "word": "Aanu", "pronunciation": "aa-nu", "meaning": "is" }] },
+            { "id": "p-ml-u02-l01-05", "romanized": "Enikku Vishakkunnu", "english": "I am hungry", "pronunciation": "eh-nik-ku vi-shak-kun-nu", "category": "food", "breakdown": [{ "word": "Enikku", "pronunciation": "eh-nik-ku", "meaning": "to me / I feel" }, { "word": "Vishakkunnu", "pronunciation": "vi-shak-kun-nu", "meaning": "hungry" }] },
+            { "id": "p-ml-u02-l01-06", "romanized": "Kurachu Mathi", "english": "a little is enough", "pronunciation": "ku-ra-chu ma-thi", "category": "food", "breakdown": [{ "word": "Kurachu", "pronunciation": "ku-ra-chu", "meaning": "a little" }, { "word": "Mathi", "pronunciation": "ma-thi", "meaning": "enough" }] }
+          ],
+          "exercises": [
+            { "id": "ml-u02-l01-ex-1", "type": "multiple-choice", "sourceType": "listenSelect", "prompt": "Listen first. Then tap what you hear.", "answer": "Vellam Venam", "options": ["Vellam Venam", "Choru Venam", "Enikku Chaaya Venam", "Kurachu Mathi"], "audioPromptId": "a1" },
+            { "id": "ml-u02-l01-ex-2", "type": "multiple-choice", "sourceType": "meaningSelect", "prompt": "What does Ith Nalla Aanu mean?", "answer": "this is good", "options": ["this is good", "I am hungry", "I want tea", "a little is enough"], "phraseId": "p-ml-u02-l01-04" },
+            { "id": "ml-u02-l01-ex-3", "type": "translation", "sourceType": "translateType", "prompt": "Type the Malayalam for I want tea.", "answer": "Enikku Chaaya Venam", "acceptedAnswers": ["enikku chaaya venam", "chaaya venam"], "phraseId": "p-ml-u02-l01-03" },
+            { "id": "ml-u02-l01-ex-4", "type": "matching", "sourceType": "tapMatch", "prompt": "Match Malayalam to English.", "answer": "Vellam Venam -> I want water, Choru Venam -> I want rice, Enikku Vishakkunnu -> I am hungry, Kurachu Mathi -> a little is enough", "pairs": [{ "left": "Vellam Venam", "right": "I want water" }, { "left": "Choru Venam", "right": "I want rice" }, { "left": "Enikku Vishakkunnu", "right": "I am hungry" }, { "left": "Kurachu Mathi", "right": "a little is enough" }] },
+            { "id": "ml-u02-l01-ex-5", "type": "fill-blank", "sourceType": "fillBlank", "prompt": "Complete: I want water.", "before": "Vellam", "after": "", "answer": "Venam", "acceptedAnswers": ["venam"], "phraseId": "p-ml-u02-l01-01" }
+          ],
+          "audioPrompts": [
+            { "id": "a1", "locale": "ml-IN", "voiceStyle": "warm-neutral", "textBn": "Vellam venam", "roman": "Vellam Venam", "textEn": "I want water", "speed": 0.86 },
+            { "id": "a2", "locale": "ml-IN", "voiceStyle": "warm-neutral", "textBn": "Enikku chaaya venam", "roman": "Enikku Chaaya Venam", "textEn": "I want tea", "speed": 0.86 }
+          ],
+          "metadata": { "estimatedMinutes": 6, "difficulty": "beginner", "tags": ["malayalam", "food", "spoken"], "xp": 15 }
+        },
+        {
+          "id": "ml-u02-l02-visiting-someones-home",
+          "unitId": "ml-u02",
+          "unitNumber": 2,
+          "title": "Visiting Someone's Home",
+          "slug": "visiting-someones-home",
+          "difficulty": "beginner",
+          "summary": "Use friendly home-visit phrases for sitting, eating, and entering politely.",
+          "phrases": [
+            { "id": "p-ml-u02-l02-01", "romanized": "Akathu Varatte?", "english": "may I come inside?", "pronunciation": "a-ka-thu va-rat-teh", "category": "home", "breakdown": [{ "word": "Akathu", "pronunciation": "a-ka-thu", "meaning": "inside" }, { "word": "Varatte", "pronunciation": "va-rat-teh", "meaning": "may I come" }] },
+            { "id": "p-ml-u02-l02-02", "romanized": "Irikku", "english": "sit", "pronunciation": "i-rik-ku", "category": "home" },
+            { "id": "p-ml-u02-l02-03", "romanized": "Kazhicho?", "english": "did you eat?", "pronunciation": "ka-zhi-cho", "category": "home" },
+            { "id": "p-ml-u02-l02-04", "romanized": "Njan Kazhichu", "english": "I ate", "pronunciation": "nyan ka-zhi-chu", "category": "home", "breakdown": [{ "word": "Njan", "pronunciation": "nyan", "meaning": "I" }, { "word": "Kazhichu", "pronunciation": "ka-zhi-chu", "meaning": "ate" }] },
+            { "id": "p-ml-u02-l02-05", "romanized": "Veedu Nalla Aanu", "english": "the house is nice", "pronunciation": "vee-du nal-la aa-nu", "category": "home", "breakdown": [{ "word": "Veedu", "pronunciation": "vee-du", "meaning": "house" }, { "word": "Nalla", "pronunciation": "nal-la", "meaning": "nice / good" }, { "word": "Aanu", "pronunciation": "aa-nu", "meaning": "is" }] },
+            { "id": "p-ml-u02-l02-06", "romanized": "Sukham Aayi Irikku", "english": "sit comfortably", "pronunciation": "su-kham aa-yi i-rik-ku", "category": "home", "breakdown": [{ "word": "Sukham", "pronunciation": "su-kham", "meaning": "comfort" }, { "word": "Aayi", "pronunciation": "aa-yi", "meaning": "with / as" }, { "word": "Irikku", "pronunciation": "i-rik-ku", "meaning": "sit" }] }
+          ],
+          "exercises": [
+            { "id": "ml-u02-l02-ex-1", "type": "multiple-choice", "sourceType": "listenSelect", "prompt": "Listen first. Then tap what you hear.", "answer": "Akathu Varatte?", "options": ["Akathu Varatte?", "Irikku", "Kazhicho?", "Njan Kazhichu"], "audioPromptId": "a1" },
+            { "id": "ml-u02-l02-ex-2", "type": "multiple-choice", "sourceType": "meaningSelect", "prompt": "What does Kazhicho? mean?", "answer": "did you eat?", "options": ["sit", "did you eat?", "I ate", "the house is nice"], "phraseId": "p-ml-u02-l02-03" },
+            { "id": "ml-u02-l02-ex-3", "type": "translation", "sourceType": "translateType", "prompt": "Type the Malayalam for I ate.", "answer": "Njan Kazhichu", "acceptedAnswers": ["njan kazhichu"], "phraseId": "p-ml-u02-l02-04" },
+            { "id": "ml-u02-l02-ex-4", "type": "matching", "sourceType": "tapMatch", "prompt": "Match Malayalam to English.", "answer": "Akathu Varatte? -> may I come inside?, Irikku -> sit, Kazhicho? -> did you eat?, Veedu Nalla Aanu -> the house is nice", "pairs": [{ "left": "Akathu Varatte?", "right": "may I come inside?" }, { "left": "Irikku", "right": "sit" }, { "left": "Kazhicho?", "right": "did you eat?" }, { "left": "Veedu Nalla Aanu", "right": "the house is nice" }] },
+            { "id": "ml-u02-l02-ex-5", "type": "listen-type", "sourceType": "listenType", "prompt": "Listen and type what you hear.", "answer": "Veedu Nalla Aanu", "acceptedAnswers": ["veedu nalla aanu"], "audioPromptId": "a2", "phraseId": "p-ml-u02-l02-05" }
+          ],
+          "audioPrompts": [
+            { "id": "a1", "locale": "ml-IN", "voiceStyle": "warm-neutral", "textBn": "Akathu varatte?", "roman": "Akathu Varatte?", "textEn": "may I come inside?", "speed": 0.86 },
+            { "id": "a2", "locale": "ml-IN", "voiceStyle": "warm-neutral", "textBn": "Veedu nalla aanu", "roman": "Veedu Nalla Aanu", "textEn": "the house is nice", "speed": 0.86 }
+          ],
+          "metadata": { "estimatedMinutes": 6, "difficulty": "beginner", "tags": ["malayalam", "home", "spoken"], "xp": 15 }
+        },
+        {
+          "id": "ml-u02-l03-daily-conversation",
+          "unitId": "ml-u02",
+          "unitNumber": 2,
+          "title": "Daily Conversation",
+          "slug": "daily-conversation",
+          "difficulty": "beginner",
+          "summary": "Use short everyday phrases for going, coming, waiting, and meeting again.",
+          "phrases": [
+            { "id": "p-ml-u02-l03-01", "romanized": "Njan Pokunnu", "english": "I am going", "pronunciation": "nyan po-kun-nu", "category": "daily", "breakdown": [{ "word": "Njan", "pronunciation": "nyan", "meaning": "I" }, { "word": "Pokunnu", "pronunciation": "po-kun-nu", "meaning": "am going" }] },
+            { "id": "p-ml-u02-l03-02", "romanized": "Namukku Pokam", "english": "let's go", "pronunciation": "na-muk-ku po-kam", "category": "daily", "breakdown": [{ "word": "Namukku", "pronunciation": "na-muk-ku", "meaning": "for us / let's" }, { "word": "Pokam", "pronunciation": "po-kam", "meaning": "go" }] },
+            { "id": "p-ml-u02-l03-03", "romanized": "Ivide Va", "english": "come here", "pronunciation": "i-vi-deh vaa", "category": "daily", "breakdown": [{ "word": "Ivide", "pronunciation": "i-vi-deh", "meaning": "here" }, { "word": "Va", "pronunciation": "vaa", "meaning": "come" }] },
+            { "id": "p-ml-u02-l03-04", "romanized": "Kurachu Neram", "english": "a little while", "pronunciation": "ku-ra-chu nay-ram", "category": "daily", "breakdown": [{ "word": "Kurachu", "pronunciation": "ku-ra-chu", "meaning": "a little" }, { "word": "Neram", "pronunciation": "nay-ram", "meaning": "time / while" }] },
+            { "id": "p-ml-u02-l03-05", "romanized": "Nale Kaanam", "english": "see you tomorrow", "pronunciation": "naa-leh kaa-nam", "category": "daily", "breakdown": [{ "word": "Nale", "pronunciation": "naa-leh", "meaning": "tomorrow" }, { "word": "Kaanam", "pronunciation": "kaa-nam", "meaning": "can see / meet" }] },
+            { "id": "p-ml-u02-l03-06", "romanized": "Ippo Venda", "english": "not now", "pronunciation": "ip-po ven-da", "category": "daily", "breakdown": [{ "word": "Ippo", "pronunciation": "ip-po", "meaning": "now" }, { "word": "Venda", "pronunciation": "ven-da", "meaning": "do not want" }] }
+          ],
+          "exercises": [
+            { "id": "ml-u02-l03-ex-1", "type": "multiple-choice", "sourceType": "listenSelect", "prompt": "Listen first. Then tap what you hear.", "answer": "Namukku Pokam", "options": ["Njan Pokunnu", "Namukku Pokam", "Ivide Va", "Ippo Venda"], "audioPromptId": "a1" },
+            { "id": "ml-u02-l03-ex-2", "type": "multiple-choice", "sourceType": "meaningSelect", "prompt": "What does Ivide Va mean?", "answer": "come here", "options": ["I am going", "let's go", "come here", "not now"], "phraseId": "p-ml-u02-l03-03" },
+            { "id": "ml-u02-l03-ex-3", "type": "translation", "sourceType": "translateType", "prompt": "Type the Malayalam for see you tomorrow.", "answer": "Nale Kaanam", "acceptedAnswers": ["nale kaanam", "nale kanam"], "phraseId": "p-ml-u02-l03-05" },
+            { "id": "ml-u02-l03-ex-4", "type": "matching", "sourceType": "tapMatch", "prompt": "Match Malayalam to English.", "answer": "Njan Pokunnu -> I am going, Namukku Pokam -> let's go, Ivide Va -> come here, Ippo Venda -> not now", "pairs": [{ "left": "Njan Pokunnu", "right": "I am going" }, { "left": "Namukku Pokam", "right": "let's go" }, { "left": "Ivide Va", "right": "come here" }, { "left": "Ippo Venda", "right": "not now" }] },
+            { "id": "ml-u02-l03-ex-5", "type": "fill-blank", "sourceType": "fillBlank", "prompt": "Complete: let's go.", "before": "Namukku", "after": "", "answer": "Pokam", "acceptedAnswers": ["pokam"], "phraseId": "p-ml-u02-l03-02" }
+          ],
+          "audioPrompts": [
+            { "id": "a1", "locale": "ml-IN", "voiceStyle": "warm-neutral", "textBn": "Namukku pokam", "roman": "Namukku Pokam", "textEn": "let's go", "speed": 0.86 },
+            { "id": "a2", "locale": "ml-IN", "voiceStyle": "warm-neutral", "textBn": "Nale kaanam", "roman": "Nale Kaanam", "textEn": "see you tomorrow", "speed": 0.86 }
+          ],
+          "metadata": { "estimatedMinutes": 6, "difficulty": "beginner", "tags": ["malayalam", "daily", "spoken"], "xp": 15 }
+        },
+        {
+          "id": "ml-u02-l04-questions-and-small-talk",
+          "unitId": "ml-u02",
+          "unitNumber": 2,
+          "title": "Questions and Small Talk",
+          "slug": "questions-and-small-talk",
+          "difficulty": "beginner",
+          "summary": "Ask the tiny questions that keep a conversation moving.",
+          "phrases": [
+            { "id": "p-ml-u02-l04-01", "romanized": "Evide?", "english": "where?", "pronunciation": "eh-vi-deh", "category": "questions" },
+            { "id": "p-ml-u02-l04-02", "romanized": "Enthaanu?", "english": "what is it?", "pronunciation": "en-thaa-nu", "category": "questions" },
+            { "id": "p-ml-u02-l04-03", "romanized": "Ethra?", "english": "how much?", "pronunciation": "eth-ra", "category": "questions" },
+            { "id": "p-ml-u02-l04-04", "romanized": "Eppol?", "english": "when?", "pronunciation": "ep-pol", "category": "questions" },
+            { "id": "p-ml-u02-l04-05", "romanized": "Aaru?", "english": "who?", "pronunciation": "aa-ru", "category": "questions" },
+            { "id": "p-ml-u02-l04-06", "romanized": "Engane?", "english": "how?", "pronunciation": "en-ga-neh", "category": "questions" }
+          ],
+          "exercises": [
+            { "id": "ml-u02-l04-ex-1", "type": "multiple-choice", "sourceType": "listenSelect", "prompt": "Listen first. Then tap what you hear.", "answer": "Evide?", "options": ["Evide?", "Enthaanu?", "Ethra?", "Eppol?"], "audioPromptId": "a1" },
+            { "id": "ml-u02-l04-ex-2", "type": "multiple-choice", "sourceType": "meaningSelect", "prompt": "What does Ethra? mean?", "answer": "how much?", "options": ["where?", "what is it?", "how much?", "when?"], "phraseId": "p-ml-u02-l04-03" },
+            { "id": "ml-u02-l04-ex-3", "type": "translation", "sourceType": "translateType", "prompt": "Type the Malayalam for who?", "answer": "Aaru?", "acceptedAnswers": ["aaru", "aaru?"], "phraseId": "p-ml-u02-l04-05" },
+            { "id": "ml-u02-l04-ex-4", "type": "matching", "sourceType": "tapMatch", "prompt": "Match Malayalam to English.", "answer": "Evide? -> where?, Enthaanu? -> what is it?, Ethra? -> how much?, Eppol? -> when?", "pairs": [{ "left": "Evide?", "right": "where?" }, { "left": "Enthaanu?", "right": "what is it?" }, { "left": "Ethra?", "right": "how much?" }, { "left": "Eppol?", "right": "when?" }] },
+            { "id": "ml-u02-l04-ex-5", "type": "listen-type", "sourceType": "listenType", "prompt": "Listen and type what you hear.", "answer": "Engane?", "acceptedAnswers": ["engane", "engane?"], "audioPromptId": "a2", "phraseId": "p-ml-u02-l04-06" }
+          ],
+          "audioPrompts": [
+            { "id": "a1", "locale": "ml-IN", "voiceStyle": "warm-neutral", "textBn": "Evide?", "roman": "Evide?", "textEn": "where?", "speed": 0.86 },
+            { "id": "a2", "locale": "ml-IN", "voiceStyle": "warm-neutral", "textBn": "Engane?", "roman": "Engane?", "textEn": "how?", "speed": 0.86 }
+          ],
+          "metadata": { "estimatedMinutes": 5, "difficulty": "beginner", "tags": ["malayalam", "questions", "spoken"], "xp": 15 }
+        },
+        {
+          "id": "ml-u02-l05-travel-and-getting-around",
+          "unitId": "ml-u02",
+          "unitNumber": 2,
+          "title": "Travel and Getting Around",
+          "slug": "travel-and-getting-around",
+          "difficulty": "beginner",
+          "summary": "Ask for the bathroom, taxi help, a price, and where to stop.",
+          "phrases": [
+            { "id": "p-ml-u02-l05-01", "romanized": "Bathroom Evide Aanu?", "english": "where is the bathroom?", "pronunciation": "bath-room eh-vi-deh aa-nu", "category": "travel", "breakdown": [{ "word": "Bathroom", "pronunciation": "bath-room", "meaning": "bathroom" }, { "word": "Evide", "pronunciation": "eh-vi-deh", "meaning": "where" }, { "word": "Aanu", "pronunciation": "aa-nu", "meaning": "is" }] },
+            { "id": "p-ml-u02-l05-02", "romanized": "Ivide Nirthu", "english": "stop here", "pronunciation": "i-vi-deh nir-thu", "category": "travel", "breakdown": [{ "word": "Ivide", "pronunciation": "i-vi-deh", "meaning": "here" }, { "word": "Nirthu", "pronunciation": "nir-thu", "meaning": "stop" }] },
+            { "id": "p-ml-u02-l05-03", "romanized": "Ethra Aanu?", "english": "how much is it?", "pronunciation": "eth-ra aa-nu", "category": "travel", "breakdown": [{ "word": "Ethra", "pronunciation": "eth-ra", "meaning": "how much" }, { "word": "Aanu", "pronunciation": "aa-nu", "meaning": "is" }] },
+            { "id": "p-ml-u02-l05-04", "romanized": "Enikku Taxi Venam", "english": "I need a taxi", "pronunciation": "eh-nik-ku taxi vay-nam", "category": "travel", "breakdown": [{ "word": "Enikku", "pronunciation": "eh-nik-ku", "meaning": "to me / I need" }, { "word": "Taxi", "pronunciation": "taxi", "meaning": "taxi" }, { "word": "Venam", "pronunciation": "vay-nam", "meaning": "need" }] },
+            { "id": "p-ml-u02-l05-05", "romanized": "Njan Vazhi Thetti", "english": "I am lost", "pronunciation": "nyan va-zhi thet-ti", "category": "travel", "breakdown": [{ "word": "Njan", "pronunciation": "nyan", "meaning": "I" }, { "word": "Vazhi", "pronunciation": "va-zhi", "meaning": "way / road" }, { "word": "Thetti", "pronunciation": "thet-ti", "meaning": "missed / lost" }] },
+            { "id": "p-ml-u02-l05-06", "romanized": "Aduthu Aano?", "english": "is it nearby?", "pronunciation": "a-du-thu aa-no", "category": "travel", "breakdown": [{ "word": "Aduthu", "pronunciation": "a-du-thu", "meaning": "nearby" }, { "word": "Aano", "pronunciation": "aa-no", "meaning": "is it?" }] }
+          ],
+          "exercises": [
+            { "id": "ml-u02-l05-ex-1", "type": "multiple-choice", "sourceType": "listenSelect", "prompt": "Listen first. Then tap what you hear.", "answer": "Bathroom Evide Aanu?", "options": ["Bathroom Evide Aanu?", "Ivide Nirthu", "Ethra Aanu?", "Enikku Taxi Venam"], "audioPromptId": "a1" },
+            { "id": "ml-u02-l05-ex-2", "type": "multiple-choice", "sourceType": "meaningSelect", "prompt": "What does Njan Vazhi Thetti mean?", "answer": "I am lost", "options": ["I need a taxi", "stop here", "I am lost", "is it nearby?"], "phraseId": "p-ml-u02-l05-05" },
+            { "id": "ml-u02-l05-ex-3", "type": "translation", "sourceType": "translateType", "prompt": "Type the Malayalam for I need a taxi.", "answer": "Enikku Taxi Venam", "acceptedAnswers": ["enikku taxi venam", "taxi venam"], "phraseId": "p-ml-u02-l05-04" },
+            { "id": "ml-u02-l05-ex-4", "type": "matching", "sourceType": "tapMatch", "prompt": "Match Malayalam to English.", "answer": "Bathroom Evide Aanu? -> where is the bathroom?, Ivide Nirthu -> stop here, Ethra Aanu? -> how much is it?, Njan Vazhi Thetti -> I am lost", "pairs": [{ "left": "Bathroom Evide Aanu?", "right": "where is the bathroom?" }, { "left": "Ivide Nirthu", "right": "stop here" }, { "left": "Ethra Aanu?", "right": "how much is it?" }, { "left": "Njan Vazhi Thetti", "right": "I am lost" }] },
+            { "id": "ml-u02-l05-ex-5", "type": "fill-blank", "sourceType": "fillBlank", "prompt": "Complete: Stop here.", "before": "Ivide", "after": "", "answer": "Nirthu", "acceptedAnswers": ["nirthu"], "phraseId": "p-ml-u02-l05-02" }
+          ],
+          "audioPrompts": [
+            { "id": "a1", "locale": "ml-IN", "voiceStyle": "warm-neutral", "textBn": "Bathroom evide aanu?", "roman": "Bathroom Evide Aanu?", "textEn": "where is the bathroom?", "speed": 0.86 },
+            { "id": "a2", "locale": "ml-IN", "voiceStyle": "warm-neutral", "textBn": "Enikku taxi venam", "roman": "Enikku Taxi Venam", "textEn": "I need a taxi", "speed": 0.86 }
+          ],
+          "metadata": { "estimatedMinutes": 7, "difficulty": "beginner", "tags": ["malayalam", "travel", "spoken"], "xp": 15 }
+        }
+      ]
+    },
+    {
+      "id": "ml-u03",
+      "number": 3,
+      "title": "Requests, Feelings, and Help",
+      "description": "Build confidence with polite requests, needs, emergencies, and mixed review.",
+      "lessons": [
+        {
+          "id": "ml-u03-l01-polite-requests",
+          "unitId": "ml-u03",
+          "unitNumber": 3,
+          "title": "Polite Requests",
+          "slug": "polite-requests",
+          "difficulty": "beginner",
+          "summary": "Ask someone to repeat, slow down, give something, or wait a moment.",
+          "phrases": [
+            { "id": "p-ml-u03-l01-01", "romanized": "Dayavaayi Parayamo?", "english": "please tell me", "pronunciation": "da-ya-vaa-yi pa-ra-yaa-mo", "category": "requests", "breakdown": [{ "word": "Dayavaayi", "pronunciation": "da-ya-vaa-yi", "meaning": "please" }, { "word": "Parayamo", "pronunciation": "pa-ra-yaa-mo", "meaning": "can you say / tell" }] },
+            { "id": "p-ml-u03-l01-02", "romanized": "Kurachu Pathukke Parayamo?", "english": "can you speak slowly?", "pronunciation": "ku-ra-chu pa-thuk-keh pa-ra-yaa-mo", "category": "requests", "breakdown": [{ "word": "Kurachu", "pronunciation": "ku-ra-chu", "meaning": "a little" }, { "word": "Pathukke", "pronunciation": "pa-thuk-keh", "meaning": "slowly" }, { "word": "Parayamo", "pronunciation": "pa-ra-yaa-mo", "meaning": "can you say" }] },
+            { "id": "p-ml-u03-l01-03", "romanized": "Veendum Parayamo?", "english": "can you repeat that?", "pronunciation": "veen-dum pa-ra-yaa-mo", "category": "requests", "breakdown": [{ "word": "Veendum", "pronunciation": "veen-dum", "meaning": "again" }, { "word": "Parayamo", "pronunciation": "pa-ra-yaa-mo", "meaning": "can you say" }] },
+            { "id": "p-ml-u03-l01-04", "romanized": "Enikku Oru Sahayam Venam", "english": "I need a help / favor", "pronunciation": "eh-nik-ku o-ru sa-haa-yam vay-nam", "category": "requests", "breakdown": [{ "word": "Enikku", "pronunciation": "eh-nik-ku", "meaning": "to me / I need" }, { "word": "Oru", "pronunciation": "o-ru", "meaning": "one / a" }, { "word": "Sahayam", "pronunciation": "sa-haa-yam", "meaning": "help" }, { "word": "Venam", "pronunciation": "vay-nam", "meaning": "need" }] },
+            { "id": "p-ml-u03-l01-05", "romanized": "Ithu Taramo?", "english": "can you give this?", "pronunciation": "i-thu tha-raa-mo", "category": "requests", "breakdown": [{ "word": "Ithu", "pronunciation": "i-thu", "meaning": "this" }, { "word": "Taramo", "pronunciation": "tha-raa-mo", "meaning": "can you give" }] },
+            { "id": "p-ml-u03-l01-06", "romanized": "Oru Nimisham",
+              "english": "one moment",
+              "pronunciation": "o-ru ni-mi-sham",
+              "category": "requests",
+              "breakdown": [{ "word": "Oru", "pronunciation": "o-ru", "meaning": "one" }, { "word": "Nimisham", "pronunciation": "ni-mi-sham", "meaning": "moment" }]
+            }
+          ],
+          "exercises": [
+            { "id": "ml-u03-l01-ex-1", "type": "multiple-choice", "sourceType": "listenSelect", "prompt": "Listen first. Then tap what you hear.", "answer": "Kurachu Pathukke Parayamo?", "options": ["Dayavaayi Parayamo?", "Kurachu Pathukke Parayamo?", "Veendum Parayamo?", "Oru Nimisham"], "audioPromptId": "a1" },
+            { "id": "ml-u03-l01-ex-2", "type": "multiple-choice", "sourceType": "meaningSelect", "prompt": "What does Veendum Parayamo? mean?", "answer": "can you repeat that?", "options": ["please tell me", "can you repeat that?", "one moment", "can you give this?"], "phraseId": "p-ml-u03-l01-03" },
+            { "id": "ml-u03-l01-ex-3", "type": "translation", "sourceType": "translateType", "prompt": "Type the Malayalam for one moment.", "answer": "Oru Nimisham", "acceptedAnswers": ["oru nimisham"], "phraseId": "p-ml-u03-l01-06" },
+            { "id": "ml-u03-l01-ex-4", "type": "matching", "sourceType": "tapMatch", "prompt": "Match Malayalam to English.", "answer": "Dayavaayi Parayamo? -> please tell me, Kurachu Pathukke Parayamo? -> can you speak slowly?, Ithu Taramo? -> can you give this?, Oru Nimisham -> one moment", "pairs": [{ "left": "Dayavaayi Parayamo?", "right": "please tell me" }, { "left": "Kurachu Pathukke Parayamo?", "right": "can you speak slowly?" }, { "left": "Ithu Taramo?", "right": "can you give this?" }, { "left": "Oru Nimisham", "right": "one moment" }] },
+            { "id": "ml-u03-l01-ex-5", "type": "listen-type", "sourceType": "listenType", "prompt": "Listen and type what you hear.", "answer": "Ithu Taramo?", "acceptedAnswers": ["ithu taramo", "ithu taramo?"], "audioPromptId": "a2", "phraseId": "p-ml-u03-l01-05" }
+          ],
+          "audioPrompts": [
+            { "id": "a1", "locale": "ml-IN", "voiceStyle": "warm-neutral", "textBn": "Kurachu pathukke parayamo?", "roman": "Kurachu Pathukke Parayamo?", "textEn": "can you speak slowly?", "speed": 0.86 },
+            { "id": "a2", "locale": "ml-IN", "voiceStyle": "warm-neutral", "textBn": "Ithu taramo?", "roman": "Ithu Taramo?", "textEn": "can you give this?", "speed": 0.86 }
+          ],
+          "metadata": { "estimatedMinutes": 7, "difficulty": "beginner", "tags": ["malayalam", "requests", "spoken"], "xp": 15 }
+        },
+        {
+          "id": "ml-u03-l02-feelings-and-needs",
+          "unitId": "ml-u03",
+          "unitNumber": 3,
+          "title": "Feelings and Needs",
+          "slug": "feelings-and-needs",
+          "difficulty": "beginner",
+          "summary": "Say how you feel with simple, useful everyday phrases.",
+          "phrases": [
+            { "id": "p-ml-u03-l02-01", "romanized": "Enikku Santhosham Aanu", "english": "I am happy", "pronunciation": "eh-nik-ku san-tho-sham aa-nu", "category": "feelings", "breakdown": [{ "word": "Enikku", "pronunciation": "eh-nik-ku", "meaning": "to me / I feel" }, { "word": "Santhosham", "pronunciation": "san-tho-sham", "meaning": "happiness" }, { "word": "Aanu", "pronunciation": "aa-nu", "meaning": "is" }] },
+            { "id": "p-ml-u03-l02-02", "romanized": "Enikku Ksheenam Aanu", "english": "I am tired", "pronunciation": "eh-nik-ku kshee-nam aa-nu", "category": "feelings", "breakdown": [{ "word": "Enikku", "pronunciation": "eh-nik-ku", "meaning": "to me / I feel" }, { "word": "Ksheenam", "pronunciation": "kshee-nam", "meaning": "tiredness" }, { "word": "Aanu", "pronunciation": "aa-nu", "meaning": "is" }] },
+            { "id": "p-ml-u03-l02-03", "romanized": "Enikku Pedi Aanu", "english": "I am scared", "pronunciation": "eh-nik-ku pay-di aa-nu", "category": "feelings", "breakdown": [{ "word": "Enikku", "pronunciation": "eh-nik-ku", "meaning": "to me / I feel" }, { "word": "Pedi", "pronunciation": "pay-di", "meaning": "fear" }, { "word": "Aanu", "pronunciation": "aa-nu", "meaning": "is" }] },
+            { "id": "p-ml-u03-l02-04", "romanized": "Enikku Ishtam Aanu", "english": "I like it", "pronunciation": "eh-nik-ku ish-tam aa-nu", "category": "feelings", "breakdown": [{ "word": "Enikku", "pronunciation": "eh-nik-ku", "meaning": "to me / I" }, { "word": "Ishtam", "pronunciation": "ish-tam", "meaning": "like" }, { "word": "Aanu", "pronunciation": "aa-nu", "meaning": "is" }] },
+            { "id": "p-ml-u03-l02-05", "romanized": "Enikku Sukham Alla", "english": "I am not well", "pronunciation": "eh-nik-ku su-kham al-la", "category": "feelings", "breakdown": [{ "word": "Enikku", "pronunciation": "eh-nik-ku", "meaning": "to me / I feel" }, { "word": "Sukham", "pronunciation": "su-kham", "meaning": "well" }, { "word": "Alla", "pronunciation": "al-la", "meaning": "not" }] },
+            { "id": "p-ml-u03-l02-06", "romanized": "Enikku Urakkam Varunnu", "english": "I am sleepy", "pronunciation": "eh-nik-ku u-rak-kam va-run-nu", "category": "feelings", "breakdown": [{ "word": "Enikku", "pronunciation": "eh-nik-ku", "meaning": "to me / I feel" }, { "word": "Urakkam", "pronunciation": "u-rak-kam", "meaning": "sleep" }, { "word": "Varunnu", "pronunciation": "va-run-nu", "meaning": "is coming" }] }
+          ],
+          "exercises": [
+            { "id": "ml-u03-l02-ex-1", "type": "multiple-choice", "sourceType": "listenSelect", "prompt": "Listen first. Then tap what you hear.", "answer": "Enikku Santhosham Aanu", "options": ["Enikku Santhosham Aanu", "Enikku Ksheenam Aanu", "Enikku Pedi Aanu", "Enikku Ishtam Aanu"], "audioPromptId": "a1" },
+            { "id": "ml-u03-l02-ex-2", "type": "multiple-choice", "sourceType": "meaningSelect", "prompt": "What does Enikku Ksheenam Aanu mean?", "answer": "I am tired", "options": ["I am happy", "I am tired", "I am scared", "I like it"], "phraseId": "p-ml-u03-l02-02" },
+            { "id": "ml-u03-l02-ex-3", "type": "translation", "sourceType": "translateType", "prompt": "Type the Malayalam for I like it.", "answer": "Enikku Ishtam Aanu", "acceptedAnswers": ["enikku ishtam aanu", "ishtam aanu"], "phraseId": "p-ml-u03-l02-04" },
+            { "id": "ml-u03-l02-ex-4", "type": "matching", "sourceType": "tapMatch", "prompt": "Match Malayalam to English.", "answer": "Enikku Santhosham Aanu -> I am happy, Enikku Ksheenam Aanu -> I am tired, Enikku Pedi Aanu -> I am scared, Enikku Urakkam Varunnu -> I am sleepy", "pairs": [{ "left": "Enikku Santhosham Aanu", "right": "I am happy" }, { "left": "Enikku Ksheenam Aanu", "right": "I am tired" }, { "left": "Enikku Pedi Aanu", "right": "I am scared" }, { "left": "Enikku Urakkam Varunnu", "right": "I am sleepy" }] },
+            { "id": "ml-u03-l02-ex-5", "type": "fill-blank", "sourceType": "fillBlank", "prompt": "Complete: I am not well.", "before": "Enikku Sukham", "after": "", "answer": "Alla", "acceptedAnswers": ["alla"], "phraseId": "p-ml-u03-l02-05" }
+          ],
+          "audioPrompts": [
+            { "id": "a1", "locale": "ml-IN", "voiceStyle": "warm-neutral", "textBn": "Enikku santhosham aanu", "roman": "Enikku Santhosham Aanu", "textEn": "I am happy", "speed": 0.86 },
+            { "id": "a2", "locale": "ml-IN", "voiceStyle": "warm-neutral", "textBn": "Enikku ishtam aanu", "roman": "Enikku Ishtam Aanu", "textEn": "I like it", "speed": 0.86 }
+          ],
+          "metadata": { "estimatedMinutes": 7, "difficulty": "beginner", "tags": ["malayalam", "feelings", "spoken"], "xp": 15 }
+        },
+        {
+          "id": "ml-u03-l03-help-and-emergencies",
+          "unitId": "ml-u03",
+          "unitNumber": 3,
+          "title": "Help and Emergencies",
+          "slug": "help-and-emergencies",
+          "difficulty": "beginner",
+          "summary": "Ask for help, a doctor, police, medicine, or help with a lost phone.",
+          "phrases": [
+            { "id": "p-ml-u03-l03-01", "romanized": "Enikku Sahayam Venam", "english": "I need help", "pronunciation": "eh-nik-ku sa-haa-yam vay-nam", "category": "help", "breakdown": [{ "word": "Enikku", "pronunciation": "eh-nik-ku", "meaning": "to me / I need" }, { "word": "Sahayam", "pronunciation": "sa-haa-yam", "meaning": "help" }, { "word": "Venam", "pronunciation": "vay-nam", "meaning": "need" }] },
+            { "id": "p-ml-u03-l03-02", "romanized": "Doctor-e Vilikkamo?", "english": "can you call a doctor?", "pronunciation": "doctor-eh vi-lik-kaa-mo", "category": "help", "breakdown": [{ "word": "Doctor-e", "pronunciation": "doctor-eh", "meaning": "doctor" }, { "word": "Vilikkamo", "pronunciation": "vi-lik-kaa-mo", "meaning": "can you call" }] },
+            { "id": "p-ml-u03-l03-03", "romanized": "Police-e Vilikkamo?", "english": "can you call the police?", "pronunciation": "police-eh vi-lik-kaa-mo", "category": "help", "breakdown": [{ "word": "Police-e", "pronunciation": "police-eh", "meaning": "police" }, { "word": "Vilikkamo", "pronunciation": "vi-lik-kaa-mo", "meaning": "can you call" }] },
+            { "id": "p-ml-u03-l03-04", "romanized": "Marunnu Kada Evide Aanu?", "english": "where is the pharmacy?", "pronunciation": "ma-run-nu ka-da eh-vi-deh aa-nu", "category": "help", "breakdown": [{ "word": "Marunnu", "pronunciation": "ma-run-nu", "meaning": "medicine" }, { "word": "Kada", "pronunciation": "ka-da", "meaning": "shop" }, { "word": "Evide", "pronunciation": "eh-vi-deh", "meaning": "where" }, { "word": "Aanu", "pronunciation": "aa-nu", "meaning": "is" }] },
+            { "id": "p-ml-u03-l03-05", "romanized": "Ente Phone Nashtappettu", "english": "I lost my phone", "pronunciation": "en-teh phone nash-tap-pet-tu", "category": "help", "breakdown": [{ "word": "Ente", "pronunciation": "en-teh", "meaning": "my" }, { "word": "Phone", "pronunciation": "phone", "meaning": "phone" }, { "word": "Nashtappettu", "pronunciation": "nash-tap-pet-tu", "meaning": "was lost" }] },
+            { "id": "p-ml-u03-l03-06", "romanized": "Dayavaayi Sahayikkane", "english": "please help me", "pronunciation": "da-ya-vaa-yi sa-haa-yik-ka-neh", "category": "help", "breakdown": [{ "word": "Dayavaayi", "pronunciation": "da-ya-vaa-yi", "meaning": "please" }, { "word": "Sahayikkane", "pronunciation": "sa-haa-yik-ka-neh", "meaning": "help me" }] }
+          ],
+          "exercises": [
+            { "id": "ml-u03-l03-ex-1", "type": "multiple-choice", "sourceType": "listenSelect", "prompt": "Listen first. Then tap what you hear.", "answer": "Enikku Sahayam Venam", "options": ["Enikku Sahayam Venam", "Doctor-e Vilikkamo?", "Police-e Vilikkamo?", "Dayavaayi Sahayikkane"], "audioPromptId": "a1" },
+            { "id": "ml-u03-l03-ex-2", "type": "multiple-choice", "sourceType": "meaningSelect", "prompt": "What does Marunnu Kada Evide Aanu? mean?", "answer": "where is the pharmacy?", "options": ["I need help", "can you call a doctor?", "where is the pharmacy?", "I lost my phone"], "phraseId": "p-ml-u03-l03-04" },
+            { "id": "ml-u03-l03-ex-3", "type": "translation", "sourceType": "translateType", "prompt": "Type the Malayalam for please help me.", "answer": "Dayavaayi Sahayikkane", "acceptedAnswers": ["dayavaayi sahayikkane", "sahayikkane"], "phraseId": "p-ml-u03-l03-06" },
+            { "id": "ml-u03-l03-ex-4", "type": "matching", "sourceType": "tapMatch", "prompt": "Match Malayalam to English.", "answer": "Enikku Sahayam Venam -> I need help, Doctor-e Vilikkamo? -> can you call a doctor?, Police-e Vilikkamo? -> can you call the police?, Ente Phone Nashtappettu -> I lost my phone", "pairs": [{ "left": "Enikku Sahayam Venam", "right": "I need help" }, { "left": "Doctor-e Vilikkamo?", "right": "can you call a doctor?" }, { "left": "Police-e Vilikkamo?", "right": "can you call the police?" }, { "left": "Ente Phone Nashtappettu", "right": "I lost my phone" }] },
+            { "id": "ml-u03-l03-ex-5", "type": "listen-type", "sourceType": "listenType", "prompt": "Listen and type what you hear.", "answer": "Doctor-e Vilikkamo?", "acceptedAnswers": ["doctor-e vilikkamo", "doctor vilikkamo", "doctore vilikkamo"], "audioPromptId": "a2", "phraseId": "p-ml-u03-l03-02" }
+          ],
+          "audioPrompts": [
+            { "id": "a1", "locale": "ml-IN", "voiceStyle": "warm-neutral", "textBn": "Enikku sahayam venam", "roman": "Enikku Sahayam Venam", "textEn": "I need help", "speed": 0.86 },
+            { "id": "a2", "locale": "ml-IN", "voiceStyle": "warm-neutral", "textBn": "Doctor-e vilikkamo?", "roman": "Doctor-e Vilikkamo?", "textEn": "can you call a doctor?", "speed": 0.86 }
+          ],
+          "metadata": { "estimatedMinutes": 7, "difficulty": "beginner", "tags": ["malayalam", "help", "spoken"], "xp": 15 }
+        },
+        {
+          "id": "ml-u03-l04-review-everyday-malayalam",
+          "unitId": "ml-u03",
+          "unitNumber": 3,
+          "title": "Review: Everyday Malayalam",
+          "slug": "review-everyday-malayalam",
+          "difficulty": "beginner",
+          "summary": "Review the most useful phrases for greeting, introducing yourself, eating, travel, and help.",
+          "phrases": [
+            { "id": "p-ml-u03-l04-01", "romanized": "Namaskaram", "english": "hello / respectful greeting", "pronunciation": "na-mas-ka-ram", "category": "review" },
+            { "id": "p-ml-u03-l04-02", "romanized": "Ningal Sukhamano?", "english": "are you well?", "pronunciation": "ning-gal su-kha-maa-no", "category": "review", "breakdown": [{ "word": "Ningal", "pronunciation": "ning-gal", "meaning": "you" }, { "word": "Sukhamano", "pronunciation": "su-kha-maa-no", "meaning": "are you well" }] },
+            { "id": "p-ml-u03-l04-03", "romanized": "Ente Peru Rachel Aanu", "english": "my name is Rachel", "pronunciation": "en-teh pay-ru Rachel aa-nu", "category": "review", "breakdown": [{ "word": "Ente", "pronunciation": "en-teh", "meaning": "my" }, { "word": "Peru", "pronunciation": "pay-ru", "meaning": "name" }, { "word": "Rachel", "pronunciation": "Rachel", "meaning": "Rachel" }, { "word": "Aanu", "pronunciation": "aa-nu", "meaning": "is" }] },
+            { "id": "p-ml-u03-l04-04", "romanized": "Enikku Vellam Venam", "english": "I want water", "pronunciation": "eh-nik-ku vel-lam vay-nam", "category": "review", "breakdown": [{ "word": "Enikku", "pronunciation": "eh-nik-ku", "meaning": "to me / I need" }, { "word": "Vellam", "pronunciation": "vel-lam", "meaning": "water" }, { "word": "Venam", "pronunciation": "vay-nam", "meaning": "want / need" }] },
+            { "id": "p-ml-u03-l04-05", "romanized": "Bathroom Evide Aanu?", "english": "where is the bathroom?", "pronunciation": "bath-room eh-vi-deh aa-nu", "category": "review", "breakdown": [{ "word": "Bathroom", "pronunciation": "bath-room", "meaning": "bathroom" }, { "word": "Evide", "pronunciation": "eh-vi-deh", "meaning": "where" }, { "word": "Aanu", "pronunciation": "aa-nu", "meaning": "is" }] },
+            { "id": "p-ml-u03-l04-06", "romanized": "Enikku Sahayam Venam", "english": "I need help", "pronunciation": "eh-nik-ku sa-haa-yam vay-nam", "category": "review", "breakdown": [{ "word": "Enikku", "pronunciation": "eh-nik-ku", "meaning": "to me / I need" }, { "word": "Sahayam", "pronunciation": "sa-haa-yam", "meaning": "help" }, { "word": "Venam", "pronunciation": "vay-nam", "meaning": "need" }] }
+          ],
+          "exercises": [
+            { "id": "ml-u03-l04-ex-1", "type": "multiple-choice", "sourceType": "listenSelect", "prompt": "Listen first. Then tap what you hear.", "answer": "Ningal Sukhamano?", "options": ["Namaskaram", "Ningal Sukhamano?", "Enikku Vellam Venam", "Enikku Sahayam Venam"], "audioPromptId": "a1" },
+            { "id": "ml-u03-l04-ex-2", "type": "multiple-choice", "sourceType": "meaningSelect", "prompt": "What does Enikku Vellam Venam mean?", "answer": "I want water", "options": ["I want water", "I need help", "my name is Rachel", "where is the bathroom?"], "phraseId": "p-ml-u03-l04-04" },
+            { "id": "ml-u03-l04-ex-3", "type": "translation", "sourceType": "translateType", "prompt": "Type the Malayalam for I need help.",
+              "answer": "Enikku Sahayam Venam",
+              "acceptedAnswers": ["enikku sahayam venam", "sahayam venam"],
+              "phraseId": "p-ml-u03-l04-06"
+            },
+            { "id": "ml-u03-l04-ex-4", "type": "matching", "sourceType": "tapMatch", "prompt": "Match Malayalam to English.", "answer": "Namaskaram -> hello / respectful greeting, Ningal Sukhamano? -> are you well?, Bathroom Evide Aanu? -> where is the bathroom?, Enikku Sahayam Venam -> I need help", "pairs": [{ "left": "Namaskaram", "right": "hello / respectful greeting" }, { "left": "Ningal Sukhamano?", "right": "are you well?" }, { "left": "Bathroom Evide Aanu?", "right": "where is the bathroom?" }, { "left": "Enikku Sahayam Venam", "right": "I need help" }] },
+            { "id": "ml-u03-l04-ex-5", "type": "listen-type", "sourceType": "listenType", "prompt": "Listen and type what you hear.", "answer": "Ente Peru Rachel Aanu", "acceptedAnswers": ["ente peru rachel aanu", "ente peru rachel anu"], "audioPromptId": "a2", "phraseId": "p-ml-u03-l04-03" }
+          ],
+          "audioPrompts": [
+            { "id": "a1", "locale": "ml-IN", "voiceStyle": "warm-neutral", "textBn": "Ningal sukhamano?", "roman": "Ningal Sukhamano?", "textEn": "are you well?", "speed": 0.86 },
+            { "id": "a2", "locale": "ml-IN", "voiceStyle": "warm-neutral", "textBn": "Ente peru Rachel aanu", "roman": "Ente Peru Rachel Aanu", "textEn": "my name is Rachel", "speed": 0.86 }
+          ],
+          "metadata": { "estimatedMinutes": 8, "difficulty": "beginner", "tags": ["malayalam", "review", "spoken"], "xp": 18 }
+        }
+      ]
+    }
+  ]
+}

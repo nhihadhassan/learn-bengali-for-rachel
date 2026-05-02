@@ -180,16 +180,11 @@ function HistoryStoryFlow({ lesson }: { lesson: Lesson }) {
             </div>
           </div>
 
-          <div className="mt-6 hidden justify-end sm:flex">
+          <div className="mt-6 flex justify-end">
             <AppButton type="button" onClick={completeChapter}>
               Complete chapter <ArrowRight size={18} />
             </AppButton>
           </div>
-          <MobileStickyActions>
-            <AppButton type="button" onClick={completeChapter} className="w-full">
-              Complete chapter <ArrowRight size={18} />
-            </AppButton>
-          </MobileStickyActions>
         </article>
       ) : (
       <div className="animate-soft-rise">
@@ -262,16 +257,11 @@ function HistoryStoryFlow({ lesson }: { lesson: Lesson }) {
           </div>
         )}
 
-        <div className="mt-6 hidden flex-wrap justify-end gap-3 sm:flex">
+        <div className="mt-6 flex flex-wrap justify-end gap-3">
           <AppButton type="button" onClick={completeChapter}>
             Complete chapter <ArrowRight size={18} />
           </AppButton>
         </div>
-        <MobileStickyActions>
-          <AppButton type="button" onClick={completeChapter} className="w-full">
-            Complete chapter <ArrowRight size={18} />
-          </AppButton>
-        </MobileStickyActions>
       </div>
       )}
     </ExerciseCard>
@@ -461,6 +451,23 @@ function PracticeLessonFlow({ lesson }: { lesson: Lesson }) {
     moveNext();
   }
 
+  function skipSpeakingPractice() {
+    if (step.type !== "speak") {
+      return;
+    }
+
+    recordSkippedListening(
+      {
+        exerciseId: step.id,
+        kind: "speaking",
+        lessonId: lesson.id,
+        prompt: getStepPrompt(step),
+      },
+      lessonCurriculumId,
+    );
+    moveNext();
+  }
+
   function skipListening() {
     if (answerState !== "idle") {
       return;
@@ -474,6 +481,7 @@ function PracticeLessonFlow({ lesson }: { lesson: Lesson }) {
     recordSkippedListening(
       {
         exerciseId: step.id,
+        kind: "listening",
         lessonId: lesson.id,
         prompt: getStepPrompt(step),
       },
@@ -664,7 +672,7 @@ function PracticeLessonFlow({ lesson }: { lesson: Lesson }) {
         <SpeakPracticeStep
           locale={lesson.locale}
           onDone={finishSpeakingPractice}
-          onSkip={moveNext}
+          onSkip={skipSpeakingPractice}
           step={step}
         />
       )}
@@ -893,19 +901,10 @@ function IntroStep({
       <AppButton
         type="button"
         onClick={onContinue}
-        className="mt-6 hidden min-h-14 w-full text-base sm:inline-flex sm:w-auto"
+        className="mt-6 min-h-14 w-full text-base sm:w-auto"
       >
         Start {title} <ArrowRight size={20} />
       </AppButton>
-      <MobileStickyActions>
-        <AppButton
-          type="button"
-          onClick={onContinue}
-          className="w-full text-base"
-        >
-          Start {title} <ArrowRight size={20} />
-        </AppButton>
-      </MobileStickyActions>
     </div>
   );
 }
@@ -978,15 +977,10 @@ function LearnStep({
       <AppButton
         type="button"
         onClick={onContinue}
-        className="mt-6 hidden sm:inline-flex"
+        className="mt-5 w-full sm:mt-6 sm:w-auto"
       >
         Practice it <ArrowRight size={18} />
       </AppButton>
-      <MobileStickyActions>
-        <AppButton type="button" onClick={onContinue} className="w-full">
-          Practice it <ArrowRight size={18} />
-        </AppButton>
-      </MobileStickyActions>
     </div>
   );
 }
@@ -1071,7 +1065,7 @@ function SpeakPracticeStep({
         />
       </div>
 
-      <div className="mt-5 flex flex-wrap justify-end gap-3">
+      <div className="mt-5 grid gap-3 sm:flex sm:flex-wrap sm:justify-end">
         <AppButton type="button" variant="secondary" onClick={onSkip}>
           <VolumeX size={18} />
           Skip for now
@@ -1080,15 +1074,10 @@ function SpeakPracticeStep({
           <Volume2 size={18} />
           Play again
         </AppButton>
-        <AppButton type="button" onClick={onDone} className="hidden sm:inline-flex">
+        <AppButton type="button" onClick={onDone}>
           I said it <ArrowRight size={18} />
         </AppButton>
       </div>
-      <MobileStickyActions>
-        <AppButton type="button" onClick={onDone} className="w-full">
-          I said it <ArrowRight size={18} />
-        </AppButton>
-      </MobileStickyActions>
     </div>
   );
 }
@@ -1113,24 +1102,27 @@ function QuestionStep({
   skipLabel?: string;
 }) {
   const feedbackRef = useRef<HTMLDivElement | null>(null);
+  const actionRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     if (answerState === "idle" || typeof window === "undefined") {
       return;
     }
 
-    if (window.innerWidth >= 640) {
-      return;
-    }
+    const timeout = window.setTimeout(() => {
+      const actionElement = actionRef.current;
 
-    const frame = window.requestAnimationFrame(() => {
-      feedbackRef.current?.scrollIntoView({
+      if (!actionElement || isElementComfortablyVisible(actionElement)) {
+        return;
+      }
+
+      actionElement.scrollIntoView({
         behavior: "smooth",
-        block: "nearest",
+        block: "center",
       });
-    });
+    }, 180);
 
-    return () => window.cancelAnimationFrame(frame);
+    return () => window.clearTimeout(timeout);
   }, [answerState]);
 
   return (
@@ -1171,7 +1163,7 @@ function QuestionStep({
             )}
             {answerState === "skipped" && (
               <p className="mt-1 text-sm font-semibold">
-                Skipped. You can review listening practice later.
+                Skipped. You can review this practice later.
               </p>
             )}
             {answerState === "wrong" && (
@@ -1183,7 +1175,10 @@ function QuestionStep({
         </div>
       )}
 
-      <div className="mt-5 hidden flex-wrap justify-end gap-3 sm:flex">
+      <div
+        ref={actionRef}
+        className="mt-5 grid gap-3 sm:flex sm:flex-wrap sm:justify-end"
+      >
         {answerState === "idle" ? (
           <>
             {onSkip && (
@@ -1210,51 +1205,20 @@ function QuestionStep({
           </AppButton>
         )}
       </div>
-      <MobileStickyActions>
-        {answerState === "idle" ? (
-          <div className="grid w-full grid-cols-[1fr_1.35fr] gap-2">
-            {onSkip && (
-              <AppButton
-                type="button"
-                variant="secondary"
-                onClick={onSkip}
-                className="px-3 text-xs"
-              >
-                <VolumeX size={18} />
-                Skip
-              </AppButton>
-            )}
-            <AppButton
-              type="button"
-              disabled={!canCheck}
-              onClick={onCheck}
-              className={!onSkip ? "col-span-2 w-full" : "w-full"}
-            >
-              Check
-            </AppButton>
-          </div>
-        ) : (
-          <AppButton
-            type="button"
-            onClick={onContinue}
-            variant={answerState === "skipped" ? "primary" : "success"}
-            className="w-full"
-          >
-            Continue <ArrowRight size={18} />
-          </AppButton>
-        )}
-      </MobileStickyActions>
     </div>
   );
 }
 
-function MobileStickyActions({ children }: { children: ReactNode }) {
+function isElementComfortablyVisible(element: HTMLElement) {
+  const rect = element.getBoundingClientRect();
+  const viewportHeight =
+    window.innerHeight || document.documentElement.clientHeight;
+  const comfortableTop = 88;
+  const comfortableBottom = Math.max(96, viewportHeight * 0.14);
+
   return (
-    <div className="fixed inset-x-0 bottom-[76px] z-30 border-t border-white/80 bg-white/95 px-4 py-3 shadow-[0_-14px_36px_rgba(15,23,42,0.12)] backdrop-blur-xl dark:border-white/10 dark:bg-[#151225]/95 dark:shadow-[0_-14px_36px_rgba(0,0,0,0.28)] sm:hidden">
-      <div className="mx-auto flex max-w-md items-center justify-center">
-        {children}
-      </div>
-    </div>
+    rect.top >= comfortableTop &&
+    rect.bottom <= viewportHeight - comfortableBottom
   );
 }
 

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
 import { Geist, Geist_Mono } from "next/font/google";
+import Script from "next/script";
 import "./globals.css";
 import { AppShell } from "@/components/layout/app-shell";
 import { ServiceWorkerRegister } from "@/components/offline/service-worker-register";
@@ -58,10 +59,12 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <head>
-        <script
+        <Script
           id="theme-script"
-          dangerouslySetInnerHTML={{ __html: themeScript }}
-        />
+          strategy="beforeInteractive"
+        >
+          {themeScript}
+        </Script>
       </head>
       <body className="font-sans antialiased">
         <ServiceWorkerRegister />

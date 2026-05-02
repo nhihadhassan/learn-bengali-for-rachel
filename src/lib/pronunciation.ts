@@ -2,6 +2,7 @@
 
 export type PronunciationInput = {
   audioUrl?: string;
+  audioText?: string;
   bengaliScript?: string;
   debug?: boolean;
   locale?: string;
@@ -41,6 +42,7 @@ type RankedVoice = {
 };
 
 const bengaliLocalePriority = ["bn-bd", "bn-in", "bn"];
+const malayalamLocalePriority = ["ml-in", "ml"];
 
 const preferredVoiceHints = [
   "google বাংলা",
@@ -76,6 +78,13 @@ const spanishVoiceHints = [
   "spanish",
 ];
 
+const malayalamVoiceHints = [
+  "google malayalam",
+  "microsoft malayalam",
+  "malayalam",
+  "മലയാളം",
+];
+
 function getSpeechSynthesis() {
   if (typeof window === "undefined" || !("speechSynthesis" in window)) {
     return null;
@@ -104,8 +113,36 @@ function voiceIsBengali(voice: SpeechSynthesisVoice | null) {
   );
 }
 
+function voiceMatchesLocale(voice: SpeechSynthesisVoice | null, locale: string) {
+  if (!voice) {
+    return false;
+  }
+
+  const baseLanguage = locale.toLowerCase().split("-")[0];
+  const lang = voice.lang.toLowerCase();
+  const name = voice.name.toLowerCase();
+
+  if (baseLanguage === "bn") {
+    return voiceIsBengali(voice);
+  }
+
+  if (baseLanguage === "ml") {
+    return (
+      lang.startsWith("ml") ||
+      name.includes("malayalam") ||
+      name.includes("മലയാളം")
+    );
+  }
+
+  return lang.startsWith(baseLanguage);
+}
+
 function isBengaliLocale(locale: string) {
   return locale.toLowerCase().startsWith("bn");
+}
+
+function isMalayalamLocale(locale: string) {
+  return locale.toLowerCase().startsWith("ml");
 }
 
 function debugPronunciation(input: PronunciationInput, result: PronunciationResult) {
@@ -118,7 +155,7 @@ function debugPronunciation(input: PronunciationInput, result: PronunciationResu
     provider: result.provider,
     result,
     romanized: input.romanized,
-    script: input.script ?? input.bengaliScript ?? null,
+    script: input.script ?? input.bengaliScript ?? input.audioText ?? null,
   });
 
   if (result.provider === "none") {
@@ -198,6 +235,7 @@ function rankVoice(voice: SpeechSynthesisVoice, locale = "bn-BD"): RankedVoice {
   const baseLanguage = preferredLocale.split("-")[0];
   const isSpanish = baseLanguage === "es";
   const isBengali = baseLanguage === "bn";
+  const isMalayalam = baseLanguage === "ml";
   let score = 0;
 
   if (isBengali) {
@@ -210,6 +248,18 @@ function rankVoice(voice: SpeechSynthesisVoice, locale = "bn-BD"): RankedVoice {
     } else if (lang.startsWith("bn")) {
       score += 220;
     }
+  } else if (isMalayalam) {
+    const localeRank = malayalamLocalePriority.indexOf(lang);
+
+    if (localeRank >= 0) {
+      score += 250 - localeRank * 10;
+    } else if (lang.startsWith("ml-")) {
+      score += 225;
+    } else if (lang.startsWith("ml")) {
+      score += 215;
+    } else if (malayalamVoiceHints.some((hint) => haystack.includes(hint))) {
+      score += 150;
+    }
   } else if (lang === preferredLocale) {
     score += 120;
   } else if (isSpanish && lang === "es-pe") {
@@ -220,7 +270,11 @@ function rankVoice(voice: SpeechSynthesisVoice, locale = "bn-BD"): RankedVoice {
     score += 100;
   }
 
-  const hints = isSpanish ? spanishVoiceHints : preferredVoiceHints;
+  const hints = isMalayalam
+    ? malayalamVoiceHints
+    : isSpanish
+      ? spanishVoiceHints
+      : preferredVoiceHints;
   const hintIndex = preferredVoiceHints.findIndex((hint) =>
     haystack.includes(hint),
   );
@@ -336,7 +390,8 @@ const recordedAudioProvider: PronunciationProvider = {
 
 function resolveTtsText(input: PronunciationInput) {
   const locale = input.locale ?? "bn-BD";
-  const script = input.script?.trim() || input.bengaliScript?.trim();
+  const script =
+    input.script?.trim() || input.bengaliScript?.trim() || input.audioText?.trim();
 
   if (isBengaliLocale(locale)) {
     return script && hasBengaliScript(script) ? script : "";
@@ -358,6 +413,14 @@ function getSpeechSettings(locale: string) {
     return {
       pitch: 1,
       rate: 0.84,
+      volume: 1,
+    };
+  }
+
+  if (isMalayalamLocale(locale)) {
+    return {
+      pitch: 1,
+      rate: 0.78,
       volume: 1,
     };
   }
@@ -386,6 +449,10 @@ function createVoiceMessage({
 
   if (isBengaliLocale(locale)) {
     return `No dedicated Bengali/Bangla voice was found. Trying the browser's ${lang} speech fallback.`;
+  }
+
+  if (isMalayalamLocale(locale)) {
+    return `No dedicated Malayalam voice was found. Trying the browser's ${lang} speech fallback.`;
   }
 
   return `Using the browser's ${lang} speech fallback.`;
@@ -477,7 +544,7 @@ const browserTtsProvider: PronunciationProvider = {
     const voice = await getBestVoice(locale);
     const text = resolveTtsText(input);
     const isBengali = isBengaliLocale(locale);
-    const hasBengaliVoice = isBengali ? voiceIsBengali(voice) : Boolean(voice);
+    const hasLocaleVoice = voiceMatchesLocale(voice, locale);
 
     if (!text) {
       return {
@@ -491,7 +558,7 @@ const browserTtsProvider: PronunciationProvider = {
     const utterance = new SpeechSynthesisUtterance(text);
     const fallbackLang = isBengali ? "bn-BD" : locale;
     const settings = getSpeechSettings(locale);
-    const fallbackUsed = isBengali ? !hasBengaliVoice : !voice;
+    const fallbackUsed = !hasLocaleVoice;
 
     utterance.lang = voice?.lang ?? fallbackLang;
     utterance.voice = voice;

@@ -15,9 +15,11 @@ export function LessonPath({ units }: { units: Unit[] }) {
   const pathLabel =
     activeCurriculumId === "spanish-peru"
       ? "Spanish for Peru"
-      : activeCurriculumId === "history"
-        ? "History"
-        : "Bengali";
+      : activeCurriculumId === "malayalam"
+        ? "Malayalam"
+        : activeCurriculumId === "history"
+          ? "History"
+          : "Bengali";
   const currentLessonId =
     allLessons.find((lesson) => !completed.has(lesson.id))?.id ?? allLessons[0]?.id;
   const currentLessonIndex = Math.max(
@@ -106,6 +108,15 @@ export function LessonPath({ units }: { units: Unit[] }) {
           <p className="text-lg font-black">More Bengali lessons coming soon.</p>
           <p className="mt-1 text-sm font-semibold">
             Keep practicing what you&apos;ve learned. New family, travel, and daily conversation topics can slot into this path without resetting progress.
+          </p>
+        </section>
+      )}
+      {activeCurriculumId === "malayalam" && (
+        <section className="animate-soft-rise rounded-[30px] border border-dashed border-violet-200 bg-violet-50/80 p-5 text-violet-900 shadow-inner dark:border-violet-300/25 dark:bg-violet-400/12 dark:text-violet-100 sm:p-6">
+          <p className="text-lg font-black">More Malayalam lessons coming soon.</p>
+          <p className="mt-1 text-sm font-semibold">
+            Keep practicing what you&apos;ve learned. New Kerala travel, family,
+            and food phrases can join this path without resetting progress.
           </p>
         </section>
       )}

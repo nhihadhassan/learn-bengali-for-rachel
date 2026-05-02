@@ -1,5 +1,6 @@
 import rawContent from "../../content/learn-bengali.json";
 import rawHistoryContent from "../../content/learn-history.json";
+import rawMalayalamContent from "../../content/learn-malayalam.json";
 import rawSpanishContent from "../../content/learn-spanish-peru.json";
 import { normalizeAnswer } from "@/lib/answer-checking";
 import type {
@@ -30,6 +31,7 @@ function withCurriculum(
 
 export const content = rawContent as LearningContent;
 export const historyContent = rawHistoryContent as LearningContent;
+export const malayalamContent = rawMalayalamContent as LearningContent;
 export const spanishPeruContent = rawSpanishContent as LearningContent;
 
 export const curricula: Curriculum[] = [
@@ -51,6 +53,15 @@ export const curricula: Curriculum[] = [
     mode: "language",
     travelTheme: "Peru travel",
     units: withCurriculum(spanishPeruContent, "spanish-peru", "es-PE"),
+  },
+  {
+    id: "malayalam",
+    label: "Malayalam",
+    shortLabel: "Malayalam",
+    description: "Malayalam made gentle for beginners with spoken, romanized phrases.",
+    locale: "ml-IN",
+    mode: "language",
+    units: withCurriculum(malayalamContent, "malayalam", "ml-IN"),
   },
   {
     id: "history",

@@ -1,4 +1,4 @@
-const CACHE_NAME = "learning-bengali-offline-v2";
+const CACHE_NAME = "learning-bengali-offline-v3";
 const PRECACHE_URLS = [
   "/",
   "/lessons",
@@ -37,6 +37,19 @@ const PRECACHE_URLS = [
   "/practice/es-u07-l02-lost-documents",
   "/practice/es-u08-l01-machu-picchu-and-tours",
   "/practice/es-u08-l02-altitude-and-photos",
+  "/practice/ml-u01-l01-greetings-and-respect",
+  "/practice/ml-u01-l02-how-are-you",
+  "/practice/ml-u01-l03-names-and-introductions",
+  "/practice/ml-u01-l04-family-and-people",
+  "/practice/ml-u02-l01-food-and-drinks",
+  "/practice/ml-u02-l02-visiting-someones-home",
+  "/practice/ml-u02-l03-daily-conversation",
+  "/practice/ml-u02-l04-questions-and-small-talk",
+  "/practice/ml-u02-l05-travel-and-getting-around",
+  "/practice/ml-u03-l01-polite-requests",
+  "/practice/ml-u03-l02-feelings-and-needs",
+  "/practice/ml-u03-l03-help-and-emergencies",
+  "/practice/ml-u03-l04-review-everyday-malayalam",
   "/practice/hist-u13-l01-ancient-peru-before-the-inca",
   "/practice/hist-u13-l02-the-inca-empire",
   "/practice/hist-u13-l03-cusco-as-a-capital",

@@ -28,7 +28,9 @@ export function MistakeReview() {
       ? "History"
       : activeCurriculumId === "spanish-peru"
         ? "Spanish"
-        : "Bengali";
+        : activeCurriculumId === "malayalam"
+          ? "Malayalam"
+          : "Bengali";
   const reviewSubject =
     activeCurriculumId === "history" ? "story moments" : "phrases";
   const index =
@@ -44,8 +46,8 @@ export function MistakeReview() {
       <div className="space-y-5">
         <ReviewHero
           eyebrow="Smart Review"
-          title="Catch up on skipped listening."
-          body="These are not mistakes. They are listening prompts Rachel saved for later."
+          title="Catch up on skipped practice."
+          body="These are not mistakes. They are listening or speaking prompts Rachel saved for later."
         />
 
         <div className="mx-auto max-w-2xl">
@@ -77,10 +79,10 @@ export function MistakeReview() {
           <p className="text-xs font-black uppercase tracking-[0.14em] text-emerald-100">
             Preview
           </p>
-          <p className="mt-2 text-lg font-black">Mistakes and skipped listening will appear here.</p>
+          <p className="mt-2 text-lg font-black">Mistakes and skipped practice will appear here.</p>
           <p className="mt-1 text-sm font-semibold text-emerald-50">
             Smart Review keeps the sticky parts separate for Bengali, Spanish,
-            and History.
+            Malayalam, and History.
           </p>
         </div>
         <Link
@@ -100,7 +102,7 @@ export function MistakeReview() {
         title="Practice the sticky parts."
         body={`Retry missed questions one at a time. A correct answer clears the mistake and earns a little XP.${
           activeSkippedListening.length > 0
-            ? ` ${activeSkippedListening.length} skipped listening ${activeSkippedListening.length === 1 ? "prompt is" : "prompts are"} waiting after mistakes.`
+            ? ` ${activeSkippedListening.length} skipped practice ${activeSkippedListening.length === 1 ? "prompt is" : "prompts are"} waiting after mistakes.`
             : ""
         }`}
       />
@@ -166,7 +168,7 @@ function SkippedListeningCard({
         </span>
         <div>
           <p className="text-sm font-black uppercase tracking-[0.14em] text-slate-500 dark:text-slate-400">
-            Skipped listening 1 of {total}
+            Skipped {skipped.kind === "speaking" ? "speaking" : "listening"} 1 of {total}
           </p>
           <h2 className="mt-1 text-xl font-black">
             {capitalizeDisplayText(skipped.prompt)}
@@ -181,7 +183,7 @@ function SkippedListeningCard({
 
       <div className="rounded-3xl border border-violet-100 bg-violet-50 p-4 text-violet-900 dark:border-violet-300/25 dark:bg-violet-400/14 dark:text-violet-100">
         <p className="font-bold">
-          This was skipped, not missed. Replay it when audio is convenient.
+          This was skipped, not missed. Replay it when practice is convenient.
         </p>
       </div>
 

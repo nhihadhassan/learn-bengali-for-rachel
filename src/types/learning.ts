@@ -1,4 +1,4 @@
-export type CurriculumId = "bengali" | "spanish-peru" | "history";
+export type CurriculumId = "bengali" | "spanish-peru" | "malayalam" | "history";
 
 export type ExerciseType =
   | "multiple-choice"
@@ -177,6 +177,7 @@ export type Mistake = {
 export type SkippedListeningExercise = {
   id: string;
   exerciseId: string;
+  kind?: "listening" | "speaking";
   lessonId: string;
   prompt: string;
   createdAt: string;

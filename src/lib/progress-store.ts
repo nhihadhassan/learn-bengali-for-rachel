@@ -36,6 +36,7 @@ const initialStore: ProgressStore = {
   byCurriculum: {
     bengali: cloneInitialProgress(),
     history: cloneInitialProgress(),
+    malayalam: cloneInitialProgress(),
     "spanish-peru": cloneInitialProgress(),
   },
 };
@@ -87,6 +88,10 @@ function normalizeCurriculumId(value: unknown): CurriculumId {
     return "history";
   }
 
+  if (value === "malayalam") {
+    return "malayalam";
+  }
+
   return value === "spanish-peru" ? "spanish-peru" : defaultCurriculumId;
 }
 
@@ -101,6 +106,7 @@ function normalizeStore(value: unknown): ProgressStore {
       byCurriculum: {
         bengali: normalizeProgress(byCurriculum.bengali),
         history: normalizeProgress(byCurriculum.history),
+        malayalam: normalizeProgress(byCurriculum.malayalam),
         "spanish-peru": normalizeProgress(byCurriculum["spanish-peru"]),
       },
     };
@@ -111,6 +117,7 @@ function normalizeStore(value: unknown): ProgressStore {
     byCurriculum: {
       bengali: normalizeProgress(value),
       history: cloneInitialProgress(),
+      malayalam: cloneInitialProgress(),
       "spanish-peru": cloneInitialProgress(),
     },
   };
