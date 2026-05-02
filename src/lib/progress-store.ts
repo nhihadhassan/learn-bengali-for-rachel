@@ -13,7 +13,10 @@ const initialProgress: ProgressState = {
   completedLessons: [],
   encounteredPhraseIds: [],
   xp: 0,
+  gems: 0,
   streak: 0,
+  streakRestoreAvailable: false,
+  lastStreakBeforeMiss: 0,
   currentUnit: 1,
   lastPracticeDate: null,
   lastLessonId: null,
@@ -59,6 +62,9 @@ function normalizeProgress(value: unknown): ProgressState {
     ...(maybeProgress ?? {}),
     completedLessons: maybeProgress?.completedLessons ?? [],
     encounteredPhraseIds: maybeProgress?.encounteredPhraseIds ?? [],
+    gems: maybeProgress?.gems ?? 0,
+    streakRestoreAvailable: maybeProgress?.streakRestoreAvailable ?? false,
+    lastStreakBeforeMiss: maybeProgress?.lastStreakBeforeMiss ?? 0,
     lastLessonId: maybeProgress?.lastLessonId ?? null,
     lastStepIndex: maybeProgress?.lastStepIndex ?? 0,
     lastActiveAt: maybeProgress?.lastActiveAt ?? null,
@@ -179,10 +185,20 @@ function applyPracticeDay(progress: ProgressState): ProgressState {
 
   const streak =
     progress.lastPracticeDate === yesterdayKey() ? progress.streak + 1 : 1;
+  const missedWithStreak =
+    Boolean(progress.lastPracticeDate) &&
+    progress.lastPracticeDate !== yesterdayKey() &&
+    progress.streak > 0;
 
   return {
     ...progress,
     streak,
+    streakRestoreAvailable: missedWithStreak
+      ? true
+      : progress.streakRestoreAvailable,
+    lastStreakBeforeMiss: missedWithStreak
+      ? progress.streak
+      : progress.lastStreakBeforeMiss,
     lastPracticeDate: today,
   };
 }
@@ -279,13 +295,15 @@ export function useProgress() {
       const practiced = applyPracticeDay(current);
       const isNewCompletion = !practiced.completedLessons.includes(lessonId);
       const earnedXp = 10 + correctCount * 5;
+      const earnedGems = isNewCompletion ? 25 : 0;
 
       return {
         ...practiced,
         completedLessons: isNewCompletion
-          ? [...practiced.completedLessons, lessonId]
-          : practiced.completedLessons,
+            ? [...practiced.completedLessons, lessonId]
+            : practiced.completedLessons,
         xp: practiced.xp + earnedXp,
+        gems: practiced.gems + earnedGems,
         currentUnit: Math.max(practiced.currentUnit, unitNumber),
         lastLessonId: lessonId,
         lastStepIndex: 0,
@@ -412,6 +430,32 @@ export function useProgress() {
     updateCurriculumProgress(activeCurriculumId, () => cloneInitialProgress());
   }, [activeCurriculumId]);
 
+  const restoreStreak = useCallback(function restoreStreak() {
+    let restored = false;
+
+    updateCurriculumProgress(activeCurriculumId, (current) => {
+      if (
+        !current.streakRestoreAvailable ||
+        current.gems < 400 ||
+        current.lastStreakBeforeMiss <= 0
+      ) {
+        return current;
+      }
+
+      restored = true;
+
+      return {
+        ...current,
+        gems: current.gems - 400,
+        streak: Math.max(current.streak, current.lastStreakBeforeMiss + 1),
+        streakRestoreAvailable: false,
+        lastStreakBeforeMiss: 0,
+      };
+    });
+
+    return restored;
+  }, [activeCurriculumId]);
+
   return {
     activeCurriculumId,
     activeMistakes,
@@ -423,6 +467,7 @@ export function useProgress() {
     recordMistake,
     recordSkippedListening,
     resetProgress,
+    restoreStreak,
     resolveMistake,
     resolveSkippedListening,
     setActiveCurriculumId,

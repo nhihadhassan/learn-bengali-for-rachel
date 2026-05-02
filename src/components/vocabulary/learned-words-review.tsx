@@ -78,9 +78,9 @@ export function LearnedWordsReview() {
           <p className="text-xs font-black uppercase tracking-[0.14em] text-violet-100">
             Preview
           </p>
-          <p className="mt-2 text-3xl font-black text-white">Nomoskar</p>
+          <p className="mt-2 text-3xl font-black text-white">Assalamualaikum</p>
           <p className="mt-1 font-bold text-slate-300">
-            Hello / respectful greeting
+            Peace be upon you / a common respectful greeting
           </p>
           <p className="mt-3 text-sm font-semibold text-slate-400">
             Words and phrases you meet in lessons will appear here with audio.

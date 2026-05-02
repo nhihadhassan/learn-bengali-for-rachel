@@ -1,13 +1,20 @@
 "use client";
 
 import type { ComponentType } from "react";
-import { useMemo } from "react";
-import { CheckCircle2, Flame, RotateCcw, Trophy } from "lucide-react";
+import { useMemo, useState } from "react";
+import { CheckCircle2, Flame, Gem, RotateCcw, ShieldCheck, Trophy } from "lucide-react";
 import { getCurriculum } from "@/lib/content";
 import { useProgress } from "@/lib/progress-store";
 
 export function ProgressSummary() {
-  const { activeCurriculumId, activeMistakes, progress, resetProgress } = useProgress();
+  const {
+    activeCurriculumId,
+    activeMistakes,
+    progress,
+    resetProgress,
+    restoreStreak,
+  } = useProgress();
+  const [restoreMessage, setRestoreMessage] = useState("");
   const curriculum = getCurriculum(activeCurriculumId);
   const lessons = useMemo(
     () => curriculum.units.flatMap((unit) => unit.lessons),
@@ -24,6 +31,32 @@ export function ProgressSummary() {
     lessons.length > 0 ? (completedCurrentLessons.length / lessons.length) * 100 : 0,
   );
   const hasProgress = progress.xp > 0 || completedCurrentLessons.length > 0;
+  const canRestoreStreak =
+    progress.streakRestoreAvailable && progress.lastStreakBeforeMiss > 0;
+  const hasEnoughGems = progress.gems >= 400;
+
+  function handleRestoreStreak() {
+    if (!canRestoreStreak) {
+      setRestoreMessage("Streak restore will appear here if you miss a day.");
+      return;
+    }
+
+    if (!hasEnoughGems) {
+      setRestoreMessage("You need 400 gems to restore your streak.");
+      return;
+    }
+
+    if (!window.confirm("Restore your streak for 400 gems?")) {
+      return;
+    }
+
+    const restored = restoreStreak();
+    setRestoreMessage(
+      restored
+        ? "Streak restored. Keep the momentum going."
+        : "Streak restore is not available right now.",
+    );
+  }
 
   return (
     <div className="space-y-5">
@@ -38,8 +71,9 @@ export function ProgressSummary() {
         </p>
       </section>
 
-      <div className="grid gap-4 md:grid-cols-3">
+      <div className="grid gap-4 md:grid-cols-4">
         <MetricCard icon={Trophy} label="XP" value={progress.xp.toString()} />
+        <MetricCard icon={Gem} label="Gems" value={progress.gems.toString()} />
         <MetricCard icon={Flame} label="Streak" value={`${progress.streak} days`} />
         <MetricCard
           icon={RotateCcw}
@@ -82,6 +116,46 @@ export function ProgressSummary() {
             className="progress-shine h-full rounded-full transition-all duration-700"
             style={{ width: `${completionPercent}%` }}
           />
+        </div>
+      </section>
+
+      <section className="rounded-3xl border border-cyan-100 bg-cyan-50 p-5 shadow-inner dark:border-cyan-300/20 dark:bg-cyan-400/12">
+        <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+          <div className="flex items-start gap-3">
+            <span className="grid size-11 shrink-0 place-items-center rounded-2xl bg-white text-cyan-700 shadow-sm dark:bg-white/10 dark:text-cyan-100">
+              <ShieldCheck size={22} />
+            </span>
+            <div>
+              <h2 className="text-xl font-black">Streak Restore</h2>
+              <p className="mt-1 text-sm font-semibold leading-6 text-slate-600 dark:text-slate-300">
+                Spend 400 gems to restore a streak after a missed day. No money,
+                no loot boxes, just a little cushion for learning.
+              </p>
+              {restoreMessage && (
+                <p className="mt-2 text-sm font-black text-cyan-800 dark:text-cyan-100">
+                  {restoreMessage}
+                </p>
+              )}
+              {!canRestoreStreak && !restoreMessage && (
+                <p className="mt-2 text-sm font-black text-cyan-800 dark:text-cyan-100">
+                  Streak restore will appear here if you miss a day.
+                </p>
+              )}
+              {canRestoreStreak && !hasEnoughGems && !restoreMessage && (
+                <p className="mt-2 text-sm font-black text-cyan-800 dark:text-cyan-100">
+                  You need 400 gems to restore your streak.
+                </p>
+              )}
+            </div>
+          </div>
+          <button
+            type="button"
+            onClick={handleRestoreStreak}
+            className="min-h-12 rounded-2xl bg-cyan-600 px-5 py-3 font-black text-white shadow-[0_6px_0_#0e7490,0_16px_30px_rgba(8,145,178,0.2)] transition hover:-translate-y-0.5 hover:bg-cyan-500 hover:shadow-[0_8px_0_#0e7490,0_22px_36px_rgba(8,145,178,0.24)] active:translate-y-1 disabled:cursor-not-allowed disabled:opacity-60 disabled:hover:translate-y-0"
+            disabled={!canRestoreStreak || !hasEnoughGems}
+          >
+            Restore for 400 gems
+          </button>
         </div>
       </section>
 

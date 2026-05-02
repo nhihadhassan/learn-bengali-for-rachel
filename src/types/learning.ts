@@ -16,6 +16,11 @@ export type Phrase = {
   pronunciation: string;
   category: string;
   audioUrl?: string;
+  breakdown?: Array<{
+    word: string;
+    pronunciation: string;
+    meaning: string;
+  }>;
 };
 
 export type MatchingPair = {
@@ -181,7 +186,10 @@ export type ProgressState = {
   completedLessons: string[];
   encounteredPhraseIds: string[];
   xp: number;
+  gems: number;
   streak: number;
+  streakRestoreAvailable: boolean;
+  lastStreakBeforeMiss: number;
   currentUnit: number;
   lastPracticeDate: string | null;
   lastLessonId: string | null;

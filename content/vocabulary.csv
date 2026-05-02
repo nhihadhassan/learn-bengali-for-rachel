@@ -1,6 +1,6 @@
 "unitId","unitNumber","unitTitle","lessonId","lessonTitle","romanized","english","tags"
-"u01","1","First Conversations","u01-l01-greetings","Greetings","nomoskar","hello / respectful greeting","greeting|polite"
-"u01","1","First Conversations","u01-l01-greetings","Greetings","hello","hello","greeting"
+"u01","1","First Conversations","u01-l01-greetings","Greetings","assalamualaikum","peace be upon you / a common respectful greeting","greeting|polite"
+"u01","1","First Conversations","u01-l01-greetings","Greetings","walaikum assalam","and peace be upon you / greeting reply","greeting|polite"
 "u01","1","First Conversations","u01-l01-greetings","Greetings","dhonnobad","thank you","polite"
 "u01","1","First Conversations","u01-l01-greetings","Greetings","abar dekha hobe","see you again","farewell"
 "u01","1","First Conversations","u01-l01-greetings","Greetings","bhalo thako","stay well","farewell"

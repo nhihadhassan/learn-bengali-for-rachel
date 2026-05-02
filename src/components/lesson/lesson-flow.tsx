@@ -59,9 +59,11 @@ export function LessonFlow({ lesson }: { lesson: Lesson }) {
 
 function HistoryStoryFlow({ lesson }: { lesson: Lesson }) {
   const [isComplete, setIsComplete] = useState(false);
+  const [earnedGems, setEarnedGems] = useState(0);
   const {
     activeCurriculumId,
     completeLesson,
+    progress,
     recordLessonPosition,
     setActiveCurriculumId,
   } = useProgress();
@@ -83,6 +85,7 @@ function HistoryStoryFlow({ lesson }: { lesson: Lesson }) {
   }, [isComplete, lesson.id, lessonCurriculumId, recordLessonPosition]);
 
   function completeChapter() {
+    setEarnedGems(progress.completedLessons.includes(lesson.id) ? 0 : 25);
     completeLesson(lesson.id, lesson.unitNumber, 0, lessonCurriculumId);
     playFeedbackSound("complete");
     setIsComplete(true);
@@ -105,7 +108,7 @@ function HistoryStoryFlow({ lesson }: { lesson: Lesson }) {
               ? "You finished a Peru chapter and moved your travel story forward."
               : "You read the chapter, connected the key idea, and earned XP for this History path."}
           </p>
-          <div className="mt-6 grid gap-3 rounded-3xl border border-white/15 bg-white/10 p-4 shadow-inner sm:grid-cols-3">
+          <div className="mt-6 grid gap-3 rounded-3xl border border-white/15 bg-white/10 p-4 shadow-inner sm:grid-cols-4">
             <div>
               <p className="text-sm font-bold text-violet-100">Chapter</p>
               <p className="text-3xl font-black">Read</p>
@@ -113,6 +116,10 @@ function HistoryStoryFlow({ lesson }: { lesson: Lesson }) {
             <div>
               <p className="text-sm font-bold text-violet-100">XP earned</p>
               <p className="text-3xl font-black">10</p>
+            </div>
+            <div>
+              <p className="text-sm font-bold text-violet-100">Gems earned</p>
+              <p className="text-3xl font-black">{earnedGems}</p>
             </div>
             <div>
               <p className="text-sm font-bold text-violet-100">Timeline</p>
@@ -173,11 +180,16 @@ function HistoryStoryFlow({ lesson }: { lesson: Lesson }) {
             </div>
           </div>
 
-          <div className="mt-6 flex justify-end">
+          <div className="mt-6 hidden justify-end sm:flex">
             <AppButton type="button" onClick={completeChapter}>
               Complete chapter <ArrowRight size={18} />
             </AppButton>
           </div>
+          <MobileStickyActions>
+            <AppButton type="button" onClick={completeChapter} className="w-full">
+              Complete chapter <ArrowRight size={18} />
+            </AppButton>
+          </MobileStickyActions>
         </article>
       ) : (
       <div className="animate-soft-rise">
@@ -250,11 +262,16 @@ function HistoryStoryFlow({ lesson }: { lesson: Lesson }) {
           </div>
         )}
 
-        <div className="mt-6 flex flex-wrap justify-end gap-3">
+        <div className="mt-6 hidden flex-wrap justify-end gap-3 sm:flex">
           <AppButton type="button" onClick={completeChapter}>
             Complete chapter <ArrowRight size={18} />
           </AppButton>
         </div>
+        <MobileStickyActions>
+          <AppButton type="button" onClick={completeChapter} className="w-full">
+            Complete chapter <ArrowRight size={18} />
+          </AppButton>
+        </MobileStickyActions>
       </div>
       )}
     </ExerciseCard>
@@ -300,6 +317,7 @@ function PracticeLessonFlow({ lesson }: { lesson: Lesson }) {
   const [correctStreak, setCorrectStreak] = useState(0);
   const [streakMilestone, setStreakMilestone] = useState<number | null>(null);
   const [isComplete, setIsComplete] = useState(false);
+  const [earnedGems, setEarnedGems] = useState(0);
   const isRestoringStepRef = useRef(false);
   const step = steps[stepIndex];
   const lessonCurriculumId = lesson.curriculumId ?? activeCurriculumId;
@@ -388,6 +406,7 @@ function PracticeLessonFlow({ lesson }: { lesson: Lesson }) {
 
   function moveNext() {
     if (stepIndex + 1 >= steps.length) {
+      setEarnedGems(progress.completedLessons.includes(lesson.id) ? 0 : 25);
       completeLesson(lesson.id, lesson.unitNumber, correctCount, lessonCurriculumId);
       playFeedbackSound("complete");
       setIsComplete(true);
@@ -550,7 +569,7 @@ function PracticeLessonFlow({ lesson }: { lesson: Lesson }) {
               ? `You connected this story moment and earned XP. Missed recap questions are waiting in review.`
               : `You got ${correctCount} practice checks right and earned XP. Missed questions are waiting in review.`}
           </p>
-          <div className="mt-6 grid gap-3 rounded-3xl border border-white/15 bg-white/10 p-4 shadow-inner sm:grid-cols-3">
+          <div className="mt-6 grid gap-3 rounded-3xl border border-white/15 bg-white/10 p-4 shadow-inner sm:grid-cols-4">
             <div>
               <p className="text-sm font-bold text-emerald-100">
                 {isHistoryLesson ? "Story checks" : "Correct checks"}
@@ -560,6 +579,10 @@ function PracticeLessonFlow({ lesson }: { lesson: Lesson }) {
             <div>
               <p className="text-sm font-bold text-emerald-100">XP earned</p>
               <p className="text-3xl font-black">{10 + correctCount * 5}</p>
+            </div>
+            <div>
+              <p className="text-sm font-bold text-emerald-100">Gems earned</p>
+              <p className="text-3xl font-black">{earnedGems}</p>
             </div>
             <div>
               <p className="text-sm font-bold text-emerald-100">Review</p>
@@ -870,10 +893,19 @@ function IntroStep({
       <AppButton
         type="button"
         onClick={onContinue}
-        className="mt-6 min-h-14 w-full text-base sm:w-auto"
+        className="mt-6 hidden min-h-14 w-full text-base sm:inline-flex sm:w-auto"
       >
         Start {title} <ArrowRight size={20} />
       </AppButton>
+      <MobileStickyActions>
+        <AppButton
+          type="button"
+          onClick={onContinue}
+          className="w-full text-base"
+        >
+          Start {title} <ArrowRight size={20} />
+        </AppButton>
+      </MobileStickyActions>
     </div>
   );
 }
@@ -940,16 +972,54 @@ function LearnStep({
             {step.phrase.pronunciation}
           </p>
         </div>
+        <WordBreakdown phrase={step.phrase} />
       </div>
 
       <AppButton
         type="button"
         onClick={onContinue}
-        className="mt-6"
+        className="mt-6 hidden sm:inline-flex"
       >
         Practice it <ArrowRight size={18} />
       </AppButton>
+      <MobileStickyActions>
+        <AppButton type="button" onClick={onContinue} className="w-full">
+          Practice it <ArrowRight size={18} />
+        </AppButton>
+      </MobileStickyActions>
     </div>
+  );
+}
+
+function WordBreakdown({ phrase }: { phrase: Phrase }) {
+  if (!phrase.breakdown?.length) {
+    return null;
+  }
+
+  return (
+    <details className="rounded-3xl border border-violet-100 bg-violet-50 p-4 shadow-inner open:pb-5 dark:border-violet-300/20 dark:bg-violet-400/12">
+      <summary className="cursor-pointer text-xs font-black uppercase tracking-[0.14em] text-violet-700 marker:text-violet-500 dark:text-violet-200">
+        Word Breakdown
+      </summary>
+      <div className="mt-3 grid gap-2">
+        {phrase.breakdown.map((item) => (
+          <div
+            key={`${phrase.id}-${item.word}`}
+            className="grid gap-1 rounded-2xl bg-white/85 px-4 py-3 shadow-sm dark:bg-white/10 sm:grid-cols-[1fr_1.2fr_1.2fr] sm:items-center"
+          >
+            <p className="font-black text-slate-950 dark:text-slate-50">
+              {formatRomanizedDisplay(item.word)}
+            </p>
+            <p className="text-sm font-bold text-violet-700 dark:text-violet-200">
+              {item.pronunciation}
+            </p>
+            <p className="text-sm font-semibold text-slate-600 dark:text-slate-300">
+              {capitalizeDisplayText(item.meaning)}
+            </p>
+          </div>
+        ))}
+      </div>
+    </details>
   );
 }
 
@@ -1010,10 +1080,15 @@ function SpeakPracticeStep({
           <Volume2 size={18} />
           Play again
         </AppButton>
-        <AppButton type="button" onClick={onDone}>
+        <AppButton type="button" onClick={onDone} className="hidden sm:inline-flex">
           I said it <ArrowRight size={18} />
         </AppButton>
       </div>
+      <MobileStickyActions>
+        <AppButton type="button" onClick={onDone} className="w-full">
+          I said it <ArrowRight size={18} />
+        </AppButton>
+      </MobileStickyActions>
     </div>
   );
 }
@@ -1037,12 +1112,34 @@ function QuestionStep({
   onSkip?: () => void;
   skipLabel?: string;
 }) {
+  const feedbackRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    if (answerState === "idle" || typeof window === "undefined") {
+      return;
+    }
+
+    if (window.innerWidth >= 640) {
+      return;
+    }
+
+    const frame = window.requestAnimationFrame(() => {
+      feedbackRef.current?.scrollIntoView({
+        behavior: "smooth",
+        block: "nearest",
+      });
+    });
+
+    return () => window.cancelAnimationFrame(frame);
+  }, [answerState]);
+
   return (
     <div>
       {children}
 
       {answerState !== "idle" && (
         <div
+          ref={feedbackRef}
           className={cn(
             "streak-pop mt-5 flex items-start gap-3 rounded-2xl p-4 font-bold shadow-sm",
             answerState === "correct"
@@ -1086,7 +1183,7 @@ function QuestionStep({
         </div>
       )}
 
-      <div className="mt-5 flex flex-wrap justify-end gap-3">
+      <div className="mt-5 hidden flex-wrap justify-end gap-3 sm:flex">
         {answerState === "idle" ? (
           <>
             {onSkip && (
@@ -1112,6 +1209,50 @@ function QuestionStep({
             Continue <ArrowRight size={18} />
           </AppButton>
         )}
+      </div>
+      <MobileStickyActions>
+        {answerState === "idle" ? (
+          <div className="grid w-full grid-cols-[1fr_1.35fr] gap-2">
+            {onSkip && (
+              <AppButton
+                type="button"
+                variant="secondary"
+                onClick={onSkip}
+                className="px-3 text-xs"
+              >
+                <VolumeX size={18} />
+                Skip
+              </AppButton>
+            )}
+            <AppButton
+              type="button"
+              disabled={!canCheck}
+              onClick={onCheck}
+              className={!onSkip ? "col-span-2 w-full" : "w-full"}
+            >
+              Check
+            </AppButton>
+          </div>
+        ) : (
+          <AppButton
+            type="button"
+            onClick={onContinue}
+            variant={answerState === "skipped" ? "primary" : "success"}
+            className="w-full"
+          >
+            Continue <ArrowRight size={18} />
+          </AppButton>
+        )}
+      </MobileStickyActions>
+    </div>
+  );
+}
+
+function MobileStickyActions({ children }: { children: ReactNode }) {
+  return (
+    <div className="fixed inset-x-0 bottom-[76px] z-30 border-t border-white/80 bg-white/95 px-4 py-3 shadow-[0_-14px_36px_rgba(15,23,42,0.12)] backdrop-blur-xl dark:border-white/10 dark:bg-[#151225]/95 dark:shadow-[0_-14px_36px_rgba(0,0,0,0.28)] sm:hidden">
+      <div className="mx-auto flex max-w-md items-center justify-center">
+        {children}
       </div>
     </div>
   );
@@ -1239,7 +1380,7 @@ function buildLessonSteps(lesson: Lesson): LessonStep[] {
 }
 
 function buildMeaningOptions(answer: string, allMeanings: string[]) {
-  const fillers = ["hello", "thank you", "where", "rice", "water", "father"];
+  const fillers = ["please", "thank you", "where", "rice", "water", "father"];
   const candidates = [...allMeanings, ...fillers].filter(
     (option) => option !== answer,
   );

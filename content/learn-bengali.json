@@ -5,7 +5,7 @@
       "number": 1,
       "order": 1,
       "title": "First Conversations",
-      "description": "Start with warm hellos, goodbyes, and the first question Rachel will hear.",
+      "description": "Start with respectful greetings, goodbyes, and the first question Rachel will hear.",
       "lessons": [
         {
           "id": "u01-l01-greetings",
@@ -14,29 +14,30 @@
           "title": "Greetings",
           "slug": "greetings",
           "difficulty": "beginner",
-          "summary": "Say hello, thank you, and goodbye in simple spoken Bengali.",
+          "summary": "Say a respectful greeting, thank you, and goodbye in simple spoken Bengali.",
           "objectives": [
-            "Greet someone casually",
-            "Say thank you",
-            "End a short conversation politely"
+            "Greet someone respectfully",
+            "Reply to a respectful greeting",
+            "Say thank you and end a short conversation politely"
           ],
           "vocabulary": [
             {
-              "roman": "nomoskar",
-              "en": "hello / respectful greeting",
+              "roman": "assalamualaikum",
+              "en": "peace be upon you / a common respectful greeting",
               "tags": [
                 "greeting",
                 "polite"
               ],
-              "bn": "nomoskar"
+              "bn": "assalamualaikum"
             },
             {
-              "roman": "hello",
-              "en": "hello",
+              "roman": "walaikum assalam",
+              "en": "and peace be upon you / greeting reply",
               "tags": [
-                "greeting"
+                "greeting",
+                "polite"
               ],
-              "bn": "hello"
+              "bn": "walaikum assalam"
             },
             {
               "roman": "dhonnobad",
@@ -81,25 +82,49 @@
           "phrases": [
             {
               "id": "p-u01-l01-greetings-01",
-              "romanized": "nomoskar",
-              "english": "hello / respectful greeting",
-              "pronunciation": "NOMOSKAR",
+              "romanized": "assalamualaikum",
+              "english": "peace be upon you / a common respectful greeting",
+              "pronunciation": "as-sa-laa-mu a-lay-kum",
               "category": "greetings",
-              "bengaliScript": "নমস্কার"
+              "bengaliScript": "আসসালামু আলাইকুম",
+              "breakdown": [
+                {
+                  "word": "Assalamu",
+                  "pronunciation": "as-sa-laa-mu",
+                  "meaning": "peace"
+                },
+                {
+                  "word": "Alaikum",
+                  "pronunciation": "a-lay-kum",
+                  "meaning": "upon you"
+                }
+              ]
             },
             {
               "id": "p-u01-l01-greetings-02",
-              "romanized": "hello",
-              "english": "hello",
-              "pronunciation": "HELLO",
+              "romanized": "walaikum assalam",
+              "english": "and peace be upon you / greeting reply",
+              "pronunciation": "wa-a-lay-kum as-sa-laam",
               "category": "greetings",
-              "bengaliScript": "হ্যালো"
+              "bengaliScript": "ওয়ালাইকুম আসসালাম",
+              "breakdown": [
+                {
+                  "word": "Walaikum",
+                  "pronunciation": "wa-a-lay-kum",
+                  "meaning": "and upon you"
+                },
+                {
+                  "word": "Assalam",
+                  "pronunciation": "as-sa-laam",
+                  "meaning": "peace"
+                }
+              ]
             },
             {
               "id": "p-u01-l01-greetings-03",
               "romanized": "dhonnobad",
               "english": "thank you",
-              "pronunciation": "DHONNOBAD",
+              "pronunciation": "dhon-no-baad",
               "category": "greetings",
               "bengaliScript": "ধন্যবাদ"
             },
@@ -107,25 +132,66 @@
               "id": "p-u01-l01-greetings-04",
               "romanized": "abar dekha hobe",
               "english": "see you again",
-              "pronunciation": "ABAR DEKHA HOBE",
+              "pronunciation": "ah-bar dek-ha ho-bay",
               "category": "greetings",
-              "bengaliScript": "আবার দেখা হবে"
+              "bengaliScript": "আবার দেখা হবে",
+              "breakdown": [
+                {
+                  "word": "abar",
+                  "pronunciation": "ah-bar",
+                  "meaning": "again"
+                },
+                {
+                  "word": "dekha",
+                  "pronunciation": "dek-ha",
+                  "meaning": "see / meeting"
+                },
+                {
+                  "word": "hobe",
+                  "pronunciation": "ho-bay",
+                  "meaning": "will happen / can be"
+                }
+              ]
             },
             {
               "id": "p-u01-l01-greetings-05",
               "romanized": "bhalo thako",
               "english": "stay well",
-              "pronunciation": "BHALO THAKO",
+              "pronunciation": "bha-lo tha-ko",
               "category": "greetings",
-              "bengaliScript": "ভালো থাকো"
+              "bengaliScript": "ভালো থাকো",
+              "breakdown": [
+                {
+                  "word": "bhalo",
+                  "pronunciation": "bha-lo",
+                  "meaning": "good / well"
+                },
+                {
+                  "word": "thako",
+                  "pronunciation": "tha-ko",
+                  "meaning": "stay / be"
+                }
+              ]
             },
             {
               "id": "p-u01-l01-greetings-06",
               "romanized": "shuvo shokal",
               "english": "good morning",
-              "pronunciation": "SHUVO SHOKAL",
+              "pronunciation": "shu-vo sho-kal",
               "category": "greetings",
-              "bengaliScript": "শুভ সকাল"
+              "bengaliScript": "শুভ সকাল",
+              "breakdown": [
+                {
+                  "word": "shuvo",
+                  "pronunciation": "shu-vo",
+                  "meaning": "good / auspicious"
+                },
+                {
+                  "word": "shokal",
+                  "pronunciation": "sho-kal",
+                  "meaning": "morning"
+                }
+              ]
             }
           ],
           "exercises": [
@@ -134,10 +200,10 @@
               "type": "multiple-choice",
               "sourceType": "listenSelect",
               "prompt": "Listen first. Then tap what you hear.",
-              "answer": "nomoskar",
+              "answer": "assalamualaikum",
               "options": [
-                "nomoskar",
-                "hello",
+                "assalamualaikum",
+                "walaikum assalam",
                 "dhonnobad",
                 "abar dekha hobe",
                 "bhalo thako"
@@ -148,11 +214,11 @@
               "id": "u01-l01-greetings-ex-2",
               "type": "multiple-choice",
               "sourceType": "meaningSelect",
-              "prompt": "What does “hello” mean?",
-              "answer": "hello",
+              "prompt": "What does “walaikum assalam” mean?",
+              "answer": "and peace be upon you / greeting reply",
               "options": [
-                "hello / respectful greeting",
-                "hello",
+                "peace be upon you / a common respectful greeting",
+                "and peace be upon you / greeting reply",
                 "thank you",
                 "see you again",
                 "stay well"
@@ -175,15 +241,15 @@
               "type": "matching",
               "sourceType": "tapMatch",
               "prompt": "Match Bengali to English.",
-              "answer": "nomoskar -> hello / respectful greeting, hello -> hello, dhonnobad -> thank you, abar dekha hobe -> see you again",
+              "answer": "assalamualaikum -> peace be upon you / a common respectful greeting, walaikum assalam -> and peace be upon you / greeting reply, dhonnobad -> thank you, abar dekha hobe -> see you again",
               "pairs": [
                 {
-                  "left": "nomoskar",
-                  "right": "hello / respectful greeting"
+                  "left": "assalamualaikum",
+                  "right": "peace be upon you / a common respectful greeting"
                 },
                 {
-                  "left": "hello",
-                  "right": "hello"
+                  "left": "walaikum assalam",
+                  "right": "and peace be upon you / greeting reply"
                 },
                 {
                   "left": "dhonnobad",
@@ -202,8 +268,8 @@
               "prompt": "Choose the Bengali for “see you again”.",
               "answer": "abar dekha hobe",
               "options": [
-                "nomoskar",
-                "hello",
+                "assalamualaikum",
+                "walaikum assalam",
                 "dhonnobad",
                 "abar dekha hobe",
                 "bhalo thako"
@@ -216,10 +282,10 @@
               "id": "a1",
               "locale": "bn-BD",
               "voiceStyle": "warm-neutral",
-              "textBn": "নমস্কার",
-              "roman": "nomoskar",
-              "textEn": "Hello.",
-              "speed": 0.9
+              "textBn": "আসসালামু আলাইকুম",
+              "roman": "assalamualaikum",
+              "textEn": "Peace be upon you.",
+              "speed": 0.88
             },
             {
               "id": "a2",
@@ -351,31 +417,77 @@
               "id": "p-u01-l02-how-are-you-01",
               "romanized": "tumi kemon acho?",
               "english": "how are you?",
-              "pronunciation": "TUMI KEMON ACHO",
+              "pronunciation": "too-mee keh-mon ah-cho",
               "category": "how-are-you",
-              "bengaliScript": "তুমি কেমন আছো?"
+              "bengaliScript": "তুমি কেমন আছো?",
+              "breakdown": [
+                {
+                  "word": "tumi",
+                  "pronunciation": "too-mee",
+                  "meaning": "you"
+                },
+                {
+                  "word": "kemon",
+                  "pronunciation": "keh-mon",
+                  "meaning": "how / what kind"
+                },
+                {
+                  "word": "acho",
+                  "pronunciation": "ah-cho",
+                  "meaning": "are / existing"
+                }
+              ]
             },
             {
               "id": "p-u01-l02-how-are-you-02",
               "romanized": "ami bhalo achi",
               "english": "I am good",
-              "pronunciation": "AMI BHALO ACHI",
+              "pronunciation": "ah-mee bha-lo ah-chee",
               "category": "how-are-you",
-              "bengaliScript": "আমি ভালো আছি"
+              "bengaliScript": "আমি ভালো আছি",
+              "breakdown": [
+                {
+                  "word": "ami",
+                  "pronunciation": "ah-mee",
+                  "meaning": "I"
+                },
+                {
+                  "word": "bhalo",
+                  "pronunciation": "bha-lo",
+                  "meaning": "good / well"
+                },
+                {
+                  "word": "achi",
+                  "pronunciation": "ah-chee",
+                  "meaning": "am / exist"
+                }
+              ]
             },
             {
               "id": "p-u01-l02-how-are-you-03",
               "romanized": "khub bhalo",
               "english": "very good",
-              "pronunciation": "KHUB BHALO",
+              "pronunciation": "khoob bha-lo",
               "category": "how-are-you",
-              "bengaliScript": "খুব ভালো"
+              "bengaliScript": "খুব ভালো",
+              "breakdown": [
+                {
+                  "word": "khub",
+                  "pronunciation": "khoob",
+                  "meaning": "very"
+                },
+                {
+                  "word": "bhalo",
+                  "pronunciation": "bha-lo",
+                  "meaning": "good / well"
+                }
+              ]
             },
             {
               "id": "p-u01-l02-how-are-you-04",
               "romanized": "motamuti",
               "english": "so-so",
-              "pronunciation": "MOTAMUTI",
+              "pronunciation": "mo-ta-mu-tee",
               "category": "how-are-you",
               "bengaliScript": "মোটামুটি"
             },
@@ -383,17 +495,46 @@
               "id": "p-u01-l02-how-are-you-05",
               "romanized": "ami thik achi",
               "english": "I am okay",
-              "pronunciation": "AMI THIK ACHI",
+              "pronunciation": "ah-mee theek ah-chee",
               "category": "how-are-you",
-              "bengaliScript": "আমি ঠিক আছি"
+              "bengaliScript": "আমি ঠিক আছি",
+              "breakdown": [
+                {
+                  "word": "ami",
+                  "pronunciation": "ah-mee",
+                  "meaning": "I"
+                },
+                {
+                  "word": "thik",
+                  "pronunciation": "theek",
+                  "meaning": "okay / fine"
+                },
+                {
+                  "word": "achi",
+                  "pronunciation": "ah-chee",
+                  "meaning": "am / exist"
+                }
+              ]
             },
             {
               "id": "p-u01-l02-how-are-you-06",
               "romanized": "ar tumi?",
               "english": "and you?",
-              "pronunciation": "AR TUMI",
+              "pronunciation": "aar too-mee",
               "category": "how-are-you",
-              "bengaliScript": "আর তুমি?"
+              "bengaliScript": "আর তুমি?",
+              "breakdown": [
+                {
+                  "word": "ar",
+                  "pronunciation": "aar",
+                  "meaning": "and"
+                },
+                {
+                  "word": "tumi",
+                  "pronunciation": "too-mee",
+                  "meaning": "you"
+                }
+              ]
             }
           ],
           "exercises": [
@@ -642,7 +783,7 @@
               "id": "p-u02-l01-introduce-yourself-01",
               "romanized": "ami Rachel",
               "english": "I am Rachel",
-              "pronunciation": "AMI RACHEL",
+              "pronunciation": "ah-mee Rachel",
               "category": "introduce-yourself",
               "bengaliScript": "আমি র‍্যাচেল"
             },
@@ -650,7 +791,7 @@
               "id": "p-u02-l01-introduce-yourself-02",
               "romanized": "amar naam Rachel",
               "english": "my name is Rachel",
-              "pronunciation": "AMAR NAAM RACHEL",
+              "pronunciation": "ah-mar naam Rachel",
               "category": "introduce-yourself",
               "bengaliScript": "আমার নাম র‍্যাচেল"
             },
@@ -658,23 +799,52 @@
               "id": "p-u02-l01-introduce-yourself-03",
               "romanized": "tomar naam ki?",
               "english": "what is your name?",
-              "pronunciation": "TOMAR NAAM KI",
+              "pronunciation": "to-mar naam kee",
               "category": "introduce-yourself",
-              "bengaliScript": "তোমার নাম কী?"
+              "bengaliScript": "তোমার নাম কী?",
+              "breakdown": [
+                {
+                  "word": "tomar",
+                  "pronunciation": "to-mar",
+                  "meaning": "your"
+                },
+                {
+                  "word": "naam",
+                  "pronunciation": "naam",
+                  "meaning": "name"
+                },
+                {
+                  "word": "ki",
+                  "pronunciation": "kee",
+                  "meaning": "what"
+                }
+              ]
             },
             {
               "id": "p-u02-l01-introduce-yourself-04",
               "romanized": "amar naam...",
               "english": "my name is...",
-              "pronunciation": "AMAR NAAM...",
+              "pronunciation": "ah-mar naam",
               "category": "introduce-yourself",
-              "bengaliScript": "আমার নাম..."
+              "bengaliScript": "আমার নাম...",
+              "breakdown": [
+                {
+                  "word": "amar",
+                  "pronunciation": "ah-mar",
+                  "meaning": "my"
+                },
+                {
+                  "word": "naam",
+                  "pronunciation": "naam",
+                  "meaning": "name"
+                }
+              ]
             },
             {
               "id": "p-u02-l01-introduce-yourself-05",
               "romanized": "ami Bangla shikchi",
               "english": "I am learning Bengali",
-              "pronunciation": "AMI BANGLA SHIKCHI",
+              "pronunciation": "ah-mee bangla shikchi",
               "category": "introduce-yourself",
               "bengaliScript": "আমি বাংলা শিখছি"
             },
@@ -682,7 +852,7 @@
               "id": "p-u02-l01-introduce-yourself-06",
               "romanized": "ami ektu Bangla boli",
               "english": "I speak a little Bengali",
-              "pronunciation": "AMI EKTU BANGLA BOLI",
+              "pronunciation": "ah-mee ek-too bangla boli",
               "category": "introduce-yourself",
               "bengaliScript": "আমি একটু বাংলা বলি"
             }
@@ -910,7 +1080,7 @@
               "id": "p-u02-l02-family-words-01",
               "romanized": "ma",
               "english": "mother",
-              "pronunciation": "MA",
+              "pronunciation": "ma",
               "category": "family-words",
               "bengaliScript": "মা"
             },
@@ -918,7 +1088,7 @@
               "id": "p-u02-l02-family-words-02",
               "romanized": "baba",
               "english": "father",
-              "pronunciation": "BABA",
+              "pronunciation": "ba-ba",
               "category": "family-words",
               "bengaliScript": "বাবা"
             },
@@ -926,7 +1096,7 @@
               "id": "p-u02-l02-family-words-03",
               "romanized": "bon",
               "english": "sister",
-              "pronunciation": "BON",
+              "pronunciation": "bohn",
               "category": "family-words",
               "bengaliScript": "বোন"
             },
@@ -934,7 +1104,7 @@
               "id": "p-u02-l02-family-words-04",
               "romanized": "bhai",
               "english": "brother",
-              "pronunciation": "BHAI",
+              "pronunciation": "bhai",
               "category": "family-words",
               "bengaliScript": "ভাই"
             },
@@ -942,17 +1112,46 @@
               "id": "p-u02-l02-family-words-05",
               "romanized": "amar ma",
               "english": "my mother",
-              "pronunciation": "AMAR MA",
+              "pronunciation": "ah-mar ma",
               "category": "family-words",
-              "bengaliScript": "আমার মা"
+              "bengaliScript": "আমার মা",
+              "breakdown": [
+                {
+                  "word": "amar",
+                  "pronunciation": "ah-mar",
+                  "meaning": "my"
+                },
+                {
+                  "word": "ma",
+                  "pronunciation": "ma",
+                  "meaning": "mother"
+                }
+              ]
             },
             {
               "id": "p-u02-l02-family-words-06",
               "romanized": "eta amar bhai",
               "english": "this is my brother",
-              "pronunciation": "ETA AMAR BHAI",
+              "pronunciation": "eh-ta ah-mar bhai",
               "category": "family-words",
-              "bengaliScript": "এটা আমার ভাই"
+              "bengaliScript": "এটা আমার ভাই",
+              "breakdown": [
+                {
+                  "word": "eta",
+                  "pronunciation": "eh-ta",
+                  "meaning": "this / it"
+                },
+                {
+                  "word": "amar",
+                  "pronunciation": "ah-mar",
+                  "meaning": "my"
+                },
+                {
+                  "word": "bhai",
+                  "pronunciation": "bhai",
+                  "meaning": "brother"
+                }
+              ]
             }
           ],
           "exercises": [
@@ -1204,31 +1403,82 @@
               "id": "p-u03-l01-food-and-water-01",
               "romanized": "ami pani chai",
               "english": "I want water",
-              "pronunciation": "AMI PANI CHAI",
+              "pronunciation": "ah-mee pa-nee chai",
               "category": "food-and-water",
-              "bengaliScript": "আমি পানি চাই"
+              "bengaliScript": "আমি পানি চাই",
+              "breakdown": [
+                {
+                  "word": "ami",
+                  "pronunciation": "ah-mee",
+                  "meaning": "I"
+                },
+                {
+                  "word": "pani",
+                  "pronunciation": "pa-nee",
+                  "meaning": "water"
+                },
+                {
+                  "word": "chai",
+                  "pronunciation": "chai",
+                  "meaning": "want"
+                }
+              ]
             },
             {
               "id": "p-u03-l01-food-and-water-02",
               "romanized": "ami cha chai",
               "english": "I want tea",
-              "pronunciation": "AMI CHA CHAI",
+              "pronunciation": "ah-mee cha chai",
               "category": "food-and-water",
-              "bengaliScript": "আমি চা চাই"
+              "bengaliScript": "আমি চা চাই",
+              "breakdown": [
+                {
+                  "word": "ami",
+                  "pronunciation": "ah-mee",
+                  "meaning": "I"
+                },
+                {
+                  "word": "cha",
+                  "pronunciation": "cha",
+                  "meaning": "tea"
+                },
+                {
+                  "word": "chai",
+                  "pronunciation": "chai",
+                  "meaning": "want"
+                }
+              ]
             },
             {
               "id": "p-u03-l01-food-and-water-03",
               "romanized": "ami bhaat chai",
               "english": "I want rice",
-              "pronunciation": "AMI BHAAT CHAI",
+              "pronunciation": "ah-mee bhaat chai",
               "category": "food-and-water",
-              "bengaliScript": "আমি ভাত চাই"
+              "bengaliScript": "আমি ভাত চাই",
+              "breakdown": [
+                {
+                  "word": "ami",
+                  "pronunciation": "ah-mee",
+                  "meaning": "I"
+                },
+                {
+                  "word": "bhaat",
+                  "pronunciation": "bhaat",
+                  "meaning": "rice"
+                },
+                {
+                  "word": "chai",
+                  "pronunciation": "chai",
+                  "meaning": "want"
+                }
+              ]
             },
             {
               "id": "p-u03-l01-food-and-water-04",
               "romanized": "pani",
               "english": "water",
-              "pronunciation": "PANI",
+              "pronunciation": "pa-nee",
               "category": "food-and-water",
               "bengaliScript": "পানি"
             },
@@ -1236,7 +1486,7 @@
               "id": "p-u03-l01-food-and-water-05",
               "romanized": "cha",
               "english": "tea",
-              "pronunciation": "CHA",
+              "pronunciation": "cha",
               "category": "food-and-water",
               "bengaliScript": "চা"
             },
@@ -1244,7 +1494,7 @@
               "id": "p-u03-l01-food-and-water-06",
               "romanized": "bhaat",
               "english": "rice",
-              "pronunciation": "BHAAT",
+              "pronunciation": "bhaat",
               "category": "food-and-water",
               "bengaliScript": "ভাত"
             }
@@ -1474,49 +1724,161 @@
               "id": "p-u03-l02-hungry-and-thirsty-01",
               "romanized": "amar khide peyechhe",
               "english": "I am hungry",
-              "pronunciation": "AMAR KHIDE PEYECHHE",
+              "pronunciation": "ah-mar khee-deh pe-yech-chay",
               "category": "hungry-and-thirsty",
-              "bengaliScript": "আমার খিদে পেয়েছে"
+              "bengaliScript": "আমার খিদে পেয়েছে",
+              "breakdown": [
+                {
+                  "word": "amar",
+                  "pronunciation": "ah-mar",
+                  "meaning": "my"
+                },
+                {
+                  "word": "khide",
+                  "pronunciation": "khee-deh",
+                  "meaning": "hunger"
+                },
+                {
+                  "word": "peyechhe",
+                  "pronunciation": "pe-yech-chay",
+                  "meaning": "has come / feeling"
+                }
+              ]
             },
             {
               "id": "p-u03-l02-hungry-and-thirsty-02",
               "romanized": "amar pipasha peyechhe",
               "english": "I am thirsty",
-              "pronunciation": "AMAR PIPASHA PEYECHHE",
+              "pronunciation": "ah-mar pee-pa-sha pe-yech-chay",
               "category": "hungry-and-thirsty",
-              "bengaliScript": "আমার পিপাসা পেয়েছে"
+              "bengaliScript": "আমার পিপাসা পেয়েছে",
+              "breakdown": [
+                {
+                  "word": "amar",
+                  "pronunciation": "ah-mar",
+                  "meaning": "my"
+                },
+                {
+                  "word": "pipasha",
+                  "pronunciation": "pee-pa-sha",
+                  "meaning": "thirst"
+                },
+                {
+                  "word": "peyechhe",
+                  "pronunciation": "pe-yech-chay",
+                  "meaning": "has come / feeling"
+                }
+              ]
             },
             {
               "id": "p-u03-l02-hungry-and-thirsty-03",
               "romanized": "amar pet bhore geche",
               "english": "I am full",
-              "pronunciation": "AMAR PET BHORE GECHE",
+              "pronunciation": "ah-mar pet bho-ray ge-chay",
               "category": "hungry-and-thirsty",
-              "bengaliScript": "আমার পেট ভরে গেছে"
+              "bengaliScript": "আমার পেট ভরে গেছে",
+              "breakdown": [
+                {
+                  "word": "amar",
+                  "pronunciation": "ah-mar",
+                  "meaning": "my"
+                },
+                {
+                  "word": "pet",
+                  "pronunciation": "pet",
+                  "meaning": "stomach"
+                },
+                {
+                  "word": "bhore",
+                  "pronunciation": "bho-ray",
+                  "meaning": "filled"
+                },
+                {
+                  "word": "geche",
+                  "pronunciation": "ge-chay",
+                  "meaning": "has become / gone"
+                }
+              ]
             },
             {
               "id": "p-u03-l02-hungry-and-thirsty-04",
               "romanized": "eta bhalo",
               "english": "this is good",
-              "pronunciation": "ETA BHALO",
+              "pronunciation": "eh-ta bha-lo",
               "category": "hungry-and-thirsty",
-              "bengaliScript": "এটা ভালো"
+              "bengaliScript": "এটা ভালো",
+              "breakdown": [
+                {
+                  "word": "eta",
+                  "pronunciation": "eh-ta",
+                  "meaning": "this / it"
+                },
+                {
+                  "word": "bhalo",
+                  "pronunciation": "bha-lo",
+                  "meaning": "good / well"
+                }
+              ]
             },
             {
               "id": "p-u03-l02-hungry-and-thirsty-05",
               "romanized": "ami eta pochondo kori",
               "english": "I like this",
-              "pronunciation": "AMI ETA POCHONDO KORI",
+              "pronunciation": "ah-mee eh-ta po-chon-do ko-ree",
               "category": "hungry-and-thirsty",
-              "bengaliScript": "আমি এটা পছন্দ করি"
+              "bengaliScript": "আমি এটা পছন্দ করি",
+              "breakdown": [
+                {
+                  "word": "ami",
+                  "pronunciation": "ah-mee",
+                  "meaning": "I"
+                },
+                {
+                  "word": "eta",
+                  "pronunciation": "eh-ta",
+                  "meaning": "this / it"
+                },
+                {
+                  "word": "pochondo",
+                  "pronunciation": "po-chon-do",
+                  "meaning": "like / preference"
+                },
+                {
+                  "word": "kori",
+                  "pronunciation": "ko-ree",
+                  "meaning": "do"
+                }
+              ]
             },
             {
               "id": "p-u03-l02-hungry-and-thirsty-06",
               "romanized": "ami eta chai na",
               "english": "I do not want this",
-              "pronunciation": "AMI ETA CHAI NA",
+              "pronunciation": "ah-mee eh-ta chai na",
               "category": "hungry-and-thirsty",
-              "bengaliScript": "আমি এটা চাই না"
+              "bengaliScript": "আমি এটা চাই না",
+              "breakdown": [
+                {
+                  "word": "ami",
+                  "pronunciation": "ah-mee",
+                  "meaning": "I"
+                },
+                {
+                  "word": "eta",
+                  "pronunciation": "eh-ta",
+                  "meaning": "this / it"
+                },
+                {
+                  "word": "chai",
+                  "pronunciation": "chai",
+                  "meaning": "want"
+                },
+                {
+                  "word": "na",
+                  "pronunciation": "na",
+                  "meaning": "not / no"
+                }
+              ]
             }
           ],
           "exercises": [
@@ -1765,7 +2127,7 @@
               "id": "p-u04-l01-yes-no-replies-01",
               "romanized": "ha",
               "english": "yes",
-              "pronunciation": "HA",
+              "pronunciation": "ha",
               "category": "yes-no-replies",
               "bengaliScript": "হ্যাঁ"
             },
@@ -1773,7 +2135,7 @@
               "id": "p-u04-l01-yes-no-replies-02",
               "romanized": "na",
               "english": "no",
-              "pronunciation": "NA",
+              "pronunciation": "na",
               "category": "yes-no-replies",
               "bengaliScript": "না"
             },
@@ -1781,7 +2143,7 @@
               "id": "p-u04-l01-yes-no-replies-03",
               "romanized": "thik ache",
               "english": "okay",
-              "pronunciation": "THIK ACHE",
+              "pronunciation": "theek ache",
               "category": "yes-no-replies",
               "bengaliScript": "ঠিক আছে"
             },
@@ -1789,7 +2151,7 @@
               "id": "p-u04-l01-yes-no-replies-04",
               "romanized": "kono shomossha nei",
               "english": "no problem",
-              "pronunciation": "KONO SHOMOSSHA NEI",
+              "pronunciation": "kono shomossha nay",
               "category": "yes-no-replies",
               "bengaliScript": "কোনো সমস্যা নেই"
             },
@@ -1797,17 +2159,41 @@
               "id": "p-u04-l01-yes-no-replies-05",
               "romanized": "maf koro",
               "english": "sorry",
-              "pronunciation": "MAF KORO",
+              "pronunciation": "maf ko-ro",
               "category": "yes-no-replies",
-              "bengaliScript": "মাফ করো"
+              "bengaliScript": "মাফ করো",
+              "breakdown": [
+                {
+                  "word": "maf",
+                  "pronunciation": "maf",
+                  "meaning": "sorry / forgive"
+                },
+                {
+                  "word": "koro",
+                  "pronunciation": "ko-ro",
+                  "meaning": "do"
+                }
+              ]
             },
             {
               "id": "p-u04-l01-yes-no-replies-06",
               "romanized": "abar bolo",
               "english": "say it again",
-              "pronunciation": "ABAR BOLO",
+              "pronunciation": "ah-bar bo-lo",
               "category": "yes-no-replies",
-              "bengaliScript": "আবার বলো"
+              "bengaliScript": "আবার বলো",
+              "breakdown": [
+                {
+                  "word": "abar",
+                  "pronunciation": "ah-bar",
+                  "meaning": "again"
+                },
+                {
+                  "word": "bolo",
+                  "pronunciation": "bo-lo",
+                  "meaning": "say"
+                }
+              ]
             }
           ],
           "exercises": [
@@ -2035,31 +2421,67 @@
               "id": "p-u04-l02-simple-questions-01",
               "romanized": "eta ki?",
               "english": "what is this?",
-              "pronunciation": "ETA KI",
+              "pronunciation": "eh-ta kee",
               "category": "simple-questions",
-              "bengaliScript": "এটা কী?"
+              "bengaliScript": "এটা কী?",
+              "breakdown": [
+                {
+                  "word": "eta",
+                  "pronunciation": "eh-ta",
+                  "meaning": "this / it"
+                },
+                {
+                  "word": "ki",
+                  "pronunciation": "kee",
+                  "meaning": "what"
+                }
+              ]
             },
             {
               "id": "p-u04-l02-simple-questions-02",
               "romanized": "tumi kothay?",
               "english": "where are you?",
-              "pronunciation": "TUMI KOTHAY",
+              "pronunciation": "too-mee ko-thay",
               "category": "simple-questions",
-              "bengaliScript": "তুমি কোথায়?"
+              "bengaliScript": "তুমি কোথায়?",
+              "breakdown": [
+                {
+                  "word": "tumi",
+                  "pronunciation": "too-mee",
+                  "meaning": "you"
+                },
+                {
+                  "word": "kothay",
+                  "pronunciation": "ko-thay",
+                  "meaning": "where"
+                }
+              ]
             },
             {
               "id": "p-u04-l02-simple-questions-03",
               "romanized": "bathroom kothay?",
               "english": "where is the bathroom?",
-              "pronunciation": "BATHROOM KOTHAY",
+              "pronunciation": "bath-room ko-thay",
               "category": "simple-questions",
-              "bengaliScript": "বাথরুম কোথায়?"
+              "bengaliScript": "বাথরুম কোথায়?",
+              "breakdown": [
+                {
+                  "word": "bathroom",
+                  "pronunciation": "bath-room",
+                  "meaning": "bathroom"
+                },
+                {
+                  "word": "kothay",
+                  "pronunciation": "ko-thay",
+                  "meaning": "where"
+                }
+              ]
             },
             {
               "id": "p-u04-l02-simple-questions-04",
               "romanized": "keno?",
               "english": "why?",
-              "pronunciation": "KENO",
+              "pronunciation": "keh-no",
               "category": "simple-questions",
               "bengaliScript": "কেন?"
             },
@@ -2067,7 +2489,7 @@
               "id": "p-u04-l02-simple-questions-05",
               "romanized": "koto?",
               "english": "how much?",
-              "pronunciation": "KOTO",
+              "pronunciation": "ko-to",
               "category": "simple-questions",
               "bengaliScript": "কত?"
             },
@@ -2075,7 +2497,7 @@
               "id": "p-u04-l02-simple-questions-06",
               "romanized": "ekhon?",
               "english": "now?",
-              "pronunciation": "EKHON",
+              "pronunciation": "ekh-on",
               "category": "simple-questions",
               "bengaliScript": "এখন?"
             }
@@ -2326,49 +2748,136 @@
               "id": "p-u05-l01-basic-feelings-01",
               "romanized": "ami khushi",
               "english": "I am happy",
-              "pronunciation": "AMI KHUSHI",
+              "pronunciation": "ah-mee khu-shee",
               "category": "basic-feelings",
-              "bengaliScript": "আমি খুশি"
+              "bengaliScript": "আমি খুশি",
+              "breakdown": [
+                {
+                  "word": "ami",
+                  "pronunciation": "ah-mee",
+                  "meaning": "I"
+                },
+                {
+                  "word": "khushi",
+                  "pronunciation": "khu-shee",
+                  "meaning": "happy"
+                }
+              ]
             },
             {
               "id": "p-u05-l01-basic-feelings-02",
               "romanized": "ami klanto",
               "english": "I am tired",
-              "pronunciation": "AMI KLANTO",
+              "pronunciation": "ah-mee klan-to",
               "category": "basic-feelings",
-              "bengaliScript": "আমি ক্লান্ত"
+              "bengaliScript": "আমি ক্লান্ত",
+              "breakdown": [
+                {
+                  "word": "ami",
+                  "pronunciation": "ah-mee",
+                  "meaning": "I"
+                },
+                {
+                  "word": "klanto",
+                  "pronunciation": "klan-to",
+                  "meaning": "tired"
+                }
+              ]
             },
             {
               "id": "p-u05-l01-basic-feelings-03",
               "romanized": "ami osustho",
               "english": "I am sick",
-              "pronunciation": "AMI OSUSTHO",
+              "pronunciation": "ah-mee o-shus-tho",
               "category": "basic-feelings",
-              "bengaliScript": "আমি অসুস্থ"
+              "bengaliScript": "আমি অসুস্থ",
+              "breakdown": [
+                {
+                  "word": "ami",
+                  "pronunciation": "ah-mee",
+                  "meaning": "I"
+                },
+                {
+                  "word": "osustho",
+                  "pronunciation": "o-shus-tho",
+                  "meaning": "sick"
+                }
+              ]
             },
             {
               "id": "p-u05-l01-basic-feelings-04",
               "romanized": "ami chinta korchi",
               "english": "I am worried",
-              "pronunciation": "AMI CHINTA KORCHI",
+              "pronunciation": "ah-mee chin-ta kor-chee",
               "category": "basic-feelings",
-              "bengaliScript": "আমি চিন্তা করছি"
+              "bengaliScript": "আমি চিন্তা করছি",
+              "breakdown": [
+                {
+                  "word": "ami",
+                  "pronunciation": "ah-mee",
+                  "meaning": "I"
+                },
+                {
+                  "word": "chinta",
+                  "pronunciation": "chin-ta",
+                  "meaning": "worry"
+                },
+                {
+                  "word": "korchi",
+                  "pronunciation": "kor-chee",
+                  "meaning": "am doing"
+                }
+              ]
             },
             {
               "id": "p-u05-l01-basic-feelings-05",
               "romanized": "amar matha betha",
               "english": "my head hurts",
-              "pronunciation": "AMAR MATHA BETHA",
+              "pronunciation": "ah-mar ma-tha be-tha",
               "category": "basic-feelings",
-              "bengaliScript": "আমার মাথা ব্যথা"
+              "bengaliScript": "আমার মাথা ব্যথা",
+              "breakdown": [
+                {
+                  "word": "amar",
+                  "pronunciation": "ah-mar",
+                  "meaning": "my"
+                },
+                {
+                  "word": "matha",
+                  "pronunciation": "ma-tha",
+                  "meaning": "head"
+                },
+                {
+                  "word": "betha",
+                  "pronunciation": "be-tha",
+                  "meaning": "pain"
+                }
+              ]
             },
             {
               "id": "p-u05-l01-basic-feelings-06",
               "romanized": "ami bhalo nei",
               "english": "I am not well",
-              "pronunciation": "AMI BHALO NEI",
+              "pronunciation": "ah-mee bha-lo nay",
               "category": "basic-feelings",
-              "bengaliScript": "আমি ভালো নেই"
+              "bengaliScript": "আমি ভালো নেই",
+              "breakdown": [
+                {
+                  "word": "ami",
+                  "pronunciation": "ah-mee",
+                  "meaning": "I"
+                },
+                {
+                  "word": "bhalo",
+                  "pronunciation": "bha-lo",
+                  "meaning": "good / well"
+                },
+                {
+                  "word": "nei",
+                  "pronunciation": "nay",
+                  "meaning": "is not / none"
+                }
+              ]
             }
           ],
           "exercises": [
@@ -2593,49 +3102,151 @@
               "id": "p-u05-l02-asking-for-help-01",
               "romanized": "amake shahajjo koro",
               "english": "help me",
-              "pronunciation": "AMAKE SHAHAJJO KORO",
+              "pronunciation": "ah-ma-keh sha-haj-jo ko-ro",
               "category": "asking-for-help",
-              "bengaliScript": "আমাকে সাহায্য করো"
+              "bengaliScript": "আমাকে সাহায্য করো",
+              "breakdown": [
+                {
+                  "word": "amake",
+                  "pronunciation": "ah-ma-keh",
+                  "meaning": "me / to me"
+                },
+                {
+                  "word": "shahajjo",
+                  "pronunciation": "sha-haj-jo",
+                  "meaning": "help"
+                },
+                {
+                  "word": "koro",
+                  "pronunciation": "ko-ro",
+                  "meaning": "do"
+                }
+              ]
             },
             {
               "id": "p-u05-l02-asking-for-help-02",
               "romanized": "aste bolo",
               "english": "speak slowly",
-              "pronunciation": "ASTE BOLO",
+              "pronunciation": "ah-steh bo-lo",
               "category": "asking-for-help",
-              "bengaliScript": "আস্তে বলো"
+              "bengaliScript": "আস্তে বলো",
+              "breakdown": [
+                {
+                  "word": "aste",
+                  "pronunciation": "ah-steh",
+                  "meaning": "slowly"
+                },
+                {
+                  "word": "bolo",
+                  "pronunciation": "bo-lo",
+                  "meaning": "say"
+                }
+              ]
             },
             {
               "id": "p-u05-l02-asking-for-help-03",
               "romanized": "ami bujhte parchi na",
               "english": "I do not understand",
-              "pronunciation": "AMI BUJHTE PARCHI NA",
+              "pronunciation": "ah-mee boojh-teh par-chee na",
               "category": "asking-for-help",
-              "bengaliScript": "আমি বুঝতে পারছি না"
+              "bengaliScript": "আমি বুঝতে পারছি না",
+              "breakdown": [
+                {
+                  "word": "ami",
+                  "pronunciation": "ah-mee",
+                  "meaning": "I"
+                },
+                {
+                  "word": "bujhte",
+                  "pronunciation": "boojh-teh",
+                  "meaning": "to understand"
+                },
+                {
+                  "word": "parchi",
+                  "pronunciation": "par-chee",
+                  "meaning": "am able"
+                },
+                {
+                  "word": "na",
+                  "pronunciation": "na",
+                  "meaning": "not / no"
+                }
+              ]
             },
             {
               "id": "p-u05-l02-asking-for-help-04",
               "romanized": "ektu opekkha koro",
               "english": "wait a little",
-              "pronunciation": "EKTU OPEKKHA KORO",
+              "pronunciation": "ek-too o-pek-kha ko-ro",
               "category": "asking-for-help",
-              "bengaliScript": "একটু অপেক্ষা করো"
+              "bengaliScript": "একটু অপেক্ষা করো",
+              "breakdown": [
+                {
+                  "word": "ektu",
+                  "pronunciation": "ek-too",
+                  "meaning": "a little"
+                },
+                {
+                  "word": "opekkha",
+                  "pronunciation": "o-pek-kha",
+                  "meaning": "wait"
+                },
+                {
+                  "word": "koro",
+                  "pronunciation": "ko-ro",
+                  "meaning": "do"
+                }
+              ]
             },
             {
               "id": "p-u05-l02-asking-for-help-05",
               "romanized": "eta abar bolo",
               "english": "say this again",
-              "pronunciation": "ETA ABAR BOLO",
+              "pronunciation": "eh-ta ah-bar bo-lo",
               "category": "asking-for-help",
-              "bengaliScript": "এটা আবার বলো"
+              "bengaliScript": "এটা আবার বলো",
+              "breakdown": [
+                {
+                  "word": "eta",
+                  "pronunciation": "eh-ta",
+                  "meaning": "this / it"
+                },
+                {
+                  "word": "abar",
+                  "pronunciation": "ah-bar",
+                  "meaning": "again"
+                },
+                {
+                  "word": "bolo",
+                  "pronunciation": "bo-lo",
+                  "meaning": "say"
+                }
+              ]
             },
             {
               "id": "p-u05-l02-asking-for-help-06",
               "romanized": "dhire dhire bolo",
               "english": "say it slowly",
-              "pronunciation": "DHIRE DHIRE BOLO",
+              "pronunciation": "dhee-ray dhee-ray bo-lo",
               "category": "asking-for-help",
-              "bengaliScript": "ধীরে ধীরে বলো"
+              "bengaliScript": "ধীরে ধীরে বলো",
+              "breakdown": [
+                {
+                  "word": "dhire",
+                  "pronunciation": "dhee-ray",
+                  "meaning": "slowly"
+                },
+                {
+                  "word": "dhire",
+                  "pronunciation": "dhee-ray",
+                  "meaning": "slowly"
+                },
+                {
+                  "word": "bolo",
+                  "pronunciation": "bo-lo",
+                  "meaning": "say"
+                }
+              ]
             }
           ],
           "exercises": [
@@ -2822,23 +3433,47 @@
               "romanized": "ami eshechi",
               "bengaliScript": "আমি এসেছি",
               "english": "I have arrived",
-              "pronunciation": "AMI ESHECHI",
-              "category": "home"
+              "pronunciation": "ah-mee e-she-chee",
+              "category": "home",
+              "breakdown": [
+                {
+                  "word": "ami",
+                  "pronunciation": "ah-mee",
+                  "meaning": "I"
+                },
+                {
+                  "word": "eshechi",
+                  "pronunciation": "e-she-chee",
+                  "meaning": "have come"
+                }
+              ]
             },
             {
               "id": "p-u06-l01-visiting-home-02",
               "romanized": "bhitore ashbo?",
               "bengaliScript": "ভিতরে আসব?",
               "english": "may I come inside?",
-              "pronunciation": "BHITORE ASHBO?",
-              "category": "home"
+              "pronunciation": "bhee-to-ray ash-bo",
+              "category": "home",
+              "breakdown": [
+                {
+                  "word": "bhitore",
+                  "pronunciation": "bhee-to-ray",
+                  "meaning": "inside"
+                },
+                {
+                  "word": "ashbo",
+                  "pronunciation": "ash-bo",
+                  "meaning": "will come"
+                }
+              ]
             },
             {
               "id": "p-u06-l01-visiting-home-03",
               "romanized": "boshte pari?",
               "bengaliScript": "বসতে পারি?",
               "english": "may I sit?",
-              "pronunciation": "BOSHTE PARI?",
+              "pronunciation": "boshte pa-ree",
               "category": "home"
             },
             {
@@ -2846,24 +3481,70 @@
               "romanized": "ektu pani dao",
               "bengaliScript": "একটু পানি দাও",
               "english": "give me a little water",
-              "pronunciation": "EKTU PANI DAO",
-              "category": "home"
+              "pronunciation": "ek-too pa-nee dao",
+              "category": "home",
+              "breakdown": [
+                {
+                  "word": "ektu",
+                  "pronunciation": "ek-too",
+                  "meaning": "a little"
+                },
+                {
+                  "word": "pani",
+                  "pronunciation": "pa-nee",
+                  "meaning": "water"
+                },
+                {
+                  "word": "dao",
+                  "pronunciation": "dao",
+                  "meaning": "give"
+                }
+              ]
             },
             {
               "id": "p-u06-l01-visiting-home-05",
               "romanized": "khub shundor bari",
               "bengaliScript": "খুব সুন্দর বাড়ি",
               "english": "very beautiful home",
-              "pronunciation": "KHUB SHUNDOR BARI",
-              "category": "home"
+              "pronunciation": "khoob shoon-dor ba-ree",
+              "category": "home",
+              "breakdown": [
+                {
+                  "word": "khub",
+                  "pronunciation": "khoob",
+                  "meaning": "very"
+                },
+                {
+                  "word": "shundor",
+                  "pronunciation": "shoon-dor",
+                  "meaning": "beautiful"
+                },
+                {
+                  "word": "bari",
+                  "pronunciation": "ba-ree",
+                  "meaning": "home"
+                }
+              ]
             },
             {
               "id": "p-u06-l01-visiting-home-06",
               "romanized": "ami khushi",
               "bengaliScript": "আমি খুশি",
               "english": "I am happy",
-              "pronunciation": "AMI KHUSHI",
-              "category": "home"
+              "pronunciation": "ah-mee khu-shee",
+              "category": "home",
+              "breakdown": [
+                {
+                  "word": "ami",
+                  "pronunciation": "ah-mee",
+                  "meaning": "I"
+                },
+                {
+                  "word": "khushi",
+                  "pronunciation": "khu-shee",
+                  "meaning": "happy"
+                }
+              ]
             }
           ],
           "exercises": [
@@ -3088,48 +3769,140 @@
               "romanized": "ektu cha hobe?",
               "bengaliScript": "একটু চা হবে?",
               "english": "could I have a little tea?",
-              "pronunciation": "EKTU CHA HOBE?",
-              "category": "politeness"
+              "pronunciation": "ek-too cha ho-bay",
+              "category": "politeness",
+              "breakdown": [
+                {
+                  "word": "ektu",
+                  "pronunciation": "ek-too",
+                  "meaning": "a little"
+                },
+                {
+                  "word": "cha",
+                  "pronunciation": "cha",
+                  "meaning": "tea"
+                },
+                {
+                  "word": "hobe",
+                  "pronunciation": "ho-bay",
+                  "meaning": "will happen / can be"
+                }
+              ]
             },
             {
               "id": "p-u06-l02-politeness-at-home-02",
               "romanized": "apnake dhonnobad",
               "bengaliScript": "আপনাকে ধন্যবাদ",
               "english": "thank you",
-              "pronunciation": "APNAKE DHONNOBAD",
-              "category": "politeness"
+              "pronunciation": "ap-na-keh dhon-no-baad",
+              "category": "politeness",
+              "breakdown": [
+                {
+                  "word": "apnake",
+                  "pronunciation": "ap-na-keh",
+                  "meaning": "to you"
+                },
+                {
+                  "word": "dhonnobad",
+                  "pronunciation": "dhon-no-baad",
+                  "meaning": "thank you"
+                }
+              ]
             },
             {
               "id": "p-u06-l02-politeness-at-home-03",
               "romanized": "onek bhalo legeche",
               "bengaliScript": "অনেক ভালো লেগেছে",
               "english": "I liked it a lot",
-              "pronunciation": "ONEK BHALO LEGECHE",
-              "category": "politeness"
+              "pronunciation": "o-nek bha-lo le-geh-chay",
+              "category": "politeness",
+              "breakdown": [
+                {
+                  "word": "onek",
+                  "pronunciation": "o-nek",
+                  "meaning": "a lot"
+                },
+                {
+                  "word": "bhalo",
+                  "pronunciation": "bha-lo",
+                  "meaning": "good / well"
+                },
+                {
+                  "word": "legeche",
+                  "pronunciation": "le-geh-chay",
+                  "meaning": "felt"
+                }
+              ]
             },
             {
               "id": "p-u06-l02-politeness-at-home-04",
               "romanized": "ami ekhon jai",
               "bengaliScript": "আমি এখন যাই",
               "english": "I will go now",
-              "pronunciation": "AMI EKHON JAI",
-              "category": "politeness"
+              "pronunciation": "ah-mee ekh-on jai",
+              "category": "politeness",
+              "breakdown": [
+                {
+                  "word": "ami",
+                  "pronunciation": "ah-mee",
+                  "meaning": "I"
+                },
+                {
+                  "word": "ekhon",
+                  "pronunciation": "ekh-on",
+                  "meaning": "now"
+                },
+                {
+                  "word": "jai",
+                  "pronunciation": "jai",
+                  "meaning": "go"
+                }
+              ]
             },
             {
               "id": "p-u06-l02-politeness-at-home-05",
               "romanized": "abar ashbo",
               "bengaliScript": "আবার আসব",
               "english": "I will come again",
-              "pronunciation": "ABAR ASHBO",
-              "category": "politeness"
+              "pronunciation": "ah-bar ash-bo",
+              "category": "politeness",
+              "breakdown": [
+                {
+                  "word": "abar",
+                  "pronunciation": "ah-bar",
+                  "meaning": "again"
+                },
+                {
+                  "word": "ashbo",
+                  "pronunciation": "ash-bo",
+                  "meaning": "will come"
+                }
+              ]
             },
             {
               "id": "p-u06-l02-politeness-at-home-06",
               "romanized": "sobai bhalo thakben",
               "bengaliScript": "সবাই ভালো থাকবেন",
               "english": "everyone stay well",
-              "pronunciation": "SOBAI BHALO THAKBEN",
-              "category": "politeness"
+              "pronunciation": "sho-bai bha-lo thak-ben",
+              "category": "politeness",
+              "breakdown": [
+                {
+                  "word": "sobai",
+                  "pronunciation": "sho-bai",
+                  "meaning": "everyone"
+                },
+                {
+                  "word": "bhalo",
+                  "pronunciation": "bha-lo",
+                  "meaning": "good / well"
+                },
+                {
+                  "word": "thakben",
+                  "pronunciation": "thak-ben",
+                  "meaning": "stay / be"
+                }
+              ]
             }
           ],
           "exercises": [
@@ -3371,48 +4144,125 @@
               "romanized": "cholo jai",
               "bengaliScript": "চলো যাই",
               "english": "let’s go",
-              "pronunciation": "CHOLO JAI",
-              "category": "travel"
+              "pronunciation": "cho-lo jai",
+              "category": "travel",
+              "breakdown": [
+                {
+                  "word": "cholo",
+                  "pronunciation": "cho-lo",
+                  "meaning": "let's"
+                },
+                {
+                  "word": "jai",
+                  "pronunciation": "jai",
+                  "meaning": "go"
+                }
+              ]
             },
             {
               "id": "p-u07-l01-getting-around-02",
               "romanized": "ekhane thamo",
               "bengaliScript": "এখানে থামো",
               "english": "stop here",
-              "pronunciation": "EKHANE THAMO",
-              "category": "travel"
+              "pronunciation": "ekh-a-neh tha-mo",
+              "category": "travel",
+              "breakdown": [
+                {
+                  "word": "ekhane",
+                  "pronunciation": "ekh-a-neh",
+                  "meaning": "here"
+                },
+                {
+                  "word": "thamo",
+                  "pronunciation": "tha-mo",
+                  "meaning": "stop"
+                }
+              ]
             },
             {
               "id": "p-u07-l01-getting-around-03",
               "romanized": "dan dike",
               "bengaliScript": "ডান দিকে",
               "english": "to the right",
-              "pronunciation": "DAN DIKE",
-              "category": "directions"
+              "pronunciation": "daan dee-keh",
+              "category": "directions",
+              "breakdown": [
+                {
+                  "word": "dan",
+                  "pronunciation": "daan",
+                  "meaning": "right"
+                },
+                {
+                  "word": "dike",
+                  "pronunciation": "dee-keh",
+                  "meaning": "side / direction"
+                }
+              ]
             },
             {
               "id": "p-u07-l01-getting-around-04",
               "romanized": "bam dike",
               "bengaliScript": "বাম দিকে",
               "english": "to the left",
-              "pronunciation": "BAM DIKE",
-              "category": "directions"
+              "pronunciation": "baam dee-keh",
+              "category": "directions",
+              "breakdown": [
+                {
+                  "word": "bam",
+                  "pronunciation": "baam",
+                  "meaning": "left"
+                },
+                {
+                  "word": "dike",
+                  "pronunciation": "dee-keh",
+                  "meaning": "side / direction"
+                }
+              ]
             },
             {
               "id": "p-u07-l01-getting-around-05",
               "romanized": "shamne jao",
               "bengaliScript": "সামনে যাও",
               "english": "go straight ahead",
-              "pronunciation": "SHAMNE JAO",
-              "category": "directions"
+              "pronunciation": "sham-neh jao",
+              "category": "directions",
+              "breakdown": [
+                {
+                  "word": "shamne",
+                  "pronunciation": "sham-neh",
+                  "meaning": "ahead"
+                },
+                {
+                  "word": "jao",
+                  "pronunciation": "jao",
+                  "meaning": "go"
+                }
+              ]
             },
             {
               "id": "p-u07-l01-getting-around-06",
               "romanized": "eta koto dur?",
               "bengaliScript": "এটা কত দূর?",
               "english": "how far is it?",
-              "pronunciation": "ETA KOTO DUR?",
-              "category": "directions"
+              "pronunciation": "eh-ta ko-to door",
+              "category": "directions",
+              "breakdown": [
+                {
+                  "word": "eta",
+                  "pronunciation": "eh-ta",
+                  "meaning": "this / it"
+                },
+                {
+                  "word": "koto",
+                  "pronunciation": "ko-to",
+                  "meaning": "how much"
+                },
+                {
+                  "word": "dur",
+                  "pronunciation": "door",
+                  "meaning": "far"
+                }
+              ]
             }
           ],
           "exercises": [
@@ -3637,48 +4487,135 @@
               "romanized": "bus kothay?",
               "bengaliScript": "বাস কোথায়?",
               "english": "where is the bus?",
-              "pronunciation": "BUS KOTHAY?",
-              "category": "travel"
+              "pronunciation": "bus ko-thay",
+              "category": "travel",
+              "breakdown": [
+                {
+                  "word": "bus",
+                  "pronunciation": "bus",
+                  "meaning": "bus"
+                },
+                {
+                  "word": "kothay",
+                  "pronunciation": "ko-thay",
+                  "meaning": "where"
+                }
+              ]
             },
             {
               "id": "p-u07-l02-transport-help-02",
               "romanized": "taxi chai",
               "bengaliScript": "ট্যাক্সি চাই",
               "english": "I want a taxi",
-              "pronunciation": "TAXI CHAI",
-              "category": "travel"
+              "pronunciation": "tak-see chai",
+              "category": "travel",
+              "breakdown": [
+                {
+                  "word": "taxi",
+                  "pronunciation": "tak-see",
+                  "meaning": "taxi"
+                },
+                {
+                  "word": "chai",
+                  "pronunciation": "chai",
+                  "meaning": "want"
+                }
+              ]
             },
             {
               "id": "p-u07-l02-transport-help-03",
               "romanized": "station kothay?",
               "bengaliScript": "স্টেশন কোথায়?",
               "english": "where is the station?",
-              "pronunciation": "STATION KOTHAY?",
-              "category": "travel"
+              "pronunciation": "stay-shon ko-thay",
+              "category": "travel",
+              "breakdown": [
+                {
+                  "word": "station",
+                  "pronunciation": "stay-shon",
+                  "meaning": "station"
+                },
+                {
+                  "word": "kothay",
+                  "pronunciation": "ko-thay",
+                  "meaning": "where"
+                }
+              ]
             },
             {
               "id": "p-u07-l02-transport-help-04",
               "romanized": "ami hariye gechi",
               "bengaliScript": "আমি হারিয়ে গেছি",
               "english": "I am lost",
-              "pronunciation": "AMI HARIYE GECHI",
-              "category": "help"
+              "pronunciation": "ah-mee ha-ree-yeh ge-chee",
+              "category": "help",
+              "breakdown": [
+                {
+                  "word": "ami",
+                  "pronunciation": "ah-mee",
+                  "meaning": "I"
+                },
+                {
+                  "word": "hariye",
+                  "pronunciation": "ha-ree-yeh",
+                  "meaning": "lost"
+                },
+                {
+                  "word": "gechi",
+                  "pronunciation": "ge-chee",
+                  "meaning": "have become / gone"
+                }
+              ]
             },
             {
               "id": "p-u07-l02-transport-help-05",
               "romanized": "ektu shahajjo korben?",
               "bengaliScript": "একটু সাহায্য করবেন?",
               "english": "will you help a little?",
-              "pronunciation": "EKTU SHAHAJJO KORBEN?",
-              "category": "help"
+              "pronunciation": "ek-too sha-haj-jo kor-ben",
+              "category": "help",
+              "breakdown": [
+                {
+                  "word": "ektu",
+                  "pronunciation": "ek-too",
+                  "meaning": "a little"
+                },
+                {
+                  "word": "shahajjo",
+                  "pronunciation": "sha-haj-jo",
+                  "meaning": "help"
+                },
+                {
+                  "word": "korben",
+                  "pronunciation": "kor-ben",
+                  "meaning": "will do / please do"
+                }
+              ]
             },
             {
               "id": "p-u07-l02-transport-help-06",
               "romanized": "ami ekhane nambo",
               "bengaliScript": "আমি এখানে নামব",
               "english": "I will get off here",
-              "pronunciation": "AMI EKHANE NAMBO",
-              "category": "travel"
+              "pronunciation": "ah-mee ekh-a-neh nam-bo",
+              "category": "travel",
+              "breakdown": [
+                {
+                  "word": "ami",
+                  "pronunciation": "ah-mee",
+                  "meaning": "I"
+                },
+                {
+                  "word": "ekhane",
+                  "pronunciation": "ekh-a-neh",
+                  "meaning": "here"
+                },
+                {
+                  "word": "nambo",
+                  "pronunciation": "nam-bo",
+                  "meaning": "will get down"
+                }
+              ]
             }
           ],
           "exercises": [
@@ -3920,23 +4857,47 @@
               "romanized": "ajke kemon?",
               "bengaliScript": "আজকে কেমন?",
               "english": "how is today?",
-              "pronunciation": "AJKE KEMON?",
-              "category": "small-talk"
+              "pronunciation": "aj-keh keh-mon",
+              "category": "small-talk",
+              "breakdown": [
+                {
+                  "word": "ajke",
+                  "pronunciation": "aj-keh",
+                  "meaning": "today"
+                },
+                {
+                  "word": "kemon",
+                  "pronunciation": "keh-mon",
+                  "meaning": "how / what kind"
+                }
+              ]
             },
             {
               "id": "p-u08-l01-small-talk-02",
               "romanized": "abohawa bhalo",
               "bengaliScript": "আবহাওয়া ভালো",
               "english": "the weather is good",
-              "pronunciation": "ABOHAWA BHALO",
-              "category": "small-talk"
+              "pronunciation": "a-bo-ha-wa bha-lo",
+              "category": "small-talk",
+              "breakdown": [
+                {
+                  "word": "abohawa",
+                  "pronunciation": "a-bo-ha-wa",
+                  "meaning": "weather"
+                },
+                {
+                  "word": "bhalo",
+                  "pronunciation": "bha-lo",
+                  "meaning": "good / well"
+                }
+              ]
             },
             {
               "id": "p-u08-l01-small-talk-03",
               "romanized": "tumi ki korcho?",
               "bengaliScript": "তুমি কী করছ?",
               "english": "what are you doing?",
-              "pronunciation": "TUMI KI KORCHO?",
+              "pronunciation": "too-mee kee korcho",
               "category": "small-talk"
             },
             {
@@ -3944,7 +4905,7 @@
               "romanized": "ami kaj korchi",
               "bengaliScript": "আমি কাজ করছি",
               "english": "I am working",
-              "pronunciation": "AMI KAJ KORCHI",
+              "pronunciation": "ah-mee kaj kor-chee",
               "category": "daily"
             },
             {
@@ -3952,16 +4913,45 @@
               "romanized": "pore dekha hobe",
               "bengaliScript": "পরে দেখা হবে",
               "english": "see you later",
-              "pronunciation": "PORE DEKHA HOBE",
-              "category": "daily"
+              "pronunciation": "po-ray dek-ha ho-bay",
+              "category": "daily",
+              "breakdown": [
+                {
+                  "word": "pore",
+                  "pronunciation": "po-ray",
+                  "meaning": "later"
+                },
+                {
+                  "word": "dekha",
+                  "pronunciation": "dek-ha",
+                  "meaning": "see / meeting"
+                },
+                {
+                  "word": "hobe",
+                  "pronunciation": "ho-bay",
+                  "meaning": "will happen / can be"
+                }
+              ]
             },
             {
               "id": "p-u08-l01-small-talk-06",
               "romanized": "khub moja",
               "bengaliScript": "খুব মজা",
               "english": "very fun",
-              "pronunciation": "KHUB MOJA",
-              "category": "daily"
+              "pronunciation": "khoob mo-ja",
+              "category": "daily",
+              "breakdown": [
+                {
+                  "word": "khub",
+                  "pronunciation": "khoob",
+                  "meaning": "very"
+                },
+                {
+                  "word": "moja",
+                  "pronunciation": "mo-ja",
+                  "meaning": "fun"
+                }
+              ]
             }
           ],
           "exercises": [
@@ -4186,48 +5176,145 @@
               "romanized": "ami tomake bhalobashi",
               "bengaliScript": "আমি তোমাকে ভালোবাসি",
               "english": "I love you",
-              "pronunciation": "AMI TOMAKE BHALOBASHI",
-              "category": "care"
+              "pronunciation": "ah-mee to-ma-keh bha-lo-ba-shee",
+              "category": "care",
+              "breakdown": [
+                {
+                  "word": "ami",
+                  "pronunciation": "ah-mee",
+                  "meaning": "I"
+                },
+                {
+                  "word": "tomake",
+                  "pronunciation": "to-ma-keh",
+                  "meaning": "you / to you"
+                },
+                {
+                  "word": "bhalobashi",
+                  "pronunciation": "bha-lo-ba-shee",
+                  "meaning": "love"
+                }
+              ]
             },
             {
               "id": "p-u08-l02-care-and-emergencies-02",
               "romanized": "ami tomar kheyal rakhi",
               "bengaliScript": "আমি তোমার খেয়াল রাখি",
               "english": "I care about you",
-              "pronunciation": "AMI TOMAR KHEYAL RAKHI",
-              "category": "care"
+              "pronunciation": "ah-mee to-mar khe-yal ra-khee",
+              "category": "care",
+              "breakdown": [
+                {
+                  "word": "ami",
+                  "pronunciation": "ah-mee",
+                  "meaning": "I"
+                },
+                {
+                  "word": "tomar",
+                  "pronunciation": "to-mar",
+                  "meaning": "your"
+                },
+                {
+                  "word": "kheyal",
+                  "pronunciation": "khe-yal",
+                  "meaning": "care"
+                },
+                {
+                  "word": "rakhi",
+                  "pronunciation": "ra-khee",
+                  "meaning": "keep"
+                }
+              ]
             },
             {
               "id": "p-u08-l02-care-and-emergencies-03",
               "romanized": "chinta koro na",
               "bengaliScript": "চিন্তা করো না",
               "english": "do not worry",
-              "pronunciation": "CHINTA KORO NA",
-              "category": "care"
+              "pronunciation": "chin-ta ko-ro na",
+              "category": "care",
+              "breakdown": [
+                {
+                  "word": "chinta",
+                  "pronunciation": "chin-ta",
+                  "meaning": "worry"
+                },
+                {
+                  "word": "koro",
+                  "pronunciation": "ko-ro",
+                  "meaning": "do"
+                },
+                {
+                  "word": "na",
+                  "pronunciation": "na",
+                  "meaning": "not / no"
+                }
+              ]
             },
             {
               "id": "p-u08-l02-care-and-emergencies-04",
               "romanized": "amar daktar chai",
               "bengaliScript": "আমার ডাক্তার চাই",
               "english": "I need a doctor",
-              "pronunciation": "AMAR DAKTAR CHAI",
-              "category": "emergency"
+              "pronunciation": "ah-mar dak-tar chai",
+              "category": "emergency",
+              "breakdown": [
+                {
+                  "word": "amar",
+                  "pronunciation": "ah-mar",
+                  "meaning": "my"
+                },
+                {
+                  "word": "daktar",
+                  "pronunciation": "dak-tar",
+                  "meaning": "doctor"
+                },
+                {
+                  "word": "chai",
+                  "pronunciation": "chai",
+                  "meaning": "want"
+                }
+              ]
             },
             {
               "id": "p-u08-l02-care-and-emergencies-05",
               "romanized": "police dakun",
               "bengaliScript": "পুলিশ ডাকুন",
               "english": "call the police",
-              "pronunciation": "POLICE DAKUN",
-              "category": "emergency"
+              "pronunciation": "po-lees da-koon",
+              "category": "emergency",
+              "breakdown": [
+                {
+                  "word": "police",
+                  "pronunciation": "po-lees",
+                  "meaning": "police"
+                },
+                {
+                  "word": "dakun",
+                  "pronunciation": "da-koon",
+                  "meaning": "call"
+                }
+              ]
             },
             {
               "id": "p-u08-l02-care-and-emergencies-06",
               "romanized": "eta emergency",
               "bengaliScript": "এটা ইমার্জেন্সি",
               "english": "this is an emergency",
-              "pronunciation": "ETA EMERGENCY",
-              "category": "emergency"
+              "pronunciation": "eh-ta e-mer-jen-see",
+              "category": "emergency",
+              "breakdown": [
+                {
+                  "word": "eta",
+                  "pronunciation": "eh-ta",
+                  "meaning": "this / it"
+                },
+                {
+                  "word": "emergency",
+                  "pronunciation": "e-mer-jen-see",
+                  "meaning": "emergency"
+                }
+              ]
             }
           ],
           "exercises": [

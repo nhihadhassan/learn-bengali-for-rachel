@@ -3,7 +3,7 @@
 import type { ReactNode } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { BookOpen, Flame, GraduationCap, Library, RotateCcw, Trophy } from "lucide-react";
+import { BookOpen, Flame, Gem, GraduationCap, Library, RotateCcw, Trophy } from "lucide-react";
 import { curricula } from "@/lib/content";
 import { useProgress } from "@/lib/progress-store";
 import { cn } from "@/lib/utils";
@@ -103,6 +103,10 @@ export function AppShell({ children }: { children: ReactNode }) {
               <span className="inline-flex items-center gap-2 rounded-full bg-white px-3 py-2 text-sm font-black shadow-[0_8px_20px_rgba(15,23,42,0.07)] ring-1 ring-slate-900/5 transition hover:-translate-y-0.5 dark:bg-white/10 dark:ring-white/10">
                 <Trophy size={15} className="text-amber-500" />
                 {progress.xp} XP
+              </span>
+              <span className="inline-flex items-center gap-2 rounded-full bg-white px-3 py-2 text-sm font-black shadow-[0_8px_20px_rgba(15,23,42,0.07)] ring-1 ring-slate-900/5 transition hover:-translate-y-0.5 hover:bg-cyan-50 hover:text-cyan-700 dark:bg-white/10 dark:ring-white/10 dark:hover:bg-cyan-400/15 dark:hover:text-cyan-100">
+                <Gem size={15} className="text-cyan-500" />
+                {progress.gems} gems
               </span>
               <span className="group inline-flex items-center gap-2 rounded-full bg-white px-3 py-2 text-sm font-black shadow-[0_8px_20px_rgba(15,23,42,0.07)] ring-1 ring-slate-900/5 transition hover:-translate-y-0.5 hover:bg-amber-50 hover:text-orange-700 hover:shadow-[0_12px_28px_rgba(249,115,22,0.2)] dark:bg-white/10 dark:ring-white/10 dark:hover:bg-orange-500/15 dark:hover:text-orange-200 dark:hover:shadow-[0_12px_28px_rgba(249,115,22,0.12)]">
                 <Flame
