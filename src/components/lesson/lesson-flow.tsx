@@ -740,6 +740,9 @@ function PracticeLessonFlow({ lesson }: { lesson: Lesson }) {
 
           {step.exercise.type === "multiple-choice" && (
             <MultipleChoiceOptions
+              formatOption={(option) =>
+                formatMultipleChoiceOption(step.exercise, option)
+              }
               options={step.exercise.options ?? []}
               selectedAnswer={selectedAnswer}
               setSelectedAnswer={setSelectedAnswer}
@@ -1228,11 +1231,13 @@ function isElementComfortablyVisible(element: HTMLElement) {
 }
 
 function MultipleChoiceOptions({
+  formatOption = capitalizeDisplayText,
   isLocked = false,
   options,
   selectedAnswer,
   setSelectedAnswer,
 }: {
+  formatOption?: (option: string) => string;
   isLocked?: boolean;
   options: string[];
   selectedAnswer: string;
@@ -1248,7 +1253,7 @@ function MultipleChoiceOptions({
           isSelected={selectedAnswer === option}
           disabled={isLocked}
         >
-          {capitalizeDisplayText(option)}
+          {formatOption(option)}
         </AnswerButton>
       ))}
     </div>
@@ -1276,7 +1281,7 @@ function MatchingExercise({
           className="grid gap-3 rounded-2xl border border-slate-200 bg-slate-50 p-3 shadow-sm dark:border-white/10 dark:bg-white/[0.08] sm:grid-cols-[1fr_1fr]"
         >
           <div className="rounded-xl bg-white px-4 py-3 text-lg font-black shadow-sm dark:bg-white/10">
-            {capitalizeDisplayText(pair.left)}
+            {formatRomanizedDisplay(pair.left)}
           </div>
           <select
             value={matches[pair.left] ?? ""}
@@ -1346,6 +1351,17 @@ function buildLessonSteps(lesson: Lesson): LessonStep[] {
   })));
 
   return steps;
+}
+
+function formatMultipleChoiceOption(exercise: Exercise, option: string) {
+  if (
+    exercise.sourceType === "listenSelect" ||
+    exercise.sourceType === "quickReply"
+  ) {
+    return formatRomanizedDisplay(option);
+  }
+
+  return capitalizeDisplayText(option);
 }
 
 function buildMeaningOptions(answer: string, allMeanings: string[]) {

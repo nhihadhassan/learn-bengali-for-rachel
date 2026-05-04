@@ -5,7 +5,7 @@ import Link from "next/link";
 import { ArrowRight, Check, RotateCcw, VolumeX } from "lucide-react";
 import { checkTypedAnswer } from "@/lib/answer-checking";
 import { getLesson } from "@/lib/content";
-import { capitalizeDisplayText } from "@/lib/display-text";
+import { capitalizeDisplayText, formatRomanizedDisplay } from "@/lib/display-text";
 import { useProgress } from "@/lib/progress-store";
 import type {
   AudioPrompt,
@@ -359,6 +359,7 @@ type MultipleChoiceReviewData = {
   answer: string;
   audioPrompt?: AudioPrompt;
   options: string[];
+  sourceType?: string;
 };
 
 function MultipleChoiceReview({
@@ -400,7 +401,7 @@ function MultipleChoiceReview({
             onClick={() => setSelectedAnswer(option)}
             isSelected={selectedAnswer === option}
           >
-            {capitalizeDisplayText(option)}
+            {formatReviewOption(review.sourceType, option)}
           </AnswerButton>
         ))}
       </div>
@@ -427,7 +428,7 @@ function MatchingReview({
           className="grid gap-3 rounded-2xl border border-slate-200 bg-slate-50 p-3 shadow-sm dark:border-white/10 dark:bg-white/[0.08] sm:grid-cols-[1fr_1fr]"
         >
           <div className="rounded-xl bg-white px-4 py-3 text-lg font-black shadow-sm dark:bg-white/10">
-            {capitalizeDisplayText(pair.left)}
+            {formatRomanizedDisplay(pair.left)}
           </div>
           <select
             value={matches[pair.left] ?? ""}
@@ -469,7 +470,16 @@ function getMultipleChoiceReview(
       (audioPrompt) => audioPrompt.id === exercise.audioPromptId,
     ),
     options: exercise.options,
+    sourceType: exercise.sourceType,
   };
+}
+
+function formatReviewOption(sourceType: string | undefined, option: string) {
+  if (sourceType === "listenSelect" || sourceType === "quickReply") {
+    return formatRomanizedDisplay(option);
+  }
+
+  return capitalizeDisplayText(option);
 }
 
 function parseMatchingAnswer(answer: string): MatchingPair[] {
