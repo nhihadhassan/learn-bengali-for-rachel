@@ -1,6 +1,7 @@
 "use client";
 
 export type PronunciationInput = {
+  audioFile?: string;
   audioUrl?: string;
   audioText?: string;
   bengaliScript?: string;
@@ -151,6 +152,7 @@ function debugPronunciation(input: PronunciationInput, result: PronunciationResu
   }
 
   console.info("[Pronunciation]", {
+    audioFile: input.audioFile ?? null,
     audioUrl: input.audioUrl ?? null,
     provider: result.provider,
     result,
@@ -338,6 +340,10 @@ async function debugAvailableVoicesForLocale(locale = "bn-BD") {
 
 let currentAudio: HTMLAudioElement | null = null;
 
+function getRecordedAudioSource(input: PronunciationInput) {
+  return input.audioFile?.trim() || input.audioUrl?.trim() || "";
+}
+
 function stopCurrentAudio() {
   if (!currentAudio) {
     return;
@@ -358,7 +364,9 @@ function stopCurrentSpeech() {
 const recordedAudioProvider: PronunciationProvider = {
   name: "recorded-audio",
   async speak(input) {
-    if (!input.audioUrl || typeof Audio === "undefined") {
+    const audioSource = getRecordedAudioSource(input);
+
+    if (!audioSource || typeof Audio === "undefined") {
       return {
         provider: "none",
         reason: "No recorded audio URL was provided.",
@@ -370,7 +378,7 @@ const recordedAudioProvider: PronunciationProvider = {
       stopCurrentSpeech();
       stopCurrentAudio();
 
-      const audio = new Audio(input.audioUrl);
+      const audio = new Audio(audioSource);
       currentAudio = audio;
       await audio.play();
 
@@ -381,7 +389,7 @@ const recordedAudioProvider: PronunciationProvider = {
     } catch {
       return {
         provider: "none",
-        reason: `Could not play recorded audio at ${input.audioUrl}.`,
+        reason: `Could not play recorded audio at ${audioSource}.`,
         status: "unavailable",
       };
     }
@@ -598,7 +606,7 @@ const browserTtsProvider: PronunciationProvider = {
 export async function playPronunciation(
   input: PronunciationInput,
 ): Promise<PronunciationResult> {
-  if (input.audioUrl) {
+  if (getRecordedAudioSource(input)) {
     const audioResult = await recordedAudioProvider.speak(input);
 
     if (audioResult.status === "played") {

@@ -51,11 +51,13 @@ Phrase objects should use:
   "english": "how are you",
   "pronunciation": "KEH-mon AH-cho",
   "category": "greetings",
-  "audioUrl": "/audio/bn/kemon-acho.mp3"
+  "audioFile": "/audio/bengali/kemon-acho.mp3"
 }
 ```
 
-`audioUrl` is optional. Put recorded files under `public/audio/bn/`.
+`audioFile` is optional and preferred for new custom recordings. `audioUrl` is
+still supported for older content. Put new recorded files under
+`public/audio/bengali/`.
 
 ## Development Rules
 

@@ -15,6 +15,7 @@ export type Phrase = {
   english: string;
   pronunciation: string;
   category: string;
+  audioFile?: string;
   audioUrl?: string;
   breakdown?: Array<{
     word: string;
@@ -59,6 +60,7 @@ export type GrammarPoint = {
 
 export type AudioPrompt = {
   id: string;
+  audioFile?: string;
   audioUrl?: string;
   locale: string;
   voiceStyle: string;

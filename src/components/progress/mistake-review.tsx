@@ -383,6 +383,7 @@ function MultipleChoiceReview({
             </p>
           </div>
           <SpeakerButton
+            audioFile={review.audioPrompt.audioFile}
             audioUrl={review.audioPrompt.audioUrl}
             locale={review.audioPrompt.locale}
             romanized={review.audioPrompt.roman}

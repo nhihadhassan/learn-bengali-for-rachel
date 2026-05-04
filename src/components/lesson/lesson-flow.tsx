@@ -698,6 +698,7 @@ function PracticeLessonFlow({ lesson }: { lesson: Lesson }) {
               {formatRomanizedDisplay(step.phrase.romanized)}
             </p>
             <SpeakerButton
+              audioFile={step.phrase.audioFile}
               audioUrl={step.phrase.audioUrl}
               locale={lesson.locale}
               romanized={step.phrase.romanized}
@@ -809,6 +810,7 @@ function ExerciseAudioPrompt({
         </p>
       </div>
       <SpeakerButton
+        audioFile={audioPrompt.audioFile}
         audioUrl={audioPrompt.audioUrl}
         locale={audioPrompt.locale ?? locale}
         romanized={audioPrompt.roman}
@@ -947,6 +949,7 @@ function LearnStep({
           </h2>
         </div>
         <SpeakerButton
+          audioFile={step.phrase.audioFile}
           audioUrl={step.phrase.audioUrl}
           locale={locale}
           romanized={step.phrase.romanized}
@@ -1030,6 +1033,7 @@ function SpeakPracticeStep({
 }) {
   function playAgain() {
     void playPronunciation({
+      audioFile: step.phrase.audioFile,
       audioUrl: step.phrase.audioUrl,
       debug: true,
       locale,
@@ -1058,6 +1062,7 @@ function SpeakPracticeStep({
           </p>
         </div>
         <SpeakerButton
+          audioFile={step.phrase.audioFile}
           audioUrl={step.phrase.audioUrl}
           locale={locale}
           romanized={step.phrase.romanized}

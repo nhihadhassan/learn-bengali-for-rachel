@@ -172,6 +172,7 @@ export function LearnedWordsReview() {
                   </p>
                 </div>
                 <SpeakerButton
+                  audioFile={word.phrase.audioFile}
                   audioUrl={word.phrase.audioUrl}
                   locale={word.locale}
                   romanized={word.phrase.romanized}

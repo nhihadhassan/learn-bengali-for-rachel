@@ -6,12 +6,14 @@ import { playPronunciation, type PronunciationResult } from "@/lib/pronunciation
 import { cn } from "@/lib/utils";
 
 export function SpeakerButton({
+  audioFile,
   audioUrl,
   debug = true,
   locale,
   romanized,
   script,
 }: {
+  audioFile?: string;
   audioUrl?: string;
   debug?: boolean;
   locale?: string;
@@ -50,6 +52,7 @@ export function SpeakerButton({
     setIsLoading(true);
     try {
       const nextResult = await playPronunciation({
+        audioFile,
         audioUrl,
         debug,
         locale,
@@ -100,6 +103,14 @@ export function SpeakerButton({
             ? result.message
             : ""}
       </span>
+      {isUnavailable && (
+        <span
+          className="mt-1 max-w-24 text-center text-[0.68rem] font-black uppercase tracking-[0.08em] text-slate-500 dark:text-slate-400"
+          role="status"
+        >
+          Audio unavailable
+        </span>
+      )}
     </span>
   );
 }

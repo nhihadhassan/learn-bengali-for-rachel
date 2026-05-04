@@ -86,6 +86,7 @@
               "english": "hello",
               "pronunciation": "as-sa-laa-mu a-lay-kum",
               "category": "greetings",
+              "audioFile": "/audio/bengali/assalamualaikum.mp3",
               "bengaliScript": "আসসালামু আলাইকুম",
               "breakdown": [
                 {
@@ -106,6 +107,7 @@
               "english": "Hello (Response)",
               "pronunciation": "wa-lay-kum as-sa-laam",
               "category": "greetings",
+              "audioFile": "/audio/bengali/walaikum-assalam.mp3",
               "bengaliScript": "ওয়ালাইকুম আসসালাম",
               "breakdown": [
                 {
@@ -282,6 +284,7 @@
               "id": "a1",
               "locale": "bn-BD",
               "voiceStyle": "warm-neutral",
+              "audioFile": "/audio/bengali/assalamualaikum.mp3",
               "textBn": "আসসালামু আলাইকুম",
               "roman": "assalamualaikum",
               "textEn": "Peace be upon you.",
@@ -419,6 +422,7 @@
               "english": "how are you?",
               "pronunciation": "too-mee keh-mon ah-cho",
               "category": "how-are-you",
+              "audioFile": "/audio/bengali/tumi-kemon-acho.mp3",
               "bengaliScript": "তুমি কেমন আছো?",
               "breakdown": [
                 {
@@ -444,6 +448,7 @@
               "english": "I am good",
               "pronunciation": "ah-mee bha-lo ah-chee",
               "category": "how-are-you",
+              "audioFile": "/audio/bengali/ami-bhalo-achi.mp3",
               "bengaliScript": "আমি ভালো আছি",
               "breakdown": [
                 {
@@ -625,6 +630,7 @@
               "id": "a1",
               "locale": "bn-BD",
               "voiceStyle": "warm-neutral",
+              "audioFile": "/audio/bengali/tumi-kemon-acho.mp3",
               "textBn": "তুমি কেমন আছো?",
               "roman": "tumi kemon acho?",
               "textEn": "How are you?",
@@ -634,6 +640,7 @@
               "id": "a2",
               "locale": "bn-BD",
               "voiceStyle": "warm-neutral",
+              "audioFile": "/audio/bengali/ami-bhalo-achi.mp3",
               "textBn": "আমি ভালো আছি",
               "roman": "ami bhalo achi",
               "textEn": "I am good.",
