@@ -1,0 +1,576 @@
+[
+  {
+    "id": "song-dai-dai",
+    "title": "Dai dai",
+    "artist": "Shakira & Burna Boy",
+    "region": "Colombia / global",
+    "genre": "Afro-pop",
+    "year": 2026,
+    "curatedAt": "2026-07-10",
+    "officialUrl": "https://www.youtube.com/results?search_query=Shakira+Burna+Boy+Dai+dai+official",
+    "sourceUrl": "https://los40.com/2026/07/04/shakira-y-burna-boy-marcan-el-gol-del-verano-dai-dai-alcanza-el-n1-de-los40/",
+    "sourceLabel": "LOS40 chart report",
+    "description": "A current, high-energy collaboration for noticing how Spanish travels across borders and musical styles.",
+    "learningFocus": "Movement, celebration, and the sound of conversational Spanish in a pop chorus.",
+    "lines": [
+      { "spanish": "baila conmigo", "english": "dance with me", "note": "The informal command baila means dance." },
+      { "spanish": "esta noche", "english": "tonight", "note": "Noche is feminine, so use esta." },
+      { "spanish": "vamos", "english": "let's go", "note": "Vamos is useful in travel and everyday conversation." }
+    ]
+  },
+  {
+    "id": "song-la-graciosa",
+    "title": "La graciosa",
+    "artist": "Quevedo feat. Elvis Crespo",
+    "region": "Spain / Puerto Rico",
+    "genre": "Latin urban",
+    "year": 2026,
+    "curatedAt": "2026-07-10",
+    "officialUrl": "https://www.youtube.com/results?search_query=Quevedo+Elvis+Crespo+La+graciosa+official",
+    "sourceUrl": "https://los40.com/2026/07/04/shakira-y-burna-boy-marcan-el-gol-del-verano-dai-dai-alcanza-el-n1-de-los40/",
+    "sourceLabel": "LOS40 chart report",
+    "description": "A playful track for hearing contemporary slang, rhythm, and Caribbean influence in a current hit.",
+    "learningFocus": "Describing personality and recognizing la as the feminine article.",
+    "lines": [
+      { "spanish": "qué graciosa", "english": "how funny / amusing", "note": "Graciosa changes form to agree with a feminine noun or person." },
+      { "spanish": "me gusta", "english": "I like it", "note": "Me gusta is a high-value phrase for preferences." },
+      { "spanish": "qué pasó", "english": "what happened", "note": "Pasó is the past tense of pasar." }
+    ]
+  },
+  {
+    "id": "song-superestrella",
+    "title": "Superestrella",
+    "artist": "Aitana",
+    "region": "Spain",
+    "genre": "Pop",
+    "year": 2026,
+    "curatedAt": "2026-07-10",
+    "officialUrl": "https://www.youtube.com/results?search_query=Aitana+Superestrella+official",
+    "sourceUrl": "https://los40.com/2026/07/04/shakira-y-burna-boy-marcan-el-gol-del-verano-dai-dai-alcanza-el-n1-de-los40/",
+    "sourceLabel": "LOS40 chart report",
+    "description": "A bright pop pick for practicing identity, confidence, and everyday descriptive words.",
+    "learningFocus": "Adjectives, emphasis, and Spanish pop vocabulary from Spain.",
+    "lines": [
+      { "spanish": "soy una estrella", "english": "I am a star", "note": "Soy comes from ser, to be." },
+      { "spanish": "todo está bien", "english": "everything is fine", "note": "Está comes from estar, used for a state or condition." },
+      { "spanish": "de verdad", "english": "really / truly", "note": "A common phrase for adding emphasis." }
+    ]
+  },
+  {
+    "id": "song-despacito",
+    "title": "Despacito",
+    "artist": "Luis Fonsi feat. Daddy Yankee",
+    "region": "Puerto Rico",
+    "genre": "Reggaeton",
+    "year": 2017,
+    "curatedAt": "2026-07-10",
+    "officialUrl": "https://www.youtube.com/results?search_query=Luis+Fonsi+Daddy+Yankee+Despacito+official",
+    "sourceUrl": "https://www.youtube.com/results?search_query=Luis+Fonsi+Daddy+Yankee+Despacito+official",
+    "sourceLabel": "Official release search",
+    "description": "A familiar reggaeton classic with clear, memorable vocabulary for rhythm and pace.",
+    "learningFocus": "Adverbs, body movement, and the difference between despacio and despacito.",
+    "lines": [
+      { "spanish": "poco a poco", "english": "little by little", "note": "A useful phrase for slowing down and progressing gradually." },
+      { "spanish": "despacio", "english": "slowly", "note": "The -ito ending can make a word sound smaller or softer." },
+      { "spanish": "otra vez", "english": "again", "note": "Use this when asking someone to repeat something." }
+    ]
+  },
+  {
+    "id": "song-bailando",
+    "title": "Bailando",
+    "artist": "Enrique Iglesias feat. Descemer Bueno & Gente de Zona",
+    "region": "Spain / Cuba",
+    "genre": "Latin pop",
+    "year": 2014,
+    "curatedAt": "2026-07-10",
+    "officialUrl": "https://www.youtube.com/results?search_query=Enrique+Iglesias+Bailando+official",
+    "sourceUrl": "https://www.youtube.com/results?search_query=Enrique+Iglesias+Bailando+official",
+    "sourceLabel": "Official release search",
+    "description": "A cross-regional Latin pop favorite for hearing different accents and learning action words.",
+    "learningFocus": "The -ando form, movement verbs, and practical phrases for joining an activity.",
+    "lines": [
+      { "spanish": "estoy bailando", "english": "I am dancing", "note": "Estoy + -ando describes an action in progress." },
+      { "spanish": "conmigo", "english": "with me", "note": "Conmigo is the combined form of con and mí." },
+      { "spanish": "sin parar", "english": "without stopping", "note": "Sin means without." }
+    ]
+  },
+  {
+    "id": "song-si-antes",
+    "title": "Si Antes Te Hubiera Conocido",
+    "artist": "KAROL G",
+    "region": "Colombia",
+    "genre": "Merengue-pop",
+    "year": 2024,
+    "curatedAt": "2026-07-10",
+    "officialUrl": "https://www.youtube.com/results?search_query=KAROL+G+Si+Antes+Te+Hubiera+Conocido+official",
+    "sourceUrl": "https://www.youtube.com/results?search_query=KAROL+G+Si+Antes+Te+Hubiera+Conocido+official",
+    "sourceLabel": "Official release search",
+    "description": "A warm Colombian pop pick for practicing time words, introductions, and reflective conversation.",
+    "learningFocus": "Before and after language, meeting people, and Colombian Caribbean sound.",
+    "lines": [
+      { "spanish": "antes", "english": "before", "note": "A compact time word that appears in many useful phrases." },
+      { "spanish": "conocerte", "english": "to meet you / know you", "note": "The te ending points to the person being addressed." },
+      { "spanish": "qué bonito", "english": "how lovely", "note": "Bonito changes to bonita when describing a feminine noun." }
+    ]
+  },
+  {
+    "id": "song-dtmf-nuevayol",
+    "title": "NUEVAYoL",
+    "artist": "Bad Bunny",
+    "album": "DeBÍ TiRAR MáS FOToS",
+    "region": "Puerto Rico",
+    "genre": "Latin urban",
+    "year": 2025,
+    "curatedAt": "2026-07-10",
+    "officialUrl": "https://open.spotify.com/album/5K79FLRUCSysQnVESLcTdb",
+    "sourceUrl": "https://music.apple.com/us/album/deb%C3%AD-tirar-m%C3%A1s-fotos/1787022393",
+    "sourceLabel": "Apple Music album",
+    "description": "A Puerto Rico-centered opener for noticing place names, identity, and contemporary island Spanish.",
+    "learningFocus": "Place, belonging, and the way proper names become part of a song's vocabulary.",
+    "lines": [
+      { "spanish": "Nueva York", "english": "New York", "note": "The title stylizes Nueva York as NUEVAYoL." },
+      { "spanish": "de aquí", "english": "from here", "note": "A useful phrase for talking about where someone is from." },
+      { "spanish": "mi gente", "english": "my people", "note": "Gente is grammatically feminine even when it refers to a mixed group." }
+    ]
+  },
+  {
+    "id": "song-dtmf-voy-a-llevarte",
+    "title": "VOY A LLeVARTE PA PR",
+    "artist": "Bad Bunny",
+    "album": "DeBÍ TiRAR MáS FOToS",
+    "region": "Puerto Rico",
+    "genre": "Reggaeton",
+    "year": 2025,
+    "curatedAt": "2026-07-10",
+    "officialUrl": "https://open.spotify.com/album/5K79FLRUCSysQnVESLcTdb",
+    "sourceUrl": "https://music.apple.com/us/album/deb%C3%AD-tirar-m%C3%A1s-fotos/1787022393",
+    "sourceLabel": "Apple Music album",
+    "description": "A travel-ready track for hearing the near-future construction and Puerto Rico shorthand in the title.",
+    "learningFocus": "Ir a + infinitive, invitations, and the informal shortening pa' for para.",
+    "lines": [
+      { "spanish": "voy a llevarte", "english": "I am going to take you", "note": "Voy a + infinitive expresses a near-future plan." },
+      { "spanish": "para Puerto Rico", "english": "to Puerto Rico", "note": "The title shortens para to pa', a common informal spelling of speech." },
+      { "spanish": "vámonos", "english": "let's go", "note": "A lively first-person plural command used for leaving together." }
+    ]
+  },
+  {
+    "id": "song-dtmf-baile-inolvidable",
+    "title": "BAILE INoLVIDABLE",
+    "artist": "Bad Bunny",
+    "album": "DeBÍ TiRAR MáS FOToS",
+    "region": "Puerto Rico",
+    "genre": "Salsa",
+    "year": 2025,
+    "curatedAt": "2026-07-10",
+    "officialUrl": "https://open.spotify.com/album/5K79FLRUCSysQnVESLcTdb",
+    "sourceUrl": "https://music.apple.com/us/album/deb%C3%AD-tirar-m%C3%A1s-fotos/1787022393",
+    "sourceLabel": "Apple Music album",
+    "description": "A salsa-leaning lesson for movement words and describing an experience you will remember.",
+    "learningFocus": "Noun-adjective agreement and the vocabulary of dancing and memory.",
+    "lines": [
+      { "spanish": "baile inolvidable", "english": "unforgettable dance", "note": "Inolvidable stays the same for masculine and feminine nouns." },
+      { "spanish": "baila conmigo", "english": "dance with me", "note": "Baila is the informal command form of bailar." },
+      { "spanish": "para siempre", "english": "forever", "note": "A high-frequency phrase for lasting memories." }
+    ]
+  },
+  {
+    "id": "song-dtmf-perfumito-nuevo",
+    "title": "PERFuMITO NUEVO",
+    "artist": "Bad Bunny feat. RaiNao",
+    "album": "DeBÍ TiRAR MáS FOToS",
+    "region": "Puerto Rico",
+    "genre": "Reggaeton",
+    "year": 2025,
+    "curatedAt": "2026-07-10",
+    "officialUrl": "https://open.spotify.com/album/5K79FLRUCSysQnVESLcTdb",
+    "sourceUrl": "https://music.apple.com/us/album/deb%C3%AD-tirar-m%C3%A1s-fotos/1787022393",
+    "sourceLabel": "Apple Music album",
+    "description": "A sensory track for practicing descriptions, memory, and the small -ito ending.",
+    "learningFocus": "Noun-adjective agreement and diminutive endings in everyday Spanish.",
+    "lines": [
+      { "spanish": "perfume nuevo", "english": "new perfume", "note": "Nuevo agrees with the masculine noun perfume." },
+      { "spanish": "huele bien", "english": "it smells good", "note": "Huele comes from oler, to smell." },
+      { "spanish": "un poquito", "english": "a little bit", "note": "The -ito ending can make poco sound smaller or softer." }
+    ]
+  },
+  {
+    "id": "song-dtmf-weltita",
+    "title": "WELTiTA",
+    "artist": "Bad Bunny feat. Chuwi",
+    "album": "DeBÍ TiRAR MáS FOToS",
+    "region": "Puerto Rico",
+    "genre": "Latin urban",
+    "year": 2025,
+    "curatedAt": "2026-07-10",
+    "officialUrl": "https://open.spotify.com/album/5K79FLRUCSysQnVESLcTdb",
+    "sourceUrl": "https://music.apple.com/us/album/deb%C3%AD-tirar-m%C3%A1s-fotos/1787022393",
+    "sourceLabel": "Apple Music album",
+    "description": "A collaboration for hearing warmth, repetition, and the playful spelling of contemporary Puerto Rican pop.",
+    "learningFocus": "Short conversational phrases for returning, staying close, and making plans.",
+    "lines": [
+      { "spanish": "de vuelta", "english": "back / returning", "note": "Use de vuelta when someone or something comes back." },
+      { "spanish": "quédate aquí", "english": "stay here", "note": "Quédate is an informal command built from quedarse." },
+      { "spanish": "te extraño", "english": "I miss you", "note": "Extrañar is especially common across Latin America." }
+    ]
+  },
+  {
+    "id": "song-dtmf-velda",
+    "title": "VeLDÁ",
+    "artist": "Bad Bunny, Omar Courtz & Dei V",
+    "album": "DeBÍ TiRAR MáS FOToS",
+    "region": "Puerto Rico",
+    "genre": "Dancehall / Latin urban",
+    "year": 2025,
+    "curatedAt": "2026-07-10",
+    "officialUrl": "https://open.spotify.com/album/5K79FLRUCSysQnVESLcTdb",
+    "sourceUrl": "https://music.apple.com/us/album/deb%C3%AD-tirar-m%C3%A1s-fotos/1787022393",
+    "sourceLabel": "Apple Music album",
+    "description": "A three-artist cut for practicing truth, confidence, and modern urban phrasing.",
+    "learningFocus": "Questions, emphasis, and the difference between verdad and de verdad.",
+    "lines": [
+      { "spanish": "de verdad", "english": "really / truly", "note": "A common phrase for adding emphasis." },
+      { "spanish": "dime la verdad", "english": "tell me the truth", "note": "Dime combines di, tell, with me." },
+      { "spanish": "sin miedo", "english": "without fear", "note": "Sin means without and takes no article here." }
+    ]
+  },
+  {
+    "id": "song-dtmf-el-club",
+    "title": "EL CLúB",
+    "artist": "Bad Bunny",
+    "album": "DeBÍ TiRAR MáS FOToS",
+    "region": "Puerto Rico",
+    "genre": "House / plena",
+    "year": 2025,
+    "curatedAt": "2026-07-10",
+    "officialUrl": "https://open.spotify.com/album/5K79FLRUCSysQnVESLcTdb",
+    "sourceUrl": "https://music.apple.com/us/album/deb%C3%AD-tirar-m%C3%A1s-fotos/1787022393",
+    "sourceLabel": "Apple Music album",
+    "description": "A genre-shifting track for nightlife vocabulary and noticing how electronic production can meet plena.",
+    "learningFocus": "Time expressions, invitations, and the everyday noun club.",
+    "lines": [
+      { "spanish": "el club", "english": "the club", "note": "Club is masculine in this common use." },
+      { "spanish": "toda la noche", "english": "all night", "note": "Toda agrees with the feminine noun noche." },
+      { "spanish": "nos vemos", "english": "see you", "note": "Literally we see each other; it is a natural goodbye." }
+    ]
+  },
+  {
+    "id": "song-dtmf-ketu-tecre",
+    "title": "KETU TeCRÉ",
+    "artist": "Bad Bunny",
+    "album": "DeBÍ TiRAR MáS FOToS",
+    "region": "Puerto Rico",
+    "genre": "Reggaeton",
+    "year": 2025,
+    "curatedAt": "2026-07-10",
+    "officialUrl": "https://open.spotify.com/album/5K79FLRUCSysQnVESLcTdb",
+    "sourceUrl": "https://music.apple.com/us/album/deb%C3%AD-tirar-m%C3%A1s-fotos/1787022393",
+    "sourceLabel": "Apple Music album",
+    "description": "A playful track for hearing a familiar Caribbean question in highly stylized typography.",
+    "learningFocus": "Question words, pronouns, and informal spoken rhythm.",
+    "lines": [
+      { "spanish": "¿qué tú te crees?", "english": "what do you think?", "note": "The title stylizes this Puerto Rican conversational question." },
+      { "spanish": "tú sabes", "english": "you know", "note": "A common phrase for shared context or emphasis." },
+      { "spanish": "no me digas", "english": "don't tell me / no way", "note": "Context determines whether this sounds literal or surprised." }
+    ]
+  },
+  {
+    "id": "song-dtmf-bokete",
+    "title": "BOKeTE",
+    "artist": "Bad Bunny",
+    "album": "DeBÍ TiRAR MáS FOToS",
+    "region": "Puerto Rico",
+    "genre": "Latin urban",
+    "year": 2025,
+    "curatedAt": "2026-07-10",
+    "officialUrl": "https://open.spotify.com/album/5K79FLRUCSysQnVESLcTdb",
+    "sourceUrl": "https://music.apple.com/us/album/deb%C3%AD-tirar-m%C3%A1s-fotos/1787022393",
+    "sourceLabel": "Apple Music album",
+    "description": "A compact vocabulary lesson built around a concrete Puerto Rican Spanish noun.",
+    "learningFocus": "Concrete nouns, location phrases, and describing damage or openings.",
+    "lines": [
+      { "spanish": "boquete", "english": "hole / opening", "note": "A boquete is a large opening, often in a wall or surface." },
+      { "spanish": "en la pared", "english": "in the wall", "note": "En means in or on depending on context." },
+      { "spanish": "se cayó", "english": "it fell", "note": "Se cayó is the past form of caerse, to fall down." }
+    ]
+  },
+  {
+    "id": "song-dtmf-kloufrens",
+    "title": "KLOuFRENS",
+    "artist": "Bad Bunny",
+    "album": "DeBÍ TiRAR MáS FOToS",
+    "region": "Puerto Rico",
+    "genre": "Latin urban",
+    "year": 2025,
+    "curatedAt": "2026-07-10",
+    "officialUrl": "https://open.spotify.com/album/5K79FLRUCSysQnVESLcTdb",
+    "sourceUrl": "https://music.apple.com/us/album/deb%C3%AD-tirar-m%C3%A1s-fotos/1787022393",
+    "sourceLabel": "Apple Music album",
+    "description": "A stylized deep cut for noticing how artists bend spelling while keeping the surrounding language conversational.",
+    "learningFocus": "Friendship vocabulary, possessives, and informal Puerto Rican slang awareness.",
+    "lines": [
+      { "spanish": "mis panas", "english": "my friends", "note": "Pana is a widely used informal word for friend in the Caribbean." },
+      { "spanish": "con los míos", "english": "with my people", "note": "Míos agrees with the implied masculine plural group." },
+      { "spanish": "estamos juntos", "english": "we are together", "note": "Estamos comes from estar and describes a current state." }
+    ]
+  },
+  {
+    "id": "song-dtmf-turista",
+    "title": "TURiSTA",
+    "artist": "Bad Bunny",
+    "album": "DeBÍ TiRAR MáS FOToS",
+    "region": "Puerto Rico",
+    "genre": "Latin pop",
+    "year": 2025,
+    "curatedAt": "2026-07-10",
+    "officialUrl": "https://open.spotify.com/album/5K79FLRUCSysQnVESLcTdb",
+    "sourceUrl": "https://music.apple.com/us/album/deb%C3%AD-tirar-m%C3%A1s-fotos/1787022393",
+    "sourceLabel": "Apple Music album",
+    "description": "A reflective track that connects especially well with the Spanish curriculum's Peru travel theme.",
+    "learningFocus": "Travel nouns, farewells, and the emotional difference between visiting and belonging.",
+    "lines": [
+      { "spanish": "turista", "english": "tourist", "note": "Turista is the same form for masculine and feminine." },
+      { "spanish": "buen viaje", "english": "have a good trip", "note": "A natural phrase for sending someone off." },
+      { "spanish": "me voy", "english": "I'm leaving", "note": "Me voy comes from irse, to leave or go away." }
+    ]
+  },
+  {
+    "id": "song-dtmf-cafe-con-ron",
+    "title": "CAFé CON RON",
+    "artist": "Bad Bunny feat. Los Pleneros de la Cresta",
+    "album": "DeBÍ TiRAR MáS FOToS",
+    "region": "Puerto Rico",
+    "genre": "Plena",
+    "year": 2025,
+    "curatedAt": "2026-07-10",
+    "officialUrl": "https://open.spotify.com/album/5K79FLRUCSysQnVESLcTdb",
+    "sourceUrl": "https://music.apple.com/us/album/deb%C3%AD-tirar-m%C3%A1s-fotos/1787022393",
+    "sourceLabel": "Apple Music album",
+    "description": "A tradition-forward collaboration for food and drink vocabulary, celebration, and Puerto Rican plena.",
+    "learningFocus": "Nouns with con, social invitations, and the language of a shared table.",
+    "lines": [
+      { "spanish": "café con ron", "english": "coffee with rum", "note": "Con means with and connects the two nouns." },
+      { "spanish": "¡salud!", "english": "cheers!", "note": "Salud literally means health and is used for a toast." },
+      { "spanish": "con amigos", "english": "with friends", "note": "Amigos is masculine plural for a mixed group or male friends." }
+    ]
+  },
+  {
+    "id": "song-dtmf-pitorro-de-coco",
+    "title": "PIToRRO DE COCO",
+    "artist": "Bad Bunny",
+    "album": "DeBÍ TiRAR MáS FOToS",
+    "region": "Puerto Rico",
+    "genre": "Plena / Latin folk",
+    "year": 2025,
+    "curatedAt": "2026-07-10",
+    "officialUrl": "https://open.spotify.com/album/5K79FLRUCSysQnVESLcTdb",
+    "sourceUrl": "https://music.apple.com/us/album/deb%C3%AD-tirar-m%C3%A1s-fotos/1787022393",
+    "sourceLabel": "Apple Music album",
+    "description": "A cultural vocabulary card for exploring a Puerto Rican drink reference without needing a full translation.",
+    "learningFocus": "Regional food and drink words, ingredients, and descriptive phrases.",
+    "lines": [
+      { "spanish": "pitorro de coco", "english": "coconut pitorro", "note": "Pitorro is a Puerto Rican sugarcane spirit; coco means coconut." },
+      { "spanish": "hecho en casa", "english": "homemade", "note": "Hecho is the past participle of hacer, to make." },
+      { "spanish": "una botella", "english": "a bottle", "note": "Botella is a useful everyday noun for drinks and travel." }
+    ]
+  },
+  {
+    "id": "song-dtmf-lo-que-le-paso-a-hawaii",
+    "title": "LO QUE LE PASÓ A HAWAii",
+    "artist": "Bad Bunny",
+    "album": "DeBÍ TiRAR MáS FOToS",
+    "region": "Puerto Rico",
+    "genre": "Latin pop",
+    "year": 2025,
+    "curatedAt": "2026-07-10",
+    "officialUrl": "https://open.spotify.com/album/5K79FLRUCSysQnVESLcTdb",
+    "sourceUrl": "https://music.apple.com/us/album/deb%C3%AD-tirar-m%C3%A1s-fotos/1787022393",
+    "sourceLabel": "Apple Music album",
+    "description": "A story-focused song for practicing what happened, indirect objects, and island context.",
+    "learningFocus": "Past-tense questions and the phrase lo que, what or that which.",
+    "lines": [
+      { "spanish": "lo que le pasó", "english": "what happened to it / them", "note": "Le marks the person or thing affected by the event." },
+      { "spanish": "¿qué pasó?", "english": "what happened?", "note": "A simple past-tense question for checking on a situation." },
+      { "spanish": "a la isla", "english": "to the island", "note": "La isla is feminine, so use a la." }
+    ]
+  },
+  {
+    "id": "song-dtmf-eoo",
+    "title": "EoO",
+    "artist": "Bad Bunny",
+    "album": "DeBÍ TiRAR MáS FOToS",
+    "region": "Puerto Rico",
+    "genre": "Reggaeton",
+    "year": 2025,
+    "curatedAt": "2026-07-10",
+    "officialUrl": "https://open.spotify.com/album/5K79FLRUCSysQnVESLcTdb",
+    "sourceUrl": "https://music.apple.com/us/album/deb%C3%AD-tirar-m%C3%A1s-fotos/1787022393",
+    "sourceLabel": "Apple Music album",
+    "description": "A dancefloor cut for short commands, movement, and listening for vowel sounds in a stylized title.",
+    "learningFocus": "Commands, repetition, and high-frequency movement verbs.",
+    "lines": [
+      { "spanish": "ven aquí", "english": "come here", "note": "Ven is the informal command form of venir." },
+      { "spanish": "muévete", "english": "move", "note": "The accent marks the stressed syllable in this command." },
+      { "spanish": "otra vez", "english": "again", "note": "Use otra vez when asking someone to repeat an action." }
+    ]
+  },
+  {
+    "id": "song-dtmf-dtmf",
+    "title": "DtMF",
+    "artist": "Bad Bunny",
+    "album": "DeBÍ TiRAR MáS FOToS",
+    "region": "Puerto Rico",
+    "genre": "Latin pop",
+    "year": 2025,
+    "curatedAt": "2026-07-10",
+    "officialUrl": "https://open.spotify.com/album/5K79FLRUCSysQnVESLcTdb",
+    "sourceUrl": "https://music.apple.com/us/album/deb%C3%AD-tirar-m%C3%A1s-fotos/1787022393",
+    "sourceLabel": "Apple Music album",
+    "description": "The album's reflective title track for talking about memories, photos, and regret.",
+    "learningFocus": "The imperfect past, conditional meaning, and emotionally useful memory vocabulary.",
+    "lines": [
+      { "spanish": "debí tirar más fotos", "english": "I should have taken more photos", "note": "Debí expresses a past obligation or regret; tirar fotos means take photos in Caribbean Spanish." },
+      { "spanish": "cuando te tuve", "english": "when I had you", "note": "Tuve is the irregular preterite of tener, to have." },
+      { "spanish": "me arrepiento", "english": "I regret it", "note": "Arrepentirse is a reflexive verb for expressing regret." }
+    ]
+  },
+  {
+    "id": "song-dtmf-la-mudanza",
+    "title": "LA MuDANZA",
+    "artist": "Bad Bunny",
+    "album": "DeBÍ TiRAR MáS FOToS",
+    "region": "Puerto Rico",
+    "genre": "Latin urban",
+    "year": 2025,
+    "curatedAt": "2026-07-10",
+    "officialUrl": "https://open.spotify.com/album/5K79FLRUCSysQnVESLcTdb",
+    "sourceUrl": "https://music.apple.com/us/album/deb%C3%AD-tirar-m%C3%A1s-fotos/1787022393",
+    "sourceLabel": "Apple Music album",
+    "description": "A high-energy closer for practicing change, movement, and the sound of Puerto Rican celebration.",
+    "learningFocus": "Moving-house vocabulary, commands, and talking about a new chapter.",
+    "lines": [
+      { "spanish": "la mudanza", "english": "the move", "note": "Mudanza usually means moving house, not simply a trip." },
+      { "spanish": "me mudo", "english": "I'm moving", "note": "Mudarse is the reflexive verb for changing homes." },
+      { "spanish": "nuevo comienzo", "english": "new beginning", "note": "Comienzo is a useful noun for starting a new chapter." }
+    ]
+  },
+  {
+    "id": "song-kali-telepatia",
+    "title": "telepatía",
+    "artist": "Kali Uchis",
+    "album": "Sin Miedo (del Amor y Otros Demonios) ∞",
+    "region": "Colombia / United States",
+    "genre": "Alt-R&B / reggaeton",
+    "year": 2020,
+    "curatedAt": "2026-07-10",
+    "officialUrl": "https://www.youtube.com/results?search_query=Kali+Uchis+telepatia+official",
+    "sourceUrl": "https://music.apple.com/es/artist/kali-uchis/894731301",
+    "sourceLabel": "Kali Uchis on Apple Music",
+    "description": "A learner-friendly favorite for talking about distance, connection, and imagined communication.",
+    "learningFocus": "Frequency words, conditional meaning, and romantic vocabulary.",
+    "lines": [
+      { "spanish": "telepatía", "english": "telepathy", "note": "The accent marks the final stressed syllable." },
+      { "spanish": "a distancia", "english": "at a distance", "note": "A useful phrase for travel, relationships, and remote communication." },
+      { "spanish": "cada día", "english": "every day", "note": "Cada means each or every and does not change for gender." }
+    ]
+  },
+  {
+    "id": "song-kali-fue-mejor",
+    "title": "fue mejor",
+    "artist": "Kali Uchis feat. SZA",
+    "album": "Sin Miedo (del Amor y Otros Demonios) ∞",
+    "region": "Colombia / United States",
+    "genre": "R&B / bolero-pop",
+    "year": 2020,
+    "curatedAt": "2026-07-10",
+    "officialUrl": "https://www.youtube.com/results?search_query=Kali+Uchis+SZA+fue+mejor+official",
+    "sourceUrl": "https://music.apple.com/es/artist/kali-uchis/894731301",
+    "sourceLabel": "Kali Uchis on Apple Music",
+    "description": "A bilingual collaboration for comparing the past with the present and expressing a clear preference.",
+    "learningFocus": "The preterite of ser, comparisons, and reflective relationship language.",
+    "lines": [
+      { "spanish": "fue mejor", "english": "it was better", "note": "Fue is the past form shared by ser and ir." },
+      { "spanish": "ya no", "english": "not anymore", "note": "Ya no is a compact way to describe a changed situation." },
+      { "spanish": "sin ti", "english": "without you", "note": "Sin means without and ti is the stressed pronoun after a preposition." }
+    ]
+  },
+  {
+    "id": "song-kali-que-te-pedi",
+    "title": "qué te pedí//",
+    "artist": "Kali Uchis",
+    "album": "Sin Miedo (del Amor y Otros Demonios) ∞",
+    "region": "Colombia / United States",
+    "genre": "Bolero / R&B",
+    "year": 2020,
+    "curatedAt": "2026-07-10",
+    "officialUrl": "https://www.youtube.com/results?search_query=Kali+Uchis+que+te+pedi+official",
+    "sourceUrl": "https://music.apple.com/es/artist/kali-uchis/894731301",
+    "sourceLabel": "Kali Uchis on Apple Music",
+    "description": "A bolero-informed lesson for polite requests, expectations, and strong question intonation.",
+    "learningFocus": "The preterite of pedir and object pronouns in everyday questions.",
+    "lines": [
+      { "spanish": "¿qué te pedí?", "english": "what did I ask you for?", "note": "Pedí is the first-person preterite of pedir, to ask for." },
+      { "spanish": "te lo dije", "english": "I told you", "note": "Te and lo are object pronouns placed before dije." },
+      { "spanish": "nada más", "english": "nothing more / just", "note": "A flexible phrase that can limit or soften a statement." }
+    ]
+  },
+  {
+    "id": "song-kali-vaya-con-dios",
+    "title": "vaya con dios",
+    "artist": "Kali Uchis",
+    "album": "Sin Miedo (del Amor y Otros Demonios) ∞",
+    "region": "Colombia / United States",
+    "genre": "Bolero-pop",
+    "year": 2020,
+    "curatedAt": "2026-07-10",
+    "officialUrl": "https://www.youtube.com/results?search_query=Kali+Uchis+vaya+con+dios+official",
+    "sourceUrl": "https://music.apple.com/es/artist/kali-uchis/894731301",
+    "sourceLabel": "Kali Uchis on Apple Music",
+    "description": "A warm, classic-sounding track for farewells, wishes, and formal-sounding expressions.",
+    "learningFocus": "Subjunctive commands, prepositions, and expressions of goodwill.",
+    "lines": [
+      { "spanish": "vaya con Dios", "english": "go with God", "note": "Vaya is a formal or polite command from ir, to go." },
+      { "spanish": "que te vaya bien", "english": "I hope it goes well for you", "note": "A very useful good-wish expression with the subjunctive." },
+      { "spanish": "hasta luego", "english": "see you later", "note": "A friendly everyday farewell." }
+    ]
+  },
+  {
+    "id": "song-kali-igual-que-un-angel",
+    "title": "Igual Que Un Ángel",
+    "artist": "Kali Uchis feat. Peso Pluma",
+    "album": "ORQUÍDEAS",
+    "region": "Colombia / Mexico / United States",
+    "genre": "Pop / regional mexicano",
+    "year": 2024,
+    "curatedAt": "2026-07-10",
+    "officialUrl": "https://www.youtube.com/results?search_query=Kali+Uchis+Peso+Pluma+Igual+Que+Un+Angel+official",
+    "sourceUrl": "https://music.apple.com/es/artist/kali-uchis/894731301",
+    "sourceLabel": "Kali Uchis on Apple Music",
+    "description": "A cross-border collaboration for comparisons, compliments, and listening across pop and música mexicana.",
+    "learningFocus": "Comparisons with igual que and descriptive adjectives.",
+    "lines": [
+      { "spanish": "igual que", "english": "just like / same as", "note": "Use igual que to compare people, things, or actions." },
+      { "spanish": "un ángel", "english": "an angel", "note": "Ángel keeps its written accent on the first syllable." },
+      { "spanish": "tan bonito", "english": "so beautiful", "note": "Tan means so or as, depending on the comparison." }
+    ]
+  },
+  {
+    "id": "song-kali-labios-mordidos",
+    "title": "Labios Mordidos",
+    "artist": "Kali Uchis feat. KAROL G",
+    "album": "ORQUÍDEAS",
+    "region": "Colombia / United States",
+    "genre": "Reggaeton-pop",
+    "year": 2023,
+    "curatedAt": "2026-07-10",
+    "officialUrl": "https://www.youtube.com/results?search_query=Kali+Uchis+Karol+G+Labios+Mordidos+official",
+    "sourceUrl": "https://music.apple.com/es/artist/kali-uchis/894731301",
+    "sourceLabel": "Kali Uchis on Apple Music",
+    "description": "A confident pop-reggaeton collaboration for body vocabulary, descriptive participles, and Colombian sound.",
+    "learningFocus": "Body parts, past participles used as adjectives, and agreement.",
+    "lines": [
+      { "spanish": "labios mordidos", "english": "bitten lips", "note": "Mordidos agrees with the masculine plural noun labios." },
+      { "spanish": "ven conmigo", "english": "come with me", "note": "Ven is the informal command of venir." },
+      { "spanish": "sin miedo", "english": "without fear", "note": "A useful phrase for confidence and encouragement." }
+    ]
+  }
+]

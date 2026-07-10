@@ -4559,6 +4559,200 @@
           "spoken-phrases"
         ]
       }
+    },
+    {
+      "id": "es-u09",
+      "number": 9,
+      "title": "Social Spanish",
+      "description": "Move beyond travel transactions with friendly conversation, plans, and preferences.",
+      "lessons": [
+        {
+          "id": "es-u09-l01-small-talk-and-plans",
+          "unitId": "es-u09",
+          "unitNumber": 9,
+          "title": "Small Talk and Plans",
+          "slug": "small-talk-and-plans",
+          "locale": "es-PE",
+          "difficulty": "beginner",
+          "summary": "Start a friendly conversation and talk about what you are doing today.",
+          "objectives": ["Ask how someone is doing", "Say what you are doing today", "Make a simple plan"],
+          "vocabulary": [
+            { "bn": "¿cómo estás?", "roman": "¿cómo estás?", "en": "how are you?", "tags": ["social", "conversation", "everyday-spanish"] },
+            { "bn": "estoy bien", "roman": "estoy bien", "en": "I am well", "tags": ["social", "conversation", "everyday-spanish"] },
+            { "bn": "¿qué haces hoy?", "roman": "¿qué haces hoy?", "en": "what are you doing today?", "tags": ["social", "conversation", "everyday-spanish"] },
+            { "bn": "tengo planes", "roman": "tengo planes", "en": "I have plans", "tags": ["social", "plans", "everyday-spanish"] },
+            { "bn": "voy a salir", "roman": "voy a salir", "en": "I am going out", "tags": ["social", "plans", "everyday-spanish"] },
+            { "bn": "nos vemos luego", "roman": "nos vemos luego", "en": "see you later", "tags": ["social", "conversation", "everyday-spanish"] }
+          ],
+          "grammar": [{ "point": "Informal conversation", "notes": "Use estás and haces with someone you address informally. Voy a + verb is a practical way to talk about a near-future plan." }],
+          "phrases": [
+            { "id": "p-es-u09-l01-small-talk-and-plans-01", "romanized": "¿cómo estás?", "english": "how are you?", "pronunciation": "KOH-moh ehs-TAHS", "category": "social" },
+            { "id": "p-es-u09-l01-small-talk-and-plans-02", "romanized": "estoy bien", "english": "I am well", "pronunciation": "ehs-TOY byen", "category": "social" },
+            { "id": "p-es-u09-l01-small-talk-and-plans-03", "romanized": "¿qué haces hoy?", "english": "what are you doing today?", "pronunciation": "keh AH-sehs oy", "category": "social" },
+            { "id": "p-es-u09-l01-small-talk-and-plans-04", "romanized": "tengo planes", "english": "I have plans", "pronunciation": "TEN-goh PLAH-nehs", "category": "plans" },
+            { "id": "p-es-u09-l01-small-talk-and-plans-05", "romanized": "voy a salir", "english": "I am going out", "pronunciation": "boy ah sah-LEER", "category": "plans" },
+            { "id": "p-es-u09-l01-small-talk-and-plans-06", "romanized": "nos vemos luego", "english": "see you later", "pronunciation": "nohs VEH-mohs LWEH-goh", "category": "social" }
+          ],
+          "exercises": [
+            { "id": "es-u09-l01-small-talk-and-plans-ex-1", "type": "multiple-choice", "sourceType": "meaningSelect", "prompt": "What does “¿cómo estás?” mean?", "answer": "how are you?", "options": ["how are you?", "what are you doing?", "see you later", "I am going out"], "phraseId": "p-es-u09-l01-small-talk-and-plans-01" },
+            { "id": "es-u09-l01-small-talk-and-plans-ex-2", "type": "translation", "sourceType": "translateType", "prompt": "Type the Spanish for “I have plans”.", "answer": "tengo planes", "acceptedAnswers": ["tengo planes"], "phraseId": "p-es-u09-l01-small-talk-and-plans-04" },
+            { "id": "es-u09-l01-small-talk-and-plans-ex-3", "type": "multiple-choice", "sourceType": "meaningSelect", "prompt": "Choose the Spanish for “see you later”.", "answer": "nos vemos luego", "options": ["estoy bien", "tengo planes", "nos vemos luego", "voy a salir"], "phraseId": "p-es-u09-l01-small-talk-and-plans-06" },
+            { "id": "es-u09-l01-small-talk-and-plans-ex-4", "type": "matching", "sourceType": "tapMatch", "prompt": "Match Spanish to English.", "answer": "estoy bien -> I am well, voy a salir -> I am going out, nos vemos luego -> see you later", "pairs": [{ "left": "estoy bien", "right": "I am well" }, { "left": "voy a salir", "right": "I am going out" }, { "left": "nos vemos luego", "right": "see you later" }] },
+            { "id": "es-u09-l01-small-talk-and-plans-ex-5", "type": "multiple-choice", "sourceType": "quickReply", "prompt": "Choose the Spanish for “what are you doing today?”.", "answer": "¿qué haces hoy?", "options": ["¿cómo estás?", "¿qué haces hoy?", "tengo planes", "estoy bien"], "phraseId": "p-es-u09-l01-small-talk-and-plans-03" }
+          ],
+          "audioPrompts": [
+            { "id": "a1", "locale": "es-PE", "voiceStyle": "warm-conversation", "textBn": "¿cómo estás?", "roman": "¿cómo estás?", "textEn": "how are you?", "speed": 0.9 },
+            { "id": "a2", "locale": "es-PE", "voiceStyle": "warm-conversation", "textBn": "tengo planes", "roman": "tengo planes", "textEn": "I have plans", "speed": 0.92 },
+            { "id": "a3", "locale": "es-PE", "voiceStyle": "warm-conversation", "textBn": "nos vemos luego", "roman": "nos vemos luego", "textEn": "see you later", "speed": 0.92 }
+          ],
+          "uiText": { "startCta": "Start lesson", "lessonGoal": "Practice friendly conversation and simple plans.", "correct": "Nice work. That sounds natural.", "almost": "Almost. Listen once more and try the phrase again.", "complete": "Lesson complete. You can start a friendly Spanish conversation." },
+          "metadata": { "estimatedMinutes": 7, "difficulty": "beginner", "tags": ["social", "conversation", "spanish-for-peru"], "xp": 15, "unlockAfter": ["es-u08-l02-altitude-and-photos"], "assessment": { "attempted": "Started the social conversation lesson.", "passed": "Understood the everyday phrases.", "strong": "Answered with only one or two misses.", "mastered": "Answered accurately after a later review." } },
+          "reviewSchedule": { "initialReviewDays": [1, 3, 7, 14, 30], "masteryThreshold": 0.9, "recycleOnMistake": true }
+        },
+        {
+          "id": "es-u09-l02-invitations-and-preferences",
+          "unitId": "es-u09",
+          "unitNumber": 9,
+          "title": "Invitations and Preferences",
+          "slug": "invitations-and-preferences",
+          "locale": "es-PE",
+          "difficulty": "beginner",
+          "summary": "Invite someone out, share what you like, and make a relaxed suggestion.",
+          "objectives": ["Invite someone to join you", "Say what you prefer", "Accept or decline politely"],
+          "vocabulary": [
+            { "bn": "¿quieres venir?", "roman": "¿quieres venir?", "en": "do you want to come?", "tags": ["social", "invitations", "everyday-spanish"] },
+            { "bn": "me gustaría", "roman": "me gustaría", "en": "I would like", "tags": ["social", "preferences", "everyday-spanish"] },
+            { "bn": "prefiero esto", "roman": "prefiero esto", "en": "I prefer this", "tags": ["social", "preferences", "everyday-spanish"] },
+            { "bn": "¿vamos a comer?", "roman": "¿vamos a comer?", "en": "shall we go eat?", "tags": ["social", "invitations", "everyday-spanish"] },
+            { "bn": "sí, claro", "roman": "sí, claro", "en": "yes, of course", "tags": ["social", "conversation", "everyday-spanish"] },
+            { "bn": "tal vez mañana", "roman": "tal vez mañana", "en": "maybe tomorrow", "tags": ["social", "plans", "everyday-spanish"] }
+          ],
+          "grammar": [{ "point": "Polite preferences", "notes": "Me gustaría softens a request or preference. Prefiero means I prefer and can be followed by a thing or activity." }],
+          "phrases": [
+            { "id": "p-es-u09-l02-invitations-and-preferences-01", "romanized": "¿quieres venir?", "english": "do you want to come?", "pronunciation": "KYEH-rehs beh-NEER", "category": "invitations" },
+            { "id": "p-es-u09-l02-invitations-and-preferences-02", "romanized": "me gustaría", "english": "I would like", "pronunciation": "meh goos-tah-REE-ah", "category": "preferences" },
+            { "id": "p-es-u09-l02-invitations-and-preferences-03", "romanized": "prefiero esto", "english": "I prefer this", "pronunciation": "preh-FYEH-roh EHS-toh", "category": "preferences" },
+            { "id": "p-es-u09-l02-invitations-and-preferences-04", "romanized": "¿vamos a comer?", "english": "shall we go eat?", "pronunciation": "BAH-mohs ah koh-MEHR", "category": "invitations" },
+            { "id": "p-es-u09-l02-invitations-and-preferences-05", "romanized": "sí, claro", "english": "yes, of course", "pronunciation": "see KLAH-roh", "category": "social" },
+            { "id": "p-es-u09-l02-invitations-and-preferences-06", "romanized": "tal vez mañana", "english": "maybe tomorrow", "pronunciation": "tahl behs mah-NYAH-nah", "category": "plans" }
+          ],
+          "exercises": [
+            { "id": "es-u09-l02-invitations-and-preferences-ex-1", "type": "multiple-choice", "sourceType": "meaningSelect", "prompt": "What does “¿quieres venir?” mean?", "answer": "do you want to come?", "options": ["do you want to come?", "shall we go eat?", "maybe tomorrow", "I prefer this"], "phraseId": "p-es-u09-l02-invitations-and-preferences-01" },
+            { "id": "es-u09-l02-invitations-and-preferences-ex-2", "type": "translation", "sourceType": "translateType", "prompt": "Type the Spanish for “I prefer this”.", "answer": "prefiero esto", "acceptedAnswers": ["prefiero esto"], "phraseId": "p-es-u09-l02-invitations-and-preferences-03" },
+            { "id": "es-u09-l02-invitations-and-preferences-ex-3", "type": "multiple-choice", "sourceType": "meaningSelect", "prompt": "Choose the Spanish for “yes, of course”.", "answer": "sí, claro", "options": ["me gustaría", "sí, claro", "tal vez mañana", "prefiero esto"], "phraseId": "p-es-u09-l02-invitations-and-preferences-05" },
+            { "id": "es-u09-l02-invitations-and-preferences-ex-4", "type": "matching", "sourceType": "tapMatch", "prompt": "Match Spanish to English.", "answer": "me gustaría -> I would like, ¿vamos a comer? -> shall we go eat?, tal vez mañana -> maybe tomorrow", "pairs": [{ "left": "me gustaría", "right": "I would like" }, { "left": "¿vamos a comer?", "right": "shall we go eat?" }, { "left": "tal vez mañana", "right": "maybe tomorrow" }] },
+            { "id": "es-u09-l02-invitations-and-preferences-ex-5", "type": "multiple-choice", "sourceType": "quickReply", "prompt": "Choose the Spanish for “maybe tomorrow”.", "answer": "tal vez mañana", "options": ["sí, claro", "¿quieres venir?", "tal vez mañana", "¿vamos a comer?"], "phraseId": "p-es-u09-l02-invitations-and-preferences-06" }
+          ],
+          "audioPrompts": [
+            { "id": "a1", "locale": "es-PE", "voiceStyle": "warm-conversation", "textBn": "¿quieres venir?", "roman": "¿quieres venir?", "textEn": "do you want to come?", "speed": 0.9 },
+            { "id": "a2", "locale": "es-PE", "voiceStyle": "warm-conversation", "textBn": "me gustaría", "roman": "me gustaría", "textEn": "I would like", "speed": 0.92 },
+            { "id": "a3", "locale": "es-PE", "voiceStyle": "warm-conversation", "textBn": "sí, claro", "roman": "sí, claro", "textEn": "yes, of course", "speed": 0.92 }
+          ],
+          "uiText": { "startCta": "Start lesson", "lessonGoal": "Practice invitations, preferences, and polite replies.", "correct": "Great choice. That reply fits the moment.", "almost": "Almost. Listen once more and try the phrase again.", "complete": "Lesson complete. You can invite, suggest, and reply with confidence." },
+          "metadata": { "estimatedMinutes": 7, "difficulty": "beginner", "tags": ["social", "invitations", "spanish-for-peru"], "xp": 15, "unlockAfter": ["es-u09-l01-small-talk-and-plans"], "assessment": { "attempted": "Started the invitations lesson.", "passed": "Understood the key replies.", "strong": "Answered with only one or two misses.", "mastered": "Answered accurately after a later review." } },
+          "reviewSchedule": { "initialReviewDays": [1, 3, 7, 14, 30], "masteryThreshold": 0.9, "recycleOnMistake": true }
+        }
+      ],
+      "lessonIds": ["es-u09-l01-small-talk-and-plans", "es-u09-l02-invitations-and-preferences"],
+      "checkpointLessonId": "es-u09-l02-invitations-and-preferences",
+      "metadata": { "difficultyBand": "beginner", "estimatedTotalMinutes": 14, "tags": ["social", "conversation", "spanish-for-peru"] }
+    },
+    {
+      "id": "es-u10",
+      "number": 10,
+      "title": "Everyday Life and Care",
+      "description": "Talk about routines, feelings, and the small acts of care that make conversations warmer.",
+      "lessons": [
+        {
+          "id": "es-u10-l01-daily-routines-and-feelings",
+          "unitId": "es-u10",
+          "unitNumber": 10,
+          "title": "Daily Routines and Feelings",
+          "slug": "daily-routines-and-feelings",
+          "locale": "es-PE",
+          "difficulty": "beginner",
+          "summary": "Describe your day and say how you feel in simple Spanish.",
+          "objectives": ["Describe a daily routine", "Say how you feel", "Ask how someone feels"],
+          "vocabulary": [
+            { "bn": "me levanto temprano", "roman": "me levanto temprano", "en": "I get up early", "tags": ["daily-life", "routine", "everyday-spanish"] },
+            { "bn": "después del trabajo", "roman": "después del trabajo", "en": "after work", "tags": ["daily-life", "routine", "everyday-spanish"] },
+            { "bn": "estoy cansada", "roman": "estoy cansada", "en": "I am tired", "tags": ["feelings", "daily-life", "everyday-spanish"] },
+            { "bn": "estoy contenta", "roman": "estoy contenta", "en": "I am happy", "tags": ["feelings", "daily-life", "everyday-spanish"] },
+            { "bn": "¿cómo te sientes?", "roman": "¿cómo te sientes?", "en": "how do you feel?", "tags": ["feelings", "conversation", "everyday-spanish"] },
+            { "bn": "necesito dormir", "roman": "necesito dormir", "en": "I need to sleep", "tags": ["daily-life", "care", "everyday-spanish"] }
+          ],
+          "grammar": [{ "point": "Reflexive routine verbs", "notes": "Me levanto means I get up. Estar describes a current feeling or condition, such as being tired or happy." }],
+          "phrases": [
+            { "id": "p-es-u10-l01-daily-routines-and-feelings-01", "romanized": "me levanto temprano", "english": "I get up early", "pronunciation": "meh leh-BAHN-toh tehm-PRAH-noh", "category": "daily-life" },
+            { "id": "p-es-u10-l01-daily-routines-and-feelings-02", "romanized": "después del trabajo", "english": "after work", "pronunciation": "dehs-PWEHS dehl trah-BAH-hoh", "category": "daily-life" },
+            { "id": "p-es-u10-l01-daily-routines-and-feelings-03", "romanized": "estoy cansada", "english": "I am tired", "pronunciation": "ehs-TOY kahn-SAH-dah", "category": "feelings" },
+            { "id": "p-es-u10-l01-daily-routines-and-feelings-04", "romanized": "estoy contenta", "english": "I am happy", "pronunciation": "ehs-TOY kohn-TEHN-tah", "category": "feelings" },
+            { "id": "p-es-u10-l01-daily-routines-and-feelings-05", "romanized": "¿cómo te sientes?", "english": "how do you feel?", "pronunciation": "KOH-moh teh SYEHN-tehs", "category": "feelings" },
+            { "id": "p-es-u10-l01-daily-routines-and-feelings-06", "romanized": "necesito dormir", "english": "I need to sleep", "pronunciation": "neh-seh-SEE-toh dor-MEER", "category": "care" }
+          ],
+          "exercises": [
+            { "id": "es-u10-l01-daily-routines-and-feelings-ex-1", "type": "multiple-choice", "sourceType": "meaningSelect", "prompt": "What does “me levanto temprano” mean?", "answer": "I get up early", "options": ["I get up early", "I am tired", "after work", "I need to sleep"], "phraseId": "p-es-u10-l01-daily-routines-and-feelings-01" },
+            { "id": "es-u10-l01-daily-routines-and-feelings-ex-2", "type": "translation", "sourceType": "translateType", "prompt": "Type the Spanish for “I am tired”.", "answer": "estoy cansada", "acceptedAnswers": ["estoy cansada"], "phraseId": "p-es-u10-l01-daily-routines-and-feelings-03" },
+            { "id": "es-u10-l01-daily-routines-and-feelings-ex-3", "type": "multiple-choice", "sourceType": "meaningSelect", "prompt": "Choose the Spanish for “how do you feel?”.", "answer": "¿cómo te sientes?", "options": ["estoy contenta", "¿cómo te sientes?", "necesito dormir", "después del trabajo"], "phraseId": "p-es-u10-l01-daily-routines-and-feelings-05" },
+            { "id": "es-u10-l01-daily-routines-and-feelings-ex-4", "type": "matching", "sourceType": "tapMatch", "prompt": "Match Spanish to English.", "answer": "después del trabajo -> after work, estoy contenta -> I am happy, necesito dormir -> I need to sleep", "pairs": [{ "left": "después del trabajo", "right": "after work" }, { "left": "estoy contenta", "right": "I am happy" }, { "left": "necesito dormir", "right": "I need to sleep" }] },
+            { "id": "es-u10-l01-daily-routines-and-feelings-ex-5", "type": "multiple-choice", "sourceType": "quickReply", "prompt": "Choose the Spanish for “after work”.", "answer": "después del trabajo", "options": ["me levanto temprano", "estoy cansada", "después del trabajo", "estoy contenta"], "phraseId": "p-es-u10-l01-daily-routines-and-feelings-02" }
+          ],
+          "audioPrompts": [
+            { "id": "a1", "locale": "es-PE", "voiceStyle": "warm-conversation", "textBn": "me levanto temprano", "roman": "me levanto temprano", "textEn": "I get up early", "speed": 0.9 },
+            { "id": "a2", "locale": "es-PE", "voiceStyle": "warm-conversation", "textBn": "estoy cansada", "roman": "estoy cansada", "textEn": "I am tired", "speed": 0.92 },
+            { "id": "a3", "locale": "es-PE", "voiceStyle": "warm-conversation", "textBn": "¿cómo te sientes?", "roman": "¿cómo te sientes?", "textEn": "how do you feel?", "speed": 0.92 }
+          ],
+          "uiText": { "startCta": "Start lesson", "lessonGoal": "Describe your routine and check in about feelings.", "correct": "Well done. That is useful everyday Spanish.", "almost": "Almost. Listen once more and try the phrase again.", "complete": "Lesson complete. You can talk about your day and how you feel." },
+          "metadata": { "estimatedMinutes": 7, "difficulty": "beginner", "tags": ["daily-life", "feelings", "spanish-for-peru"], "xp": 15, "unlockAfter": ["es-u09-l02-invitations-and-preferences"], "assessment": { "attempted": "Started the routines and feelings lesson.", "passed": "Understood the daily phrases.", "strong": "Answered with only one or two misses.", "mastered": "Answered accurately after a later review." } },
+          "reviewSchedule": { "initialReviewDays": [1, 3, 7, 14, 30], "masteryThreshold": 0.9, "recycleOnMistake": true }
+        },
+        {
+          "id": "es-u10-l02-helpful-care-phrases",
+          "unitId": "es-u10",
+          "unitNumber": 10,
+          "title": "Helpful Care Phrases",
+          "slug": "helpful-care-phrases",
+          "locale": "es-PE",
+          "difficulty": "beginner",
+          "summary": "Offer help, ask someone to take care, and make a kind everyday check-in.",
+          "objectives": ["Offer practical help", "Tell someone to take care", "Ask if someone needs anything"],
+          "vocabulary": [
+            { "bn": "¿necesitas algo?", "roman": "¿necesitas algo?", "en": "do you need anything?", "tags": ["care", "conversation", "everyday-spanish"] },
+            { "bn": "¿te ayudo?", "roman": "¿te ayudo?", "en": "shall I help you?", "tags": ["care", "help", "everyday-spanish"] },
+            { "bn": "cuídate mucho", "roman": "cuídate mucho", "en": "take good care", "tags": ["care", "conversation", "everyday-spanish"] },
+            { "bn": "avísame", "roman": "avísame", "en": "let me know", "tags": ["care", "conversation", "everyday-spanish"] },
+            { "bn": "todo va a estar bien", "roman": "todo va a estar bien", "en": "everything will be okay", "tags": ["care", "encouragement", "everyday-spanish"] },
+            { "bn": "descansa un poco", "roman": "descansa un poco", "en": "rest a little", "tags": ["care", "health", "everyday-spanish"] }
+          ],
+          "grammar": [{ "point": "Kind requests and commands", "notes": "Te helps make the question personal. Cuídate, avísame, and descansa are friendly informal commands." }],
+          "phrases": [
+            { "id": "p-es-u10-l02-helpful-care-phrases-01", "romanized": "¿necesitas algo?", "english": "do you need anything?", "pronunciation": "neh-seh-SEE-tahs AHL-goh", "category": "care" },
+            { "id": "p-es-u10-l02-helpful-care-phrases-02", "romanized": "¿te ayudo?", "english": "shall I help you?", "pronunciation": "teh ah-YOO-doh", "category": "care" },
+            { "id": "p-es-u10-l02-helpful-care-phrases-03", "romanized": "cuídate mucho", "english": "take good care", "pronunciation": "KWEE-dah-teh MOO-choh", "category": "care" },
+            { "id": "p-es-u10-l02-helpful-care-phrases-04", "romanized": "avísame", "english": "let me know", "pronunciation": "ah-BEE-sah-meh", "category": "care" },
+            { "id": "p-es-u10-l02-helpful-care-phrases-05", "romanized": "todo va a estar bien", "english": "everything will be okay", "pronunciation": "TOH-doh bah ah ehs-TAR byen", "category": "encouragement" },
+            { "id": "p-es-u10-l02-helpful-care-phrases-06", "romanized": "descansa un poco", "english": "rest a little", "pronunciation": "dehs-KAHN-sah oon POH-koh", "category": "care" }
+          ],
+          "exercises": [
+            { "id": "es-u10-l02-helpful-care-phrases-ex-1", "type": "multiple-choice", "sourceType": "meaningSelect", "prompt": "What does “¿te ayudo?” mean?", "answer": "shall I help you?", "options": ["shall I help you?", "do you need anything?", "let me know", "rest a little"], "phraseId": "p-es-u10-l02-helpful-care-phrases-02" },
+            { "id": "es-u10-l02-helpful-care-phrases-ex-2", "type": "translation", "sourceType": "translateType", "prompt": "Type the Spanish for “take good care”.", "answer": "cuídate mucho", "acceptedAnswers": ["cuídate mucho", "cuidate mucho"], "phraseId": "p-es-u10-l02-helpful-care-phrases-03" },
+            { "id": "es-u10-l02-helpful-care-phrases-ex-3", "type": "multiple-choice", "sourceType": "meaningSelect", "prompt": "Choose the Spanish for “let me know”.", "answer": "avísame", "options": ["todo va a estar bien", "avísame", "descansa un poco", "cuídate mucho"], "phraseId": "p-es-u10-l02-helpful-care-phrases-04" },
+            { "id": "es-u10-l02-helpful-care-phrases-ex-4", "type": "matching", "sourceType": "tapMatch", "prompt": "Match Spanish to English.", "answer": "¿necesitas algo? -> do you need anything?, todo va a estar bien -> everything will be okay, descansa un poco -> rest a little", "pairs": [{ "left": "¿necesitas algo?", "right": "do you need anything?" }, { "left": "todo va a estar bien", "right": "everything will be okay" }, { "left": "descansa un poco", "right": "rest a little" }] },
+            { "id": "es-u10-l02-helpful-care-phrases-ex-5", "type": "multiple-choice", "sourceType": "quickReply", "prompt": "Choose the Spanish for “rest a little”.", "answer": "descansa un poco", "options": ["avísame", "¿te ayudo?", "descansa un poco", "¿necesitas algo?"], "phraseId": "p-es-u10-l02-helpful-care-phrases-06" }
+          ],
+          "audioPrompts": [
+            { "id": "a1", "locale": "es-PE", "voiceStyle": "warm-conversation", "textBn": "¿necesitas algo?", "roman": "¿necesitas algo?", "textEn": "do you need anything?", "speed": 0.9 },
+            { "id": "a2", "locale": "es-PE", "voiceStyle": "warm-conversation", "textBn": "cuídate mucho", "roman": "cuídate mucho", "textEn": "take good care", "speed": 0.92 },
+            { "id": "a3", "locale": "es-PE", "voiceStyle": "warm-conversation", "textBn": "descansa un poco", "roman": "descansa un poco", "textEn": "rest a little", "speed": 0.92 }
+          ],
+          "uiText": { "startCta": "Start lesson", "lessonGoal": "Practice kind offers, check-ins, and care phrases.", "correct": "That is a thoughtful phrase to know.", "almost": "Almost. Listen once more and try the phrase again.", "complete": "Lesson complete. You can offer help and care in Spanish." },
+          "metadata": { "estimatedMinutes": 7, "difficulty": "beginner", "tags": ["care", "feelings", "spanish-for-peru"], "xp": 15, "unlockAfter": ["es-u10-l01-daily-routines-and-feelings"], "assessment": { "attempted": "Started the helpful care lesson.", "passed": "Understood the care phrases.", "strong": "Answered with only one or two misses.", "mastered": "Answered accurately after a later review." } },
+          "reviewSchedule": { "initialReviewDays": [1, 3, 7, 14, 30], "masteryThreshold": 0.9, "recycleOnMistake": true }
+        }
+      ],
+      "lessonIds": ["es-u10-l01-daily-routines-and-feelings", "es-u10-l02-helpful-care-phrases"],
+      "checkpointLessonId": "es-u10-l02-helpful-care-phrases",
+      "metadata": { "difficultyBand": "beginner", "estimatedTotalMinutes": 14, "tags": ["daily-life", "care", "spanish-for-peru"] }
     }
   ]
 }

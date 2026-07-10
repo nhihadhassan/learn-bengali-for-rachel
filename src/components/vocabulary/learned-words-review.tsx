@@ -163,8 +163,8 @@ export function LearnedWordsReview() {
               className="group rounded-[30px] border border-white/80 bg-white/95 p-5 shadow-[0_14px_42px_rgba(15,23,42,0.07)] ring-1 ring-slate-900/5 transition hover:-translate-y-1 hover:shadow-[0_22px_58px_rgba(15,23,42,0.1)] dark:border-white/10 dark:bg-slate-950/80 dark:shadow-[0_14px_42px_rgba(0,0,0,0.26)] dark:ring-white/10 dark:hover:shadow-[0_22px_58px_rgba(0,0,0,0.34)]"
             >
               <div className="flex items-start justify-between gap-4">
-                <div>
-                  <p className="text-4xl font-black leading-tight">
+                <div className="min-w-0">
+                  <p className="break-words text-4xl font-black leading-tight">
                     {formatRomanizedDisplay(word.phrase.romanized)}
                   </p>
                   <p className="mt-2 text-lg font-bold text-slate-500 dark:text-slate-300">

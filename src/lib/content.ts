@@ -2,6 +2,7 @@ import rawContent from "../../content/learn-bengali.json";
 import rawHistoryContent from "../../content/learn-history.json";
 import rawMalayalamContent from "../../content/learn-malayalam.json";
 import rawSpanishContent from "../../content/learn-spanish-peru.json";
+import rawSpanishSongs from "../../content/spanish-songs.json";
 import { normalizeAnswer } from "@/lib/answer-checking";
 import type {
   Curriculum,
@@ -10,6 +11,7 @@ import type {
   Lesson,
   Phrase,
   Unit,
+  SpanishSong,
 } from "@/types/learning";
 
 export const defaultCurriculumId: CurriculumId = "bengali";
@@ -33,6 +35,7 @@ export const content = rawContent as LearningContent;
 export const historyContent = rawHistoryContent as LearningContent;
 export const malayalamContent = rawMalayalamContent as LearningContent;
 export const spanishPeruContent = rawSpanishContent as LearningContent;
+export const spanishSongs = rawSpanishSongs as SpanishSong[];
 
 export const curricula: Curriculum[] = [
   {
@@ -48,7 +51,7 @@ export const curricula: Curriculum[] = [
     id: "spanish-peru",
     label: "Spanish for Peru",
     shortLabel: "Spanish",
-    description: "Travel Spanish for Peru: taxis, food, hotels, tours, and emergencies.",
+    description: "Practical Spanish for Peru travel, friendly conversation, everyday care, and the moments between them.",
     locale: "es-PE",
     mode: "language",
     travelTheme: "Peru travel",

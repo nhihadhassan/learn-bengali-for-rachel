@@ -190,6 +190,8 @@ export function QuizRunner({ lesson }: { lesson: Lesson }) {
               ? "bg-emerald-50 text-emerald-800"
               : "bg-rose-50 text-rose-800",
           )}
+          role="status"
+          aria-live="polite"
         >
           {answerState === "correct" ? <Check size={20} /> : <X size={20} />}
           <div>
@@ -265,12 +267,18 @@ function TranslationExercise({
   onChange: (value: string) => void;
 }) {
   return (
-    <input
-      value={value}
-      onChange={(event) => onChange(event.target.value)}
-      placeholder="Type the romanized Bengali answer"
-      className="w-full rounded-xl border border-slate-200 bg-white px-4 py-4 text-lg font-bold outline-none transition focus:border-emerald-500 focus:ring-4 focus:ring-emerald-100"
-    />
+    <>
+      <label htmlFor="quiz-answer" className="sr-only">
+        Your answer
+      </label>
+      <input
+        id="quiz-answer"
+        value={value}
+        onChange={(event) => onChange(event.target.value)}
+        placeholder="Type the romanized Bengali answer"
+        className="w-full rounded-xl border border-slate-200 bg-white px-4 py-4 text-lg font-bold outline-none transition focus:border-emerald-500 focus:ring-4 focus:ring-emerald-100"
+      />
+    </>
   );
 }
 
@@ -296,6 +304,7 @@ function MatchingExercise({
             {pair.left}
           </div>
           <select
+            aria-label={`Meaning for ${pair.left}`}
             value={matches[pair.left] ?? ""}
             onChange={(event) =>
               setMatches({ ...matches, [pair.left]: event.target.value })

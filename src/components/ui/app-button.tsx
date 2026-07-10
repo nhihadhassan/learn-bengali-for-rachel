@@ -47,6 +47,7 @@ export function AnswerButton({
 }) {
   return (
     <button
+      aria-pressed={isSelected}
       className={cn(
         "group min-h-16 rounded-2xl border-2 px-4 py-4 text-left font-black break-words hyphens-auto transition duration-200 ease-out focus-visible:outline focus-visible:outline-4 focus-visible:outline-offset-2 focus-visible:outline-teal-200 active:translate-y-1 disabled:cursor-not-allowed disabled:opacity-55",
         isSelected

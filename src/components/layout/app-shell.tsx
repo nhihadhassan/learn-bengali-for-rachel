@@ -3,18 +3,40 @@
 import type { ReactNode } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { BookOpen, Flame, Gem, GraduationCap, Library, RotateCcw, Trophy } from "lucide-react";
+import { BookOpen, Brain, Flame, Gem, GraduationCap, Library, Music2, RotateCcw, Trophy, type LucideIcon } from "lucide-react";
 import { curricula } from "@/lib/content";
 import { useProgress } from "@/lib/progress-store";
 import { cn } from "@/lib/utils";
 import { ThemeToggle } from "@/components/theme/theme-toggle";
 
-const navItems = [
+type NavItem = {
+  href: string;
+  label: string;
+  icon: LucideIcon;
+  historyLabel?: string;
+};
+
+const navItems: NavItem[] = [
   { href: "/lessons", label: "Lessons", icon: BookOpen },
+  { href: "/flashcards", label: "Cards", icon: Brain },
   { href: "/vocabulary", label: "Words", historyLabel: "Recap", icon: Library },
   { href: "/review", label: "Review", icon: RotateCcw },
   { href: "/progress", label: "Progress", icon: Flame },
 ];
+
+const songsNavItem: NavItem = { href: "/songs", label: "Songs", icon: Music2 };
+
+function isNavItemActive(pathname: string, href: string) {
+  if (href === "/lessons") {
+    return (
+      pathname === "/" ||
+      pathname.startsWith("/lessons") ||
+      pathname.startsWith("/practice")
+    );
+  }
+
+  return pathname.startsWith(href);
+}
 
 export function AppShell({ children }: { children: ReactNode }) {
   const pathname = usePathname();
@@ -25,6 +47,8 @@ export function AppShell({ children }: { children: ReactNode }) {
     progress,
     setActiveCurriculumId,
   } = useProgress();
+  const desktopNavItems =
+    activeCurriculumId === "spanish-peru" ? [...navItems, songsNavItem] : navItems;
 
   function handleCurriculumChange(value: string) {
     if (value === "history" || value === "spanish-peru" || value === "malayalam") {
@@ -48,7 +72,13 @@ export function AppShell({ children }: { children: ReactNode }) {
             </span>
             <span>
               <span className="block text-xs font-black uppercase tracking-[0.14em] text-violet-700 dark:text-violet-300">
-                Learning Bengali
+                Learning {activeCurriculumId === "spanish-peru"
+                  ? "Spanish"
+                  : activeCurriculumId === "malayalam"
+                    ? "Malayalam"
+                    : activeCurriculumId === "history"
+                      ? "History"
+                      : "Bengali"}
               </span>
               <span className="block text-lg font-black leading-tight">
                 For Rachel
@@ -56,10 +86,10 @@ export function AppShell({ children }: { children: ReactNode }) {
             </span>
           </Link>
 
-          <nav className="hidden items-center gap-1 md:flex">
-            {navItems.map((item) => {
+          <nav aria-label="Primary navigation" className="hidden items-center gap-1 md:flex">
+            {desktopNavItems.map((item) => {
               const Icon = item.icon;
-              const isActive = pathname.startsWith(item.href);
+              const isActive = isNavItemActive(pathname, item.href);
               const label =
                 activeCurriculumId === "history" && item.historyLabel
                   ? item.historyLabel
@@ -69,6 +99,7 @@ export function AppShell({ children }: { children: ReactNode }) {
                 <Link
                   key={item.href}
                   href={item.href}
+                  aria-current={isActive ? "page" : undefined}
                   className={cn(
                     "group inline-flex items-center gap-2 rounded-2xl px-3 py-2 text-sm font-black text-slate-600 transition duration-200 hover:-translate-y-0.5 hover:bg-white hover:text-violet-700 hover:shadow-[0_8px_20px_rgba(15,23,42,0.08)] dark:text-slate-300 dark:hover:bg-white/10 dark:hover:text-violet-200 dark:hover:shadow-[0_8px_22px_rgba(0,0,0,0.2)] [&>svg]:transition-transform",
                     isActive &&
@@ -133,11 +164,14 @@ export function AppShell({ children }: { children: ReactNode }) {
         {children}
       </main>
 
-      <nav className="fixed inset-x-0 bottom-0 z-20 border-t border-slate-200 bg-white/95 px-4 py-2 shadow-[0_-10px_30px_rgba(15,23,42,0.08)] backdrop-blur transition-colors duration-300 dark:border-white/10 dark:bg-[#151225]/95 dark:shadow-[0_-10px_30px_rgba(0,0,0,0.25)] sm:hidden">
-        <div className="mx-auto grid max-w-md grid-cols-4 gap-2">
+      <nav
+        aria-label="Mobile navigation"
+        className="fixed inset-x-0 bottom-0 z-20 border-t border-slate-200 bg-white/95 px-4 py-2 shadow-[0_-10px_30px_rgba(15,23,42,0.08)] backdrop-blur transition-colors duration-300 dark:border-white/10 dark:bg-[#151225]/95 dark:shadow-[0_-10px_30px_rgba(0,0,0,0.25)] sm:hidden"
+      >
+        <div className="mx-auto grid max-w-md grid-cols-5 gap-1 sm:gap-2">
           {navItems.map((item) => {
             const Icon = item.icon;
-            const isActive = pathname.startsWith(item.href);
+            const isActive = isNavItemActive(pathname, item.href);
             const label =
               activeCurriculumId === "history" && item.historyLabel
                 ? item.historyLabel
@@ -147,6 +181,7 @@ export function AppShell({ children }: { children: ReactNode }) {
               <Link
                 key={item.href}
                 href={item.href}
+                aria-current={isActive ? "page" : undefined}
                 className={cn(
                   "flex flex-col items-center gap-1 rounded-2xl px-3 py-2 text-xs font-bold text-slate-500 transition active:scale-95 dark:text-slate-300",
                   isActive &&

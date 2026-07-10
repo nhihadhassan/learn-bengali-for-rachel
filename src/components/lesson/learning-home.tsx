@@ -5,11 +5,13 @@ import type { ComponentType } from "react";
 import {
   ArrowRight,
   BookOpen,
+  Brain,
   CheckCircle2,
   Ear,
   Flag,
   Flame,
   MessageCircle,
+  Music2,
   RotateCcw,
   Sparkles,
   Volume2,
@@ -111,6 +113,24 @@ export function LearningHome() {
                 <BookOpen size={18} />
                 {isHistory ? "Timeline recap" : "Word bank"}
               </Link>
+              {!isHistory && (
+                <Link
+                  href="/flashcards"
+                  className="inline-flex min-h-[52px] items-center justify-center gap-2 rounded-2xl border border-cyan-200/30 bg-cyan-400/15 px-5 py-3 font-black text-cyan-50 shadow-inner transition hover:-translate-y-0.5 hover:bg-cyan-300 hover:text-slate-950"
+                >
+                  <Brain size={18} />
+                  Flashcard run
+                </Link>
+              )}
+              {activeCurriculumId === "spanish-peru" && (
+                <Link
+                  href="/songs"
+                  className="inline-flex min-h-[52px] items-center justify-center gap-2 rounded-2xl border border-fuchsia-200/30 bg-fuchsia-400/15 px-5 py-3 font-black text-fuchsia-50 shadow-inner transition hover:-translate-y-0.5 hover:bg-fuchsia-300 hover:text-slate-950"
+                >
+                  <Music2 size={18} />
+                  Learn with songs
+                </Link>
+              )}
             </div>
 
             {weakItemCount > 0 && (

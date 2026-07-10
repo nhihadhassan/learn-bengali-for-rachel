@@ -165,6 +165,29 @@ export type Curriculum = {
   units: Unit[];
 };
 
+export type SongLearningLine = {
+  spanish: string;
+  english: string;
+  note: string;
+};
+
+export type SpanishSong = {
+  id: string;
+  title: string;
+  artist: string;
+  album?: string;
+  region: string;
+  genre: string;
+  year?: number;
+  curatedAt: string;
+  officialUrl: string;
+  sourceUrl: string;
+  sourceLabel: string;
+  description: string;
+  learningFocus: string;
+  lines: SongLearningLine[];
+};
+
 export type Mistake = {
   id: string;
   exerciseId: string;
@@ -185,6 +208,15 @@ export type SkippedListeningExercise = {
   createdAt: string;
 };
 
+export type FlashcardReview = {
+  phraseId: string;
+  box: number;
+  dueAt: string;
+  lastReviewedAt: string | null;
+  correctCount: number;
+  lapseCount: number;
+};
+
 export type ProgressState = {
   completedLessons: string[];
   encounteredPhraseIds: string[];
@@ -200,6 +232,7 @@ export type ProgressState = {
   lastActiveAt: string | null;
   mistakes: Mistake[];
   skippedListening: SkippedListeningExercise[];
+  flashcards: FlashcardReview[];
 };
 
 export type LearnedWord = {
