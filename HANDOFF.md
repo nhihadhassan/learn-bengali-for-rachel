@@ -153,7 +153,14 @@ GitHub repository:
 
 https://github.com/nhihadhassan/learn-bengali-for-rachel
 
-The working changes are being published from an agent branch and deployed to Vercel production as part of this handoff. After publishing, record the final branch, commit, PR, deployment URL, and production verification here.
+Published state:
+
+- Branch: `agent/spanish-songs-flashcards`
+- Feature commit: `bca9bb4` — Expand Spanish learning and song lessons
+- Draft PR: https://github.com/nhihadhassan/learn-bengali-for-rachel/pull/1
+- Production URL: https://learn-bengali-for-rachel.vercel.app
+- Vercel status: Ready
+- Live checks: `/songs`, `/flashcards`, and `/practice/es-u09-l01-small-talk-and-plans` returned HTTP 200 after deployment.
 
 Useful recovery commands:
 
@@ -170,4 +177,3 @@ npm run dev
 - No runtime music API, credentials, lyric scraper, or external content service is used.
 - The /songs link is discoverable from the Spanish curriculum home and desktop navigation while Spanish is active.
 - The app remains English-language while teaching Bengali, Spanish, Malayalam, or history.
-
