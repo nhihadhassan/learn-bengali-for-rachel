@@ -693,8 +693,8 @@ function PracticeLessonFlow({ lesson }: { lesson: Lesson }) {
           <p className="mt-2 text-sm font-semibold text-slate-600 dark:text-slate-300">
             Listen to the phrase, then choose the English meaning.
           </p>
-          <div className="mt-5 flex items-center justify-between rounded-3xl border border-cyan-100 bg-cyan-50 p-4 shadow-inner dark:border-cyan-300/20 dark:bg-cyan-400/12">
-            <p className="text-3xl font-black">
+          <div className="mt-5 flex items-center justify-between gap-4 rounded-3xl border border-cyan-100 bg-cyan-50 p-4 shadow-inner dark:border-cyan-300/20 dark:bg-cyan-400/12">
+            <p className="min-w-0 break-words text-3xl font-black">
               {formatRomanizedDisplay(step.phrase.romanized)}
             </p>
             <SpeakerButton
@@ -763,7 +763,11 @@ function PracticeLessonFlow({ lesson }: { lesson: Lesson }) {
                   {formatRomanizedDisplay(step.exercise.after ?? "")}
                 </div>
               )}
+            <label htmlFor={`${step.id}-answer`} className="sr-only">
+              Your answer
+            </label>
             <input
+              id={`${step.id}-answer`}
               value={typedAnswer}
               onChange={(event) => setTypedAnswer(event.target.value)}
               placeholder={
@@ -943,11 +947,11 @@ function LearnStep({
   return (
     <div>
       <div className="flex items-start justify-between gap-4">
-        <div>
+        <div className="min-w-0">
           <p className="text-sm font-black uppercase tracking-[0.14em] text-cyan-700 dark:text-cyan-200">
             New Phrase
           </p>
-          <h2 className="mt-3 text-5xl font-black leading-tight text-slate-950 dark:text-slate-50">
+          <h2 className="mt-3 break-words text-5xl font-black leading-tight text-slate-950 dark:text-slate-50">
             {formatRomanizedDisplay(step.phrase.romanized)}
           </h2>
         </div>
@@ -1056,8 +1060,8 @@ function SpeakPracticeStep({
       </p>
 
       <div className="mt-5 flex items-center justify-between gap-4 rounded-3xl border border-fuchsia-100 bg-fuchsia-50 p-5 shadow-inner dark:border-fuchsia-300/20 dark:bg-fuchsia-400/12">
-        <div>
-          <p className="text-4xl font-black leading-tight">
+        <div className="min-w-0">
+          <p className="break-words text-4xl font-black leading-tight">
             {formatRomanizedDisplay(step.phrase.romanized)}
           </p>
           <p className="mt-2 text-lg font-bold text-slate-600 dark:text-slate-300">
@@ -1148,6 +1152,8 @@ function QuestionStep({
                 ? "border border-violet-100 bg-violet-50 text-violet-800 dark:border-violet-300/25 dark:bg-violet-400/14 dark:text-violet-100"
                 : "border border-rose-100 bg-rose-50 text-rose-800 dark:border-rose-300/25 dark:bg-rose-400/14 dark:text-rose-100",
           )}
+          role="status"
+          aria-live="polite"
         >
           {answerState === "correct" ? (
             <Check size={20} />
@@ -1284,6 +1290,7 @@ function MatchingExercise({
             {formatRomanizedDisplay(pair.left)}
           </div>
           <select
+            aria-label={`Meaning for ${formatRomanizedDisplay(pair.left)}`}
             value={matches[pair.left] ?? ""}
             onChange={(event) =>
               setMatches({ ...matches, [pair.left]: event.target.value })

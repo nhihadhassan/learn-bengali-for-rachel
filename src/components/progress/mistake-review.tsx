@@ -302,15 +302,21 @@ function MistakeCard({
           }}
         />
       ) : (
-        <input
-          value={answer}
-          onChange={(event) => {
-            setAnswer(event.target.value);
-            setFeedback("idle");
-          }}
-          placeholder="Type the correct answer"
-          className="w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 font-bold shadow-inner outline-none transition focus:border-emerald-500 focus:ring-4 focus:ring-emerald-100 dark:border-white/10 dark:bg-white/10 dark:text-slate-50 dark:placeholder:text-slate-500 dark:focus:ring-emerald-400/20"
-        />
+        <>
+          <label htmlFor="review-answer" className="sr-only">
+            Your answer
+          </label>
+          <input
+            id="review-answer"
+            value={answer}
+            onChange={(event) => {
+              setAnswer(event.target.value);
+              setFeedback("idle");
+            }}
+            placeholder="Type the correct answer"
+            className="w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 font-bold shadow-inner outline-none transition focus:border-emerald-500 focus:ring-4 focus:ring-emerald-100 dark:border-white/10 dark:bg-white/10 dark:text-slate-50 dark:placeholder:text-slate-500 dark:focus:ring-emerald-400/20"
+          />
+        </>
       )}
 
       <AppButton
@@ -431,6 +437,7 @@ function MatchingReview({
             {formatRomanizedDisplay(pair.left)}
           </div>
           <select
+            aria-label={`Meaning for ${formatRomanizedDisplay(pair.left)}`}
             value={matches[pair.left] ?? ""}
             onChange={(event) =>
               setMatches({ ...matches, [pair.left]: event.target.value })

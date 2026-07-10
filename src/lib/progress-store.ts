@@ -5,6 +5,11 @@ import {
   defaultCurriculumId,
   getLessonIdsForCurriculum,
 } from "@/lib/content";
+import {
+  getFlashcardReward,
+  scheduleFlashcard,
+  type FlashcardRating,
+} from "@/lib/flashcard-scheduler";
 import type { CurriculumId, Mistake, ProgressState } from "@/types/learning";
 
 const STORAGE_KEY = "learn-bengali-rachel-progress";
@@ -24,6 +29,7 @@ const initialProgress: ProgressState = {
   lastActiveAt: null,
   mistakes: [],
   skippedListening: [],
+  flashcards: [],
 };
 
 type ProgressStore = {
@@ -52,6 +58,7 @@ function cloneInitialProgress(): ProgressState {
     encounteredPhraseIds: [],
     mistakes: [],
     skippedListening: [],
+    flashcards: [],
   };
 }
 
@@ -71,6 +78,7 @@ function normalizeProgress(value: unknown): ProgressState {
     lastActiveAt: maybeProgress?.lastActiveAt ?? null,
     mistakes: maybeProgress?.mistakes ?? [],
     skippedListening: maybeProgress?.skippedListening ?? [],
+    flashcards: maybeProgress?.flashcards ?? [],
   };
 }
 
@@ -124,7 +132,11 @@ function normalizeStore(value: unknown): ProgressStore {
 }
 
 function todayKey(date = new Date()) {
-  return date.toISOString().slice(0, 10);
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, "0");
+  const day = String(date.getDate()).padStart(2, "0");
+
+  return `${year}-${month}-${day}`;
 }
 
 function yesterdayKey() {
@@ -138,7 +150,13 @@ function ensureLoaded() {
     return progressCache;
   }
 
-  const stored = window.localStorage.getItem(STORAGE_KEY);
+  let stored: string | null = null;
+
+  try {
+    stored = window.localStorage.getItem(STORAGE_KEY);
+  } catch {
+    stored = null;
+  }
   hasLoadedFromStorage = true;
 
   if (!stored) {
@@ -158,7 +176,11 @@ function saveStore(nextStore: ProgressStore) {
   progressCache = nextStore;
 
   if (typeof window !== "undefined") {
-    window.localStorage.setItem(STORAGE_KEY, JSON.stringify(progressCache));
+    try {
+      window.localStorage.setItem(STORAGE_KEY, JSON.stringify(progressCache));
+    } catch {
+      // Progress remains available in memory when storage is blocked or full.
+    }
   }
 
   listeners.forEach((listener) => listener());
@@ -214,8 +236,21 @@ function subscribe(listener: () => void) {
   ensureLoaded();
   listeners.add(listener);
 
+  function handleStorage(event: StorageEvent) {
+    if (event.key !== STORAGE_KEY) {
+      return;
+    }
+
+    hasLoadedFromStorage = false;
+    ensureLoaded();
+    listeners.forEach((currentListener) => currentListener());
+  }
+
+  window.addEventListener("storage", handleStorage);
+
   return () => {
     listeners.delete(listener);
+    window.removeEventListener("storage", handleStorage);
   };
 }
 
@@ -408,6 +443,31 @@ export function useProgress() {
     });
   }, [activeCurriculumId]);
 
+  const recordFlashcardReview = useCallback(function recordFlashcardReview(
+    phraseId: string,
+    rating: FlashcardRating,
+    curriculumId = activeCurriculumId,
+  ) {
+    updateCurriculumProgress(curriculumId, (current) => {
+      const now = new Date();
+      const practiced = applyPracticeDay(current);
+      const existing = practiced.flashcards.find(
+        (review) => review.phraseId === phraseId,
+      );
+      const nextReview = scheduleFlashcard(phraseId, existing, rating, now);
+
+      return {
+        ...practiced,
+        flashcards: [
+          ...practiced.flashcards.filter((review) => review.phraseId !== phraseId),
+          nextReview,
+        ],
+        xp: practiced.xp + getFlashcardReward(rating),
+        lastActiveAt: now.toISOString(),
+      };
+    });
+  }, [activeCurriculumId]);
+
   const resolveMistake = useCallback(function resolveMistake(mistakeId: string) {
     updateCurriculumProgress(activeCurriculumId, (current) =>
       applyPracticeDay({
@@ -470,6 +530,7 @@ export function useProgress() {
     completeLesson,
     progress,
     recordEncounteredPhrase,
+    recordFlashcardReview,
     recordLessonPosition,
     recordMistake,
     recordSkippedListening,
