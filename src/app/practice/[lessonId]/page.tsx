@@ -23,21 +23,24 @@ export default async function PracticePage({
   const topic = curriculum.units.find((unit) => unit.id === lesson.unitId);
 
   return (
-    <div className="space-y-5">
-      <Link
-        href="/lessons"
-        className="inline-flex items-center gap-2 rounded-xl border border-slate-200 bg-white px-4 py-3 font-black text-slate-700 transition hover:bg-slate-50 dark:border-white/10 dark:bg-white/10 dark:text-slate-100 dark:hover:bg-white/15"
-      >
-        <ArrowLeft size={18} /> Lesson path
-      </Link>
-
-      <section className="rounded-3xl bg-slate-950 p-6 text-white shadow-sm sm:p-8">
-        <p className="text-sm font-black uppercase tracking-[0.14em] text-emerald-100">
-          {curriculum.label} · {topic?.title ?? lesson.title}
-        </p>
-        <h1 className="mt-2 text-4xl font-black">{lesson.title}</h1>
-        <p className="mt-3 max-w-xl text-slate-300">{lesson.summary}</p>
-      </section>
+    <div className="space-y-4">
+      <div className="flex items-center gap-3">
+        <Link
+          href="/lessons"
+          aria-label="Back to lesson path"
+          className="inline-grid size-10 shrink-0 place-items-center rounded-xl border border-slate-200 bg-white text-slate-700 shadow-sm transition hover:bg-slate-50 dark:border-white/10 dark:bg-white/10 dark:text-slate-100 dark:hover:bg-white/15"
+        >
+          <ArrowLeft size={18} />
+        </Link>
+        <div className="min-w-0">
+          <p className="truncate text-xs font-black uppercase tracking-[0.14em] text-violet-600 dark:text-violet-300">
+            {topic?.title ?? curriculum.label}
+          </p>
+          <h1 className="truncate text-xl font-black leading-tight text-slate-950 dark:text-slate-50 sm:text-2xl">
+            {lesson.title}
+          </h1>
+        </div>
+      </div>
 
       <LessonFlow key={lesson.id} lesson={lesson} />
     </div>

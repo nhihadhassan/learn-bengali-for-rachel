@@ -1,9 +1,23 @@
 "use client";
 
 import type { ReactNode } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { BookOpen, Flame, Gem, GraduationCap, Library, RotateCcw, Trophy } from "lucide-react";
+import {
+  BookOpen,
+  DoorOpen,
+  Flame,
+  Gem,
+  GraduationCap,
+  Languages,
+  Library,
+  Menu,
+  RotateCcw,
+  Route,
+  Trophy,
+  X,
+} from "lucide-react";
 import { curricula } from "@/lib/content";
 import { useProgress } from "@/lib/progress-store";
 import { cn } from "@/lib/utils";
@@ -25,6 +39,8 @@ export function AppShell({ children }: { children: ReactNode }) {
     progress,
     setActiveCurriculumId,
   } = useProgress();
+  const [menuOpen, setMenuOpen] = useState(false);
+  const isInLesson = pathname.startsWith("/practice");
 
   function handleCurriculumChange(value: string) {
     if (value === "history" || value === "spanish-peru" || value === "malayalam") {
@@ -41,16 +57,16 @@ export function AppShell({ children }: { children: ReactNode }) {
   return (
     <div className="min-h-screen text-slate-950 transition-colors duration-300 dark:text-slate-100">
       <header className="sticky top-0 z-20 border-b border-white/70 bg-[#fbf7ff]/88 shadow-[0_10px_35px_rgba(15,23,42,0.06)] backdrop-blur-xl transition-colors duration-300 dark:border-white/10 dark:bg-[#151225]/88 dark:shadow-[0_10px_35px_rgba(0,0,0,0.28)]">
-        <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3">
-          <Link href="/lessons" className="flex items-center gap-3">
-            <span className="grid size-10 place-items-center rounded-2xl bg-gradient-to-br from-violet-600 to-cyan-500 text-white shadow-[0_10px_24px_rgba(124,58,237,0.28)] transition hover:-rotate-3 hover:scale-105">
-              <GraduationCap size={22} />
+        <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-2.5 sm:py-3">
+          <Link href="/lessons" className="flex items-center gap-2.5 sm:gap-3">
+            <span className="grid size-9 place-items-center rounded-2xl bg-gradient-to-br from-violet-600 to-cyan-500 text-white shadow-[0_10px_24px_rgba(124,58,237,0.28)] transition hover:-rotate-3 hover:scale-105 sm:size-10">
+              <GraduationCap size={20} />
             </span>
             <span>
-              <span className="block text-xs font-black uppercase tracking-[0.14em] text-violet-700 dark:text-violet-300">
+              <span className="hidden text-xs font-black uppercase tracking-[0.14em] text-violet-700 dark:text-violet-300 sm:block">
                 Learning Bengali
               </span>
-              <span className="block text-lg font-black leading-tight">
+              <span className="block text-base font-black leading-tight sm:text-lg">
                 For Rachel
               </span>
             </span>
@@ -82,7 +98,8 @@ export function AppShell({ children }: { children: ReactNode }) {
             })}
           </nav>
 
-          <div className="flex items-center gap-2">
+          {/* Desktop actions: theme, language, and live stats. */}
+          <div className="hidden items-center gap-2 sm:flex">
             <ThemeToggle />
             <label className="sr-only" htmlFor="curriculum-switcher">
               Curriculum
@@ -99,7 +116,7 @@ export function AppShell({ children }: { children: ReactNode }) {
                 </option>
               ))}
             </select>
-            <div className="hidden items-center gap-2 sm:flex">
+            <div className="flex items-center gap-2">
               <span className="inline-flex items-center gap-2 rounded-full bg-white px-3 py-2 text-sm font-black shadow-[0_8px_20px_rgba(15,23,42,0.07)] ring-1 ring-slate-900/5 transition hover:-translate-y-0.5 dark:bg-white/10 dark:ring-white/10">
                 <Trophy size={15} className="text-amber-500" />
                 {progress.xp} XP
@@ -126,8 +143,29 @@ export function AppShell({ children }: { children: ReactNode }) {
               )}
             </div>
           </div>
+
+          {/* Mobile action: a single minimal menu button. */}
+          <button
+            type="button"
+            aria-label="Open menu"
+            aria-expanded={menuOpen}
+            onClick={() => setMenuOpen(true)}
+            className="inline-grid size-10 place-items-center rounded-full border border-white bg-white text-violet-700 shadow-[0_8px_20px_rgba(15,23,42,0.07)] ring-1 ring-slate-900/5 transition hover:-translate-y-0.5 active:translate-y-0.5 dark:border-white/10 dark:bg-white/10 dark:text-violet-200 dark:ring-white/10 sm:hidden"
+          >
+            <Menu size={20} />
+          </button>
         </div>
       </header>
+
+      <MobileMenu
+        activeCurriculumId={activeCurriculumId}
+        activeMistakesCount={activeMistakes.length}
+        isInLesson={isInLesson}
+        onClose={() => setMenuOpen(false)}
+        onCurriculumChange={handleCurriculumChange}
+        open={menuOpen}
+        progress={progress}
+      />
 
       <main className="mx-auto max-w-6xl px-4 py-6 pb-28 sm:py-8">
         {children}
@@ -161,5 +199,157 @@ export function AppShell({ children }: { children: ReactNode }) {
         </div>
       </nav>
     </div>
+  );
+}
+
+function MobileMenu({
+  activeCurriculumId,
+  activeMistakesCount,
+  isInLesson,
+  onClose,
+  onCurriculumChange,
+  open,
+  progress,
+}: {
+  activeCurriculumId: string;
+  activeMistakesCount: number;
+  isInLesson: boolean;
+  onClose: () => void;
+  onCurriculumChange: (value: string) => void;
+  open: boolean;
+  progress: { xp: number; gems: number; streak: number };
+}) {
+  // Lock body scroll while the drawer is open.
+  useEffect(() => {
+    if (!open) {
+      return;
+    }
+
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+
+    return () => {
+      document.body.style.overflow = previousOverflow;
+    };
+  }, [open]);
+
+  if (!open) {
+    return null;
+  }
+
+  return (
+    <div className="fixed inset-0 z-40 sm:hidden" role="dialog" aria-modal="true">
+      <button
+        type="button"
+        aria-label="Close menu"
+        onClick={onClose}
+        className="absolute inset-0 h-full w-full bg-slate-950/40 backdrop-blur-sm"
+      />
+      <div className="animate-soft-rise absolute inset-x-0 top-0 max-h-[92vh] overflow-y-auto rounded-b-[28px] border-b border-white/70 bg-[#fbf7ff] p-4 shadow-[0_24px_60px_rgba(15,23,42,0.25)] dark:border-white/10 dark:bg-[#151225]">
+        <div className="flex items-center justify-between">
+          <p className="text-sm font-black uppercase tracking-[0.14em] text-violet-700 dark:text-violet-300">
+            Settings
+          </p>
+          <button
+            type="button"
+            aria-label="Close menu"
+            onClick={onClose}
+            className="inline-grid size-9 place-items-center rounded-full border border-white bg-white text-slate-600 shadow-sm ring-1 ring-slate-900/5 transition active:scale-95 dark:border-white/10 dark:bg-white/10 dark:text-slate-200 dark:ring-white/10"
+          >
+            <X size={18} />
+          </button>
+        </div>
+
+        <div className="mt-3 grid grid-cols-3 gap-2">
+          <StatPill icon={<Trophy size={15} className="text-amber-500" />} value={`${progress.xp} XP`} />
+          <StatPill icon={<Gem size={15} className="text-cyan-500" />} value={`${progress.gems} gems`} />
+          <StatPill
+            icon={<Flame size={15} className="text-orange-500" fill="currentColor" />}
+            value={`${progress.streak} day`}
+          />
+        </div>
+
+        <div className="mt-3 grid gap-2">
+          {isInLesson && (
+            <MenuLink href="/lessons" icon={<DoorOpen size={18} />} label="Exit lesson" onClick={onClose} />
+          )}
+          <MenuLink href="/lessons" icon={<Route size={18} />} label="Lesson path" onClick={onClose} />
+          {activeMistakesCount > 0 && (
+            <MenuLink
+              href="/review"
+              icon={<RotateCcw size={18} />}
+              label={`Review (${activeMistakesCount})`}
+              onClick={onClose}
+            />
+          )}
+        </div>
+
+        <div className="mt-3 flex items-center justify-between gap-3 rounded-2xl border border-white/80 bg-white/85 px-4 py-3 shadow-sm dark:border-white/10 dark:bg-white/10">
+          <span className="inline-flex items-center gap-2 text-sm font-black text-slate-700 dark:text-slate-100">
+            <Languages size={18} className="text-violet-600 dark:text-violet-300" />
+            Language
+          </span>
+          <label className="sr-only" htmlFor="curriculum-switcher-mobile">
+            Curriculum
+          </label>
+          <select
+            id="curriculum-switcher-mobile"
+            value={activeCurriculumId}
+            onChange={(event) => {
+              onCurriculumChange(event.target.value);
+              onClose();
+            }}
+            className="min-h-10 rounded-full border border-white bg-white px-3 py-2 text-sm font-black text-violet-700 shadow-sm outline-none ring-1 ring-slate-900/5 transition focus:border-violet-300 focus:ring-4 focus:ring-violet-100 dark:border-white/10 dark:bg-white/10 dark:text-violet-200 dark:ring-white/10 dark:focus:ring-violet-400/20"
+          >
+            {curricula.map((curriculum) => (
+              <option key={curriculum.id} value={curriculum.id}>
+                {curriculum.label}
+              </option>
+            ))}
+          </select>
+        </div>
+
+        <div className="mt-2 flex items-center justify-between gap-3 rounded-2xl border border-white/80 bg-white/85 px-4 py-3 shadow-sm dark:border-white/10 dark:bg-white/10">
+          <span className="text-sm font-black text-slate-700 dark:text-slate-100">
+            Light / dark mode
+          </span>
+          <ThemeToggle />
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function StatPill({ icon, value }: { icon: ReactNode; value: string }) {
+  return (
+    <span className="inline-flex items-center justify-center gap-1.5 rounded-full bg-white px-2 py-2 text-xs font-black shadow-sm ring-1 ring-slate-900/5 dark:bg-white/10 dark:ring-white/10">
+      {icon}
+      {value}
+    </span>
+  );
+}
+
+function MenuLink({
+  href,
+  icon,
+  label,
+  onClick,
+}: {
+  href: string;
+  icon: ReactNode;
+  label: string;
+  onClick: () => void;
+}) {
+  return (
+    <Link
+      href={href}
+      onClick={onClick}
+      className="flex items-center gap-3 rounded-2xl border border-white/80 bg-white/85 px-4 py-3 text-sm font-black text-slate-700 shadow-sm transition active:scale-[0.99] dark:border-white/10 dark:bg-white/10 dark:text-slate-100"
+    >
+      <span className="grid size-9 shrink-0 place-items-center rounded-xl bg-violet-100 text-violet-700 dark:bg-violet-400/15 dark:text-violet-200">
+        {icon}
+      </span>
+      {label}
+    </Link>
   );
 }
