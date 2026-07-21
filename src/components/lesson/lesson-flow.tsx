@@ -6,11 +6,7 @@ import Link from "next/link";
 import {
   ArrowRight,
   Check,
-  Clock3,
   Flame,
-  GraduationCap,
-  ListChecks,
-  Mic2,
   PartyPopper,
   Volume2,
   VolumeX,
@@ -42,6 +38,34 @@ type LessonStep =
       id: string;
       type: "recognize";
       phrase: Phrase;
+      options: string[];
+      prompt: string;
+    }
+  | {
+      // English meaning shown, pick the correct word/phrase in the target language.
+      id: string;
+      type: "produce";
+      phrase: Phrase;
+      options: string[];
+      prompt: string;
+    }
+  | {
+      // Arrange a shuffled word bank into the correct phrase order.
+      id: string;
+      type: "order";
+      phrase: Phrase;
+      tokens: string[];
+      prompt: string;
+    }
+  | {
+      // Complete the sentence: one word is blanked; pick it from a word bank.
+      id: string;
+      type: "complete";
+      phrase: Phrase;
+      before: string;
+      after: string;
+      answer: string;
+      hint: string;
       options: string[];
       prompt: string;
     }
@@ -303,6 +327,7 @@ function PracticeLessonFlow({ lesson }: { lesson: Lesson }) {
   const [selectedAnswer, setSelectedAnswer] = useState("");
   const [typedAnswer, setTypedAnswer] = useState("");
   const [matches, setMatches] = useState<Record<string, string>>({});
+  const [orderTokens, setOrderTokens] = useState<number[]>([]);
   const [correctCount, setCorrectCount] = useState(0);
   const [correctStreak, setCorrectStreak] = useState(0);
   const [streakMilestone, setStreakMilestone] = useState<number | null>(null);
@@ -379,6 +404,7 @@ function PracticeLessonFlow({ lesson }: { lesson: Lesson }) {
     setSelectedAnswer("");
     setTypedAnswer("");
     setMatches({});
+    setOrderTokens([]);
     setStreakMilestone(null);
   }
 
@@ -498,6 +524,24 @@ function PracticeLessonFlow({ lesson }: { lesson: Lesson }) {
       finishQuestion(selectedAnswer === step.phrase.english, selectedAnswer, step.phrase.english);
     }
 
+    if (step.type === "produce") {
+      finishQuestion(
+        selectedAnswer === step.phrase.romanized,
+        selectedAnswer,
+        step.phrase.romanized,
+      );
+    }
+
+    if (step.type === "complete") {
+      finishQuestion(selectedAnswer === step.answer, selectedAnswer, step.answer);
+    }
+
+    if (step.type === "order") {
+      const assembled = orderTokens.map((tokenIndex) => step.tokens[tokenIndex]).join(" ");
+      const isCorrect = checkTypedAnswer(assembled, step.phrase.romanized).isCorrect;
+      finishQuestion(isCorrect, assembled, step.phrase.romanized);
+    }
+
     if (step.type === "exercise" && step.exercise.type === "multiple-choice") {
       finishQuestion(
         selectedAnswer === step.exercise.answer,
@@ -537,8 +581,12 @@ function PracticeLessonFlow({ lesson }: { lesson: Lesson }) {
   }
 
   const canCheck = useMemo(() => {
-    if (step.type === "recognize") {
+    if (step.type === "recognize" || step.type === "produce" || step.type === "complete") {
       return selectedAnswer.length > 0;
+    }
+
+    if (step.type === "order") {
+      return orderTokens.length === step.tokens.length;
     }
 
     if (step.type !== "exercise") {
@@ -558,7 +606,7 @@ function PracticeLessonFlow({ lesson }: { lesson: Lesson }) {
     }
 
     return (step.exercise.pairs ?? []).every((pair) => matches[pair.left]);
-  }, [matches, selectedAnswer, step, typedAnswer]);
+  }, [matches, orderTokens, selectedAnswer, step, typedAnswer]);
 
   if (isComplete) {
     return (
@@ -657,8 +705,6 @@ function PracticeLessonFlow({ lesson }: { lesson: Lesson }) {
       {step.type === "intro" && (
         <IntroStep
           title={step.title}
-          activityCount={Math.max(steps.length - 1, 1)}
-          body={step.body}
           lesson={step.lesson}
           onContinue={moveNext}
         />
@@ -709,6 +755,107 @@ function PracticeLessonFlow({ lesson }: { lesson: Lesson }) {
             options={step.options}
             selectedAnswer={selectedAnswer}
             setSelectedAnswer={setSelectedAnswer}
+            isLocked={answerState !== "idle"}
+          />
+        </QuestionStep>
+      )}
+
+      {step.type === "produce" && (
+        <QuestionStep
+          answerState={answerState}
+          canCheck={canCheck}
+          correctAnswer={step.phrase.romanized}
+          onCheck={checkAnswer}
+          onContinue={moveNext}
+        >
+          <p className="text-sm font-black uppercase tracking-[0.14em] text-violet-700 dark:text-violet-300">
+            Choose the word
+          </p>
+          <h2 className="mt-2 text-2xl font-black">
+            {formatPromptDisplay(step.prompt)}
+          </h2>
+          <div className="mt-3 rounded-3xl border border-violet-100 bg-violet-50 p-4 shadow-inner dark:border-violet-300/20 dark:bg-violet-400/12">
+            <p className="text-xs font-black uppercase tracking-[0.14em] text-violet-700 dark:text-violet-200">
+              English
+            </p>
+            <p className="mt-1 text-2xl font-black">
+              {capitalizeDisplayText(step.phrase.english)}
+            </p>
+          </div>
+          <MultipleChoiceOptions
+            formatOption={formatRomanizedDisplay}
+            options={step.options}
+            selectedAnswer={selectedAnswer}
+            setSelectedAnswer={setSelectedAnswer}
+            isLocked={answerState !== "idle"}
+          />
+        </QuestionStep>
+      )}
+
+      {step.type === "complete" && (
+        <QuestionStep
+          answerState={answerState}
+          canCheck={canCheck}
+          correctAnswer={step.answer}
+          onCheck={checkAnswer}
+          onContinue={moveNext}
+        >
+          <p className="text-sm font-black uppercase tracking-[0.14em] text-violet-700 dark:text-violet-300">
+            Complete the sentence
+          </p>
+          <h2 className="mt-2 text-2xl font-black">
+            {formatPromptDisplay(step.prompt)}
+          </h2>
+          <div className="mt-4 rounded-3xl border border-violet-100 bg-violet-50 p-4 text-xl font-black dark:border-violet-300/20 dark:bg-violet-400/12">
+            {step.before && (
+              <span>{formatRomanizedDisplay(step.before)} </span>
+            )}
+            <span className="mx-1 inline-block min-w-16 rounded-xl border-b-4 border-violet-400 px-3 text-center text-violet-700 dark:text-violet-200">
+              {answerState === "idle" ? "..." : formatRomanizedDisplay(selectedAnswer || "...")}
+            </span>
+            {step.after && (
+              <span> {formatRomanizedDisplay(step.after)}</span>
+            )}
+          </div>
+          <p className="mt-3 text-sm font-semibold text-slate-600 dark:text-slate-300">
+            Meaning: {capitalizeDisplayText(step.hint)}
+          </p>
+          <MultipleChoiceOptions
+            formatOption={formatRomanizedDisplay}
+            options={step.options}
+            selectedAnswer={selectedAnswer}
+            setSelectedAnswer={setSelectedAnswer}
+            isLocked={answerState !== "idle"}
+          />
+        </QuestionStep>
+      )}
+
+      {step.type === "order" && (
+        <QuestionStep
+          answerState={answerState}
+          canCheck={canCheck}
+          correctAnswer={step.phrase.romanized}
+          onCheck={checkAnswer}
+          onContinue={moveNext}
+        >
+          <p className="text-sm font-black uppercase tracking-[0.14em] text-violet-700 dark:text-violet-300">
+            Arrange the words
+          </p>
+          <h2 className="mt-2 text-2xl font-black">
+            {formatPromptDisplay(step.prompt)}
+          </h2>
+          <div className="mt-3 rounded-3xl border border-cyan-100 bg-cyan-50 p-4 shadow-inner dark:border-cyan-300/20 dark:bg-cyan-400/12">
+            <p className="text-xs font-black uppercase tracking-[0.14em] text-cyan-700 dark:text-cyan-200">
+              English
+            </p>
+            <p className="mt-1 text-xl font-black">
+              {capitalizeDisplayText(step.phrase.english)}
+            </p>
+          </div>
+          <WordOrderExercise
+            tokens={step.tokens}
+            selected={orderTokens}
+            setSelected={setOrderTokens}
             isLocked={answerState !== "idle"}
           />
         </QuestionStep>
@@ -824,14 +971,10 @@ function ExerciseAudioPrompt({
 }
 
 function IntroStep({
-  activityCount,
-  body,
   lesson,
   onContinue,
   title,
 }: {
-  activityCount: number;
-  body: string;
   lesson: Lesson;
   onContinue: () => void;
   title: string;
@@ -883,50 +1026,23 @@ function IntroStep({
     );
   }
 
+  const estimatedMinutes = lesson.metadata?.estimatedMinutes ?? 5;
+
   return (
     <div>
-      <div className="rounded-[30px] border border-violet-100 bg-gradient-to-br from-violet-50 via-white to-cyan-50 p-5 shadow-inner dark:border-violet-300/20 dark:from-violet-400/12 dark:via-white/[0.08] dark:to-cyan-400/10 sm:p-6">
-        <span className="grid size-14 place-items-center rounded-3xl bg-violet-600 text-white shadow-[0_14px_30px_rgba(124,58,237,0.22)]">
-          <GraduationCap size={27} />
-        </span>
-        <p className="mt-5 text-sm font-black uppercase tracking-[0.14em] text-violet-700 dark:text-violet-200">
-          Start topic
+      <div className="rounded-[24px] border border-violet-100 bg-gradient-to-br from-violet-50 via-white to-cyan-50 px-5 py-4 shadow-inner dark:border-violet-300/20 dark:from-violet-400/12 dark:via-white/[0.08] dark:to-cyan-400/10">
+        <p className="text-xs font-black uppercase tracking-[0.14em] text-violet-700 dark:text-violet-200">
+          Ready to practice · {estimatedMinutes} min
         </p>
-        <h2 className="mt-2 text-4xl font-black leading-tight">{title}</h2>
-        <p className="mt-3 max-w-2xl text-base leading-7 text-slate-600 dark:text-slate-300">
-          {body}
-        </p>
-
-        <div className="mt-5 grid gap-3 sm:grid-cols-3">
-          <IntroDetail icon={<Clock3 size={19} />} label={`${lesson.metadata?.estimatedMinutes ?? 5} minutes`} />
-          <IntroDetail icon={<ListChecks size={19} />} label={`${activityCount} activities`} />
-          <IntroDetail icon={<Mic2 size={19} />} label="Listen, speak, practice" />
-        </div>
+        <h2 className="mt-1 text-2xl font-black leading-tight sm:text-3xl">{title}</h2>
       </div>
       <AppButton
         type="button"
         onClick={onContinue}
-        className="mt-6 min-h-14 w-full text-base sm:w-auto"
+        className="mt-5 min-h-14 w-full text-base sm:w-auto"
       >
-        Start {title} <ArrowRight size={20} />
+        Start <ArrowRight size={20} />
       </AppButton>
-    </div>
-  );
-}
-
-function IntroDetail({
-  icon,
-  label,
-}: {
-  icon: ReactNode;
-  label: string;
-}) {
-  return (
-    <div className="flex items-center gap-3 rounded-2xl border border-white/80 bg-white/80 px-4 py-3 font-black text-slate-700 shadow-sm dark:border-white/10 dark:bg-white/10 dark:text-slate-100">
-      <span className="grid size-9 shrink-0 place-items-center rounded-xl bg-violet-100 text-violet-700 dark:bg-violet-400/15 dark:text-violet-200">
-        {icon}
-      </span>
-      <span className="text-sm">{label}</span>
     </div>
   );
 }
@@ -1304,9 +1420,89 @@ function MatchingExercise({
   );
 }
 
+function WordOrderExercise({
+  isLocked = false,
+  selected,
+  setSelected,
+  tokens,
+}: {
+  isLocked?: boolean;
+  selected: number[];
+  setSelected: (next: number[]) => void;
+  tokens: string[];
+}) {
+  const usedSet = new Set(selected);
+
+  function pickToken(index: number) {
+    if (isLocked || usedSet.has(index)) {
+      return;
+    }
+
+    setSelected([...selected, index]);
+  }
+
+  function removeAt(position: number) {
+    if (isLocked) {
+      return;
+    }
+
+    setSelected(selected.filter((_, current) => current !== position));
+  }
+
+  return (
+    <div className="mt-5">
+      <div className="flex min-h-16 flex-wrap items-center gap-2 rounded-2xl border border-slate-200 bg-slate-50 p-3 dark:border-white/10 dark:bg-white/[0.06]">
+        {selected.length === 0 ? (
+          <span className="text-sm font-semibold text-slate-400 dark:text-slate-500">
+            Tap the words below to build the phrase.
+          </span>
+        ) : (
+          selected.map((tokenIndex, position) => (
+            <button
+              key={`chosen-${tokenIndex}-${position}`}
+              type="button"
+              onClick={() => removeAt(position)}
+              disabled={isLocked}
+              className="rounded-xl border border-violet-200 bg-white px-3 py-2 text-base font-black text-slate-900 shadow-sm transition active:scale-95 disabled:opacity-70 dark:border-violet-300/30 dark:bg-white/10 dark:text-slate-50"
+            >
+              {formatRomanizedDisplay(tokens[tokenIndex])}
+            </button>
+          ))
+        )}
+      </div>
+      <div className="mt-3 flex flex-wrap gap-2">
+        {tokens.map((token, index) => (
+          <button
+            key={`bank-${token}-${index}`}
+            type="button"
+            onClick={() => pickToken(index)}
+            disabled={isLocked || usedSet.has(index)}
+            className={cn(
+              "rounded-xl border border-slate-200 bg-white px-3 py-2 text-base font-black shadow-sm transition active:scale-95 dark:border-white/10 dark:bg-white/10 dark:text-slate-50",
+              usedSet.has(index) && "pointer-events-none opacity-30",
+            )}
+          >
+            {formatRomanizedDisplay(token)}
+          </button>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+// Pronunciation / speaking practice is archived: there is no reliable way to
+// verify a spoken answer yet. The SpeakPracticeStep component and its handlers
+// are kept intact — flip this flag back to true to re-enable the flow.
+const INCLUDE_SPEAKING_PRACTICE = false;
+
+const MAX_ORDER_STEPS = 2;
+const MAX_COMPLETE_STEPS = 2;
+
 function buildLessonSteps(lesson: Lesson): LessonStep[] {
   const introducedPhrases = lesson.phrases.slice(0, 5);
   const phraseMeanings = introducedPhrases.map((phrase) => phrase.english);
+  const targetPhrasePool = introducedPhrases.map((phrase) => phrase.romanized);
+  const wordPool = buildWordPool(introducedPhrases);
   const steps: LessonStep[] = [
     {
       id: `${lesson.id}-intro`,
@@ -1326,15 +1522,27 @@ function buildLessonSteps(lesson: Lesson): LessonStep[] {
       total: introducedPhrases.length,
     });
 
-    steps.push({
-      id: `${lesson.id}-recognize-${phrase.id}`,
-      type: "recognize",
-      phrase,
-      prompt: `What does "${formatRomanizedDisplay(phrase.romanized)}" mean?`,
-      options: buildMeaningOptions(phrase.english, phraseMeanings),
-    });
+    // Alternate the comprehension direction so learners both recognize
+    // (target -> English) and produce (English -> target).
+    if (index % 2 === 0) {
+      steps.push({
+        id: `${lesson.id}-recognize-${phrase.id}`,
+        type: "recognize",
+        phrase,
+        prompt: `What does "${formatRomanizedDisplay(phrase.romanized)}" mean?`,
+        options: buildMeaningOptions(phrase.english, phraseMeanings),
+      });
+    } else {
+      steps.push({
+        id: `${lesson.id}-produce-${phrase.id}`,
+        type: "produce",
+        phrase,
+        prompt: `Which one means "${capitalizeDisplayText(phrase.english)}"?`,
+        options: buildTargetOptions(phrase.romanized, targetPhrasePool),
+      });
+    }
 
-    if (index === 1 || index === 3) {
+    if (INCLUDE_SPEAKING_PRACTICE && (index === 1 || index === 3)) {
       steps.push({
         id: `${lesson.id}-speak-${phrase.id}`,
         type: "speak",
@@ -1344,6 +1552,34 @@ function buildLessonSteps(lesson: Lesson): LessonStep[] {
     }
   });
 
+  const multiWordPhrases = introducedPhrases.filter(
+    (phrase) => splitWords(phrase.romanized).length >= 2,
+  );
+
+  // Word-bank ordering: arrange a shuffled phrase into the correct order.
+  multiWordPhrases.slice(0, MAX_ORDER_STEPS).forEach((phrase) => {
+    steps.push({
+      id: `${lesson.id}-order-${phrase.id}`,
+      type: "order",
+      phrase,
+      tokens: shuffleTokens(splitWords(phrase.romanized)),
+      prompt: "Tap the words in the correct order.",
+    });
+  });
+
+  // Sentence completion: blank one word and pick it from a word bank. Use
+  // different phrases than the ordering steps where possible to reduce repeats.
+  [...multiWordPhrases]
+    .reverse()
+    .slice(0, MAX_COMPLETE_STEPS)
+    .forEach((phrase) => {
+      const completeStep = buildCompleteStep(lesson.id, phrase, wordPool);
+
+      if (completeStep) {
+        steps.push(completeStep);
+      }
+    });
+
   steps.push(...lesson.exercises.map((exercise) => ({
     id: `${lesson.id}-review-${exercise.id}`,
     type: "exercise" as const,
@@ -1351,6 +1587,90 @@ function buildLessonSteps(lesson: Lesson): LessonStep[] {
   })));
 
   return steps;
+}
+
+function splitWords(romanized: string): string[] {
+  return romanized
+    .split(/\s+/)
+    .map((word) => word.trim())
+    .filter(Boolean);
+}
+
+function shuffle<T>(items: T[]): T[] {
+  const copy = [...items];
+
+  for (let i = copy.length - 1; i > 0; i -= 1) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [copy[i], copy[j]] = [copy[j], copy[i]];
+  }
+
+  return copy;
+}
+
+function shuffleTokens(words: string[]): string[] {
+  if (words.length < 2) {
+    return words;
+  }
+
+  const original = words.join(" ");
+
+  for (let attempt = 0; attempt < 6; attempt += 1) {
+    const shuffled = shuffle(words);
+
+    if (shuffled.join(" ") !== original) {
+      return shuffled;
+    }
+  }
+
+  return [...words].reverse();
+}
+
+function buildWordPool(phrases: Phrase[]): string[] {
+  const words = new Set<string>();
+
+  phrases.forEach((phrase) => {
+    splitWords(phrase.romanized).forEach((word) => words.add(word));
+  });
+
+  return [...words];
+}
+
+function buildTargetOptions(answer: string, pool: string[]): string[] {
+  const candidates = pool.filter((option) => option !== answer);
+  const unique = Array.from(new Set([answer, ...candidates])).slice(0, 4);
+
+  return shuffle(unique);
+}
+
+function buildCompleteStep(
+  lessonId: string,
+  phrase: Phrase,
+  wordPool: string[],
+): Extract<LessonStep, { type: "complete" }> | null {
+  const words = splitWords(phrase.romanized);
+
+  if (words.length < 2) {
+    return null;
+  }
+
+  const blankIndex = words.length - 1;
+  const answer = words[blankIndex];
+  const distractors = wordPool.filter((word) => word !== answer);
+  const options = shuffle(
+    Array.from(new Set([answer, ...distractors])).slice(0, 4),
+  );
+
+  return {
+    id: `${lessonId}-complete-${phrase.id}`,
+    type: "complete",
+    phrase,
+    before: words.slice(0, blankIndex).join(" "),
+    after: words.slice(blankIndex + 1).join(" "),
+    answer,
+    hint: phrase.english,
+    options,
+    prompt: "Pick the missing word to finish the phrase.",
+  };
 }
 
 function formatMultipleChoiceOption(exercise: Exercise, option: string) {
@@ -1375,11 +1695,13 @@ function buildMeaningOptions(answer: string, allMeanings: string[]) {
 }
 
 function getStepPrompt(step: LessonStep) {
-  if (step.type === "recognize") {
-    return step.prompt;
-  }
-
-  if (step.type === "speak") {
+  if (
+    step.type === "recognize" ||
+    step.type === "produce" ||
+    step.type === "order" ||
+    step.type === "complete" ||
+    step.type === "speak"
+  ) {
     return step.prompt;
   }
 
