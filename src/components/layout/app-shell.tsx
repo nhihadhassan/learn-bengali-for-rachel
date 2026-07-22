@@ -167,10 +167,19 @@ export function AppShell({ children }: { children: ReactNode }) {
         progress={progress}
       />
 
-      <main className="mx-auto max-w-6xl px-4 py-6 pb-28 sm:py-8">
+      <main
+        className={cn(
+          "mx-auto max-w-6xl px-4 py-6 sm:py-8",
+          // In-lesson focus mode hides the bottom tab bar, so we don't need
+          // to reserve space for it.
+          isInLesson ? "pb-6" : "pb-28",
+        )}
+      >
         {children}
       </main>
 
+      {/* Bottom tab bar is hidden during a lesson (focus mode). */}
+      {!isInLesson && (
       <nav className="fixed inset-x-0 bottom-0 z-20 border-t border-slate-200 bg-white/95 px-4 py-2 shadow-[0_-10px_30px_rgba(15,23,42,0.08)] backdrop-blur transition-colors duration-300 dark:border-white/10 dark:bg-[#151225]/95 dark:shadow-[0_-10px_30px_rgba(0,0,0,0.25)] sm:hidden">
         <div className="mx-auto grid max-w-md grid-cols-4 gap-2">
           {navItems.map((item) => {
@@ -198,6 +207,7 @@ export function AppShell({ children }: { children: ReactNode }) {
           })}
         </div>
       </nav>
+      )}
     </div>
   );
 }

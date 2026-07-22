@@ -48,7 +48,7 @@ export function AnswerButton({
   return (
     <button
       className={cn(
-        "group min-h-16 rounded-2xl border-2 px-4 py-4 text-left font-black break-words hyphens-auto transition duration-200 ease-out focus-visible:outline focus-visible:outline-4 focus-visible:outline-offset-2 focus-visible:outline-teal-200 active:translate-y-1 disabled:cursor-not-allowed disabled:opacity-55",
+        "group min-h-14 rounded-2xl border-2 px-4 py-3 text-left font-black break-words hyphens-auto transition duration-200 ease-out focus-visible:outline focus-visible:outline-4 focus-visible:outline-offset-2 focus-visible:outline-teal-200 active:translate-y-1 disabled:cursor-not-allowed disabled:opacity-55 sm:min-h-16 sm:py-4",
         isSelected
           ? "border-violet-500 bg-violet-50 text-violet-900 shadow-[0_5px_0_#c4b5fd,0_14px_24px_rgba(124,58,237,0.14)] dark:border-violet-300 dark:bg-violet-400/20 dark:text-violet-100 dark:shadow-[0_5px_0_rgba(167,139,250,0.3),0_14px_24px_rgba(0,0,0,0.22)]"
           : "border-slate-200 bg-white text-slate-800 shadow-[0_5px_0_#e2e8f0] hover:-translate-y-0.5 hover:border-violet-200 hover:bg-violet-50 hover:shadow-[0_7px_0_#ddd6fe,0_16px_28px_rgba(15,23,42,0.08)] dark:border-white/10 dark:bg-white/10 dark:text-slate-100 dark:shadow-[0_5px_0_rgba(255,255,255,0.08),0_16px_28px_rgba(0,0,0,0.22)] dark:hover:border-violet-300/40 dark:hover:bg-violet-400/15",
