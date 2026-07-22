@@ -6,6 +6,7 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import {
   BookOpen,
+  CloudDownload,
   DoorOpen,
   Flame,
   Gem,
@@ -324,6 +325,17 @@ function MobileMenu({
             Light / dark mode
           </span>
           <ThemeToggle />
+        </div>
+
+        <div className="mt-3 flex items-start gap-2 rounded-2xl border border-cyan-100 bg-cyan-50/80 px-4 py-3 dark:border-cyan-300/20 dark:bg-cyan-400/10">
+          <CloudDownload
+            size={18}
+            className="mt-0.5 shrink-0 text-cyan-600 dark:text-cyan-300"
+          />
+          <p className="text-xs font-bold leading-5 text-slate-600 dark:text-slate-300">
+            Works offline. Add to your Home Screen (Share → Add to Home Screen)
+            to open lessons without internet.
+          </p>
         </div>
       </div>
     </div>

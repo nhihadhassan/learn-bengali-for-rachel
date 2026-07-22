@@ -1,10 +1,13 @@
-const CACHE_NAME = "learning-bengali-offline-v3";
+const CACHE_NAME = "learning-bengali-offline-v4";
 const PRECACHE_URLS = [
   "/",
   "/lessons",
   "/review",
   "/progress",
   "/vocabulary",
+  "/manifest.webmanifest",
+  "/icon-192.png",
+  "/icon-512.png",
   "/practice/u01-l01-greetings",
   "/practice/u01-l02-how-are-you",
   "/practice/u02-l01-introduce-yourself",

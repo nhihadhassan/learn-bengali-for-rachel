@@ -1,9 +1,10 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import type { ReactNode } from "react";
 import { Geist, Geist_Mono } from "next/font/google";
 import Script from "next/script";
 import "./globals.css";
 import { AppShell } from "@/components/layout/app-shell";
+import { OfflineIndicator } from "@/components/offline/offline-indicator";
 import { ServiceWorkerRegister } from "@/components/offline/service-worker-register";
 
 const geistSans = Geist({
@@ -33,9 +34,15 @@ const themeScript = `
 `;
 
 export const metadata: Metadata = {
-  title: "Learning Bengali",
+  title: "Learning for Rachel",
   description:
     "A beginner learning app with Bengali, Spanish for Peru, and bite-size history stories.",
+  manifest: "/manifest.webmanifest",
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: "default",
+    title: "For Rachel",
+  },
   icons: {
     icon: [
       { url: "/favicon.ico", sizes: "any" },
@@ -45,6 +52,13 @@ export const metadata: Metadata = {
     shortcut: "/favicon.ico",
     apple: [{ url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" }],
   },
+};
+
+export const viewport: Viewport = {
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#fbf7ff" },
+    { media: "(prefers-color-scheme: dark)", color: "#151225" },
+  ],
 };
 
 export default function RootLayout({
@@ -68,6 +82,7 @@ export default function RootLayout({
       </head>
       <body className="font-sans antialiased">
         <ServiceWorkerRegister />
+        <OfflineIndicator />
         <AppShell>{children}</AppShell>
       </body>
     </html>
