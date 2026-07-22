@@ -477,6 +477,15 @@ function PracticeLessonFlow({ lesson }: { lesson: Lesson }) {
     moveNext();
   }
 
+  function finishMatching() {
+    if (answerState !== "idle") {
+      return;
+    }
+
+    setAnswerState("correct");
+    applyCorrectFeedback();
+  }
+
   function skipSpeakingPractice() {
     if (step.type !== "speak") {
       return;
@@ -870,6 +879,14 @@ function PracticeLessonFlow({ lesson }: { lesson: Lesson }) {
           onContinue={moveNext}
           onSkip={isListeningStep(step) ? skipListening : undefined}
           skipLabel="Skip for now"
+          // Matching auto-completes when every pair is tapped, so it needs no
+          // Check button — just a hint while the learner works.
+          showCheck={step.exercise.type !== "matching"}
+          idleHint={
+            step.exercise.type === "matching"
+              ? "Tap a word on each side to match them."
+              : undefined
+          }
         >
           <p className="text-sm font-black uppercase tracking-[0.14em] text-violet-700 dark:text-violet-300">
             {getExerciseMode(step.exercise)}
@@ -926,10 +943,12 @@ function PracticeLessonFlow({ lesson }: { lesson: Lesson }) {
 
           {step.exercise.type === "matching" && (
             <MatchingExercise
+              key={step.exercise.id}
               pairs={step.exercise.pairs ?? []}
               matches={matches}
               setMatches={setMatches}
               isLocked={answerState !== "idle"}
+              onComplete={finishMatching}
             />
           )}
         </QuestionStep>
@@ -1211,18 +1230,22 @@ function QuestionStep({
   canCheck,
   children,
   correctAnswer,
+  idleHint,
   onCheck,
   onContinue,
   onSkip,
+  showCheck = true,
   skipLabel,
 }: {
   answerState: AnswerState;
   canCheck: boolean;
   children: ReactNode;
   correctAnswer: string;
+  idleHint?: string;
   onCheck: () => void;
   onContinue: () => void;
   onSkip?: () => void;
+  showCheck?: boolean;
   skipLabel?: string;
 }) {
   const isAnswered = answerState !== "idle";
@@ -1279,29 +1302,37 @@ function QuestionStep({
           </div>
         )}
 
-        <div className="flex gap-3">
+        <div className="flex items-center gap-3">
           {answerState === "idle" ? (
-            <>
-              {onSkip && (
-                <AppButton
-                  type="button"
-                  variant="secondary"
-                  onClick={onSkip}
-                  className="flex-1"
-                >
-                  <VolumeX size={18} />
-                  {skipLabel}
-                </AppButton>
-              )}
-              <AppButton
-                type="button"
-                disabled={!canCheck}
-                onClick={onCheck}
-                className="flex-1"
-              >
-                Check
-              </AppButton>
-            </>
+            showCheck || onSkip ? (
+              <>
+                {onSkip && (
+                  <AppButton
+                    type="button"
+                    variant="secondary"
+                    onClick={onSkip}
+                    className="flex-1"
+                  >
+                    <VolumeX size={18} />
+                    {skipLabel}
+                  </AppButton>
+                )}
+                {showCheck && (
+                  <AppButton
+                    type="button"
+                    disabled={!canCheck}
+                    onClick={onCheck}
+                    className="flex-1"
+                  >
+                    Check
+                  </AppButton>
+                )}
+              </>
+            ) : (
+              <p className="w-full py-1 text-center text-sm font-bold text-slate-500 dark:text-slate-400">
+                {idleHint}
+              </p>
+            )
           ) : (
             <AppButton
               type="button"
@@ -1348,47 +1379,150 @@ function MultipleChoiceOptions({
   );
 }
 
+type MatchSelection = { side: "left" | "right"; value: string };
+
 function MatchingExercise({
   isLocked = false,
-  pairs,
   matches,
+  onComplete,
+  pairs,
   setMatches,
 }: {
   isLocked?: boolean;
-  pairs: MatchingPair[];
   matches: Record<string, string>;
+  onComplete: () => void;
+  pairs: MatchingPair[];
   setMatches: (matches: Record<string, string>) => void;
 }) {
-  const rightOptions = [...pairs.map((pair) => pair.right)].sort();
+  const [selection, setSelection] = useState<MatchSelection | null>(null);
+  const [wrong, setWrong] = useState<{ left: string; right: string } | null>(null);
+  const rightOptions = useMemo(
+    () => shuffle(pairs.map((pair) => pair.right)),
+    [pairs],
+  );
+
+  const matchedLeft = new Set(Object.keys(matches));
+  const matchedRight = new Set(Object.values(matches));
+
+  function attempt(side: "left" | "right", value: string) {
+    if (isLocked) {
+      return;
+    }
+
+    if (side === "left" ? matchedLeft.has(value) : matchedRight.has(value)) {
+      return;
+    }
+
+    setWrong(null);
+
+    // First tap, or switching selection within the same column.
+    if (!selection || selection.side === side) {
+      setSelection({ side, value });
+      return;
+    }
+
+    // One tile from each column is now chosen — test the pairing.
+    const leftValue = side === "left" ? value : selection.value;
+    const rightValue = side === "right" ? value : selection.value;
+    const isPair = pairs.some(
+      (pair) => pair.left === leftValue && pair.right === rightValue,
+    );
+
+    setSelection(null);
+
+    if (isPair) {
+      const nextMatches = { ...matches, [leftValue]: rightValue };
+      setMatches(nextMatches);
+      playFeedbackSound("correct");
+
+      if (Object.keys(nextMatches).length === pairs.length) {
+        onComplete();
+      }
+    } else {
+      setWrong({ left: leftValue, right: rightValue });
+      window.setTimeout(() => setWrong(null), 650);
+    }
+  }
+
+  function tileState(side: "left" | "right", value: string) {
+    if (side === "left" ? matchedLeft.has(value) : matchedRight.has(value)) {
+      return "matched" as const;
+    }
+
+    if (
+      wrong &&
+      (side === "left" ? wrong.left === value : wrong.right === value)
+    ) {
+      return "wrong" as const;
+    }
+
+    if (selection && selection.side === side && selection.value === value) {
+      return "selected" as const;
+    }
+
+    return "idle" as const;
+  }
 
   return (
-    <div className="mt-5 grid gap-3">
-      {pairs.map((pair) => (
-        <div
-          key={pair.left}
-          className="grid gap-3 rounded-2xl border border-slate-200 bg-slate-50 p-3 shadow-sm dark:border-white/10 dark:bg-white/[0.08] sm:grid-cols-[1fr_1fr]"
-        >
-          <div className="rounded-xl bg-white px-4 py-3 text-lg font-black shadow-sm dark:bg-white/10">
-            {formatRomanizedDisplay(pair.left)}
-          </div>
-          <select
-            value={matches[pair.left] ?? ""}
-            onChange={(event) =>
-              setMatches({ ...matches, [pair.left]: event.target.value })
-            }
+    <div className="mt-4 grid grid-cols-2 gap-3">
+      <div className="grid content-start gap-3">
+        {pairs.map((pair) => (
+          <MatchTile
+            key={`left-${pair.left}`}
+            state={tileState("left", pair.left)}
             disabled={isLocked}
-            className="rounded-xl border border-slate-200 bg-white px-4 py-3 font-bold outline-none transition focus:border-violet-500 focus:ring-4 focus:ring-violet-100 dark:border-white/10 dark:bg-slate-950/70 dark:text-slate-50 dark:focus:ring-violet-400/20"
+            onClick={() => attempt("left", pair.left)}
           >
-            <option value="">Choose meaning</option>
-            {rightOptions.map((right) => (
-              <option key={right} value={right}>
-                {capitalizeDisplayText(right)}
-              </option>
-            ))}
-          </select>
-        </div>
-      ))}
+            {formatRomanizedDisplay(pair.left)}
+          </MatchTile>
+        ))}
+      </div>
+      <div className="grid content-start gap-3">
+        {rightOptions.map((right) => (
+          <MatchTile
+            key={`right-${right}`}
+            state={tileState("right", right)}
+            disabled={isLocked}
+            onClick={() => attempt("right", right)}
+          >
+            {capitalizeDisplayText(right)}
+          </MatchTile>
+        ))}
+      </div>
     </div>
+  );
+}
+
+function MatchTile({
+  children,
+  disabled,
+  onClick,
+  state,
+}: {
+  children: ReactNode;
+  disabled?: boolean;
+  onClick: () => void;
+  state: "idle" | "selected" | "matched" | "wrong";
+}) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      disabled={disabled || state === "matched"}
+      className={cn(
+        "min-h-14 rounded-2xl border-2 px-3 py-3 text-center text-sm font-black break-words transition duration-150 ease-out focus-visible:outline focus-visible:outline-4 focus-visible:outline-offset-2 focus-visible:outline-teal-200 active:translate-y-0.5",
+        state === "idle" &&
+          "border-slate-200 bg-white text-slate-800 shadow-[0_4px_0_#e2e8f0] hover:-translate-y-0.5 hover:border-violet-200 hover:bg-violet-50 dark:border-white/10 dark:bg-white/10 dark:text-slate-100 dark:shadow-[0_4px_0_rgba(255,255,255,0.08)] dark:hover:border-violet-300/40 dark:hover:bg-violet-400/15",
+        state === "selected" &&
+          "border-violet-500 bg-violet-100 text-violet-900 shadow-[0_4px_0_#c4b5fd] dark:border-violet-300 dark:bg-violet-400/25 dark:text-violet-50",
+        state === "matched" &&
+          "border-emerald-300 bg-emerald-100 text-emerald-700 opacity-70 dark:border-emerald-300/40 dark:bg-emerald-400/20 dark:text-emerald-100",
+        state === "wrong" &&
+          "match-shake border-rose-400 bg-rose-100 text-rose-700 dark:border-rose-300/50 dark:bg-rose-400/20 dark:text-rose-100",
+      )}
+    >
+      {children}
+    </button>
   );
 }
 
