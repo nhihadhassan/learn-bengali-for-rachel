@@ -23,12 +23,12 @@ export default async function PracticePage({
   const topic = curriculum.units.find((unit) => unit.id === lesson.unitId);
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-3">
       <div className="flex items-center gap-3">
         <Link
           href="/lessons"
           aria-label="Back to lesson path"
-          className="inline-grid size-10 shrink-0 place-items-center rounded-xl border border-slate-200 bg-white text-slate-700 shadow-sm transition hover:bg-slate-50 dark:border-white/10 dark:bg-white/10 dark:text-slate-100 dark:hover:bg-white/15"
+          className="inline-grid size-9 shrink-0 place-items-center rounded-xl border border-slate-200 bg-white text-slate-700 shadow-sm transition hover:bg-slate-50 dark:border-white/10 dark:bg-white/10 dark:text-slate-100 dark:hover:bg-white/15 sm:size-10"
         >
           <ArrowLeft size={18} />
         </Link>

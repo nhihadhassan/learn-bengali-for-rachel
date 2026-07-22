@@ -675,7 +675,7 @@ function PracticeLessonFlow({ lesson }: { lesson: Lesson }) {
 
   return (
     <ExerciseCard>
-      <div className="sticky top-[73px] z-10 -mx-2 mb-6 rounded-2xl bg-white/95 px-2 py-2 backdrop-blur transition-colors duration-300 dark:bg-slate-950/90 sm:top-[81px]">
+      <div className="sticky top-[56px] z-10 -mx-2 mb-4 rounded-2xl bg-white/95 px-2 py-2 backdrop-blur transition-colors duration-300 dark:bg-slate-950/90 sm:top-[64px]">
         <ProgressHeader current={stepIndex + 1} total={steps.length} />
       </div>
 
@@ -733,14 +733,14 @@ function PracticeLessonFlow({ lesson }: { lesson: Lesson }) {
           onSkip={skipListening}
           skipLabel="Skip for now"
         >
-          <h2 className="text-2xl font-black">
+          <h2 className="text-xl font-black sm:text-2xl">
             {formatPromptDisplay(step.prompt)}
           </h2>
-          <p className="mt-2 text-sm font-semibold text-slate-600 dark:text-slate-300">
+          <p className="mt-1 hidden text-sm font-semibold text-slate-600 dark:text-slate-300 sm:block">
             Listen to the phrase, then choose the English meaning.
           </p>
-          <div className="mt-5 flex items-center justify-between rounded-3xl border border-cyan-100 bg-cyan-50 p-4 shadow-inner dark:border-cyan-300/20 dark:bg-cyan-400/12">
-            <p className="text-3xl font-black">
+          <div className="mt-3 flex items-center justify-between rounded-3xl border border-cyan-100 bg-cyan-50 p-3 shadow-inner dark:border-cyan-300/20 dark:bg-cyan-400/12 sm:mt-4 sm:p-4">
+            <p className="text-2xl font-black sm:text-3xl">
               {formatRomanizedDisplay(step.phrase.romanized)}
             </p>
             <SpeakerButton
@@ -1225,124 +1225,96 @@ function QuestionStep({
   onSkip?: () => void;
   skipLabel?: string;
 }) {
-  const feedbackRef = useRef<HTMLDivElement | null>(null);
-  const actionRef = useRef<HTMLDivElement | null>(null);
-
-  useEffect(() => {
-    if (answerState === "idle" || typeof window === "undefined") {
-      return;
-    }
-
-    const timeout = window.setTimeout(() => {
-      const actionElement = actionRef.current;
-
-      if (!actionElement || isElementComfortablyVisible(actionElement)) {
-        return;
-      }
-
-      actionElement.scrollIntoView({
-        behavior: "smooth",
-        block: "center",
-      });
-    }, 180);
-
-    return () => window.clearTimeout(timeout);
-  }, [answerState]);
+  const isAnswered = answerState !== "idle";
 
   return (
     <div>
       {children}
 
-      {answerState !== "idle" && (
-        <div
-          ref={feedbackRef}
-          className={cn(
-            "streak-pop mt-5 flex items-start gap-3 rounded-2xl p-4 font-bold shadow-sm",
-            answerState === "correct"
-              ? "correct-pop border border-emerald-100 bg-emerald-50 text-emerald-800 dark:border-emerald-300/25 dark:bg-emerald-400/14 dark:text-emerald-100"
-              : answerState === "skipped"
-                ? "border border-violet-100 bg-violet-50 text-violet-800 dark:border-violet-300/25 dark:bg-violet-400/14 dark:text-violet-100"
-                : "border border-rose-100 bg-rose-50 text-rose-800 dark:border-rose-300/25 dark:bg-rose-400/14 dark:text-rose-100",
-          )}
-        >
-          {answerState === "correct" ? (
-            <Check size={20} />
-          ) : answerState === "skipped" ? (
-            <VolumeX size={20} />
-          ) : (
-            <X size={20} />
-          )}
-          <div>
-            <p>
-              {answerState === "correct"
-                ? "Correct"
+      {/* Action bar pinned to the bottom of the viewport so Check/Continue is
+          always reachable without scrolling, no matter how many options. */}
+      <div className="sticky bottom-0 z-10 -mx-4 -mb-4 mt-5 rounded-b-[24px] border-t border-slate-200/70 bg-white/95 px-4 pb-4 pt-3 backdrop-blur transition-colors duration-300 dark:border-white/10 dark:bg-slate-950/92 sm:-mx-7 sm:-mb-7 sm:rounded-b-[30px] sm:px-7 sm:pb-6 sm:pt-4">
+        {isAnswered && (
+          <div
+            className={cn(
+              "streak-pop mb-3 flex items-start gap-3 rounded-2xl p-3 font-bold shadow-sm",
+              answerState === "correct"
+                ? "correct-pop border border-emerald-100 bg-emerald-50 text-emerald-800 dark:border-emerald-300/25 dark:bg-emerald-400/14 dark:text-emerald-100"
                 : answerState === "skipped"
-                  ? "Skipped"
-                  : "Not quite"}
-            </p>
-            {answerState === "correct" && (
-              <p className="xp-pop mt-1 text-sm font-black text-emerald-700 dark:text-emerald-200">
-                +5 XP
-              </p>
+                  ? "border border-violet-100 bg-violet-50 text-violet-800 dark:border-violet-300/25 dark:bg-violet-400/14 dark:text-violet-100"
+                  : "border border-rose-100 bg-rose-50 text-rose-800 dark:border-rose-300/25 dark:bg-rose-400/14 dark:text-rose-100",
             )}
-            {answerState === "skipped" && (
-              <p className="mt-1 text-sm font-semibold">
-                Skipped. You can review this practice later.
-              </p>
+          >
+            {answerState === "correct" ? (
+              <Check size={20} />
+            ) : answerState === "skipped" ? (
+              <VolumeX size={20} />
+            ) : (
+              <X size={20} />
             )}
-            {answerState === "wrong" && (
-              <p className="mt-1 text-sm font-semibold">
-                Correct answer: {capitalizeDisplayText(correctAnswer)}
+            <div>
+              <p>
+                {answerState === "correct"
+                  ? "Correct"
+                  : answerState === "skipped"
+                    ? "Skipped"
+                    : "Not quite"}
+                {answerState === "correct" && (
+                  <span className="xp-pop ml-2 text-sm font-black text-emerald-700 dark:text-emerald-200">
+                    +5 XP
+                  </span>
+                )}
               </p>
-            )}
+              {answerState === "skipped" && (
+                <p className="mt-1 text-sm font-semibold">
+                  Skipped. You can review this practice later.
+                </p>
+              )}
+              {answerState === "wrong" && (
+                <p className="mt-1 text-sm font-semibold">
+                  Correct answer: {capitalizeDisplayText(correctAnswer)}
+                </p>
+              )}
+            </div>
           </div>
-        </div>
-      )}
+        )}
 
-      <div
-        ref={actionRef}
-        className="mt-5 grid gap-3 sm:flex sm:flex-wrap sm:justify-end"
-      >
-        {answerState === "idle" ? (
-          <>
-            {onSkip && (
-              <AppButton type="button" variant="secondary" onClick={onSkip}>
-                <VolumeX size={18} />
-                {skipLabel}
+        <div className="flex gap-3">
+          {answerState === "idle" ? (
+            <>
+              {onSkip && (
+                <AppButton
+                  type="button"
+                  variant="secondary"
+                  onClick={onSkip}
+                  className="flex-1"
+                >
+                  <VolumeX size={18} />
+                  {skipLabel}
+                </AppButton>
+              )}
+              <AppButton
+                type="button"
+                disabled={!canCheck}
+                onClick={onCheck}
+                className="flex-1"
+              >
+                Check
               </AppButton>
-            )}
+            </>
+          ) : (
             <AppButton
               type="button"
-              disabled={!canCheck}
-              onClick={onCheck}
+              onClick={onContinue}
+              variant={answerState === "skipped" ? "primary" : "success"}
+              className="w-full"
             >
-              Check
+              Continue <ArrowRight size={18} />
             </AppButton>
-          </>
-        ) : (
-          <AppButton
-            type="button"
-            onClick={onContinue}
-            variant={answerState === "skipped" ? "primary" : "success"}
-          >
-            Continue <ArrowRight size={18} />
-          </AppButton>
-        )}
+          )}
+        </div>
       </div>
     </div>
-  );
-}
-
-function isElementComfortablyVisible(element: HTMLElement) {
-  const rect = element.getBoundingClientRect();
-  const viewportHeight =
-    window.innerHeight || document.documentElement.clientHeight;
-  const comfortableTop = 88;
-  const comfortableBottom = Math.max(96, viewportHeight * 0.14);
-
-  return (
-    rect.top >= comfortableTop &&
-    rect.bottom <= viewportHeight - comfortableBottom
   );
 }
 
@@ -1360,7 +1332,7 @@ function MultipleChoiceOptions({
   setSelectedAnswer: (answer: string) => void;
 }) {
   return (
-    <div className="mt-5 grid gap-3 sm:grid-cols-2">
+    <div className="mt-4 grid grid-cols-2 gap-2 sm:gap-3">
       {options.map((option) => (
         <AnswerButton
           key={option}
