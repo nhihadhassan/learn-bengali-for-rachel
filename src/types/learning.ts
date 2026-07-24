@@ -185,6 +185,15 @@ export type SkippedListeningExercise = {
   createdAt: string;
 };
 
+export type PhraseMemory = {
+  // Leitner box 0-5: higher = better known = longer until next review.
+  box: number;
+  // ISO timestamp when this phrase is next due for review.
+  dueAt: string;
+  // ISO timestamp of the most recent time it was practiced.
+  lastSeenAt: string;
+};
+
 export type ProgressState = {
   completedLessons: string[];
   encounteredPhraseIds: string[];
@@ -200,6 +209,8 @@ export type ProgressState = {
   lastActiveAt: string | null;
   mistakes: Mistake[];
   skippedListening: SkippedListeningExercise[];
+  // Spaced-repetition memory, keyed by phrase id. Optional for backward compat.
+  phraseMemory: Record<string, PhraseMemory>;
 };
 
 export type LearnedWord = {

@@ -9,6 +9,51 @@ import type { CurriculumId, Mistake, ProgressState } from "@/types/learning";
 
 const STORAGE_KEY = "learn-bengali-rachel-progress";
 
+const DAY_MS = 24 * 60 * 60 * 1000;
+// Spaced-repetition interval (in days) per Leitner box. Box 0 = due now.
+const REVIEW_INTERVAL_DAYS = [0, 1, 3, 7, 16, 35];
+const MAX_BOX = REVIEW_INTERVAL_DAYS.length - 1;
+
+/**
+ * Phrase ids worth reviewing, weakest first. Prefers items that are actually
+ * due; if nothing is due it falls back to the weakest/least-recently-seen so a
+ * practice session is still available.
+ */
+export function getReviewPhraseIds(
+  progress: ProgressState,
+  limit = 12,
+  now = Date.now(),
+): string[] {
+  const entries = Object.entries(progress.phraseMemory ?? {});
+
+  if (entries.length === 0) {
+    return [];
+  }
+
+  const due = entries.filter(
+    ([, memory]) => new Date(memory.dueAt).getTime() <= now,
+  );
+  const pool = due.length > 0 ? due : entries;
+
+  return pool
+    .sort(
+      ([, a], [, b]) =>
+        a.box - b.box ||
+        new Date(a.lastSeenAt).getTime() - new Date(b.lastSeenAt).getTime(),
+    )
+    .slice(0, limit)
+    .map(([phraseId]) => phraseId);
+}
+
+export function countDuePhrases(
+  progress: ProgressState,
+  now = Date.now(),
+): number {
+  return Object.values(progress.phraseMemory ?? {}).filter(
+    (memory) => new Date(memory.dueAt).getTime() <= now,
+  ).length;
+}
+
 const initialProgress: ProgressState = {
   completedLessons: [],
   encounteredPhraseIds: [],
@@ -24,6 +69,7 @@ const initialProgress: ProgressState = {
   lastActiveAt: null,
   mistakes: [],
   skippedListening: [],
+  phraseMemory: {},
 };
 
 type ProgressStore = {
@@ -52,6 +98,7 @@ function cloneInitialProgress(): ProgressState {
     encounteredPhraseIds: [],
     mistakes: [],
     skippedListening: [],
+    phraseMemory: {},
   };
 }
 
@@ -71,6 +118,7 @@ function normalizeProgress(value: unknown): ProgressState {
     lastActiveAt: maybeProgress?.lastActiveAt ?? null,
     mistakes: maybeProgress?.mistakes ?? [],
     skippedListening: maybeProgress?.skippedListening ?? [],
+    phraseMemory: maybeProgress?.phraseMemory ?? {},
   };
 }
 
@@ -433,6 +481,60 @@ export function useProgress() {
     );
   }, [activeCurriculumId]);
 
+  // Spaced repetition: promote a phrase's Leitner box on a correct answer (and
+  // push its next-due date out), or demote it and make it due now on a miss.
+  const recordPhraseResult = useCallback(function recordPhraseResult(
+    phraseId: string,
+    isCorrect: boolean,
+    curriculumId = activeCurriculumId,
+  ) {
+    updateCurriculumProgress(curriculumId, (current) => {
+      const now = Date.now();
+      const previousBox = current.phraseMemory[phraseId]?.box ?? 0;
+      const box = isCorrect
+        ? Math.min(previousBox + 1, MAX_BOX)
+        : Math.max(previousBox - 1, 0);
+      const intervalDays = isCorrect ? REVIEW_INTERVAL_DAYS[box] : 0;
+
+      return {
+        ...current,
+        phraseMemory: {
+          ...current.phraseMemory,
+          [phraseId]: {
+            box,
+            dueAt: new Date(now + intervalDays * DAY_MS).toISOString(),
+            lastSeenAt: new Date(now).toISOString(),
+          },
+        },
+      };
+    });
+  }, [activeCurriculumId]);
+
+  // Finishing a practice/review session earns XP and counts toward the daily
+  // streak, but does not mark any lesson complete.
+  const completeReview = useCallback(function completeReview(
+    xpEarned: number,
+    curriculumId = activeCurriculumId,
+  ) {
+    updateCurriculumProgress(curriculumId, (current) =>
+      applyPracticeDay({
+        ...current,
+        xp: current.xp + Math.max(0, xpEarned),
+        lastActiveAt: new Date().toISOString(),
+      }),
+    );
+  }, [activeCurriculumId]);
+
+  const reviewPhraseIds = useMemo(
+    () => getReviewPhraseIds(progress),
+    [progress],
+  );
+
+  const duePhraseCount = useMemo(
+    () => countDuePhrases(progress),
+    [progress],
+  );
+
   const resetProgress = useCallback(function resetProgress() {
     updateCurriculumProgress(activeCurriculumId, () => cloneInitialProgress());
   }, [activeCurriculumId]);
@@ -468,15 +570,19 @@ export function useProgress() {
     activeMistakes,
     activeSkippedListening,
     completeLesson,
+    completeReview,
+    duePhraseCount,
     progress,
     recordEncounteredPhrase,
     recordLessonPosition,
     recordMistake,
+    recordPhraseResult,
     recordSkippedListening,
     resetProgress,
     restoreStreak,
     resolveMistake,
     resolveSkippedListening,
+    reviewPhraseIds,
     setActiveCurriculumId,
     store,
   };

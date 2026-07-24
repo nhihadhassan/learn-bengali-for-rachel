@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { Check, Circle, Play, Sparkles } from "lucide-react";
+import { Check, Circle, Play, RefreshCw, Sparkles } from "lucide-react";
 import type { Lesson, Unit } from "@/types/learning";
 import { useProgress } from "@/lib/progress-store";
 import { cn } from "@/lib/utils";
@@ -99,6 +99,9 @@ export function LessonPath({ units }: { units: Unit[] }) {
                 />
               );
             })}
+            {!isHistory && unit.lessons.every((lesson) => completed.has(lesson.id)) && (
+              <UnitReviewCard unitId={unit.id} unitTitle={unit.title} />
+            )}
           </div>
           )}
         </section>
@@ -121,6 +124,41 @@ export function LessonPath({ units }: { units: Unit[] }) {
         </section>
       )}
     </div>
+  );
+}
+
+function UnitReviewCard({
+  unitId,
+  unitTitle,
+}: {
+  unitId: string;
+  unitTitle: string;
+}) {
+  return (
+    <Link
+      href={`/unit-review/${unitId}`}
+      className="group relative ml-0 flex items-center justify-between gap-4 overflow-hidden rounded-3xl border-2 border-cyan-200 bg-cyan-50 p-4 shadow-[0_6px_0_#a5f3fc,0_16px_32px_rgba(6,182,212,0.12)] transition duration-200 ease-out hover:-translate-y-1 hover:shadow-[0_9px_0_#a5f3fc,0_22px_40px_rgba(6,182,212,0.18)] focus-visible:outline focus-visible:outline-4 focus-visible:outline-offset-2 focus-visible:outline-teal-200 active:translate-y-1 dark:border-cyan-300/30 dark:bg-cyan-400/12 dark:shadow-[0_6px_0_rgba(6,182,212,0.24),0_16px_32px_rgba(0,0,0,0.24)] md:ml-8"
+    >
+      <span
+        aria-hidden="true"
+        className="absolute -left-8 top-1/2 hidden size-6 -translate-y-1/2 rounded-full border-4 border-white bg-cyan-500 shadow-[0_0_0_4px_rgba(6,182,212,0.16)] transition group-hover:scale-110 dark:border-slate-950 md:block"
+      />
+      <div className="min-w-0">
+        <span className="inline-flex items-center gap-2 rounded-full bg-white px-3 py-1 text-xs font-black uppercase tracking-[0.12em] text-cyan-700 shadow-sm dark:bg-cyan-400/15 dark:text-cyan-100">
+          <RefreshCw size={14} />
+          Unit review
+        </span>
+        <h3 className="mt-3 text-lg font-black leading-tight">
+          Review {unitTitle}
+        </h3>
+        <p className="mt-2 text-sm leading-5 text-slate-600 dark:text-slate-300">
+          Mix all this unit&apos;s words together to lock them in.
+        </p>
+      </div>
+      <span className="grid size-12 shrink-0 place-items-center rounded-2xl bg-cyan-600 text-white shadow-lg shadow-cyan-600/25 transition duration-200 group-hover:scale-110 group-hover:rotate-2">
+        <RefreshCw size={22} />
+      </span>
+    </Link>
   );
 }
 
