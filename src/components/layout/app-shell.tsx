@@ -41,7 +41,11 @@ export function AppShell({ children }: { children: ReactNode }) {
     setActiveCurriculumId,
   } = useProgress();
   const [menuOpen, setMenuOpen] = useState(false);
-  const isInLesson = pathname.startsWith("/practice");
+  // Lesson + review sessions run in focus mode (bottom tab bar hidden).
+  const isInLesson =
+    pathname.startsWith("/practice") ||
+    pathname.startsWith("/strengthen") ||
+    pathname.startsWith("/unit-review");
 
   function handleCurriculumChange(value: string) {
     if (value === "history" || value === "spanish-peru" || value === "malayalam") {

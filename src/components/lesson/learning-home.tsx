@@ -6,6 +6,7 @@ import {
   ArrowRight,
   BookOpen,
   CheckCircle2,
+  Dumbbell,
   Ear,
   Flag,
   Flame,
@@ -26,7 +27,9 @@ export function LearningHome() {
     activeCurriculumId,
     activeMistakes,
     activeSkippedListening,
+    duePhraseCount,
     progress,
+    reviewPhraseIds,
   } = useProgress();
   const curriculum = getCurriculum(activeCurriculumId);
   const units = curriculum.units;
@@ -50,6 +53,7 @@ export function LearningHome() {
     ? allLessons.findIndex((lesson) => lesson.id === resumeLesson.id) + 1
     : 0;
   const weakItemCount = activeMistakes.length + activeSkippedListening.length;
+  const canPractice = !isHistory && reviewPhraseIds.length > 0;
 
   return (
     <div className="space-y-10">
@@ -113,25 +117,50 @@ export function LearningHome() {
               </Link>
             </div>
 
-            {weakItemCount > 0 && (
-              <Link
-                href="/review"
-                className="mt-5 flex max-w-xl items-center gap-3 rounded-3xl border border-white/12 bg-white/10 p-3 text-left shadow-inner transition hover:-translate-y-0.5 hover:bg-white/15"
-              >
-                <span className="grid size-11 shrink-0 place-items-center rounded-2xl bg-amber-400 text-slate-950">
-                  <RotateCcw size={20} />
-                </span>
-                <span className="min-w-0">
-                  <span className="block text-sm font-black text-white">
-                    Smart Review
-                  </span>
-                  <span className="block text-sm font-semibold text-slate-300">
-                    Review {weakItemCount} weak{" "}
-                    {weakItemCount === 1 ? "item" : "items"}
-                  </span>
-                </span>
-                <ArrowRight size={18} className="ml-auto shrink-0" />
-              </Link>
+            {(weakItemCount > 0 || canPractice) && (
+              <div className="mt-5 grid max-w-xl gap-3 sm:grid-cols-2">
+                {weakItemCount > 0 && (
+                  <Link
+                    href="/review"
+                    className="flex items-center gap-3 rounded-3xl border border-white/12 bg-white/10 p-3 text-left shadow-inner transition hover:-translate-y-0.5 hover:bg-white/15"
+                  >
+                    <span className="grid size-11 shrink-0 place-items-center rounded-2xl bg-amber-400 text-slate-950">
+                      <RotateCcw size={20} />
+                    </span>
+                    <span className="min-w-0">
+                      <span className="block text-sm font-black text-white">
+                        Smart Review
+                      </span>
+                      <span className="block text-sm font-semibold text-slate-300">
+                        Review {weakItemCount} weak{" "}
+                        {weakItemCount === 1 ? "item" : "items"}
+                      </span>
+                    </span>
+                    <ArrowRight size={18} className="ml-auto shrink-0" />
+                  </Link>
+                )}
+                {canPractice && (
+                  <Link
+                    href="/strengthen"
+                    className="flex items-center gap-3 rounded-3xl border border-white/12 bg-white/10 p-3 text-left shadow-inner transition hover:-translate-y-0.5 hover:bg-white/15"
+                  >
+                    <span className="grid size-11 shrink-0 place-items-center rounded-2xl bg-cyan-400 text-slate-950">
+                      <Dumbbell size={20} />
+                    </span>
+                    <span className="min-w-0">
+                      <span className="block text-sm font-black text-white">
+                        Practice
+                      </span>
+                      <span className="block text-sm font-semibold text-slate-300">
+                        {duePhraseCount > 0
+                          ? `${duePhraseCount} word${duePhraseCount === 1 ? "" : "s"} due`
+                          : "Strengthen your words"}
+                      </span>
+                    </span>
+                    <ArrowRight size={18} className="ml-auto shrink-0" />
+                  </Link>
+                )}
+              </div>
             )}
 
             <div className="mt-7 grid gap-3 sm:grid-cols-3">

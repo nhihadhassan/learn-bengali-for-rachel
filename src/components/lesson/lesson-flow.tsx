@@ -6,7 +6,9 @@ import Link from "next/link";
 import {
   ArrowRight,
   Check,
+  ChevronDown,
   Flame,
+  Lightbulb,
   PartyPopper,
   Volume2,
   VolumeX,
@@ -73,12 +75,18 @@ type LessonStep =
 
 type AnswerState = "idle" | "correct" | "wrong" | "skipped";
 
-export function LessonFlow({ lesson }: { lesson: Lesson }) {
+export function LessonFlow({
+  lesson,
+  reviewMode = false,
+}: {
+  lesson: Lesson;
+  reviewMode?: boolean;
+}) {
   if (lesson.curriculumId === "history") {
     return <HistoryStoryFlow lesson={lesson} />;
   }
 
-  return <PracticeLessonFlow lesson={lesson} />;
+  return <PracticeLessonFlow lesson={lesson} reviewMode={reviewMode} />;
 }
 
 function HistoryStoryFlow({ lesson }: { lesson: Lesson }) {
@@ -305,19 +313,31 @@ function RememberItem({ label, value }: { label: string; value: string }) {
   );
 }
 
-function PracticeLessonFlow({ lesson }: { lesson: Lesson }) {
-  const steps = useMemo(() => buildLessonSteps(lesson), [lesson]);
+function PracticeLessonFlow({
+  lesson,
+  reviewMode = false,
+}: {
+  lesson: Lesson;
+  reviewMode?: boolean;
+}) {
+  const steps = useMemo(
+    () => buildLessonSteps(lesson, { reviewMode }),
+    [lesson, reviewMode],
+  );
   const {
     activeCurriculumId,
     completeLesson,
+    completeReview,
     progress,
     recordEncounteredPhrase,
     recordLessonPosition,
     recordMistake,
+    recordPhraseResult,
     recordSkippedListening,
     setActiveCurriculumId,
   } = useProgress();
   const restoredStepIndex =
+    !reviewMode &&
     progress.lastLessonId === lesson.id &&
     !progress.completedLessons.includes(lesson.id)
       ? Math.min(Math.max(progress.lastStepIndex, 0), Math.max(steps.length - 1, 0))
@@ -356,7 +376,7 @@ function PracticeLessonFlow({ lesson }: { lesson: Lesson }) {
   }, [activeCurriculumId, lesson.curriculumId, setActiveCurriculumId]);
 
   useEffect(() => {
-    if (isComplete || progress.completedLessons.includes(lesson.id)) {
+    if (reviewMode || isComplete || progress.completedLessons.includes(lesson.id)) {
       return;
     }
 
@@ -389,6 +409,7 @@ function PracticeLessonFlow({ lesson }: { lesson: Lesson }) {
     progress.completedLessons,
     progress.lastLessonId,
     progress.lastStepIndex,
+    reviewMode,
     stepIndex,
     steps.length,
   ]);
@@ -409,7 +430,7 @@ function PracticeLessonFlow({ lesson }: { lesson: Lesson }) {
   }
 
   useEffect(() => {
-    if (!isComplete && !isRestoringStepRef.current) {
+    if (!reviewMode && !isComplete && !isRestoringStepRef.current) {
       recordLessonPosition(lesson.id, stepIndex, lessonCurriculumId);
     }
   }, [
@@ -417,26 +438,38 @@ function PracticeLessonFlow({ lesson }: { lesson: Lesson }) {
     lesson.id,
     lessonCurriculumId,
     recordLessonPosition,
+    reviewMode,
     stepIndex,
   ]);
 
   function moveNext() {
     if (stepIndex + 1 >= steps.length) {
-      setEarnedGems(progress.completedLessons.includes(lesson.id) ? 0 : 25);
-      completeLesson(lesson.id, lesson.unitNumber, correctCount, lessonCurriculumId);
+      if (reviewMode) {
+        completeReview(10 + correctCount * 5, lessonCurriculumId);
+      } else {
+        setEarnedGems(progress.completedLessons.includes(lesson.id) ? 0 : 25);
+        completeLesson(lesson.id, lesson.unitNumber, correctCount, lessonCurriculumId);
+      }
       playFeedbackSound("complete");
       setIsComplete(true);
       return;
     }
 
     const nextStepIndex = stepIndex + 1;
-    recordLessonPosition(lesson.id, nextStepIndex, lessonCurriculumId);
+    if (!reviewMode) {
+      recordLessonPosition(lesson.id, nextStepIndex, lessonCurriculumId);
+    }
     setStepIndex(nextStepIndex);
     resetInteraction();
   }
 
   function finishQuestion(isCorrect: boolean, wrongAnswer: string, correctAnswer: string) {
     setAnswerState(isCorrect ? "correct" : "wrong");
+
+    const phraseId = getStepPhraseId(step);
+    if (phraseId) {
+      recordPhraseResult(phraseId, isCorrect, lessonCurriculumId);
+    }
 
     if (isCorrect) {
       applyCorrectFeedback();
@@ -626,13 +659,19 @@ function PracticeLessonFlow({ lesson }: { lesson: Lesson }) {
             <PartyPopper size={28} />
           </span>
           <p className="mt-5 text-sm font-black uppercase tracking-[0.14em] text-emerald-100">
-            {isHistoryLesson ? "Story complete" : "Lesson complete"}
+            {reviewMode
+              ? "Practice complete"
+              : isHistoryLesson
+                ? "Story complete"
+                : "Lesson complete"}
           </p>
           <h2 className="mt-2 text-4xl font-black">Nice work, Rachel.</h2>
           <p className="mt-3 max-w-xl text-emerald-50">
-            {isHistoryLesson
-              ? `You connected this story moment and earned XP. Missed recap questions are waiting in review.`
-              : `You got ${correctCount} practice checks right and earned XP. Missed questions are waiting in review.`}
+            {reviewMode
+              ? `You strengthened ${correctCount} ${correctCount === 1 ? "word" : "words"} and earned XP. Come back as more become due.`
+              : isHistoryLesson
+                ? `You connected this story moment and earned XP. Missed recap questions are waiting in review.`
+                : `You got ${correctCount} practice checks right and earned XP. Missed questions are waiting in review.`}
           </p>
           <div className="mt-6 grid gap-3 rounded-3xl border border-white/15 bg-white/10 p-4 shadow-inner sm:grid-cols-4">
             <div>
@@ -655,27 +694,38 @@ function PracticeLessonFlow({ lesson }: { lesson: Lesson }) {
             </div>
           </div>
           <div className="mt-6 flex flex-wrap gap-3">
-            {nextLesson ? (
+            {reviewMode ? (
               <Link
-                href={`/practice/${nextLesson.id}`}
+                href="/lessons"
                 className="group inline-flex min-h-12 items-center gap-2 rounded-2xl bg-white px-5 py-3 font-black text-emerald-800 shadow-[0_6px_0_rgba(255,255,255,0.45)] transition hover:-translate-y-0.5 hover:bg-emerald-50 active:translate-y-1"
               >
-                Next lesson <ArrowRight size={18} className="transition group-hover:translate-x-0.5" />
+                Back to lessons <ArrowRight size={18} className="transition group-hover:translate-x-0.5" />
               </Link>
             ) : (
-              <Link
-                href="/review"
-                className="group inline-flex min-h-12 items-center gap-2 rounded-2xl bg-white px-5 py-3 font-black text-emerald-800 shadow-[0_6px_0_rgba(255,255,255,0.45)] transition hover:-translate-y-0.5 hover:bg-emerald-50 active:translate-y-1"
-              >
-                Review mistakes <ArrowRight size={18} className="transition group-hover:translate-x-0.5" />
-              </Link>
+              <>
+                {nextLesson ? (
+                  <Link
+                    href={`/practice/${nextLesson.id}`}
+                    className="group inline-flex min-h-12 items-center gap-2 rounded-2xl bg-white px-5 py-3 font-black text-emerald-800 shadow-[0_6px_0_rgba(255,255,255,0.45)] transition hover:-translate-y-0.5 hover:bg-emerald-50 active:translate-y-1"
+                  >
+                    Next lesson <ArrowRight size={18} className="transition group-hover:translate-x-0.5" />
+                  </Link>
+                ) : (
+                  <Link
+                    href="/review"
+                    className="group inline-flex min-h-12 items-center gap-2 rounded-2xl bg-white px-5 py-3 font-black text-emerald-800 shadow-[0_6px_0_rgba(255,255,255,0.45)] transition hover:-translate-y-0.5 hover:bg-emerald-50 active:translate-y-1"
+                  >
+                    Review mistakes <ArrowRight size={18} className="transition group-hover:translate-x-0.5" />
+                  </Link>
+                )}
+                <Link
+                  href="/lessons"
+                  className="inline-flex min-h-12 items-center gap-2 rounded-2xl bg-emerald-800/80 px-5 py-3 font-black text-white shadow-inner transition hover:-translate-y-0.5 hover:bg-emerald-900 active:translate-y-1"
+                >
+                  Lesson path
+                </Link>
+              </>
             )}
-            <Link
-              href="/lessons"
-              className="inline-flex min-h-12 items-center gap-2 rounded-2xl bg-emerald-800/80 px-5 py-3 font-black text-white shadow-inner transition hover:-translate-y-0.5 hover:bg-emerald-900 active:translate-y-1"
-            >
-              Lesson path
-            </Link>
           </div>
         </div>
       </section>
@@ -1055,6 +1105,9 @@ function IntroStep({
         </p>
         <h2 className="mt-1 text-2xl font-black leading-tight sm:text-3xl">{title}</h2>
       </div>
+
+      <LessonTips lesson={lesson} />
+
       <AppButton
         type="button"
         onClick={onContinue}
@@ -1063,6 +1116,93 @@ function IntroStep({
         Start <ArrowRight size={20} />
       </AppButton>
     </div>
+  );
+}
+
+// Guidebook-style tips shown before a lesson: what you'll be able to do, plus any
+// grammar notes and the phrases you'll meet. All from existing lesson content.
+function LessonTips({ lesson }: { lesson: Lesson }) {
+  const objectives = lesson.objectives ?? [];
+  const grammar = lesson.grammar ?? [];
+  const keyPhrases = lesson.phrases.slice(0, 5);
+
+  if (objectives.length === 0 && grammar.length === 0 && keyPhrases.length === 0) {
+    return null;
+  }
+
+  return (
+    <details className="group mt-4 rounded-3xl border border-cyan-100 bg-cyan-50/70 p-4 shadow-inner dark:border-cyan-300/20 dark:bg-cyan-400/10">
+      <summary className="flex cursor-pointer items-center gap-2 text-sm font-black text-cyan-800 marker:content-[''] dark:text-cyan-100">
+        <Lightbulb size={17} />
+        Tips for this lesson
+        <ChevronDown
+          size={17}
+          className="ml-auto transition-transform group-open:rotate-180"
+        />
+      </summary>
+
+      <div className="mt-4 grid gap-4">
+        {objectives.length > 0 && (
+          <div>
+            <p className="text-xs font-black uppercase tracking-[0.14em] text-cyan-700 dark:text-cyan-200">
+              By the end you can
+            </p>
+            <ul className="mt-2 grid gap-1.5">
+              {objectives.map((objective) => (
+                <li
+                  key={objective}
+                  className="flex items-start gap-2 text-sm font-semibold text-slate-700 dark:text-slate-200"
+                >
+                  <Check size={15} className="mt-0.5 shrink-0 text-emerald-600 dark:text-emerald-300" />
+                  {capitalizeDisplayText(objective)}
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+
+        {grammar.length > 0 && (
+          <div className="grid gap-2">
+            {grammar.map((point) => (
+              <div
+                key={point.point}
+                className="rounded-2xl bg-white/85 p-3 shadow-sm dark:bg-white/10"
+              >
+                <p className="text-sm font-black text-slate-950 dark:text-slate-50">
+                  {point.point}
+                </p>
+                <p className="mt-1 text-sm font-semibold leading-6 text-slate-600 dark:text-slate-300">
+                  {point.notes}
+                </p>
+              </div>
+            ))}
+          </div>
+        )}
+
+        {keyPhrases.length > 0 && (
+          <div>
+            <p className="text-xs font-black uppercase tracking-[0.14em] text-cyan-700 dark:text-cyan-200">
+              Phrases you&apos;ll meet
+            </p>
+            <div className="mt-2 grid gap-1.5">
+              {keyPhrases.map((phrase) => (
+                <div
+                  key={phrase.id}
+                  className="flex items-baseline justify-between gap-3 rounded-2xl bg-white/85 px-3 py-2 shadow-sm dark:bg-white/10"
+                >
+                  <span className="font-black text-slate-950 dark:text-slate-50">
+                    {formatRomanizedDisplay(phrase.romanized)}
+                  </span>
+                  <span className="text-sm font-semibold text-slate-600 dark:text-slate-300">
+                    {capitalizeDisplayText(phrase.english)}
+                  </span>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+      </div>
+    </details>
   );
 }
 
@@ -1604,29 +1744,38 @@ const INCLUDE_SPEAKING_PRACTICE = false;
 const MAX_ORDER_STEPS = 2;
 const MAX_COMPLETE_STEPS = 2;
 
-function buildLessonSteps(lesson: Lesson): LessonStep[] {
-  const introducedPhrases = lesson.phrases.slice(0, 5);
+function buildLessonSteps(
+  lesson: Lesson,
+  { reviewMode = false }: { reviewMode?: boolean } = {},
+): LessonStep[] {
+  // Review sessions skip the intro + teaching and go straight to checks, and can
+  // cover more phrases than a first-time lesson.
+  const introducedPhrases = lesson.phrases.slice(0, reviewMode ? 12 : 5);
   const phraseMeanings = introducedPhrases.map((phrase) => phrase.english);
   const targetPhrasePool = introducedPhrases.map((phrase) => phrase.romanized);
   const wordPool = buildWordPool(introducedPhrases);
-  const steps: LessonStep[] = [
-    {
-      id: `${lesson.id}-intro`,
-      type: "intro",
-      lesson,
-      title: lesson.title,
-      body: lesson.summary,
-    },
-  ];
+  const steps: LessonStep[] = reviewMode
+    ? []
+    : [
+        {
+          id: `${lesson.id}-intro`,
+          type: "intro",
+          lesson,
+          title: lesson.title,
+          body: lesson.summary,
+        },
+      ];
 
   introducedPhrases.forEach((phrase, index) => {
-    steps.push({
-      id: `${lesson.id}-learn-${phrase.id}`,
-      type: "learn",
-      phrase,
-      position: index + 1,
-      total: introducedPhrases.length,
-    });
+    if (!reviewMode) {
+      steps.push({
+        id: `${lesson.id}-learn-${phrase.id}`,
+        type: "learn",
+        phrase,
+        position: index + 1,
+        total: introducedPhrases.length,
+      });
+    }
 
     // Alternate the comprehension direction so learners both recognize
     // (target -> English) and produce (English -> target).
@@ -1662,9 +1811,14 @@ function buildLessonSteps(lesson: Lesson): LessonStep[] {
     (phrase) => splitWords(phrase.romanized).length >= 2,
   );
 
+  // The practice block (everything after teaching) is ordered by difficulty so
+  // each lesson climbs recognition -> word bank -> typing, then ends on an easy
+  // win. See stepDifficulty().
+  const practiceSteps: LessonStep[] = [];
+
   // Word-bank ordering: arrange a shuffled phrase into the correct order.
   multiWordPhrases.slice(0, MAX_ORDER_STEPS).forEach((phrase) => {
-    steps.push({
+    practiceSteps.push({
       id: `${lesson.id}-order-${phrase.id}`,
       type: "order",
       phrase,
@@ -1682,17 +1836,71 @@ function buildLessonSteps(lesson: Lesson): LessonStep[] {
       const completeStep = buildCompleteStep(lesson.id, phrase, wordPool);
 
       if (completeStep) {
-        steps.push(completeStep);
+        practiceSteps.push(completeStep);
       }
     });
 
-  steps.push(...lesson.exercises.map((exercise) => ({
-    id: `${lesson.id}-review-${exercise.id}`,
-    type: "exercise" as const,
-    exercise,
-  })));
+  lesson.exercises.forEach((exercise) => {
+    practiceSteps.push({
+      id: `${lesson.id}-review-${exercise.id}`,
+      type: "exercise",
+      exercise,
+    });
+  });
+
+  // Stable-sort the practice block from easiest to hardest.
+  practiceSteps.sort((a, b) => stepDifficulty(a) - stepDifficulty(b));
+
+  // End on a win: if the last practice step is a hard (typed/arrange) one, add a
+  // quick recognition check on an already-taught phrase as the closer.
+  const lastStep = practiceSteps[practiceSteps.length - 1];
+
+  if (lastStep && stepDifficulty(lastStep) > EASY_CLOSER_MAX && introducedPhrases[0]) {
+    const closerPhrase = introducedPhrases[0];
+    practiceSteps.push({
+      id: `${lesson.id}-closer-${closerPhrase.id}`,
+      type: "recognize",
+      phrase: closerPhrase,
+      prompt: `What does "${formatRomanizedDisplay(closerPhrase.romanized)}" mean?`,
+      options: buildMeaningOptions(closerPhrase.english, phraseMeanings),
+    });
+  }
+
+  steps.push(...practiceSteps);
 
   return steps;
+}
+
+// Difficulty weight for ordering the practice block: recognition (easiest) ->
+// constrained production (word bank) -> free production (typing).
+const EASY_CLOSER_MAX = 2;
+
+function stepDifficulty(step: LessonStep): number {
+  switch (step.type) {
+    case "recognize":
+      return 1;
+    case "produce":
+    case "complete":
+      return 2;
+    case "order":
+      return 3;
+    case "exercise":
+      switch (step.exercise.type) {
+        case "multiple-choice":
+          return 1;
+        case "matching":
+          return 2;
+        case "fill-blank":
+          return 3;
+        case "translation":
+        case "listen-type":
+          return 4;
+        default:
+          return 3;
+      }
+    default:
+      return 5;
+  }
 }
 
 function splitWords(romanized: string): string[] {
@@ -1816,6 +2024,24 @@ function getStepPrompt(step: LessonStep) {
   }
 
   return "Lesson step";
+}
+
+// The phrase a step exercises, if any — used to update spaced-repetition memory.
+function getStepPhraseId(step: LessonStep): string | undefined {
+  if (
+    step.type === "recognize" ||
+    step.type === "produce" ||
+    step.type === "order" ||
+    step.type === "complete"
+  ) {
+    return step.phrase.id;
+  }
+
+  if (step.type === "exercise") {
+    return step.exercise.phraseId;
+  }
+
+  return undefined;
 }
 
 function getExerciseMode(exercise: Exercise) {
