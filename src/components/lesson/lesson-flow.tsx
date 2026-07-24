@@ -16,6 +16,7 @@ import {
 } from "lucide-react";
 import { checkTypedAnswer } from "@/lib/answer-checking";
 import { getNextLesson } from "@/lib/content";
+import { FEATURES } from "@/lib/feature-flags";
 import {
   capitalizeDisplayText,
   formatPromptDisplay,
@@ -66,6 +67,27 @@ type LessonStep =
       type: "translate";
       phrase: Phrase;
       tokens: string[];
+      prompt: string;
+    }
+  | {
+      // Listening (scaffolded behind FEATURES.listening): hear a sentence and
+      // rebuild it from a word bank.
+      id: string;
+      type: "listen";
+      phrase: Phrase;
+      tokens: string[];
+      prompt: string;
+    }
+  | {
+      // Dialogue (scaffolded behind FEATURES.dialogue): a character line, pick
+      // the reply.
+      id: string;
+      type: "dialogue";
+      phrase: Phrase;
+      promptRomanized: string;
+      promptEnglish: string;
+      options: string[];
+      answer: string;
       prompt: string;
     }
   | {
@@ -587,10 +609,14 @@ function PracticeLessonFlow({
       finishQuestion(selectedAnswer === step.answer, selectedAnswer, step.answer);
     }
 
-    if (step.type === "order" || step.type === "translate") {
+    if (step.type === "order" || step.type === "translate" || step.type === "listen") {
       const assembled = orderTokens.map((tokenIndex) => step.tokens[tokenIndex]).join(" ");
       const isCorrect = checkTypedAnswer(assembled, step.phrase.romanized).isCorrect;
       finishQuestion(isCorrect, assembled, step.phrase.romanized);
+    }
+
+    if (step.type === "dialogue") {
+      finishQuestion(selectedAnswer === step.answer, selectedAnswer, step.answer);
     }
 
     if (step.type === "exercise" && step.exercise.type === "multiple-choice") {
@@ -632,11 +658,16 @@ function PracticeLessonFlow({
   }
 
   const canCheck = useMemo(() => {
-    if (step.type === "recognize" || step.type === "produce" || step.type === "complete") {
+    if (
+      step.type === "recognize" ||
+      step.type === "produce" ||
+      step.type === "complete" ||
+      step.type === "dialogue"
+    ) {
       return selectedAnswer.length > 0;
     }
 
-    if (step.type === "order") {
+    if (step.type === "order" || step.type === "listen") {
       return orderTokens.length === step.tokens.length;
     }
 
@@ -746,6 +777,10 @@ function PracticeLessonFlow({
     );
   }
 
+  const explanation = FEATURES.explainMyAnswer
+    ? getStepExplanation(step, lesson)
+    : undefined;
+
   return (
     <ExerciseCard>
       <div className="sticky top-[56px] z-10 -mx-2 mb-4 rounded-2xl bg-white/95 px-2 py-2 backdrop-blur transition-colors duration-300 dark:bg-slate-950/90 sm:top-[64px]">
@@ -800,6 +835,7 @@ function PracticeLessonFlow({
         <QuestionStep
           answerState={answerState}
           canCheck={canCheck}
+          explanation={explanation}
           correctAnswer={step.phrase.english}
           onCheck={checkAnswer}
           onContinue={moveNext}
@@ -837,6 +873,7 @@ function PracticeLessonFlow({
         <QuestionStep
           answerState={answerState}
           canCheck={canCheck}
+          explanation={explanation}
           correctAnswer={step.phrase.romanized}
           onCheck={checkAnswer}
           onContinue={moveNext}
@@ -869,6 +906,7 @@ function PracticeLessonFlow({
         <QuestionStep
           answerState={answerState}
           canCheck={canCheck}
+          explanation={explanation}
           correctAnswer={step.answer}
           onCheck={checkAnswer}
           onContinue={moveNext}
@@ -907,6 +945,7 @@ function PracticeLessonFlow({
         <QuestionStep
           answerState={answerState}
           canCheck={canCheck}
+          explanation={explanation}
           correctAnswer={step.phrase.romanized}
           onCheck={checkAnswer}
           onContinue={moveNext}
@@ -938,6 +977,7 @@ function PracticeLessonFlow({
         <QuestionStep
           answerState={answerState}
           canCheck={canCheck}
+          explanation={explanation}
           correctAnswer={step.phrase.romanized}
           onCheck={checkAnswer}
           onContinue={moveNext}
@@ -965,10 +1005,77 @@ function PracticeLessonFlow({
         </QuestionStep>
       )}
 
+      {step.type === "listen" && (
+        <QuestionStep
+          answerState={answerState}
+          canCheck={canCheck}
+          explanation={explanation}
+          correctAnswer={step.phrase.romanized}
+          onCheck={checkAnswer}
+          onContinue={moveNext}
+        >
+          <p className="text-sm font-black uppercase tracking-[0.14em] text-cyan-700 dark:text-cyan-300">
+            Listen
+          </p>
+          <h2 className="mt-2 text-2xl font-black">
+            {formatPromptDisplay(step.prompt)}
+          </h2>
+          <div className="mt-3 flex items-center justify-center rounded-3xl border border-cyan-100 bg-cyan-50 p-5 shadow-inner dark:border-cyan-300/20 dark:bg-cyan-400/12">
+            <SpeakerButton
+              audioFile={step.phrase.audioFile}
+              audioUrl={step.phrase.audioUrl}
+              locale={lesson.locale}
+              romanized={step.phrase.romanized}
+              script={step.phrase.bengaliScript}
+            />
+          </div>
+          <WordOrderExercise
+            tokens={step.tokens}
+            selected={orderTokens}
+            setSelected={setOrderTokens}
+            isLocked={answerState !== "idle"}
+          />
+        </QuestionStep>
+      )}
+
+      {step.type === "dialogue" && (
+        <QuestionStep
+          answerState={answerState}
+          canCheck={canCheck}
+          explanation={explanation}
+          correctAnswer={step.answer}
+          onCheck={checkAnswer}
+          onContinue={moveNext}
+        >
+          <p className="text-sm font-black uppercase tracking-[0.14em] text-fuchsia-700 dark:text-fuchsia-300">
+            Reply
+          </p>
+          <h2 className="mt-2 text-2xl font-black">
+            {formatPromptDisplay(step.prompt)}
+          </h2>
+          <div className="mt-3 max-w-[85%] rounded-3xl rounded-bl-md border border-slate-200 bg-slate-100 p-4 shadow-sm dark:border-white/10 dark:bg-white/[0.08]">
+            <p className="text-lg font-black">
+              {formatRomanizedDisplay(step.promptRomanized)}
+            </p>
+            <p className="mt-1 text-sm font-semibold text-slate-500 dark:text-slate-400">
+              {capitalizeDisplayText(step.promptEnglish)}
+            </p>
+          </div>
+          <MultipleChoiceOptions
+            formatOption={formatRomanizedDisplay}
+            options={step.options}
+            selectedAnswer={selectedAnswer}
+            setSelectedAnswer={setSelectedAnswer}
+            isLocked={answerState !== "idle"}
+          />
+        </QuestionStep>
+      )}
+
       {step.type === "exercise" && (
         <QuestionStep
           answerState={answerState}
           canCheck={canCheck}
+          explanation={explanation}
           correctAnswer={getCorrectAnswerLabel(step.exercise)}
           onCheck={checkAnswer}
           onContinue={moveNext}
@@ -1415,6 +1522,7 @@ function QuestionStep({
   canCheck,
   children,
   correctAnswer,
+  explanation,
   idleHint,
   onCheck,
   onContinue,
@@ -1426,6 +1534,7 @@ function QuestionStep({
   canCheck: boolean;
   children: ReactNode;
   correctAnswer: string;
+  explanation?: string;
   idleHint?: string;
   onCheck: () => void;
   onContinue: () => void;
@@ -1485,6 +1594,17 @@ function QuestionStep({
               )}
             </div>
           </div>
+        )}
+
+        {isAnswered && explanation && (
+          <details className="mb-3 rounded-2xl border border-slate-200 bg-slate-50 px-3 py-2 text-sm dark:border-white/10 dark:bg-white/[0.06]">
+            <summary className="cursor-pointer font-black text-slate-700 marker:text-violet-500 dark:text-slate-200">
+              Explain
+            </summary>
+            <p className="mt-2 font-semibold leading-6 text-slate-600 dark:text-slate-300">
+              {explanation}
+            </p>
+          </details>
         )}
 
         <div className="flex items-center gap-3">
@@ -1913,6 +2033,36 @@ function buildLessonSteps(
     });
   });
 
+  // Listening (scaffolded, dark): hear a sentence and rebuild it. Only appears
+  // when FEATURES.listening is on.
+  if (FEATURES.listening && !reviewMode && multiWordPhrases[0]) {
+    const phrase = multiWordPhrases[0];
+    practiceSteps.push({
+      id: `${lesson.id}-listen-${phrase.id}`,
+      type: "listen",
+      phrase,
+      tokens: shuffleTokens(splitWords(phrase.romanized)),
+      prompt: "Tap what you hear.",
+    });
+  }
+
+  // Dialogue (scaffolded, dark): a character line, pick the reply. Pairs two
+  // consecutive phrases. Only appears when FEATURES.dialogue is on.
+  if (FEATURES.dialogue && !reviewMode && introducedPhrases.length >= 2) {
+    const promptPhrase = introducedPhrases[0];
+    const replyPhrase = introducedPhrases[1];
+    practiceSteps.push({
+      id: `${lesson.id}-dialogue-${replyPhrase.id}`,
+      type: "dialogue",
+      phrase: replyPhrase,
+      promptRomanized: promptPhrase.romanized,
+      promptEnglish: promptPhrase.english,
+      options: buildTargetOptions(replyPhrase.romanized, targetPhrasePool),
+      answer: replyPhrase.romanized,
+      prompt: "How do you reply?",
+    });
+  }
+
   // Stable-sort the practice block from easiest to hardest.
   practiceSteps.sort((a, b) => stepDifficulty(a) - stepDifficulty(b));
 
@@ -1946,10 +2096,12 @@ function stepDifficulty(step: LessonStep): number {
       return 1;
     case "produce":
     case "complete":
+    case "dialogue":
       return 2;
     case "order":
       return 3;
     case "translate":
+    case "listen":
       return 4;
     case "exercise":
       switch (step.exercise.type) {
@@ -2140,6 +2292,8 @@ function getStepPrompt(step: LessonStep) {
     step.type === "produce" ||
     step.type === "order" ||
     step.type === "translate" ||
+    step.type === "listen" ||
+    step.type === "dialogue" ||
     step.type === "complete" ||
     step.type === "speak"
   ) {
@@ -2160,6 +2314,8 @@ function getStepPhraseId(step: LessonStep): string | undefined {
     step.type === "produce" ||
     step.type === "order" ||
     step.type === "translate" ||
+    step.type === "listen" ||
+    step.type === "dialogue" ||
     step.type === "complete"
   ) {
     return step.phrase.id;
@@ -2170,6 +2326,40 @@ function getStepPhraseId(step: LessonStep): string | undefined {
   }
 
   return undefined;
+}
+
+// Explain My Answer: a short, offline "why", from the phrase pairing plus a few
+// deterministic Spanish grammar heuristics and the lesson's own grammar notes.
+// Safe for any language — the regex hints simply don't fire on non-Spanish text.
+function getStepExplanation(step: LessonStep, lesson: Lesson): string | undefined {
+  const phraseId = getStepPhraseId(step);
+  const phrase = phraseId
+    ? lesson.phrases.find((item) => item.id === phraseId)
+    : undefined;
+
+  if (!phrase) {
+    const grammar = lesson.grammar?.[0];
+    return grammar ? `${grammar.point}: ${grammar.notes}` : undefined;
+  }
+
+  const parts: string[] = [
+    `“${formatRomanizedDisplay(phrase.romanized)}” means “${capitalizeDisplayText(phrase.english)}”.`,
+  ];
+  const text = ` ${phrase.romanized.toLowerCase()} `;
+
+  if (/\b(el|un|unos)\b/.test(text)) {
+    parts.push("“el / un” go with masculine nouns.");
+  } else if (/\b(la|una|unas)\b/.test(text)) {
+    parts.push("“la / una” go with feminine nouns.");
+  }
+
+  if (/\b(está|estoy|están|estás|estamos)\b/.test(text)) {
+    parts.push("“estar” is for location or a temporary state.");
+  } else if (/\b(es|soy|son|eres|somos)\b/.test(text)) {
+    parts.push("“ser” is for identity or lasting traits.");
+  }
+
+  return parts.join(" ");
 }
 
 function getExerciseMode(exercise: Exercise) {
