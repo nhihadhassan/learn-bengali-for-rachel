@@ -45,7 +45,8 @@ export function AppShell({ children }: { children: ReactNode }) {
   const isInLesson =
     pathname.startsWith("/practice") ||
     pathname.startsWith("/strengthen") ||
-    pathname.startsWith("/unit-review");
+    pathname.startsWith("/unit-review") ||
+    pathname.startsWith("/placement");
 
   function handleCurriculumChange(value: string) {
     if (value === "history" || value === "spanish-peru" || value === "malayalam") {

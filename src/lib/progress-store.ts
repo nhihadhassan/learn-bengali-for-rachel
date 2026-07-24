@@ -3,6 +3,7 @@
 import { useCallback, useMemo, useSyncExternalStore } from "react";
 import {
   defaultCurriculumId,
+  getCurriculum,
   getLessonIdsForCurriculum,
 } from "@/lib/content";
 import type { CurriculumId, Mistake, ProgressState } from "@/types/learning";
@@ -525,6 +526,49 @@ export function useProgress() {
     );
   }, [activeCurriculumId]);
 
+  // Placement: open the path at an estimated unit by marking every lesson in
+  // earlier units complete and seeding their phrases into spaced-repetition
+  // memory. Additive and reversible — nothing is hidden or deleted.
+  const applyPlacement = useCallback(function applyPlacement(
+    estimatedUnitNumber: number,
+    curriculumId = activeCurriculumId,
+  ) {
+    updateCurriculumProgress(curriculumId, (current) => {
+      const curriculum = getCurriculum(curriculumId);
+      const now = Date.now();
+      const completed = new Set(current.completedLessons);
+      const phraseMemory = { ...current.phraseMemory };
+
+      curriculum.units.forEach((unit) => {
+        if (unit.number >= estimatedUnitNumber) {
+          return;
+        }
+
+        unit.lessons.forEach((lesson) => {
+          completed.add(lesson.id);
+          lesson.phrases.forEach((phrase) => {
+            if (!phraseMemory[phrase.id]) {
+              phraseMemory[phrase.id] = {
+                box: 2,
+                dueAt: new Date(now + 3 * DAY_MS).toISOString(),
+                lastSeenAt: new Date(now).toISOString(),
+              };
+            }
+          });
+        });
+      });
+
+      return applyPracticeDay({
+        ...current,
+        completedLessons: [...completed],
+        phraseMemory,
+        currentUnit: Math.max(current.currentUnit, estimatedUnitNumber),
+        xp: current.xp + 20,
+        lastActiveAt: new Date().toISOString(),
+      });
+    });
+  }, [activeCurriculumId]);
+
   const reviewPhraseIds = useMemo(
     () => getReviewPhraseIds(progress),
     [progress],
@@ -569,6 +613,7 @@ export function useProgress() {
     activeCurriculumId,
     activeMistakes,
     activeSkippedListening,
+    applyPlacement,
     completeLesson,
     completeReview,
     duePhraseCount,

@@ -60,6 +60,15 @@ type LessonStep =
       prompt: string;
     }
   | {
+      // Translate an English sentence by tapping target-language words from a
+      // bank that also contains distractors.
+      id: string;
+      type: "translate";
+      phrase: Phrase;
+      tokens: string[];
+      prompt: string;
+    }
+  | {
       // Complete the sentence: one word is blanked; pick it from a word bank.
       id: string;
       type: "complete";
@@ -578,7 +587,7 @@ function PracticeLessonFlow({
       finishQuestion(selectedAnswer === step.answer, selectedAnswer, step.answer);
     }
 
-    if (step.type === "order") {
+    if (step.type === "order" || step.type === "translate") {
       const assembled = orderTokens.map((tokenIndex) => step.tokens[tokenIndex]).join(" ");
       const isCorrect = checkTypedAnswer(assembled, step.phrase.romanized).isCorrect;
       finishQuestion(isCorrect, assembled, step.phrase.romanized);
@@ -629,6 +638,11 @@ function PracticeLessonFlow({
 
     if (step.type === "order") {
       return orderTokens.length === step.tokens.length;
+    }
+
+    if (step.type === "translate") {
+      // Distractors mean not every token is used; just need something built.
+      return orderTokens.length > 0;
     }
 
     if (step.type !== "exercise") {
@@ -906,6 +920,37 @@ function PracticeLessonFlow({
           <div className="mt-3 rounded-3xl border border-cyan-100 bg-cyan-50 p-4 shadow-inner dark:border-cyan-300/20 dark:bg-cyan-400/12">
             <p className="text-xs font-black uppercase tracking-[0.14em] text-cyan-700 dark:text-cyan-200">
               English
+            </p>
+            <p className="mt-1 text-xl font-black">
+              {capitalizeDisplayText(step.phrase.english)}
+            </p>
+          </div>
+          <WordOrderExercise
+            tokens={step.tokens}
+            selected={orderTokens}
+            setSelected={setOrderTokens}
+            isLocked={answerState !== "idle"}
+          />
+        </QuestionStep>
+      )}
+
+      {step.type === "translate" && (
+        <QuestionStep
+          answerState={answerState}
+          canCheck={canCheck}
+          correctAnswer={step.phrase.romanized}
+          onCheck={checkAnswer}
+          onContinue={moveNext}
+        >
+          <p className="text-sm font-black uppercase tracking-[0.14em] text-violet-700 dark:text-violet-300">
+            Translate
+          </p>
+          <h2 className="mt-2 text-2xl font-black">
+            {formatPromptDisplay(step.prompt)}
+          </h2>
+          <div className="mt-3 rounded-3xl border border-violet-100 bg-violet-50 p-4 shadow-inner dark:border-violet-300/20 dark:bg-violet-400/12">
+            <p className="text-xs font-black uppercase tracking-[0.14em] text-violet-700 dark:text-violet-200">
+              In English
             </p>
             <p className="mt-1 text-xl font-black">
               {capitalizeDisplayText(step.phrase.english)}
@@ -1741,8 +1786,12 @@ function WordOrderExercise({
 // are kept intact — flip this flag back to true to re-enable the flow.
 const INCLUDE_SPEAKING_PRACTICE = false;
 
-const MAX_ORDER_STEPS = 2;
+const MAX_ORDER_STEPS = 1;
 const MAX_COMPLETE_STEPS = 2;
+const MAX_TRANSLATE_STEPS = 2;
+// A "sentence" phrase (3+ words) is what production steps prefer, so most
+// practice happens on real sentences rather than single words.
+const SENTENCE_MIN_WORDS = 3;
 
 function buildLessonSteps(
   lesson: Lesson,
@@ -1810,11 +1859,40 @@ function buildLessonSteps(
   const multiWordPhrases = introducedPhrases.filter(
     (phrase) => splitWords(phrase.romanized).length >= 2,
   );
+  // Prefer real sentences for production; fall back to any multi-word phrase.
+  const sentencePhrases = introducedPhrases.filter(
+    (phrase) => splitWords(phrase.romanized).length >= SENTENCE_MIN_WORDS,
+  );
+  const productionPhrases =
+    sentencePhrases.length > 0 ? sentencePhrases : multiWordPhrases;
 
   // The practice block (everything after teaching) is ordered by difficulty so
   // each lesson climbs recognition -> word bank -> typing, then ends on an easy
   // win. See stepDifficulty().
   const practiceSteps: LessonStep[] = [];
+
+  // Word-bank translation: build a target sentence from an English prompt.
+  productionPhrases.slice(0, MAX_TRANSLATE_STEPS).forEach((phrase) => {
+    const translateStep = buildTranslateStep(lesson.id, phrase, wordPool);
+
+    if (translateStep) {
+      practiceSteps.push(translateStep);
+    }
+  });
+
+  // Sentence completion: blank a content word and pick it from a word bank.
+  // Draw from the end of the list so it tends to use different sentences than
+  // translation.
+  [...productionPhrases]
+    .reverse()
+    .slice(0, MAX_COMPLETE_STEPS)
+    .forEach((phrase) => {
+      const completeStep = buildCompleteStep(lesson.id, phrase, wordPool);
+
+      if (completeStep) {
+        practiceSteps.push(completeStep);
+      }
+    });
 
   // Word-bank ordering: arrange a shuffled phrase into the correct order.
   multiWordPhrases.slice(0, MAX_ORDER_STEPS).forEach((phrase) => {
@@ -1826,19 +1904,6 @@ function buildLessonSteps(
       prompt: "Tap the words in the correct order.",
     });
   });
-
-  // Sentence completion: blank one word and pick it from a word bank. Use
-  // different phrases than the ordering steps where possible to reduce repeats.
-  [...multiWordPhrases]
-    .reverse()
-    .slice(0, MAX_COMPLETE_STEPS)
-    .forEach((phrase) => {
-      const completeStep = buildCompleteStep(lesson.id, phrase, wordPool);
-
-      if (completeStep) {
-        practiceSteps.push(completeStep);
-      }
-    });
 
   lesson.exercises.forEach((exercise) => {
     practiceSteps.push({
@@ -1884,6 +1949,8 @@ function stepDifficulty(step: LessonStep): number {
       return 2;
     case "order":
       return 3;
+    case "translate":
+      return 4;
     case "exercise":
       switch (step.exercise.type) {
         case "multiple-choice":
@@ -1956,6 +2023,65 @@ function buildTargetOptions(answer: string, pool: string[]): string[] {
   return shuffle(unique);
 }
 
+// Function words we'd rather not blank out — blanking "el" teaches nothing.
+const BLANK_STOPWORDS = new Set([
+  "el", "la", "los", "las", "un", "una", "unos", "unas", "de", "del", "en",
+  "y", "o", "a", "al", "es", "mi", "tu", "su", "con", "por", "para", "que",
+  "se", "lo", "le", "the", "an", "of", "in", "to", "is",
+]);
+
+function normalizeWord(word: string): string {
+  return word.replace(/[¿?¡!.,;:]/g, "").toLowerCase();
+}
+
+// Prefer blanking a meaningful content word (the longest non-stopword), not a
+// function word or the very first token; fall back to the last word.
+function pickBlankIndex(words: string[]): number {
+  let best = -1;
+  let bestLength = -1;
+
+  for (let i = 0; i < words.length; i += 1) {
+    const normalized = normalizeWord(words[i]);
+
+    if (normalized.length < 3 || BLANK_STOPWORDS.has(normalized)) {
+      continue;
+    }
+
+    if (words[i].length > bestLength) {
+      bestLength = words[i].length;
+      best = i;
+    }
+  }
+
+  return best >= 0 ? best : words.length - 1;
+}
+
+// Word-bank translation: correct target words plus a few distractors, shuffled.
+function buildTranslateStep(
+  lessonId: string,
+  phrase: Phrase,
+  wordPool: string[],
+): Extract<LessonStep, { type: "translate" }> | null {
+  const words = splitWords(phrase.romanized);
+
+  if (words.length < 3) {
+    return null;
+  }
+
+  const distractorCount = Math.min(3, Math.max(2, Math.floor(words.length / 2)));
+  const distractors = shuffle(
+    wordPool.filter((word) => !words.includes(word)),
+  ).slice(0, distractorCount);
+
+  return {
+    id: `${lessonId}-translate-${phrase.id}`,
+    type: "translate",
+    phrase,
+    tokens: shuffle([...words, ...distractors]),
+    prompt: "Tap the words to build the translation.",
+  };
+}
+
 function buildCompleteStep(
   lessonId: string,
   phrase: Phrase,
@@ -1967,7 +2093,7 @@ function buildCompleteStep(
     return null;
   }
 
-  const blankIndex = words.length - 1;
+  const blankIndex = pickBlankIndex(words);
   const answer = words[blankIndex];
   const distractors = wordPool.filter((word) => word !== answer);
   const options = shuffle(
@@ -1983,7 +2109,7 @@ function buildCompleteStep(
     answer,
     hint: phrase.english,
     options,
-    prompt: "Pick the missing word to finish the phrase.",
+    prompt: "Pick the missing word to complete the sentence.",
   };
 }
 
@@ -2013,6 +2139,7 @@ function getStepPrompt(step: LessonStep) {
     step.type === "recognize" ||
     step.type === "produce" ||
     step.type === "order" ||
+    step.type === "translate" ||
     step.type === "complete" ||
     step.type === "speak"
   ) {
@@ -2032,6 +2159,7 @@ function getStepPhraseId(step: LessonStep): string | undefined {
     step.type === "recognize" ||
     step.type === "produce" ||
     step.type === "order" ||
+    step.type === "translate" ||
     step.type === "complete"
   ) {
     return step.phrase.id;

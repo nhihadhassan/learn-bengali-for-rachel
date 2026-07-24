@@ -10,6 +10,7 @@ import {
   Ear,
   Flag,
   Flame,
+  Gauge,
   MessageCircle,
   RotateCcw,
   Sparkles,
@@ -54,6 +55,8 @@ export function LearningHome() {
     : 0;
   const weakItemCount = activeMistakes.length + activeSkippedListening.length;
   const canPractice = !isHistory && reviewPhraseIds.length > 0;
+  // Offer "test out" only for language courses that haven't been started yet.
+  const canTestOut = !isHistory && progress.completedLessons.length === 0;
 
   return (
     <div className="space-y-10">
@@ -116,6 +119,17 @@ export function LearningHome() {
                 {isHistory ? "Timeline recap" : "Word bank"}
               </Link>
             </div>
+
+            {canTestOut && (
+              <Link
+                href="/placement"
+                className="mt-4 inline-flex items-center gap-2 text-sm font-black text-violet-100 underline-offset-4 transition hover:text-white hover:underline"
+              >
+                <Gauge size={16} />
+                Already know some {curriculum.label}? Test out
+                <ArrowRight size={15} />
+              </Link>
+            )}
 
             {(weakItemCount > 0 || canPractice) && (
               <div className="mt-5 grid max-w-xl gap-3 sm:grid-cols-2">
