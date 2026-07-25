@@ -11,6 +11,9 @@ dist/
 # Test output
 coverage/
 
+# Generated curriculum seed bundle (reproducible via `npm run seed:curriculum`)
+db/seed/
+
 # TypeScript incremental build info
 *.tsbuildinfo
 
