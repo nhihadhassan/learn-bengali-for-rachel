@@ -58,7 +58,12 @@ export default function PlacementPage() {
   );
 
   const [phase, setPhase] = useState<"intro" | "quiz" | "result">("intro");
+  // Binary-search bounds over the unit list, so placement converges even for
+  // very long courses (131 Spanish units → ~7 questions) instead of crawling
+  // one unit at a time. `levelIndex` is the current midpoint being tested.
   const [levelIndex, setLevelIndex] = useState(0);
+  const [lowIndex, setLowIndex] = useState(0);
+  const [highIndex, setHighIndex] = useState(0);
   const [asked, setAsked] = useState(0);
   const [bestUnit, setBestUnit] = useState(0);
   const [question, setQuestion] = useState<Question | null>(null);
@@ -88,7 +93,11 @@ export default function PlacementPage() {
 
   function startQuiz() {
     usedIds.clear();
-    const startIndex = Math.floor(units.length / 2);
+    const low = 0;
+    const high = units.length - 1;
+    const startIndex = Math.floor((low + high) / 2);
+    setLowIndex(low);
+    setHighIndex(high);
     setLevelIndex(startIndex);
     setAsked(0);
     setBestUnit(0);
@@ -114,18 +123,24 @@ export default function PlacementPage() {
     const nextBest = correct
       ? Math.max(bestUnit, question.unitNumber)
       : bestUnit;
-    const nextIndex = correct
-      ? Math.min(levelIndex + 1, units.length - 1)
-      : Math.max(levelIndex - 1, 0);
+
+    // Narrow the binary-search window: a right answer looks higher, a wrong one
+    // looks lower. This converges on the right level in ~log2(units) questions.
+    const nextLow = correct ? levelIndex + 1 : lowIndex;
+    const nextHigh = correct ? highIndex : levelIndex - 1;
     const nextAsked = asked + 1;
 
     setBestUnit(nextBest);
 
-    if (nextAsked >= MAX_QUESTIONS) {
+    // Stop once the window is empty (converged) or we hit the question cap.
+    if (nextLow > nextHigh || nextAsked >= MAX_QUESTIONS) {
       setPhase("result");
       return;
     }
 
+    const nextIndex = Math.floor((nextLow + nextHigh) / 2);
+    setLowIndex(nextLow);
+    setHighIndex(nextHigh);
     setLevelIndex(nextIndex);
     setAsked(nextAsked);
     setSelected("");
