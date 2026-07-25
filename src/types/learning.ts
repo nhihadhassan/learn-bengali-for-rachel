@@ -1,4 +1,9 @@
-export type CurriculumId = "bengali" | "spanish-peru" | "malayalam" | "history";
+export type CurriculumId =
+  | "bengali"
+  | "spanish-peru"
+  | "spanish"
+  | "malayalam"
+  | "history";
 
 export type ExerciseType =
   | "multiple-choice"

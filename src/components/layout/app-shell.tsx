@@ -49,7 +49,12 @@ export function AppShell({ children }: { children: ReactNode }) {
     pathname.startsWith("/placement");
 
   function handleCurriculumChange(value: string) {
-    if (value === "history" || value === "spanish-peru" || value === "malayalam") {
+    if (
+      value === "history" ||
+      value === "spanish-peru" ||
+      value === "spanish" ||
+      value === "malayalam"
+    ) {
       setActiveCurriculumId(value);
     } else {
       setActiveCurriculumId("bengali");

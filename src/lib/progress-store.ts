@@ -85,6 +85,7 @@ const initialStore: ProgressStore = {
     history: cloneInitialProgress(),
     malayalam: cloneInitialProgress(),
     "spanish-peru": cloneInitialProgress(),
+    spanish: cloneInitialProgress(),
   },
 };
 
@@ -141,6 +142,10 @@ function normalizeCurriculumId(value: unknown): CurriculumId {
     return "malayalam";
   }
 
+  if (value === "spanish") {
+    return "spanish";
+  }
+
   return value === "spanish-peru" ? "spanish-peru" : defaultCurriculumId;
 }
 
@@ -157,6 +162,7 @@ function normalizeStore(value: unknown): ProgressStore {
         history: normalizeProgress(byCurriculum.history),
         malayalam: normalizeProgress(byCurriculum.malayalam),
         "spanish-peru": normalizeProgress(byCurriculum["spanish-peru"]),
+        spanish: normalizeProgress(byCurriculum.spanish),
       },
     };
   }
@@ -168,6 +174,7 @@ function normalizeStore(value: unknown): ProgressStore {
       history: cloneInitialProgress(),
       malayalam: cloneInitialProgress(),
       "spanish-peru": cloneInitialProgress(),
+      spanish: cloneInitialProgress(),
     },
   };
 }

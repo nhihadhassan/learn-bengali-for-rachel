@@ -1,0 +1,162 @@
+{
+  "version": "2026-07-24",
+  "templates": {
+    "picture_select": {
+      "skills": [
+        "reading",
+        "vocabulary"
+      ],
+      "prompt": "Select the image that matches the word or phrase."
+    },
+    "match_pairs": {
+      "skills": [
+        "reading",
+        "vocabulary"
+      ],
+      "prompt": "Match each Spanish item with its English meaning."
+    },
+    "word_bank_translation": {
+      "skills": [
+        "reading",
+        "writing"
+      ],
+      "prompt": "Build the translation using word tiles."
+    },
+    "typed_translation": {
+      "skills": [
+        "writing",
+        "recall"
+      ],
+      "prompt": "Type the Spanish or English translation."
+    },
+    "fill_blank": {
+      "skills": [
+        "grammar",
+        "reading"
+      ],
+      "prompt": "Complete the sentence with the missing word."
+    },
+    "sentence_order": {
+      "skills": [
+        "grammar",
+        "writing"
+      ],
+      "prompt": "Put the words in the correct order."
+    },
+    "listen_select": {
+      "skills": [
+        "listening"
+      ],
+      "prompt": "Listen and choose the sentence or response you hear."
+    },
+    "listen_type": {
+      "skills": [
+        "listening",
+        "writing"
+      ],
+      "prompt": "Type what you hear."
+    },
+    "speak_repeat": {
+      "skills": [
+        "speaking",
+        "pronunciation"
+      ],
+      "prompt": "Repeat the sentence aloud."
+    },
+    "dialogue_response": {
+      "skills": [
+        "reading",
+        "conversation"
+      ],
+      "prompt": "Choose the response that best continues the conversation."
+    },
+    "reading_comprehension": {
+      "skills": [
+        "reading"
+      ],
+      "prompt": "Read the passage and answer a comprehension question."
+    },
+    "open_response": {
+      "skills": [
+        "writing",
+        "production"
+      ],
+      "prompt": "Respond in Spanish using the unit language."
+    }
+  },
+  "lesson_blueprint": [
+    {
+      "lesson_index": 1,
+      "name": "Discover",
+      "goal": "Recognize new words and connect form, sound, and meaning.",
+      "exercise_mix": [
+        "picture_select",
+        "match_pairs",
+        "listen_select"
+      ],
+      "new_content_ratio": 0.75
+    },
+    {
+      "lesson_index": 2,
+      "name": "Build",
+      "goal": "Assemble useful phrases with strong support.",
+      "exercise_mix": [
+        "word_bank_translation",
+        "fill_blank",
+        "sentence_order"
+      ],
+      "new_content_ratio": 0.55
+    },
+    {
+      "lesson_index": 3,
+      "name": "Grammar focus",
+      "goal": "Notice and apply the unit's main grammatical patterns.",
+      "exercise_mix": [
+        "fill_blank",
+        "typed_translation",
+        "sentence_order"
+      ],
+      "new_content_ratio": 0.35
+    },
+    {
+      "lesson_index": 4,
+      "name": "Listen and speak",
+      "goal": "Understand and produce the unit language from audio.",
+      "exercise_mix": [
+        "listen_select",
+        "listen_type",
+        "speak_repeat"
+      ],
+      "new_content_ratio": 0.2
+    },
+    {
+      "lesson_index": 5,
+      "name": "Use in context",
+      "goal": "Apply the language in a short dialogue or story.",
+      "exercise_mix": [
+        "dialogue_response",
+        "reading_comprehension",
+        "open_response"
+      ],
+      "new_content_ratio": 0.1
+    },
+    {
+      "lesson_index": 6,
+      "name": "Unit review",
+      "goal": "Demonstrate recall across vocabulary, grammar, listening, and production.",
+      "exercise_mix": [
+        "typed_translation",
+        "listen_type",
+        "dialogue_response",
+        "open_response"
+      ],
+      "new_content_ratio": 0.0
+    }
+  ],
+  "grading_notes": {
+    "translation": "Store multiple acceptable answers and normalize punctuation/case carefully.",
+    "open_response": "Use a rubric for meaning, target grammar, comprehensibility, and vocabulary use.",
+    "speaking": "Treat speech recognition confidence as feedback, not a definitive pronunciation score.",
+    "listening": "Keep audio speed, transcript visibility, and replay count configurable."
+  }
+}

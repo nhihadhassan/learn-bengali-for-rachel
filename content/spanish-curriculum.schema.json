@@ -1,0 +1,204 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.local/spanish-curriculum.schema.json",
+  "title": "Spanish Curriculum Pack",
+  "type": "object",
+  "required": [
+    "course_id",
+    "version",
+    "sections",
+    "units"
+  ],
+  "properties": {
+    "course_id": {
+      "type": "string"
+    },
+    "title": {
+      "type": "string"
+    },
+    "version": {
+      "type": "string"
+    },
+    "sections": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/section"
+      }
+    },
+    "units": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/unit"
+      }
+    }
+  },
+  "$defs": {
+    "section": {
+      "type": "object",
+      "required": [
+        "section",
+        "cefr",
+        "unit_ids"
+      ],
+      "properties": {
+        "section": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "cefr": {
+          "type": "string"
+        },
+        "score_range": {
+          "type": "string"
+        },
+        "unit_ids": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "vocab": {
+      "type": "object",
+      "required": [
+        "id",
+        "spanish",
+        "english",
+        "part_of_speech"
+      ],
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "spanish": {
+          "type": "string"
+        },
+        "english": {
+          "type": "string"
+        },
+        "part_of_speech": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        }
+      }
+    },
+    "phrase": {
+      "type": "object",
+      "required": [
+        "id",
+        "spanish",
+        "english"
+      ],
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "spanish": {
+          "type": "string"
+        },
+        "english": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        }
+      }
+    },
+    "lesson": {
+      "type": "object",
+      "required": [
+        "lesson_index",
+        "name",
+        "exercise_mix",
+        "estimated_exercises"
+      ],
+      "properties": {
+        "lesson_index": {
+          "type": "integer"
+        },
+        "name": {
+          "type": "string"
+        },
+        "goal": {
+          "type": "string"
+        },
+        "exercise_mix": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "estimated_exercises": {
+          "type": "integer"
+        },
+        "new_content_ratio": {
+          "type": "number"
+        }
+      }
+    },
+    "unit": {
+      "type": "object",
+      "required": [
+        "id",
+        "section",
+        "unit",
+        "title",
+        "cefr",
+        "grammar_targets",
+        "vocabulary",
+        "phrase_patterns",
+        "lesson_sequence"
+      ],
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "section": {
+          "type": "integer"
+        },
+        "unit": {
+          "type": "integer"
+        },
+        "title": {
+          "type": "string"
+        },
+        "cefr": {
+          "type": "string"
+        },
+        "score_range": {
+          "type": "string"
+        },
+        "communicative_goal": {
+          "type": "string"
+        },
+        "grammar_targets": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "vocabulary": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/vocab"
+          }
+        },
+        "phrase_patterns": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/phrase"
+          }
+        },
+        "lesson_sequence": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/lesson"
+          }
+        }
+      }
+    }
+  }
+}
