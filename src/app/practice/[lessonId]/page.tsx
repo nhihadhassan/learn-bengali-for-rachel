@@ -4,8 +4,13 @@ import { ArrowLeft } from "lucide-react";
 import { LessonFlow } from "@/components/lesson/lesson-flow";
 import { getCurriculumForLesson, getLesson, lessons } from "@/lib/content";
 
+// Prerender the smaller curricula at build time. The full Spanish course (786
+// lessons) is large, so those pages render on demand and are cached instead of
+// being baked into the build (dynamicParams stays on by default).
 export function generateStaticParams() {
-  return lessons.map((lesson) => ({ lessonId: lesson.id }));
+  return lessons
+    .filter((lesson) => lesson.curriculumId !== "spanish")
+    .map((lesson) => ({ lessonId: lesson.id }));
 }
 
 export default async function PracticePage({

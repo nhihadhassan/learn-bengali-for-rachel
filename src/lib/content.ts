@@ -3,6 +3,7 @@ import rawHistoryContent from "../../content/learn-history.json";
 import rawMalayalamContent from "../../content/learn-malayalam.json";
 import rawSpanishContent from "../../content/learn-spanish-peru.json";
 import { normalizeAnswer } from "@/lib/answer-checking";
+import { spanishCurriculumUnits } from "@/lib/spanish-curriculum";
 import type {
   Curriculum,
   CurriculumId,
@@ -53,6 +54,16 @@ export const curricula: Curriculum[] = [
     mode: "language",
     travelTheme: "Peru travel",
     units: withCurriculum(spanishPeruContent, "spanish-peru", "es-PE"),
+  },
+  {
+    id: "spanish",
+    label: "Spanish (full course)",
+    shortLabel: "Spanish+",
+    description:
+      "A research-grounded Spanish course: 131 units from café basics to real conversations.",
+    locale: "es",
+    mode: "language",
+    units: spanishCurriculumUnits,
   },
   {
     id: "malayalam",
