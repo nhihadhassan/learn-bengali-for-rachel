@@ -361,6 +361,47 @@ function stopCurrentSpeech() {
   }
 }
 
+// Browsers (Chrome/Safari especially) routinely drop the FIRST speak() after a
+// page load: voices aren't loaded yet, the engine is cold, and the synth can
+// start in a paused state — so onstart never fires and the call looks like a
+// failure. That's the "click once = unavailable, click again = works" bug.
+// Warming the engine once (preload voices + resume) makes the first real click
+// succeed; we also retry once transparently below.
+let speechWarmed = false;
+
+async function warmUpSpeech(): Promise<void> {
+  const synth = getSpeechSynthesis();
+
+  if (!synth || speechWarmed) {
+    return;
+  }
+
+  speechWarmed = true;
+
+  try {
+    await getVoices();
+
+    if (synth.paused) {
+      synth.resume();
+    }
+  } catch {
+    // Best effort — warming is an optimization, not a requirement.
+  }
+}
+
+// Warm the speech engine on the very first user interaction (a gesture the
+// browser trusts), so voices are loaded before the first speaker tap.
+if (typeof window !== "undefined") {
+  const warmOnFirstGesture = () => {
+    void warmUpSpeech();
+    window.removeEventListener("pointerdown", warmOnFirstGesture);
+    window.removeEventListener("keydown", warmOnFirstGesture);
+  };
+
+  window.addEventListener("pointerdown", warmOnFirstGesture, { once: true });
+  window.addEventListener("keydown", warmOnFirstGesture, { once: true });
+}
+
 const recordedAudioProvider: PronunciationProvider = {
   name: "recorded-audio",
   async speak(input) {
@@ -490,16 +531,25 @@ function speakUtterance(
     }, 350);
 
     const failureWatchdog = window.setTimeout(() => {
-      if (!settled) {
-        settle(() =>
-          reject(
-            new Error(
-              "Speech synthesis did not start. This browser may not have a usable voice installed.",
-            ),
-          ),
-        );
+      if (settled) {
+        return;
       }
-    }, 1800);
+
+      // If the utterance is audibly playing or still queued, count it as
+      // started rather than failing — some engines never fire onstart.
+      if (started || synth.speaking || synth.pending) {
+        settle(resolve);
+        return;
+      }
+
+      settle(() =>
+        reject(
+          new Error(
+            "Speech synthesis did not start. This browser may not have a usable voice installed.",
+          ),
+        ),
+      );
+    }, 2400);
 
     const cleanup = () => {
       window.clearTimeout(startWatchdog);
@@ -563,25 +613,51 @@ const browserTtsProvider: PronunciationProvider = {
       };
     }
 
-    const utterance = new SpeechSynthesisUtterance(text);
     const fallbackLang = isBengali ? "bn-BD" : locale;
     const settings = getSpeechSettings(locale);
     const fallbackUsed = !hasLocaleVoice;
+    const utteranceLang = voice?.lang ?? fallbackLang;
 
-    utterance.lang = voice?.lang ?? fallbackLang;
-    utterance.voice = voice;
-    utterance.rate = settings.rate;
-    utterance.pitch = settings.pitch;
-    utterance.volume = settings.volume;
+    const buildUtterance = () => {
+      const utterance = new SpeechSynthesisUtterance(text);
+      utterance.lang = utteranceLang;
+      utterance.voice = voice;
+      utterance.rate = settings.rate;
+      utterance.pitch = settings.pitch;
+      utterance.volume = settings.volume;
+      return utterance;
+    };
 
-    try {
-      await speakUtterance(synth, utterance);
-    } catch (error) {
+    // Warm the engine, then try to speak. The first attempt after page load can
+    // silently fail to start; if it does, reset and retry once so the user's
+    // single click is enough (instead of "unavailable, then works on click 2").
+    await warmUpSpeech();
+
+    let spoke = false;
+    let lastError: unknown = null;
+
+    for (let attempt = 0; attempt < 2 && !spoke; attempt += 1) {
+      try {
+        await speakUtterance(synth, buildUtterance());
+        spoke = true;
+      } catch (error) {
+        lastError = error;
+        synth.cancel();
+
+        if (synth.paused) {
+          synth.resume();
+        }
+
+        await new Promise((resolve) => window.setTimeout(resolve, 250));
+      }
+    }
+
+    if (!spoke) {
       return {
         provider: "none",
         reason:
-          error instanceof Error
-            ? error.message
+          lastError instanceof Error
+            ? lastError.message
             : "Speech synthesis failed in this browser.",
         status: "unavailable",
       };
@@ -589,10 +665,10 @@ const browserTtsProvider: PronunciationProvider = {
 
     return {
       fallbackUsed,
-      lang: utterance.lang,
+      lang: utteranceLang,
       message: createVoiceMessage({
         fallbackUsed,
-        lang: utterance.lang,
+        lang: utteranceLang,
         locale,
         voice,
       }),

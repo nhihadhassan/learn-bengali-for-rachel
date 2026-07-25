@@ -2033,9 +2033,12 @@ function buildLessonSteps(
     });
   });
 
-  // Listening (scaffolded, dark): hear a sentence and rebuild it. Only appears
-  // when FEATURES.listening is on.
-  if (FEATURES.listening && !reviewMode && multiWordPhrases[0]) {
+  // Listening: hear a sentence and rebuild it by ear. Enabled where TTS is
+  // reliable — the global flag, or the Spanish course (browser Spanish voices
+  // are well supported, unlike the romanized Bengali/Malayalam that held this
+  // back). Uses the same play button + word-bank the user already knows.
+  const listeningEnabled = FEATURES.listening || lesson.curriculumId === "spanish";
+  if (listeningEnabled && !reviewMode && multiWordPhrases[0]) {
     const phrase = multiWordPhrases[0];
     practiceSteps.push({
       id: `${lesson.id}-listen-${phrase.id}`,
