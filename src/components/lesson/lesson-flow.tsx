@@ -2049,18 +2049,30 @@ function buildLessonSteps(
     });
   }
 
-  // Dialogue (scaffolded, dark): a character line, pick the reply. Pairs two
-  // consecutive phrases. Only appears when FEATURES.dialogue is on.
-  if (FEATURES.dialogue && !reviewMode && introducedPhrases.length >= 2) {
-    const promptPhrase = introducedPhrases[0];
-    const replyPhrase = introducedPhrases[1];
+  // Dialogue: a character line, pick the reply. Enabled where content supports
+  // it — the global flag, or the Spanish course. Pairs two *sentences* from the
+  // lesson (not a sentence + a lone vocab word) so the exchange reads naturally,
+  // and draws the wrong-answer replies from other sentences.
+  const dialogueEnabled = FEATURES.dialogue || lesson.curriculumId === "spanish";
+  const dialoguePool =
+    sentencePhrases.length >= 2
+      ? sentencePhrases
+      : multiWordPhrases.length >= 2
+        ? multiWordPhrases
+        : introducedPhrases;
+  if (dialogueEnabled && !reviewMode && dialoguePool.length >= 2) {
+    const promptPhrase = dialoguePool[0];
+    const replyPhrase = dialoguePool[1];
+    const replyOptionPool = dialoguePool
+      .filter((phrase) => phrase.id !== promptPhrase.id)
+      .map((phrase) => phrase.romanized);
     practiceSteps.push({
       id: `${lesson.id}-dialogue-${replyPhrase.id}`,
       type: "dialogue",
       phrase: replyPhrase,
       promptRomanized: promptPhrase.romanized,
       promptEnglish: promptPhrase.english,
-      options: buildTargetOptions(replyPhrase.romanized, targetPhrasePool),
+      options: buildTargetOptions(replyPhrase.romanized, replyOptionPool),
       answer: replyPhrase.romanized,
       prompt: "How do you reply?",
     });
