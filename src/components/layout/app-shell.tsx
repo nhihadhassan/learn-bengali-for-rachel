@@ -14,6 +14,7 @@ import {
   Languages,
   Library,
   Menu,
+  Music,
   RotateCcw,
   Route,
   Trophy,
@@ -46,7 +47,10 @@ export function AppShell({ children }: { children: ReactNode }) {
     pathname.startsWith("/practice") ||
     pathname.startsWith("/strengthen") ||
     pathname.startsWith("/unit-review") ||
-    pathname.startsWith("/placement");
+    pathname.startsWith("/placement") ||
+    // The song player has its own bottom control bar; hide the tab bar there
+    // (but keep it on the /music list).
+    pathname.startsWith("/music/");
 
   function handleCurriculumChange(value: string) {
     if (
@@ -295,6 +299,7 @@ function MobileMenu({
             <MenuLink href="/lessons" icon={<DoorOpen size={18} />} label="Exit lesson" onClick={onClose} />
           )}
           <MenuLink href="/lessons" icon={<Route size={18} />} label="Lesson path" onClick={onClose} />
+          <MenuLink href="/music" icon={<Music size={18} />} label="Music" onClick={onClose} />
           {activeMistakesCount > 0 && (
             <MenuLink
               href="/review"
