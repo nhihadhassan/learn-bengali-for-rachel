@@ -10,6 +10,11 @@ import type { Lesson, Phrase, Unit } from "@/types/learning";
 
 const course = rawCourse as unknown as Course;
 
+// How many phrases a lesson teaches up front (mirrors the lesson engine's
+// `phrases.slice(0, 5)`). Used as the per-lesson rotation stride so each lesson
+// in a unit gets a different, mostly non-overlapping slice.
+const TAUGHT_WINDOW = 5;
+
 const CEFR_DIFFICULTY: Record<string, string> = {
   Intro: "Intro",
   A1: "Beginner",
@@ -59,7 +64,19 @@ function lessonPhrases(unit: PackUnit, lesson: PackLesson): Phrase[] {
   }));
 
   // Lead with a sentence so the taught set mixes words and full phrases.
-  return interleave(patternPhrases, vocabPhrases);
+  const combined = interleave(patternPhrases, vocabPhrases);
+
+  // The pack gives every lesson in a unit the SAME focus set, so without this
+  // all six lessons would teach the same words and generate identical
+  // questions. Rotate the list by a per-lesson offset (a stride the size of the
+  // taught window) so consecutive lessons surface a different, mostly
+  // non-overlapping slice — different words, and different translate / cloze /
+  // order / dialogue targets.
+  if (combined.length === 0) {
+    return combined;
+  }
+  const offset = ((lesson.lesson_index - 1) * TAUGHT_WINDOW) % combined.length;
+  return [...combined.slice(offset), ...combined.slice(0, offset)];
 }
 
 function adaptLesson(unit: PackUnit, packLesson: PackLesson, unitNumber: number): Lesson {
