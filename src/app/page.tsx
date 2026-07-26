@@ -1,5 +1,5 @@
-import { redirect } from "next/navigation";
+import { CoursePicker } from "@/components/lesson/course-picker";
 
 export default function HomePage() {
-  redirect("/lessons");
+  return <CoursePicker />;
 }
