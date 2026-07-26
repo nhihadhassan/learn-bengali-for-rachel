@@ -29,6 +29,7 @@ import { cn } from "@/lib/utils";
 import type { AudioPrompt, Exercise, Lesson, MatchingPair, Phrase } from "@/types/learning";
 import { HistoryIcon } from "@/components/lesson/history-icon";
 import { SpeakerButton } from "@/components/lesson/speaker-button";
+import { DialogueAvatar } from "@/components/lesson/dialogue-avatar";
 import { AnswerButton, AppButton } from "@/components/ui/app-button";
 import { ExerciseCard } from "@/components/ui/exercise-card";
 import { ProgressHeader } from "@/components/ui/progress-header";
@@ -1053,13 +1054,24 @@ function PracticeLessonFlow({
           <h2 className="mt-2 text-2xl font-black">
             {formatPromptDisplay(step.prompt)}
           </h2>
-          <div className="mt-3 max-w-[85%] rounded-3xl rounded-bl-md border border-slate-200 bg-slate-100 p-4 shadow-sm dark:border-white/10 dark:bg-white/[0.08]">
-            <p className="text-lg font-black">
-              {formatRomanizedDisplay(step.promptRomanized)}
-            </p>
-            <p className="mt-1 text-sm font-semibold text-slate-500 dark:text-slate-400">
-              {capitalizeDisplayText(step.promptEnglish)}
-            </p>
+          <div className="mt-3 flex items-end gap-2 sm:gap-3">
+            <DialogueAvatar
+              seed={step.promptRomanized.length}
+              className="size-14 sm:size-16"
+            />
+            <div className="relative max-w-[80%] rounded-3xl rounded-bl-md border border-slate-200 bg-slate-100 p-4 shadow-sm dark:border-white/10 dark:bg-white/[0.08]">
+              {/* Speech-bubble tail pointing back to the avatar. */}
+              <span
+                aria-hidden="true"
+                className="absolute -left-1.5 bottom-3 size-3 rotate-45 border-b border-l border-slate-200 bg-slate-100 dark:border-white/10 dark:bg-white/[0.08]"
+              />
+              <p className="text-lg font-black">
+                {formatRomanizedDisplay(step.promptRomanized)}
+              </p>
+              <p className="mt-1 text-sm font-semibold text-slate-500 dark:text-slate-400">
+                {capitalizeDisplayText(step.promptEnglish)}
+              </p>
+            </div>
           </div>
           <MultipleChoiceOptions
             formatOption={formatRomanizedDisplay}
