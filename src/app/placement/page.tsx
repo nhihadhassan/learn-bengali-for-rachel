@@ -71,6 +71,30 @@ export default function PlacementPage() {
   const [answerState, setAnswerState] = useState<"idle" | "correct" | "wrong">("idle");
   const [usedIds] = useState<Set<string>>(() => new Set());
 
+  // Choose wrong answers that look like the right one: a sentence answer gets
+  // sentence distractors, a single word gets single-word distractors. Otherwise
+  // the option whose length matches the prompt gives itself away.
+  function pickDistractors(answer: string): string[] {
+    const wordCount = (text: string) => text.trim().split(/\s+/).length;
+    const answerLen = wordCount(answer);
+    const isPhrase = answerLen >= 3;
+    const others = allMeanings.filter((meaning) => meaning !== answer);
+    const sameKind = others.filter((meaning) => wordCount(meaning) >= 3 === isPhrase);
+    const nearLength = sameKind.filter(
+      (meaning) => Math.abs(wordCount(meaning) - answerLen) <= 2,
+    );
+    const primary =
+      nearLength.length >= 3 ? nearLength : sameKind.length >= 3 ? sameKind : others;
+
+    const chosen = shuffle(primary).slice(0, 3);
+    // Top up if a narrow pool couldn't supply three.
+    for (const meaning of shuffle(others)) {
+      if (chosen.length >= 3) break;
+      if (!chosen.includes(meaning)) chosen.push(meaning);
+    }
+    return chosen;
+  }
+
   function makeQuestion(unitIndex: number): Question {
     const unit = units[unitIndex];
     const unitPhrases = unit.lessons.flatMap((lesson) => lesson.phrases);
@@ -79,9 +103,7 @@ export default function PlacementPage() {
     const phrase = pool[Math.floor(Math.random() * pool.length)];
     usedIds.add(phrase.id);
 
-    const distractors = shuffle(
-      allMeanings.filter((meaning) => meaning !== phrase.english),
-    ).slice(0, 3);
+    const distractors = pickDistractors(phrase.english);
 
     return {
       phrase,
@@ -112,6 +134,16 @@ export default function PlacementPage() {
       return;
     }
     setAnswerState(selected === question.answer ? "correct" : "wrong");
+  }
+
+  // "I don't know" is an honest answer: reveal the meaning and count it as not
+  // known, so placement steps down instead of rewarding a lucky guess.
+  function markUnknown() {
+    if (answerState !== "idle" || !question) {
+      return;
+    }
+    setSelected("");
+    setAnswerState("wrong");
   }
 
   function next() {
@@ -328,14 +360,23 @@ export default function PlacementPage() {
                 </div>
               )}
               {answerState === "idle" ? (
-                <AppButton
-                  type="button"
-                  disabled={!selected}
-                  onClick={check}
-                  className="w-full"
-                >
-                  Check
-                </AppButton>
+                <div className="space-y-2">
+                  <AppButton
+                    type="button"
+                    disabled={!selected}
+                    onClick={check}
+                    className="w-full"
+                  >
+                    Check
+                  </AppButton>
+                  <button
+                    type="button"
+                    onClick={markUnknown}
+                    className="w-full rounded-2xl py-2 text-sm font-black uppercase tracking-[0.08em] text-slate-500 transition hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200"
+                  >
+                    I don&apos;t know
+                  </button>
+                </div>
               ) : (
                 <AppButton
                   type="button"
