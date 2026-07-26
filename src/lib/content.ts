@@ -57,8 +57,8 @@ export const curricula: Curriculum[] = [
   },
   {
     id: "spanish",
-    label: "Spanish (full course)",
-    shortLabel: "Spanish+",
+    label: "Spanish course",
+    shortLabel: "Spanish",
     description:
       "A research-grounded Spanish course: 131 units from café basics to real conversations.",
     locale: "es",

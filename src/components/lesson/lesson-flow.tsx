@@ -29,6 +29,7 @@ import { cn } from "@/lib/utils";
 import type { AudioPrompt, Exercise, Lesson, MatchingPair, Phrase } from "@/types/learning";
 import { HistoryIcon } from "@/components/lesson/history-icon";
 import { SpeakerButton } from "@/components/lesson/speaker-button";
+import { DialogueAvatar } from "@/components/lesson/dialogue-avatar";
 import { AnswerButton, AppButton } from "@/components/ui/app-button";
 import { ExerciseCard } from "@/components/ui/exercise-card";
 import { ProgressHeader } from "@/components/ui/progress-header";
@@ -1053,13 +1054,24 @@ function PracticeLessonFlow({
           <h2 className="mt-2 text-2xl font-black">
             {formatPromptDisplay(step.prompt)}
           </h2>
-          <div className="mt-3 max-w-[85%] rounded-3xl rounded-bl-md border border-slate-200 bg-slate-100 p-4 shadow-sm dark:border-white/10 dark:bg-white/[0.08]">
-            <p className="text-lg font-black">
-              {formatRomanizedDisplay(step.promptRomanized)}
-            </p>
-            <p className="mt-1 text-sm font-semibold text-slate-500 dark:text-slate-400">
-              {capitalizeDisplayText(step.promptEnglish)}
-            </p>
+          <div className="mt-3 flex items-end gap-2 sm:gap-3">
+            <DialogueAvatar
+              seed={step.promptRomanized.length}
+              className="size-14 sm:size-16"
+            />
+            <div className="relative max-w-[80%] rounded-3xl rounded-bl-md border border-slate-200 bg-slate-100 p-4 shadow-sm dark:border-white/10 dark:bg-white/[0.08]">
+              {/* Speech-bubble tail pointing back to the avatar. */}
+              <span
+                aria-hidden="true"
+                className="absolute -left-1.5 bottom-3 size-3 rotate-45 border-b border-l border-slate-200 bg-slate-100 dark:border-white/10 dark:bg-white/[0.08]"
+              />
+              <p className="text-lg font-black">
+                {formatRomanizedDisplay(step.promptRomanized)}
+              </p>
+              <p className="mt-1 text-sm font-semibold text-slate-500 dark:text-slate-400">
+                {capitalizeDisplayText(step.promptEnglish)}
+              </p>
+            </div>
           </div>
           <MultipleChoiceOptions
             formatOption={formatRomanizedDisplay}
@@ -1935,6 +1947,31 @@ function buildLessonSteps(
         },
       ];
 
+  // A comprehension check for one phrase. Alternate direction by the phrase's
+  // position so learners both recognize (target -> English) and produce
+  // (English -> target).
+  const comprehensionStep = (phrase: Phrase, index: number): LessonStep =>
+    index % 2 === 0
+      ? {
+          id: `${lesson.id}-recognize-${phrase.id}`,
+          type: "recognize",
+          phrase,
+          prompt: `What does "${formatRomanizedDisplay(phrase.romanized)}" mean?`,
+          options: buildMeaningOptions(phrase.english, phraseMeanings),
+        }
+      : {
+          id: `${lesson.id}-produce-${phrase.id}`,
+          type: "produce",
+          phrase,
+          prompt: `Which one means "${capitalizeDisplayText(phrase.english)}"?`,
+          options: buildTargetOptions(phrase.romanized, targetPhrasePool),
+        };
+
+  // Dynamic flow: teach a word, but DON'T test it in the very next step. Testing
+  // lags a couple of cards behind teaching, so a word is introduced, a couple of
+  // other things happen, and only then is it checked — real recall, not
+  // "read adios, immediately click adios".
+  const TEACH_TEST_LAG = 2;
   introducedPhrases.forEach((phrase, index) => {
     if (!reviewMode) {
       steps.push({
@@ -1946,24 +1983,9 @@ function buildLessonSteps(
       });
     }
 
-    // Alternate the comprehension direction so learners both recognize
-    // (target -> English) and produce (English -> target).
-    if (index % 2 === 0) {
-      steps.push({
-        id: `${lesson.id}-recognize-${phrase.id}`,
-        type: "recognize",
-        phrase,
-        prompt: `What does "${formatRomanizedDisplay(phrase.romanized)}" mean?`,
-        options: buildMeaningOptions(phrase.english, phraseMeanings),
-      });
-    } else {
-      steps.push({
-        id: `${lesson.id}-produce-${phrase.id}`,
-        type: "produce",
-        phrase,
-        prompt: `Which one means "${capitalizeDisplayText(phrase.english)}"?`,
-        options: buildTargetOptions(phrase.romanized, targetPhrasePool),
-      });
+    const testIndex = index - TEACH_TEST_LAG;
+    if (testIndex >= 0) {
+      steps.push(comprehensionStep(introducedPhrases[testIndex], testIndex));
     }
 
     if (INCLUDE_SPEAKING_PRACTICE && (index === 1 || index === 3)) {
@@ -1975,6 +1997,15 @@ function buildLessonSteps(
       });
     }
   });
+
+  // Flush the comprehension checks for the last few taught phrases.
+  for (
+    let index = Math.max(0, introducedPhrases.length - TEACH_TEST_LAG);
+    index < introducedPhrases.length;
+    index += 1
+  ) {
+    steps.push(comprehensionStep(introducedPhrases[index], index));
+  }
 
   const multiWordPhrases = introducedPhrases.filter(
     (phrase) => splitWords(phrase.romanized).length >= 2,

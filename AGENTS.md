@@ -61,6 +61,7 @@ still supported for older content. Put new recorded files under
 
 ## Development Rules
 
+- Dynamic lesson flow is required: never test a word in the step right after it is introduced (no "learn adios" → "what does adios mean?" back to back). Space teaching and testing (see `TEACH_TEST_LAG` in `buildLessonSteps`) and keep mixing question types.
 - Preserve XP, streaks, lesson completion, mistake review, and learned-word persistence unless explicitly asked to change them.
 - Display romanized Bengali to learners, but pass Bengali script to pronunciation when available.
 - Keep local progress shape backward-compatible when adding fields.

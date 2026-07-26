@@ -15,7 +15,9 @@ export function LearnedWordsReview() {
   const curriculum = getCurriculum(activeCurriculumId);
   // Use the real course label (minus any "(full course)" suffix) so new courses
   // never mislabel as "Bengali".
-  const languageLabel = curriculum.label.replace(/\s*\(.*\)$/, "");
+  const languageLabel = curriculum.label
+    .replace(/\s*\(.*\)$/, "")
+    .replace(/\s+course$/i, "");
   const [query, setQuery] = useState("");
   const [unitFilter, setUnitFilter] = useState("all");
   const learnedWords = useMemo(

@@ -25,7 +25,9 @@ export function MistakeReview() {
   const { activeCurriculumId, activeMistakes, activeSkippedListening } = useProgress();
   // Use the real course label (minus any "(full course)" suffix) so new courses
   // never mislabel as "Bengali".
-  const languageLabel = getCurriculum(activeCurriculumId).label.replace(/\s*\(.*\)$/, "");
+  const languageLabel = getCurriculum(activeCurriculumId)
+    .label.replace(/\s*\(.*\)$/, "")
+    .replace(/\s+course$/i, "");
   const reviewSubject =
     activeCurriculumId === "history" ? "story moments" : "phrases";
   const index =
