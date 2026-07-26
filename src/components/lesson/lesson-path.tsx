@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { Check, Circle, Play, RefreshCw, Sparkles } from "lucide-react";
 import type { Lesson, Unit } from "@/types/learning";
+import { getCurriculum } from "@/lib/content";
 import { useProgress } from "@/lib/progress-store";
 import { cn } from "@/lib/utils";
 import { HistoryIcon } from "@/components/lesson/history-icon";
@@ -12,14 +13,8 @@ export function LessonPath({ units }: { units: Unit[] }) {
   const completed = new Set(progress.completedLessons);
   const allLessons = units.flatMap((unit) => unit.lessons);
   const isHistory = allLessons[0]?.curriculumId === "history";
-  const pathLabel =
-    activeCurriculumId === "spanish-peru"
-      ? "Spanish for Peru"
-      : activeCurriculumId === "malayalam"
-        ? "Malayalam"
-        : activeCurriculumId === "history"
-          ? "History"
-          : "Bengali";
+  // Use the curriculum's real label so new courses never fall back to "Bengali".
+  const pathLabel = getCurriculum(activeCurriculumId).label;
   const currentLessonId =
     allLessons.find((lesson) => !completed.has(lesson.id))?.id ?? allLessons[0]?.id;
   const currentLessonIndex = Math.max(

@@ -13,14 +13,9 @@ import { SpeakerButton } from "@/components/lesson/speaker-button";
 export function LearnedWordsReview() {
   const { activeCurriculumId, progress } = useProgress();
   const curriculum = getCurriculum(activeCurriculumId);
-  const languageLabel =
-    activeCurriculumId === "history"
-      ? "History"
-      : activeCurriculumId === "spanish-peru"
-        ? "Spanish"
-        : activeCurriculumId === "malayalam"
-          ? "Malayalam"
-          : "Bengali";
+  // Use the real course label (minus any "(full course)" suffix) so new courses
+  // never mislabel as "Bengali".
+  const languageLabel = curriculum.label.replace(/\s*\(.*\)$/, "");
   const [query, setQuery] = useState("");
   const [unitFilter, setUnitFilter] = useState("all");
   const learnedWords = useMemo(

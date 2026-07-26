@@ -4,7 +4,7 @@ import { useMemo, useState } from "react";
 import Link from "next/link";
 import { ArrowRight, Check, RotateCcw, VolumeX } from "lucide-react";
 import { checkTypedAnswer } from "@/lib/answer-checking";
-import { getLesson } from "@/lib/content";
+import { getCurriculum, getLesson } from "@/lib/content";
 import { capitalizeDisplayText, formatRomanizedDisplay } from "@/lib/display-text";
 import { useProgress } from "@/lib/progress-store";
 import type {
@@ -23,14 +23,9 @@ export function MistakeReview() {
     index: 0,
   });
   const { activeCurriculumId, activeMistakes, activeSkippedListening } = useProgress();
-  const languageLabel =
-    activeCurriculumId === "history"
-      ? "History"
-      : activeCurriculumId === "spanish-peru"
-        ? "Spanish"
-        : activeCurriculumId === "malayalam"
-          ? "Malayalam"
-          : "Bengali";
+  // Use the real course label (minus any "(full course)" suffix) so new courses
+  // never mislabel as "Bengali".
+  const languageLabel = getCurriculum(activeCurriculumId).label.replace(/\s*\(.*\)$/, "");
   const reviewSubject =
     activeCurriculumId === "history" ? "story moments" : "phrases";
   const index =

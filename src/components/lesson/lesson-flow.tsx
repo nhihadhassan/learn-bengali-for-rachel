@@ -2050,32 +2050,41 @@ function buildLessonSteps(
   }
 
   // Dialogue: a character line, pick the reply. Enabled where content supports
-  // it — the global flag, or the Spanish course. Pairs two *sentences* from the
-  // lesson (not a sentence + a lone vocab word) so the exchange reads naturally,
-  // and draws the wrong-answer replies from other sentences.
+  // it — the global flag, or the Spanish course. Prompt + reply are full
+  // sentences (falling back to any multi-word phrase), and the wrong replies are
+  // drawn from ALL the lesson's phrases — sentences first, then other multi-word
+  // phrases — so there are always a few plausible choices, never just one.
   const dialogueEnabled = FEATURES.dialogue || lesson.curriculumId === "spanish";
-  const dialoguePool =
-    sentencePhrases.length >= 2
-      ? sentencePhrases
-      : multiWordPhrases.length >= 2
-        ? multiWordPhrases
-        : introducedPhrases;
-  if (dialogueEnabled && !reviewMode && dialoguePool.length >= 2) {
-    const promptPhrase = dialoguePool[0];
-    const replyPhrase = dialoguePool[1];
-    const replyOptionPool = dialoguePool
-      .filter((phrase) => phrase.id !== promptPhrase.id)
+  const lessonSentences = lesson.phrases.filter(
+    (phrase) => splitWords(phrase.romanized).length >= SENTENCE_MIN_WORDS,
+  );
+  const lessonMultiWord = lesson.phrases.filter(
+    (phrase) => splitWords(phrase.romanized).length >= 2,
+  );
+  const dialogueBase = lessonSentences.length >= 2 ? lessonSentences : lessonMultiWord;
+  if (dialogueEnabled && !reviewMode && dialogueBase.length >= 2) {
+    const promptPhrase = dialogueBase[0];
+    const replyPhrase = dialogueBase[1];
+    const distractorPool = [...lessonSentences, ...lessonMultiWord]
+      .filter((phrase) => phrase.id !== promptPhrase.id && phrase.id !== replyPhrase.id)
       .map((phrase) => phrase.romanized);
-    practiceSteps.push({
-      id: `${lesson.id}-dialogue-${replyPhrase.id}`,
-      type: "dialogue",
-      phrase: replyPhrase,
-      promptRomanized: promptPhrase.romanized,
-      promptEnglish: promptPhrase.english,
-      options: buildTargetOptions(replyPhrase.romanized, replyOptionPool),
-      answer: replyPhrase.romanized,
-      prompt: "How do you reply?",
-    });
+    const options = buildTargetOptions(replyPhrase.romanized, [
+      replyPhrase.romanized,
+      ...distractorPool,
+    ]);
+    // Only show the dialogue if it has real alternatives to choose between.
+    if (options.length >= 3) {
+      practiceSteps.push({
+        id: `${lesson.id}-dialogue-${replyPhrase.id}`,
+        type: "dialogue",
+        phrase: replyPhrase,
+        promptRomanized: promptPhrase.romanized,
+        promptEnglish: promptPhrase.english,
+        options,
+        answer: replyPhrase.romanized,
+        prompt: "How do you reply?",
+      });
+    }
   }
 
   // Stable-sort the practice block from easiest to hardest.
