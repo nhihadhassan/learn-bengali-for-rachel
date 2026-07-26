@@ -1,10 +1,10 @@
 import { cn } from "@/lib/utils";
 
 /**
- * A small, original mascot shown next to dialogue prompts so "How do you reply?"
- * reads like a real conversation. Deliberately generic (not based on any other
- * app's characters) — a friendly rounded buddy in the app's violet/cyan palette.
- * `seed` gives each prompt a slightly different accent hue so speakers vary.
+ * An original friendly owl mascot shown next to dialogue prompts so
+ * "How do you reply?" reads like a real conversation. Purple, round, and
+ * cheerful — designed from scratch, not based on any other app's character.
+ * `seed` shifts the purple hue a little so different speakers vary.
  */
 export function DialogueAvatar({
   className,
@@ -13,14 +13,14 @@ export function DialogueAvatar({
   className?: string;
   seed?: number;
 }) {
-  const uid = `dlg-${seed}`;
-  const hues = [
-    ["#7c3aed", "#06b6d4"],
-    ["#db2777", "#f59e0b"],
-    ["#0891b2", "#7c3aed"],
-    ["#f97316", "#db2777"],
+  const uid = `owl-${seed}`;
+  const purples = [
+    ["#a855f7", "#7c3aed"],
+    ["#8b5cf6", "#6d28d9"],
+    ["#c084fc", "#9333ea"],
+    ["#a78bfa", "#7e22ce"],
   ];
-  const [from, to] = hues[((seed % hues.length) + hues.length) % hues.length];
+  const [light, dark] = purples[((seed % purples.length) + purples.length) % purples.length];
 
   return (
     <svg
@@ -30,29 +30,40 @@ export function DialogueAvatar({
       aria-label="Conversation partner"
     >
       <defs>
-        <linearGradient id={`${uid}-bg`} x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0" stopColor={from} />
-          <stop offset="1" stopColor={to} />
+        <linearGradient id={`${uid}-body`} x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stopColor={light} />
+          <stop offset="1" stopColor={dark} />
         </linearGradient>
       </defs>
-      {/* Rounded body */}
-      <rect x="4" y="4" width="56" height="56" rx="20" fill={`url(#${uid}-bg)`} />
-      {/* Cheeks */}
-      <circle cx="22" cy="40" r="4" fill="#ffffff" opacity="0.28" />
-      <circle cx="42" cy="40" r="4" fill="#ffffff" opacity="0.28" />
+
+      {/* Ear tufts */}
+      <path d="M20 18 L15 7 L28 14 Z" fill={dark} />
+      <path d="M44 18 L49 7 L36 14 Z" fill={dark} />
+
+      {/* Wings */}
+      <ellipse cx="13" cy="38" rx="8" ry="13" fill={dark} />
+      <ellipse cx="51" cy="38" rx="8" ry="13" fill={dark} />
+
+      {/* Body / head */}
+      <ellipse cx="32" cy="36" rx="21" ry="23" fill={`url(#${uid}-body)`} />
+
+      {/* Belly highlight */}
+      <ellipse cx="32" cy="42" rx="12" ry="14" fill="#ffffff" opacity="0.14" />
+
       {/* Eyes */}
-      <circle cx="24" cy="30" r="5.4" fill="#ffffff" />
-      <circle cx="40" cy="30" r="5.4" fill="#ffffff" />
-      <circle cx="25" cy="31" r="2.4" fill="#0f172a" />
-      <circle cx="41" cy="31" r="2.4" fill="#0f172a" />
-      {/* Smile */}
-      <path
-        d="M23 41 Q32 49 41 41"
-        fill="none"
-        stroke="#ffffff"
-        strokeWidth="3"
-        strokeLinecap="round"
-      />
+      <circle cx="24" cy="31" r="9" fill="#ffffff" />
+      <circle cx="40" cy="31" r="9" fill="#ffffff" />
+      <circle cx="25" cy="32" r="4.4" fill="#1e1b4b" />
+      <circle cx="39" cy="32" r="4.4" fill="#1e1b4b" />
+      <circle cx="26.6" cy="30.4" r="1.5" fill="#ffffff" />
+      <circle cx="40.6" cy="30.4" r="1.5" fill="#ffffff" />
+
+      {/* Beak */}
+      <path d="M32 36 L28 40 L36 40 Z" fill="#fb923c" />
+
+      {/* Feet */}
+      <ellipse cx="26" cy="58" rx="4" ry="2.4" fill="#fb923c" />
+      <ellipse cx="38" cy="58" rx="4" ry="2.4" fill="#fb923c" />
     </svg>
   );
 }

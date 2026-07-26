@@ -250,6 +250,13 @@ page load: voices aren't loaded yet, the engine is cold, and the synth can start
 
 ## 8. Development rules
 
+- **Dynamic lesson flow (non-negotiable).** Never test a word in the step
+  immediately after introducing it — no "here is *adios*" card followed by a
+  "what does *adios* mean?" question. Teaching and testing must be spaced:
+  introduce items, let other steps happen, then check recall. In
+  `buildLessonSteps` this is the `TEACH_TEST_LAG` (comprehension checks lag the
+  teach cards). Keep mixing question types (recognize, produce, word bank, cloze,
+  ordering, listening, dialogue) rather than repeating one format.
 - Preserve XP, streaks, lesson completion, mistake review, and learned-word
   persistence unless explicitly asked to change them.
 - Keep the local progress shape **backward-compatible** when adding fields.

@@ -1947,6 +1947,31 @@ function buildLessonSteps(
         },
       ];
 
+  // A comprehension check for one phrase. Alternate direction by the phrase's
+  // position so learners both recognize (target -> English) and produce
+  // (English -> target).
+  const comprehensionStep = (phrase: Phrase, index: number): LessonStep =>
+    index % 2 === 0
+      ? {
+          id: `${lesson.id}-recognize-${phrase.id}`,
+          type: "recognize",
+          phrase,
+          prompt: `What does "${formatRomanizedDisplay(phrase.romanized)}" mean?`,
+          options: buildMeaningOptions(phrase.english, phraseMeanings),
+        }
+      : {
+          id: `${lesson.id}-produce-${phrase.id}`,
+          type: "produce",
+          phrase,
+          prompt: `Which one means "${capitalizeDisplayText(phrase.english)}"?`,
+          options: buildTargetOptions(phrase.romanized, targetPhrasePool),
+        };
+
+  // Dynamic flow: teach a word, but DON'T test it in the very next step. Testing
+  // lags a couple of cards behind teaching, so a word is introduced, a couple of
+  // other things happen, and only then is it checked — real recall, not
+  // "read adios, immediately click adios".
+  const TEACH_TEST_LAG = 2;
   introducedPhrases.forEach((phrase, index) => {
     if (!reviewMode) {
       steps.push({
@@ -1958,24 +1983,9 @@ function buildLessonSteps(
       });
     }
 
-    // Alternate the comprehension direction so learners both recognize
-    // (target -> English) and produce (English -> target).
-    if (index % 2 === 0) {
-      steps.push({
-        id: `${lesson.id}-recognize-${phrase.id}`,
-        type: "recognize",
-        phrase,
-        prompt: `What does "${formatRomanizedDisplay(phrase.romanized)}" mean?`,
-        options: buildMeaningOptions(phrase.english, phraseMeanings),
-      });
-    } else {
-      steps.push({
-        id: `${lesson.id}-produce-${phrase.id}`,
-        type: "produce",
-        phrase,
-        prompt: `Which one means "${capitalizeDisplayText(phrase.english)}"?`,
-        options: buildTargetOptions(phrase.romanized, targetPhrasePool),
-      });
+    const testIndex = index - TEACH_TEST_LAG;
+    if (testIndex >= 0) {
+      steps.push(comprehensionStep(introducedPhrases[testIndex], testIndex));
     }
 
     if (INCLUDE_SPEAKING_PRACTICE && (index === 1 || index === 3)) {
@@ -1987,6 +1997,15 @@ function buildLessonSteps(
       });
     }
   });
+
+  // Flush the comprehension checks for the last few taught phrases.
+  for (
+    let index = Math.max(0, introducedPhrases.length - TEACH_TEST_LAG);
+    index < introducedPhrases.length;
+    index += 1
+  ) {
+    steps.push(comprehensionStep(introducedPhrases[index], index));
+  }
 
   const multiWordPhrases = introducedPhrases.filter(
     (phrase) => splitWords(phrase.romanized).length >= 2,
