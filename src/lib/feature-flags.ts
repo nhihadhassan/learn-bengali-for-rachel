@@ -8,7 +8,7 @@ export const FEATURES = {
   explainMyAnswer: true,
   listening: false,
   dialogue: false,
-  aiRoleplay: false,
+  aiRoleplay: true,
 } as const;
 
 export type FeatureName = keyof typeof FEATURES;
