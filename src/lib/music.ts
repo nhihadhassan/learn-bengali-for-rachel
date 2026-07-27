@@ -60,6 +60,81 @@ export const songs: Song[] = [
       { es: "Hasta luego, buen día", en: "See you later, have a good day", seconds: 5 },
     ],
   },
+  {
+    id: "mi-familia",
+    title: "Mi Familia",
+    artist: "Practice song",
+    emoji: "👨‍👩‍👧",
+    blurb: "Family words",
+    lines: [
+      { es: "Esta es mi familia", en: "This is my family", seconds: 4 },
+      { es: "Mi madre y mi padre", en: "My mother and my father", seconds: 4 },
+      { es: "Mi hermano y mi hermana", en: "My brother and my sister", seconds: 4 },
+      { es: "Todos juntos en casa", en: "All together at home", seconds: 4 },
+      { es: "Mi abuela hace la comida", en: "My grandmother makes the food", seconds: 4 },
+      { es: "Mi abuelo cuenta historias", en: "My grandfather tells stories", seconds: 4 },
+      { es: "Yo quiero a mi familia", en: "I love my family", seconds: 4 },
+      { es: "Y mi familia me quiere", en: "And my family loves me", seconds: 5 },
+    ],
+  },
+  {
+    id: "donde-esta",
+    title: "¿Dónde Está?",
+    artist: "Practice song",
+    emoji: "🧭",
+    blurb: "Places and directions",
+    lines: [
+      { es: "¿Dónde está el baño?", en: "Where is the bathroom?", seconds: 4 },
+      { es: "A la derecha, por favor", en: "To the right, please", seconds: 4 },
+      { es: "¿Dónde está la estación?", en: "Where is the station?", seconds: 4 },
+      { es: "Todo recto y a la izquierda", en: "Straight ahead and to the left", seconds: 4 },
+      { es: "¿Está lejos o cerca?", en: "Is it far or near?", seconds: 4 },
+      { es: "Está muy cerca de aquí", en: "It is very close to here", seconds: 4 },
+      { es: "Muchas gracias, muy amable", en: "Thank you, very kind", seconds: 4 },
+      { es: "De nada, buen viaje", en: "You're welcome, have a good trip", seconds: 5 },
+    ],
+  },
+];
+
+// "Listen along" pointers to real albums on streaming services. We only store
+// the album title and outbound links — never the lyrics, which stay in the
+// licensed streaming apps. Use these tracks for listening practice alongside the
+// in-app learning songs.
+export type ListenAlongLink = { label: string; url: string };
+
+export type ListenAlong = {
+  id: string;
+  title: string;
+  artist: string;
+  emoji: string;
+  note: string;
+  links: ListenAlongLink[];
+};
+
+const searchQuery = "Bad Bunny DeBÍ TiRAR MáS FoToS";
+
+export const listenAlong: ListenAlong[] = [
+  {
+    id: "dtmf",
+    title: "DeBÍ TiRAR MáS FoToS",
+    artist: "Bad Bunny",
+    emoji: "🎧",
+    note: "Great listening practice. Opens in your music app — lyrics live there.",
+    links: [
+      {
+        label: "Spotify",
+        url: `https://open.spotify.com/search/${encodeURIComponent(searchQuery)}`,
+      },
+      {
+        label: "Apple Music",
+        url: `https://music.apple.com/us/search?term=${encodeURIComponent(searchQuery)}`,
+      },
+      {
+        label: "YouTube",
+        url: `https://www.youtube.com/results?search_query=${encodeURIComponent(searchQuery)}`,
+      },
+    ],
+  },
 ];
 
 export function getSong(id: string): Song | undefined {
