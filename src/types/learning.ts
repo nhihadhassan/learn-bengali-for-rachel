@@ -122,6 +122,12 @@ export type Lesson = {
   grammar?: GrammarPoint[];
   audioPrompts?: AudioPrompt[];
   uiText?: LessonUiText;
+  /**
+   * Cumulative teaching plan. Present only for courses whose capabilities
+   * declare `lessonStrategy: "cumulative"`; its absence is what keeps the four
+   * phrase-oriented courses on the original engine path.
+   */
+  plan?: LessonPlan;
   metadata?: LessonMetadata;
   reviewSchedule?: ReviewSchedule;
   history?: {
@@ -138,6 +144,84 @@ export type Lesson = {
       consequence?: string;
     };
   };
+};
+
+/**
+ * The six lesson types the Spanish course's unit sequence uses, plus the two
+ * synthetic session kinds the Practice surfaces build. A course whose
+ * capabilities declare `lessonStrategy: "simple"` never produces these — its
+ * lessons carry no plan and the engine keeps its original behaviour.
+ */
+export type LessonKind =
+  | "discover"
+  | "build"
+  | "grammar"
+  | "listen"
+  | "context"
+  | "review"
+  | "strengthen";
+
+export type GrammarExample = {
+  /** The example in the target language. */
+  target: string;
+  english: string;
+  /** A few words on *why* — "masculine, so el", not a paragraph. */
+  note?: string;
+};
+
+/**
+ * A grammar point small enough to teach inside a lesson: a rule in one or two
+ * sentences, a couple of examples built from words the learner already has, and
+ * the name of a drill generator that practises the pattern itself.
+ */
+export type GrammarFocus = {
+  id: string;
+  title: string;
+  explanation: string;
+  examples: GrammarExample[];
+  /** Drill generator id (see `@/lib/grammar-drills`). Unknown ids degrade. */
+  drill?: string;
+};
+
+export type DialogueLine = {
+  target: string;
+  english: string;
+};
+
+/** One exchange: what the other speaker says, and what the learner should say. */
+export type DialogueTurn = {
+  speaker?: string;
+  prompt: DialogueLine;
+  reply: DialogueLine;
+  /**
+   * Wrong replies that are *plausible* — grammatical, on-topic-adjacent, and
+   * drawn from language the learner knows. Authored, because "which of these
+   * answers this question" is a semantic judgement the engine can't make.
+   */
+  distractors?: string[];
+};
+
+export type DialogueScript = {
+  scenario: string;
+  turns: DialogueTurn[];
+};
+
+/**
+ * What a lesson should teach and what it should bring back — decided by the
+ * curriculum layer (`@/lib/curriculum-plan`), before any learner state is
+ * consulted. The engine turns this into steps; the learner model decides which
+ * of `reviewPhraseIds` actually get drilled today.
+ */
+export type LessonPlan = {
+  kind: LessonKind;
+  /** Introduced here for the first time in the course, in teaching order. */
+  newPhraseIds: string[];
+  /** Already-met items worth retrieving, highest priority first. */
+  reviewPhraseIds: string[];
+  /** Ids of items from *earlier units* inside `reviewPhraseIds`. */
+  interleavedPhraseIds?: string[];
+  grammar?: GrammarFocus;
+  dialogue?: DialogueScript;
 };
 
 export type UnitMetadata = {
@@ -187,6 +271,12 @@ export type Mistake = {
   id: string;
   exerciseId: string;
   lessonId: string;
+  /**
+   * The phrase the learner got wrong, when the step maps to one. Optional and
+   * added later: saves written before it exists simply have no value here, and
+   * mistake recycling treats those as unattributable rather than failing.
+   */
+  phraseId?: string;
   prompt: string;
   correctAnswer: string;
   wrongAnswer: string;

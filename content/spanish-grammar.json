@@ -1,0 +1,1280 @@
+{
+  "version": 1,
+  "note": "Grammar points small enough to teach inside a lesson. Keyed by the grammar_targets strings used in content/spanish-curriculum.json, so a unit's declared target resolves to a rule without any per-unit wiring. 'markerGroups' are confusable sets: the engine blanks whichever marker appears in a sentence the learner already knows and offers the rest of that group as the options, so the question tests the pattern rather than the vocabulary. Original explanations written for this app.",
+  "rules": [
+    {
+      "id": "noun-gender-articles",
+      "targets": [
+        "basic noun gender and articles"
+      ],
+      "title": "el and la",
+      "explanation": "Every Spanish noun is either masculine or feminine. Masculine nouns take el, feminine nouns take la — and the word for \"a\" follows the same split: un and una. A handful of nouns are exceptions worth learning whole, like el agua.",
+      "examples": [
+        {
+          "target": "el café",
+          "english": "the coffee",
+          "note": "masculine, so el"
+        },
+        {
+          "target": "la leche",
+          "english": "the milk",
+          "note": "feminine, so la"
+        },
+        {
+          "target": "un café, por favor",
+          "english": "a coffee, please",
+          "note": "un matches el"
+        }
+      ],
+      "drill": "article-choice",
+      "markerGroups": [
+        [
+          "el",
+          "la"
+        ],
+        [
+          "un",
+          "una"
+        ]
+      ],
+      "avoidPhrases": [
+        "el agua",
+        "el azúcar",
+        "el idioma"
+      ]
+    },
+    {
+      "id": "present-tense-foundations",
+      "targets": [
+        "present tense foundations"
+      ],
+      "title": "The verb tells you who",
+      "explanation": "A Spanish verb changes its ending to show who is doing the action, so the word for \"I\" or \"you\" is usually left out. Quiero already means \"I want\".",
+      "examples": [
+        {
+          "target": "Quiero un café.",
+          "english": "I want a coffee.",
+          "note": "-o ending = I"
+        },
+        {
+          "target": "¿De dónde eres?",
+          "english": "Where are you from?",
+          "note": "-es ending = you"
+        },
+        {
+          "target": "Vivo en Lima.",
+          "english": "I live in Lima.",
+          "note": "no \"yo\" needed"
+        }
+      ],
+      "drill": "marker-cloze",
+      "markerGroups": [
+        [
+          "quiero",
+          "quieres",
+          "quiere"
+        ],
+        [
+          "soy",
+          "eres",
+          "es"
+        ],
+        [
+          "estoy",
+          "estás",
+          "está"
+        ],
+        [
+          "tengo",
+          "tienes",
+          "tiene"
+        ],
+        [
+          "vivo",
+          "vives",
+          "vive"
+        ],
+        [
+          "hablo",
+          "hablas",
+          "habla"
+        ]
+      ]
+    },
+    {
+      "id": "simple-word-order",
+      "targets": [
+        "simple word order"
+      ],
+      "title": "Describing words come after",
+      "explanation": "Spanish puts the describing word after the noun: una casa pequeña, not \"pequeña casa\". Muy goes in front of the describing word.",
+      "examples": [
+        {
+          "target": "un apartamento pequeño",
+          "english": "a small apartment",
+          "note": "noun first"
+        },
+        {
+          "target": "Está muy caliente.",
+          "english": "It is very hot.",
+          "note": "muy before the adjective"
+        },
+        {
+          "target": "una taza grande",
+          "english": "a big cup"
+        }
+      ],
+      "drill": "word-order",
+      "markerGroups": [
+        [
+          "muy",
+          "más",
+          "menos"
+        ]
+      ]
+    },
+    {
+      "id": "present-indicative",
+      "targets": [
+        "present indicative",
+        "generalizations in the present tense"
+      ],
+      "title": "Present tense endings",
+      "explanation": "Regular verbs swap their -ar, -er or -ir ending for one that names the person: hablo, hablas, habla, hablamos.",
+      "examples": [
+        {
+          "target": "Hablo un poco de español.",
+          "english": "I speak a little Spanish.",
+          "note": "-o = I"
+        },
+        {
+          "target": "Ella corre muy rápido.",
+          "english": "She runs very fast.",
+          "note": "-e = he/she"
+        },
+        {
+          "target": "Vivimos aquí.",
+          "english": "We live here.",
+          "note": "-imos = we"
+        }
+      ],
+      "drill": "marker-cloze",
+      "markerGroups": [
+        [
+          "hablo",
+          "hablas",
+          "habla",
+          "hablamos"
+        ],
+        [
+          "vivo",
+          "vives",
+          "vive",
+          "vivimos"
+        ],
+        [
+          "como",
+          "comes",
+          "come",
+          "comemos"
+        ],
+        [
+          "leo",
+          "lees",
+          "lee",
+          "leemos"
+        ],
+        [
+          "corro",
+          "corres",
+          "corre",
+          "corremos"
+        ]
+      ]
+    },
+    {
+      "id": "question-formation",
+      "targets": [
+        "question formation",
+        "question phrase: ¿Cómo llego a…?"
+      ],
+      "title": "Asking questions",
+      "explanation": "A written Spanish question opens with ¿ and closes with ?. The question word carries an accent: qué, dónde, cómo, cuánto.",
+      "examples": [
+        {
+          "target": "¿Cuánto cuesta?",
+          "english": "How much does it cost?"
+        },
+        {
+          "target": "¿Dónde está el baño?",
+          "english": "Where is the bathroom?"
+        },
+        {
+          "target": "¿Cómo estás?",
+          "english": "How are you?"
+        }
+      ],
+      "drill": "marker-cloze",
+      "markerGroups": [
+        [
+          "qué",
+          "quién",
+          "dónde",
+          "cómo"
+        ],
+        [
+          "cuánto",
+          "cuánta",
+          "cuántos",
+          "cuántas"
+        ],
+        [
+          "cuándo",
+          "dónde",
+          "por qué"
+        ]
+      ]
+    },
+    {
+      "id": "adjective-agreement",
+      "targets": [
+        "adjective agreement",
+        "agreement with numbered nouns"
+      ],
+      "title": "Describing words match the noun",
+      "explanation": "A describing word copies the gender and number of its noun: un plato frío, una sopa fría, dos sopas frías.",
+      "examples": [
+        {
+          "target": "un apartamento pequeño",
+          "english": "a small apartment",
+          "note": "masculine -o"
+        },
+        {
+          "target": "una casa pequeña",
+          "english": "a small house",
+          "note": "feminine -a"
+        },
+        {
+          "target": "Estas fresas están frescas.",
+          "english": "These strawberries are fresh.",
+          "note": "plural -as"
+        }
+      ],
+      "drill": "marker-cloze",
+      "markerGroups": [
+        [
+          "pequeño",
+          "pequeña",
+          "pequeños",
+          "pequeñas"
+        ],
+        [
+          "frío",
+          "fría",
+          "fríos",
+          "frías"
+        ],
+        [
+          "fresco",
+          "fresca",
+          "frescos",
+          "frescas"
+        ],
+        [
+          "maduro",
+          "madura",
+          "maduros",
+          "maduras"
+        ],
+        [
+          "barato",
+          "barata",
+          "baratos",
+          "baratas"
+        ],
+        [
+          "cómodo",
+          "cómoda",
+          "cómodos",
+          "cómodas"
+        ],
+        [
+          "divertido",
+          "divertida"
+        ],
+        [
+          "tranquilo",
+          "tranquila",
+          "tranquilos",
+          "tranquilas"
+        ],
+        [
+          "serio",
+          "seria"
+        ],
+        [
+          "tímido",
+          "tímida"
+        ],
+        [
+          "simpático",
+          "simpática"
+        ]
+      ]
+    },
+    {
+      "id": "irregular-present",
+      "targets": [
+        "present indicative with common irregular verbs"
+      ],
+      "title": "Verbs that break the pattern",
+      "explanation": "The most-used verbs are irregular, so they are worth learning whole: voy/vas/va, tengo/tienes/tiene, hago/haces/hace.",
+      "examples": [
+        {
+          "target": "Voy a comprar fruta.",
+          "english": "I am going to buy fruit."
+        },
+        {
+          "target": "Tengo dos hermanos.",
+          "english": "I have two brothers."
+        },
+        {
+          "target": "Hace mucho frío.",
+          "english": "It is very cold.",
+          "note": "hacer for weather"
+        }
+      ],
+      "drill": "marker-cloze",
+      "markerGroups": [
+        [
+          "voy",
+          "vas",
+          "va",
+          "vamos"
+        ],
+        [
+          "tengo",
+          "tienes",
+          "tiene",
+          "tenemos"
+        ],
+        [
+          "hago",
+          "haces",
+          "hace",
+          "hacemos"
+        ],
+        [
+          "puedo",
+          "puedes",
+          "puede",
+          "podemos"
+        ],
+        [
+          "digo",
+          "dices",
+          "dice",
+          "decimos"
+        ]
+      ]
+    },
+    {
+      "id": "modal-verbs",
+      "targets": [
+        "modal verbs: poder, querer, tener que",
+        "invitations with querer/poder"
+      ],
+      "title": "poder, querer, tener que",
+      "explanation": "These three are followed straight by the plain verb: puedo ayudar, quiero comer, tengo que salir. Only tener needs que.",
+      "examples": [
+        {
+          "target": "Quiero un café, por favor.",
+          "english": "I want a coffee, please."
+        },
+        {
+          "target": "¿Puedes ayudarme?",
+          "english": "Can you help me?"
+        },
+        {
+          "target": "Tengo que trabajar.",
+          "english": "I have to work.",
+          "note": "tener + que"
+        }
+      ],
+      "drill": "marker-cloze",
+      "markerGroups": [
+        [
+          "puedo",
+          "quiero",
+          "tengo que",
+          "debo"
+        ],
+        [
+          "puedes",
+          "quieres",
+          "tienes que",
+          "debes"
+        ]
+      ]
+    },
+    {
+      "id": "near-future",
+      "targets": [
+        "near future: ir a + infinitive"
+      ],
+      "title": "Talking about what's next",
+      "explanation": "For something about to happen, use ir a plus the plain verb: voy a comer, vamos a salir. It works like English \"going to\".",
+      "examples": [
+        {
+          "target": "Voy a comprar fruta.",
+          "english": "I am going to buy fruit."
+        },
+        {
+          "target": "Vamos a cenar a las ocho.",
+          "english": "We are going to have dinner at eight."
+        },
+        {
+          "target": "¿Vas a venir?",
+          "english": "Are you going to come?"
+        }
+      ],
+      "drill": "marker-cloze",
+      "markerGroups": [
+        [
+          "voy a",
+          "vas a",
+          "va a",
+          "vamos a"
+        ]
+      ]
+    },
+    {
+      "id": "preterite-imperfect",
+      "targets": [
+        "preterite and imperfect in context"
+      ],
+      "title": "Two ways to talk about the past",
+      "explanation": "The preterite is for a finished event (fui, comí); the imperfect is for background and habits (era, comía). Same past, different job.",
+      "examples": [
+        {
+          "target": "Ayer fui al mercado.",
+          "english": "Yesterday I went to the market.",
+          "note": "one finished event"
+        },
+        {
+          "target": "De niño comía mucha fruta.",
+          "english": "As a child I used to eat a lot of fruit.",
+          "note": "a habit"
+        },
+        {
+          "target": "Hacía frío cuando salí.",
+          "english": "It was cold when I went out.",
+          "note": "background + event"
+        }
+      ],
+      "drill": "marker-cloze",
+      "markerGroups": [
+        [
+          "fue",
+          "era"
+        ],
+        [
+          "estuvo",
+          "estaba"
+        ],
+        [
+          "tuvo",
+          "tenía"
+        ],
+        [
+          "hizo",
+          "hacía"
+        ],
+        [
+          "comí",
+          "comía"
+        ]
+      ]
+    },
+    {
+      "id": "preterite",
+      "targets": [
+        "preterite for completed events"
+      ],
+      "title": "Finished events",
+      "explanation": "The preterite reports something that started and ended: hablé, comió, fuimos. It is the tense for a story's events.",
+      "examples": [
+        {
+          "target": "Nuestro equipo ganó el partido.",
+          "english": "Our team won the match."
+        },
+        {
+          "target": "Ayer hablé con mi hermana.",
+          "english": "Yesterday I spoke with my sister."
+        },
+        {
+          "target": "Fuimos al parque.",
+          "english": "We went to the park."
+        }
+      ],
+      "drill": "marker-cloze",
+      "markerGroups": [
+        [
+          "fui",
+          "fue",
+          "fuimos",
+          "fueron"
+        ],
+        [
+          "hablé",
+          "habló",
+          "hablamos"
+        ],
+        [
+          "comí",
+          "comió",
+          "comimos"
+        ],
+        [
+          "ganó",
+          "ganaron",
+          "gané"
+        ]
+      ]
+    },
+    {
+      "id": "imperfect",
+      "targets": [
+        "imperfect for background and habits"
+      ],
+      "title": "How things used to be",
+      "explanation": "The imperfect sets a scene or describes a habit: era, estaba, tenía, iba. It rarely says when something ended.",
+      "examples": [
+        {
+          "target": "Era muy tranquilo.",
+          "english": "It used to be very quiet."
+        },
+        {
+          "target": "Siempre iba en autobús.",
+          "english": "I always used to go by bus."
+        },
+        {
+          "target": "Tenía diez años.",
+          "english": "I was ten years old."
+        }
+      ],
+      "drill": "marker-cloze",
+      "markerGroups": [
+        [
+          "era",
+          "eran",
+          "éramos"
+        ],
+        [
+          "estaba",
+          "estaban"
+        ],
+        [
+          "tenía",
+          "tenían"
+        ],
+        [
+          "iba",
+          "iban"
+        ]
+      ]
+    },
+    {
+      "id": "object-pronouns",
+      "targets": [
+        "object pronouns"
+      ],
+      "title": "Standing in for the noun",
+      "explanation": "Once it is obvious what you mean, a short pronoun replaces the noun and moves in front of the verb: lo veo, la compro, te ayudo.",
+      "examples": [
+        {
+          "target": "Lo compro mañana.",
+          "english": "I'll buy it tomorrow.",
+          "note": "lo = it (masculine)"
+        },
+        {
+          "target": "La veo todos los días.",
+          "english": "I see her every day."
+        },
+        {
+          "target": "Te ayudo.",
+          "english": "I'll help you."
+        }
+      ],
+      "drill": "marker-cloze",
+      "markerGroups": [
+        [
+          "me",
+          "te",
+          "le",
+          "nos"
+        ],
+        [
+          "lo",
+          "la",
+          "los",
+          "las"
+        ]
+      ]
+    },
+    {
+      "id": "connectors",
+      "targets": [
+        "connectors for longer sentences"
+      ],
+      "title": "Joining ideas",
+      "explanation": "Short joining words turn two small sentences into one real one: y, pero, porque, también, cuando.",
+      "examples": [
+        {
+          "target": "Ella es tímida, pero divertida.",
+          "english": "She is shy but funny."
+        },
+        {
+          "target": "Leo y escribo en inglés.",
+          "english": "I read and write in English."
+        },
+        {
+          "target": "No voy porque hace frío.",
+          "english": "I'm not going because it's cold."
+        }
+      ],
+      "drill": "marker-cloze",
+      "markerGroups": [
+        [
+          "y",
+          "pero",
+          "porque",
+          "también"
+        ],
+        [
+          "cuando",
+          "aunque",
+          "así que"
+        ]
+      ]
+    },
+    {
+      "id": "sequence-connectors",
+      "targets": [
+        "sequence connectors"
+      ],
+      "title": "Putting events in order",
+      "explanation": "To tell what happened in what order, use primero, después, luego and finalmente.",
+      "examples": [
+        {
+          "target": "Primero desayuno.",
+          "english": "First I have breakfast."
+        },
+        {
+          "target": "Después voy al trabajo.",
+          "english": "Afterwards I go to work."
+        },
+        {
+          "target": "Finalmente vuelvo a casa.",
+          "english": "Finally I come home."
+        }
+      ],
+      "drill": "marker-cloze",
+      "markerGroups": [
+        [
+          "primero",
+          "después",
+          "luego",
+          "finalmente"
+        ]
+      ]
+    },
+    {
+      "id": "cause-contrast",
+      "targets": [
+        "cause and contrast connectors"
+      ],
+      "title": "Because, but, although",
+      "explanation": "Porque gives the reason, pero and aunque set up a contrast: No salgo porque llueve, aunque me gusta la lluvia.",
+      "examples": [
+        {
+          "target": "No salgo porque llueve.",
+          "english": "I'm not going out because it's raining."
+        },
+        {
+          "target": "Es pequeño pero cómodo.",
+          "english": "It is small but comfortable."
+        },
+        {
+          "target": "Aunque hace frío, camino.",
+          "english": "Although it is cold, I walk."
+        }
+      ],
+      "drill": "marker-cloze",
+      "markerGroups": [
+        [
+          "porque",
+          "aunque",
+          "pero",
+          "sin embargo"
+        ]
+      ]
+    },
+    {
+      "id": "time-expressions",
+      "targets": [
+        "time expressions",
+        "frequency expressions"
+      ],
+      "title": "Saying when",
+      "explanation": "Time words usually sit at the start or the end of the sentence: Hoy hace sol. Voy al mercado mañana.",
+      "examples": [
+        {
+          "target": "Hoy hace sol.",
+          "english": "Today it is sunny."
+        },
+        {
+          "target": "Siempre ayuda a los demás.",
+          "english": "He/she always helps others."
+        },
+        {
+          "target": "A veces cocino en casa.",
+          "english": "Sometimes I cook at home."
+        }
+      ],
+      "drill": "marker-cloze",
+      "markerGroups": [
+        [
+          "hoy",
+          "mañana",
+          "ayer",
+          "ahora"
+        ],
+        [
+          "siempre",
+          "a veces",
+          "nunca"
+        ]
+      ]
+    },
+    {
+      "id": "schedule-expressions",
+      "targets": [
+        "time and schedule expressions"
+      ],
+      "title": "Clock time",
+      "explanation": "Use a la una for one o'clock and a las for every other hour, then por la mañana / tarde / noche for the part of day.",
+      "examples": [
+        {
+          "target": "El tren sale a las ocho.",
+          "english": "The train leaves at eight."
+        },
+        {
+          "target": "Trabajo por la mañana.",
+          "english": "I work in the morning."
+        },
+        {
+          "target": "Nos vemos a la una.",
+          "english": "See you at one."
+        }
+      ],
+      "drill": "marker-cloze",
+      "markerGroups": [
+        [
+          "a las",
+          "a la"
+        ],
+        [
+          "por la mañana",
+          "por la tarde",
+          "por la noche"
+        ]
+      ]
+    },
+    {
+      "id": "estar-sentirse",
+      "targets": [
+        "estar and sentirse"
+      ],
+      "title": "estar and sentirse",
+      "explanation": "Estar describes how something is right now; sentirse says how a person feels. Both point at a state, not an identity.",
+      "examples": [
+        {
+          "target": "Estoy bien, gracias.",
+          "english": "I am well, thank you."
+        },
+        {
+          "target": "Me siento mejor hoy.",
+          "english": "I feel better today."
+        },
+        {
+          "target": "Está muy caliente.",
+          "english": "It is very hot."
+        }
+      ],
+      "drill": "marker-cloze",
+      "markerGroups": [
+        [
+          "estoy",
+          "me siento"
+        ],
+        [
+          "está",
+          "se siente"
+        ],
+        [
+          "estoy",
+          "estás",
+          "está"
+        ]
+      ]
+    },
+    {
+      "id": "tener-symptoms",
+      "targets": [
+        "tener + symptom nouns"
+      ],
+      "title": "Symptoms use tener",
+      "explanation": "Spanish says you *have* the symptom: tengo fiebre, tengo tos, tengo frío — not \"I am\".",
+      "examples": [
+        {
+          "target": "Tengo fiebre.",
+          "english": "I have a fever."
+        },
+        {
+          "target": "Tengo mucho frío.",
+          "english": "I am very cold.",
+          "note": "literally: I have cold"
+        },
+        {
+          "target": "¿Tienes tos?",
+          "english": "Do you have a cough?"
+        }
+      ],
+      "drill": "marker-cloze",
+      "markerGroups": [
+        [
+          "tengo",
+          "tienes",
+          "tiene"
+        ]
+      ]
+    },
+    {
+      "id": "doler",
+      "targets": [
+        "doler with indirect-object pronouns"
+      ],
+      "title": "How doler works",
+      "explanation": "Doler works backwards from English: the body part is the subject. Me duele la cabeza is \"the head hurts me\", and it becomes duelen for more than one.",
+      "examples": [
+        {
+          "target": "Me duele la cabeza.",
+          "english": "My head hurts."
+        },
+        {
+          "target": "Me duelen los pies.",
+          "english": "My feet hurt.",
+          "note": "plural, so duelen"
+        },
+        {
+          "target": "¿Te duele mucho?",
+          "english": "Does it hurt a lot?"
+        }
+      ],
+      "drill": "marker-cloze",
+      "markerGroups": [
+        [
+          "me duele",
+          "te duele",
+          "le duele"
+        ],
+        [
+          "duele",
+          "duelen"
+        ]
+      ]
+    },
+    {
+      "id": "quantifiers",
+      "targets": [
+        "quantifiers",
+        "percentages and quantities"
+      ],
+      "title": "How much",
+      "explanation": "Mucho, poco and bastante change to match the noun: mucho pan, mucha fruta, muchos platos.",
+      "examples": [
+        {
+          "target": "Hace mucho frío.",
+          "english": "It is very cold."
+        },
+        {
+          "target": "Hablo un poco de español.",
+          "english": "I speak a little Spanish."
+        },
+        {
+          "target": "Hay muchas tiendas aquí.",
+          "english": "There are many shops here."
+        }
+      ],
+      "drill": "marker-cloze",
+      "markerGroups": [
+        [
+          "mucho",
+          "poco",
+          "bastante",
+          "demasiado"
+        ],
+        [
+          "mucha",
+          "muchos",
+          "muchas",
+          "mucho"
+        ]
+      ]
+    },
+    {
+      "id": "count-mass-nouns",
+      "targets": [
+        "count and mass noun phrases"
+      ],
+      "title": "A kilo of, a cup of",
+      "explanation": "For things you measure rather than count, name the amount and join it with de: un kilo de manzanas, una taza de café.",
+      "examples": [
+        {
+          "target": "Quiero un kilo de manzanas.",
+          "english": "I want a kilo of apples."
+        },
+        {
+          "target": "una taza de café",
+          "english": "a cup of coffee"
+        },
+        {
+          "target": "un poco de leche",
+          "english": "a little milk"
+        }
+      ],
+      "drill": "marker-cloze",
+      "markerGroups": [
+        [
+          "un",
+          "una",
+          "unos",
+          "unas"
+        ],
+        [
+          "mucho",
+          "muchos",
+          "mucha",
+          "muchas"
+        ]
+      ]
+    },
+    {
+      "id": "gustar-preferir",
+      "targets": [
+        "preferences with gustar/preferir"
+      ],
+      "title": "Me gusta and prefiero",
+      "explanation": "Gustar agrees with the thing liked, not the person: me gusta el café, me gustan las fresas. Preferir behaves like a normal verb.",
+      "examples": [
+        {
+          "target": "Me gusta leer.",
+          "english": "I like to read."
+        },
+        {
+          "target": "Me gustan las fresas.",
+          "english": "I like strawberries.",
+          "note": "plural, so gustan"
+        },
+        {
+          "target": "Prefiero cocinar en casa.",
+          "english": "I prefer to cook at home."
+        }
+      ],
+      "drill": "marker-cloze",
+      "markerGroups": [
+        [
+          "me gusta",
+          "me gustan"
+        ],
+        [
+          "prefiero",
+          "prefieres",
+          "prefiere"
+        ]
+      ]
+    },
+    {
+      "id": "obligation",
+      "targets": [
+        "obligation: tener que/deber"
+      ],
+      "title": "Have to, should",
+      "explanation": "Tener que is a real obligation, deber is closer to \"should\", and necesito is \"I need to\". All three take the plain verb after them.",
+      "examples": [
+        {
+          "target": "Tengo que salir ahora.",
+          "english": "I have to leave now."
+        },
+        {
+          "target": "Debes descansar.",
+          "english": "You should rest."
+        },
+        {
+          "target": "Necesito comprar pan.",
+          "english": "I need to buy bread."
+        }
+      ],
+      "drill": "marker-cloze",
+      "markerGroups": [
+        [
+          "tengo que",
+          "debo",
+          "necesito"
+        ],
+        [
+          "tienes que",
+          "debes",
+          "necesitas"
+        ]
+      ]
+    },
+    {
+      "id": "formal-requests",
+      "targets": [
+        "formal requests"
+      ],
+      "title": "Being polite",
+      "explanation": "With someone you don't know, use the usted form and soften the ask: ¿Podría ayudarme? Quisiera un café.",
+      "examples": [
+        {
+          "target": "¿Podría ayudarme?",
+          "english": "Could you help me?"
+        },
+        {
+          "target": "Quisiera un café, por favor.",
+          "english": "I would like a coffee, please."
+        },
+        {
+          "target": "¿Puede repetir?",
+          "english": "Could you repeat that?"
+        }
+      ],
+      "drill": "marker-cloze",
+      "markerGroups": [
+        [
+          "puede",
+          "podría",
+          "quisiera"
+        ],
+        [
+          "quiero",
+          "quisiera"
+        ]
+      ]
+    },
+    {
+      "id": "comparatives",
+      "targets": [
+        "comparatives"
+      ],
+      "title": "More, less, better",
+      "explanation": "Build a comparison with más … que or menos … que. Mejor and peor already mean \"better\" and \"worse\", so they never take más.",
+      "examples": [
+        {
+          "target": "Es más grande que mi casa.",
+          "english": "It is bigger than my house."
+        },
+        {
+          "target": "Hoy hace menos frío.",
+          "english": "Today it is less cold."
+        },
+        {
+          "target": "Este café es mejor.",
+          "english": "This coffee is better."
+        }
+      ],
+      "drill": "marker-cloze",
+      "markerGroups": [
+        [
+          "más",
+          "menos"
+        ],
+        [
+          "mejor",
+          "peor"
+        ]
+      ]
+    },
+    {
+      "id": "opinion-frames",
+      "targets": [
+        "opinion frames: creo que/me parece que"
+      ],
+      "title": "Giving an opinion",
+      "explanation": "Open an opinion with creo que, pienso que or me parece que, then finish with an ordinary sentence.",
+      "examples": [
+        {
+          "target": "Creo que es interesante.",
+          "english": "I think it is interesting."
+        },
+        {
+          "target": "Me parece que hace frío.",
+          "english": "It seems to me that it is cold."
+        },
+        {
+          "target": "Pienso que tienes razón.",
+          "english": "I think you are right."
+        }
+      ],
+      "drill": "marker-cloze",
+      "markerGroups": [
+        [
+          "creo que",
+          "me parece que",
+          "pienso que"
+        ]
+      ]
+    },
+    {
+      "id": "imperatives",
+      "targets": [
+        "imperatives"
+      ],
+      "title": "Telling someone what to do",
+      "explanation": "For a friendly instruction, an -ar verb ends in -a and an -er/-ir verb ends in -e: cruza la plaza, come despacio.",
+      "examples": [
+        {
+          "target": "Cruza la plaza.",
+          "english": "Cross the square."
+        },
+        {
+          "target": "Habla despacio, por favor.",
+          "english": "Speak slowly, please."
+        },
+        {
+          "target": "Come despacio.",
+          "english": "Eat slowly."
+        }
+      ],
+      "drill": "marker-cloze",
+      "markerGroups": [
+        [
+          "cruza",
+          "camina",
+          "habla",
+          "toma"
+        ],
+        [
+          "come",
+          "bebe",
+          "escribe"
+        ]
+      ]
+    },
+    {
+      "id": "location-prepositions",
+      "targets": [
+        "location prepositions"
+      ],
+      "title": "Saying where",
+      "explanation": "Position words usually end in de: encima de, debajo de, al lado de, dentro de. Cerca and lejos can stand alone.",
+      "examples": [
+        {
+          "target": "Está al lado de la puerta.",
+          "english": "It is next to the door."
+        },
+        {
+          "target": "Hay una mochila debajo de la silla.",
+          "english": "There is a backpack under the chair."
+        },
+        {
+          "target": "El parque está cerca.",
+          "english": "The park is near."
+        }
+      ],
+      "drill": "marker-cloze",
+      "markerGroups": [
+        [
+          "encima de",
+          "debajo de",
+          "al lado de",
+          "dentro de"
+        ],
+        [
+          "cerca",
+          "lejos",
+          "aquí",
+          "allí"
+        ]
+      ]
+    },
+    {
+      "id": "impersonal-se",
+      "targets": [
+        "impersonal se"
+      ],
+      "title": "When nobody in particular does it",
+      "explanation": "Se plus the he/she form says what people do in general: ¿Cómo se dice…? Aquí se habla español.",
+      "examples": [
+        {
+          "target": "¿Cómo se dice \"water\" en español?",
+          "english": "How do you say \"water\" in Spanish?"
+        },
+        {
+          "target": "Aquí se habla español.",
+          "english": "Spanish is spoken here."
+        },
+        {
+          "target": "No se puede entrar.",
+          "english": "You can't go in."
+        }
+      ],
+      "drill": "marker-cloze",
+      "markerGroups": [
+        [
+          "se dice",
+          "se habla",
+          "se puede"
+        ]
+      ]
+    },
+    {
+      "id": "numbers",
+      "targets": [
+        "cardinal and ordinal numbers"
+      ],
+      "title": "Counting and ordering",
+      "explanation": "Counting numbers don't change (dos, tres), but ordinal numbers behave like describing words: el primer día, la primera vez.",
+      "examples": [
+        {
+          "target": "Tengo dos hermanos.",
+          "english": "I have two brothers."
+        },
+        {
+          "target": "Es la primera vez.",
+          "english": "It is the first time."
+        },
+        {
+          "target": "Quiero tres, por favor.",
+          "english": "I want three, please."
+        }
+      ],
+      "drill": "marker-cloze",
+      "markerGroups": [
+        [
+          "uno",
+          "dos",
+          "tres",
+          "cuatro"
+        ],
+        [
+          "primero",
+          "segundo",
+          "tercero"
+        ]
+      ]
+    }
+  ]
+}

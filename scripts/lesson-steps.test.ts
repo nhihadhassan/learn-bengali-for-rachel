@@ -9,7 +9,10 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 import {
+  MIN_RECYCLE_GAP,
   TEACH_TEST_LAG,
+  adaptUpcomingSteps,
+  applyMistakeRecycling,
   buildLessonSteps,
   countCompletedWorkSteps,
   countQuestionSteps,
@@ -261,4 +264,259 @@ test("a lesson with no phrases degrades gracefully instead of throwing", () => {
   assert.equal(steps.length, 1);
   assert.equal(steps[0].type, "intro");
   assert.equal(countWorkSteps(steps), 0);
+});
+
+// ---------------------------------------------------------------------------
+// The cumulative engine
+// ---------------------------------------------------------------------------
+
+const SPANISH_LESSONS = getLessonsForCurriculum("spanish");
+
+function spanishLesson(id: string): Lesson {
+  const lesson = SPANISH_LESSONS.find((item) => item.id === id);
+  assert.ok(lesson, `no lesson ${id}`);
+  return lesson!;
+}
+
+/** The first unit's six lessons, in path order. */
+const UNIT_ONE = Array.from({ length: 6 }, (_, index) =>
+  spanishLesson(`es-en-s01-u001-l${index + 1}`),
+);
+
+function questionTypes(lesson: Lesson): string[] {
+  return buildLessonSteps(lesson)
+    .filter((step) => step.type !== "intro" && step.type !== "learn")
+    .map((step) => step.type);
+}
+
+test("the six lesson types produce meaningfully different sessions", () => {
+  const profiles = UNIT_ONE.map((lesson) => ({
+    id: lesson.id,
+    kind: lesson.plan?.kind,
+    types: questionTypes(lesson),
+  }));
+
+  // Discover leans on recognition and listening, not on production formats.
+  const discover = profiles[0];
+  assert.equal(discover.kind, "discover");
+  assert.ok(
+    !discover.types.includes("translate") && !discover.types.includes("order"),
+    `Discover should not open with sentence construction: ${discover.types.join(" ")}`,
+  );
+
+  // Build is where pieces get combined.
+  const build = profiles[1];
+  assert.equal(build.kind, "build");
+  assert.ok(
+    build.types.some((type) => type === "order" || type === "translate"),
+    `Build produced ${build.types.join(" ")}`,
+  );
+
+  // Listen and speak is audio-dominant.
+  const listen = profiles[3];
+  assert.equal(listen.kind, "listen");
+  const listenCount = listen.types.filter((type) => type === "listen").length;
+  assert.ok(listenCount >= 3, `only ${listenCount} listening questions`);
+  assert.ok(
+    listenCount > buildLessonSteps(UNIT_ONE[0]).filter((s) => s.type === "listen").length,
+    "Listen and speak should out-listen Discover",
+  );
+
+  // Use in context runs a dialogue.
+  const context = profiles[4];
+  assert.equal(context.kind, "context");
+  assert.ok(context.types.includes("dialogue"), `context produced ${context.types.join(" ")}`);
+
+  // Unit review teaches nothing and reviews everything.
+  const review = UNIT_ONE[5];
+  assert.equal(review.plan?.kind, "review");
+  assert.ok(
+    !buildLessonSteps(review).some((step) => step.type === "learn"),
+    "Unit review should not introduce anything",
+  );
+
+  // No two of the six have the same question profile.
+  const signatures = new Set(profiles.map((profile) => profile.types.join(",")));
+  assert.equal(signatures.size, profiles.length, "two lesson types generated the same session");
+});
+
+test("a planned lesson checks older material before it has taught anything new", () => {
+  // Unit 2 onwards has a backlog to draw on.
+  const lesson = spanishLesson("es-en-s01-u002-l1");
+  const steps = buildLessonSteps(lesson);
+  const newIds = new Set(lesson.plan?.newPhraseIds ?? []);
+  const firstQuestion = steps.find(
+    (step) => step.type !== "intro" && step.type !== "learn" && step.type !== "grammar",
+  );
+
+  assert.ok(firstQuestion, "no questions were generated");
+  const phraseId = getStepPhraseId(firstQuestion!);
+  assert.ok(phraseId && !newIds.has(phraseId), "the first question is about brand-new material");
+});
+
+test("lesson length stays near five minutes", () => {
+  for (const lesson of SPANISH_LESSONS.slice(0, 60)) {
+    const steps = buildLessonSteps(lesson);
+    assert.ok(
+      steps.length >= 8 && steps.length <= 20,
+      `${lesson.id} generated ${steps.length} steps`,
+    );
+  }
+});
+
+test("generation is stable: the same lesson builds the same session", () => {
+  for (const lesson of UNIT_ONE) {
+    const first = buildLessonSteps(lesson).map((step) => `${step.type}:${step.id}`);
+    const second = buildLessonSteps(lesson).map((step) => `${step.type}:${step.id}`);
+    assert.deepEqual(first, second, `${lesson.id} is not deterministic`);
+  }
+});
+
+test("a mistake comes back later, in a different format, without lengthening the lesson", () => {
+  const lesson = spanishLesson("es-en-s01-u002-l2");
+  const steps = buildLessonSteps(lesson);
+  const missedIndex = steps.findIndex(
+    (step, index) => index > 0 && step.type === "recognize",
+  );
+  const missed = steps[missedIndex];
+  const phraseId = getStepPhraseId(missed);
+  assert.ok(phraseId);
+
+  const after = applyMistakeRecycling(steps, missedIndex, missed, lesson);
+
+  assert.equal(after.length, steps.length, "recycling changed the number of steps");
+
+  const changed = after.findIndex((step, index) => step.id !== steps[index].id);
+  assert.ok(changed > missedIndex, "nothing was recycled");
+  assert.ok(
+    changed - missedIndex >= MIN_RECYCLE_GAP,
+    `the missed item came back after only ${changed - missedIndex} steps`,
+  );
+  assert.equal(getStepPhraseId(after[changed]), phraseId);
+  assert.notEqual(after[changed].type, missed.type, "same question, asked again");
+});
+
+test("a second mistake takes the next slot rather than overwriting the first", () => {
+  const lesson = spanishLesson("es-en-s01-u002-l2");
+  const steps = buildLessonSteps(lesson);
+  const firstIndex = steps.findIndex((step, index) => index > 0 && step.type === "recognize");
+  const once = applyMistakeRecycling(steps, firstIndex, steps[firstIndex], lesson);
+
+  const secondIndex = once.findIndex(
+    (step, index) => index > firstIndex && step.type === "produce",
+  );
+
+  if (secondIndex < 0) {
+    return;
+  }
+
+  const twice = applyMistakeRecycling(once, secondIndex, once[secondIndex], lesson);
+  const recycled = twice.filter(
+    (step, index) => step.id !== steps[index]?.id,
+  );
+
+  assert.equal(twice.length, steps.length);
+  assert.ok(recycled.length >= 1);
+});
+
+test("an unattributable mistake is left alone rather than mis-recycled", () => {
+  const lesson = spanishLesson("es-en-s01-u001-l1");
+  const steps = buildLessonSteps(lesson);
+
+  assert.equal(applyMistakeRecycling(steps, 0, steps[0], lesson), steps);
+});
+
+test("a struggling learner gets scaffolding back; a confident one does not", () => {
+  const lesson = spanishLesson("es-en-s01-u001-l2");
+  const steps = buildLessonSteps(lesson);
+  const hardIndex = steps.findIndex(
+    (step) => step.type === "translate" || step.type === "listen" || step.type === "order",
+  );
+
+  if (hardIndex < 0) {
+    return;
+  }
+
+  const doingWell = adaptUpcomingSteps(
+    steps,
+    hardIndex,
+    { recentResults: [true, true, true, true] },
+    lesson,
+  );
+  assert.equal(doingWell, steps, "a clean run should change nothing");
+
+  const struggling = adaptUpcomingSteps(
+    steps,
+    hardIndex,
+    { recentResults: [true, false, false, true] },
+    lesson,
+  );
+
+  assert.notEqual(struggling, steps, "two misses should soften the next hard question");
+  assert.equal(struggling.length, steps.length);
+  assert.equal(struggling[hardIndex].id, steps[hardIndex].id, "the slot keeps its identity");
+  assert.ok(
+    stepDifficulty(struggling[hardIndex]) <= stepDifficulty(steps[hardIndex]),
+    "the replacement should be no harder",
+  );
+});
+
+test("dialogue turns build one conversation rather than unrelated prompts", () => {
+  const lesson = spanishLesson("es-en-s01-u001-l5");
+  const dialogue = buildLessonSteps(lesson).filter(
+    (step): step is Extract<LessonStep, { type: "dialogue" }> => step.type === "dialogue",
+  );
+
+  assert.ok(dialogue.length >= 2, "an authored scenario should run several turns");
+
+  dialogue.forEach((step, index) => {
+    assert.equal(step.scenario, dialogue[0].scenario, "turns drifted to another scenario");
+    assert.equal(step.turnIndex, index);
+    assert.equal((step.history ?? []).length, index * 2, "the conversation so far is missing");
+    assert.ok(step.options.includes(step.answer));
+    // A question is answered by something that is not another question.
+    if (step.promptRomanized.includes("?")) {
+      assert.ok(!step.answer.includes("?"), `"${step.answer}" answers a question with a question`);
+    }
+  });
+});
+
+test("a practice session over a planned lesson teaches nothing", () => {
+  const steps = buildLessonSteps(spanishLesson("es-en-s01-u002-l3"), { reviewMode: true });
+
+  assert.ok(steps.length > 0);
+  assert.ok(!steps.some((step) => step.type === "intro" || step.type === "learn"));
+});
+
+test("turning the flag off restores the phrase-book lesson shape", () => {
+  const lesson = spanishLesson("es-en-s01-u001-l1");
+  const { plan, ...withoutPlan } = lesson;
+  void plan;
+
+  const steps = buildLessonSteps(withoutPlan as Lesson);
+
+  assert.equal(steps[0].type, "intro");
+  assert.ok(steps.some((step) => step.type === "learn"));
+  assert.ok(!steps.some((step) => step.type === "grammar"));
+});
+
+test("a lesson never asks the same question twice", () => {
+  // Every part of a planned lesson — warm-up checks, grammar drills, the
+  // practice block, the recycle slots, the closer — draws from one shared
+  // record of what has been asked. This is what stops a lesson turning into
+  // five "complete the sentence" questions about the same sentence.
+  for (const lesson of SPANISH_LESSONS.slice(0, 240)) {
+    const asked = buildLessonSteps(lesson)
+      .filter(
+        (step) =>
+          step.type !== "intro" && step.type !== "learn" && step.type !== "grammar",
+      )
+      .map((step) => `${step.type}:${getStepPhraseId(step)}`);
+
+    assert.equal(
+      new Set(asked).size,
+      asked.length,
+      `${lesson.id} repeats a question: ${asked.join(" ")}`,
+    );
+  }
 });

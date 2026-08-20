@@ -9,17 +9,6 @@ import { getCurriculum, getUnit } from "@/lib/content";
 import { useProgress } from "@/lib/progress-store";
 import type { Lesson, Phrase } from "@/types/learning";
 
-// Deterministic-per-mount shuffle so the mixed order stays stable through the
-// session. Content phrases don't change, so a plain useMemo is enough.
-function shuffle<T>(items: T[]): T[] {
-  const copy = [...items];
-  for (let i = copy.length - 1; i > 0; i -= 1) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [copy[i], copy[j]] = [copy[j], copy[i]];
-  }
-  return copy;
-}
-
 export default function UnitReviewPage() {
   const params = useParams<{ unitId: string }>();
   const unitId = params?.unitId ?? "";
@@ -32,9 +21,21 @@ export default function UnitReviewPage() {
       return null;
     }
 
-    const phrases: Phrase[] = shuffle(
-      unit.lessons.flatMap((lesson) => lesson.phrases),
-    ).slice(0, 12);
+    // Everything the unit's lessons touch — which, on a cumulative course,
+    // already includes the older units those lessons interleaved. The engine
+    // picks which of these to actually ask about based on what the learner's
+    // memory says is weak, rather than shuffling and taking the first twelve.
+    const seen = new Set<string>();
+    const phrases: Phrase[] = [];
+
+    for (const lesson of unit.lessons) {
+      for (const phrase of lesson.phrases) {
+        if (!seen.has(phrase.id)) {
+          seen.add(phrase.id);
+          phrases.push(phrase);
+        }
+      }
+    }
 
     if (phrases.length === 0) {
       return null;
@@ -51,6 +52,11 @@ export default function UnitReviewPage() {
       exercises: [],
       curriculumId: activeCurriculumId,
       locale: curriculum.locale,
+      plan: {
+        kind: "review",
+        newPhraseIds: [],
+        reviewPhraseIds: phrases.map((phrase) => phrase.id),
+      },
     };
     // Rebuild only when the unit or curriculum changes, not on every answer.
     // eslint-disable-next-line react-hooks/exhaustive-deps

@@ -28,7 +28,7 @@ export function normalizeWord(word: string): string {
 export const FUNCTION_WORDS = new Set([
   "el", "la", "los", "las", "un", "una", "unos", "unas", "de", "del", "en",
   "y", "o", "a", "al", "es", "mi", "tu", "su", "con", "por", "para", "que",
-  "se", "lo", "le", "me", "te", "no", "sí",
+  "se", "lo", "le", "me", "te", "no", "sí", "muy", "más", "esta", "este",
   "the", "an", "of", "in", "to", "is",
 ]);
 

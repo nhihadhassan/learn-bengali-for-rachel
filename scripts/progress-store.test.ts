@@ -207,3 +207,61 @@ test("progress saved before activity tracking existed still loads", () => {
   assert.equal(store.byCurriculum.bengali.answeredCorrect, 0);
   assert.equal(store.byCurriculum.bengali.xp, 50);
 });
+
+test("mistakes saved before they recorded a phrase still load", () => {
+  // Written by a build that predates `Mistake.phraseId`. It has to survive
+  // intact — mistake recycling treats a mistake with no phrase as simply
+  // unattributable, never as a reason to drop the record.
+  const store = normalizeStore({
+    activeCurriculumId: "spanish",
+    byCurriculum: {
+      spanish: {
+        completedLessons: ["es-en-s01-u001-l1"],
+        mistakes: [
+          {
+            id: "old-1",
+            exerciseId: "es-en-s01-u001-l1-recognize-x",
+            lessonId: "es-en-s01-u001-l1",
+            prompt: "What does this mean?",
+            correctAnswer: "coffee",
+            wrongAnswer: "tea",
+            resolved: false,
+            createdAt: "2026-01-02T10:00:00.000Z",
+          },
+        ],
+      },
+    },
+  });
+
+  const mistakes = store.byCurriculum.spanish.mistakes;
+
+  assert.equal(mistakes.length, 1);
+  assert.equal(mistakes[0].id, "old-1");
+  assert.equal(mistakes[0].phraseId, undefined);
+  assert.equal(store.byCurriculum.spanish.completedLessons.length, 1);
+});
+
+test("a mistake that records its phrase round-trips", () => {
+  const store = normalizeStore({
+    activeCurriculumId: "spanish",
+    byCurriculum: {
+      spanish: baseProgress({
+        mistakes: [
+          {
+            id: "new-1",
+            exerciseId: "step-1",
+            lessonId: "es-en-s01-u001-l2",
+            phraseId: "es-en-s01-u001-v03",
+            prompt: "Which one means coffee?",
+            correctAnswer: "el café",
+            wrongAnswer: "el té",
+            resolved: false,
+            createdAt: "2026-02-02T10:00:00.000Z",
+          },
+        ],
+      }),
+    },
+  });
+
+  assert.equal(store.byCurriculum.spanish.mistakes[0].phraseId, "es-en-s01-u001-v03");
+});

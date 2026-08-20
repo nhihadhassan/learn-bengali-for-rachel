@@ -55,6 +55,19 @@ export type CourseCapabilities = {
   placement: boolean;
   /** Has practice songs in the Music section. */
   music: boolean;
+  /**
+   * How lessons are built.
+   *
+   * `"simple"` — a lesson teaches its own hand-authored phrase set. This is the
+   * right model for the short phrase-book courses, where a unit *is* the
+   * content and there is no deep backlog to interleave.
+   *
+   * `"cumulative"` — the course carries a curriculum plan per lesson
+   * (`Lesson.plan`): a small set of genuinely new items plus prior material to
+   * retrieve, with the six lesson types generating different kinds of work.
+   * Only worth the machinery for a long, sequenced course.
+   */
+  lessonStrategy: "simple" | "cumulative";
 };
 
 /** The words a course uses for its own units of work. */
@@ -119,6 +132,7 @@ function languageCapabilities(
     roleplay: false,
     placement: true,
     music: false,
+    lessonStrategy: "simple",
     ...overrides,
   };
 }
@@ -168,10 +182,13 @@ export const COURSES: CourseDescriptor[] = [
     locale: "es",
     // Spanish browser voices are widely available and accurate, so this course
     // gets the audio-dependent exercise types.
+    // Long enough (131 units) for cumulative sequencing to pay off: lessons
+    // build on each other and old units keep coming back.
     capabilities: languageCapabilities({
       listening: true,
       dialogue: true,
       music: true,
+      lessonStrategy: "cumulative",
     }),
     nouns: LANGUAGE_NOUNS,
     accent: {
@@ -214,6 +231,7 @@ export const COURSES: CourseDescriptor[] = [
       roleplay: false,
       placement: false,
       music: false,
+      lessonStrategy: "simple",
     },
     nouns: HISTORY_NOUNS,
     accent: {

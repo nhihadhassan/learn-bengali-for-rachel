@@ -11,7 +11,8 @@
     "build:course-index": "tsx scripts/build-course-index.ts",
     "validate:curriculum": "tsx scripts/validate-curriculum.ts",
     "seed:curriculum": "tsx scripts/seed-curriculum.ts",
-    "test:exercise-generation": "tsx --test scripts/exercise-generation.test.ts"
+    "test:exercise-generation": "tsx --test scripts/exercise-generation.test.ts",
+    "audit:curriculum": "tsx scripts/curriculum-audit.ts"
   },
   "dependencies": {
     "@supabase/ssr": "^0.7.0",
