@@ -96,12 +96,27 @@ function adaptLesson(unit: PackUnit, packLesson: PackLesson, unitNumber: number)
   };
 }
 
+/** Section metadata from the pack, keyed by section number. */
+const sectionByNumber = new Map(
+  (course.sections ?? []).map((section) => [
+    section.section,
+    {
+      number: section.section,
+      title: section.title_es,
+      description: section.description,
+    },
+  ]),
+);
+
 function adaptUnit(unit: PackUnit, unitNumber: number): Unit {
   return {
     id: unit.id,
     number: unitNumber,
     title: unit.title,
     description: unit.communicative_goal,
+    // Sections are the course's four big chapters; the path browser uses them
+    // to keep 131 units navigable.
+    section: sectionByNumber.get(unit.section),
     lessons: unit.lesson_sequence.map((lesson) => adaptLesson(unit, lesson, unitNumber)),
     metadata: {
       difficultyBand: CEFR_DIFFICULTY[unit.cefr] ?? unit.cefr,

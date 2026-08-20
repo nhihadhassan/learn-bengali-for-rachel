@@ -1,56 +1,39 @@
 "use client";
 
+/**
+ * The platform home: every course Rachel is learning, in one place.
+ *
+ * This is the screen that makes the app "Learning for Rachel" rather than "a
+ * Bengali app that also has other things" — Bengali is simply the first card.
+ */
+
+import { useMemo } from "react";
 import { useRouter } from "next/navigation";
-import { ArrowRight, GraduationCap } from "lucide-react";
-import { curricula } from "@/lib/content";
+import { ArrowRight, Flame } from "lucide-react";
+import { getCourseOutline } from "@/lib/course-index";
+import { COURSES } from "@/lib/courses";
 import { useProgress } from "@/lib/progress-store";
 import type { CurriculumId } from "@/types/learning";
 import { cn } from "@/lib/utils";
 
-type Accent = {
-  flag: string;
-  tile: string;
-  bar: string;
-  ring: string;
-};
-
-// Per-course flag + accent so each card is instantly recognizable.
-const ACCENTS: Record<CurriculumId, Accent> = {
-  bengali: {
-    flag: "🇧🇩",
-    tile: "bg-violet-500",
-    bar: "bg-violet-500",
-    ring: "hover:border-violet-300 dark:hover:border-violet-400/50",
-  },
-  "spanish-peru": {
-    flag: "🇵🇪",
-    tile: "bg-amber-500",
-    bar: "bg-amber-500",
-    ring: "hover:border-amber-300 dark:hover:border-amber-400/50",
-  },
-  spanish: {
-    flag: "🇪🇸",
-    tile: "bg-rose-500",
-    bar: "bg-rose-500",
-    ring: "hover:border-rose-300 dark:hover:border-rose-400/50",
-  },
-  malayalam: {
-    flag: "🇮🇳",
-    tile: "bg-cyan-500",
-    bar: "bg-cyan-500",
-    ring: "hover:border-cyan-300 dark:hover:border-cyan-400/50",
-  },
-  history: {
-    flag: "📜",
-    tile: "bg-orange-500",
-    bar: "bg-orange-500",
-    ring: "hover:border-orange-300 dark:hover:border-orange-400/50",
-  },
-};
-
 export function CoursePicker() {
   const router = useRouter();
   const { activeCurriculumId, setActiveCurriculumId, store } = useProgress();
+
+  const totals = useMemo(() => {
+    const completed = COURSES.reduce(
+      (total, course) =>
+        total + (store.byCurriculum[course.id]?.completedLessons.length ?? 0),
+      0,
+    );
+    const bestStreak = COURSES.reduce(
+      (best, course) =>
+        Math.max(best, store.byCurriculum[course.id]?.streak ?? 0),
+      0,
+    );
+
+    return { completed, bestStreak };
+  }, [store.byCurriculum]);
 
   function choose(id: CurriculumId) {
     setActiveCurriculumId(id);
@@ -58,90 +41,96 @@ export function CoursePicker() {
   }
 
   return (
-    <div className="mx-auto max-w-4xl space-y-8">
-      <header className="relative isolate overflow-hidden rounded-[32px] bg-slate-950 px-6 py-8 text-white shadow-[0_28px_90px_rgba(15,23,42,0.22)] ring-1 ring-white/10 sm:px-8 sm:py-10">
+    <div className="mx-auto max-w-3xl space-y-6">
+      <header className="relative isolate overflow-hidden rounded-[28px] bg-slate-950 px-6 py-8 text-white shadow-[0_20px_60px_rgba(15,23,42,0.2)] sm:px-8 sm:py-10">
         <div
           aria-hidden="true"
-          className="absolute inset-0 bg-[radial-gradient(circle_at_16%_20%,rgba(124,58,237,0.36),transparent_36%),radial-gradient(circle_at_86%_12%,rgba(6,182,212,0.22),transparent_34%),radial-gradient(circle_at_50%_92%,rgba(251,191,36,0.16),transparent_36%)]"
+          className="absolute inset-0 bg-[radial-gradient(circle_at_15%_20%,rgba(124,58,237,0.34),transparent_40%),radial-gradient(circle_at_85%_12%,rgba(6,182,212,0.2),transparent_38%)]"
         />
         <div className="relative">
-          <span className="inline-flex items-center gap-2 rounded-full border border-white/12 bg-white/10 px-3 py-2 text-sm font-bold text-violet-100 shadow-inner">
-            <GraduationCap size={16} /> For Rachel
-          </span>
-          <h1 className="mt-5 text-4xl font-black leading-[1.05] [text-wrap:balance] sm:text-5xl">
-            Pick a course to begin.
-          </h1>
-          <p className="mt-4 max-w-xl text-base leading-7 text-slate-200 sm:text-lg">
-            Choose a language or subject and jump straight into the lessons. You
-            can switch anytime from the menu.
+          <p className="text-xs font-black uppercase tracking-[0.16em] text-violet-200">
+            Learning for Rachel
           </p>
+          <h1 className="mt-3 text-3xl font-black leading-[1.1] [text-wrap:balance] sm:text-4xl">
+            What are we learning today?
+          </h1>
+          {totals.completed > 0 && (
+            <p className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-1 text-sm font-bold text-slate-300">
+              <span>{totals.completed} lessons finished</span>
+              {totals.bestStreak > 0 && (
+                <span className="inline-flex items-center gap-1.5 text-orange-300">
+                  <Flame size={15} fill="currentColor" />
+                  {totals.bestStreak} day streak
+                </span>
+              )}
+            </p>
+          )}
         </div>
       </header>
 
-      <div className="grid gap-4 sm:grid-cols-2">
-        {curricula.map((curriculum) => {
-          const accent = ACCENTS[curriculum.id];
-          const lessons = curriculum.units.flatMap((unit) => unit.lessons);
-          const lessonCount = lessons.length;
-          const isHistory = curriculum.mode === "history";
-          const completed = store.byCurriculum[curriculum.id]?.completedLessons.length ?? 0;
+      <div className="grid gap-3 sm:grid-cols-2">
+        {COURSES.map((course) => {
+          const outline = getCourseOutline(course.id);
+          const completed =
+            store.byCurriculum[course.id]?.completedLessons.length ?? 0;
           const percent =
-            lessonCount > 0 ? Math.min(100, Math.round((completed / lessonCount) * 100)) : 0;
-          const isActive = curriculum.id === activeCurriculumId;
+            outline.lessonCount > 0
+              ? Math.min(100, Math.round((completed / outline.lessonCount) * 100))
+              : 0;
+          const isActive = course.id === activeCurriculumId;
 
           return (
             <button
-              key={curriculum.id}
+              key={course.id}
               type="button"
-              onClick={() => choose(curriculum.id)}
+              onClick={() => choose(course.id)}
               className={cn(
-                "group flex flex-col rounded-[28px] border border-slate-200 bg-white p-5 text-left shadow-[0_10px_30px_rgba(15,23,42,0.06)] transition hover:-translate-y-0.5 dark:border-white/10 dark:bg-white/[0.05]",
-                accent.ring,
+                "group flex flex-col rounded-3xl border bg-white p-5 text-left transition hover:-translate-y-0.5 hover:shadow-[0_12px_30px_rgba(15,23,42,0.08)] dark:bg-white/[0.05]",
+                isActive
+                  ? "border-violet-300 dark:border-violet-400/40"
+                  : "border-slate-200 dark:border-white/10",
               )}
             >
               <div className="flex items-start justify-between gap-3">
                 <span
                   className={cn(
-                    "grid size-14 shrink-0 place-items-center rounded-2xl text-3xl shadow-inner",
-                    accent.tile,
+                    "grid size-12 shrink-0 place-items-center rounded-2xl text-2xl",
+                    course.accent.tile,
                   )}
                   aria-hidden="true"
                 >
-                  {accent.flag}
+                  {course.accent.emoji}
                 </span>
                 {isActive && (
-                  <span className="rounded-full bg-violet-100 px-3 py-1 text-xs font-black uppercase tracking-[0.1em] text-violet-700 dark:bg-violet-400/15 dark:text-violet-200">
+                  <span className="rounded-full bg-violet-100 px-2.5 py-1 text-[11px] font-black uppercase tracking-wide text-violet-700 dark:bg-violet-400/20 dark:text-violet-200">
                     Current
                   </span>
                 )}
               </div>
 
-              <h2 className="mt-4 text-2xl font-black leading-tight text-slate-950 dark:text-slate-50">
-                {curriculum.label}
+              <h2 className="mt-4 text-xl font-black leading-tight text-slate-950 dark:text-slate-50">
+                {course.label}
               </h2>
-              <p className="mt-1.5 line-clamp-2 text-sm font-semibold leading-6 text-slate-500 dark:text-slate-300">
-                {curriculum.description}
+              <p className="mt-1 line-clamp-2 text-sm font-semibold leading-6 text-slate-500 dark:text-slate-400">
+                {course.description}
               </p>
 
               <div className="mt-4 flex-1" />
 
               {completed > 0 && (
-                <div className="mb-3">
-                  <div className="h-2 overflow-hidden rounded-full bg-slate-100 dark:bg-white/10">
-                    <div
-                      className={cn("h-full rounded-full", accent.bar)}
-                      style={{ width: `${percent}%` }}
-                    />
-                  </div>
+                <div className="mb-3 h-1.5 overflow-hidden rounded-full bg-slate-100 dark:bg-white/10">
+                  <div
+                    className={cn("h-full rounded-full", course.accent.bar)}
+                    style={{ width: `${percent}%` }}
+                  />
                 </div>
               )}
 
-              <div className="flex items-center justify-between">
-                <span className="text-sm font-black uppercase tracking-[0.08em] text-slate-400 dark:text-slate-500">
-                  {isHistory
-                    ? `${lessonCount} ${lessonCount === 1 ? "story" : "stories"}`
-                    : `${lessonCount} ${lessonCount === 1 ? "lesson" : "lessons"}`}
-                  {completed > 0 && ` · ${percent}% done`}
+              <div className="flex items-center justify-between gap-2">
+                <span className="text-xs font-black uppercase tracking-[0.08em] text-slate-400 dark:text-slate-500">
+                  {completed > 0
+                    ? `${percent}% · ${completed}/${outline.lessonCount}`
+                    : `${outline.lessonCount} ${course.nouns.lessons}`}
                 </span>
                 <span className="inline-flex items-center gap-1 text-sm font-black text-violet-700 transition group-hover:gap-2 dark:text-violet-300">
                   {completed > 0 ? "Continue" : "Start"}

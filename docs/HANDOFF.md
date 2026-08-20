@@ -1,15 +1,16 @@
-# Project Handoff — Language Learning App ("Learn Bengali for Rachel")
+# Project Handoff — "Learning for Rachel"
 
-A Duolingo-style language-learning web app. It began as a Bengali app for one
-learner (Rachel) and has grown into a **multi-language** app that also teaches
-Spanish (including a full 131-unit, research-grounded course), Malayalam, and
-bite-size History lessons. This document is the single source of truth for how
-the app is put together and how to work on it.
+A Duolingo-style learning platform. It began as a Bengali app for one learner
+(Rachel) and is now a **multi-course platform**: Bengali, Spanish for Peru, a
+full 131-unit research-grounded Spanish course, Malayalam, and bite-size History
+chapters. Bengali is one course among several, not the identity of the app.
+This document is the single source of truth for how the app is put together.
 
-> Naming note: the repo, the localStorage key, and some legacy identifiers still
-> say "bengali". That's historical — the app is multi-curriculum now. Don't rename
-> these without a migration; the storage key in particular must stay stable or
-> learners lose their progress.
+> Naming note: the repo directory, the localStorage key, and some legacy
+> identifiers still say "bengali". That's historical — user-facing copy says
+> "Learning for Rachel". Don't rename the internal identifiers without a
+> migration; the storage key in particular must stay stable or learners lose
+> their progress.
 
 ---
 
@@ -21,17 +22,72 @@ the app is put together and how to work on it.
   is stored **locally in the browser** — there is no live backend yet.
 - Installable as a PWA and works offline for already-visited lessons.
 
-### Curricula (the language/subject the learner picks)
+### Information architecture
 
-Registered in `src/lib/content.ts` as `curricula`; switch via the language menu.
+Three places, plus course context:
 
-| id             | Label                  | Source                                   | Notes |
-|----------------|------------------------|------------------------------------------|-------|
-| `bengali`      | Bengali                | `content/learn-bengali.json`             | Original course; default. |
-| `spanish-peru` | Spanish for Peru       | `content/learn-spanish-peru.json`        | Travel Spanish. |
-| `spanish`      | Spanish (full course)  | `content/spanish-curriculum.json`        | **131 units / 786 lessons**, generated from the curriculum pipeline (§4). |
-| `malayalam`    | Malayalam              | `content/learn-malayalam.json`           | |
-| `history`      | History                | `content/learn-history.json`             | `mode: "history"` — story cards, not language drills. |
+- **Learn** (`/lessons`) — the current course's path and one continue action.
+- **Practice** (`/practice`) — everything that isn't a new lesson: due reviews,
+  mistakes, skipped audio, unit checkpoints, word bank, music.
+- **Progress** (`/progress`) — real learning signals (completion, phrases in
+  memory, recall strength, accuracy, weak units, activity), with XP/gems
+  demoted to a "Rewards" row.
+- **Course home** (`/`) and the header course chip — switching course.
+- **Settings** (`/settings`) — theme, placement, offline note, and the
+  destructive data actions (behind an explicit confirmation).
+
+A running lesson hides the shell entirely; see §5.
+
+### The course registry (`src/lib/courses.ts`)
+
+**Courses are data, not `if` statements.** The registry is the source of truth
+for what courses exist and what each one can do. Platform code asks about
+capabilities (`listening`, `dialogue`, `script`, `placement`, `music`,
+`kind: "language" | "history"`, per-course nouns and accent colours) instead of
+testing for a specific id. `src/lib/content.ts` then attaches units to each
+registered course.
+
+Adding a course = one registry entry + one line in `UNIT_SOURCES` +
+`npm run build:course-index`. `scripts/courses.test.ts` fails if anything is
+missed.
+
+| id             | Label            | Source                                   | Notes |
+|----------------|------------------|------------------------------------------|-------|
+| `bengali`      | Bengali          | `content/learn-bengali.json`             | Original course; default. Script + transliteration. |
+| `spanish-peru` | Spanish for Peru | `content/learn-spanish-peru.json`        | Travel Spanish. |
+| `spanish`      | Spanish          | `content/spanish-curriculum.json`        | **131 units / 786 lessons** (§4). Listening + dialogue capable. |
+| `malayalam`    | Malayalam        | `content/learn-malayalam.json`           | Transliteration. |
+| `history`      | History          | `content/learn-history.json`             | `kind: "history"` — story chapters, not drills. |
+
+Ids are **persisted** in local progress. Never rename one without a migration.
+
+### Two content tiers (this matters for bundle size)
+
+| Module | Contains | Cost | Used by |
+|--------|----------|------|---------|
+| `src/lib/courses.ts` | Labels, locales, capabilities, nouns, accents | ~2KB | The app shell, progress store, anything that just needs to know *about* a course |
+| `src/lib/course-index.ts` | Every unit/lesson **title**, generated into `content/course-index.json` | ~12KB gzipped | Navigation, the lesson path, progress maths |
+| `src/lib/core-content.ts` | The four hand-authored curricula | ~430KB | Mistake review (needs authored exercises) |
+| `src/lib/content.ts` | **Everything**, including the 1.2MB Spanish pack | ~1.2MB | Only where real phrases are needed: a running lesson, word bank, practice sessions, placement |
+
+Before this split every route shipped the whole Spanish course. Measured with
+`npm run build` + inspecting `.next/server/app/*.html` chunk references:
+
+| Route | Before | After |
+|-------|--------|-------|
+| `/lessons` | ~1.75MB | ~757KB |
+| `/practice`, `/progress`, `/`, `/settings` | ~1.75MB | ~745KB |
+| `/practice/[lessonId]` | ~1.8MB | ~805KB |
+| `/review` | ~1.77MB | ~1.0MB |
+| `/vocabulary`, `/strengthen`, `/placement` | ~1.77MB | unchanged — they genuinely need phrases |
+
+Regenerate the index after any content change:
+
+```bash
+npm run build:course-index
+```
+
+`npm test` fails if the committed index is stale.
 
 ---
 
@@ -45,6 +101,7 @@ Registered in `src/lib/content.ts` as `curricula`; switch via the language menu.
 ```bash
 npm run dev        # local dev server (http://localhost:3000)
 npm run lint       # eslint
+npm test           # node:test suite (scripts/*.test.ts)
 npm run build      # production build
 ```
 
@@ -59,7 +116,8 @@ Curriculum pipeline scripts (see §4):
 ```bash
 npm run validate:curriculum        # validate the Spanish pack against its schema
 npm run seed:curriculum            # build the DB-ready seed bundle (db/seed/, gitignored)
-npm run test:exercise-generation   # node:test suite for the exercise generators
+npm run build:course-index         # regenerate content/course-index.json after content changes
+npm run test:exercise-generation   # just the exercise-generator tests
 ```
 
 **Deployment:** Vercel (preview per PR, production on merge). The full Spanish
@@ -73,44 +131,64 @@ build time/output reasonable.
 ## 3. Architecture map
 
 ```
-content/*.json ──► src/lib/content.ts ──► curricula[]  ─┐
-                                                        │
-content/spanish-curriculum.json ─► src/lib/spanish-curriculum.ts (adapter) ─┘
+src/lib/courses.ts        ── the course registry (ids, labels, capabilities)
+        │                      ↑ read by the shell, the progress store, the engine
+        ├── src/lib/course-index.ts ── generated titles-only outline (navigation)
+        │
+content/*.json ──► src/lib/core-content.ts ──┐
+content/spanish-curriculum.json              │
+        └► src/lib/spanish-curriculum.ts ────┴─► src/lib/content.ts ─► curricula[]
                                                         │
                             Unit → Lesson → Phrase model (src/types/learning.ts)
                                                         │
-              src/components/lesson/lesson-flow.tsx ──► buildLessonSteps()
-                                                        │  (generates exercises
-                                                        │   from a lesson's phrases)
+                          src/lib/lesson-steps.ts ──► buildLessonSteps()
+                                                        │  (pure; no React)
                                                         ▼
-                     recognize / produce / order / complete / translate /
-                     listen / dialogue / (exercise) steps  →  rendered UI
+             lesson-flow.tsx (state/answers/persistence)
+                    └─► steps/exercise-steps.tsx (renderers)
+                    └─► lesson-chrome.tsx        (exit + progress)
+                    └─► lesson-complete.tsx      (end of session)
+                    └─► history-story-flow.tsx   (history courses)
 ```
 
 Key files:
 
-- `src/lib/content.ts` — registers curricula and exposes lookups (`getLesson`,
-  `getCurriculumForLesson`, `getLessonsForCurriculum`, …).
-- `src/types/learning.ts` — the app's core types: `CurriculumId`, `Curriculum`,
-  `Unit`, `Lesson`, `Phrase`, `Exercise`, `ProgressState`, etc.
-- `src/lib/spanish-curriculum.ts` — **adapter** that converts the Spanish
-  curriculum pack (`Course` shape) into the app's `Unit`/`Lesson`/`Phrase`
-  model. Each lesson's phrases are drawn from its `content_focus` vocabulary +
-  phrase patterns, interleaved so the taught set mixes words and full sentences.
-- `src/components/lesson/lesson-flow.tsx` — **the lesson engine**.
-  `buildLessonSteps()` turns a lesson's phrases into the actual question steps
-  (this is why adding phrase data automatically produces exercises — see §5).
+- `src/lib/courses.ts` — **the course registry**: ids, labels, locale,
+  capabilities, nouns, accents. Metadata only, no content.
+- `src/lib/course-index.ts` — the lightweight outline (`content/course-index.json`,
+  generated) used by all navigation and progress maths.
+- `src/lib/content.ts` — attaches real units/lessons/phrases to each course.
+  **Heavy**; import only where phrases are needed.
+- `src/lib/core-content.ts` — just the four hand-authored curricula, for code
+  that needs authored `exercises` without the Spanish pack.
+- `src/types/learning.ts` — core types. `CurriculumId` is now an alias of the
+  registry's `CourseId`.
+- `src/lib/spanish-curriculum.ts` — adapter converting the Spanish pack into the
+  app's `Unit`/`Lesson`/`Phrase` model (and attaching the pack's four sections).
+- `src/lib/lesson-steps.ts` — **the lesson engine**, pure and testable.
+  `buildLessonSteps()` turns a lesson's phrases into question steps.
+- `src/lib/text-tokens.ts` — word/stopword/blank-picking helpers shared by the
+  engine *and* the offline curriculum generators, so the two can't drift.
+- `src/lib/review-policy.ts` — **the** spaced-repetition policy (Leitner ladder,
+  due dates, strength/mastery). Nothing else defines intervals.
+- `src/lib/date-keys.ts` — learner-local calendar day keys for streaks.
 - `src/lib/progress-store.ts` — local progress (see §6).
 - `src/lib/pronunciation.ts` — **audio** (see §7). Do not create a second TTS path.
-- `src/components/lesson/speaker-button.tsx` — the speaker UI that calls the
-  pronunciation module.
 
 ### Routes (`src/app/`)
 
-`/` home · `/lessons` lesson path · `/practice/[lessonId]` a lesson ·
-`/review` + `/strengthen` spaced-repetition practice · `/unit-review/[unitId]`
-unit checkpoint · `/placement` adaptive placement test · `/progress` ·
-`/vocabulary` learned words · `/roleplay` + `/api/roleplay` (behind a flag).
+`/` course home · `/lessons` **Learn** · `/practice` **Practice hub** ·
+`/practice/[lessonId]` a running lesson · `/progress` **Progress** ·
+`/settings` appearance + data · `/review` fix mistakes · `/strengthen` spaced
+repetition · `/unit-review/[unitId]` unit checkpoint · `/placement` adaptive
+placement · `/vocabulary` word bank · `/music` + `/music/[songId]` ·
+`/roleplay` + `/api/roleplay` (behind a flag).
+
+**Focus routes.** `AppShell` hides its header *and* bottom nav for
+`/practice/<lesson>`, `/strengthen`, `/unit-review`, `/placement` and the song
+player. Those screens supply their own reading column (`mx-auto max-w-2xl px-4`)
+and, for lessons, `LessonChrome` — an exit button and a progress bar, nothing
+else.
 
 ---
 
@@ -150,9 +228,12 @@ from data. To change what learners see, pull one of three levers:
 1. **Curriculum data** (`content/spanish-curriculum.json`) — add/adjust
    vocabulary and phrase patterns in a unit; every phrase becomes more questions.
    Adding a unit adds a whole set of lessons for free.
-2. **Generators / lesson engine** — `buildLessonSteps()` in `lesson-flow.tsx`
-   (runtime) and `src/curriculum/generators.ts` (pipeline) control *how* questions
-   are built. One change improves all lessons at once.
+2. **Generators / lesson engine** — `buildLessonSteps()` in
+   `src/lib/lesson-steps.ts` (runtime) and `src/curriculum/generators.ts`
+   (pipeline) control *how* questions are built. One change improves all lessons
+   at once. Both now share `src/lib/text-tokens.ts` for tokenizing, stopwords and
+   cloze blank-picking, so a pipeline test and a real lesson can't disagree about
+   which word gets blanked.
 3. **Adapter** (`src/lib/spanish-curriculum.ts`) — controls how many phrases a
    lesson teaches, ordering, and difficulty labels.
 
@@ -162,16 +243,25 @@ Step types produced by the engine: `intro`, `learn`, `recognize` (target→Engli
 (pick the reply), `exercise` (any pre-authored `lesson.exercises`). `speak`
 (pronunciation practice) exists but is archived (`INCLUDE_SPEAKING_PRACTICE`).
 
+Progress within a lesson **excludes the intro card** (`isWorkStep` /
+`countWorkSteps`), so a lesson reads 0% until real work is done rather than
+jumping to "1 of 14" on the title screen.
+
+`scripts/lesson-steps.test.ts` pins the rules against real content: the
+teach/test lag, that every taught phrase is eventually checked, difficulty
+ordering, ending on an easy win, unique step ids, word banks containing the
+answer, and audio steps appearing only where capabilities allow.
+
 ### Feature flags (`src/lib/feature-flags.ts`)
 
 Unfinished features ship "dark" and flip on via a flag:
 
 - `explainMyAnswer: true` — live.
-- `listening: false` — **but enabled per-curriculum for `spanish`** directly in
-  `buildLessonSteps` (Spanish browser voices are reliable; romanized
-  Bengali/Malayalam are not, which is why the global flag stays off).
-- `dialogue: false`, `aiRoleplay: false` — scaffolded, awaiting testing / a
-  provider decision.
+- `listening: false`, `dialogue: false` — the **global** flags. Per-course
+  support is no longer an id check: it comes from the course's capabilities in
+  `src/lib/courses.ts` (the Spanish course declares `listening` and `dialogue`;
+  romanized Bengali/Malayalam do not, because English voices mangle them).
+- `aiRoleplay: false` — scaffolded, awaiting a provider decision.
 
 ---
 
@@ -179,17 +269,49 @@ Unfinished features ship "dark" and flip on via a flag:
 
 - Persisted in `localStorage` under **`learn-bengali-rachel-progress`** (keep this
   key stable).
-- Progress is **per curriculum**: `{ activeCurriculumId, byCurriculum: { bengali,
-  history, malayalam, "spanish-peru", spanish } }`. When you add a curriculum id,
-  update `CurriculumId` (in `src/types/learning.ts`), the three `byCurriculum`
-  literals + `normalizeCurriculumId` here, and the switcher guard in
-  `src/components/layout/app-shell.tsx`.
+- Progress is **per course**: `{ activeCurriculumId, byCurriculum: { ... } }`.
+  The buckets are now built from the registry (`mapCourses`), so **adding a
+  course needs no change here**.
 - `ProgressState` holds completed lessons, XP, gems, streak, mistakes, skipped
-  listening, and `phraseMemory` (Leitner boxes for spaced repetition).
+  listening, `phraseMemory` (Leitner boxes), plus `practiceDays` (local day keys
+  for the activity strip) and `answeredTotal`/`answeredCorrect` (real accuracy).
 - `normalizeProgress`/`normalizeStore` keep old saved data **backward-compatible**
-  — always add new fields defensively.
+  — always add new fields defensively. Two shapes are supported forever: the
+  current per-course store, and the original Bengali-only `ProgressState`.
+  Buckets with unrecognised ids are **preserved**, not dropped.
+- `scripts/progress-store.test.ts` covers all of the above.
 
----
+### Streaks use the learner's local day
+
+Day keys come from `src/lib/date-keys.ts` (`localDayKey`), **not**
+`toISOString()`. The old UTC-based keys rolled the "learning day" over at UTC
+midnight, so for a learner west of Greenwich an evening session was filed under
+tomorrow. `relateDayKey` also classifies a stored key that is *ahead* of today as
+`"future"` and treats it as already-practiced — that is exactly the state a
+learner migrating off the UTC keys can be in, and resetting their streak to 1
+would be the worse outcome.
+
+### Spaced repetition has one definition
+
+`src/lib/review-policy.ts` owns the Leitner ladder `[0, 1, 3, 7, 14, 30]`, box
+promotion/demotion, due checks, review selection, and the mastery threshold.
+The curricula also declare `reviewSchedule.initialReviewDays` in their content;
+`scripts/review-policy.test.ts` asserts the two still agree, which is how the
+previous drift (code said `[0,1,3,7,16,35]`, content said `[1,3,7,14,30]`) is
+prevented from returning.
+
+Review selection never returns an empty list when the learner has memory: if
+nothing is due it falls back to the weakest items, so Practice is never a dead
+end.
+
+### Future cloud sync
+
+Progress stays local-first. The store is already shaped for a later sync layer:
+all writes funnel through `updateStore`/`updateCurriculumProgress`, the
+persisted shape is a plain serialisable object keyed by course, and
+`normalizeStore` is exported and tested — a sync layer can merge a remote
+snapshot through the same normalizer. `db/` still holds the Supabase-ready SQL.
+No auth or backend was added in this pass.
 
 ## 7. Audio protocol (`src/lib/pronunciation.ts`)
 
@@ -254,9 +376,16 @@ page load: voices aren't loaded yet, the engine is cold, and the synth can start
   immediately after introducing it — no "here is *adios*" card followed by a
   "what does *adios* mean?" question. Teaching and testing must be spaced:
   introduce items, let other steps happen, then check recall. In
-  `buildLessonSteps` this is the `TEACH_TEST_LAG` (comprehension checks lag the
-  teach cards). Keep mixing question types (recognize, produce, word bank, cloze,
-  ordering, listening, dialogue) rather than repeating one format.
+  `buildLessonSteps` (`src/lib/lesson-steps.ts`) this is `TEACH_TEST_LAG`, and
+  `npm test` enforces it. Keep mixing question types (recognize, produce, word
+  bank, cloze, ordering, listening, dialogue) rather than repeating one format.
+- **Branch on capabilities, not ids.** `if (courseId === "spanish")` is a bug
+  waiting to happen; ask `getCapabilities(courseId).listening` instead, and add
+  the capability to `src/lib/courses.ts` if it doesn't exist yet.
+- **Keep navigation off the heavy content module.** If a client component only
+  needs titles or counts, import `@/lib/course-index`, not `@/lib/content`.
+- **Regenerate the course index** (`npm run build:course-index`) after touching
+  any curriculum content, or `npm test` will fail.
 - Preserve XP, streaks, lesson completion, mistake review, and learned-word
   persistence unless explicitly asked to change them.
 - Keep the local progress shape **backward-compatible** when adding fields.
@@ -266,18 +395,22 @@ page load: voices aren't loaded yet, the engine is cold, and the synth can start
   when available.
 - For the Spanish pack, follow its `CLAUDE.md` content rules (provenance, accents,
   answer arrays, validate-before-seed, no "official Duolingo" labeling).
-- Run `npm run lint` and the (WASM) build after code changes. For pipeline changes,
-  also run the three curriculum scripts.
+- Run `npm run lint`, `npm test` and the (WASM) build after code changes. For
+  pipeline changes, also run the curriculum scripts.
 
 ---
 
 ## 9. Suggested next steps
 
-- **Placement → jump into the Spanish course** so a learner starts at their level.
-- **Recorded audio** for high-frequency Spanish phrases (drop files in
-  `public/audio/spanish/` and set `audioFile`), for quality beyond TTS.
+- **Finish the bundle split.** `/vocabulary`, `/strengthen` and `/placement`
+  still load the full Spanish pack because they need phrases for the *active*
+  course, which is client state. Course-scoped routes (`/learn/[courseId]`) or a
+  dynamic `import()` per course would let those load only what they use.
+- **Cloud sync** on top of the local-first store (see §6), using `db/`.
+- **Recorded audio** for high-frequency Spanish phrases (`public/audio/spanish/`,
+  set `audioFile`) for quality beyond TTS.
 - **Smarter dialogue** using the pack's `dialogue_response` generator (real Q&A
-  pairs) before enabling the `dialogue` step for Spanish.
+  pairs) rather than pairing two phrases from the lesson.
+- **Listening for `spanish-peru`** — the capability is declared per course now,
+  so it is a one-word change once the shorter phrase set has been checked.
 - **Content spot-check** across a sample of the 131 units for accuracy.
-- Longer term: wire a real Supabase backend using `db/` schema so progress syncs
-  across devices.

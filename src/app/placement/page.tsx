@@ -57,6 +57,25 @@ export default function PlacementPage() {
     [units],
   );
 
+  // Placement seeds progress for every unit below the estimated level. The
+  // progress store deliberately knows nothing about lesson content, so the
+  // lesson/phrase ids it needs are collected here.
+  const placementSource = useMemo(
+    () =>
+      new Map(
+        curriculum.units.map((unit) => [
+          unit.number,
+          {
+            lessonIds: unit.lessons.map((lesson) => lesson.id),
+            phraseIds: unit.lessons.flatMap((lesson) =>
+              lesson.phrases.map((phrase) => phrase.id),
+            ),
+          },
+        ]),
+      ),
+    [curriculum.units],
+  );
+
   const [phase, setPhase] = useState<"intro" | "quiz" | "result">("intro");
   // Binary-search bounds over the unit list, so placement converges even for
   // very long courses (131 Spanish units → ~7 questions) instead of crawling
@@ -206,7 +225,7 @@ export default function PlacementPage() {
 
   if (units.length < 2) {
     return (
-      <div className="space-y-3">
+      <div className="mx-auto max-w-2xl space-y-3 px-4 pt-4">
         {header("Not available")}
         <p className="text-sm font-semibold text-slate-600 dark:text-slate-300">
           This course is too short to test out of. Jump into lesson 1 instead.
@@ -217,7 +236,7 @@ export default function PlacementPage() {
 
   if (phase === "intro") {
     return (
-      <div className="space-y-4">
+      <div className="mx-auto max-w-2xl space-y-4 px-4 pt-4">
         {header(`Test out of ${curriculum.label}`)}
         <ExerciseCard>
           <span className="grid size-14 place-items-center rounded-3xl bg-violet-600 text-white shadow-[0_14px_30px_rgba(124,58,237,0.22)]">
@@ -244,7 +263,7 @@ export default function PlacementPage() {
     const isBeginner = estimatedUnit <= 1;
 
     return (
-      <div className="space-y-4">
+      <div className="mx-auto max-w-2xl space-y-4 px-4 pt-4">
         {header("Your result")}
         <section className="animate-soft-rise relative overflow-hidden rounded-[36px] bg-gradient-to-br from-violet-700 via-slate-900 to-cyan-800 p-6 text-white shadow-[0_28px_90px_rgba(15,23,42,0.3)] ring-1 ring-white/20 sm:p-8">
           <div className="celebration-burst" aria-hidden="true" />
@@ -284,7 +303,7 @@ export default function PlacementPage() {
                   <button
                     type="button"
                     onClick={() => {
-                      applyPlacement(estimatedUnit);
+                      applyPlacement(estimatedUnit, placementSource);
                       router.push("/lessons");
                     }}
                     className="group inline-flex min-h-12 items-center gap-2 rounded-2xl bg-white px-5 py-3 font-black text-violet-800 shadow-[0_6px_0_rgba(255,255,255,0.45)] transition hover:-translate-y-0.5 active:translate-y-1"
@@ -309,7 +328,7 @@ export default function PlacementPage() {
 
   // phase === "quiz"
   return (
-    <div className="space-y-3">
+    <div className="mx-auto max-w-2xl space-y-3 px-4 pt-4">
       {header(`Test out of ${curriculum.label}`)}
       <ExerciseCard>
         <div className="mb-4">

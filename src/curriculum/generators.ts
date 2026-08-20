@@ -1,5 +1,12 @@
 import { loadExerciseTemplates, resolvePhrases, resolveVocabulary } from "./loader";
 import { makeRng, pick, sample, shuffle } from "./rng";
+// Shared with the runtime lesson engine so the pipeline's exercises and the
+// lessons learners actually play cannot drift apart. See @/lib/text-tokens.
+import {
+  FUNCTION_WORDS,
+  pickBlankIndex,
+  splitWords,
+} from "../lib/text-tokens";
 import type { Rng } from "./rng";
 import type {
   ExerciseType,
@@ -16,13 +23,6 @@ const SUPPORTED_TYPES: ExerciseType[] = [
   "word_bank_translation",
   "dialogue_response",
 ];
-
-// Spanish function words we avoid blanking / avoid using as distractor answers.
-const STOPWORDS = new Set([
-  "el", "la", "los", "las", "un", "una", "unos", "unas", "de", "del", "en",
-  "y", "o", "a", "al", "es", "mi", "tu", "su", "con", "por", "para", "que",
-  "se", "lo", "le", "me", "te", "no", "sí",
-]);
 
 let templatesCache: ReturnType<typeof loadExerciseTemplates> | null = null;
 function templates() {
@@ -53,10 +53,6 @@ function acceptable(...answers: string[]): string[] {
   return [...set].filter((value) => value.length > 0);
 }
 
-function splitWords(text: string): string[] {
-  return text.split(/\s+/).map((word) => word.trim()).filter(Boolean);
-}
-
 /**
  * Content-word distractor pool drawn from a unit's vocabulary. Multi-word
  * entries (e.g. "el café", "por favor") are split into their meaningful tokens
@@ -69,7 +65,7 @@ function contentWordPool(unit: Unit, exclude: Set<string>): string[] {
   for (const item of unit.vocabulary) {
     for (const rawWord of splitWords(item.spanish)) {
       const core = normalizeAnswer(rawWord);
-      if (core.length < 3 || STOPWORDS.has(core) || exclude.has(core) || seen.has(core)) {
+      if (core.length < 3 || FUNCTION_WORDS.has(core) || exclude.has(core) || seen.has(core)) {
         continue;
       }
       seen.add(core);
@@ -155,16 +151,9 @@ export function generateFillBlank(
   const phrase = pick(lessonPhrases(unit, lesson), rng);
   const words = splitWords(phrase.spanish);
 
-  // Prefer the longest non-stopword content token; fall back to the last word.
-  let blankIndex = words.length - 1;
-  let bestLength = -1;
-  words.forEach((word, wordIndex) => {
-    const core = normalizeAnswer(word);
-    if (core.length >= 3 && !STOPWORDS.has(core) && word.length > bestLength) {
-      bestLength = word.length;
-      blankIndex = wordIndex;
-    }
-  });
+  // Prefer a real content word; the shared helper is the same one the runtime
+  // lesson engine uses to build cloze exercises.
+  const blankIndex = pickBlankIndex(words);
 
   const answerToken = words[blankIndex];
   const answerCore = normalizeAnswer(answerToken);

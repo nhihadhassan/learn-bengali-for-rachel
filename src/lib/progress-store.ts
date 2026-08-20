@@ -1,58 +1,49 @@
 "use client";
 
 import { useCallback, useMemo, useSyncExternalStore } from "react";
+import { getCourseLessonIds } from "@/lib/course-index";
 import {
-  defaultCurriculumId,
-  getCurriculum,
-  getLessonIdsForCurriculum,
-} from "@/lib/content";
+  COURSE_IDS,
+  defaultCourseId,
+  isCourseId,
+  mapCourses,
+  toCourseId,
+} from "@/lib/courses";
+import { localDayKey, relateDayKey } from "@/lib/date-keys";
+import {
+  applyResult,
+  countDue,
+  seedKnownMemory,
+  selectReviewPhraseIds,
+  summarizeMemory,
+} from "@/lib/review-policy";
 import type { CurriculumId, Mistake, ProgressState } from "@/types/learning";
 
+/**
+ * Legacy storage key — the app was Bengali-only when it was chosen. Renaming it
+ * would silently wipe every learner's progress, so it stays.
+ */
 const STORAGE_KEY = "learn-bengali-rachel-progress";
 
-const DAY_MS = 24 * 60 * 60 * 1000;
-// Spaced-repetition interval (in days) per Leitner box. Box 0 = due now.
-const REVIEW_INTERVAL_DAYS = [0, 1, 3, 7, 16, 35];
-const MAX_BOX = REVIEW_INTERVAL_DAYS.length - 1;
-
 /**
- * Phrase ids worth reviewing, weakest first. Prefers items that are actually
- * due; if nothing is due it falls back to the weakest/least-recently-seen so a
- * practice session is still available.
+ * Phrase ids worth reviewing, weakest first.
+ *
+ * @deprecated prefer `selectReviewPhraseIds` from `@/lib/review-policy`; kept
+ * as a thin wrapper so existing callers keep working.
  */
 export function getReviewPhraseIds(
   progress: ProgressState,
   limit = 12,
   now = Date.now(),
 ): string[] {
-  const entries = Object.entries(progress.phraseMemory ?? {});
-
-  if (entries.length === 0) {
-    return [];
-  }
-
-  const due = entries.filter(
-    ([, memory]) => new Date(memory.dueAt).getTime() <= now,
-  );
-  const pool = due.length > 0 ? due : entries;
-
-  return pool
-    .sort(
-      ([, a], [, b]) =>
-        a.box - b.box ||
-        new Date(a.lastSeenAt).getTime() - new Date(b.lastSeenAt).getTime(),
-    )
-    .slice(0, limit)
-    .map(([phraseId]) => phraseId);
+  return selectReviewPhraseIds(progress.phraseMemory ?? {}, limit, now);
 }
 
 export function countDuePhrases(
   progress: ProgressState,
   now = Date.now(),
 ): number {
-  return Object.values(progress.phraseMemory ?? {}).filter(
-    (memory) => new Date(memory.dueAt).getTime() <= now,
-  ).length;
+  return countDue(progress.phraseMemory ?? {}, now);
 }
 
 const initialProgress: ProgressState = {
@@ -71,6 +62,9 @@ const initialProgress: ProgressState = {
   mistakes: [],
   skippedListening: [],
   phraseMemory: {},
+  practiceDays: [],
+  answeredTotal: 0,
+  answeredCorrect: 0,
 };
 
 type ProgressStore = {
@@ -78,19 +72,15 @@ type ProgressStore = {
   byCurriculum: Record<CurriculumId, ProgressState>;
 };
 
-const initialStore: ProgressStore = {
-  activeCurriculumId: defaultCurriculumId,
-  byCurriculum: {
-    bengali: cloneInitialProgress(),
-    history: cloneInitialProgress(),
-    malayalam: cloneInitialProgress(),
-    "spanish-peru": cloneInitialProgress(),
-    spanish: cloneInitialProgress(),
-  },
-};
+function createInitialStore(): ProgressStore {
+  return {
+    activeCurriculumId: defaultCourseId,
+    byCurriculum: mapCourses(cloneInitialProgress),
+  };
+}
 
 const listeners = new Set<() => void>();
-let progressCache = initialStore;
+let progressCache = createInitialStore();
 let hasLoadedFromStorage = false;
 
 function cloneInitialProgress(): ProgressState {
@@ -101,6 +91,7 @@ function cloneInitialProgress(): ProgressState {
     mistakes: [],
     skippedListening: [],
     phraseMemory: {},
+    practiceDays: [],
   };
 }
 
@@ -121,6 +112,9 @@ function normalizeProgress(value: unknown): ProgressState {
     mistakes: maybeProgress?.mistakes ?? [],
     skippedListening: maybeProgress?.skippedListening ?? [],
     phraseMemory: maybeProgress?.phraseMemory ?? {},
+    practiceDays: maybeProgress?.practiceDays ?? [],
+    answeredTotal: maybeProgress?.answeredTotal ?? 0,
+    answeredCorrect: maybeProgress?.answeredCorrect ?? 0,
   };
 }
 
@@ -133,60 +127,41 @@ function isProgressStore(value: unknown): value is Partial<ProgressStore> {
   );
 }
 
-function normalizeCurriculumId(value: unknown): CurriculumId {
-  if (value === "history") {
-    return "history";
-  }
-
-  if (value === "malayalam") {
-    return "malayalam";
-  }
-
-  if (value === "spanish") {
-    return "spanish";
-  }
-
-  return value === "spanish-peru" ? "spanish-peru" : defaultCurriculumId;
-}
-
-function normalizeStore(value: unknown): ProgressStore {
+/**
+ * Restore a saved store.
+ *
+ * Two shapes are supported forever: the current per-course store, and the
+ * original Bengali-only `ProgressState` that predates course switching (which
+ * becomes the Bengali bucket). Buckets for course ids we don't recognise are
+ * carried through untouched rather than dropped, so a course that is
+ * temporarily unregistered doesn't cost a learner their history.
+ */
+export function normalizeStore(value: unknown): ProgressStore {
   if (isProgressStore(value)) {
-    const byCurriculum = (value.byCurriculum ?? {}) as Partial<
-      Record<CurriculumId, unknown>
-    >;
+    const byCurriculum = (value.byCurriculum ?? {}) as Record<string, unknown>;
+    const known = mapCourses((courseId) =>
+      normalizeProgress(byCurriculum[courseId]),
+    );
+    const unknownBuckets = Object.fromEntries(
+      Object.entries(byCurriculum).filter(([key]) => !isCourseId(key)),
+    );
 
     return {
-      activeCurriculumId: normalizeCurriculumId(value.activeCurriculumId),
-      byCurriculum: {
-        bengali: normalizeProgress(byCurriculum.bengali),
-        history: normalizeProgress(byCurriculum.history),
-        malayalam: normalizeProgress(byCurriculum.malayalam),
-        "spanish-peru": normalizeProgress(byCurriculum["spanish-peru"]),
-        spanish: normalizeProgress(byCurriculum.spanish),
-      },
+      activeCurriculumId: toCourseId(value.activeCurriculumId),
+      byCurriculum: { ...unknownBuckets, ...known } as Record<
+        CurriculumId,
+        ProgressState
+      >,
     };
   }
 
-  return {
-    activeCurriculumId: defaultCurriculumId,
-    byCurriculum: {
-      bengali: normalizeProgress(value),
-      history: cloneInitialProgress(),
-      malayalam: cloneInitialProgress(),
-      "spanish-peru": cloneInitialProgress(),
-      spanish: cloneInitialProgress(),
-    },
-  };
-}
+  const store = createInitialStore();
 
-function todayKey(date = new Date()) {
-  return date.toISOString().slice(0, 10);
-}
+  if (value && typeof value === "object") {
+    store.byCurriculum[defaultCourseId] = normalizeProgress(value);
+  }
 
-function yesterdayKey() {
-  const date = new Date();
-  date.setDate(date.getDate() - 1);
-  return todayKey(date);
+  return store;
 }
 
 function ensureLoaded() {
@@ -204,7 +179,7 @@ function ensureLoaded() {
   try {
     progressCache = normalizeStore(JSON.parse(stored));
   } catch {
-    progressCache = initialStore;
+    progressCache = createInitialStore();
   }
 
   return progressCache;
@@ -239,23 +214,30 @@ function updateCurriculumProgress(
   }));
 }
 
-function applyPracticeDay(progress: ProgressState): ProgressState {
-  const today = todayKey();
+/**
+ * Mark today as practiced and roll the streak forward.
+ *
+ * Day keys are the learner's **local** calendar day (see `@/lib/date-keys`).
+ * A stored key in the future is treated as "already practiced today": that only
+ * happens for progress saved under the old UTC-based keys, and resetting those
+ * learners' streaks to 1 would be a worse outcome than an extra grace day.
+ */
+export function applyPracticeDay(
+  progress: ProgressState,
+  today = localDayKey(),
+): ProgressState {
+  const relation = relateDayKey(progress.lastPracticeDate, today);
 
-  if (progress.lastPracticeDate === today) {
+  if (relation === "today" || relation === "future") {
     return progress;
   }
 
-  const streak =
-    progress.lastPracticeDate === yesterdayKey() ? progress.streak + 1 : 1;
-  const missedWithStreak =
-    Boolean(progress.lastPracticeDate) &&
-    progress.lastPracticeDate !== yesterdayKey() &&
-    progress.streak > 0;
+  const continuesStreak = relation === "yesterday";
+  const missedWithStreak = relation === "older" && progress.streak > 0;
 
   return {
     ...progress,
-    streak,
+    streak: continuesStreak ? progress.streak + 1 : 1,
     streakRestoreAvailable: missedWithStreak
       ? true
       : progress.streakRestoreAvailable,
@@ -263,7 +245,21 @@ function applyPracticeDay(progress: ProgressState): ProgressState {
       ? progress.streak
       : progress.lastStreakBeforeMiss,
     lastPracticeDate: today,
+    practiceDays: appendPracticeDay(progress.practiceDays, today),
   };
+}
+
+/** Keep a rolling window of practice days; enough for any activity view. */
+const PRACTICE_DAY_HISTORY = 120;
+
+function appendPracticeDay(days: string[] | undefined, today: string): string[] {
+  const existing = days ?? [];
+
+  if (existing.includes(today)) {
+    return existing;
+  }
+
+  return [...existing, today].slice(-PRACTICE_DAY_HISTORY);
 }
 
 function subscribe(listener: () => void) {
@@ -279,8 +275,10 @@ function getClientSnapshot() {
   return ensureLoaded();
 }
 
+const serverStore = createInitialStore();
+
 function getServerSnapshot() {
-  return initialStore;
+  return serverStore;
 }
 
 export function useProgress() {
@@ -294,7 +292,7 @@ export function useProgress() {
     store.byCurriculum[activeCurriculumId] ?? cloneInitialProgress();
 
   const activeMistakes = useMemo(() => {
-    const currentLessonIds = getLessonIdsForCurriculum(activeCurriculumId);
+    const currentLessonIds = getCourseLessonIds(activeCurriculumId);
     const frequency = new Map<string, number>();
 
     progress.mistakes.forEach((mistake) => {
@@ -328,7 +326,7 @@ export function useProgress() {
   }, [activeCurriculumId, progress.mistakes]);
 
   const activeSkippedListening = useMemo(() => {
-    const currentLessonIds = getLessonIdsForCurriculum(activeCurriculumId);
+    const currentLessonIds = getCourseLessonIds(activeCurriculumId);
 
     return progress.skippedListening
       .filter((skipped) => currentLessonIds.has(skipped.lessonId))
@@ -344,7 +342,7 @@ export function useProgress() {
   ) {
     updateStore((current) => ({
       ...current,
-      activeCurriculumId: curriculumId,
+      activeCurriculumId: toCourseId(curriculumId),
     }));
   }, []);
 
@@ -489,33 +487,35 @@ export function useProgress() {
     );
   }, [activeCurriculumId]);
 
-  // Spaced repetition: promote a phrase's Leitner box on a correct answer (and
-  // push its next-due date out), or demote it and make it due now on a miss.
+  /**
+   * Count a graded answer. Separate from phrase memory because not every graded
+   * step maps to a phrase, and Progress needs a true denominator for accuracy.
+   */
+  const recordAnswer = useCallback(function recordAnswer(
+    isCorrect: boolean,
+    curriculumId = activeCurriculumId,
+  ) {
+    updateCurriculumProgress(curriculumId, (current) => ({
+      ...current,
+      answeredTotal: current.answeredTotal + 1,
+      answeredCorrect: current.answeredCorrect + (isCorrect ? 1 : 0),
+    }));
+  }, [activeCurriculumId]);
+
+  // Spaced repetition: the schedule itself lives in @/lib/review-policy so the
+  // Leitner ladder has exactly one definition.
   const recordPhraseResult = useCallback(function recordPhraseResult(
     phraseId: string,
     isCorrect: boolean,
     curriculumId = activeCurriculumId,
   ) {
-    updateCurriculumProgress(curriculumId, (current) => {
-      const now = Date.now();
-      const previousBox = current.phraseMemory[phraseId]?.box ?? 0;
-      const box = isCorrect
-        ? Math.min(previousBox + 1, MAX_BOX)
-        : Math.max(previousBox - 1, 0);
-      const intervalDays = isCorrect ? REVIEW_INTERVAL_DAYS[box] : 0;
-
-      return {
-        ...current,
-        phraseMemory: {
-          ...current.phraseMemory,
-          [phraseId]: {
-            box,
-            dueAt: new Date(now + intervalDays * DAY_MS).toISOString(),
-            lastSeenAt: new Date(now).toISOString(),
-          },
-        },
-      };
-    });
+    updateCurriculumProgress(curriculumId, (current) => ({
+      ...current,
+      phraseMemory: {
+        ...current.phraseMemory,
+        [phraseId]: applyResult(current.phraseMemory[phraseId], isCorrect),
+      },
+    }));
   }, [activeCurriculumId]);
 
   // Finishing a practice/review session earns XP and counts toward the daily
@@ -538,30 +538,21 @@ export function useProgress() {
   // memory. Additive and reversible — nothing is hidden or deleted.
   const applyPlacement = useCallback(function applyPlacement(
     estimatedUnitNumber: number,
+    phrasesByUnitNumber: Map<number, { lessonIds: string[]; phraseIds: string[] }>,
     curriculumId = activeCurriculumId,
   ) {
     updateCurriculumProgress(curriculumId, (current) => {
-      const curriculum = getCurriculum(curriculumId);
-      const now = Date.now();
       const completed = new Set(current.completedLessons);
       const phraseMemory = { ...current.phraseMemory };
 
-      curriculum.units.forEach((unit) => {
-        if (unit.number >= estimatedUnitNumber) {
+      phrasesByUnitNumber.forEach((unit, unitNumber) => {
+        if (unitNumber >= estimatedUnitNumber) {
           return;
         }
 
-        unit.lessons.forEach((lesson) => {
-          completed.add(lesson.id);
-          lesson.phrases.forEach((phrase) => {
-            if (!phraseMemory[phrase.id]) {
-              phraseMemory[phrase.id] = {
-                box: 2,
-                dueAt: new Date(now + 3 * DAY_MS).toISOString(),
-                lastSeenAt: new Date(now).toISOString(),
-              };
-            }
-          });
+        unit.lessonIds.forEach((lessonId) => completed.add(lessonId));
+        unit.phraseIds.forEach((phraseId) => {
+          phraseMemory[phraseId] ??= seedKnownMemory();
         });
       });
 
@@ -577,18 +568,34 @@ export function useProgress() {
   }, [activeCurriculumId]);
 
   const reviewPhraseIds = useMemo(
-    () => getReviewPhraseIds(progress),
-    [progress],
+    () => selectReviewPhraseIds(progress.phraseMemory),
+    [progress.phraseMemory],
   );
 
   const duePhraseCount = useMemo(
-    () => countDuePhrases(progress),
-    [progress],
+    () => countDue(progress.phraseMemory),
+    [progress.phraseMemory],
   );
 
-  const resetProgress = useCallback(function resetProgress() {
-    updateCurriculumProgress(activeCurriculumId, () => cloneInitialProgress());
+  const memorySummary = useMemo(
+    () => summarizeMemory(progress.phraseMemory),
+    [progress.phraseMemory],
+  );
+
+  /** Wipe this course's progress. Destructive — always confirm first. */
+  const resetProgress = useCallback(function resetProgress(
+    curriculumId = activeCurriculumId,
+  ) {
+    updateCurriculumProgress(curriculumId, () => cloneInitialProgress());
   }, [activeCurriculumId]);
+
+  /** Wipe every course. Destructive — always confirm first. */
+  const resetAllProgress = useCallback(function resetAllProgress() {
+    updateStore((current) => ({
+      ...current,
+      byCurriculum: mapCourses(cloneInitialProgress),
+    }));
+  }, []);
 
   const restoreStreak = useCallback(function restoreStreak() {
     let restored = false;
@@ -624,12 +631,15 @@ export function useProgress() {
     completeLesson,
     completeReview,
     duePhraseCount,
+    memorySummary,
     progress,
+    recordAnswer,
     recordEncounteredPhrase,
     recordLessonPosition,
     recordMistake,
     recordPhraseResult,
     recordSkippedListening,
+    resetAllProgress,
     resetProgress,
     restoreStreak,
     resolveMistake,
@@ -639,3 +649,6 @@ export function useProgress() {
     store,
   };
 }
+
+/** Every registered course id, for callers iterating all progress buckets. */
+export { COURSE_IDS };

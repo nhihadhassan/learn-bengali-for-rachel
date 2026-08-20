@@ -1,12 +1,13 @@
-# Learn Bengali for Rachel
+# Learning for Rachel
 
-A Duolingo-style language-learning web app. It started as a Bengali app for one
-learner and is now **multi-language**: Bengali, Spanish (including a full
-131-unit research-grounded course), Malayalam, and bite-size History lessons.
+A Duolingo-style learning platform. It started as a Bengali app for one learner
+and is now **multi-course**: Bengali, Spanish for Peru, a full 131-unit
+research-grounded Spanish course, Malayalam, and bite-size History chapters.
+Bengali is one course among several, not the identity of the app.
 
-> The repo name and the localStorage key still say "bengali" for historical
-> reasons — the app is multi-curriculum now. See the handoff doc before renaming
-> anything.
+> The repo directory and the localStorage key still say "bengali" for historical
+> reasons. See the handoff doc before renaming anything — the storage key must
+> stay stable or learners lose their progress.
 
 ## Docs
 
@@ -22,18 +23,25 @@ learner and is now **multi-language**: Bengali, Spanish (including a full
 
 ## Features
 
-- Unit-based lesson path with generated exercises (recognize, produce, word-bank,
-  cloze, ordering, listening)
-- XP, streaks, lesson completion, mistake review, spaced-repetition practice
-- Adaptive placement test, per-lesson tips, unit-review checkpoints
-- Learned Words vocabulary review
-- Installable PWA with offline support for visited lessons
+- **Learn / Practice / Progress** — three places, plus a course chip for
+  switching between courses
+- Unit-based lesson path that scales from 16 lessons to 786 (section browsing,
+  windowed units, jump-to-unit)
+- Distraction-free lessons: exit, progress, exercise, audio — nothing else
+- Generated exercises (recognize, produce, word-bank, cloze, ordering,
+  listening, dialogue) driven by per-course capabilities
+- Spaced repetition, mistake review, unit checkpoints, word bank — surfaced in
+  one Practice hub
+- Progress built on real signals: completion, phrases in memory, recall
+  strength, accuracy, weak units, activity
+- Adaptive placement test, XP/gems/streaks, installable offline PWA
 
 ## Run
 
 ```bash
 npm run dev     # http://localhost:3000
 npm run lint
+npm test        # progress migration, streaks, registry, review policy, lesson engine
 npm run build   # if SWC fails locally, use the WASM fallback in docs/HANDOFF.md §2
 ```
 
@@ -42,11 +50,13 @@ npm run build   # if SWC fails locally, use the WASM fallback in docs/HANDOFF.md
 ```bash
 npm run validate:curriculum        # validate content/spanish-curriculum.json
 npm run seed:curriculum            # build the DB-ready seed bundle (db/seed/)
+npm run build:course-index         # regenerate the lightweight navigation index
 npm run test:exercise-generation   # exercise-generator tests
 ```
 
 ## Local progress
 
-Stored in `localStorage` under `learn-bengali-rachel-progress`, per curriculum
-(completed lessons, XP, streaks, mistakes, spaced-repetition memory). Keep this
-key stable and keep the shape backward-compatible.
+Stored in `localStorage` under `learn-bengali-rachel-progress`, per course
+(completed lessons, XP, streaks, mistakes, spaced-repetition memory, practice
+days, answer counts). Keep this key stable and keep the shape
+backward-compatible — `npm test` checks that older saves still load.
