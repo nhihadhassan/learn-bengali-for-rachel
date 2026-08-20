@@ -1,8 +1,23 @@
-import rawContent from "../../content/learn-bengali.json";
-import rawHistoryContent from "../../content/learn-history.json";
-import rawMalayalamContent from "../../content/learn-malayalam.json";
-import rawSpanishContent from "../../content/learn-spanish-peru.json";
+/**
+ * Attaches lesson content to the registered courses.
+ *
+ * **This module is heavy.** It pulls in every curriculum JSON, including the
+ * 1.2MB Spanish pack. Import it only where real phrases/exercises are needed
+ * (a running lesson, the word bank, practice sessions, the placement test).
+ * For navigation, counts, labels and capabilities use the lightweight
+ * `@/lib/courses` registry and `@/lib/course-index` outline instead — those are
+ * what the app shell and progress store rely on so the whole course catalogue
+ * doesn't ship on every route.
+ */
+
 import { normalizeAnswer } from "@/lib/answer-checking";
+import {
+  bengaliContent,
+  historyContent,
+  malayalamContent,
+  spanishPeruContent,
+} from "@/lib/core-content";
+import { COURSES, defaultCourseId, type CourseId } from "@/lib/courses";
 import { spanishCurriculumUnits } from "@/lib/spanish-curriculum";
 import type {
   Curriculum,
@@ -13,7 +28,7 @@ import type {
   Unit,
 } from "@/types/learning";
 
-export const defaultCurriculumId: CurriculumId = "bengali";
+export const defaultCurriculumId: CurriculumId = defaultCourseId;
 
 function withCurriculum(
   content: LearningContent,
@@ -30,60 +45,31 @@ function withCurriculum(
   }));
 }
 
-export const content = rawContent as LearningContent;
-export const historyContent = rawHistoryContent as LearningContent;
-export const malayalamContent = rawMalayalamContent as LearningContent;
-export const spanishPeruContent = rawSpanishContent as LearningContent;
+export const content = bengaliContent;
 
-export const curricula: Curriculum[] = [
-  {
-    id: "bengali",
-    label: "Bengali",
-    shortLabel: "Bengali",
-    description: "Simple spoken Bengali phrases for everyday conversation.",
-    locale: "bn-BD",
-    mode: "language",
-    units: withCurriculum(content, "bengali", "bn-BD"),
-  },
-  {
-    id: "spanish-peru",
-    label: "Spanish for Peru",
-    shortLabel: "Spanish",
-    description: "Travel Spanish for Peru: taxis, food, hotels, tours, and emergencies.",
-    locale: "es-PE",
-    mode: "language",
-    travelTheme: "Peru travel",
-    units: withCurriculum(spanishPeruContent, "spanish-peru", "es-PE"),
-  },
-  {
-    id: "spanish",
-    label: "Spanish course",
-    shortLabel: "Spanish",
-    description:
-      "A research-grounded Spanish course: 131 units from café basics to real conversations.",
-    locale: "es",
-    mode: "language",
-    units: spanishCurriculumUnits,
-  },
-  {
-    id: "malayalam",
-    label: "Malayalam",
-    shortLabel: "Malayalam",
-    description: "Malayalam made gentle for beginners with spoken, romanized phrases.",
-    locale: "ml-IN",
-    mode: "language",
-    units: withCurriculum(malayalamContent, "malayalam", "ml-IN"),
-  },
-  {
-    id: "history",
-    label: "History",
-    shortLabel: "History",
-    description: "Bite-size story lessons about causes, turning points, and consequences.",
-    locale: "en-US",
-    mode: "history",
-    units: withCurriculum(historyContent, "history", "en-US"),
-  },
-];
+export { historyContent, malayalamContent, spanishPeruContent };
+
+/**
+ * Where each registered course's units come from. Adding a course means adding
+ * a registry entry in `@/lib/courses` plus one line here.
+ */
+const UNIT_SOURCES: Record<CourseId, (locale: string, id: CourseId) => Unit[]> = {
+  bengali: (locale, id) => withCurriculum(bengaliContent, id, locale),
+  "spanish-peru": (locale, id) => withCurriculum(spanishPeruContent, id, locale),
+  spanish: () => spanishCurriculumUnits,
+  malayalam: (locale, id) => withCurriculum(malayalamContent, id, locale),
+  history: (locale, id) => withCurriculum(historyContent, id, locale),
+};
+
+export const curricula: Curriculum[] = COURSES.map((course) => ({
+  id: course.id,
+  label: course.label,
+  shortLabel: course.shortLabel,
+  description: course.description,
+  locale: course.locale,
+  mode: course.capabilities.kind,
+  units: UNIT_SOURCES[course.id](course.locale, course.id),
+}));
 
 export const curriculumMap = new Map(
   curricula.map((curriculum) => [curriculum.id, curriculum]),
@@ -95,18 +81,23 @@ export const lessons = curricula.flatMap((curriculum) =>
   curriculum.units.flatMap((unit) => unit.lessons),
 );
 
+const lessonById = new Map(lessons.map((lesson) => [lesson.id, lesson]));
+
+const curriculumIdByLessonId = new Map(
+  curricula.flatMap((curriculum) =>
+    curriculum.units.flatMap((unit) =>
+      unit.lessons.map((lesson) => [lesson.id, curriculum.id] as const),
+    ),
+  ),
+);
+
 export function getCurriculum(curriculumId: CurriculumId): Curriculum {
   return curriculumMap.get(curriculumId) ?? curricula[0];
 }
 
 export function getCurriculumForLesson(lessonId: string): Curriculum {
-  return (
-    curricula.find((curriculum) =>
-      curriculum.units.some((unit) =>
-        unit.lessons.some((lesson) => lesson.id === lessonId),
-      ),
-    ) ?? curricula[0]
-  );
+  const curriculumId = curriculumIdByLessonId.get(lessonId);
+  return curriculumId ? getCurriculum(curriculumId) : curricula[0];
 }
 
 export function getLessonsForCurriculum(curriculumId: CurriculumId): Lesson[] {
@@ -118,7 +109,7 @@ export function getLessonIdsForCurriculum(curriculumId: CurriculumId): Set<strin
 }
 
 export function getLesson(lessonId: string): Lesson | undefined {
-  return lessons.find((lesson) => lesson.id === lessonId);
+  return lessonById.get(lessonId);
 }
 
 export function getUnit(unitId: string, curriculumId = defaultCurriculumId): Unit | undefined {

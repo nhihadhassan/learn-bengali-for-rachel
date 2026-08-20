@@ -1,392 +1,340 @@
 "use client";
 
+/**
+ * The platform shell: identity, course context, and the three places a learner
+ * can be — Learn, Practice, Progress.
+ *
+ * Everything else (course switching, theme, data) lives one level down in the
+ * course menu and Settings, so the header stays quiet. During a lesson the
+ * shell disappears entirely; the lesson provides its own exit + progress bar.
+ */
+
 import type { ReactNode } from "react";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import {
   BookOpen,
-  CloudDownload,
-  DoorOpen,
+  Check,
+  ChevronDown,
+  Dumbbell,
   Flame,
-  Gem,
-  GraduationCap,
-  Languages,
-  Library,
-  Menu,
-  Music,
-  RotateCcw,
-  Route,
-  Trophy,
-  X,
+  LineChart,
+  Settings,
 } from "lucide-react";
-import { curricula } from "@/lib/content";
+import { COURSES, getCourse } from "@/lib/courses";
+import { getCourseOutline } from "@/lib/course-index";
 import { useProgress } from "@/lib/progress-store";
 import { cn } from "@/lib/utils";
-import { ThemeToggle } from "@/components/theme/theme-toggle";
+import type { CurriculumId } from "@/types/learning";
 
 const navItems = [
-  { href: "/lessons", label: "Lessons", icon: BookOpen },
-  { href: "/vocabulary", label: "Words", historyLabel: "Recap", icon: Library },
-  { href: "/review", label: "Review", icon: RotateCcw },
-  { href: "/progress", label: "Progress", icon: Flame },
+  { href: "/lessons", label: "Learn", icon: BookOpen },
+  { href: "/practice", label: "Practice", icon: Dumbbell },
+  { href: "/progress", label: "Progress", icon: LineChart },
 ];
 
-export function AppShell({ children }: { children: ReactNode }) {
-  const pathname = usePathname();
-  const router = useRouter();
-  const {
-    activeCurriculumId,
-    activeMistakes,
-    progress,
-    setActiveCurriculumId,
-  } = useProgress();
-  const [menuOpen, setMenuOpen] = useState(false);
-  // Lesson + review sessions run in focus mode (bottom tab bar hidden).
-  const isInLesson =
-    pathname.startsWith("/practice") ||
+/**
+ * Routes that run a focused session. The shell hides itself for these so the
+ * exercise is the only thing on screen.
+ */
+function isFocusRoute(pathname: string) {
+  return (
+    pathname.startsWith("/practice/") ||
     pathname.startsWith("/strengthen") ||
     pathname.startsWith("/unit-review") ||
     pathname.startsWith("/placement") ||
-    // The song player has its own bottom control bar; hide the tab bar there
-    // (but keep it on the /music list).
-    pathname.startsWith("/music/");
+    // The song player has its own bottom control bar.
+    pathname.startsWith("/music/")
+  );
+}
 
-  function handleCurriculumChange(value: string) {
-    if (
-      value === "history" ||
-      value === "spanish-peru" ||
-      value === "spanish" ||
-      value === "malayalam"
-    ) {
-      setActiveCurriculumId(value);
-    } else {
-      setActiveCurriculumId("bengali");
-    }
+export function AppShell({ children }: { children: ReactNode }) {
+  const pathname = usePathname();
+  const { activeCurriculumId, duePhraseCount, progress } = useProgress();
+  const focusMode = isFocusRoute(pathname);
 
-    if (pathname.startsWith("/practice")) {
-      router.push("/lessons");
-    }
+  if (focusMode) {
+    return (
+      <div className="min-h-screen text-slate-950 transition-colors duration-300 dark:text-slate-100">
+        <main className="pb-10">{children}</main>
+      </div>
+    );
   }
 
   return (
     <div className="min-h-screen text-slate-950 transition-colors duration-300 dark:text-slate-100">
-      <header className="sticky top-0 z-20 border-b border-white/70 bg-[#fbf7ff]/88 shadow-[0_10px_35px_rgba(15,23,42,0.06)] backdrop-blur-xl transition-colors duration-300 dark:border-white/10 dark:bg-[#151225]/88 dark:shadow-[0_10px_35px_rgba(0,0,0,0.28)]">
-        <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-2.5 sm:py-3">
-          <Link href="/lessons" className="flex items-center gap-2.5 sm:gap-3">
-            <span className="grid size-9 place-items-center rounded-2xl bg-gradient-to-br from-violet-600 to-cyan-500 text-white shadow-[0_10px_24px_rgba(124,58,237,0.28)] transition hover:-rotate-3 hover:scale-105 sm:size-10">
-              <GraduationCap size={20} />
+      <header className="sticky top-0 z-30 border-b border-slate-200/70 bg-[#fbf7ff]/90 backdrop-blur-xl transition-colors duration-300 dark:border-white/10 dark:bg-[#151225]/90">
+        <div className="mx-auto flex max-w-5xl items-center gap-3 px-4 py-2.5">
+          <Link
+            href="/"
+            className="flex shrink-0 items-center gap-2"
+            aria-label="Learning for Rachel — all courses"
+          >
+            <span className="grid size-9 place-items-center rounded-2xl bg-gradient-to-br from-violet-600 to-cyan-500 text-lg text-white shadow-[0_6px_16px_rgba(124,58,237,0.25)]">
+              ✦
             </span>
-            <span>
-              <span className="hidden text-xs font-black uppercase tracking-[0.14em] text-violet-700 dark:text-violet-300 sm:block">
-                Learning Bengali
-              </span>
-              <span className="block text-base font-black leading-tight sm:text-lg">
-                For Rachel
+            <span className="hidden text-sm font-black leading-tight sm:block">
+              Learning
+              <span className="block text-xs font-bold text-slate-500 dark:text-slate-400">
+                for Rachel
               </span>
             </span>
           </Link>
 
-          <nav className="hidden items-center gap-1 md:flex">
-            {navItems.map((item) => {
-              const Icon = item.icon;
-              const isActive = pathname.startsWith(item.href);
-              const label =
-                activeCurriculumId === "history" && item.historyLabel
-                  ? item.historyLabel
-                  : item.label;
-
-              return (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  className={cn(
-                    "group inline-flex items-center gap-2 rounded-2xl px-3 py-2 text-sm font-black text-slate-600 transition duration-200 hover:-translate-y-0.5 hover:bg-white hover:text-violet-700 hover:shadow-[0_8px_20px_rgba(15,23,42,0.08)] dark:text-slate-300 dark:hover:bg-white/10 dark:hover:text-violet-200 dark:hover:shadow-[0_8px_22px_rgba(0,0,0,0.2)] [&>svg]:transition-transform",
-                    isActive &&
-                      "bg-white text-violet-700 shadow-[0_8px_20px_rgba(15,23,42,0.08)] dark:bg-white/10 dark:text-violet-200 dark:shadow-[0_8px_22px_rgba(0,0,0,0.22)]",
-                  )}
-                >
-                  <Icon size={17} />
-                  {label}
-                </Link>
-              );
-            })}
+          <nav className="mx-auto hidden items-center gap-1 sm:flex">
+            {navItems.map((item) => (
+              <NavLink
+                key={item.href}
+                badge={item.href === "/practice" ? duePhraseCount : 0}
+                href={item.href}
+                icon={item.icon}
+                isActive={isNavActive(pathname, item.href)}
+                label={item.label}
+              />
+            ))}
           </nav>
 
-          {/* Desktop actions: theme, language, and live stats. */}
-          <div className="hidden items-center gap-2 sm:flex">
-            <ThemeToggle />
-            <label className="sr-only" htmlFor="curriculum-switcher">
-              Curriculum
-            </label>
-            <select
-              id="curriculum-switcher"
-              value={activeCurriculumId}
-              onChange={(event) => handleCurriculumChange(event.target.value)}
-              className="min-h-10 w-[132px] rounded-full border border-white bg-white px-3 py-2 text-sm font-black text-violet-700 shadow-[0_8px_20px_rgba(15,23,42,0.07)] outline-none ring-1 ring-slate-900/5 transition hover:-translate-y-0.5 focus:border-violet-300 focus:ring-4 focus:ring-violet-100 dark:border-white/10 dark:bg-white/10 dark:text-violet-200 dark:ring-white/10 dark:focus:ring-violet-400/20 sm:w-auto"
-            >
-              {curricula.map((curriculum) => (
-                <option key={curriculum.id} value={curriculum.id}>
-                  {curriculum.label}
-                </option>
-              ))}
-            </select>
-            <div className="flex items-center gap-2">
-              <span className="inline-flex items-center gap-2 rounded-full bg-white px-3 py-2 text-sm font-black shadow-[0_8px_20px_rgba(15,23,42,0.07)] ring-1 ring-slate-900/5 transition hover:-translate-y-0.5 dark:bg-white/10 dark:ring-white/10">
-                <Trophy size={15} className="text-amber-500" />
-                {progress.xp} XP
+          <div className="ml-auto flex items-center gap-1.5 sm:ml-0">
+            {progress.streak > 0 && (
+              <span
+                className="inline-flex min-h-9 items-center gap-1.5 rounded-full px-2.5 text-sm font-black text-orange-600 dark:text-orange-300"
+                title={`${progress.streak} day streak`}
+              >
+                <Flame size={16} fill="currentColor" />
+                {progress.streak}
               </span>
-              <span className="inline-flex items-center gap-2 rounded-full bg-white px-3 py-2 text-sm font-black shadow-[0_8px_20px_rgba(15,23,42,0.07)] ring-1 ring-slate-900/5 transition hover:-translate-y-0.5 hover:bg-cyan-50 hover:text-cyan-700 dark:bg-white/10 dark:ring-white/10 dark:hover:bg-cyan-400/15 dark:hover:text-cyan-100">
-                <Gem size={15} className="text-cyan-500" />
-                {progress.gems} gems
-              </span>
-              <span className="group inline-flex items-center gap-2 rounded-full bg-white px-3 py-2 text-sm font-black shadow-[0_8px_20px_rgba(15,23,42,0.07)] ring-1 ring-slate-900/5 transition hover:-translate-y-0.5 hover:bg-amber-50 hover:text-orange-700 hover:shadow-[0_12px_28px_rgba(249,115,22,0.2)] dark:bg-white/10 dark:ring-white/10 dark:hover:bg-orange-500/15 dark:hover:text-orange-200 dark:hover:shadow-[0_12px_28px_rgba(249,115,22,0.12)]">
-                <Flame
-                  size={15}
-                  className="text-orange-500 transition group-hover:text-orange-600 group-hover:[animation:flame-dance_1.1s_ease-in-out_infinite]"
-                  fill="currentColor"
-                />
-                {progress.streak} day streak
-              </span>
-              {activeMistakes.length > 0 && (
-                <Link
-                  href="/review"
-                  className="rounded-full bg-rose-100 px-3 py-2 text-sm font-bold text-rose-700 transition hover:bg-rose-200 dark:bg-rose-500/15 dark:text-rose-200 dark:hover:bg-rose-500/25"
-                >
-                  {activeMistakes.length} to review
-                </Link>
+            )}
+            <CourseMenu activeCurriculumId={activeCurriculumId} />
+            <Link
+              href="/settings"
+              aria-label="Settings"
+              className={cn(
+                "inline-grid size-9 place-items-center rounded-full text-slate-500 transition hover:bg-slate-900/5 hover:text-slate-900 dark:text-slate-400 dark:hover:bg-white/10 dark:hover:text-white",
+                pathname.startsWith("/settings") &&
+                  "bg-slate-900/5 text-slate-900 dark:bg-white/10 dark:text-white",
               )}
-            </div>
+            >
+              <Settings size={19} />
+            </Link>
           </div>
-
-          {/* Mobile action: a single minimal menu button. */}
-          <button
-            type="button"
-            aria-label="Open menu"
-            aria-expanded={menuOpen}
-            onClick={() => setMenuOpen(true)}
-            className="inline-grid size-10 place-items-center rounded-full border border-white bg-white text-violet-700 shadow-[0_8px_20px_rgba(15,23,42,0.07)] ring-1 ring-slate-900/5 transition hover:-translate-y-0.5 active:translate-y-0.5 dark:border-white/10 dark:bg-white/10 dark:text-violet-200 dark:ring-white/10 sm:hidden"
-          >
-            <Menu size={20} />
-          </button>
         </div>
       </header>
 
-      <MobileMenu
-        activeCurriculumId={activeCurriculumId}
-        activeMistakesCount={activeMistakes.length}
-        isInLesson={isInLesson}
-        onClose={() => setMenuOpen(false)}
-        onCurriculumChange={handleCurriculumChange}
-        open={menuOpen}
-        progress={progress}
-      />
-
-      <main
-        className={cn(
-          "mx-auto max-w-6xl px-4 py-6 sm:py-8",
-          // In-lesson focus mode hides the bottom tab bar, so we don't need
-          // to reserve space for it.
-          isInLesson ? "pb-6" : "pb-28",
-        )}
-      >
+      <main className="mx-auto max-w-5xl px-4 py-6 pb-28 sm:py-8 sm:pb-10">
         {children}
       </main>
 
-      {/* Bottom tab bar is hidden during a lesson (focus mode). */}
-      {!isInLesson && (
-      <nav className="fixed inset-x-0 bottom-0 z-20 border-t border-slate-200 bg-white/95 px-4 py-2 shadow-[0_-10px_30px_rgba(15,23,42,0.08)] backdrop-blur transition-colors duration-300 dark:border-white/10 dark:bg-[#151225]/95 dark:shadow-[0_-10px_30px_rgba(0,0,0,0.25)] sm:hidden">
-        <div className="mx-auto grid max-w-md grid-cols-4 gap-2">
+      <nav className="fixed inset-x-0 bottom-0 z-30 border-t border-slate-200 bg-white/95 px-4 pb-[env(safe-area-inset-bottom)] pt-1.5 backdrop-blur transition-colors duration-300 dark:border-white/10 dark:bg-[#151225]/95 sm:hidden">
+        <div className="mx-auto grid max-w-sm grid-cols-3">
           {navItems.map((item) => {
             const Icon = item.icon;
-            const isActive = pathname.startsWith(item.href);
-            const label =
-              activeCurriculumId === "history" && item.historyLabel
-                ? item.historyLabel
-                : item.label;
+            const isActive = isNavActive(pathname, item.href);
+            const badge = item.href === "/practice" ? duePhraseCount : 0;
 
             return (
               <Link
                 key={item.href}
                 href={item.href}
+                aria-current={isActive ? "page" : undefined}
                 className={cn(
-                  "flex flex-col items-center gap-1 rounded-2xl px-3 py-2 text-xs font-bold text-slate-500 transition active:scale-95 dark:text-slate-300",
-                  isActive &&
-                    "bg-violet-50 text-violet-700 shadow-inner dark:bg-violet-500/20 dark:text-violet-200",
+                  "relative flex min-h-14 flex-col items-center justify-center gap-1 rounded-2xl text-xs font-bold text-slate-500 transition active:scale-95 dark:text-slate-400",
+                  isActive && "text-violet-700 dark:text-violet-300",
                 )}
               >
-                <Icon size={20} />
-                {label}
+                <span className="relative">
+                  <Icon size={22} />
+                  {badge > 0 && <NavBadge count={badge} />}
+                </span>
+                {item.label}
               </Link>
             );
           })}
         </div>
       </nav>
-      )}
     </div>
   );
 }
 
-function MobileMenu({
-  activeCurriculumId,
-  activeMistakesCount,
-  isInLesson,
-  onClose,
-  onCurriculumChange,
-  open,
-  progress,
+/** `/practice` must not light up while `/practice/<lessonId>` is running. */
+function isNavActive(pathname: string, href: string) {
+  if (href === "/practice") {
+    return pathname === "/practice";
+  }
+
+  return pathname.startsWith(href);
+}
+
+function NavLink({
+  badge,
+  href,
+  icon: Icon,
+  isActive,
+  label,
 }: {
-  activeCurriculumId: string;
-  activeMistakesCount: number;
-  isInLesson: boolean;
-  onClose: () => void;
-  onCurriculumChange: (value: string) => void;
-  open: boolean;
-  progress: { xp: number; gems: number; streak: number };
+  badge: number;
+  href: string;
+  icon: typeof BookOpen;
+  isActive: boolean;
+  label: string;
 }) {
-  // Lock body scroll while the drawer is open.
+  return (
+    <Link
+      href={href}
+      aria-current={isActive ? "page" : undefined}
+      className={cn(
+        "inline-flex min-h-10 items-center gap-2 rounded-full px-3.5 text-sm font-black text-slate-500 transition hover:bg-slate-900/5 hover:text-slate-900 dark:text-slate-400 dark:hover:bg-white/10 dark:hover:text-white",
+        isActive &&
+          "bg-white text-violet-700 shadow-sm ring-1 ring-slate-900/5 dark:bg-white/10 dark:text-violet-200 dark:ring-white/10",
+      )}
+    >
+      <span className="relative">
+        <Icon size={17} />
+        {badge > 0 && <NavBadge count={badge} />}
+      </span>
+      {label}
+    </Link>
+  );
+}
+
+function NavBadge({ count }: { count: number }) {
+  return (
+    <span
+      aria-label={`${count} due`}
+      className="absolute -right-2 -top-1.5 min-w-4 rounded-full bg-rose-500 px-1 text-[10px] font-black leading-4 text-white"
+    >
+      {count > 99 ? "99+" : count}
+    </span>
+  );
+}
+
+/**
+ * Switching course is a first-class action, not a form control buried among
+ * stat pills: the chip shows where you are, the menu shows everywhere else you
+ * could be, with progress for each.
+ */
+function CourseMenu({
+  activeCurriculumId,
+}: {
+  activeCurriculumId: CurriculumId;
+}) {
+  const router = useRouter();
+  const pathname = usePathname();
+  const { setActiveCurriculumId, store } = useProgress();
+  const [open, setOpen] = useState(false);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const course = getCourse(activeCurriculumId);
+
   useEffect(() => {
     if (!open) {
       return;
     }
 
-    const previousOverflow = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
+    function onPointerDown(event: PointerEvent) {
+      if (!containerRef.current?.contains(event.target as Node)) {
+        setOpen(false);
+      }
+    }
+
+    function onKeyDown(event: KeyboardEvent) {
+      if (event.key === "Escape") {
+        setOpen(false);
+      }
+    }
+
+    document.addEventListener("pointerdown", onPointerDown);
+    document.addEventListener("keydown", onKeyDown);
 
     return () => {
-      document.body.style.overflow = previousOverflow;
+      document.removeEventListener("pointerdown", onPointerDown);
+      document.removeEventListener("keydown", onKeyDown);
     };
   }, [open]);
 
-  if (!open) {
-    return null;
+  function choose(courseId: CurriculumId) {
+    setActiveCurriculumId(courseId);
+    setOpen(false);
+
+    // Course-scoped pages need to re-read the new course from the top.
+    if (pathname !== "/lessons") {
+      router.push("/lessons");
+    }
   }
 
   return (
-    <div className="fixed inset-0 z-40 sm:hidden" role="dialog" aria-modal="true">
+    <div className="relative" ref={containerRef}>
       <button
         type="button"
-        aria-label="Close menu"
-        onClick={onClose}
-        className="absolute inset-0 h-full w-full bg-slate-950/40 backdrop-blur-sm"
-      />
-      <div className="animate-soft-rise absolute inset-x-0 top-0 max-h-[92vh] overflow-y-auto rounded-b-[28px] border-b border-white/70 bg-[#fbf7ff] p-4 shadow-[0_24px_60px_rgba(15,23,42,0.25)] dark:border-white/10 dark:bg-[#151225]">
-        <div className="flex items-center justify-between">
-          <p className="text-sm font-black uppercase tracking-[0.14em] text-violet-700 dark:text-violet-300">
-            Settings
+        aria-expanded={open}
+        aria-haspopup="menu"
+        onClick={() => setOpen((value) => !value)}
+        className="inline-flex min-h-9 items-center gap-1.5 rounded-full bg-white px-2.5 text-sm font-black text-slate-700 shadow-sm ring-1 ring-slate-900/5 transition hover:bg-slate-50 dark:bg-white/10 dark:text-slate-100 dark:ring-white/10 dark:hover:bg-white/15"
+      >
+        <span aria-hidden="true">{course.accent.emoji}</span>
+        <span className="max-w-24 truncate">{course.shortLabel}</span>
+        <ChevronDown
+          size={14}
+          className={cn("transition-transform", open && "rotate-180")}
+        />
+      </button>
+
+      {open && (
+        <div
+          role="menu"
+          className="animate-soft-rise absolute right-0 top-11 z-40 w-72 overflow-hidden rounded-3xl border border-slate-200 bg-white p-1.5 shadow-[0_20px_50px_rgba(15,23,42,0.16)] dark:border-white/10 dark:bg-[#1c1830]"
+        >
+          <p className="px-3 py-2 text-xs font-black uppercase tracking-[0.12em] text-slate-400 dark:text-slate-500">
+            Your courses
           </p>
-          <button
-            type="button"
-            aria-label="Close menu"
-            onClick={onClose}
-            className="inline-grid size-9 place-items-center rounded-full border border-white bg-white text-slate-600 shadow-sm ring-1 ring-slate-900/5 transition active:scale-95 dark:border-white/10 dark:bg-white/10 dark:text-slate-200 dark:ring-white/10"
+          {COURSES.map((item) => {
+            const outline = getCourseOutline(item.id);
+            const completed =
+              store.byCurriculum[item.id]?.completedLessons.length ?? 0;
+            const percent =
+              outline.lessonCount > 0
+                ? Math.round((completed / outline.lessonCount) * 100)
+                : 0;
+            const isActive = item.id === activeCurriculumId;
+
+            return (
+              <button
+                key={item.id}
+                type="button"
+                role="menuitem"
+                onClick={() => choose(item.id)}
+                className={cn(
+                  "flex w-full min-h-12 items-center gap-3 rounded-2xl px-3 py-2 text-left transition hover:bg-slate-100 dark:hover:bg-white/10",
+                  isActive && "bg-violet-50 dark:bg-violet-400/15",
+                )}
+              >
+                <span className="text-xl" aria-hidden="true">
+                  {item.accent.emoji}
+                </span>
+                <span className="min-w-0 flex-1">
+                  <span className="block truncate text-sm font-black text-slate-900 dark:text-slate-50">
+                    {item.label}
+                  </span>
+                  <span className="block text-xs font-bold text-slate-500 dark:text-slate-400">
+                    {percent > 0
+                      ? `${percent}% · ${completed}/${outline.lessonCount}`
+                      : `${outline.lessonCount} ${item.nouns.lessons}`}
+                  </span>
+                </span>
+                {isActive && (
+                  <Check size={17} className="shrink-0 text-violet-600 dark:text-violet-300" />
+                )}
+              </button>
+            );
+          })}
+          <Link
+            href="/"
+            onClick={() => setOpen(false)}
+            className="mt-1 flex min-h-11 items-center justify-center rounded-2xl border-t border-slate-100 text-sm font-black text-violet-700 transition hover:bg-violet-50 dark:border-white/10 dark:text-violet-300 dark:hover:bg-white/10"
           >
-            <X size={18} />
-          </button>
+            Browse all courses
+          </Link>
         </div>
-
-        <div className="mt-3 grid grid-cols-3 gap-2">
-          <StatPill icon={<Trophy size={15} className="text-amber-500" />} value={`${progress.xp} XP`} />
-          <StatPill icon={<Gem size={15} className="text-cyan-500" />} value={`${progress.gems} gems`} />
-          <StatPill
-            icon={<Flame size={15} className="text-orange-500" fill="currentColor" />}
-            value={`${progress.streak} day`}
-          />
-        </div>
-
-        <div className="mt-3 grid gap-2">
-          {isInLesson && (
-            <MenuLink href="/lessons" icon={<DoorOpen size={18} />} label="Exit lesson" onClick={onClose} />
-          )}
-          <MenuLink href="/lessons" icon={<Route size={18} />} label="Lesson path" onClick={onClose} />
-          <MenuLink href="/music" icon={<Music size={18} />} label="Music" onClick={onClose} />
-          {activeMistakesCount > 0 && (
-            <MenuLink
-              href="/review"
-              icon={<RotateCcw size={18} />}
-              label={`Review (${activeMistakesCount})`}
-              onClick={onClose}
-            />
-          )}
-        </div>
-
-        <div className="mt-3 flex items-center justify-between gap-3 rounded-2xl border border-white/80 bg-white/85 px-4 py-3 shadow-sm dark:border-white/10 dark:bg-white/10">
-          <span className="inline-flex items-center gap-2 text-sm font-black text-slate-700 dark:text-slate-100">
-            <Languages size={18} className="text-violet-600 dark:text-violet-300" />
-            Language
-          </span>
-          <label className="sr-only" htmlFor="curriculum-switcher-mobile">
-            Curriculum
-          </label>
-          <select
-            id="curriculum-switcher-mobile"
-            value={activeCurriculumId}
-            onChange={(event) => {
-              onCurriculumChange(event.target.value);
-              onClose();
-            }}
-            className="min-h-10 rounded-full border border-white bg-white px-3 py-2 text-sm font-black text-violet-700 shadow-sm outline-none ring-1 ring-slate-900/5 transition focus:border-violet-300 focus:ring-4 focus:ring-violet-100 dark:border-white/10 dark:bg-white/10 dark:text-violet-200 dark:ring-white/10 dark:focus:ring-violet-400/20"
-          >
-            {curricula.map((curriculum) => (
-              <option key={curriculum.id} value={curriculum.id}>
-                {curriculum.label}
-              </option>
-            ))}
-          </select>
-        </div>
-
-        <div className="mt-2 flex items-center justify-between gap-3 rounded-2xl border border-white/80 bg-white/85 px-4 py-3 shadow-sm dark:border-white/10 dark:bg-white/10">
-          <span className="text-sm font-black text-slate-700 dark:text-slate-100">
-            Light / dark mode
-          </span>
-          <ThemeToggle />
-        </div>
-
-        <div className="mt-3 flex items-start gap-2 rounded-2xl border border-cyan-100 bg-cyan-50/80 px-4 py-3 dark:border-cyan-300/20 dark:bg-cyan-400/10">
-          <CloudDownload
-            size={18}
-            className="mt-0.5 shrink-0 text-cyan-600 dark:text-cyan-300"
-          />
-          <p className="text-xs font-bold leading-5 text-slate-600 dark:text-slate-300">
-            Works offline. Add to your Home Screen (Share → Add to Home Screen)
-            to open lessons without internet.
-          </p>
-        </div>
-      </div>
+      )}
     </div>
-  );
-}
-
-function StatPill({ icon, value }: { icon: ReactNode; value: string }) {
-  return (
-    <span className="inline-flex items-center justify-center gap-1.5 rounded-full bg-white px-2 py-2 text-xs font-black shadow-sm ring-1 ring-slate-900/5 dark:bg-white/10 dark:ring-white/10">
-      {icon}
-      {value}
-    </span>
-  );
-}
-
-function MenuLink({
-  href,
-  icon,
-  label,
-  onClick,
-}: {
-  href: string;
-  icon: ReactNode;
-  label: string;
-  onClick: () => void;
-}) {
-  return (
-    <Link
-      href={href}
-      onClick={onClick}
-      className="flex items-center gap-3 rounded-2xl border border-white/80 bg-white/85 px-4 py-3 text-sm font-black text-slate-700 shadow-sm transition active:scale-[0.99] dark:border-white/10 dark:bg-white/10 dark:text-slate-100"
-    >
-      <span className="grid size-9 shrink-0 place-items-center rounded-xl bg-violet-100 text-violet-700 dark:bg-violet-400/15 dark:text-violet-200">
-        {icon}
-      </span>
-      {label}
-    </Link>
   );
 }

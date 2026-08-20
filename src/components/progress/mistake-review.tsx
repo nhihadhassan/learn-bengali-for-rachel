@@ -4,7 +4,9 @@ import { useMemo, useState } from "react";
 import Link from "next/link";
 import { ArrowRight, Check, RotateCcw, VolumeX } from "lucide-react";
 import { checkTypedAnswer } from "@/lib/answer-checking";
-import { getCurriculum, getLesson } from "@/lib/content";
+import { locateLesson } from "@/lib/course-index";
+import { getCourse } from "@/lib/courses";
+import { getAuthoredLesson } from "@/lib/core-content";
 import { capitalizeDisplayText, formatRomanizedDisplay } from "@/lib/display-text";
 import { useProgress } from "@/lib/progress-store";
 import type {
@@ -23,13 +25,6 @@ export function MistakeReview() {
     index: 0,
   });
   const { activeCurriculumId, activeMistakes, activeSkippedListening } = useProgress();
-  // Use the real course label (minus any "(full course)" suffix) so new courses
-  // never mislabel as "Bengali".
-  const languageLabel = getCurriculum(activeCurriculumId)
-    .label.replace(/\s*\(.*\)$/, "")
-    .replace(/\s+course$/i, "");
-  const reviewSubject =
-    activeCurriculumId === "history" ? "story moments" : "phrases";
   const index =
     reviewPosition.curriculumId === activeCurriculumId
       ? reviewPosition.index
@@ -58,38 +53,7 @@ export function MistakeReview() {
   }
 
   if (activeMistakes.length === 0 || !currentMistake) {
-    const emptyCopy =
-      activeCurriculumId === "history"
-        ? "Missed answers will show up here after a story check, so Rachel can revisit the tricky moment before moving on."
-        : `Missed answers will show up here after a lesson, so Rachel can repeat weak ${languageLabel} ${reviewSubject} before moving on.`;
-
-    return (
-      <section className="animate-soft-rise rounded-[34px] bg-gradient-to-br from-emerald-600 to-cyan-600 p-6 text-white shadow-[0_24px_80px_rgba(5,150,105,0.25)] ring-1 ring-white/20 sm:p-8">
-        <p className="text-sm font-black uppercase tracking-[0.14em] text-emerald-100">
-          Smart Review
-        </p>
-        <h1 className="mt-2 text-4xl font-black">Nothing to review yet.</h1>
-        <p className="mt-3 max-w-xl text-emerald-50">
-          {emptyCopy}
-        </p>
-        <div className="mt-6 max-w-lg rounded-3xl border border-white/10 bg-white/10 p-4 shadow-inner">
-          <p className="text-xs font-black uppercase tracking-[0.14em] text-emerald-100">
-            Preview
-          </p>
-          <p className="mt-2 text-lg font-black">Mistakes and skipped practice will appear here.</p>
-          <p className="mt-1 text-sm font-semibold text-emerald-50">
-            Smart Review keeps the sticky parts separate for Bengali, Spanish,
-            Malayalam, and History.
-          </p>
-        </div>
-        <Link
-          href="/lessons"
-          className="mt-6 inline-flex items-center gap-2 rounded-xl bg-white px-5 py-3 font-black text-emerald-800"
-        >
-          Go to lessons
-        </Link>
-      </section>
-    );
+    return <NothingToFix />;
   }
 
   return (
@@ -155,7 +119,7 @@ function SkippedListeningCard({
   total: number;
 }) {
   const { resolveSkippedListening } = useProgress();
-  const lesson = getLesson(skipped.lessonId);
+  const lesson = locateLesson(skipped.lessonId)?.lesson;
 
   return (
     <ExerciseCard>
@@ -450,7 +414,7 @@ function MatchingReview({
 function getMultipleChoiceReview(
   mistake: Mistake,
 ): MultipleChoiceReviewData | null {
-  const lesson = getLesson(mistake.lessonId);
+  const lesson = getAuthoredLesson(mistake.lessonId);
   const exerciseId = mistake.exerciseId.replace(
     `${mistake.lessonId}-review-`,
     "",
@@ -502,4 +466,84 @@ function formatCorrectAnswer(answer: string) {
   }
 
   return pairs.map((pair) => `${pair.left} = ${pair.right}`).join("; ");
+}
+
+/**
+ * With no mistakes left, Review must not be a dead end: point at the practice
+ * that spaced repetition says is actually worth doing.
+ */
+function NothingToFix() {
+  const { activeCurriculumId, duePhraseCount, reviewPhraseIds } = useProgress();
+  const course = getCourse(activeCurriculumId);
+
+  return (
+    <div className="mx-auto max-w-2xl space-y-4">
+      <header className="px-1">
+        <p className="text-xs font-black uppercase tracking-[0.14em] text-emerald-600 dark:text-emerald-300">
+          {course.label}
+        </p>
+        <h1 className="mt-1 text-2xl font-black text-slate-950 dark:text-slate-50 sm:text-3xl">
+          Nothing to fix
+        </h1>
+      </header>
+
+      <section className="rounded-3xl border border-emerald-200 bg-emerald-50 p-6 text-center dark:border-emerald-400/25 dark:bg-emerald-400/10">
+        <span className="mx-auto grid size-14 place-items-center rounded-2xl bg-emerald-600 text-white">
+          <Check size={26} />
+        </span>
+        <h2 className="mt-4 text-xl font-black text-slate-900 dark:text-slate-50">
+          No open mistakes in {course.label}
+        </h2>
+        <p className="mx-auto mt-2 max-w-sm text-sm font-semibold leading-6 text-slate-600 dark:text-slate-300">
+          Missed questions land here so you can retry them. In the meantime,
+          here is what would help most.
+        </p>
+
+        <div className="mt-6 grid gap-2 text-left">
+          {reviewPhraseIds.length > 0 && (
+            <Link
+              href="/strengthen"
+              className="flex min-h-14 items-center justify-between gap-3 rounded-2xl bg-white px-4 py-3 font-black text-slate-800 shadow-sm transition hover:-translate-y-0.5 dark:bg-white/10 dark:text-slate-100"
+            >
+              <span className="min-w-0">
+                <span className="block text-sm">
+                  {duePhraseCount > 0
+                    ? `Review ${duePhraseCount} due ${duePhraseCount === 1 ? "phrase" : "phrases"}`
+                    : "Strengthen your weakest phrases"}
+                </span>
+                <span className="block text-xs font-semibold text-slate-500 dark:text-slate-400">
+                  Spaced repetition picks them for you.
+                </span>
+              </span>
+              <ArrowRight size={18} className="shrink-0 text-slate-400" />
+            </Link>
+          )}
+          <Link
+            href="/practice"
+            className="flex min-h-14 items-center justify-between gap-3 rounded-2xl bg-white px-4 py-3 font-black text-slate-800 shadow-sm transition hover:-translate-y-0.5 dark:bg-white/10 dark:text-slate-100"
+          >
+            <span className="min-w-0">
+              <span className="block text-sm">All practice options</span>
+              <span className="block text-xs font-semibold text-slate-500 dark:text-slate-400">
+                Checkpoints, {course.nouns.wordBank.toLowerCase()} and more.
+              </span>
+            </span>
+            <ArrowRight size={18} className="shrink-0 text-slate-400" />
+          </Link>
+          <Link
+            href="/lessons"
+            className="flex min-h-14 items-center justify-between gap-3 rounded-2xl bg-white px-4 py-3 font-black text-slate-800 shadow-sm transition hover:-translate-y-0.5 dark:bg-white/10 dark:text-slate-100"
+          >
+            <span className="min-w-0">
+              <span className="block text-sm">Carry on learning</span>
+              <span className="block text-xs font-semibold text-slate-500 dark:text-slate-400">
+                Pick up the next {course.nouns.lesson}.
+              </span>
+            </span>
+            <ArrowRight size={18} className="shrink-0 text-slate-400" />
+          </Link>
+        </div>
+      </section>
+    </div>
+  );
 }

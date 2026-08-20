@@ -3,7 +3,7 @@
 import { useMemo } from "react";
 import Link from "next/link";
 import { useParams } from "next/navigation";
-import { ArrowLeft, RefreshCw } from "lucide-react";
+import { ArrowLeft } from "lucide-react";
 import { LessonFlow } from "@/components/lesson/lesson-flow";
 import { getCurriculum, getUnit } from "@/lib/content";
 import { useProgress } from "@/lib/progress-store";
@@ -56,20 +56,16 @@ export default function UnitReviewPage() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [unit?.id, activeCurriculumId, curriculum.locale]);
 
-  const backLink = (
-    <Link
-      href="/lessons"
-      aria-label="Back to lessons"
-      className="inline-grid size-9 shrink-0 place-items-center rounded-xl border border-slate-200 bg-white text-slate-700 shadow-sm transition hover:bg-slate-50 dark:border-white/10 dark:bg-white/10 dark:text-slate-100 dark:hover:bg-white/15 sm:size-10"
-    >
-      <ArrowLeft size={18} />
-    </Link>
-  );
-
   if (!reviewLesson) {
     return (
-      <div className="flex items-center gap-3">
-        {backLink}
+      <div className="mx-auto flex max-w-2xl items-center gap-3 px-4 pt-4">
+        <Link
+          href="/practice"
+          aria-label="Back to practice"
+          className="inline-grid size-11 shrink-0 place-items-center rounded-full text-slate-500 transition hover:bg-slate-900/5 hover:text-slate-900 dark:text-slate-400 dark:hover:bg-white/10 dark:hover:text-white"
+        >
+          <ArrowLeft size={20} />
+        </Link>
         <p className="text-sm font-bold text-slate-500 dark:text-slate-400">
           This unit isn&apos;t ready to review yet.
         </p>
@@ -77,21 +73,6 @@ export default function UnitReviewPage() {
     );
   }
 
-  return (
-    <div className="space-y-3">
-      <div className="flex items-center gap-3">
-        {backLink}
-        <div className="min-w-0">
-          <p className="flex items-center gap-1.5 truncate text-xs font-black uppercase tracking-[0.14em] text-cyan-600 dark:text-cyan-300">
-            <RefreshCw size={13} /> Unit review
-          </p>
-          <h1 className="truncate text-xl font-black leading-tight text-slate-950 dark:text-slate-50 sm:text-2xl">
-            {reviewLesson.title}
-          </h1>
-        </div>
-      </div>
-
-      <LessonFlow key={reviewLesson.id} lesson={reviewLesson} reviewMode />
-    </div>
-  );
+  // LessonFlow supplies its own exit + progress chrome in review mode.
+  return <LessonFlow key={reviewLesson.id} lesson={reviewLesson} reviewMode />;
 }

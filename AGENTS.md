@@ -2,23 +2,26 @@
 
 ## Project
 
-Learn Bengali for Rachel is a small Next.js App Router app for beginner Bengali learning. The MVP focuses on romanized Bengali for learners, Bengali script for pronunciation, guided lesson flow, XP/streak progress, mistake review, and a learned-words vocabulary bank.
+**Learning for Rachel** is a Next.js App Router learning platform. It began as a
+Bengali app for one learner and now hosts several courses — Bengali, Spanish for
+Peru, a full 131-unit Spanish course, Malayalam, and History chapters. Bengali is
+one course, not the identity of the app.
+
+Read **[docs/HANDOFF.md](docs/HANDOFF.md)** first; it is the source of truth.
 
 ## Stack
 
-- Next.js App Router with TypeScript
-- Tailwind CSS v4
-- Local JSON lesson content in `content/learn-bengali.json`
+- Next.js 16 App Router (webpack) · React 19 · TypeScript (strict) · Tailwind v4
+- Local JSON lesson content in `content/`
 - Local browser progress via `localStorage`
 - Supabase-ready schema/client boundaries, but no live Supabase dependency yet
 
 ## Commands
 
-Use the bundled Node runtime if the system shell does not have npm available.
-
 ```bash
 npm run dev
 npm run lint
+npm test
 npm run build
 npm audit --audit-level=moderate
 ```
@@ -31,12 +34,24 @@ NEXT_TEST_WASM=1 NEXT_TEST_WASM_DIR="$PWD/node_modules/@next/swc-wasm-nodejs" np
 
 ## Architecture Notes
 
-- Lesson content lives in `content/learn-bengali.json`.
-- Core content helpers live in `src/lib/content.ts`.
-- Progress state lives in `src/lib/progress-store.ts` and is persisted under `learn-bengali-rachel-progress`.
-- Learned vocabulary is derived in `src/lib/learned-words.ts` from `encounteredPhraseIds` plus completed lessons.
-- Pronunciation is centralized in `src/lib/pronunciation.ts`; do not create a second TTS path.
-- Speaker playback UI lives in `src/components/lesson/speaker-button.tsx`.
+- **`src/lib/courses.ts` is the course registry** — ids, labels, locales, nouns,
+  accents and capabilities. Metadata only; it costs nothing to import.
+- **`src/lib/course-index.ts`** is the generated titles-only outline
+  (`content/course-index.json`). Navigation, the lesson path and progress maths
+  read this.
+- **`src/lib/content.ts` is heavy** (~1.2MB, mostly the Spanish pack). Import it
+  only where real phrases/exercises are needed. `src/lib/core-content.ts` is the
+  narrower door for the four hand-authored curricula.
+- **`src/lib/lesson-steps.ts` is the lesson engine** — pure, no React, and
+  tested. `lesson-flow.tsx` only handles state, answers and persistence;
+  renderers live in `src/components/lesson/steps/`.
+- `src/lib/review-policy.ts` owns spaced repetition. Nothing else defines
+  intervals.
+- `src/lib/date-keys.ts` owns calendar days. Never use `toISOString()` for a
+  streak.
+- `src/lib/progress-store.ts` holds progress, persisted under
+  `learn-bengali-rachel-progress`.
+- `src/lib/pronunciation.ts` is the only TTS path; do not create a second.
 - Reusable UI primitives live in `src/components/ui/`.
 
 ## Content Model
@@ -57,13 +72,26 @@ Phrase objects should use:
 
 `audioFile` is optional and preferred for new custom recordings. `audioUrl` is
 still supported for older content. Put new recorded files under
-`public/audio/bengali/`.
+`public/audio/<language>/`.
 
 ## Development Rules
 
-- Dynamic lesson flow is required: never test a word in the step right after it is introduced (no "learn adios" → "what does adios mean?" back to back). Space teaching and testing (see `TEACH_TEST_LAG` in `buildLessonSteps`) and keep mixing question types.
-- Preserve XP, streaks, lesson completion, mistake review, and learned-word persistence unless explicitly asked to change them.
-- Display romanized Bengali to learners, but pass Bengali script to pronunciation when available.
-- Keep local progress shape backward-compatible when adding fields.
-- Keep UI mobile-first and simple; prefer existing components before adding new ones.
-- Run lint and build after code changes.
+- **Dynamic lesson flow is required**: never test a word in the step right after
+  it is introduced. See `TEACH_TEST_LAG` in `src/lib/lesson-steps.ts`; `npm test`
+  enforces it. Keep mixing question types.
+- **Branch on capabilities, not ids.** Ask
+  `getCapabilities(courseId).listening`, never `courseId === "spanish"`. Add a
+  capability to the registry if one is missing.
+- **Adding a course** = a registry entry in `src/lib/courses.ts`, one line in
+  `UNIT_SOURCES` in `src/lib/content.ts`, and `npm run build:course-index`.
+  Nothing else — the progress store, shell and course menu follow the registry.
+- **Regenerate the course index** after any content change, or `npm test` fails.
+- Keep navigation off `@/lib/content`; use `@/lib/course-index` for titles/counts.
+- Preserve XP, streaks, lesson completion, mistake review, and learned-word
+  persistence unless explicitly asked to change them.
+- Keep local progress **backward-compatible** when adding fields, and add a case
+  to `scripts/progress-store.test.ts`.
+- Display romanized text to learners, but pass native script to pronunciation
+  when available.
+- Keep UI mobile-first; prefer existing components before adding new ones.
+- Run lint, tests and build after code changes.

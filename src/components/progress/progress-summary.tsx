@@ -1,171 +1,297 @@
 "use client";
 
-import type { ComponentType } from "react";
-import { useMemo, useState } from "react";
-import { CheckCircle2, Flame, Gem, RotateCcw, ShieldCheck, Trophy } from "lucide-react";
-import { getCurriculum } from "@/lib/content";
+/**
+ * Progress: what has actually been learned.
+ *
+ * XP, gems and streaks still appear — they are motivating — but they are the
+ * garnish, not the meal. The headline numbers are course completion, how many
+ * phrases are in memory and how strong they are, accuracy, and which topics
+ * keep going wrong. Every figure here is derived from real stored data; nothing
+ * is invented to fill a card.
+ */
+
+import { useMemo } from "react";
+import Link from "next/link";
+import {
+  ArrowRight,
+  Brain,
+  Check,
+  Flame,
+  Gem,
+  Sparkles,
+  Target,
+  Trophy,
+} from "lucide-react";
+import { getCourseOutline, locateLesson } from "@/lib/course-index";
+import { getCourse } from "@/lib/courses";
+import { localDayKey, shiftedDayKey } from "@/lib/date-keys";
 import { useProgress } from "@/lib/progress-store";
+import { cn } from "@/lib/utils";
+
+const ACTIVITY_DAYS = 14;
 
 export function ProgressSummary() {
   const {
     activeCurriculumId,
     activeMistakes,
+    memorySummary,
     progress,
-    resetProgress,
     restoreStreak,
   } = useProgress();
-  const [restoreMessage, setRestoreMessage] = useState("");
-  const curriculum = getCurriculum(activeCurriculumId);
-  const lessons = useMemo(
-    () => curriculum.units.flatMap((unit) => unit.lessons),
-    [curriculum.units],
+  const course = getCourse(activeCurriculumId);
+  const outline = getCourseOutline(activeCurriculumId);
+  const nouns = course.nouns;
+
+  const completedLessonIds = useMemo(
+    () => new Set(progress.completedLessons),
+    [progress.completedLessons],
   );
-  const lessonIds = useMemo(
-    () => new Set(lessons.map((lesson) => lesson.id)),
-    [lessons],
-  );
-  const completedCurrentLessons = progress.completedLessons.filter((lessonId) =>
-    lessonIds.has(lessonId),
-  );
-  const completionPercent = Math.round(
-    lessons.length > 0 ? (completedCurrentLessons.length / lessons.length) * 100 : 0,
-  );
-  const hasProgress = progress.xp > 0 || completedCurrentLessons.length > 0;
+
+  const completedCount = outline.units
+    .flatMap((unit) => unit.lessons)
+    .filter((lesson) => completedLessonIds.has(lesson.id)).length;
+  const completionPercent =
+    outline.lessonCount > 0
+      ? Math.round((completedCount / outline.lessonCount) * 100)
+      : 0;
+
+  const accuracy =
+    progress.answeredTotal > 0
+      ? Math.round((progress.answeredCorrect / progress.answeredTotal) * 100)
+      : null;
+
+  // Weak topics: unresolved mistakes grouped by the unit they came from. Real
+  // signal — these are questions this learner actually got wrong.
+  const weakUnits = useMemo(() => {
+    const counts = new Map<string, { title: string; count: number; unitId: string }>();
+
+    for (const mistake of activeMistakes) {
+      const location = locateLesson(mistake.lessonId);
+
+      if (!location) {
+        continue;
+      }
+
+      const entry = counts.get(location.unit.id) ?? {
+        title: location.unit.title,
+        count: 0,
+        unitId: location.unit.id,
+      };
+      entry.count += 1;
+      counts.set(location.unit.id, entry);
+    }
+
+    return [...counts.values()].sort((a, b) => b.count - a.count).slice(0, 4);
+  }, [activeMistakes]);
+
+  const activity = useMemo(() => {
+    const practiced = new Set(progress.practiceDays);
+    const today = localDayKey();
+
+    return Array.from({ length: ACTIVITY_DAYS }, (_, index) => {
+      const key = shiftedDayKey(index - (ACTIVITY_DAYS - 1), new Date());
+      return { key, active: practiced.has(key), isToday: key === today };
+    });
+  }, [progress.practiceDays]);
+
+  const hasStarted = completedCount > 0 || memorySummary.tracked > 0;
   const canRestoreStreak =
-    progress.streakRestoreAvailable && progress.lastStreakBeforeMiss > 0;
-  const hasEnoughGems = progress.gems >= 400;
-
-  function handleRestoreStreak() {
-    if (!canRestoreStreak) {
-      setRestoreMessage("Streak restore will appear here if you miss a day.");
-      return;
-    }
-
-    if (!hasEnoughGems) {
-      setRestoreMessage("You need 400 gems to restore your streak.");
-      return;
-    }
-
-    if (!window.confirm("Restore your streak for 400 gems?")) {
-      return;
-    }
-
-    const restored = restoreStreak();
-    setRestoreMessage(
-      restored
-        ? "Streak restored. Keep the momentum going."
-        : "Streak restore is not available right now.",
-    );
-  }
+    progress.streakRestoreAvailable &&
+    progress.lastStreakBeforeMiss > 0 &&
+    progress.gems >= 400;
 
   return (
-    <div className="space-y-5">
-      <section className="animate-soft-rise overflow-hidden rounded-[34px] bg-slate-950 p-6 text-white shadow-[0_24px_80px_rgba(15,23,42,0.22)] ring-1 ring-white/10 sm:p-8">
-        <p className="text-sm font-black uppercase tracking-[0.14em] text-violet-100">
-          Rachel&apos;s progress
+    <div className="space-y-4">
+      <header className="px-1">
+        <p className="text-xs font-black uppercase tracking-[0.14em] text-violet-600 dark:text-violet-300">
+          {course.label}
         </p>
-        <h1 className="mt-2 text-4xl font-black">Keep the streak alive.</h1>
-        <p className="mt-3 max-w-xl text-slate-300">
-          You are viewing {curriculum.label} progress. Progress is saved in this
-          browser for now.
-        </p>
-      </section>
+        <h1 className="mt-1 text-2xl font-black text-slate-950 dark:text-slate-50 sm:text-3xl">
+          Progress
+        </h1>
+      </header>
 
-      <div className="grid gap-4 md:grid-cols-4">
-        <MetricCard icon={Trophy} label="XP" value={progress.xp.toString()} />
-        <MetricCard icon={Gem} label="Gems" value={progress.gems.toString()} />
-        <MetricCard icon={Flame} label="Streak" value={`${progress.streak} days`} />
-        <MetricCard
-          icon={RotateCcw}
-          label="Active mistakes"
-          value={activeMistakes.length.toString()}
-        />
-      </div>
-
-      {!hasProgress && (
-        <section className="rounded-3xl border border-violet-100 bg-violet-50 p-5 shadow-inner dark:border-violet-300/20 dark:bg-violet-400/12">
-          <div className="flex items-start gap-3">
-            <span className="grid size-11 shrink-0 place-items-center rounded-2xl bg-white text-violet-700 shadow-sm dark:bg-white/10 dark:text-violet-200">
-              <CheckCircle2 size={22} />
-            </span>
-            <div>
-              <h2 className="text-xl font-black">Progress will fill in here.</h2>
-              <p className="mt-1 text-sm font-semibold leading-6 text-slate-600 dark:text-slate-300">
-                After a lesson, this page shows XP, streaks, completed topics,
-                and review items for the selected curriculum.
+      {!hasStarted ? (
+        <EmptyProgress lessonNoun={nouns.lesson} />
+      ) : (
+        <>
+          <section className="rounded-3xl border border-slate-200 bg-white p-5 dark:border-white/10 dark:bg-white/[0.05]">
+            <div className="flex items-end justify-between gap-3">
+              <div>
+                <h2 className="text-base font-black text-slate-900 dark:text-slate-50">
+                  Course completion
+                </h2>
+                <p className="mt-0.5 text-xs font-semibold text-slate-500 dark:text-slate-400">
+                  {completedCount} of {outline.lessonCount} {nouns.lessons} ·{" "}
+                  {outline.unitCount} {nouns.units}
+                </p>
+              </div>
+              <p className="text-3xl font-black leading-none text-violet-700 dark:text-violet-300">
+                {completionPercent}%
               </p>
             </div>
-          </div>
-        </section>
-      )}
+            <div className="mt-3 h-3 overflow-hidden rounded-full bg-slate-100 dark:bg-white/10">
+              <div
+                className="progress-shine h-full rounded-full transition-[width] duration-700"
+                style={{ width: `${completionPercent}%` }}
+              />
+            </div>
+          </section>
 
-      <section className="rounded-3xl border border-white/80 bg-white/95 p-5 shadow-[0_18px_55px_rgba(15,23,42,0.08)] ring-1 ring-slate-900/5 transition-colors duration-300 dark:border-white/10 dark:bg-slate-950/80 dark:shadow-[0_18px_55px_rgba(0,0,0,0.28)] dark:ring-white/10">
-        <div className="mb-3 flex items-center justify-between gap-3">
-          <div>
-            <h2 className="text-2xl font-black">Lesson completion</h2>
-            <p className="text-sm text-slate-600 dark:text-slate-300">
-              {completedCurrentLessons.length} of {lessons.length} lessons complete
+          <div className="grid grid-cols-2 gap-3 lg:grid-cols-4">
+            <MetricCard
+              icon={Brain}
+              label={course.capabilities.kind === "history" ? "Facts in memory" : "Phrases learned"}
+              sub={
+                memorySummary.tracked > 0
+                  ? `${memorySummary.strong} going strong`
+                  : "Nothing tracked yet"
+              }
+              value={memorySummary.tracked.toString()}
+            />
+            <MetricCard
+              icon={Target}
+              label="Recall strength"
+              sub={
+                memorySummary.due > 0
+                  ? `${memorySummary.due} due for review`
+                  : "Nothing due right now"
+              }
+              value={`${memorySummary.averageStrength}%`}
+            />
+            <MetricCard
+              icon={Check}
+              label="Accuracy"
+              sub={
+                accuracy === null
+                  ? "Answer a question to start"
+                  : `${progress.answeredCorrect} of ${progress.answeredTotal} answers`
+              }
+              value={accuracy === null ? "—" : `${accuracy}%`}
+            />
+            <MetricCard
+              icon={Flame}
+              label="Streak"
+              sub={progress.streak > 0 ? "days in a row" : "Practice today to start"}
+              value={progress.streak.toString()}
+            />
+          </div>
+
+          <section className="rounded-3xl border border-slate-200 bg-white p-5 dark:border-white/10 dark:bg-white/[0.05]">
+            <h2 className="text-base font-black text-slate-900 dark:text-slate-50">
+              Recent activity
+            </h2>
+            <p className="mt-0.5 text-xs font-semibold text-slate-500 dark:text-slate-400">
+              The last {ACTIVITY_DAYS} days.
             </p>
-          </div>
-          <p className="text-2xl font-black text-violet-700 dark:text-violet-300">
-            {completionPercent}%
-          </p>
-        </div>
-        <div className="h-4 overflow-hidden rounded-full bg-slate-100 shadow-inner ring-1 ring-slate-900/5 dark:bg-white/10 dark:ring-white/10">
-          <div
-            className="progress-shine h-full rounded-full transition-all duration-700"
-            style={{ width: `${completionPercent}%` }}
-          />
-        </div>
-      </section>
-
-      <section className="rounded-3xl border border-cyan-100 bg-cyan-50 p-5 shadow-inner dark:border-cyan-300/20 dark:bg-cyan-400/12">
-        <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-          <div className="flex items-start gap-3">
-            <span className="grid size-11 shrink-0 place-items-center rounded-2xl bg-white text-cyan-700 shadow-sm dark:bg-white/10 dark:text-cyan-100">
-              <ShieldCheck size={22} />
-            </span>
-            <div>
-              <h2 className="text-xl font-black">Streak Restore</h2>
-              <p className="mt-1 text-sm font-semibold leading-6 text-slate-600 dark:text-slate-300">
-                Spend 400 gems to restore a streak after a missed day. No money,
-                no loot boxes, just a little cushion for learning.
-              </p>
-              {restoreMessage && (
-                <p className="mt-2 text-sm font-black text-cyan-800 dark:text-cyan-100">
-                  {restoreMessage}
-                </p>
-              )}
-              {!canRestoreStreak && !restoreMessage && (
-                <p className="mt-2 text-sm font-black text-cyan-800 dark:text-cyan-100">
-                  Streak restore will appear here if you miss a day.
-                </p>
-              )}
-              {canRestoreStreak && !hasEnoughGems && !restoreMessage && (
-                <p className="mt-2 text-sm font-black text-cyan-800 dark:text-cyan-100">
-                  You need 400 gems to restore your streak.
-                </p>
-              )}
+            <div className="mt-4 flex items-end gap-1.5">
+              {activity.map((day) => (
+                <span
+                  key={day.key}
+                  title={day.key}
+                  className={cn(
+                    "h-9 flex-1 rounded-lg transition-colors",
+                    day.active
+                      ? "bg-violet-500 dark:bg-violet-400"
+                      : "bg-slate-100 dark:bg-white/10",
+                    day.isToday &&
+                      "ring-2 ring-violet-300 ring-offset-2 ring-offset-white dark:ring-violet-400/50 dark:ring-offset-[#171426]",
+                  )}
+                />
+              ))}
             </div>
-          </div>
-          <button
-            type="button"
-            onClick={handleRestoreStreak}
-            className="min-h-12 rounded-2xl bg-cyan-600 px-5 py-3 font-black text-white shadow-[0_6px_0_#0e7490,0_16px_30px_rgba(8,145,178,0.2)] transition hover:-translate-y-0.5 hover:bg-cyan-500 hover:shadow-[0_8px_0_#0e7490,0_22px_36px_rgba(8,145,178,0.24)] active:translate-y-1 disabled:cursor-not-allowed disabled:opacity-60 disabled:hover:translate-y-0"
-            disabled={!canRestoreStreak || !hasEnoughGems}
-          >
-            Restore for 400 gems
-          </button>
-        </div>
-      </section>
+          </section>
 
-      <button
-        type="button"
-        onClick={resetProgress}
-        className="rounded-2xl border border-rose-200 bg-rose-50 px-4 py-3 font-black text-rose-700 shadow-[0_5px_0_#fecdd3] transition hover:-translate-y-0.5 hover:bg-rose-100 hover:shadow-[0_7px_0_#fecdd3,0_14px_24px_rgba(244,63,94,0.12)] active:translate-y-1 dark:border-rose-300/25 dark:bg-rose-400/14 dark:text-rose-100 dark:shadow-[0_5px_0_rgba(251,113,133,0.24),0_14px_24px_rgba(0,0,0,0.22)] dark:hover:bg-rose-400/20"
-      >
-        Reset demo progress
-      </button>
+          <section className="rounded-3xl border border-slate-200 bg-white p-5 dark:border-white/10 dark:bg-white/[0.05]">
+            <h2 className="text-base font-black text-slate-900 dark:text-slate-50">
+              {weakUnits.length > 0 ? "Worth another look" : "Nothing is sticking out"}
+            </h2>
+            {weakUnits.length > 0 ? (
+              <>
+                <p className="mt-0.5 text-xs font-semibold text-slate-500 dark:text-slate-400">
+                  The {nouns.units} your open mistakes came from.
+                </p>
+                <ul className="mt-3 grid gap-2">
+                  {weakUnits.map((unit) => (
+                    <li
+                      key={unit.unitId}
+                      className="flex min-h-11 items-center justify-between gap-3 rounded-2xl bg-rose-50 px-3 py-2 dark:bg-rose-400/10"
+                    >
+                      <span className="truncate text-sm font-black text-slate-800 dark:text-slate-100">
+                        {unit.title}
+                      </span>
+                      <span className="shrink-0 text-xs font-black text-rose-700 dark:text-rose-300">
+                        {unit.count} to fix
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+                <Link
+                  href="/review"
+                  className="mt-4 inline-flex min-h-12 items-center gap-2 rounded-2xl bg-rose-600 px-4 font-black text-white transition hover:-translate-y-0.5 active:translate-y-0.5"
+                >
+                  Review mistakes <ArrowRight size={17} />
+                </Link>
+              </>
+            ) : (
+              <p className="mt-0.5 text-xs font-semibold text-slate-500 dark:text-slate-400">
+                No open mistakes in this course. Keep practicing to stay ahead of
+                the review schedule.
+              </p>
+            )}
+          </section>
+
+          <section className="rounded-3xl border border-slate-200 bg-white p-5 dark:border-white/10 dark:bg-white/[0.05]">
+            <h2 className="text-base font-black text-slate-900 dark:text-slate-50">
+              Rewards
+            </h2>
+            <div className="mt-3 flex flex-wrap items-center gap-3">
+              <RewardPill
+                icon={<Trophy size={16} className="text-amber-500" />}
+                value={`${progress.xp} XP`}
+              />
+              <RewardPill
+                icon={<Gem size={16} className="text-cyan-500" />}
+                value={`${progress.gems} gems`}
+              />
+            </div>
+            {progress.streakRestoreAvailable && progress.lastStreakBeforeMiss > 0 && (
+              <div className="mt-4 rounded-2xl bg-slate-50 p-3 dark:bg-white/[0.06]">
+                <p className="text-sm font-bold text-slate-700 dark:text-slate-200">
+                  You missed a day and lost a {progress.lastStreakBeforeMiss}-day
+                  streak. 400 gems will bring it back.
+                </p>
+                <button
+                  type="button"
+                  disabled={!canRestoreStreak}
+                  onClick={() => {
+                    if (
+                      window.confirm("Restore your streak for 400 gems?")
+                    ) {
+                      restoreStreak();
+                    }
+                  }}
+                  className="mt-3 inline-flex min-h-11 items-center rounded-xl bg-cyan-600 px-4 text-sm font-black text-white transition hover:bg-cyan-500 disabled:cursor-not-allowed disabled:opacity-50"
+                >
+                  {canRestoreStreak
+                    ? "Restore for 400 gems"
+                    : `Need ${400 - progress.gems} more gems`}
+                </button>
+              </div>
+            )}
+          </section>
+
+          <p className="px-1 pb-2 text-center text-xs font-semibold text-slate-500 dark:text-slate-400">
+            Progress is saved in this browser.{" "}
+            <Link
+              href="/settings"
+              className="font-black text-violet-700 underline dark:text-violet-300"
+            >
+              Manage your data
+            </Link>
+          </p>
+        </>
+      )}
     </div>
   );
 }
@@ -173,21 +299,59 @@ export function ProgressSummary() {
 function MetricCard({
   icon: Icon,
   label,
+  sub,
   value,
 }: {
-  icon: ComponentType<{ size?: number }>;
+  icon: typeof Brain;
   label: string;
+  sub: string;
   value: string;
 }) {
   return (
-    <section className="group rounded-3xl border border-white/80 bg-white/95 p-5 shadow-[0_14px_40px_rgba(15,23,42,0.07)] ring-1 ring-slate-900/5 transition hover:-translate-y-1 hover:shadow-[0_22px_55px_rgba(15,23,42,0.1)] dark:border-white/10 dark:bg-slate-950/80 dark:shadow-[0_14px_40px_rgba(0,0,0,0.26)] dark:ring-white/10 dark:hover:shadow-[0_22px_55px_rgba(0,0,0,0.34)]">
-      <div className="mb-5 grid size-11 place-items-center rounded-2xl bg-violet-50 text-violet-700 transition group-hover:scale-105 group-hover:bg-violet-100 dark:bg-violet-400/15 dark:text-violet-200 dark:group-hover:bg-violet-400/22">
-        <Icon size={22} />
-      </div>
-      <p className="text-sm font-black uppercase tracking-[0.14em] text-slate-500 dark:text-slate-400">
+    <section className="rounded-3xl border border-slate-200 bg-white p-4 dark:border-white/10 dark:bg-white/[0.05]">
+      <p className="flex items-center gap-1.5 text-xs font-black uppercase tracking-[0.1em] text-slate-500 dark:text-slate-400">
+        <Icon size={14} />
         {label}
       </p>
-      <p className="mt-1 text-3xl font-black">{value}</p>
+      <p className="mt-2 text-3xl font-black leading-none text-slate-900 dark:text-slate-50">
+        {value}
+      </p>
+      <p className="mt-1.5 text-xs font-semibold text-slate-500 dark:text-slate-400">
+        {sub}
+      </p>
+    </section>
+  );
+}
+
+function RewardPill({ icon, value }: { icon: React.ReactNode; value: string }) {
+  return (
+    <span className="inline-flex min-h-10 items-center gap-2 rounded-full bg-slate-50 px-3.5 text-sm font-black text-slate-800 dark:bg-white/10 dark:text-slate-100">
+      {icon}
+      {value}
+    </span>
+  );
+}
+
+function EmptyProgress({ lessonNoun }: { lessonNoun: string }) {
+  return (
+    <section className="rounded-3xl border border-slate-200 bg-white p-6 text-center dark:border-white/10 dark:bg-white/[0.05]">
+      <span className="mx-auto grid size-14 place-items-center rounded-2xl bg-violet-100 text-violet-700 dark:bg-violet-400/15 dark:text-violet-200">
+        <Sparkles size={26} />
+      </span>
+      <h2 className="mt-4 text-xl font-black text-slate-900 dark:text-slate-50">
+        Nothing to measure yet
+      </h2>
+      <p className="mx-auto mt-2 max-w-sm text-sm font-semibold leading-6 text-slate-500 dark:text-slate-400">
+        After your first {lessonNoun} this page fills in with completion, how
+        many phrases you know, how strong your recall is, and what needs another
+        look.
+      </p>
+      <Link
+        href="/lessons"
+        className="mt-6 inline-flex min-h-12 items-center gap-2 rounded-2xl bg-violet-600 px-5 font-black text-white shadow-[0_5px_0_#5b21b6] transition hover:-translate-y-0.5 active:translate-y-0.5"
+      >
+        Start learning <ArrowRight size={18} />
+      </Link>
     </section>
   );
 }

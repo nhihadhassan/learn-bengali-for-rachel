@@ -21,7 +21,7 @@ export default async function SongPage({
   }
 
   return (
-    <div className="space-y-4">
+    <div className="mx-auto max-w-2xl space-y-4 px-4 pt-4">
       <div className="flex items-center gap-3">
         <Link
           href="/music"

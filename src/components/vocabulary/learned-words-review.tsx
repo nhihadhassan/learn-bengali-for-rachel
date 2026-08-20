@@ -4,6 +4,7 @@ import { useMemo, useState } from "react";
 import Link from "next/link";
 import { BookOpen, CheckCircle2, Search } from "lucide-react";
 import { getCurriculum } from "@/lib/content";
+import { getCourse } from "@/lib/courses";
 import { capitalizeDisplayText, formatRomanizedDisplay } from "@/lib/display-text";
 import { getLearnedWords, getVocabularyUnitOptions } from "@/lib/learned-words";
 import { useProgress } from "@/lib/progress-store";
@@ -15,9 +16,7 @@ export function LearnedWordsReview() {
   const curriculum = getCurriculum(activeCurriculumId);
   // Use the real course label (minus any "(full course)" suffix) so new courses
   // never mislabel as "Bengali".
-  const languageLabel = curriculum.label
-    .replace(/\s*\(.*\)$/, "")
-    .replace(/\s+course$/i, "");
+  const languageLabel = getCourse(activeCurriculumId).shortLabel;
   const [query, setQuery] = useState("");
   const [unitFilter, setUnitFilter] = useState("all");
   const learnedWords = useMemo(
@@ -75,18 +74,11 @@ export function LearnedWordsReview() {
         </p>
         <div className="mt-6 max-w-sm rounded-3xl border border-white/10 bg-white/10 p-4 shadow-inner">
           <p className="text-xs font-black uppercase tracking-[0.14em] text-violet-100">
-            Preview
+            What lands here
           </p>
-          <p className="mt-2 text-3xl font-black text-white">
-            {activeCurriculumId === "malayalam" ? "Namaskaram" : "Assalamualaikum"}
-          </p>
-          <p className="mt-1 font-bold text-slate-300">
-            {activeCurriculumId === "malayalam"
-              ? "Hello / respectful greeting"
-              : "Hello"}
-          </p>
-          <p className="mt-3 text-sm font-semibold text-slate-400">
-            Words and phrases you meet in lessons will appear here with audio.
+          <p className="mt-2 text-sm font-semibold leading-6 text-slate-300">
+            Every word and phrase you meet in a lesson, with its meaning,
+            pronunciation and audio — searchable, and filterable by unit.
           </p>
         </div>
         <Link

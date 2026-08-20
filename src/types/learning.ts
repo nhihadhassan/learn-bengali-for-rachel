@@ -1,9 +1,11 @@
-export type CurriculumId =
-  | "bengali"
-  | "spanish-peru"
-  | "spanish"
-  | "malayalam"
-  | "history";
+import type { CourseId } from "@/lib/courses";
+
+/**
+ * The id of a registered course. Defined by the course registry
+ * (`src/lib/courses.ts`) and aliased here under its legacy name, which is used
+ * throughout the app and in persisted progress.
+ */
+export type CurriculumId = CourseId;
 
 export type ExerciseType =
   | "multiple-choice"
@@ -144,11 +146,22 @@ export type UnitMetadata = {
   tags: string[];
 };
 
+/**
+ * A chapter of a long course (the Spanish course has four). Small courses leave
+ * this unset and are presented as a single continuous path.
+ */
+export type UnitSection = {
+  number: number;
+  title: string;
+  description?: string;
+};
+
 export type Unit = {
   id: string;
   number: number;
   title: string;
   description: string;
+  section?: UnitSection;
   lessons: Lesson[];
   lessonIds?: string[];
   checkpointLessonId?: string | null;
@@ -216,6 +229,15 @@ export type ProgressState = {
   skippedListening: SkippedListeningExercise[];
   // Spaced-repetition memory, keyed by phrase id. Optional for backward compat.
   phraseMemory: Record<string, PhraseMemory>;
+  /**
+   * Local calendar days (YYYY-MM-DD) the learner practiced on, oldest first.
+   * Powers the activity strip on Progress. Added later, so it may be empty for
+   * progress saved before it existed.
+   */
+  practiceDays: string[];
+  /** Lifetime graded answers, for a real accuracy figure. */
+  answeredTotal: number;
+  answeredCorrect: number;
 };
 
 export type LearnedWord = {
