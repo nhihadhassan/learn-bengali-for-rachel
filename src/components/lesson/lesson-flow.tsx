@@ -23,6 +23,8 @@ import {
   formatRomanizedDisplay,
 } from "@/lib/display-text";
 import {
+  adaptUpcomingSteps,
+  applyMistakeRecycling,
   buildLessonSteps,
   countCompletedWorkSteps,
   countQuestionSteps,
@@ -35,7 +37,9 @@ import {
   getStepPrompt,
   getStreakMilestone,
   isListeningStep,
+  type LessonStep,
 } from "@/lib/lesson-steps";
+import { snapshotLearner } from "@/lib/learner-model";
 import { useProgress } from "@/lib/progress-store";
 import { playFeedbackSound } from "@/lib/sound-effects";
 import { cn } from "@/lib/utils";
@@ -46,7 +50,9 @@ import { LessonChrome } from "@/components/lesson/lesson-chrome";
 import { LessonCompleteScreen } from "@/components/lesson/lesson-complete";
 import { SpeakerButton } from "@/components/lesson/speaker-button";
 import {
+  DialogueHistory,
   ExerciseAudioPrompt,
+  GrammarStep,
   IntroStep,
   LearnStep,
   MatchingExercise,
@@ -84,9 +90,11 @@ function PracticeLessonFlow({
   lesson: Lesson;
   reviewMode?: boolean;
 }) {
-  const steps = useMemo(
-    () => buildLessonSteps(lesson, { reviewMode }),
-    [lesson, reviewMode],
+  // The step list is state, not a memo, for two reasons: it is rebuilt once on
+  // mount against the learner's *snapshotted* progress, and a wrong answer
+  // rewrites a reserved slot later in the lesson (see `applyMistakeRecycling`).
+  const [steps, setSteps] = useState<LessonStep[]>(() =>
+    buildLessonSteps(lesson, { reviewMode }),
   );
   const {
     activeCurriculumId,
@@ -119,6 +127,9 @@ function PracticeLessonFlow({
   const [isComplete, setIsComplete] = useState(false);
   const [earnedGems, setEarnedGems] = useState(0);
   const isRestoringStepRef = useRef(false);
+  // Rolling record of the last few answers, for support adaptation.
+  const [recentResults, setRecentResults] = useState<boolean[]>([]);
+  const plannedForLessonRef = useRef<string | null>(null);
   const step = steps[stepIndex];
   const lessonCurriculumId = lesson.curriculumId ?? activeCurriculumId;
   const nextLesson = findFollowingLesson(lesson.id);
@@ -143,6 +154,26 @@ function PracticeLessonFlow({
       setActiveCurriculumId(lesson.curriculumId);
     }
   }, [activeCurriculumId, lesson.curriculumId, setActiveCurriculumId]);
+
+  // Plan the session once per lesson, against a snapshot of what the learner
+  // knows right now. It has to happen after mount (localStorage isn't there
+  // during the server render) and it must NOT re-run as answers change memory,
+  // or the lesson would reshuffle underneath the learner mid-session.
+  useEffect(() => {
+    if (plannedForLessonRef.current === lesson.id) {
+      return;
+    }
+
+    plannedForLessonRef.current = lesson.id;
+    setSteps(
+      buildLessonSteps(lesson, {
+        reviewMode,
+        learner: snapshotLearner(progress),
+      }),
+    );
+    // `progress` is read once on purpose; see the comment above.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [lesson, reviewMode]);
 
   useEffect(() => {
     if (reviewMode || isComplete || progress.completedLessons.includes(lesson.id)) {
@@ -241,9 +272,11 @@ function PracticeLessonFlow({
       recordPhraseResult(phraseId, isCorrect, lessonCurriculumId);
     }
 
+    const results = [...recentResults, isCorrect].slice(-6);
+    setRecentResults(results);
+
     if (isCorrect) {
       applyCorrectFeedback();
-
       return;
     }
 
@@ -252,12 +285,21 @@ function PracticeLessonFlow({
       {
         exerciseId: step.id,
         lessonId: lesson.id,
+        phraseId,
         prompt: getStepPrompt(step),
         correctAnswer,
         wrongAnswer: wrongAnswer || "No answer",
       },
       lessonCurriculumId,
     );
+
+    // Bring the missed item back later, in a different format, by rewriting a
+    // slot that already exists — so the lesson never gets longer and the same
+    // question is never re-asked seconds after the correction.
+    setSteps((current) => {
+      const recycled = applyMistakeRecycling(current, stepIndex, step, lesson);
+      return adaptUpcomingSteps(recycled, stepIndex + 1, { recentResults: results }, lesson);
+    });
   }
 
   function applyCorrectFeedback() {
@@ -406,11 +448,11 @@ function PracticeLessonFlow({
       return selectedAnswer.length > 0;
     }
 
-    if (step.type === "order" || step.type === "listen") {
+    if (step.type === "order") {
       return orderTokens.length === step.tokens.length;
     }
 
-    if (step.type === "translate") {
+    if (step.type === "translate" || step.type === "listen") {
       // Distractors mean not every token is used; just need something built.
       return orderTokens.length > 0;
     }
@@ -508,6 +550,10 @@ function PracticeLessonFlow({
 
       {step.type === "learn" && (
         <LearnStep locale={lesson.locale} step={step} onContinue={moveNext} />
+      )}
+
+      {step.type === "grammar" && (
+        <GrammarStep locale={lesson.locale} step={step} onContinue={moveNext} />
       )}
 
       {step.type === "speak" && (
@@ -613,12 +659,24 @@ function PracticeLessonFlow({
               {answerState === "idle" ? "..." : formatRomanizedDisplay(selectedAnswer || "...")}
             </span>
             {step.after && (
-              <span> {formatRomanizedDisplay(step.after)}</span>
+              <span>
+                {/^[.,;:!?]/.test(step.after) ? "" : " "}
+                {formatRomanizedDisplay(step.after)}
+              </span>
             )}
           </div>
-          <p className="mt-3 text-sm font-semibold text-slate-600 dark:text-slate-300">
-            Meaning: {capitalizeDisplayText(step.hint)}
-          </p>
+          {step.grammarNote && (
+            <p className="mt-3 rounded-2xl bg-emerald-50 px-4 py-3 text-sm font-semibold leading-6 text-emerald-900 dark:bg-emerald-400/12 dark:text-emerald-100">
+              {step.grammarNote}
+            </p>
+          )}
+          {/* The English meaning is a scaffold, and some lesson types take it
+              away on purpose (see `showMeaningHint` in lesson-profiles). */}
+          {step.hint && (
+            <p className="mt-3 text-sm font-semibold text-slate-600 dark:text-slate-300">
+              Meaning: {capitalizeDisplayText(step.hint)}
+            </p>
+          )}
           <MultipleChoiceOptions
             formatOption={formatRomanizedDisplay}
             options={step.options}
@@ -736,11 +794,12 @@ function PracticeLessonFlow({
           onContinue={moveNext}
         >
           <p className="text-sm font-black uppercase tracking-[0.14em] text-fuchsia-700 dark:text-fuchsia-300">
-            Reply
+            {step.scenario ?? "Reply"}
           </p>
           <h2 className="mt-2 text-2xl font-black">
             {formatPromptDisplay(step.prompt)}
           </h2>
+          {step.history && <DialogueHistory turns={step.history} />}
           <div className="mt-3 flex items-end gap-2 sm:gap-3">
             <DialogueAvatar
               seed={step.promptRomanized.length}
@@ -752,6 +811,11 @@ function PracticeLessonFlow({
                 aria-hidden="true"
                 className="absolute -left-1.5 bottom-3 size-3 rotate-45 border-b border-l border-slate-200 bg-slate-100 dark:border-white/10 dark:bg-white/[0.08]"
               />
+              {step.speaker && (
+                <p className="text-xs font-black uppercase tracking-[0.12em] text-slate-500 dark:text-slate-400">
+                  {step.speaker}
+                </p>
+              )}
               <p className="text-lg font-black">
                 {formatRomanizedDisplay(step.promptRomanized)}
               </p>

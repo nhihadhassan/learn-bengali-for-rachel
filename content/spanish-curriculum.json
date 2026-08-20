@@ -240,20 +240,6 @@
       ],
       "vocabulary": [
         {
-          "id": "es-en-s01-u001-v01",
-          "spanish": "frío",
-          "english": "cold",
-          "part_of_speech": "adjective",
-          "status": "original_reconstruction"
-        },
-        {
-          "id": "es-en-s01-u001-v02",
-          "spanish": "por favor",
-          "english": "please",
-          "part_of_speech": "expression",
-          "status": "original_reconstruction"
-        },
-        {
           "id": "es-en-s01-u001-v03",
           "spanish": "el café",
           "english": "coffee",
@@ -272,6 +258,20 @@
           "spanish": "el agua",
           "english": "water",
           "part_of_speech": "noun",
+          "status": "original_reconstruction"
+        },
+        {
+          "id": "es-en-s01-u001-v02",
+          "spanish": "por favor",
+          "english": "please",
+          "part_of_speech": "expression",
+          "status": "original_reconstruction"
+        },
+        {
+          "id": "es-en-s01-u001-v10",
+          "spanish": "querer",
+          "english": "to want",
+          "part_of_speech": "verb",
           "status": "original_reconstruction"
         },
         {
@@ -303,10 +303,24 @@
           "status": "original_reconstruction"
         },
         {
-          "id": "es-en-s01-u001-v10",
-          "spanish": "querer",
-          "english": "to want",
-          "part_of_speech": "verb",
+          "id": "es-en-s01-u001-v11",
+          "spanish": "caliente",
+          "english": "hot",
+          "part_of_speech": "adjective",
+          "status": "original_reconstruction"
+        },
+        {
+          "id": "es-en-s01-u001-v01",
+          "spanish": "frío",
+          "english": "cold",
+          "part_of_speech": "adjective",
+          "status": "original_reconstruction"
+        },
+        {
+          "id": "es-en-s01-u001-v12",
+          "spanish": "cuánto",
+          "english": "how much",
+          "part_of_speech": "question word",
           "status": "original_reconstruction"
         }
       ],
@@ -356,20 +370,25 @@
           "estimated_exercises": 15,
           "content_focus": {
             "vocabulary_ids": [
-              "es-en-s01-u001-v01",
-              "es-en-s01-u001-v02",
               "es-en-s01-u001-v03",
               "es-en-s01-u001-v04",
               "es-en-s01-u001-v05",
+              "es-en-s01-u001-v02",
+              "es-en-s01-u001-v10",
               "es-en-s01-u001-v06",
               "es-en-s01-u001-v07",
-              "es-en-s01-u001-v08"
+              "es-en-s01-u001-v08",
+              "es-en-s01-u001-v09",
+              "es-en-s01-u001-v11",
+              "es-en-s01-u001-v01",
+              "es-en-s01-u001-v12"
             ],
             "phrase_ids": [
               "es-en-s01-u001-p01",
               "es-en-s01-u001-p02",
               "es-en-s01-u001-p03",
-              "es-en-s01-u001-p04"
+              "es-en-s01-u001-p04",
+              "es-en-s01-u001-p05"
             ]
           }
         },
@@ -386,20 +405,25 @@
           "estimated_exercises": 15,
           "content_focus": {
             "vocabulary_ids": [
-              "es-en-s01-u001-v01",
-              "es-en-s01-u001-v02",
               "es-en-s01-u001-v03",
               "es-en-s01-u001-v04",
               "es-en-s01-u001-v05",
+              "es-en-s01-u001-v02",
+              "es-en-s01-u001-v10",
               "es-en-s01-u001-v06",
               "es-en-s01-u001-v07",
-              "es-en-s01-u001-v08"
+              "es-en-s01-u001-v08",
+              "es-en-s01-u001-v09",
+              "es-en-s01-u001-v11",
+              "es-en-s01-u001-v01",
+              "es-en-s01-u001-v12"
             ],
             "phrase_ids": [
               "es-en-s01-u001-p01",
               "es-en-s01-u001-p02",
               "es-en-s01-u001-p03",
-              "es-en-s01-u001-p04"
+              "es-en-s01-u001-p04",
+              "es-en-s01-u001-p05"
             ]
           }
         },
@@ -416,20 +440,25 @@
           "estimated_exercises": 15,
           "content_focus": {
             "vocabulary_ids": [
-              "es-en-s01-u001-v01",
-              "es-en-s01-u001-v02",
               "es-en-s01-u001-v03",
               "es-en-s01-u001-v04",
               "es-en-s01-u001-v05",
+              "es-en-s01-u001-v02",
+              "es-en-s01-u001-v10",
               "es-en-s01-u001-v06",
               "es-en-s01-u001-v07",
-              "es-en-s01-u001-v08"
+              "es-en-s01-u001-v08",
+              "es-en-s01-u001-v09",
+              "es-en-s01-u001-v11",
+              "es-en-s01-u001-v01",
+              "es-en-s01-u001-v12"
             ],
             "phrase_ids": [
               "es-en-s01-u001-p01",
               "es-en-s01-u001-p02",
               "es-en-s01-u001-p03",
-              "es-en-s01-u001-p04"
+              "es-en-s01-u001-p04",
+              "es-en-s01-u001-p05"
             ]
           }
         },
@@ -446,20 +475,25 @@
           "estimated_exercises": 15,
           "content_focus": {
             "vocabulary_ids": [
-              "es-en-s01-u001-v01",
-              "es-en-s01-u001-v02",
               "es-en-s01-u001-v03",
               "es-en-s01-u001-v04",
               "es-en-s01-u001-v05",
+              "es-en-s01-u001-v02",
+              "es-en-s01-u001-v10",
               "es-en-s01-u001-v06",
               "es-en-s01-u001-v07",
-              "es-en-s01-u001-v08"
+              "es-en-s01-u001-v08",
+              "es-en-s01-u001-v09",
+              "es-en-s01-u001-v11",
+              "es-en-s01-u001-v01",
+              "es-en-s01-u001-v12"
             ],
             "phrase_ids": [
               "es-en-s01-u001-p01",
               "es-en-s01-u001-p02",
               "es-en-s01-u001-p03",
-              "es-en-s01-u001-p04"
+              "es-en-s01-u001-p04",
+              "es-en-s01-u001-p05"
             ]
           }
         },
@@ -476,20 +510,25 @@
           "estimated_exercises": 15,
           "content_focus": {
             "vocabulary_ids": [
-              "es-en-s01-u001-v01",
-              "es-en-s01-u001-v02",
               "es-en-s01-u001-v03",
               "es-en-s01-u001-v04",
               "es-en-s01-u001-v05",
+              "es-en-s01-u001-v02",
+              "es-en-s01-u001-v10",
               "es-en-s01-u001-v06",
               "es-en-s01-u001-v07",
-              "es-en-s01-u001-v08"
+              "es-en-s01-u001-v08",
+              "es-en-s01-u001-v09",
+              "es-en-s01-u001-v11",
+              "es-en-s01-u001-v01",
+              "es-en-s01-u001-v12"
             ],
             "phrase_ids": [
               "es-en-s01-u001-p01",
               "es-en-s01-u001-p02",
               "es-en-s01-u001-p03",
-              "es-en-s01-u001-p04"
+              "es-en-s01-u001-p04",
+              "es-en-s01-u001-p05"
             ]
           }
         },
@@ -507,20 +546,25 @@
           "estimated_exercises": 15,
           "content_focus": {
             "vocabulary_ids": [
-              "es-en-s01-u001-v01",
-              "es-en-s01-u001-v02",
               "es-en-s01-u001-v03",
               "es-en-s01-u001-v04",
               "es-en-s01-u001-v05",
+              "es-en-s01-u001-v02",
+              "es-en-s01-u001-v10",
               "es-en-s01-u001-v06",
               "es-en-s01-u001-v07",
-              "es-en-s01-u001-v08"
+              "es-en-s01-u001-v08",
+              "es-en-s01-u001-v09",
+              "es-en-s01-u001-v11",
+              "es-en-s01-u001-v01",
+              "es-en-s01-u001-v12"
             ],
             "phrase_ids": [
               "es-en-s01-u001-p01",
               "es-en-s01-u001-p02",
               "es-en-s01-u001-p03",
-              "es-en-s01-u001-p04"
+              "es-en-s01-u001-p04",
+              "es-en-s01-u001-p05"
             ]
           }
         }
@@ -545,6 +589,59 @@
         "unit_title": "verified_public_course_map",
         "vocabulary_phrases_grammar": "original_reconstruction",
         "duolingo_sentence_bank_copied": false
+      },
+      "dialogue": {
+        "scenario": "At the café counter",
+        "turns": [
+          {
+            "speaker": "Barista",
+            "prompt": {
+              "spanish": "¿Qué quiere tomar?",
+              "english": "What would you like to drink?"
+            },
+            "reply": {
+              "spanish": "Quiero un café, por favor.",
+              "english": "I want a coffee, please."
+            },
+            "distractors": [
+              "¿Cuánto cuesta?",
+              "Está muy caliente.",
+              "La cuenta, por favor."
+            ]
+          },
+          {
+            "speaker": "Barista",
+            "prompt": {
+              "spanish": "Aquí tiene su café.",
+              "english": "Here is your coffee."
+            },
+            "reply": {
+              "spanish": "Está muy caliente.",
+              "english": "It is very hot."
+            },
+            "distractors": [
+              "La cuenta, por favor.",
+              "Para mí, un té.",
+              "¿Cuánto cuesta?"
+            ]
+          },
+          {
+            "speaker": "Barista",
+            "prompt": {
+              "spanish": "¿Desea pagar ahora?",
+              "english": "Would you like to pay now?"
+            },
+            "reply": {
+              "spanish": "La cuenta, por favor.",
+              "english": "The bill, please."
+            },
+            "distractors": [
+              "Está muy caliente.",
+              "Para mí, un té.",
+              "Quiero un café, por favor."
+            ]
+          }
+        ]
       }
     },
     {
@@ -561,6 +658,13 @@
         "simple word order"
       ],
       "vocabulary": [
+        {
+          "id": "es-en-s01-u002-v11",
+          "spanish": "hola",
+          "english": "hello",
+          "part_of_speech": "expression",
+          "status": "original_reconstruction"
+        },
         {
           "id": "es-en-s01-u002-v01",
           "spanish": "buenos días",
@@ -583,20 +687,6 @@
           "status": "original_reconstruction"
         },
         {
-          "id": "es-en-s01-u002-v04",
-          "spanish": "adiós",
-          "english": "goodbye",
-          "part_of_speech": "expression",
-          "status": "original_reconstruction"
-        },
-        {
-          "id": "es-en-s01-u002-v05",
-          "spanish": "hasta luego",
-          "english": "see you later",
-          "part_of_speech": "expression",
-          "status": "original_reconstruction"
-        },
-        {
           "id": "es-en-s01-u002-v06",
           "spanish": "gracias",
           "english": "thank you",
@@ -611,6 +701,41 @@
           "status": "original_reconstruction"
         },
         {
+          "id": "es-en-s01-u002-v04",
+          "spanish": "adiós",
+          "english": "goodbye",
+          "part_of_speech": "expression",
+          "status": "original_reconstruction"
+        },
+        {
+          "id": "es-en-s01-u002-v05",
+          "spanish": "hasta luego",
+          "english": "see you later",
+          "part_of_speech": "expression",
+          "status": "original_reconstruction"
+        },
+        {
+          "id": "es-en-s01-u002-v12",
+          "spanish": "cómo",
+          "english": "how",
+          "part_of_speech": "question word",
+          "status": "original_reconstruction"
+        },
+        {
+          "id": "es-en-s01-u002-v13",
+          "spanish": "estar",
+          "english": "to be (right now)",
+          "part_of_speech": "verb",
+          "status": "original_reconstruction"
+        },
+        {
+          "id": "es-en-s01-u002-v10",
+          "spanish": "bien",
+          "english": "well",
+          "part_of_speech": "adverb",
+          "status": "original_reconstruction"
+        },
+        {
           "id": "es-en-s01-u002-v08",
           "spanish": "llamarse",
           "english": "to be called",
@@ -622,13 +747,6 @@
           "spanish": "conocer",
           "english": "to meet/know",
           "part_of_speech": "verb",
-          "status": "original_reconstruction"
-        },
-        {
-          "id": "es-en-s01-u002-v10",
-          "spanish": "bien",
-          "english": "well",
-          "part_of_speech": "adverb",
           "status": "original_reconstruction"
         }
       ],
@@ -678,20 +796,26 @@
           "estimated_exercises": 15,
           "content_focus": {
             "vocabulary_ids": [
+              "es-en-s01-u002-v11",
               "es-en-s01-u002-v01",
               "es-en-s01-u002-v02",
               "es-en-s01-u002-v03",
-              "es-en-s01-u002-v04",
-              "es-en-s01-u002-v05",
               "es-en-s01-u002-v06",
               "es-en-s01-u002-v07",
-              "es-en-s01-u002-v08"
+              "es-en-s01-u002-v04",
+              "es-en-s01-u002-v05",
+              "es-en-s01-u002-v12",
+              "es-en-s01-u002-v13",
+              "es-en-s01-u002-v10",
+              "es-en-s01-u002-v08",
+              "es-en-s01-u002-v09"
             ],
             "phrase_ids": [
               "es-en-s01-u002-p01",
               "es-en-s01-u002-p02",
               "es-en-s01-u002-p03",
-              "es-en-s01-u002-p04"
+              "es-en-s01-u002-p04",
+              "es-en-s01-u002-p05"
             ]
           }
         },
@@ -708,20 +832,26 @@
           "estimated_exercises": 15,
           "content_focus": {
             "vocabulary_ids": [
+              "es-en-s01-u002-v11",
               "es-en-s01-u002-v01",
               "es-en-s01-u002-v02",
               "es-en-s01-u002-v03",
-              "es-en-s01-u002-v04",
-              "es-en-s01-u002-v05",
               "es-en-s01-u002-v06",
               "es-en-s01-u002-v07",
-              "es-en-s01-u002-v08"
+              "es-en-s01-u002-v04",
+              "es-en-s01-u002-v05",
+              "es-en-s01-u002-v12",
+              "es-en-s01-u002-v13",
+              "es-en-s01-u002-v10",
+              "es-en-s01-u002-v08",
+              "es-en-s01-u002-v09"
             ],
             "phrase_ids": [
               "es-en-s01-u002-p01",
               "es-en-s01-u002-p02",
               "es-en-s01-u002-p03",
-              "es-en-s01-u002-p04"
+              "es-en-s01-u002-p04",
+              "es-en-s01-u002-p05"
             ]
           }
         },
@@ -738,20 +868,26 @@
           "estimated_exercises": 15,
           "content_focus": {
             "vocabulary_ids": [
+              "es-en-s01-u002-v11",
               "es-en-s01-u002-v01",
               "es-en-s01-u002-v02",
               "es-en-s01-u002-v03",
-              "es-en-s01-u002-v04",
-              "es-en-s01-u002-v05",
               "es-en-s01-u002-v06",
               "es-en-s01-u002-v07",
-              "es-en-s01-u002-v08"
+              "es-en-s01-u002-v04",
+              "es-en-s01-u002-v05",
+              "es-en-s01-u002-v12",
+              "es-en-s01-u002-v13",
+              "es-en-s01-u002-v10",
+              "es-en-s01-u002-v08",
+              "es-en-s01-u002-v09"
             ],
             "phrase_ids": [
               "es-en-s01-u002-p01",
               "es-en-s01-u002-p02",
               "es-en-s01-u002-p03",
-              "es-en-s01-u002-p04"
+              "es-en-s01-u002-p04",
+              "es-en-s01-u002-p05"
             ]
           }
         },
@@ -768,20 +904,26 @@
           "estimated_exercises": 15,
           "content_focus": {
             "vocabulary_ids": [
+              "es-en-s01-u002-v11",
               "es-en-s01-u002-v01",
               "es-en-s01-u002-v02",
               "es-en-s01-u002-v03",
-              "es-en-s01-u002-v04",
-              "es-en-s01-u002-v05",
               "es-en-s01-u002-v06",
               "es-en-s01-u002-v07",
-              "es-en-s01-u002-v08"
+              "es-en-s01-u002-v04",
+              "es-en-s01-u002-v05",
+              "es-en-s01-u002-v12",
+              "es-en-s01-u002-v13",
+              "es-en-s01-u002-v10",
+              "es-en-s01-u002-v08",
+              "es-en-s01-u002-v09"
             ],
             "phrase_ids": [
               "es-en-s01-u002-p01",
               "es-en-s01-u002-p02",
               "es-en-s01-u002-p03",
-              "es-en-s01-u002-p04"
+              "es-en-s01-u002-p04",
+              "es-en-s01-u002-p05"
             ]
           }
         },
@@ -798,20 +940,26 @@
           "estimated_exercises": 15,
           "content_focus": {
             "vocabulary_ids": [
+              "es-en-s01-u002-v11",
               "es-en-s01-u002-v01",
               "es-en-s01-u002-v02",
               "es-en-s01-u002-v03",
-              "es-en-s01-u002-v04",
-              "es-en-s01-u002-v05",
               "es-en-s01-u002-v06",
               "es-en-s01-u002-v07",
-              "es-en-s01-u002-v08"
+              "es-en-s01-u002-v04",
+              "es-en-s01-u002-v05",
+              "es-en-s01-u002-v12",
+              "es-en-s01-u002-v13",
+              "es-en-s01-u002-v10",
+              "es-en-s01-u002-v08",
+              "es-en-s01-u002-v09"
             ],
             "phrase_ids": [
               "es-en-s01-u002-p01",
               "es-en-s01-u002-p02",
               "es-en-s01-u002-p03",
-              "es-en-s01-u002-p04"
+              "es-en-s01-u002-p04",
+              "es-en-s01-u002-p05"
             ]
           }
         },
@@ -829,20 +977,26 @@
           "estimated_exercises": 15,
           "content_focus": {
             "vocabulary_ids": [
+              "es-en-s01-u002-v11",
               "es-en-s01-u002-v01",
               "es-en-s01-u002-v02",
               "es-en-s01-u002-v03",
-              "es-en-s01-u002-v04",
-              "es-en-s01-u002-v05",
               "es-en-s01-u002-v06",
               "es-en-s01-u002-v07",
-              "es-en-s01-u002-v08"
+              "es-en-s01-u002-v04",
+              "es-en-s01-u002-v05",
+              "es-en-s01-u002-v12",
+              "es-en-s01-u002-v13",
+              "es-en-s01-u002-v10",
+              "es-en-s01-u002-v08",
+              "es-en-s01-u002-v09"
             ],
             "phrase_ids": [
               "es-en-s01-u002-p01",
               "es-en-s01-u002-p02",
               "es-en-s01-u002-p03",
-              "es-en-s01-u002-p04"
+              "es-en-s01-u002-p04",
+              "es-en-s01-u002-p05"
             ]
           }
         }
@@ -867,6 +1021,59 @@
         "unit_title": "verified_public_course_map",
         "vocabulary_phrases_grammar": "original_reconstruction",
         "duolingo_sentence_bank_copied": false
+      },
+      "dialogue": {
+        "scenario": "Meeting someone new",
+        "turns": [
+          {
+            "speaker": "Ana",
+            "prompt": {
+              "spanish": "Hola, ¿cómo estás?",
+              "english": "Hello, how are you?"
+            },
+            "reply": {
+              "spanish": "Estoy bien, gracias.",
+              "english": "I am well, thank you."
+            },
+            "distractors": [
+              "Hasta mañana.",
+              "Igualmente.",
+              "Buenas noches."
+            ]
+          },
+          {
+            "speaker": "Ana",
+            "prompt": {
+              "spanish": "Mucho gusto.",
+              "english": "Nice to meet you."
+            },
+            "reply": {
+              "spanish": "Igualmente.",
+              "english": "Likewise."
+            },
+            "distractors": [
+              "Estoy bien, gracias.",
+              "Me llamo Ana.",
+              "Hasta mañana."
+            ]
+          },
+          {
+            "speaker": "Ana",
+            "prompt": {
+              "spanish": "Buenas noches, hasta luego.",
+              "english": "Good night, see you later."
+            },
+            "reply": {
+              "spanish": "Hasta mañana.",
+              "english": "See you tomorrow."
+            },
+            "distractors": [
+              "Igualmente.",
+              "Estoy bien, gracias.",
+              "Hola, ¿cómo estás?"
+            ]
+          }
+        ]
       }
     },
     {
@@ -884,10 +1091,10 @@
       ],
       "vocabulary": [
         {
-          "id": "es-en-s01-u003-v01",
-          "spanish": "la ciudad",
-          "english": "city",
-          "part_of_speech": "noun",
+          "id": "es-en-s01-u003-v09",
+          "spanish": "ser",
+          "english": "to be",
+          "part_of_speech": "verb",
           "status": "original_reconstruction"
         },
         {
@@ -895,6 +1102,62 @@
           "spanish": "de",
           "english": "from/of",
           "part_of_speech": "preposition",
+          "status": "original_reconstruction"
+        },
+        {
+          "id": "es-en-s01-u003-v11",
+          "spanish": "dónde",
+          "english": "where",
+          "part_of_speech": "question word",
+          "status": "original_reconstruction"
+        },
+        {
+          "id": "es-en-s01-u003-v12",
+          "spanish": "el país",
+          "english": "country",
+          "part_of_speech": "noun",
+          "status": "original_reconstruction"
+        },
+        {
+          "id": "es-en-s01-u003-v01",
+          "spanish": "la ciudad",
+          "english": "city",
+          "part_of_speech": "noun",
+          "status": "original_reconstruction"
+        },
+        {
+          "id": "es-en-s01-u003-v10",
+          "spanish": "vivir",
+          "english": "to live",
+          "part_of_speech": "verb",
+          "status": "original_reconstruction"
+        },
+        {
+          "id": "es-en-s01-u003-v14",
+          "spanish": "venir",
+          "english": "to come",
+          "part_of_speech": "verb",
+          "status": "original_reconstruction"
+        },
+        {
+          "id": "es-en-s01-u003-v07",
+          "spanish": "aquí",
+          "english": "here",
+          "part_of_speech": "adverb",
+          "status": "original_reconstruction"
+        },
+        {
+          "id": "es-en-s01-u003-v08",
+          "spanish": "allí",
+          "english": "there",
+          "part_of_speech": "adverb",
+          "status": "original_reconstruction"
+        },
+        {
+          "id": "es-en-s01-u003-v13",
+          "spanish": "grande",
+          "english": "large",
+          "part_of_speech": "adjective",
           "status": "original_reconstruction"
         },
         {
@@ -923,34 +1186,6 @@
           "spanish": "inglés/inglesa",
           "english": "English",
           "part_of_speech": "adjective",
-          "status": "original_reconstruction"
-        },
-        {
-          "id": "es-en-s01-u003-v07",
-          "spanish": "aquí",
-          "english": "here",
-          "part_of_speech": "adverb",
-          "status": "original_reconstruction"
-        },
-        {
-          "id": "es-en-s01-u003-v08",
-          "spanish": "allí",
-          "english": "there",
-          "part_of_speech": "adverb",
-          "status": "original_reconstruction"
-        },
-        {
-          "id": "es-en-s01-u003-v09",
-          "spanish": "ser",
-          "english": "to be",
-          "part_of_speech": "verb",
-          "status": "original_reconstruction"
-        },
-        {
-          "id": "es-en-s01-u003-v10",
-          "spanish": "vivir",
-          "english": "to live",
-          "part_of_speech": "verb",
           "status": "original_reconstruction"
         }
       ],
@@ -1000,20 +1235,27 @@
           "estimated_exercises": 15,
           "content_focus": {
             "vocabulary_ids": [
-              "es-en-s01-u003-v01",
+              "es-en-s01-u003-v09",
               "es-en-s01-u003-v02",
+              "es-en-s01-u003-v11",
+              "es-en-s01-u003-v12",
+              "es-en-s01-u003-v01",
+              "es-en-s01-u003-v10",
+              "es-en-s01-u003-v14",
+              "es-en-s01-u003-v07",
+              "es-en-s01-u003-v08",
+              "es-en-s01-u003-v13",
               "es-en-s01-u003-v03",
               "es-en-s01-u003-v04",
               "es-en-s01-u003-v05",
-              "es-en-s01-u003-v06",
-              "es-en-s01-u003-v07",
-              "es-en-s01-u003-v08"
+              "es-en-s01-u003-v06"
             ],
             "phrase_ids": [
               "es-en-s01-u003-p01",
               "es-en-s01-u003-p02",
               "es-en-s01-u003-p03",
-              "es-en-s01-u003-p04"
+              "es-en-s01-u003-p04",
+              "es-en-s01-u003-p05"
             ]
           }
         },
@@ -1030,20 +1272,27 @@
           "estimated_exercises": 15,
           "content_focus": {
             "vocabulary_ids": [
-              "es-en-s01-u003-v01",
+              "es-en-s01-u003-v09",
               "es-en-s01-u003-v02",
+              "es-en-s01-u003-v11",
+              "es-en-s01-u003-v12",
+              "es-en-s01-u003-v01",
+              "es-en-s01-u003-v10",
+              "es-en-s01-u003-v14",
+              "es-en-s01-u003-v07",
+              "es-en-s01-u003-v08",
+              "es-en-s01-u003-v13",
               "es-en-s01-u003-v03",
               "es-en-s01-u003-v04",
               "es-en-s01-u003-v05",
-              "es-en-s01-u003-v06",
-              "es-en-s01-u003-v07",
-              "es-en-s01-u003-v08"
+              "es-en-s01-u003-v06"
             ],
             "phrase_ids": [
               "es-en-s01-u003-p01",
               "es-en-s01-u003-p02",
               "es-en-s01-u003-p03",
-              "es-en-s01-u003-p04"
+              "es-en-s01-u003-p04",
+              "es-en-s01-u003-p05"
             ]
           }
         },
@@ -1060,20 +1309,27 @@
           "estimated_exercises": 15,
           "content_focus": {
             "vocabulary_ids": [
-              "es-en-s01-u003-v01",
+              "es-en-s01-u003-v09",
               "es-en-s01-u003-v02",
+              "es-en-s01-u003-v11",
+              "es-en-s01-u003-v12",
+              "es-en-s01-u003-v01",
+              "es-en-s01-u003-v10",
+              "es-en-s01-u003-v14",
+              "es-en-s01-u003-v07",
+              "es-en-s01-u003-v08",
+              "es-en-s01-u003-v13",
               "es-en-s01-u003-v03",
               "es-en-s01-u003-v04",
               "es-en-s01-u003-v05",
-              "es-en-s01-u003-v06",
-              "es-en-s01-u003-v07",
-              "es-en-s01-u003-v08"
+              "es-en-s01-u003-v06"
             ],
             "phrase_ids": [
               "es-en-s01-u003-p01",
               "es-en-s01-u003-p02",
               "es-en-s01-u003-p03",
-              "es-en-s01-u003-p04"
+              "es-en-s01-u003-p04",
+              "es-en-s01-u003-p05"
             ]
           }
         },
@@ -1090,20 +1346,27 @@
           "estimated_exercises": 15,
           "content_focus": {
             "vocabulary_ids": [
-              "es-en-s01-u003-v01",
+              "es-en-s01-u003-v09",
               "es-en-s01-u003-v02",
+              "es-en-s01-u003-v11",
+              "es-en-s01-u003-v12",
+              "es-en-s01-u003-v01",
+              "es-en-s01-u003-v10",
+              "es-en-s01-u003-v14",
+              "es-en-s01-u003-v07",
+              "es-en-s01-u003-v08",
+              "es-en-s01-u003-v13",
               "es-en-s01-u003-v03",
               "es-en-s01-u003-v04",
               "es-en-s01-u003-v05",
-              "es-en-s01-u003-v06",
-              "es-en-s01-u003-v07",
-              "es-en-s01-u003-v08"
+              "es-en-s01-u003-v06"
             ],
             "phrase_ids": [
               "es-en-s01-u003-p01",
               "es-en-s01-u003-p02",
               "es-en-s01-u003-p03",
-              "es-en-s01-u003-p04"
+              "es-en-s01-u003-p04",
+              "es-en-s01-u003-p05"
             ]
           }
         },
@@ -1120,20 +1383,27 @@
           "estimated_exercises": 15,
           "content_focus": {
             "vocabulary_ids": [
-              "es-en-s01-u003-v01",
+              "es-en-s01-u003-v09",
               "es-en-s01-u003-v02",
+              "es-en-s01-u003-v11",
+              "es-en-s01-u003-v12",
+              "es-en-s01-u003-v01",
+              "es-en-s01-u003-v10",
+              "es-en-s01-u003-v14",
+              "es-en-s01-u003-v07",
+              "es-en-s01-u003-v08",
+              "es-en-s01-u003-v13",
               "es-en-s01-u003-v03",
               "es-en-s01-u003-v04",
               "es-en-s01-u003-v05",
-              "es-en-s01-u003-v06",
-              "es-en-s01-u003-v07",
-              "es-en-s01-u003-v08"
+              "es-en-s01-u003-v06"
             ],
             "phrase_ids": [
               "es-en-s01-u003-p01",
               "es-en-s01-u003-p02",
               "es-en-s01-u003-p03",
-              "es-en-s01-u003-p04"
+              "es-en-s01-u003-p04",
+              "es-en-s01-u003-p05"
             ]
           }
         },
@@ -1151,20 +1421,27 @@
           "estimated_exercises": 15,
           "content_focus": {
             "vocabulary_ids": [
-              "es-en-s01-u003-v01",
+              "es-en-s01-u003-v09",
               "es-en-s01-u003-v02",
+              "es-en-s01-u003-v11",
+              "es-en-s01-u003-v12",
+              "es-en-s01-u003-v01",
+              "es-en-s01-u003-v10",
+              "es-en-s01-u003-v14",
+              "es-en-s01-u003-v07",
+              "es-en-s01-u003-v08",
+              "es-en-s01-u003-v13",
               "es-en-s01-u003-v03",
               "es-en-s01-u003-v04",
               "es-en-s01-u003-v05",
-              "es-en-s01-u003-v06",
-              "es-en-s01-u003-v07",
-              "es-en-s01-u003-v08"
+              "es-en-s01-u003-v06"
             ],
             "phrase_ids": [
               "es-en-s01-u003-p01",
               "es-en-s01-u003-p02",
               "es-en-s01-u003-p03",
-              "es-en-s01-u003-p04"
+              "es-en-s01-u003-p04",
+              "es-en-s01-u003-p05"
             ]
           }
         }
@@ -1189,6 +1466,59 @@
         "unit_title": "verified_public_course_map",
         "vocabulary_phrases_grammar": "original_reconstruction",
         "duolingo_sentence_bank_copied": false
+      },
+      "dialogue": {
+        "scenario": "Talking to a neighbour",
+        "turns": [
+          {
+            "speaker": "Vecino",
+            "prompt": {
+              "spanish": "¿De dónde eres?",
+              "english": "Where are you from?"
+            },
+            "reply": {
+              "spanish": "Soy de Canadá.",
+              "english": "I am from Canada."
+            },
+            "distractors": [
+              "Mi país es muy grande.",
+              "Vivo en Lima.",
+              "Venimos de otra ciudad."
+            ]
+          },
+          {
+            "speaker": "Vecino",
+            "prompt": {
+              "spanish": "¿Y dónde vives ahora?",
+              "english": "And where do you live now?"
+            },
+            "reply": {
+              "spanish": "Vivo en Lima.",
+              "english": "I live in Lima."
+            },
+            "distractors": [
+              "Soy de Canadá.",
+              "Mi país es muy grande.",
+              "Venimos de otra ciudad."
+            ]
+          },
+          {
+            "speaker": "Vecino",
+            "prompt": {
+              "spanish": "¿Canadá es grande?",
+              "english": "Is Canada big?"
+            },
+            "reply": {
+              "spanish": "Mi país es muy grande.",
+              "english": "My country is very large."
+            },
+            "distractors": [
+              "Vivo en Lima.",
+              "Soy de Canadá.",
+              "Venimos de otra ciudad."
+            ]
+          }
+        ]
       }
     },
     {
@@ -1205,41 +1535,6 @@
         "simple word order"
       ],
       "vocabulary": [
-        {
-          "id": "es-en-s01-u004-v01",
-          "spanish": "la abuela",
-          "english": "grandmother",
-          "part_of_speech": "noun",
-          "status": "original_reconstruction"
-        },
-        {
-          "id": "es-en-s01-u004-v02",
-          "spanish": "el abuelo",
-          "english": "grandfather",
-          "part_of_speech": "noun",
-          "status": "original_reconstruction"
-        },
-        {
-          "id": "es-en-s01-u004-v03",
-          "spanish": "tener",
-          "english": "to have",
-          "part_of_speech": "verb",
-          "status": "original_reconstruction"
-        },
-        {
-          "id": "es-en-s01-u004-v04",
-          "spanish": "joven",
-          "english": "young",
-          "part_of_speech": "adjective",
-          "status": "original_reconstruction"
-        },
-        {
-          "id": "es-en-s01-u004-v05",
-          "spanish": "mayor",
-          "english": "older",
-          "part_of_speech": "adjective",
-          "status": "original_reconstruction"
-        },
         {
           "id": "es-en-s01-u004-v06",
           "spanish": "la familia",
@@ -1273,6 +1568,62 @@
           "spanish": "el hermano",
           "english": "brother",
           "part_of_speech": "noun",
+          "status": "original_reconstruction"
+        },
+        {
+          "id": "es-en-s01-u004-v01",
+          "spanish": "la abuela",
+          "english": "grandmother",
+          "part_of_speech": "noun",
+          "status": "original_reconstruction"
+        },
+        {
+          "id": "es-en-s01-u004-v02",
+          "spanish": "el abuelo",
+          "english": "grandfather",
+          "part_of_speech": "noun",
+          "status": "original_reconstruction"
+        },
+        {
+          "id": "es-en-s01-u004-v11",
+          "spanish": "el amigo/la amiga",
+          "english": "friend",
+          "part_of_speech": "noun",
+          "status": "original_reconstruction"
+        },
+        {
+          "id": "es-en-s01-u004-v12",
+          "spanish": "él/ella",
+          "english": "he/she",
+          "part_of_speech": "pronoun",
+          "status": "original_reconstruction"
+        },
+        {
+          "id": "es-en-s01-u004-v13",
+          "spanish": "quién",
+          "english": "who",
+          "part_of_speech": "question word",
+          "status": "original_reconstruction"
+        },
+        {
+          "id": "es-en-s01-u004-v03",
+          "spanish": "tener",
+          "english": "to have",
+          "part_of_speech": "verb",
+          "status": "original_reconstruction"
+        },
+        {
+          "id": "es-en-s01-u004-v04",
+          "spanish": "joven",
+          "english": "young",
+          "part_of_speech": "adjective",
+          "status": "original_reconstruction"
+        },
+        {
+          "id": "es-en-s01-u004-v05",
+          "spanish": "mayor",
+          "english": "older",
+          "part_of_speech": "adjective",
           "status": "original_reconstruction"
         }
       ],
@@ -1322,20 +1673,26 @@
           "estimated_exercises": 15,
           "content_focus": {
             "vocabulary_ids": [
-              "es-en-s01-u004-v01",
-              "es-en-s01-u004-v02",
-              "es-en-s01-u004-v03",
-              "es-en-s01-u004-v04",
-              "es-en-s01-u004-v05",
               "es-en-s01-u004-v06",
               "es-en-s01-u004-v07",
-              "es-en-s01-u004-v08"
+              "es-en-s01-u004-v08",
+              "es-en-s01-u004-v09",
+              "es-en-s01-u004-v10",
+              "es-en-s01-u004-v01",
+              "es-en-s01-u004-v02",
+              "es-en-s01-u004-v11",
+              "es-en-s01-u004-v12",
+              "es-en-s01-u004-v13",
+              "es-en-s01-u004-v03",
+              "es-en-s01-u004-v04",
+              "es-en-s01-u004-v05"
             ],
             "phrase_ids": [
               "es-en-s01-u004-p01",
               "es-en-s01-u004-p02",
               "es-en-s01-u004-p03",
-              "es-en-s01-u004-p04"
+              "es-en-s01-u004-p04",
+              "es-en-s01-u004-p05"
             ]
           }
         },
@@ -1352,20 +1709,26 @@
           "estimated_exercises": 15,
           "content_focus": {
             "vocabulary_ids": [
-              "es-en-s01-u004-v01",
-              "es-en-s01-u004-v02",
-              "es-en-s01-u004-v03",
-              "es-en-s01-u004-v04",
-              "es-en-s01-u004-v05",
               "es-en-s01-u004-v06",
               "es-en-s01-u004-v07",
-              "es-en-s01-u004-v08"
+              "es-en-s01-u004-v08",
+              "es-en-s01-u004-v09",
+              "es-en-s01-u004-v10",
+              "es-en-s01-u004-v01",
+              "es-en-s01-u004-v02",
+              "es-en-s01-u004-v11",
+              "es-en-s01-u004-v12",
+              "es-en-s01-u004-v13",
+              "es-en-s01-u004-v03",
+              "es-en-s01-u004-v04",
+              "es-en-s01-u004-v05"
             ],
             "phrase_ids": [
               "es-en-s01-u004-p01",
               "es-en-s01-u004-p02",
               "es-en-s01-u004-p03",
-              "es-en-s01-u004-p04"
+              "es-en-s01-u004-p04",
+              "es-en-s01-u004-p05"
             ]
           }
         },
@@ -1382,20 +1745,26 @@
           "estimated_exercises": 15,
           "content_focus": {
             "vocabulary_ids": [
-              "es-en-s01-u004-v01",
-              "es-en-s01-u004-v02",
-              "es-en-s01-u004-v03",
-              "es-en-s01-u004-v04",
-              "es-en-s01-u004-v05",
               "es-en-s01-u004-v06",
               "es-en-s01-u004-v07",
-              "es-en-s01-u004-v08"
+              "es-en-s01-u004-v08",
+              "es-en-s01-u004-v09",
+              "es-en-s01-u004-v10",
+              "es-en-s01-u004-v01",
+              "es-en-s01-u004-v02",
+              "es-en-s01-u004-v11",
+              "es-en-s01-u004-v12",
+              "es-en-s01-u004-v13",
+              "es-en-s01-u004-v03",
+              "es-en-s01-u004-v04",
+              "es-en-s01-u004-v05"
             ],
             "phrase_ids": [
               "es-en-s01-u004-p01",
               "es-en-s01-u004-p02",
               "es-en-s01-u004-p03",
-              "es-en-s01-u004-p04"
+              "es-en-s01-u004-p04",
+              "es-en-s01-u004-p05"
             ]
           }
         },
@@ -1412,20 +1781,26 @@
           "estimated_exercises": 15,
           "content_focus": {
             "vocabulary_ids": [
-              "es-en-s01-u004-v01",
-              "es-en-s01-u004-v02",
-              "es-en-s01-u004-v03",
-              "es-en-s01-u004-v04",
-              "es-en-s01-u004-v05",
               "es-en-s01-u004-v06",
               "es-en-s01-u004-v07",
-              "es-en-s01-u004-v08"
+              "es-en-s01-u004-v08",
+              "es-en-s01-u004-v09",
+              "es-en-s01-u004-v10",
+              "es-en-s01-u004-v01",
+              "es-en-s01-u004-v02",
+              "es-en-s01-u004-v11",
+              "es-en-s01-u004-v12",
+              "es-en-s01-u004-v13",
+              "es-en-s01-u004-v03",
+              "es-en-s01-u004-v04",
+              "es-en-s01-u004-v05"
             ],
             "phrase_ids": [
               "es-en-s01-u004-p01",
               "es-en-s01-u004-p02",
               "es-en-s01-u004-p03",
-              "es-en-s01-u004-p04"
+              "es-en-s01-u004-p04",
+              "es-en-s01-u004-p05"
             ]
           }
         },
@@ -1442,20 +1817,26 @@
           "estimated_exercises": 15,
           "content_focus": {
             "vocabulary_ids": [
-              "es-en-s01-u004-v01",
-              "es-en-s01-u004-v02",
-              "es-en-s01-u004-v03",
-              "es-en-s01-u004-v04",
-              "es-en-s01-u004-v05",
               "es-en-s01-u004-v06",
               "es-en-s01-u004-v07",
-              "es-en-s01-u004-v08"
+              "es-en-s01-u004-v08",
+              "es-en-s01-u004-v09",
+              "es-en-s01-u004-v10",
+              "es-en-s01-u004-v01",
+              "es-en-s01-u004-v02",
+              "es-en-s01-u004-v11",
+              "es-en-s01-u004-v12",
+              "es-en-s01-u004-v13",
+              "es-en-s01-u004-v03",
+              "es-en-s01-u004-v04",
+              "es-en-s01-u004-v05"
             ],
             "phrase_ids": [
               "es-en-s01-u004-p01",
               "es-en-s01-u004-p02",
               "es-en-s01-u004-p03",
-              "es-en-s01-u004-p04"
+              "es-en-s01-u004-p04",
+              "es-en-s01-u004-p05"
             ]
           }
         },
@@ -1473,20 +1854,26 @@
           "estimated_exercises": 15,
           "content_focus": {
             "vocabulary_ids": [
-              "es-en-s01-u004-v01",
-              "es-en-s01-u004-v02",
-              "es-en-s01-u004-v03",
-              "es-en-s01-u004-v04",
-              "es-en-s01-u004-v05",
               "es-en-s01-u004-v06",
               "es-en-s01-u004-v07",
-              "es-en-s01-u004-v08"
+              "es-en-s01-u004-v08",
+              "es-en-s01-u004-v09",
+              "es-en-s01-u004-v10",
+              "es-en-s01-u004-v01",
+              "es-en-s01-u004-v02",
+              "es-en-s01-u004-v11",
+              "es-en-s01-u004-v12",
+              "es-en-s01-u004-v13",
+              "es-en-s01-u004-v03",
+              "es-en-s01-u004-v04",
+              "es-en-s01-u004-v05"
             ],
             "phrase_ids": [
               "es-en-s01-u004-p01",
               "es-en-s01-u004-p02",
               "es-en-s01-u004-p03",
-              "es-en-s01-u004-p04"
+              "es-en-s01-u004-p04",
+              "es-en-s01-u004-p05"
             ]
           }
         }
@@ -1511,6 +1898,59 @@
         "unit_title": "verified_public_course_map",
         "vocabulary_phrases_grammar": "original_reconstruction",
         "duolingo_sentence_bank_copied": false
+      },
+      "dialogue": {
+        "scenario": "Looking at family photos",
+        "turns": [
+          {
+            "speaker": "Amiga",
+            "prompt": {
+              "spanish": "¿Quién es ella?",
+              "english": "Who is she?"
+            },
+            "reply": {
+              "spanish": "Esta es mi hermana.",
+              "english": "This is my sister."
+            },
+            "distractors": [
+              "Tengo dos hermanos.",
+              "Él es mi abuelo.",
+              "Mi amiga se llama Laura."
+            ]
+          },
+          {
+            "speaker": "Amiga",
+            "prompt": {
+              "spanish": "¿Y él?",
+              "english": "And him?"
+            },
+            "reply": {
+              "spanish": "Él es mi abuelo.",
+              "english": "He is my grandfather."
+            },
+            "distractors": [
+              "Esta es mi hermana.",
+              "Mi amiga se llama Laura.",
+              "Tengo dos hermanos."
+            ]
+          },
+          {
+            "speaker": "Amiga",
+            "prompt": {
+              "spanish": "¿Tienes hermanos?",
+              "english": "Do you have siblings?"
+            },
+            "reply": {
+              "spanish": "Tengo dos hermanos.",
+              "english": "I have two brothers/siblings."
+            },
+            "distractors": [
+              "Esta es mi hermana.",
+              "Él es mi abuelo.",
+              "Mi amiga se llama Laura."
+            ]
+          }
+        ]
       }
     },
     {
@@ -1528,23 +1968,16 @@
       ],
       "vocabulary": [
         {
-          "id": "es-en-s01-u005-v01",
-          "spanish": "siempre",
-          "english": "always",
-          "part_of_speech": "adverb",
-          "status": "original_reconstruction"
-        },
-        {
-          "id": "es-en-s01-u005-v02",
-          "spanish": "a veces",
-          "english": "sometimes",
-          "part_of_speech": "expression",
-          "status": "original_reconstruction"
-        },
-        {
           "id": "es-en-s01-u005-v03",
           "spanish": "amable",
           "english": "kind",
+          "part_of_speech": "adjective",
+          "status": "original_reconstruction"
+        },
+        {
+          "id": "es-en-s01-u005-v09",
+          "spanish": "simpático/simpática",
+          "english": "nice/friendly",
           "part_of_speech": "adjective",
           "status": "original_reconstruction"
         },
@@ -1556,9 +1989,9 @@
           "status": "original_reconstruction"
         },
         {
-          "id": "es-en-s01-u005-v05",
-          "spanish": "serio/seria",
-          "english": "serious",
+          "id": "es-en-s01-u005-v10",
+          "spanish": "tranquilo/tranquila",
+          "english": "calm",
           "part_of_speech": "adjective",
           "status": "original_reconstruction"
         },
@@ -1566,6 +1999,13 @@
           "id": "es-en-s01-u005-v06",
           "spanish": "tímido/tímida",
           "english": "shy",
+          "part_of_speech": "adjective",
+          "status": "original_reconstruction"
+        },
+        {
+          "id": "es-en-s01-u005-v05",
+          "spanish": "serio/seria",
+          "english": "serious",
           "part_of_speech": "adjective",
           "status": "original_reconstruction"
         },
@@ -1584,17 +2024,45 @@
           "status": "original_reconstruction"
         },
         {
-          "id": "es-en-s01-u005-v09",
-          "spanish": "simpático/simpática",
-          "english": "nice/friendly",
-          "part_of_speech": "adjective",
+          "id": "es-en-s01-u005-v14",
+          "spanish": "ayudar",
+          "english": "to help",
+          "part_of_speech": "verb",
           "status": "original_reconstruction"
         },
         {
-          "id": "es-en-s01-u005-v10",
-          "spanish": "tranquilo/tranquila",
-          "english": "calm",
-          "part_of_speech": "adjective",
+          "id": "es-en-s01-u005-v11",
+          "spanish": "la persona",
+          "english": "person",
+          "part_of_speech": "noun",
+          "status": "original_reconstruction"
+        },
+        {
+          "id": "es-en-s01-u005-v12",
+          "spanish": "el profesor/la profesora",
+          "english": "teacher",
+          "part_of_speech": "noun",
+          "status": "original_reconstruction"
+        },
+        {
+          "id": "es-en-s01-u005-v13",
+          "spanish": "pero",
+          "english": "but",
+          "part_of_speech": "conjunction",
+          "status": "original_reconstruction"
+        },
+        {
+          "id": "es-en-s01-u005-v01",
+          "spanish": "siempre",
+          "english": "always",
+          "part_of_speech": "adverb",
+          "status": "original_reconstruction"
+        },
+        {
+          "id": "es-en-s01-u005-v02",
+          "spanish": "a veces",
+          "english": "sometimes",
+          "part_of_speech": "adverb",
           "status": "original_reconstruction"
         }
       ],
@@ -1644,20 +2112,27 @@
           "estimated_exercises": 15,
           "content_focus": {
             "vocabulary_ids": [
-              "es-en-s01-u005-v01",
-              "es-en-s01-u005-v02",
               "es-en-s01-u005-v03",
+              "es-en-s01-u005-v09",
               "es-en-s01-u005-v04",
-              "es-en-s01-u005-v05",
+              "es-en-s01-u005-v10",
               "es-en-s01-u005-v06",
+              "es-en-s01-u005-v05",
               "es-en-s01-u005-v07",
-              "es-en-s01-u005-v08"
+              "es-en-s01-u005-v08",
+              "es-en-s01-u005-v14",
+              "es-en-s01-u005-v11",
+              "es-en-s01-u005-v12",
+              "es-en-s01-u005-v13",
+              "es-en-s01-u005-v01",
+              "es-en-s01-u005-v02"
             ],
             "phrase_ids": [
               "es-en-s01-u005-p01",
               "es-en-s01-u005-p02",
               "es-en-s01-u005-p03",
-              "es-en-s01-u005-p04"
+              "es-en-s01-u005-p04",
+              "es-en-s01-u005-p05"
             ]
           }
         },
@@ -1674,20 +2149,27 @@
           "estimated_exercises": 15,
           "content_focus": {
             "vocabulary_ids": [
-              "es-en-s01-u005-v01",
-              "es-en-s01-u005-v02",
               "es-en-s01-u005-v03",
+              "es-en-s01-u005-v09",
               "es-en-s01-u005-v04",
-              "es-en-s01-u005-v05",
+              "es-en-s01-u005-v10",
               "es-en-s01-u005-v06",
+              "es-en-s01-u005-v05",
               "es-en-s01-u005-v07",
-              "es-en-s01-u005-v08"
+              "es-en-s01-u005-v08",
+              "es-en-s01-u005-v14",
+              "es-en-s01-u005-v11",
+              "es-en-s01-u005-v12",
+              "es-en-s01-u005-v13",
+              "es-en-s01-u005-v01",
+              "es-en-s01-u005-v02"
             ],
             "phrase_ids": [
               "es-en-s01-u005-p01",
               "es-en-s01-u005-p02",
               "es-en-s01-u005-p03",
-              "es-en-s01-u005-p04"
+              "es-en-s01-u005-p04",
+              "es-en-s01-u005-p05"
             ]
           }
         },
@@ -1704,20 +2186,27 @@
           "estimated_exercises": 15,
           "content_focus": {
             "vocabulary_ids": [
-              "es-en-s01-u005-v01",
-              "es-en-s01-u005-v02",
               "es-en-s01-u005-v03",
+              "es-en-s01-u005-v09",
               "es-en-s01-u005-v04",
-              "es-en-s01-u005-v05",
+              "es-en-s01-u005-v10",
               "es-en-s01-u005-v06",
+              "es-en-s01-u005-v05",
               "es-en-s01-u005-v07",
-              "es-en-s01-u005-v08"
+              "es-en-s01-u005-v08",
+              "es-en-s01-u005-v14",
+              "es-en-s01-u005-v11",
+              "es-en-s01-u005-v12",
+              "es-en-s01-u005-v13",
+              "es-en-s01-u005-v01",
+              "es-en-s01-u005-v02"
             ],
             "phrase_ids": [
               "es-en-s01-u005-p01",
               "es-en-s01-u005-p02",
               "es-en-s01-u005-p03",
-              "es-en-s01-u005-p04"
+              "es-en-s01-u005-p04",
+              "es-en-s01-u005-p05"
             ]
           }
         },
@@ -1734,20 +2223,27 @@
           "estimated_exercises": 15,
           "content_focus": {
             "vocabulary_ids": [
-              "es-en-s01-u005-v01",
-              "es-en-s01-u005-v02",
               "es-en-s01-u005-v03",
+              "es-en-s01-u005-v09",
               "es-en-s01-u005-v04",
-              "es-en-s01-u005-v05",
+              "es-en-s01-u005-v10",
               "es-en-s01-u005-v06",
+              "es-en-s01-u005-v05",
               "es-en-s01-u005-v07",
-              "es-en-s01-u005-v08"
+              "es-en-s01-u005-v08",
+              "es-en-s01-u005-v14",
+              "es-en-s01-u005-v11",
+              "es-en-s01-u005-v12",
+              "es-en-s01-u005-v13",
+              "es-en-s01-u005-v01",
+              "es-en-s01-u005-v02"
             ],
             "phrase_ids": [
               "es-en-s01-u005-p01",
               "es-en-s01-u005-p02",
               "es-en-s01-u005-p03",
-              "es-en-s01-u005-p04"
+              "es-en-s01-u005-p04",
+              "es-en-s01-u005-p05"
             ]
           }
         },
@@ -1764,20 +2260,27 @@
           "estimated_exercises": 15,
           "content_focus": {
             "vocabulary_ids": [
-              "es-en-s01-u005-v01",
-              "es-en-s01-u005-v02",
               "es-en-s01-u005-v03",
+              "es-en-s01-u005-v09",
               "es-en-s01-u005-v04",
-              "es-en-s01-u005-v05",
+              "es-en-s01-u005-v10",
               "es-en-s01-u005-v06",
+              "es-en-s01-u005-v05",
               "es-en-s01-u005-v07",
-              "es-en-s01-u005-v08"
+              "es-en-s01-u005-v08",
+              "es-en-s01-u005-v14",
+              "es-en-s01-u005-v11",
+              "es-en-s01-u005-v12",
+              "es-en-s01-u005-v13",
+              "es-en-s01-u005-v01",
+              "es-en-s01-u005-v02"
             ],
             "phrase_ids": [
               "es-en-s01-u005-p01",
               "es-en-s01-u005-p02",
               "es-en-s01-u005-p03",
-              "es-en-s01-u005-p04"
+              "es-en-s01-u005-p04",
+              "es-en-s01-u005-p05"
             ]
           }
         },
@@ -1795,20 +2298,27 @@
           "estimated_exercises": 15,
           "content_focus": {
             "vocabulary_ids": [
-              "es-en-s01-u005-v01",
-              "es-en-s01-u005-v02",
               "es-en-s01-u005-v03",
+              "es-en-s01-u005-v09",
               "es-en-s01-u005-v04",
-              "es-en-s01-u005-v05",
+              "es-en-s01-u005-v10",
               "es-en-s01-u005-v06",
+              "es-en-s01-u005-v05",
               "es-en-s01-u005-v07",
-              "es-en-s01-u005-v08"
+              "es-en-s01-u005-v08",
+              "es-en-s01-u005-v14",
+              "es-en-s01-u005-v11",
+              "es-en-s01-u005-v12",
+              "es-en-s01-u005-v13",
+              "es-en-s01-u005-v01",
+              "es-en-s01-u005-v02"
             ],
             "phrase_ids": [
               "es-en-s01-u005-p01",
               "es-en-s01-u005-p02",
               "es-en-s01-u005-p03",
-              "es-en-s01-u005-p04"
+              "es-en-s01-u005-p04",
+              "es-en-s01-u005-p05"
             ]
           }
         }
@@ -1833,6 +2343,59 @@
         "unit_title": "verified_public_course_map",
         "vocabulary_phrases_grammar": "original_reconstruction",
         "duolingo_sentence_bank_copied": false
+      },
+      "dialogue": {
+        "scenario": "Describing a friend",
+        "turns": [
+          {
+            "speaker": "Compañero",
+            "prompt": {
+              "spanish": "¿Cómo es tu amiga?",
+              "english": "What is your friend like?"
+            },
+            "reply": {
+              "spanish": "Ella es tímida, pero divertida.",
+              "english": "She is shy but funny."
+            },
+            "distractors": [
+              "Somos personas tranquilas.",
+              "Siempre ayuda a los demás.",
+              "Mi amigo es muy amable."
+            ]
+          },
+          {
+            "speaker": "Compañero",
+            "prompt": {
+              "spanish": "¿Y qué hace por sus amigos?",
+              "english": "And what does she do for her friends?"
+            },
+            "reply": {
+              "spanish": "Siempre ayuda a los demás.",
+              "english": "He/She always helps others."
+            },
+            "distractors": [
+              "Somos personas tranquilas.",
+              "Mi amigo es muy amable.",
+              "Ella es tímida, pero divertida."
+            ]
+          },
+          {
+            "speaker": "Compañero",
+            "prompt": {
+              "spanish": "¿Y ustedes dos?",
+              "english": "And the two of you?"
+            },
+            "reply": {
+              "spanish": "Somos personas tranquilas.",
+              "english": "We are calm people."
+            },
+            "distractors": [
+              "Ella es tímida, pero divertida.",
+              "Mi amigo es muy amable.",
+              "Siempre ayuda a los demás."
+            ]
+          }
+        ]
       }
     },
     {
@@ -1850,24 +2413,45 @@
       ],
       "vocabulary": [
         {
+          "id": "es-en-s01-u006-v08",
+          "spanish": "la llave",
+          "english": "key",
+          "part_of_speech": "noun",
+          "status": "original_reconstruction"
+        },
+        {
+          "id": "es-en-s01-u006-v09",
+          "spanish": "el teléfono",
+          "english": "phone",
+          "part_of_speech": "noun",
+          "status": "original_reconstruction"
+        },
+        {
+          "id": "es-en-s01-u006-v10",
+          "spanish": "la mochila",
+          "english": "backpack",
+          "part_of_speech": "noun",
+          "status": "original_reconstruction"
+        },
+        {
+          "id": "es-en-s01-u006-v11",
+          "spanish": "la puerta",
+          "english": "door",
+          "part_of_speech": "noun",
+          "status": "original_reconstruction"
+        },
+        {
+          "id": "es-en-s01-u006-v12",
+          "spanish": "la silla",
+          "english": "chair",
+          "part_of_speech": "noun",
+          "status": "original_reconstruction"
+        },
+        {
           "id": "es-en-s01-u006-v01",
           "spanish": "hay",
           "english": "there is/are",
           "part_of_speech": "verb",
-          "status": "original_reconstruction"
-        },
-        {
-          "id": "es-en-s01-u006-v02",
-          "spanish": "aquí",
-          "english": "here",
-          "part_of_speech": "adverb",
-          "status": "original_reconstruction"
-        },
-        {
-          "id": "es-en-s01-u006-v03",
-          "spanish": "allí",
-          "english": "there",
-          "part_of_speech": "adverb",
           "status": "original_reconstruction"
         },
         {
@@ -1899,24 +2483,24 @@
           "status": "original_reconstruction"
         },
         {
-          "id": "es-en-s01-u006-v08",
-          "spanish": "la llave",
-          "english": "key",
-          "part_of_speech": "noun",
+          "id": "es-en-s01-u006-v02",
+          "spanish": "aquí",
+          "english": "here",
+          "part_of_speech": "adverb",
           "status": "original_reconstruction"
         },
         {
-          "id": "es-en-s01-u006-v09",
-          "spanish": "el teléfono",
-          "english": "phone",
-          "part_of_speech": "noun",
+          "id": "es-en-s01-u006-v03",
+          "spanish": "allí",
+          "english": "there",
+          "part_of_speech": "adverb",
           "status": "original_reconstruction"
         },
         {
-          "id": "es-en-s01-u006-v10",
-          "spanish": "la mochila",
-          "english": "backpack",
-          "part_of_speech": "noun",
+          "id": "es-en-s01-u006-v13",
+          "spanish": "buscar",
+          "english": "to look for",
+          "part_of_speech": "verb",
           "status": "original_reconstruction"
         }
       ],
@@ -1966,20 +2550,26 @@
           "estimated_exercises": 15,
           "content_focus": {
             "vocabulary_ids": [
+              "es-en-s01-u006-v08",
+              "es-en-s01-u006-v09",
+              "es-en-s01-u006-v10",
+              "es-en-s01-u006-v11",
+              "es-en-s01-u006-v12",
               "es-en-s01-u006-v01",
-              "es-en-s01-u006-v02",
-              "es-en-s01-u006-v03",
               "es-en-s01-u006-v04",
               "es-en-s01-u006-v05",
               "es-en-s01-u006-v06",
               "es-en-s01-u006-v07",
-              "es-en-s01-u006-v08"
+              "es-en-s01-u006-v02",
+              "es-en-s01-u006-v03",
+              "es-en-s01-u006-v13"
             ],
             "phrase_ids": [
               "es-en-s01-u006-p01",
               "es-en-s01-u006-p02",
               "es-en-s01-u006-p03",
-              "es-en-s01-u006-p04"
+              "es-en-s01-u006-p04",
+              "es-en-s01-u006-p05"
             ]
           }
         },
@@ -1996,20 +2586,26 @@
           "estimated_exercises": 15,
           "content_focus": {
             "vocabulary_ids": [
+              "es-en-s01-u006-v08",
+              "es-en-s01-u006-v09",
+              "es-en-s01-u006-v10",
+              "es-en-s01-u006-v11",
+              "es-en-s01-u006-v12",
               "es-en-s01-u006-v01",
-              "es-en-s01-u006-v02",
-              "es-en-s01-u006-v03",
               "es-en-s01-u006-v04",
               "es-en-s01-u006-v05",
               "es-en-s01-u006-v06",
               "es-en-s01-u006-v07",
-              "es-en-s01-u006-v08"
+              "es-en-s01-u006-v02",
+              "es-en-s01-u006-v03",
+              "es-en-s01-u006-v13"
             ],
             "phrase_ids": [
               "es-en-s01-u006-p01",
               "es-en-s01-u006-p02",
               "es-en-s01-u006-p03",
-              "es-en-s01-u006-p04"
+              "es-en-s01-u006-p04",
+              "es-en-s01-u006-p05"
             ]
           }
         },
@@ -2026,20 +2622,26 @@
           "estimated_exercises": 15,
           "content_focus": {
             "vocabulary_ids": [
+              "es-en-s01-u006-v08",
+              "es-en-s01-u006-v09",
+              "es-en-s01-u006-v10",
+              "es-en-s01-u006-v11",
+              "es-en-s01-u006-v12",
               "es-en-s01-u006-v01",
-              "es-en-s01-u006-v02",
-              "es-en-s01-u006-v03",
               "es-en-s01-u006-v04",
               "es-en-s01-u006-v05",
               "es-en-s01-u006-v06",
               "es-en-s01-u006-v07",
-              "es-en-s01-u006-v08"
+              "es-en-s01-u006-v02",
+              "es-en-s01-u006-v03",
+              "es-en-s01-u006-v13"
             ],
             "phrase_ids": [
               "es-en-s01-u006-p01",
               "es-en-s01-u006-p02",
               "es-en-s01-u006-p03",
-              "es-en-s01-u006-p04"
+              "es-en-s01-u006-p04",
+              "es-en-s01-u006-p05"
             ]
           }
         },
@@ -2056,20 +2658,26 @@
           "estimated_exercises": 15,
           "content_focus": {
             "vocabulary_ids": [
+              "es-en-s01-u006-v08",
+              "es-en-s01-u006-v09",
+              "es-en-s01-u006-v10",
+              "es-en-s01-u006-v11",
+              "es-en-s01-u006-v12",
               "es-en-s01-u006-v01",
-              "es-en-s01-u006-v02",
-              "es-en-s01-u006-v03",
               "es-en-s01-u006-v04",
               "es-en-s01-u006-v05",
               "es-en-s01-u006-v06",
               "es-en-s01-u006-v07",
-              "es-en-s01-u006-v08"
+              "es-en-s01-u006-v02",
+              "es-en-s01-u006-v03",
+              "es-en-s01-u006-v13"
             ],
             "phrase_ids": [
               "es-en-s01-u006-p01",
               "es-en-s01-u006-p02",
               "es-en-s01-u006-p03",
-              "es-en-s01-u006-p04"
+              "es-en-s01-u006-p04",
+              "es-en-s01-u006-p05"
             ]
           }
         },
@@ -2086,20 +2694,26 @@
           "estimated_exercises": 15,
           "content_focus": {
             "vocabulary_ids": [
+              "es-en-s01-u006-v08",
+              "es-en-s01-u006-v09",
+              "es-en-s01-u006-v10",
+              "es-en-s01-u006-v11",
+              "es-en-s01-u006-v12",
               "es-en-s01-u006-v01",
-              "es-en-s01-u006-v02",
-              "es-en-s01-u006-v03",
               "es-en-s01-u006-v04",
               "es-en-s01-u006-v05",
               "es-en-s01-u006-v06",
               "es-en-s01-u006-v07",
-              "es-en-s01-u006-v08"
+              "es-en-s01-u006-v02",
+              "es-en-s01-u006-v03",
+              "es-en-s01-u006-v13"
             ],
             "phrase_ids": [
               "es-en-s01-u006-p01",
               "es-en-s01-u006-p02",
               "es-en-s01-u006-p03",
-              "es-en-s01-u006-p04"
+              "es-en-s01-u006-p04",
+              "es-en-s01-u006-p05"
             ]
           }
         },
@@ -2117,20 +2731,26 @@
           "estimated_exercises": 15,
           "content_focus": {
             "vocabulary_ids": [
+              "es-en-s01-u006-v08",
+              "es-en-s01-u006-v09",
+              "es-en-s01-u006-v10",
+              "es-en-s01-u006-v11",
+              "es-en-s01-u006-v12",
               "es-en-s01-u006-v01",
-              "es-en-s01-u006-v02",
-              "es-en-s01-u006-v03",
               "es-en-s01-u006-v04",
               "es-en-s01-u006-v05",
               "es-en-s01-u006-v06",
               "es-en-s01-u006-v07",
-              "es-en-s01-u006-v08"
+              "es-en-s01-u006-v02",
+              "es-en-s01-u006-v03",
+              "es-en-s01-u006-v13"
             ],
             "phrase_ids": [
               "es-en-s01-u006-p01",
               "es-en-s01-u006-p02",
               "es-en-s01-u006-p03",
-              "es-en-s01-u006-p04"
+              "es-en-s01-u006-p04",
+              "es-en-s01-u006-p05"
             ]
           }
         }
@@ -2155,6 +2775,59 @@
         "unit_title": "verified_public_course_map",
         "vocabulary_phrases_grammar": "original_reconstruction",
         "duolingo_sentence_bank_copied": false
+      },
+      "dialogue": {
+        "scenario": "Looking for your things",
+        "turns": [
+          {
+            "speaker": "Compañera",
+            "prompt": {
+              "spanish": "¿Qué buscas?",
+              "english": "What are you looking for?"
+            },
+            "reply": {
+              "spanish": "Busco mis cosas.",
+              "english": "I am looking for my things."
+            },
+            "distractors": [
+              "No está aquí.",
+              "Está al lado de la puerta.",
+              "Hay una mochila debajo de la silla."
+            ]
+          },
+          {
+            "speaker": "Compañera",
+            "prompt": {
+              "spanish": "¿Está tu teléfono en la mesa?",
+              "english": "Is your phone on the table?"
+            },
+            "reply": {
+              "spanish": "No está aquí.",
+              "english": "It is not here."
+            },
+            "distractors": [
+              "Busco mis cosas.",
+              "Hay una mochila debajo de la silla.",
+              "Está al lado de la puerta."
+            ]
+          },
+          {
+            "speaker": "Compañera",
+            "prompt": {
+              "spanish": "¿Y tu mochila?",
+              "english": "And your backpack?"
+            },
+            "reply": {
+              "spanish": "Hay una mochila debajo de la silla.",
+              "english": "There is a backpack under the chair."
+            },
+            "distractors": [
+              "No está aquí.",
+              "Busco mis cosas.",
+              "Está al lado de la puerta."
+            ]
+          }
+        ]
       }
     },
     {
@@ -2171,6 +2844,27 @@
         "simple word order"
       ],
       "vocabulary": [
+        {
+          "id": "es-en-s01-u007-v09",
+          "spanish": "la calle",
+          "english": "street",
+          "part_of_speech": "noun",
+          "status": "original_reconstruction"
+        },
+        {
+          "id": "es-en-s01-u007-v10",
+          "spanish": "la plaza",
+          "english": "square",
+          "part_of_speech": "noun",
+          "status": "original_reconstruction"
+        },
+        {
+          "id": "es-en-s01-u007-v11",
+          "spanish": "el parque",
+          "english": "park",
+          "part_of_speech": "noun",
+          "status": "original_reconstruction"
+        },
         {
           "id": "es-en-s01-u007-v01",
           "spanish": "el banco",
@@ -2226,20 +2920,6 @@
           "english": "to cross",
           "part_of_speech": "verb",
           "status": "original_reconstruction"
-        },
-        {
-          "id": "es-en-s01-u007-v09",
-          "spanish": "la calle",
-          "english": "street",
-          "part_of_speech": "noun",
-          "status": "original_reconstruction"
-        },
-        {
-          "id": "es-en-s01-u007-v10",
-          "spanish": "la plaza",
-          "english": "square",
-          "part_of_speech": "noun",
-          "status": "original_reconstruction"
         }
       ],
       "phrase_patterns": [
@@ -2288,6 +2968,9 @@
           "estimated_exercises": 15,
           "content_focus": {
             "vocabulary_ids": [
+              "es-en-s01-u007-v09",
+              "es-en-s01-u007-v10",
+              "es-en-s01-u007-v11",
               "es-en-s01-u007-v01",
               "es-en-s01-u007-v02",
               "es-en-s01-u007-v03",
@@ -2301,7 +2984,8 @@
               "es-en-s01-u007-p01",
               "es-en-s01-u007-p02",
               "es-en-s01-u007-p03",
-              "es-en-s01-u007-p04"
+              "es-en-s01-u007-p04",
+              "es-en-s01-u007-p05"
             ]
           }
         },
@@ -2318,6 +3002,9 @@
           "estimated_exercises": 15,
           "content_focus": {
             "vocabulary_ids": [
+              "es-en-s01-u007-v09",
+              "es-en-s01-u007-v10",
+              "es-en-s01-u007-v11",
               "es-en-s01-u007-v01",
               "es-en-s01-u007-v02",
               "es-en-s01-u007-v03",
@@ -2331,7 +3018,8 @@
               "es-en-s01-u007-p01",
               "es-en-s01-u007-p02",
               "es-en-s01-u007-p03",
-              "es-en-s01-u007-p04"
+              "es-en-s01-u007-p04",
+              "es-en-s01-u007-p05"
             ]
           }
         },
@@ -2348,6 +3036,9 @@
           "estimated_exercises": 15,
           "content_focus": {
             "vocabulary_ids": [
+              "es-en-s01-u007-v09",
+              "es-en-s01-u007-v10",
+              "es-en-s01-u007-v11",
               "es-en-s01-u007-v01",
               "es-en-s01-u007-v02",
               "es-en-s01-u007-v03",
@@ -2361,7 +3052,8 @@
               "es-en-s01-u007-p01",
               "es-en-s01-u007-p02",
               "es-en-s01-u007-p03",
-              "es-en-s01-u007-p04"
+              "es-en-s01-u007-p04",
+              "es-en-s01-u007-p05"
             ]
           }
         },
@@ -2378,6 +3070,9 @@
           "estimated_exercises": 15,
           "content_focus": {
             "vocabulary_ids": [
+              "es-en-s01-u007-v09",
+              "es-en-s01-u007-v10",
+              "es-en-s01-u007-v11",
               "es-en-s01-u007-v01",
               "es-en-s01-u007-v02",
               "es-en-s01-u007-v03",
@@ -2391,7 +3086,8 @@
               "es-en-s01-u007-p01",
               "es-en-s01-u007-p02",
               "es-en-s01-u007-p03",
-              "es-en-s01-u007-p04"
+              "es-en-s01-u007-p04",
+              "es-en-s01-u007-p05"
             ]
           }
         },
@@ -2408,6 +3104,9 @@
           "estimated_exercises": 15,
           "content_focus": {
             "vocabulary_ids": [
+              "es-en-s01-u007-v09",
+              "es-en-s01-u007-v10",
+              "es-en-s01-u007-v11",
               "es-en-s01-u007-v01",
               "es-en-s01-u007-v02",
               "es-en-s01-u007-v03",
@@ -2421,7 +3120,8 @@
               "es-en-s01-u007-p01",
               "es-en-s01-u007-p02",
               "es-en-s01-u007-p03",
-              "es-en-s01-u007-p04"
+              "es-en-s01-u007-p04",
+              "es-en-s01-u007-p05"
             ]
           }
         },
@@ -2439,6 +3139,9 @@
           "estimated_exercises": 15,
           "content_focus": {
             "vocabulary_ids": [
+              "es-en-s01-u007-v09",
+              "es-en-s01-u007-v10",
+              "es-en-s01-u007-v11",
               "es-en-s01-u007-v01",
               "es-en-s01-u007-v02",
               "es-en-s01-u007-v03",
@@ -2452,7 +3155,8 @@
               "es-en-s01-u007-p01",
               "es-en-s01-u007-p02",
               "es-en-s01-u007-p03",
-              "es-en-s01-u007-p04"
+              "es-en-s01-u007-p04",
+              "es-en-s01-u007-p05"
             ]
           }
         }
@@ -2477,6 +3181,59 @@
         "unit_title": "verified_public_course_map",
         "vocabulary_phrases_grammar": "original_reconstruction",
         "duolingo_sentence_bank_copied": false
+      },
+      "dialogue": {
+        "scenario": "Asking for directions",
+        "turns": [
+          {
+            "speaker": "Señora",
+            "prompt": {
+              "spanish": "¿Dónde está el hospital?",
+              "english": "Where is the hospital?"
+            },
+            "reply": {
+              "spanish": "El hospital está lejos.",
+              "english": "The hospital is far."
+            },
+            "distractors": [
+              "El parque está cerca.",
+              "Caminamos por esta calle.",
+              "Cruza la plaza."
+            ]
+          },
+          {
+            "speaker": "Señora",
+            "prompt": {
+              "spanish": "¿Cómo llego al banco?",
+              "english": "How do I get to the bank?"
+            },
+            "reply": {
+              "spanish": "Cruza la plaza.",
+              "english": "Cross the square."
+            },
+            "distractors": [
+              "El hospital está lejos.",
+              "El parque está cerca.",
+              "Caminamos por esta calle."
+            ]
+          },
+          {
+            "speaker": "Señora",
+            "prompt": {
+              "spanish": "¿Y el parque?",
+              "english": "And the park?"
+            },
+            "reply": {
+              "spanish": "El parque está cerca.",
+              "english": "The park is near."
+            },
+            "distractors": [
+              "El hospital está lejos.",
+              "Cruza la plaza.",
+              "Caminamos por esta calle."
+            ]
+          }
+        ]
       }
     },
     {
@@ -2494,38 +3251,17 @@
       ],
       "vocabulary": [
         {
-          "id": "es-en-s01-u008-v01",
-          "spanish": "leer",
-          "english": "to read",
+          "id": "es-en-s01-u008-v10",
+          "spanish": "hablar",
+          "english": "to speak",
           "part_of_speech": "verb",
           "status": "original_reconstruction"
         },
         {
-          "id": "es-en-s01-u008-v02",
-          "spanish": "escribir",
-          "english": "to write",
-          "part_of_speech": "verb",
-          "status": "original_reconstruction"
-        },
-        {
-          "id": "es-en-s01-u008-v03",
-          "spanish": "la palabra",
-          "english": "word",
+          "id": "es-en-s01-u008-v09",
+          "spanish": "el idioma",
+          "english": "language",
           "part_of_speech": "noun",
-          "status": "original_reconstruction"
-        },
-        {
-          "id": "es-en-s01-u008-v04",
-          "spanish": "la pregunta",
-          "english": "question",
-          "part_of_speech": "noun",
-          "status": "original_reconstruction"
-        },
-        {
-          "id": "es-en-s01-u008-v05",
-          "spanish": "despacio",
-          "english": "slowly",
-          "part_of_speech": "adverb",
           "status": "original_reconstruction"
         },
         {
@@ -2550,17 +3286,59 @@
           "status": "original_reconstruction"
         },
         {
-          "id": "es-en-s01-u008-v09",
-          "spanish": "el idioma",
-          "english": "language",
+          "id": "es-en-s01-u008-v03",
+          "spanish": "la palabra",
+          "english": "word",
           "part_of_speech": "noun",
           "status": "original_reconstruction"
         },
         {
-          "id": "es-en-s01-u008-v10",
-          "spanish": "hablar",
-          "english": "to speak",
+          "id": "es-en-s01-u008-v04",
+          "spanish": "la pregunta",
+          "english": "question",
+          "part_of_speech": "noun",
+          "status": "original_reconstruction"
+        },
+        {
+          "id": "es-en-s01-u008-v01",
+          "spanish": "leer",
+          "english": "to read",
           "part_of_speech": "verb",
+          "status": "original_reconstruction"
+        },
+        {
+          "id": "es-en-s01-u008-v02",
+          "spanish": "escribir",
+          "english": "to write",
+          "part_of_speech": "verb",
+          "status": "original_reconstruction"
+        },
+        {
+          "id": "es-en-s01-u008-v11",
+          "spanish": "aprender",
+          "english": "to learn",
+          "part_of_speech": "verb",
+          "status": "original_reconstruction"
+        },
+        {
+          "id": "es-en-s01-u008-v12",
+          "spanish": "entender",
+          "english": "to understand",
+          "part_of_speech": "verb",
+          "status": "original_reconstruction"
+        },
+        {
+          "id": "es-en-s01-u008-v13",
+          "spanish": "un poco",
+          "english": "a little",
+          "part_of_speech": "expression",
+          "status": "original_reconstruction"
+        },
+        {
+          "id": "es-en-s01-u008-v05",
+          "spanish": "despacio",
+          "english": "slowly",
+          "part_of_speech": "adverb",
           "status": "original_reconstruction"
         }
       ],
@@ -2610,20 +3388,26 @@
           "estimated_exercises": 15,
           "content_focus": {
             "vocabulary_ids": [
-              "es-en-s01-u008-v01",
-              "es-en-s01-u008-v02",
-              "es-en-s01-u008-v03",
-              "es-en-s01-u008-v04",
-              "es-en-s01-u008-v05",
+              "es-en-s01-u008-v10",
+              "es-en-s01-u008-v09",
               "es-en-s01-u008-v06",
               "es-en-s01-u008-v07",
-              "es-en-s01-u008-v08"
+              "es-en-s01-u008-v08",
+              "es-en-s01-u008-v03",
+              "es-en-s01-u008-v04",
+              "es-en-s01-u008-v01",
+              "es-en-s01-u008-v02",
+              "es-en-s01-u008-v11",
+              "es-en-s01-u008-v12",
+              "es-en-s01-u008-v13",
+              "es-en-s01-u008-v05"
             ],
             "phrase_ids": [
               "es-en-s01-u008-p01",
               "es-en-s01-u008-p02",
               "es-en-s01-u008-p03",
-              "es-en-s01-u008-p04"
+              "es-en-s01-u008-p04",
+              "es-en-s01-u008-p05"
             ]
           }
         },
@@ -2640,20 +3424,26 @@
           "estimated_exercises": 15,
           "content_focus": {
             "vocabulary_ids": [
-              "es-en-s01-u008-v01",
-              "es-en-s01-u008-v02",
-              "es-en-s01-u008-v03",
-              "es-en-s01-u008-v04",
-              "es-en-s01-u008-v05",
+              "es-en-s01-u008-v10",
+              "es-en-s01-u008-v09",
               "es-en-s01-u008-v06",
               "es-en-s01-u008-v07",
-              "es-en-s01-u008-v08"
+              "es-en-s01-u008-v08",
+              "es-en-s01-u008-v03",
+              "es-en-s01-u008-v04",
+              "es-en-s01-u008-v01",
+              "es-en-s01-u008-v02",
+              "es-en-s01-u008-v11",
+              "es-en-s01-u008-v12",
+              "es-en-s01-u008-v13",
+              "es-en-s01-u008-v05"
             ],
             "phrase_ids": [
               "es-en-s01-u008-p01",
               "es-en-s01-u008-p02",
               "es-en-s01-u008-p03",
-              "es-en-s01-u008-p04"
+              "es-en-s01-u008-p04",
+              "es-en-s01-u008-p05"
             ]
           }
         },
@@ -2670,20 +3460,26 @@
           "estimated_exercises": 15,
           "content_focus": {
             "vocabulary_ids": [
-              "es-en-s01-u008-v01",
-              "es-en-s01-u008-v02",
-              "es-en-s01-u008-v03",
-              "es-en-s01-u008-v04",
-              "es-en-s01-u008-v05",
+              "es-en-s01-u008-v10",
+              "es-en-s01-u008-v09",
               "es-en-s01-u008-v06",
               "es-en-s01-u008-v07",
-              "es-en-s01-u008-v08"
+              "es-en-s01-u008-v08",
+              "es-en-s01-u008-v03",
+              "es-en-s01-u008-v04",
+              "es-en-s01-u008-v01",
+              "es-en-s01-u008-v02",
+              "es-en-s01-u008-v11",
+              "es-en-s01-u008-v12",
+              "es-en-s01-u008-v13",
+              "es-en-s01-u008-v05"
             ],
             "phrase_ids": [
               "es-en-s01-u008-p01",
               "es-en-s01-u008-p02",
               "es-en-s01-u008-p03",
-              "es-en-s01-u008-p04"
+              "es-en-s01-u008-p04",
+              "es-en-s01-u008-p05"
             ]
           }
         },
@@ -2700,20 +3496,26 @@
           "estimated_exercises": 15,
           "content_focus": {
             "vocabulary_ids": [
-              "es-en-s01-u008-v01",
-              "es-en-s01-u008-v02",
-              "es-en-s01-u008-v03",
-              "es-en-s01-u008-v04",
-              "es-en-s01-u008-v05",
+              "es-en-s01-u008-v10",
+              "es-en-s01-u008-v09",
               "es-en-s01-u008-v06",
               "es-en-s01-u008-v07",
-              "es-en-s01-u008-v08"
+              "es-en-s01-u008-v08",
+              "es-en-s01-u008-v03",
+              "es-en-s01-u008-v04",
+              "es-en-s01-u008-v01",
+              "es-en-s01-u008-v02",
+              "es-en-s01-u008-v11",
+              "es-en-s01-u008-v12",
+              "es-en-s01-u008-v13",
+              "es-en-s01-u008-v05"
             ],
             "phrase_ids": [
               "es-en-s01-u008-p01",
               "es-en-s01-u008-p02",
               "es-en-s01-u008-p03",
-              "es-en-s01-u008-p04"
+              "es-en-s01-u008-p04",
+              "es-en-s01-u008-p05"
             ]
           }
         },
@@ -2730,20 +3532,26 @@
           "estimated_exercises": 15,
           "content_focus": {
             "vocabulary_ids": [
-              "es-en-s01-u008-v01",
-              "es-en-s01-u008-v02",
-              "es-en-s01-u008-v03",
-              "es-en-s01-u008-v04",
-              "es-en-s01-u008-v05",
+              "es-en-s01-u008-v10",
+              "es-en-s01-u008-v09",
               "es-en-s01-u008-v06",
               "es-en-s01-u008-v07",
-              "es-en-s01-u008-v08"
+              "es-en-s01-u008-v08",
+              "es-en-s01-u008-v03",
+              "es-en-s01-u008-v04",
+              "es-en-s01-u008-v01",
+              "es-en-s01-u008-v02",
+              "es-en-s01-u008-v11",
+              "es-en-s01-u008-v12",
+              "es-en-s01-u008-v13",
+              "es-en-s01-u008-v05"
             ],
             "phrase_ids": [
               "es-en-s01-u008-p01",
               "es-en-s01-u008-p02",
               "es-en-s01-u008-p03",
-              "es-en-s01-u008-p04"
+              "es-en-s01-u008-p04",
+              "es-en-s01-u008-p05"
             ]
           }
         },
@@ -2761,20 +3569,26 @@
           "estimated_exercises": 15,
           "content_focus": {
             "vocabulary_ids": [
-              "es-en-s01-u008-v01",
-              "es-en-s01-u008-v02",
-              "es-en-s01-u008-v03",
-              "es-en-s01-u008-v04",
-              "es-en-s01-u008-v05",
+              "es-en-s01-u008-v10",
+              "es-en-s01-u008-v09",
               "es-en-s01-u008-v06",
               "es-en-s01-u008-v07",
-              "es-en-s01-u008-v08"
+              "es-en-s01-u008-v08",
+              "es-en-s01-u008-v03",
+              "es-en-s01-u008-v04",
+              "es-en-s01-u008-v01",
+              "es-en-s01-u008-v02",
+              "es-en-s01-u008-v11",
+              "es-en-s01-u008-v12",
+              "es-en-s01-u008-v13",
+              "es-en-s01-u008-v05"
             ],
             "phrase_ids": [
               "es-en-s01-u008-p01",
               "es-en-s01-u008-p02",
               "es-en-s01-u008-p03",
-              "es-en-s01-u008-p04"
+              "es-en-s01-u008-p04",
+              "es-en-s01-u008-p05"
             ]
           }
         }
@@ -2799,6 +3613,59 @@
         "unit_title": "verified_public_course_map",
         "vocabulary_phrases_grammar": "original_reconstruction",
         "duolingo_sentence_bank_copied": false
+      },
+      "dialogue": {
+        "scenario": "A language exchange",
+        "turns": [
+          {
+            "speaker": "Profesor",
+            "prompt": {
+              "spanish": "¿Hablas español?",
+              "english": "Do you speak Spanish?"
+            },
+            "reply": {
+              "spanish": "Hablo un poco de español.",
+              "english": "I speak a little Spanish."
+            },
+            "distractors": [
+              "No entiendo esta palabra.",
+              "Leo y escribo en inglés.",
+              "Estoy aprendiendo español."
+            ]
+          },
+          {
+            "speaker": "Profesor",
+            "prompt": {
+              "spanish": "¿Y cómo practicas?",
+              "english": "And how do you practise?"
+            },
+            "reply": {
+              "spanish": "Estoy aprendiendo español.",
+              "english": "I am learning Spanish."
+            },
+            "distractors": [
+              "Hablo un poco de español.",
+              "No entiendo esta palabra.",
+              "Leo y escribo en inglés."
+            ]
+          },
+          {
+            "speaker": "Profesor",
+            "prompt": {
+              "spanish": "¿Entiendes esta palabra?",
+              "english": "Do you understand this word?"
+            },
+            "reply": {
+              "spanish": "No entiendo esta palabra.",
+              "english": "I do not understand this word."
+            },
+            "distractors": [
+              "Estoy aprendiendo español.",
+              "Leo y escribo en inglés.",
+              "Hablo un poco de español."
+            ]
+          }
+        ]
       }
     },
     {
@@ -2816,17 +3683,17 @@
       ],
       "vocabulary": [
         {
-          "id": "es-en-s01-u009-v01",
-          "spanish": "hoy",
-          "english": "today",
-          "part_of_speech": "adverb",
+          "id": "es-en-s01-u009-v14",
+          "spanish": "el tiempo",
+          "english": "weather",
+          "part_of_speech": "noun",
           "status": "original_reconstruction"
         },
         {
-          "id": "es-en-s01-u009-v02",
-          "spanish": "mañana",
-          "english": "tomorrow",
-          "part_of_speech": "adverb",
+          "id": "es-en-s01-u009-v15",
+          "spanish": "qué",
+          "english": "what",
+          "part_of_speech": "question word",
           "status": "original_reconstruction"
         },
         {
@@ -2858,6 +3725,20 @@
           "status": "original_reconstruction"
         },
         {
+          "id": "es-en-s01-u009-v11",
+          "spanish": "el cielo",
+          "english": "sky",
+          "part_of_speech": "noun",
+          "status": "original_reconstruction"
+        },
+        {
+          "id": "es-en-s01-u009-v12",
+          "spanish": "nublado/nublada",
+          "english": "cloudy",
+          "part_of_speech": "adjective",
+          "status": "original_reconstruction"
+        },
+        {
           "id": "es-en-s01-u009-v07",
           "spanish": "calor",
           "english": "heat",
@@ -2872,6 +3753,13 @@
           "status": "original_reconstruction"
         },
         {
+          "id": "es-en-s01-u009-v13",
+          "spanish": "hacer",
+          "english": "to do/make",
+          "part_of_speech": "verb",
+          "status": "original_reconstruction"
+        },
+        {
           "id": "es-en-s01-u009-v09",
           "spanish": "llover",
           "english": "to rain",
@@ -2883,6 +3771,20 @@
           "spanish": "nevar",
           "english": "to snow",
           "part_of_speech": "verb",
+          "status": "original_reconstruction"
+        },
+        {
+          "id": "es-en-s01-u009-v01",
+          "spanish": "hoy",
+          "english": "today",
+          "part_of_speech": "adverb",
+          "status": "original_reconstruction"
+        },
+        {
+          "id": "es-en-s01-u009-v02",
+          "spanish": "mañana",
+          "english": "tomorrow",
+          "part_of_speech": "adverb",
           "status": "original_reconstruction"
         }
       ],
@@ -2932,20 +3834,28 @@
           "estimated_exercises": 15,
           "content_focus": {
             "vocabulary_ids": [
-              "es-en-s01-u009-v01",
-              "es-en-s01-u009-v02",
+              "es-en-s01-u009-v14",
+              "es-en-s01-u009-v15",
               "es-en-s01-u009-v03",
               "es-en-s01-u009-v04",
               "es-en-s01-u009-v05",
               "es-en-s01-u009-v06",
+              "es-en-s01-u009-v11",
+              "es-en-s01-u009-v12",
               "es-en-s01-u009-v07",
-              "es-en-s01-u009-v08"
+              "es-en-s01-u009-v08",
+              "es-en-s01-u009-v13",
+              "es-en-s01-u009-v09",
+              "es-en-s01-u009-v10",
+              "es-en-s01-u009-v01",
+              "es-en-s01-u009-v02"
             ],
             "phrase_ids": [
               "es-en-s01-u009-p01",
               "es-en-s01-u009-p02",
               "es-en-s01-u009-p03",
-              "es-en-s01-u009-p04"
+              "es-en-s01-u009-p04",
+              "es-en-s01-u009-p05"
             ]
           }
         },
@@ -2962,20 +3872,28 @@
           "estimated_exercises": 15,
           "content_focus": {
             "vocabulary_ids": [
-              "es-en-s01-u009-v01",
-              "es-en-s01-u009-v02",
+              "es-en-s01-u009-v14",
+              "es-en-s01-u009-v15",
               "es-en-s01-u009-v03",
               "es-en-s01-u009-v04",
               "es-en-s01-u009-v05",
               "es-en-s01-u009-v06",
+              "es-en-s01-u009-v11",
+              "es-en-s01-u009-v12",
               "es-en-s01-u009-v07",
-              "es-en-s01-u009-v08"
+              "es-en-s01-u009-v08",
+              "es-en-s01-u009-v13",
+              "es-en-s01-u009-v09",
+              "es-en-s01-u009-v10",
+              "es-en-s01-u009-v01",
+              "es-en-s01-u009-v02"
             ],
             "phrase_ids": [
               "es-en-s01-u009-p01",
               "es-en-s01-u009-p02",
               "es-en-s01-u009-p03",
-              "es-en-s01-u009-p04"
+              "es-en-s01-u009-p04",
+              "es-en-s01-u009-p05"
             ]
           }
         },
@@ -2992,20 +3910,28 @@
           "estimated_exercises": 15,
           "content_focus": {
             "vocabulary_ids": [
-              "es-en-s01-u009-v01",
-              "es-en-s01-u009-v02",
+              "es-en-s01-u009-v14",
+              "es-en-s01-u009-v15",
               "es-en-s01-u009-v03",
               "es-en-s01-u009-v04",
               "es-en-s01-u009-v05",
               "es-en-s01-u009-v06",
+              "es-en-s01-u009-v11",
+              "es-en-s01-u009-v12",
               "es-en-s01-u009-v07",
-              "es-en-s01-u009-v08"
+              "es-en-s01-u009-v08",
+              "es-en-s01-u009-v13",
+              "es-en-s01-u009-v09",
+              "es-en-s01-u009-v10",
+              "es-en-s01-u009-v01",
+              "es-en-s01-u009-v02"
             ],
             "phrase_ids": [
               "es-en-s01-u009-p01",
               "es-en-s01-u009-p02",
               "es-en-s01-u009-p03",
-              "es-en-s01-u009-p04"
+              "es-en-s01-u009-p04",
+              "es-en-s01-u009-p05"
             ]
           }
         },
@@ -3022,20 +3948,28 @@
           "estimated_exercises": 15,
           "content_focus": {
             "vocabulary_ids": [
-              "es-en-s01-u009-v01",
-              "es-en-s01-u009-v02",
+              "es-en-s01-u009-v14",
+              "es-en-s01-u009-v15",
               "es-en-s01-u009-v03",
               "es-en-s01-u009-v04",
               "es-en-s01-u009-v05",
               "es-en-s01-u009-v06",
+              "es-en-s01-u009-v11",
+              "es-en-s01-u009-v12",
               "es-en-s01-u009-v07",
-              "es-en-s01-u009-v08"
+              "es-en-s01-u009-v08",
+              "es-en-s01-u009-v13",
+              "es-en-s01-u009-v09",
+              "es-en-s01-u009-v10",
+              "es-en-s01-u009-v01",
+              "es-en-s01-u009-v02"
             ],
             "phrase_ids": [
               "es-en-s01-u009-p01",
               "es-en-s01-u009-p02",
               "es-en-s01-u009-p03",
-              "es-en-s01-u009-p04"
+              "es-en-s01-u009-p04",
+              "es-en-s01-u009-p05"
             ]
           }
         },
@@ -3052,20 +3986,28 @@
           "estimated_exercises": 15,
           "content_focus": {
             "vocabulary_ids": [
-              "es-en-s01-u009-v01",
-              "es-en-s01-u009-v02",
+              "es-en-s01-u009-v14",
+              "es-en-s01-u009-v15",
               "es-en-s01-u009-v03",
               "es-en-s01-u009-v04",
               "es-en-s01-u009-v05",
               "es-en-s01-u009-v06",
+              "es-en-s01-u009-v11",
+              "es-en-s01-u009-v12",
               "es-en-s01-u009-v07",
-              "es-en-s01-u009-v08"
+              "es-en-s01-u009-v08",
+              "es-en-s01-u009-v13",
+              "es-en-s01-u009-v09",
+              "es-en-s01-u009-v10",
+              "es-en-s01-u009-v01",
+              "es-en-s01-u009-v02"
             ],
             "phrase_ids": [
               "es-en-s01-u009-p01",
               "es-en-s01-u009-p02",
               "es-en-s01-u009-p03",
-              "es-en-s01-u009-p04"
+              "es-en-s01-u009-p04",
+              "es-en-s01-u009-p05"
             ]
           }
         },
@@ -3083,20 +4025,28 @@
           "estimated_exercises": 15,
           "content_focus": {
             "vocabulary_ids": [
-              "es-en-s01-u009-v01",
-              "es-en-s01-u009-v02",
+              "es-en-s01-u009-v14",
+              "es-en-s01-u009-v15",
               "es-en-s01-u009-v03",
               "es-en-s01-u009-v04",
               "es-en-s01-u009-v05",
               "es-en-s01-u009-v06",
+              "es-en-s01-u009-v11",
+              "es-en-s01-u009-v12",
               "es-en-s01-u009-v07",
-              "es-en-s01-u009-v08"
+              "es-en-s01-u009-v08",
+              "es-en-s01-u009-v13",
+              "es-en-s01-u009-v09",
+              "es-en-s01-u009-v10",
+              "es-en-s01-u009-v01",
+              "es-en-s01-u009-v02"
             ],
             "phrase_ids": [
               "es-en-s01-u009-p01",
               "es-en-s01-u009-p02",
               "es-en-s01-u009-p03",
-              "es-en-s01-u009-p04"
+              "es-en-s01-u009-p04",
+              "es-en-s01-u009-p05"
             ]
           }
         }
@@ -3121,6 +4071,59 @@
         "unit_title": "verified_public_course_map",
         "vocabulary_phrases_grammar": "original_reconstruction",
         "duolingo_sentence_bank_copied": false
+      },
+      "dialogue": {
+        "scenario": "Deciding what to wear",
+        "turns": [
+          {
+            "speaker": "Amigo",
+            "prompt": {
+              "spanish": "¿Necesito un abrigo?",
+              "english": "Do I need a coat?"
+            },
+            "reply": {
+              "spanish": "Hace mucho frío.",
+              "english": "It is very cold."
+            },
+            "distractors": [
+              "Hoy hace sol.",
+              "El cielo está nublado.",
+              "Está lloviendo."
+            ]
+          },
+          {
+            "speaker": "Amigo",
+            "prompt": {
+              "spanish": "¿Puedo salir sin paraguas?",
+              "english": "Can I go out without an umbrella?"
+            },
+            "reply": {
+              "spanish": "Está lloviendo.",
+              "english": "It is raining."
+            },
+            "distractors": [
+              "Hoy hace sol.",
+              "Hace mucho frío.",
+              "El cielo está nublado."
+            ]
+          },
+          {
+            "speaker": "Amigo",
+            "prompt": {
+              "spanish": "¿Y mañana?",
+              "english": "And tomorrow?"
+            },
+            "reply": {
+              "spanish": "El cielo está nublado.",
+              "english": "The sky is cloudy."
+            },
+            "distractors": [
+              "Está lloviendo.",
+              "Hace mucho frío.",
+              "Hoy hace sol."
+            ]
+          }
+        ]
       }
     },
     {
@@ -3137,6 +4140,20 @@
         "simple word order"
       ],
       "vocabulary": [
+        {
+          "id": "es-en-s01-u010-v11",
+          "spanish": "la fruta",
+          "english": "fruit",
+          "part_of_speech": "noun",
+          "status": "original_reconstruction"
+        },
+        {
+          "id": "es-en-s01-u010-v12",
+          "spanish": "la manzana",
+          "english": "apple",
+          "part_of_speech": "noun",
+          "status": "original_reconstruction"
+        },
         {
           "id": "es-en-s01-u010-v01",
           "spanish": "la naranja",
@@ -3173,20 +4190,6 @@
           "status": "original_reconstruction"
         },
         {
-          "id": "es-en-s01-u010-v06",
-          "spanish": "maduro/madura",
-          "english": "ripe",
-          "part_of_speech": "adjective",
-          "status": "original_reconstruction"
-        },
-        {
-          "id": "es-en-s01-u010-v07",
-          "spanish": "fresco/fresca",
-          "english": "fresh",
-          "part_of_speech": "adjective",
-          "status": "original_reconstruction"
-        },
-        {
           "id": "es-en-s01-u010-v08",
           "spanish": "comprar",
           "english": "to buy",
@@ -3201,9 +4204,30 @@
           "status": "original_reconstruction"
         },
         {
+          "id": "es-en-s01-u010-v06",
+          "spanish": "maduro/madura",
+          "english": "ripe",
+          "part_of_speech": "adjective",
+          "status": "original_reconstruction"
+        },
+        {
+          "id": "es-en-s01-u010-v07",
+          "spanish": "fresco/fresca",
+          "english": "fresh",
+          "part_of_speech": "adjective",
+          "status": "original_reconstruction"
+        },
+        {
           "id": "es-en-s01-u010-v10",
           "spanish": "barato/barata",
           "english": "cheap",
+          "part_of_speech": "adjective",
+          "status": "original_reconstruction"
+        },
+        {
+          "id": "es-en-s01-u010-v13",
+          "spanish": "caro/cara",
+          "english": "expensive",
           "part_of_speech": "adjective",
           "status": "original_reconstruction"
         }
@@ -3254,20 +4278,26 @@
           "estimated_exercises": 15,
           "content_focus": {
             "vocabulary_ids": [
+              "es-en-s01-u010-v11",
+              "es-en-s01-u010-v12",
               "es-en-s01-u010-v01",
               "es-en-s01-u010-v02",
               "es-en-s01-u010-v03",
               "es-en-s01-u010-v04",
               "es-en-s01-u010-v05",
+              "es-en-s01-u010-v08",
+              "es-en-s01-u010-v09",
               "es-en-s01-u010-v06",
               "es-en-s01-u010-v07",
-              "es-en-s01-u010-v08"
+              "es-en-s01-u010-v10",
+              "es-en-s01-u010-v13"
             ],
             "phrase_ids": [
               "es-en-s01-u010-p01",
               "es-en-s01-u010-p02",
               "es-en-s01-u010-p03",
-              "es-en-s01-u010-p04"
+              "es-en-s01-u010-p04",
+              "es-en-s01-u010-p05"
             ]
           }
         },
@@ -3284,20 +4314,26 @@
           "estimated_exercises": 15,
           "content_focus": {
             "vocabulary_ids": [
+              "es-en-s01-u010-v11",
+              "es-en-s01-u010-v12",
               "es-en-s01-u010-v01",
               "es-en-s01-u010-v02",
               "es-en-s01-u010-v03",
               "es-en-s01-u010-v04",
               "es-en-s01-u010-v05",
+              "es-en-s01-u010-v08",
+              "es-en-s01-u010-v09",
               "es-en-s01-u010-v06",
               "es-en-s01-u010-v07",
-              "es-en-s01-u010-v08"
+              "es-en-s01-u010-v10",
+              "es-en-s01-u010-v13"
             ],
             "phrase_ids": [
               "es-en-s01-u010-p01",
               "es-en-s01-u010-p02",
               "es-en-s01-u010-p03",
-              "es-en-s01-u010-p04"
+              "es-en-s01-u010-p04",
+              "es-en-s01-u010-p05"
             ]
           }
         },
@@ -3314,20 +4350,26 @@
           "estimated_exercises": 15,
           "content_focus": {
             "vocabulary_ids": [
+              "es-en-s01-u010-v11",
+              "es-en-s01-u010-v12",
               "es-en-s01-u010-v01",
               "es-en-s01-u010-v02",
               "es-en-s01-u010-v03",
               "es-en-s01-u010-v04",
               "es-en-s01-u010-v05",
+              "es-en-s01-u010-v08",
+              "es-en-s01-u010-v09",
               "es-en-s01-u010-v06",
               "es-en-s01-u010-v07",
-              "es-en-s01-u010-v08"
+              "es-en-s01-u010-v10",
+              "es-en-s01-u010-v13"
             ],
             "phrase_ids": [
               "es-en-s01-u010-p01",
               "es-en-s01-u010-p02",
               "es-en-s01-u010-p03",
-              "es-en-s01-u010-p04"
+              "es-en-s01-u010-p04",
+              "es-en-s01-u010-p05"
             ]
           }
         },
@@ -3344,20 +4386,26 @@
           "estimated_exercises": 15,
           "content_focus": {
             "vocabulary_ids": [
+              "es-en-s01-u010-v11",
+              "es-en-s01-u010-v12",
               "es-en-s01-u010-v01",
               "es-en-s01-u010-v02",
               "es-en-s01-u010-v03",
               "es-en-s01-u010-v04",
               "es-en-s01-u010-v05",
+              "es-en-s01-u010-v08",
+              "es-en-s01-u010-v09",
               "es-en-s01-u010-v06",
               "es-en-s01-u010-v07",
-              "es-en-s01-u010-v08"
+              "es-en-s01-u010-v10",
+              "es-en-s01-u010-v13"
             ],
             "phrase_ids": [
               "es-en-s01-u010-p01",
               "es-en-s01-u010-p02",
               "es-en-s01-u010-p03",
-              "es-en-s01-u010-p04"
+              "es-en-s01-u010-p04",
+              "es-en-s01-u010-p05"
             ]
           }
         },
@@ -3374,20 +4422,26 @@
           "estimated_exercises": 15,
           "content_focus": {
             "vocabulary_ids": [
+              "es-en-s01-u010-v11",
+              "es-en-s01-u010-v12",
               "es-en-s01-u010-v01",
               "es-en-s01-u010-v02",
               "es-en-s01-u010-v03",
               "es-en-s01-u010-v04",
               "es-en-s01-u010-v05",
+              "es-en-s01-u010-v08",
+              "es-en-s01-u010-v09",
               "es-en-s01-u010-v06",
               "es-en-s01-u010-v07",
-              "es-en-s01-u010-v08"
+              "es-en-s01-u010-v10",
+              "es-en-s01-u010-v13"
             ],
             "phrase_ids": [
               "es-en-s01-u010-p01",
               "es-en-s01-u010-p02",
               "es-en-s01-u010-p03",
-              "es-en-s01-u010-p04"
+              "es-en-s01-u010-p04",
+              "es-en-s01-u010-p05"
             ]
           }
         },
@@ -3405,20 +4459,26 @@
           "estimated_exercises": 15,
           "content_focus": {
             "vocabulary_ids": [
+              "es-en-s01-u010-v11",
+              "es-en-s01-u010-v12",
               "es-en-s01-u010-v01",
               "es-en-s01-u010-v02",
               "es-en-s01-u010-v03",
               "es-en-s01-u010-v04",
               "es-en-s01-u010-v05",
+              "es-en-s01-u010-v08",
+              "es-en-s01-u010-v09",
               "es-en-s01-u010-v06",
               "es-en-s01-u010-v07",
-              "es-en-s01-u010-v08"
+              "es-en-s01-u010-v10",
+              "es-en-s01-u010-v13"
             ],
             "phrase_ids": [
               "es-en-s01-u010-p01",
               "es-en-s01-u010-p02",
               "es-en-s01-u010-p03",
-              "es-en-s01-u010-p04"
+              "es-en-s01-u010-p04",
+              "es-en-s01-u010-p05"
             ]
           }
         }
@@ -3443,6 +4503,59 @@
         "unit_title": "verified_public_course_map",
         "vocabulary_phrases_grammar": "original_reconstruction",
         "duolingo_sentence_bank_copied": false
+      },
+      "dialogue": {
+        "scenario": "At the fruit market",
+        "turns": [
+          {
+            "speaker": "Vendedor",
+            "prompt": {
+              "spanish": "Buenos días, ¿qué necesita?",
+              "english": "Good morning, what do you need?"
+            },
+            "reply": {
+              "spanish": "Quiero un kilo de manzanas.",
+              "english": "I want a kilo of apples."
+            },
+            "distractors": [
+              "¿Cuánto cuestan las naranjas?",
+              "Las uvas son muy caras.",
+              "Estas fresas están frescas."
+            ]
+          },
+          {
+            "speaker": "Vendedor",
+            "prompt": {
+              "spanish": "Aquí tiene las manzanas.",
+              "english": "Here are the apples."
+            },
+            "reply": {
+              "spanish": "¿Cuánto cuestan las naranjas?",
+              "english": "How much do the oranges cost?"
+            },
+            "distractors": [
+              "Voy a comprar fruta.",
+              "Estas fresas están frescas.",
+              "Las uvas son muy caras."
+            ]
+          },
+          {
+            "speaker": "Vendedor",
+            "prompt": {
+              "spanish": "Las uvas cuestan quince soles el kilo.",
+              "english": "The grapes cost fifteen soles a kilo."
+            },
+            "reply": {
+              "spanish": "Las uvas son muy caras.",
+              "english": "The grapes are very expensive."
+            },
+            "distractors": [
+              "Estas fresas están frescas.",
+              "Voy a comprar fruta.",
+              "¿Cuánto cuestan las naranjas?"
+            ]
+          }
+        ]
       }
     },
     {

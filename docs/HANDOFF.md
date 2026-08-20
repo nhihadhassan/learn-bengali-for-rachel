@@ -166,7 +166,16 @@ Key files:
 - `src/lib/spanish-curriculum.ts` — adapter converting the Spanish pack into the
   app's `Unit`/`Lesson`/`Phrase` model (and attaching the pack's four sections).
 - `src/lib/lesson-steps.ts` — **the lesson engine**, pure and testable.
-  `buildLessonSteps()` turns a lesson's phrases into question steps.
+  `buildLessonSteps()` turns a lesson into question steps. Two paths: cumulative
+  (§5a) and the original phrase-book path.
+- `src/lib/curriculum-plan.ts` — the cumulative introduction/review schedule.
+- `src/lib/lesson-profiles.ts` — what each of the six lesson types *is*.
+- `src/lib/learner-model.ts` — new / weak / due / strong, derived from the
+  review policy.
+- `src/lib/distractors.ts` — wrong-answer selection.
+- `src/lib/grammar-drills.ts` + `content/spanish-grammar.json` — grammar points
+  and the generators that practise them.
+- `src/lib/rng.ts` — the one seeded PRNG (the pipeline's `rng.ts` re-exports it).
 - `src/lib/text-tokens.ts` — word/stopword/blank-picking helpers shared by the
   engine *and* the offline curriculum generators, so the two can't drift.
 - `src/lib/review-policy.ts` — **the** spaced-repetition policy (Leitner ladder,
@@ -252,11 +261,101 @@ teach/test lag, that every taught phrase is eventually checked, difficulty
 ordering, ending on an easy win, unique step ids, word banks containing the
 answer, and audio steps appearing only where capabilities allow.
 
+## 5a. Cumulative lessons (the Spanish course)
+
+Courses declare a **lesson strategy** in the registry
+(`src/lib/courses.ts`). Spanish is `"cumulative"`; Bengali, Spanish for Peru and
+Malayalam are `"simple"` and keep the original engine exactly as it was.
+
+### What was wrong
+
+The pack gives all six lessons in a unit the *same* `content_focus` (all 131
+units), so the adapter rotated a five-item window over it. A lesson was "five of
+this unit's fifteen items", nothing from an earlier unit ever came back, and the
+six lesson names promised a difference the runtime never delivered.
+
+### What happens now
+
+1. **`curriculum-plan.ts`** spreads a unit's items across its six lessons —
+   at most `MAX_NEW_ITEMS_PER_LESSON` (4) new items each, phrase patterns
+   introduced only once the words they are built from exist — and gives every
+   lesson prior material: the items from the lessons just before it, plus a
+   sample from earlier units along a spaced ladder (units N‑1, N‑2, N‑4, N‑8,
+   N‑16). The queues into old units are **shared across the whole course**, so
+   every unit that reaches back to unit 2 continues where the last one left off.
+   A unit's opening lesson draws only from the unit just finished.
+2. **`spanish-curriculum.ts`** turns that into `Lesson.plan`
+   (`kind`, `newPhraseIds`, `reviewPhraseIds`, `interleavedPhraseIds`, plus the
+   unit's grammar focus and authored dialogue) and sets `lesson.phrases` to the
+   resolved working set, so the word bank, the intro card and encountered-phrase
+   tracking are unaffected.
+3. **`learner-model.ts`** picks which review candidates are worth today's
+   questions: weak > due > recent > strong, with mastered material capped.
+   The snapshot is taken **once** per session in `lesson-flow.tsx` — reading
+   live progress would re-plan the lesson after every answer.
+4. **`lesson-profiles.ts`** decides the shape of the session per lesson type.
+
+| Lesson | What it does |
+|--------|--------------|
+| Discover | ~4 new items, recognition + listening, full support |
+| Build | combines known pieces: order, cloze, word-bank translation |
+| Grammar focus | a grammar card, then drills on the pattern with known vocabulary |
+| Listen and speak | listening-dominant, English hint removed from cloze |
+| Use in context | a 3-turn authored dialogue in one scenario |
+| Unit review | nothing new, hardest formats, smallest word banks, older units mixed in |
+
+### Rules the engine enforces
+
+- **Teach/test lag** — never test a phrase in the step after teaching it
+  (`enforceTeachTestLag` is the safety net).
+- **No repeated questions** — warm-up checks, grammar drills, the practice
+  block, the recycle slots and the closer share one `usage` map.
+- **Mistake recycling with a fixed step count** — a lesson reserves *recycle
+  slots* pre-filled with review questions. A wrong answer rewrites the next
+  unused slot (at least `MIN_RECYCLE_GAP` steps away) to ask about the missed
+  item **in a different format**. The lesson never gets longer, so the progress
+  bar never regresses, and the same question is never re-asked seconds after the
+  correction.
+- **Support adaptation** — two misses in the last four questions softens the
+  next hard question (translate → order → complete) without changing its slot.
+
+### Grammar
+
+`content/spanish-grammar.json` holds one entry per grammar target the pack
+declares (38 targets, 32 rules). Each carries a two-sentence explanation, a few
+examples, and `markerGroups` — confusable sets such as `["soy","eres","es"]`.
+`grammar-drills.ts` blanks whichever marker appears in a sentence the learner
+already knows and offers the rest of that group as the options, so the question
+tests the pattern rather than the vocabulary. A rule with no usable sentence
+returns nothing and the lesson falls back to ordinary practice. `avoidPhrases`
+keeps famous exceptions (`el agua`) from being drilled as if they were the rule.
+
+### Rolling back
+
+`FEATURES.cumulativeLessons = false` in `src/lib/feature-flags.ts` restores the
+previous behaviour: no plans are produced, the adapter falls back to its
+five-item rotation and the engine to the phrase-book path. The pre-change tip is
+tagged `rollback/pre-learning-engine-v2`.
+
+### Curriculum audit
+
+```bash
+npm run audit:curriculum
+```
+
+Walks the generated course and reports phrases introduced before their
+prerequisites, grammar targets with no rule, material never revisited outside
+its unit, new-content overload, consecutive lessons that barely overlap, and
+incoherent authored dialogue. **Section 1 (units 1-10) findings fail the run**;
+the rest of the course reports warnings (10 at the time of writing, all
+prerequisite gaps in Section 2+ awaiting the same hand-sequencing treatment).
+
 ### Feature flags (`src/lib/feature-flags.ts`)
 
 Unfinished features ship "dark" and flip on via a flag:
 
 - `explainMyAnswer: true` — live.
+- `cumulativeLessons: true` — live; the rollback switch for §5a.
 - `listening: false`, `dialogue: false` — the **global** flags. Per-course
   support is no longer an id check: it comes from the course's capabilities in
   `src/lib/courses.ts` (the Spanish course declares `listening` and `dialogue`;
@@ -409,8 +508,9 @@ page load: voices aren't loaded yet, the engine is cold, and the synth can start
 - **Cloud sync** on top of the local-first store (see §6), using `db/`.
 - **Recorded audio** for high-frequency Spanish phrases (`public/audio/spanish/`,
   set `audioFile`) for quality beyond TTS.
-- **Smarter dialogue** using the pack's `dialogue_response` generator (real Q&A
-  pairs) rather than pairing two phrases from the lesson.
+- **Hand-sequence Section 2** the way Section 1 was (§5a): reorder vocabulary,
+  close the 10 prerequisite gaps `npm run audit:curriculum` still warns about,
+  and author a `dialogue` block per unit.
 - **Listening for `spanish-peru`** — the capability is declared per course now,
   so it is a one-word change once the shorter phrase set has been checked.
 - **Content spot-check** across a sample of the 131 units for accuracy.

@@ -51,6 +51,14 @@ export default function StrengthenPage() {
       exercises: [],
       curriculumId: activeCurriculumId,
       locale: curriculum.locale,
+      // Declaring the session kind lets courses that use the cumulative engine
+      // apply their "retrieval, no teaching" profile — less scaffolding and
+      // harder formats. Courses on the simple strategy ignore it.
+      plan: {
+        kind: "strengthen",
+        newPhraseIds: [],
+        reviewPhraseIds: phrases.map((phrase) => phrase.id),
+      },
     }),
     [activeCurriculumId, curriculum.locale, phrases],
   );

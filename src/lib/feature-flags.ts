@@ -6,6 +6,13 @@
  */
 export const FEATURES = {
   explainMyAnswer: true,
+  /**
+   * Cumulative lesson planning for courses that declare
+   * `lessonStrategy: "cumulative"`. Turning this off makes those courses fall
+   * back to the same engine path the phrase-book courses use — the documented
+   * rollback for the learning-engine work, without a revert.
+   */
+  cumulativeLessons: true,
   listening: false,
   dialogue: false,
   aiRoleplay: false,

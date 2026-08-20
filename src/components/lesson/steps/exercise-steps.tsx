@@ -244,6 +244,104 @@ function LessonTips({ lesson }: { lesson: Lesson }) {
   );
 }
 
+/**
+ * The grammar card: a rule in a sentence or two, then examples built from words
+ * the learner already has.
+ *
+ * Deliberately small. A grammar point that needs a page of explanation doesn't
+ * belong inside a five-minute lesson — the drills right after this card are
+ * where the pattern actually gets learned, and it comes back in ordinary
+ * sentences in later lessons.
+ */
+export function GrammarStep({
+  locale,
+  onContinue,
+  step,
+}: {
+  locale?: string;
+  onContinue: () => void;
+  step: Extract<LessonStep, { type: "grammar" }>;
+}) {
+  return (
+    <div>
+      <p className="text-sm font-black uppercase tracking-[0.14em] text-emerald-700 dark:text-emerald-300">
+        Pattern
+      </p>
+      <h2 className="mt-2 text-3xl font-black leading-tight text-slate-950 dark:text-slate-50">
+        {step.focus.title}
+      </h2>
+      <p className="mt-3 text-base font-semibold leading-7 text-slate-600 dark:text-slate-300">
+        {step.focus.explanation}
+      </p>
+
+      <div className="mt-5 grid gap-2">
+        {step.focus.examples.map((example) => (
+          <div
+            key={example.target}
+            className="flex items-start justify-between gap-3 rounded-3xl border border-emerald-100 bg-emerald-50 p-4 shadow-inner dark:border-emerald-300/20 dark:bg-emerald-400/12"
+          >
+            <div className="min-w-0">
+              <p className="text-lg font-black text-slate-950 dark:text-slate-50">
+                {example.target}
+              </p>
+              <p className="mt-0.5 text-sm font-semibold text-slate-600 dark:text-slate-300">
+                {capitalizeDisplayText(example.english)}
+              </p>
+              {example.note && (
+                <p className="mt-1 text-xs font-bold uppercase tracking-[0.1em] text-emerald-700 dark:text-emerald-300">
+                  {example.note}
+                </p>
+              )}
+            </div>
+            <SpeakerButton locale={locale} romanized={example.target} />
+          </div>
+        ))}
+      </div>
+
+      <AppButton type="button" onClick={onContinue} className="mt-6 w-full sm:w-auto">
+        Try it <ArrowRight size={18} />
+      </AppButton>
+    </div>
+  );
+}
+
+/**
+ * The turns already exchanged in a dialogue, so a multi-turn scenario reads as
+ * one conversation instead of a series of unrelated prompts.
+ */
+export function DialogueHistory({
+  turns,
+}: {
+  turns: NonNullable<Extract<LessonStep, { type: "dialogue" }>["history"]>;
+}) {
+  if (turns.length === 0) {
+    return null;
+  }
+
+  return (
+    <div className="mt-3 grid gap-1.5">
+      {turns.map((turn, index) => (
+        <div
+          key={`${turn.romanized}-${index}`}
+          className={cn(
+            "max-w-[85%] rounded-2xl px-3 py-2",
+            turn.speaker === "you"
+              ? "ml-auto bg-violet-100 text-right dark:bg-violet-400/15"
+              : "bg-slate-100 dark:bg-white/[0.07]",
+          )}
+        >
+          <p className="text-sm font-bold text-slate-700 dark:text-slate-200">
+            {turn.romanized}
+          </p>
+          <p className="text-xs font-semibold text-slate-500 dark:text-slate-400">
+            {capitalizeDisplayText(turn.english)}
+          </p>
+        </div>
+      ))}
+    </div>
+  );
+}
+
 export function LearnStep({
   locale,
   onContinue,

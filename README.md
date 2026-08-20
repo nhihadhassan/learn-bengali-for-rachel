@@ -29,7 +29,11 @@ Bengali is one course among several, not the identity of the app.
   windowed units, jump-to-unit)
 - Distraction-free lessons: exit, progress, exercise, audio — nothing else
 - Generated exercises (recognize, produce, word-bank, cloze, ordering,
-  listening, dialogue) driven by per-course capabilities
+  listening, dialogue, grammar) driven by per-course capabilities
+- **Cumulative Spanish course**: each lesson introduces a few new items and
+  keeps retrieving earlier ones, the six lesson types do genuinely different
+  work, grammar is explained then drilled, and mistakes come back later in a
+  different format (see HANDOFF §5a)
 - Spaced repetition, mistake review, unit checkpoints, word bank — surfaced in
   one Practice hub
 - Progress built on real signals: completion, phrases in memory, recall
@@ -52,6 +56,7 @@ npm run validate:curriculum        # validate content/spanish-curriculum.json
 npm run seed:curriculum            # build the DB-ready seed bundle (db/seed/)
 npm run build:course-index         # regenerate the lightweight navigation index
 npm run test:exercise-generation   # exercise-generator tests
+npm run audit:curriculum           # pedagogical audit of the generated course
 ```
 
 ## Local progress

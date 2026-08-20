@@ -197,6 +197,66 @@
           "items": {
             "$ref": "#/$defs/lesson"
           }
+        },
+        "dialogue": {
+          "$ref": "#/$defs/dialogue"
+        }
+      }
+    },
+    "dialogueLine": {
+      "type": "object",
+      "required": [
+        "spanish",
+        "english"
+      ],
+      "properties": {
+        "spanish": {
+          "type": "string"
+        },
+        "english": {
+          "type": "string"
+        }
+      }
+    },
+    "dialogueTurn": {
+      "type": "object",
+      "required": [
+        "prompt",
+        "reply"
+      ],
+      "properties": {
+        "speaker": {
+          "type": "string"
+        },
+        "prompt": {
+          "$ref": "#/$defs/dialogueLine"
+        },
+        "reply": {
+          "$ref": "#/$defs/dialogueLine"
+        },
+        "distractors": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "dialogue": {
+      "type": "object",
+      "required": [
+        "scenario",
+        "turns"
+      ],
+      "properties": {
+        "scenario": {
+          "type": "string"
+        },
+        "turns": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/dialogueTurn"
+          }
         }
       }
     }

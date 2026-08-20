@@ -44,7 +44,15 @@ NEXT_TEST_WASM=1 NEXT_TEST_WASM_DIR="$PWD/node_modules/@next/swc-wasm-nodejs" np
   narrower door for the four hand-authored curricula.
 - **`src/lib/lesson-steps.ts` is the lesson engine** — pure, no React, and
   tested. `lesson-flow.tsx` only handles state, answers and persistence;
-  renderers live in `src/components/lesson/steps/`.
+  renderers live in `src/components/lesson/steps/`. It has **two paths**:
+  cumulative (courses with `lessonStrategy: "cumulative"`, which carry a
+  `Lesson.plan`) and the original phrase-book path for everything else.
+- **`src/lib/curriculum-plan.ts` decides what a lesson teaches and revisits**;
+  `src/lib/lesson-profiles.ts` is the config table that makes the six Spanish
+  lesson types different; `src/lib/learner-model.ts` turns saved progress into
+  new/weak/due/strong (deriving everything from `review-policy.ts`).
+- `src/lib/distractors.ts` owns wrong-answer selection; `src/lib/rng.ts` is the
+  one seeded PRNG (`src/curriculum/rng.ts` re-exports it).
 - `src/lib/review-policy.ts` owns spaced repetition. Nothing else defines
   intervals.
 - `src/lib/date-keys.ts` owns calendar days. Never use `toISOString()` for a
@@ -94,4 +102,11 @@ still supported for older content. Put new recorded files under
 - Display romanized text to learners, but pass native script to pronunciation
   when available.
 - Keep UI mobile-first; prefer existing components before adding new ones.
+- **Never repeat a question inside a lesson.** Every part of a planned lesson
+  shares one `usage` map; `npm test` asserts no lesson asks the same
+  (format, phrase) twice. Same for `TEACH_TEST_LAG`.
+- **Mistake recycling must not change the step count.** Slots are reserved and
+  rewritten, so the progress bar only moves forward.
+- After touching the Spanish curriculum or the plan layer, run
+  `npm run audit:curriculum` — Section 1 findings fail the run.
 - Run lint, tests and build after code changes.
