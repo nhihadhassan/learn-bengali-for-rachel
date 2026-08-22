@@ -1,0 +1,1137 @@
+{
+  "version": 1,
+  "note": "Word forms the curriculum uses, mapped back to the vocabulary entry that teaches them. Without this, prerequisite checking treats 'tienes' as a word the learner has never met even though 'tener' was taught two units ago — and those false positives hide the real gaps. Only forms that actually appear in Sections 1-2 are listed; regular plurals and -o/-a gender pairs are handled by rule in @/lib/spanish-lexicon, not enumerated here. Original data written for this app.",
+  "verbs": [
+    {
+      "lemma": "ser",
+      "english": "to be",
+      "forms": {
+        "soy": "yo",
+        "eres": "tú",
+        "es": "él/ella",
+        "somos": "nosotros",
+        "son": "ellos",
+        "fui": "preterite yo",
+        "fue": "preterite él/ella",
+        "fuimos": "preterite nosotros",
+        "era": "imperfect",
+        "semos": "nosotros",
+        "sen": "ellos"
+      }
+    },
+    {
+      "lemma": "estar",
+      "english": "to be (right now)",
+      "forms": {
+        "estoy": "yo",
+        "estás": "tú",
+        "está": "él/ella",
+        "estamos": "nosotros",
+        "están": "ellos",
+        "estan": "ellos"
+      }
+    },
+    {
+      "lemma": "tener",
+      "english": "to have",
+      "forms": {
+        "tengo": "yo",
+        "tienes": "tú",
+        "tiene": "él/ella",
+        "tenemos": "nosotros",
+        "tienen": "ellos",
+        "tenen": "ellos"
+      }
+    },
+    {
+      "lemma": "querer",
+      "english": "to want",
+      "forms": {
+        "quiero": "yo",
+        "quieres": "tú",
+        "quiere": "él/ella",
+        "queremos": "nosotros",
+        "quieren": "ellos",
+        "queren": "ellos"
+      }
+    },
+    {
+      "lemma": "poder",
+      "english": "to be able to",
+      "forms": {
+        "puedo": "yo",
+        "puedes": "tú",
+        "puede": "él/ella",
+        "podemos": "nosotros",
+        "pueden": "ellos",
+        "poden": "ellos"
+      }
+    },
+    {
+      "lemma": "ir",
+      "english": "to go",
+      "forms": {
+        "voy": "yo",
+        "vas": "tú",
+        "va": "él/ella",
+        "vamos": "nosotros",
+        "van": "ellos",
+        "fui": "preterite yo",
+        "fue": "preterite él/ella",
+        "iba": "imperfect"
+      }
+    },
+    {
+      "lemma": "hacer",
+      "english": "to do/make",
+      "forms": {
+        "hago": "yo",
+        "haces": "tú",
+        "hace": "él/ella",
+        "hacemos": "nosotros",
+        "hacen": "ellos"
+      }
+    },
+    {
+      "lemma": "vivir",
+      "english": "to live",
+      "forms": {
+        "vivo": "yo",
+        "vives": "tú",
+        "vive": "él/ella",
+        "vivimos": "nosotros",
+        "viven": "ellos"
+      }
+    },
+    {
+      "lemma": "hablar",
+      "english": "to speak",
+      "forms": {
+        "hablo": "yo",
+        "hablas": "tú",
+        "habla": "él/ella",
+        "hablamos": "nosotros",
+        "hablan": "ellos"
+      }
+    },
+    {
+      "lemma": "leer",
+      "english": "to read",
+      "forms": {
+        "leo": "yo",
+        "lees": "tú",
+        "lee": "él/ella",
+        "leemos": "nosotros",
+        "leen": "ellos"
+      }
+    },
+    {
+      "lemma": "escribir",
+      "english": "to write",
+      "forms": {
+        "escribo": "yo",
+        "escribes": "tú",
+        "escribe": "él/ella",
+        "escriban": "ustedes",
+        "escribimos": "nosotros",
+        "escriben": "ellos"
+      }
+    },
+    {
+      "lemma": "aprender",
+      "english": "to learn",
+      "forms": {
+        "aprendo": "yo",
+        "aprendes": "tú",
+        "aprende": "él/ella",
+        "aprendiendo": "gerund",
+        "aprendemos": "nosotros",
+        "aprenden": "ellos"
+      }
+    },
+    {
+      "lemma": "entender",
+      "english": "to understand",
+      "forms": {
+        "entiendo": "yo",
+        "entiendes": "tú",
+        "entiende": "él/ella",
+        "entendemos": "nosotros",
+        "entenden": "ellos"
+      }
+    },
+    {
+      "lemma": "llamarse",
+      "english": "to be called",
+      "forms": {
+        "llamo": "yo",
+        "llamas": "tú",
+        "llama": "él/ella",
+        "llamamos": "nosotros",
+        "llaman": "ellos"
+      }
+    },
+    {
+      "lemma": "conocer",
+      "english": "to meet/know",
+      "forms": {
+        "conozco": "yo",
+        "conoces": "tú",
+        "conoce": "él/ella",
+        "conocerla": "infinitive+pronoun",
+        "conocemos": "nosotros",
+        "conocen": "ellos"
+      }
+    },
+    {
+      "lemma": "venir",
+      "english": "to come",
+      "forms": {
+        "vengo": "yo",
+        "vienes": "tú",
+        "viene": "él/ella",
+        "venimos": "nosotros",
+        "venen": "ellos"
+      }
+    },
+    {
+      "lemma": "buscar",
+      "english": "to look for",
+      "forms": {
+        "busco": "yo",
+        "buscas": "tú",
+        "busca": "él/ella",
+        "buscamos": "nosotros",
+        "buscan": "ellos"
+      }
+    },
+    {
+      "lemma": "caminar",
+      "english": "to walk",
+      "forms": {
+        "camino": "yo",
+        "caminas": "tú",
+        "camina": "él/ella",
+        "caminamos": "nosotros",
+        "caminan": "ellos"
+      }
+    },
+    {
+      "lemma": "cruzar",
+      "english": "to cross",
+      "forms": {
+        "cruzo": "yo",
+        "cruzas": "tú",
+        "cruza": "imperative",
+        "cruzamos": "nosotros",
+        "cruzan": "ellos"
+      }
+    },
+    {
+      "lemma": "ayudar",
+      "english": "to help",
+      "forms": {
+        "ayudo": "yo",
+        "ayudas": "tú",
+        "ayuda": "él/ella",
+        "ayudarme": "infinitive+pronoun",
+        "ayudamos": "nosotros",
+        "ayudan": "ellos"
+      }
+    },
+    {
+      "lemma": "costar",
+      "english": "to cost",
+      "forms": {
+        "cuesta": "él/ella",
+        "cuestan": "ellos",
+        "costamos": "nosotros",
+        "costan": "ellos"
+      }
+    },
+    {
+      "lemma": "comprar",
+      "english": "to buy",
+      "forms": {
+        "compro": "yo",
+        "compras": "tú",
+        "compra": "él/ella",
+        "compramos": "nosotros",
+        "compran": "ellos"
+      }
+    },
+    {
+      "lemma": "llover",
+      "english": "to rain",
+      "forms": {
+        "llueve": "él/ella",
+        "lloviendo": "gerund",
+        "llovemos": "nosotros",
+        "lloven": "ellos"
+      }
+    },
+    {
+      "lemma": "nevar",
+      "english": "to snow",
+      "forms": {
+        "nieva": "él/ella",
+        "nevando": "gerund",
+        "nevamos": "nosotros",
+        "nevan": "ellos"
+      }
+    },
+    {
+      "lemma": "jugar",
+      "english": "to play",
+      "forms": {
+        "juego": "yo",
+        "juegas": "tú",
+        "juega": "él/ella",
+        "jugamos": "nosotros",
+        "jugan": "ellos"
+      }
+    },
+    {
+      "lemma": "correr",
+      "english": "to run",
+      "forms": {
+        "corro": "yo",
+        "corres": "tú",
+        "corre": "él/ella",
+        "corremos": "nosotros",
+        "corren": "ellos"
+      }
+    },
+    {
+      "lemma": "ganar",
+      "english": "to win",
+      "forms": {
+        "gano": "yo",
+        "ganas": "tú",
+        "gana": "él/ella",
+        "ganó": "preterite",
+        "ganamos": "nosotros",
+        "ganan": "ellos"
+      }
+    },
+    {
+      "lemma": "entrenar",
+      "english": "to train",
+      "forms": {
+        "entreno": "yo",
+        "entrenas": "tú",
+        "entrena": "él/ella",
+        "entrenamos": "nosotros",
+        "entrenan": "ellos"
+      }
+    },
+    {
+      "lemma": "preferir",
+      "english": "to prefer",
+      "forms": {
+        "prefiero": "yo",
+        "prefieres": "tú",
+        "prefiere": "él/ella",
+        "preferimos": "nosotros",
+        "preferen": "ellos"
+      }
+    },
+    {
+      "lemma": "gustar",
+      "english": "to like",
+      "forms": {
+        "gusta": "singular",
+        "gustan": "plural",
+        "gustamos": "nosotros"
+      }
+    },
+    {
+      "lemma": "encantar",
+      "english": "to love",
+      "forms": {
+        "encanta": "singular",
+        "encantan": "plural",
+        "encantado": "participle",
+        "encantamos": "nosotros"
+      }
+    },
+    {
+      "lemma": "interesar",
+      "english": "to interest",
+      "forms": {
+        "interesa": "singular",
+        "interesan": "plural",
+        "interesamos": "nosotros"
+      }
+    },
+    {
+      "lemma": "dibujar",
+      "english": "to draw",
+      "forms": {
+        "dibujo": "yo",
+        "dibujas": "tú",
+        "dibuja": "él/ella",
+        "dibujamos": "nosotros",
+        "dibujan": "ellos"
+      }
+    },
+    {
+      "lemma": "cocinar",
+      "english": "to cook",
+      "forms": {
+        "cocino": "yo",
+        "cocinas": "tú",
+        "cocina": "él/ella",
+        "cocinamos": "nosotros",
+        "cocinan": "ellos"
+      }
+    },
+    {
+      "lemma": "viajar",
+      "english": "to travel",
+      "forms": {
+        "viajo": "yo",
+        "viajas": "tú",
+        "viaja": "él/ella",
+        "viajamos": "nosotros",
+        "viajan": "ellos"
+      }
+    },
+    {
+      "lemma": "bailar",
+      "english": "to dance",
+      "forms": {
+        "bailo": "yo",
+        "bailas": "tú",
+        "baila": "él/ella",
+        "bailamos": "nosotros",
+        "bailan": "ellos"
+      }
+    },
+    {
+      "lemma": "preguntar",
+      "english": "to ask",
+      "forms": {
+        "pregunto": "yo",
+        "preguntas": "tú",
+        "pregunta": "él/ella",
+        "preguntamos": "nosotros",
+        "preguntan": "ellos"
+      }
+    },
+    {
+      "lemma": "responder",
+      "english": "to answer",
+      "forms": {
+        "respondo": "yo",
+        "respondes": "tú",
+        "responde": "él/ella",
+        "respondemos": "nosotros",
+        "responden": "ellos"
+      }
+    },
+    {
+      "lemma": "repetir",
+      "english": "to repeat",
+      "forms": {
+        "repito": "yo",
+        "repites": "tú",
+        "repite": "él/ella",
+        "repetimos": "nosotros",
+        "repeten": "ellos"
+      }
+    },
+    {
+      "lemma": "abrir",
+      "english": "to open",
+      "forms": {
+        "abro": "yo",
+        "abres": "tú",
+        "abre": "él/ella",
+        "abran": "ustedes",
+        "abrimos": "nosotros",
+        "abren": "ellos"
+      }
+    },
+    {
+      "lemma": "cerrar",
+      "english": "to close",
+      "forms": {
+        "cierro": "yo",
+        "cierras": "tú",
+        "cierra": "él/ella",
+        "cierren": "ustedes",
+        "cerramos": "nosotros",
+        "cerran": "ellos"
+      }
+    },
+    {
+      "lemma": "comer",
+      "english": "to eat",
+      "forms": {
+        "como": "yo",
+        "comes": "tú",
+        "come": "él/ella",
+        "comemos": "nosotros",
+        "comen": "ellos"
+      }
+    },
+    {
+      "lemma": "beber",
+      "english": "to drink",
+      "forms": {
+        "bebo": "yo",
+        "bebes": "tú",
+        "bebe": "él/ella",
+        "bebemos": "nosotros",
+        "beben": "ellos"
+      }
+    },
+    {
+      "lemma": "recomendar",
+      "english": "to recommend",
+      "forms": {
+        "recomiendo": "yo",
+        "recomiendas": "tú",
+        "recomienda": "él/ella",
+        "recomendamos": "nosotros",
+        "recomendan": "ellos"
+      }
+    },
+    {
+      "lemma": "traer",
+      "english": "to bring",
+      "forms": {
+        "traigo": "yo",
+        "traes": "tú",
+        "trae": "él/ella",
+        "traemos": "nosotros",
+        "traen": "ellos"
+      }
+    },
+    {
+      "lemma": "reservar",
+      "english": "to reserve",
+      "forms": {
+        "reservo": "yo",
+        "reservas": "tú",
+        "reserva": "él/ella",
+        "reservamos": "nosotros",
+        "reservan": "ellos"
+      }
+    },
+    {
+      "lemma": "girar",
+      "english": "to turn",
+      "forms": {
+        "giro": "yo",
+        "giras": "tú",
+        "gira": "imperative",
+        "giramos": "nosotros",
+        "giran": "ellos"
+      }
+    },
+    {
+      "lemma": "seguir",
+      "english": "to continue/follow",
+      "forms": {
+        "sigo": "yo",
+        "sigues": "tú",
+        "sigue": "imperative",
+        "seguimos": "nosotros",
+        "seguen": "ellos"
+      }
+    },
+    {
+      "lemma": "pasar",
+      "english": "to pass",
+      "forms": {
+        "paso": "yo",
+        "pasas": "tú",
+        "pasa": "él/ella",
+        "pasamos": "nosotros",
+        "pasan": "ellos"
+      }
+    },
+    {
+      "lemma": "probarse",
+      "english": "to try on",
+      "forms": {
+        "pruebo": "yo",
+        "pruebas": "tú",
+        "prueba": "él/ella",
+        "probarme": "infinitive+pronoun",
+        "probamos": "nosotros",
+        "proban": "ellos"
+      }
+    },
+    {
+      "lemma": "quedar",
+      "english": "to fit/look",
+      "forms": {
+        "quedo": "yo",
+        "quedas": "tú",
+        "queda": "él/ella",
+        "quedamos": "nosotros",
+        "quedan": "ellos"
+      }
+    },
+    {
+      "lemma": "llevar",
+      "english": "to wear",
+      "forms": {
+        "llevo": "yo",
+        "llevas": "tú",
+        "lleva": "él/ella",
+        "llevamos": "nosotros",
+        "llevan": "ellos"
+      }
+    },
+    {
+      "lemma": "terminar",
+      "english": "to finish",
+      "forms": {
+        "termino": "yo",
+        "terminas": "tú",
+        "termina": "él/ella",
+        "terminamos": "nosotros",
+        "terminan": "ellos"
+      }
+    },
+    {
+      "lemma": "trabajar",
+      "english": "to work",
+      "forms": {
+        "trabajo": "yo",
+        "trabajas": "tú",
+        "trabaja": "él/ella",
+        "trabajamos": "nosotros",
+        "trabajan": "ellos"
+      }
+    },
+    {
+      "lemma": "necesitar",
+      "english": "to need",
+      "forms": {
+        "necesito": "yo",
+        "necesitas": "tú",
+        "necesita": "él/ella",
+        "necesitamos": "nosotros",
+        "necesitan": "ellos"
+      }
+    },
+    {
+      "lemma": "salir",
+      "english": "to go out",
+      "forms": {
+        "salgo": "yo",
+        "sales": "tú",
+        "sale": "él/ella",
+        "salimos": "nosotros",
+        "salen": "ellos"
+      }
+    },
+    {
+      "lemma": "dormir",
+      "english": "to sleep",
+      "forms": {
+        "duermo": "yo",
+        "duermes": "tú",
+        "duerme": "él/ella",
+        "dormimos": "nosotros",
+        "dormen": "ellos"
+      }
+    },
+    {
+      "lemma": "decir",
+      "english": "to say",
+      "forms": {
+        "digo": "yo",
+        "dices": "tú",
+        "dice": "él/ella",
+        "decimos": "nosotros",
+        "decen": "ellos"
+      }
+    },
+    {
+      "lemma": "usar",
+      "english": "to use/wear",
+      "forms": {
+        "uso": "yo",
+        "usas": "tú",
+        "usa": "él/ella",
+        "usamos": "nosotros",
+        "usan": "ellos"
+      }
+    },
+    {
+      "lemma": "llegar",
+      "english": "to arrive",
+      "forms": {
+        "llego": "yo",
+        "llegas": "tú",
+        "llega": "él/ella",
+        "llegué": "preterite",
+        "llegamos": "nosotros",
+        "llegan": "ellos"
+      }
+    },
+    {
+      "lemma": "deber",
+      "english": "should",
+      "forms": {
+        "debo": "yo",
+        "debes": "tú",
+        "debe": "él/ella",
+        "debemos": "nosotros",
+        "deben": "ellos"
+      }
+    },
+    {
+      "lemma": "sentirse",
+      "english": "to feel",
+      "forms": {
+        "siento": "yo",
+        "sientes": "tú",
+        "siente": "él/ella",
+        "sentimos": "nosotros",
+        "senten": "ellos"
+      }
+    },
+    {
+      "lemma": "doler",
+      "english": "to hurt",
+      "forms": {
+        "duele": "singular",
+        "duelen": "plural",
+        "dolemos": "nosotros",
+        "dolen": "ellos"
+      }
+    },
+    {
+      "lemma": "lavar",
+      "english": "to wash",
+      "forms": {
+        "lavo": "yo",
+        "lavas": "tú",
+        "lava": "él/ella",
+        "lavamos": "nosotros",
+        "lavan": "ellos"
+      }
+    },
+    {
+      "lemma": "limpiar",
+      "english": "to clean",
+      "forms": {
+        "limpio": "yo",
+        "limpias": "tú",
+        "limpia": "él/ella",
+        "limpiamos": "nosotros",
+        "limpian": "ellos"
+      }
+    },
+    {
+      "lemma": "tocar",
+      "english": "to be someone's turn",
+      "forms": {
+        "toca": "él/ella",
+        "tocamos": "nosotros",
+        "tocan": "ellos"
+      }
+    },
+    {
+      "lemma": "empezar",
+      "english": "to start",
+      "forms": {
+        "empiezo": "yo",
+        "empiezas": "tú",
+        "empieza": "él/ella",
+        "empezamos": "nosotros",
+        "empezan": "ellos"
+      }
+    },
+    {
+      "lemma": "elegir",
+      "english": "to choose",
+      "forms": {
+        "elijo": "yo",
+        "eliges": "tú",
+        "elige": "él/ella",
+        "elegimos": "nosotros",
+        "elegen": "ellos"
+      }
+    },
+    {
+      "lemma": "faltar",
+      "english": "to be missing",
+      "forms": {
+        "falta": "singular",
+        "faltan": "plural",
+        "faltamos": "nosotros"
+      }
+    },
+    {
+      "lemma": "incluir",
+      "english": "to include",
+      "forms": {
+        "incluyo": "yo",
+        "incluyes": "tú",
+        "incluye": "él/ella",
+        "incluimos": "nosotros",
+        "incluen": "ellos"
+      }
+    },
+    {
+      "lemma": "evitar",
+      "english": "to avoid",
+      "forms": {
+        "evito": "yo",
+        "evitas": "tú",
+        "evita": "él/ella",
+        "evitamos": "nosotros",
+        "evitan": "ellos"
+      }
+    },
+    {
+      "lemma": "intentar",
+      "english": "to try",
+      "forms": {
+        "intento": "yo",
+        "intentas": "tú",
+        "intenta": "él/ella",
+        "intentamos": "nosotros",
+        "intentan": "ellos"
+      }
+    },
+    {
+      "lemma": "consumir",
+      "english": "to consume",
+      "forms": {
+        "consumo": "yo",
+        "consumes": "tú",
+        "consume": "él/ella",
+        "consumimos": "nosotros",
+        "consumen": "ellos"
+      }
+    },
+    {
+      "lemma": "compartir",
+      "english": "to share",
+      "forms": {
+        "comparto": "yo",
+        "compartes": "tú",
+        "comparte": "él/ella",
+        "compartimos": "nosotros",
+        "comparten": "ellos"
+      }
+    },
+    {
+      "lemma": "volar",
+      "english": "to fly",
+      "forms": {
+        "vuelo": "yo",
+        "vuelas": "tú",
+        "vuela": "él/ella",
+        "volamos": "nosotros",
+        "volan": "ellos"
+      }
+    },
+    {
+      "lemma": "divertirse",
+      "english": "to have fun",
+      "forms": {
+        "divierto": "yo",
+        "diviertes": "tú",
+        "divierte": "él/ella",
+        "divertimos": "nosotros",
+        "diverten": "ellos"
+      }
+    },
+    {
+      "lemma": "acostarse",
+      "english": "to go to bed",
+      "forms": {
+        "acuesto": "yo",
+        "acuestas": "tú",
+        "acuesta": "él/ella",
+        "acostamos": "nosotros",
+        "acostan": "ellos"
+      }
+    },
+    {
+      "lemma": "despertarse",
+      "english": "to wake up",
+      "forms": {
+        "despierto": "yo",
+        "despiertas": "tú",
+        "despierta": "él/ella",
+        "despertamos": "nosotros",
+        "despertan": "ellos"
+      }
+    },
+    {
+      "lemma": "cenar",
+      "english": "to have dinner",
+      "forms": {
+        "ceno": "yo",
+        "cenas": "tú",
+        "cena": "él/ella",
+        "cenamos": "nosotros",
+        "cenan": "ellos"
+      }
+    },
+    {
+      "lemma": "estudiar",
+      "english": "to study",
+      "forms": {
+        "estudio": "yo",
+        "estudias": "tú",
+        "estudia": "él/ella",
+        "estudiamos": "nosotros",
+        "estudian": "ellos"
+      }
+    },
+    {
+      "lemma": "practicar",
+      "english": "to practise",
+      "forms": {
+        "practico": "yo",
+        "practicas": "tú",
+        "practica": "él/ella",
+        "practicamos": "nosotros",
+        "practican": "ellos"
+      }
+    },
+    {
+      "lemma": "cumplir",
+      "english": "to turn (an age)",
+      "forms": {
+        "cumplo": "yo",
+        "cumples": "tú",
+        "cumple": "él/ella",
+        "cumplimos": "nosotros",
+        "cumplen": "ellos"
+      }
+    },
+    {
+      "lemma": "soplar",
+      "english": "to blow",
+      "forms": {
+        "soplo": "yo",
+        "soplas": "tú",
+        "sopla": "él/ella",
+        "soplamos": "nosotros",
+        "soplan": "ellos"
+      }
+    },
+    {
+      "lemma": "tardar",
+      "english": "to take (time)",
+      "forms": {
+        "tardo": "yo",
+        "tardas": "tú",
+        "tarda": "él/ella",
+        "tardamos": "nosotros",
+        "tardan": "ellos"
+      }
+    },
+    {
+      "lemma": "desear",
+      "english": "to wish/want",
+      "forms": {
+        "deseo": "yo",
+        "deseas": "tú",
+        "desea": "él/ella",
+        "deseamos": "nosotros",
+        "desean": "ellos"
+      }
+    },
+    {
+      "lemma": "pagar",
+      "english": "to pay",
+      "forms": {
+        "pago": "yo",
+        "pagas": "tú",
+        "paga": "él/ella",
+        "pagamos": "nosotros",
+        "pagan": "ellos"
+      }
+    },
+    {
+      "lemma": "tomar",
+      "english": "to have/take",
+      "forms": {
+        "tomo": "yo",
+        "tomas": "tú",
+        "toma": "él/ella",
+        "tome": "usted",
+        "tomamos": "nosotros",
+        "toman": "ellos"
+      }
+    },
+    {
+      "lemma": "ver",
+      "english": "to see",
+      "forms": {
+        "veo": "yo",
+        "ves": "tú",
+        "ve": "él/ella",
+        "viste": "preterite",
+        "vemos": "nosotros",
+        "ven": "ellos"
+      }
+    },
+    {
+      "lemma": "parecer",
+      "english": "to seem",
+      "forms": {
+        "parezco": "yo",
+        "pareces": "tú",
+        "parece": "él/ella",
+        "parecemos": "nosotros",
+        "parecen": "ellos"
+      }
+    },
+    {
+      "lemma": "quejarse",
+      "english": "to complain",
+      "forms": {
+        "quejo": "yo",
+        "quejas": "tú",
+        "quejó": "preterite",
+        "quejamos": "nosotros",
+        "quejan": "ellos"
+      }
+    },
+    {
+      "lemma": "reunirse",
+      "english": "to get together",
+      "forms": {
+        "reúno": "yo",
+        "reúnes": "tú",
+        "reunirse": "infinitive",
+        "reunimos": "nosotros",
+        "reunen": "ellos"
+      }
+    }
+  ],
+  "transparent": {
+    "note": "Words a beginner reads without being taught: proper nouns, and numerals whose meaning the English gloss carries.",
+    "properNouns": [
+      "ana",
+      "laura",
+      "canadá",
+      "lima",
+      "garcía",
+      "lópez",
+      "españa",
+      "perú",
+      "méxico"
+    ],
+    "numbers": [
+      "uno",
+      "una",
+      "dos",
+      "tres",
+      "cuatro",
+      "cinco",
+      "seis",
+      "siete",
+      "ocho",
+      "nueve",
+      "diez",
+      "once",
+      "doce",
+      "quince",
+      "veinte",
+      "treinta",
+      "cien",
+      "lunes",
+      "martes",
+      "miércoles",
+      "jueves",
+      "viernes",
+      "sábado",
+      "sábados",
+      "domingo",
+      "minuto",
+      "minutos",
+      "hora",
+      "horas",
+      "año",
+      "años"
+    ]
+  },
+  "structureWords": {
+    "note": "High-frequency structure words that carry no topic meaning. They are absorbed from context rather than taught as vocabulary, so prerequisite checking should not treat them as gaps.",
+    "words": [
+      "muy",
+      "más",
+      "menos",
+      "para",
+      "que",
+      "con",
+      "sin",
+      "todo",
+      "toda",
+      "algo",
+      "nos",
+      "mis",
+      "tus",
+      "sus",
+      "este",
+      "esta",
+      "estos",
+      "estas",
+      "otro",
+      "otra",
+      "las",
+      "los",
+      "unos",
+      "unas",
+      "y",
+      "o",
+      "también",
+      "cuando",
+      "porque",
+      "pero",
+      "ya",
+      "aquí",
+      "allí",
+      "ahora",
+      "algún",
+      "alguna",
+      "juntos",
+      "juntas",
+      "familiar",
+      "límite",
+      "correcto",
+      "correcta",
+      "mucho",
+      "mucha",
+      "muchos",
+      "muchas",
+      "poco",
+      "poca",
+      "bastante",
+      "demasiado",
+      "rápido",
+      "nuestro",
+      "nuestra",
+      "nuestros",
+      "nuestras",
+      "cuál",
+      "cuándo",
+      "desde",
+      "antes",
+      "mal",
+      "mejor",
+      "peor",
+      "tipo",
+      "parte",
+      "final",
+      "físicamente",
+      "suficiente"
+    ]
+  }
+}

@@ -186,6 +186,16 @@ export type GrammarFocus = {
 export type DialogueLine = {
   target: string;
   english: string;
+  /**
+   * Language the learner only needs to *understand*, not produce.
+   *
+   * A real conversation sometimes has to use an expression before the course
+   * formally teaches it — "Mucho gusto" is the natural reply to a first
+   * introduction. Marking it receptive lets the UI say so plainly instead of
+   * leaving the learner wondering what they missed. Replies are never
+   * receptive: the learner is only ever asked to produce taught language.
+   */
+  receptive?: boolean;
 };
 
 /** One exchange: what the other speaker says, and what the learner should say. */
@@ -293,6 +303,20 @@ export type SkippedListeningExercise = {
   createdAt: string;
 };
 
+/**
+ * How a broader skill is going — "querer + noun", "adjective agreement".
+ *
+ * Deliberately *not* a second spaced-repetition system: there are no boxes and
+ * no due dates, and it never feeds review selection. It is a running tally
+ * derived from answers to exercises that exercise the concept, used to avoid
+ * re-teaching something the learner has clearly got.
+ */
+export type ConceptMemory = {
+  correct: number;
+  total: number;
+  lastSeenAt: string;
+};
+
 export type PhraseMemory = {
   // Leitner box 0-5: higher = better known = longer until next review.
   box: number;
@@ -319,6 +343,11 @@ export type ProgressState = {
   skippedListening: SkippedListeningExercise[];
   // Spaced-repetition memory, keyed by phrase id. Optional for backward compat.
   phraseMemory: Record<string, PhraseMemory>;
+  /**
+   * Running accuracy per grammar concept. Added later, so saves written before
+   * it exists simply have none.
+   */
+  conceptMemory: Record<string, ConceptMemory>;
   /**
    * Local calendar days (YYYY-MM-DD) the learner practiced on, oldest first.
    * Powers the activity strip on Progress. Added later, so it may be empty for

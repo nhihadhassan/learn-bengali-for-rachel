@@ -48,23 +48,31 @@
       "targets": [
         "present tense foundations"
       ],
-      "title": "The verb tells you who",
-      "explanation": "A Spanish verb changes its ending to show who is doing the action, so the word for \"I\" or \"you\" is usually left out. Quiero already means \"I want\".",
+      "title": "The ending tells you who",
+      "explanation": "A Spanish verb changes its last letters to show who is doing it. Because the ending already says \"I\", you rarely need the word for \"I\" at all.",
       "examples": [
         {
-          "target": "Quiero un café.",
-          "english": "I want a coffee.",
-          "note": "-o ending = I"
+          "target": "Hablo un poco de español.",
+          "english": "I speak a little Spanish.",
+          "note": "-o = I"
         },
         {
-          "target": "¿De dónde eres?",
-          "english": "Where are you from?",
-          "note": "-es ending = you"
+          "target": "¿Hablas español?",
+          "english": "Do you speak Spanish?",
+          "note": "-as = you"
+        },
+        {
+          "target": "Leo y escribo en inglés.",
+          "english": "I read and write in English.",
+          "note": "-o again"
+        },
+        {
+          "target": "Quiero un café.",
+          "english": "I want a coffee."
         },
         {
           "target": "Vivo en Lima.",
-          "english": "I live in Lima.",
-          "note": "no \"yo\" needed"
+          "english": "I live in Lima."
         }
       ],
       "drill": "marker-cloze",
@@ -189,6 +197,26 @@
           "corres",
           "corre",
           "corremos"
+        ],
+        [
+          "conozco",
+          "conoces",
+          "conoce"
+        ],
+        [
+          "empiezo",
+          "empiezas",
+          "empieza"
+        ],
+        [
+          "trabajo",
+          "trabajas",
+          "trabaja"
+        ],
+        [
+          "estudio",
+          "estudias",
+          "estudia"
         ]
       ]
     },
@@ -242,22 +270,31 @@
         "agreement with numbered nouns"
       ],
       "title": "Describing words match the noun",
-      "explanation": "A describing word copies the gender and number of its noun: un plato frío, una sopa fría, dos sopas frías.",
+      "explanation": "A describing word copies its noun. Words ending in -o switch to -a for a feminine noun, and add -s for more than one.",
       "examples": [
+        {
+          "target": "Ella es tímida, pero divertida.",
+          "english": "She is shy but funny.",
+          "note": "feminine → -a"
+        },
+        {
+          "target": "Somos personas tranquilas.",
+          "english": "We are calm people.",
+          "note": "plural → -as"
+        },
+        {
+          "target": "Mi amigo es muy amable.",
+          "english": "My friend is very kind.",
+          "note": "amable never changes"
+        },
         {
           "target": "un apartamento pequeño",
           "english": "a small apartment",
-          "note": "masculine -o"
-        },
-        {
-          "target": "una casa pequeña",
-          "english": "a small house",
-          "note": "feminine -a"
+          "note": "masculine → -o"
         },
         {
           "target": "Estas fresas están frescas.",
-          "english": "These strawberries are fresh.",
-          "note": "plural -as"
+          "english": "These strawberries are fresh."
         }
       ],
       "drill": "marker-cloze",
@@ -319,6 +356,22 @@
         [
           "simpático",
           "simpática"
+        ],
+        [
+          "largo",
+          "larga",
+          "largos",
+          "largas"
+        ],
+        [
+          "alto",
+          "alta",
+          "altos",
+          "altas"
+        ],
+        [
+          "joven",
+          "jóvenes"
         ]
       ]
     },
@@ -414,6 +467,18 @@
           "quieres",
           "tienes que",
           "debes"
+        ],
+        [
+          "puedo",
+          "puede",
+          "pueden",
+          "podemos"
+        ],
+        [
+          "debo",
+          "debes",
+          "debe",
+          "debemos"
         ]
       ]
     },
@@ -930,6 +995,11 @@
           "muchos",
           "muchas",
           "mucho"
+        ],
+        [
+          "suficiente",
+          "bastante",
+          "demasiado"
         ]
       ]
     },
@@ -943,7 +1013,8 @@
       "examples": [
         {
           "target": "Quiero un kilo de manzanas.",
-          "english": "I want a kilo of apples."
+          "english": "I want a kilo of apples.",
+          "note": "amount + de + thing"
         },
         {
           "target": "una taza de café",
@@ -952,6 +1023,10 @@
         {
           "target": "un poco de leche",
           "english": "a little milk"
+        },
+        {
+          "target": "¿Cuánto cuestan las naranjas?",
+          "english": "How much do the oranges cost?"
         }
       ],
       "drill": "marker-cloze",
@@ -1037,6 +1112,11 @@
           "tienes que",
           "debes",
           "necesitas"
+        ],
+        [
+          "tenemos que",
+          "debemos",
+          "necesitamos"
         ]
       ]
     },
@@ -1049,16 +1129,21 @@
       "explanation": "With someone you don't know, use the usted form and soften the ask: ¿Podría ayudarme? Quisiera un café.",
       "examples": [
         {
+          "target": "¿Puede repetir?",
+          "english": "Could you repeat that?",
+          "note": "puede = polite you"
+        },
+        {
+          "target": "¿Puede hablar despacio?",
+          "english": "Could you speak slowly?"
+        },
+        {
           "target": "¿Podría ayudarme?",
           "english": "Could you help me?"
         },
         {
           "target": "Quisiera un café, por favor.",
           "english": "I would like a coffee, please."
-        },
-        {
-          "target": "¿Puede repetir?",
-          "english": "Could you repeat that?"
         }
       ],
       "drill": "marker-cloze",
@@ -1071,6 +1156,10 @@
         [
           "quiero",
           "quisiera"
+        ],
+        [
+          "usted",
+          "tú"
         ]
       ]
     },
@@ -1170,6 +1259,12 @@
           "come",
           "bebe",
           "escribe"
+        ],
+        [
+          "sigue",
+          "gira",
+          "cruza",
+          "pasa"
         ]
       ]
     },
@@ -1207,6 +1302,12 @@
           "lejos",
           "aquí",
           "allí"
+        ],
+        [
+          "entre",
+          "frente a",
+          "detrás de",
+          "al lado de"
         ]
       ]
     },
@@ -1273,6 +1374,245 @@
           "primero",
           "segundo",
           "tercero"
+        ]
+      ]
+    },
+    {
+      "id": "querer-pattern",
+      "targets": [
+        "querer + noun"
+      ],
+      "title": "Quiero + what you want",
+      "explanation": "Quiero means \"I want\". Whatever you want goes straight after it, so one word gets you a whole family of sentences.",
+      "examples": [
+        {
+          "target": "Quiero un café.",
+          "english": "I want a coffee.",
+          "note": "quiero + the thing"
+        },
+        {
+          "target": "Quiero un té, por favor.",
+          "english": "I want a tea, please."
+        },
+        {
+          "target": "Quiero la cuenta.",
+          "english": "I want the bill."
+        },
+        {
+          "target": "¿Quieres un café?",
+          "english": "Do you want a coffee?",
+          "note": "quieres = you want"
+        }
+      ],
+      "drill": "marker-cloze",
+      "markerGroups": [
+        [
+          "quiero",
+          "quieres",
+          "quiere"
+        ]
+      ]
+    },
+    {
+      "id": "buenas-agreement",
+      "targets": [
+        "greeting agreement"
+      ],
+      "title": "Buenos or buenas?",
+      "explanation": "Greetings change their ending to match the word after them. Día is masculine, so buenos días; tarde and noche are feminine, so buenas tardes and buenas noches.",
+      "examples": [
+        {
+          "target": "buenos días",
+          "english": "good morning",
+          "note": "día → buenos"
+        },
+        {
+          "target": "buenas tardes",
+          "english": "good afternoon",
+          "note": "tarde → buenas"
+        },
+        {
+          "target": "buenas noches",
+          "english": "good evening",
+          "note": "noche → buenas"
+        }
+      ],
+      "drill": "marker-cloze",
+      "markerGroups": [
+        [
+          "buenos",
+          "buenas"
+        ]
+      ]
+    },
+    {
+      "id": "ser-de-origin",
+      "targets": [
+        "ser + de for origin"
+      ],
+      "title": "Soy de + where you're from",
+      "explanation": "To say where you are from, use soy de and then the place. Ask someone else with ¿De dónde eres?",
+      "examples": [
+        {
+          "target": "Soy de Canadá.",
+          "english": "I am from Canada.",
+          "note": "soy = I am"
+        },
+        {
+          "target": "¿De dónde eres?",
+          "english": "Where are you from?",
+          "note": "eres = you are"
+        },
+        {
+          "target": "Es de Lima.",
+          "english": "He/She is from Lima."
+        }
+      ],
+      "drill": "marker-cloze",
+      "markerGroups": [
+        [
+          "soy",
+          "eres",
+          "es"
+        ]
+      ]
+    },
+    {
+      "id": "possessives",
+      "targets": [
+        "possessives mi/tu/su"
+      ],
+      "title": "mi, tu, su",
+      "explanation": "Mi means \"my\", tu means \"your\", su means \"his\" or \"her\". They go in front of the noun and do not change for masculine or feminine.",
+      "examples": [
+        {
+          "target": "Esta es mi hermana.",
+          "english": "This is my sister.",
+          "note": "mi = my"
+        },
+        {
+          "target": "Mi país es muy grande.",
+          "english": "My country is very large."
+        },
+        {
+          "target": "¿Y tu mochila?",
+          "english": "And your backpack?",
+          "note": "tu = your"
+        }
+      ],
+      "drill": "marker-cloze",
+      "markerGroups": [
+        [
+          "mi",
+          "tu",
+          "su"
+        ]
+      ]
+    },
+    {
+      "id": "estar-location-hay",
+      "targets": [
+        "estar for location",
+        "hay for existence"
+      ],
+      "title": "está and hay",
+      "explanation": "Use está to say where a particular thing is, and hay to say that something exists at all. ¿Dónde está mi teléfono? asks about your phone; hay una silla just says a chair is there.",
+      "examples": [
+        {
+          "target": "¿Dónde está mi teléfono?",
+          "english": "Where is my phone?",
+          "note": "a particular thing → está"
+        },
+        {
+          "target": "Está al lado de la puerta.",
+          "english": "It is next to the door."
+        },
+        {
+          "target": "Hay una mochila debajo de la silla.",
+          "english": "There is a backpack under the chair.",
+          "note": "something exists → hay"
+        }
+      ],
+      "drill": "marker-cloze",
+      "markerGroups": [
+        [
+          "está",
+          "hay"
+        ],
+        [
+          "está",
+          "están"
+        ]
+      ]
+    },
+    {
+      "id": "question-words",
+      "targets": [
+        "question words"
+      ],
+      "title": "qué, dónde, cómo, cuánto",
+      "explanation": "Spanish questions open with ¿ and usually start with a question word. Each one carries an accent: qué (what), dónde (where), cómo (how), cuánto (how much), quién (who).",
+      "examples": [
+        {
+          "target": "¿Cuánto cuesta?",
+          "english": "How much does it cost?"
+        },
+        {
+          "target": "¿Dónde está el hospital?",
+          "english": "Where is the hospital?"
+        },
+        {
+          "target": "¿Cómo estás?",
+          "english": "How are you?"
+        },
+        {
+          "target": "¿Quién es ella?",
+          "english": "Who is she?"
+        }
+      ],
+      "drill": "marker-cloze",
+      "markerGroups": [
+        [
+          "qué",
+          "dónde",
+          "cómo",
+          "cuánto"
+        ],
+        [
+          "quién",
+          "dónde",
+          "cómo"
+        ]
+      ]
+    },
+    {
+      "id": "weather-hace",
+      "targets": [
+        "weather expressions"
+      ],
+      "title": "Talking about the weather",
+      "explanation": "Spanish says the weather \"makes\" hot or cold: hace frío, hace sol, hace calor. Rain and snow use está instead — está lloviendo.",
+      "examples": [
+        {
+          "target": "Hoy hace sol.",
+          "english": "Today it is sunny.",
+          "note": "hace + weather word"
+        },
+        {
+          "target": "Hace mucho frío.",
+          "english": "It is very cold."
+        },
+        {
+          "target": "Está lloviendo.",
+          "english": "It is raining.",
+          "note": "rain → está"
+        }
+      ],
+      "drill": "marker-cloze",
+      "markerGroups": [
+        [
+          "hace",
+          "está"
         ]
       ]
     }

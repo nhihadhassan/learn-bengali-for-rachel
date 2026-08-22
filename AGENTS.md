@@ -53,6 +53,13 @@ NEXT_TEST_WASM=1 NEXT_TEST_WASM_DIR="$PWD/node_modules/@next/swc-wasm-nodejs" np
   new/weak/due/strong (deriving everything from `review-policy.ts`).
 - `src/lib/distractors.ts` owns wrong-answer selection; `src/lib/rng.ts` is the
   one seeded PRNG (`src/curriculum/rng.ts` re-exports it).
+- **`src/lib/spanish-lexicon.ts` decides what counts as already known** —
+  authored irregular verb forms plus computed plurals/gender pairs. Pass it as
+  `resolveKnown` rather than importing it into `curriculum-plan`, which stays
+  language-agnostic.
+- **A unit's grammar is declared, not derived**: `grammar_focus` in
+  `content/spanish-curriculum.json`, gated on the pattern having been met and
+  the examples being readable. Never reintroduce index arithmetic here.
 - `src/lib/review-policy.ts` owns spaced repetition. Nothing else defines
   intervals.
 - `src/lib/date-keys.ts` owns calendar days. Never use `toISOString()` for a
@@ -108,5 +115,7 @@ still supported for older content. Put new recorded files under
 - **Mistake recycling must not change the step count.** Slots are reserved and
   rewritten, so the progress bar only moves forward.
 - After touching the Spanish curriculum or the plan layer, run
-  `npm run audit:curriculum` — Section 1 findings fail the run.
+  `npm run audit:curriculum` — Sections 1-2 findings fail the run.
+- **Never ask the learner to produce untaught language.** A dialogue prompt may
+  carry new language if marked `receptive`; a reply may not.
 - Run lint, tests and build after code changes.

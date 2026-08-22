@@ -194,8 +194,8 @@ test("planning is deterministic for the same input", () => {
     })),
   };
 
-  const first = planUnit(unit, [prior], undefined, createReviewQueues());
-  const second = planUnit(unit, [prior], undefined, createReviewQueues());
+  const first = planUnit(unit, [prior], { sharedQueues: createReviewQueues() });
+  const second = planUnit(unit, [prior], { sharedQueues: createReviewQueues() });
 
   assert.deepEqual(first, second);
 });

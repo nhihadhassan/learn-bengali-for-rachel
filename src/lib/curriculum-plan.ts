@@ -59,6 +59,9 @@ const KIND_BY_NAME: Record<string, LessonKind> = {
   discover: "discover",
   build: "build",
   "grammar focus": "grammar",
+  // The lesson was renamed once it was clear it contained no speaking. The old
+  // name stays mapped so nothing breaks if a stale pack is loaded.
+  "listen and understand": "listen",
   "listen and speak": "listen",
   "use in context": "context",
   "unit review": "review",
@@ -152,8 +155,13 @@ function newItemPlan(
     phrases: phrases[index],
   }));
 
-  // Push overflow forward. Phrases move first: a sentence is easier to hold
-  // back than the words it is made of.
+  // Push overflow forward, moving *words* before sentences.
+  //
+  // Holding sentences back looks cheaper, but it produced units whose first
+  // three lessons were nothing but vocabulary — so the grammar lesson arrived
+  // having never shown the pattern in a sentence, and had nothing to explain.
+  // One word of vocabulary always stays, so a lesson can still supply what its
+  // sentence needs.
   for (let index = 0; index < plan.length; index += 1) {
     const entry = plan[index];
     let overflow = entry.vocabulary + entry.phrases - MAX_NEW_ITEMS_PER_LESSON;
@@ -165,12 +173,12 @@ function newItemPlan(
         break;
       }
 
-      if (entry.phrases > 0) {
-        entry.phrases -= 1;
-        next.phrases += 1;
-      } else {
+      if (entry.vocabulary > 1 || entry.phrases === 0) {
         entry.vocabulary -= 1;
         next.vocabulary += 1;
+      } else {
+        entry.phrases -= 1;
+        next.phrases += 1;
       }
 
       overflow -= 1;
@@ -214,12 +222,21 @@ export function newItemWeight(kind: LessonKind): number {
  */
 const SPACED_UNIT_DISTANCES = [1, 2, 4, 8, 16];
 
+/**
+ * Content words in `text`, with slash variants split apart.
+ *
+ * Vocabulary entries write gendered pairs as one token — `pequeño/pequeña`,
+ * `español/española` — and treating that as a single word means neither half
+ * ever matches a real sentence. Both halves are separate words to a learner.
+ */
 function contentWordSet(text: string): Set<string> {
   const words = new Set<string>();
 
-  for (const word of splitWords(text)) {
-    if (isContentWord(word)) {
-      words.add(normalizeWord(word));
+  for (const token of splitWords(text)) {
+    for (const word of token.split("/")) {
+      if (word && isContentWord(word)) {
+        words.add(normalizeWord(word));
+      }
     }
   }
 
@@ -236,9 +253,25 @@ function unstem(word: string): string {
 }
 
 /**
+ * Decides whether a word is covered by what the learner has been taught.
+ *
+ * Injected rather than imported so this module stays language-agnostic: the
+ * Spanish course passes `isKnownForm` from `@/lib/spanish-lexicon`, which knows
+ * that `tienes` is `tener`. Without one, the crude stem match below applies.
+ */
+export type KnownWordResolver = (
+  word: string,
+  known: ReadonlySet<string>,
+) => boolean;
+
+/**
  * Loose match so "hablo" counts as knowing "hablar" without shipping a
  * stemmer. Three characters is enough to link tengo/tener and vivo/vivir while
  * still keeping, say, "casa" and "caro" apart.
+ *
+ * This is the fallback. A course with a real lexicon should pass a
+ * `KnownWordResolver` instead — the stem heuristic quietly misses `voy`/`ir`
+ * and `es`/`ser`, which are exactly the words that matter most.
  */
 export function sharesStem(word: string, candidate: string): boolean {
   if (word === candidate) {
@@ -255,9 +288,17 @@ export function sharesStem(word: string, candidate: string): boolean {
   return a.slice(0, 3) === b.slice(0, 3);
 }
 
-function isKnownWord(word: string, known: ReadonlySet<string>): boolean {
+function isKnownWord(
+  word: string,
+  known: ReadonlySet<string>,
+  resolve?: KnownWordResolver,
+): boolean {
   if (known.has(word)) {
     return true;
+  }
+
+  if (resolve) {
+    return resolve(word, known);
   }
 
   for (const candidate of known) {
@@ -274,21 +315,142 @@ function isKnownWord(word: string, known: ReadonlySet<string>): boolean {
  * phrase patterns *after* the words they are built from, so a sentence is a new
  * arrangement of known pieces rather than five new words at once.
  */
-export function coverage(text: string, knownWords: ReadonlySet<string>): number {
+export function coverage(
+  text: string,
+  knownWords: ReadonlySet<string>,
+  resolve?: KnownWordResolver,
+): number {
   const words = [...contentWordSet(text)];
 
   if (words.length === 0) {
     return 1;
   }
 
-  const known = words.filter((word) => isKnownWord(word, knownWords)).length;
+  const known = words.filter((word) => isKnownWord(word, knownWords, resolve)).length;
   return known / words.length;
 }
 
+/** The content words of `text` the learner has *not* met yet. */
+export function unknownWords(
+  text: string,
+  knownWords: ReadonlySet<string>,
+  resolve?: KnownWordResolver,
+): string[] {
+  return [...contentWordSet(text)].filter(
+    (word) => !isKnownWord(word, knownWords, resolve),
+  );
+}
+
+/**
+ * Every word a taught item puts in the learner's hands.
+ *
+ * Deliberately wider than `contentWordSet`, which screens out short and
+ * functional words because they make poor cloze blanks. That screen is right
+ * for *choosing a question* and wrong for *recording what was taught*: `ir` is
+ * two letters long, and dropping it meant "Voy a comprar fruta." looked like it
+ * used a verb the course had never introduced.
+ */
+export function taughtWordSet(text: string): Set<string> {
+  const words = new Set<string>();
+
+  for (const token of splitWords(text)) {
+    for (const part of token.split("/")) {
+      const word = normalizeWord(part);
+
+      if (word) {
+        words.add(word);
+      }
+    }
+  }
+
+  return words;
+}
+
 function addWords(target: Set<string>, text: string) {
-  for (const word of contentWordSet(text)) {
+  for (const word of taughtWordSet(text)) {
     target.add(word);
   }
+}
+
+/**
+ * Which vocabulary item to introduce next: the one the unit's remaining phrase
+ * patterns need most. Ties fall back to curriculum order, so a hand-sequenced
+ * unit keeps its intended shape.
+ */
+function pickNextVocabulary(
+  vocabulary: readonly PlanItem[],
+  remainingPhrases: readonly PlanItem[],
+  knownWords: ReadonlySet<string>,
+  resolve?: KnownWordResolver,
+  grammarWords: readonly string[] = [],
+): number {
+  if (remainingPhrases.length === 0 && grammarWords.length === 0) {
+    return 0;
+  }
+
+  // The phrase pattern closest to being readable is the one that will be
+  // introduced next, so the words *it* is missing matter most. Spreading the
+  // weight evenly across every remaining phrase leaves ties everywhere and the
+  // unit falls back to arbitrary curriculum order.
+  const nextPhrase = [...remainingPhrases].sort(
+    (a, b) =>
+      coverage(b.text, knownWords, resolve) - coverage(a.text, knownWords, resolve),
+  )[0];
+
+  const urgent = new Set(
+    nextPhrase ? unknownWords(nextPhrase.text, knownWords, resolve) : [],
+  );
+  const laterNeed = new Map<string, number>();
+
+  for (const phrase of remainingPhrases) {
+    if (phrase === nextPhrase) continue;
+
+    for (const word of contentWordSet(phrase.text)) {
+      laterNeed.set(word, (laterNeed.get(word) ?? 0) + 1);
+    }
+  }
+
+  let bestIndex = 0;
+  let bestScore = -1;
+
+  vocabulary.forEach((item, index) => {
+    let score = 0;
+
+    for (const word of contentWordSet(item.text)) {
+      if (urgent.has(word)) {
+        score += 10;
+      }
+      score += laterNeed.get(word) ?? 0;
+    }
+
+    // Words the unit's grammar lesson is about — buenos/buenas for a lesson on
+    // greeting agreement — should be in hand before that lesson explains them.
+    if (demonstrates(item.text, grammarWords)) {
+      score += 5;
+    }
+
+    // Strictly greater keeps the earliest item on a tie.
+    if (score > bestScore) {
+      bestScore = score;
+      bestIndex = index;
+    }
+  });
+
+  return bestIndex;
+}
+
+/** Does `text` contain any of the words a grammar rule is built around? */
+function demonstrates(text: string, grammarWords: readonly string[]): boolean {
+  if (grammarWords.length === 0) {
+    return false;
+  }
+
+  const words = new Set(splitWords(text).map(normalizeWord));
+
+  return grammarWords.some((marker) => {
+    const parts = splitWords(marker).map(normalizeWord);
+    return parts.every((part) => words.has(part));
+  });
 }
 
 export type PlannedLesson = {
@@ -305,11 +467,30 @@ export type PlannedLesson = {
  * supply both the interleaved review and the vocabulary that makes a phrase
  * pattern "mostly known" already.
  */
+export type PlanUnitOptions = {
+  lessonKinds?: readonly LessonKind[];
+  sharedQueues?: ReviewQueues;
+  /** How to decide a word is already known; see `KnownWordResolver`. */
+  resolveKnown?: KnownWordResolver;
+  /**
+   * Words the unit's grammar lesson will explain.
+   *
+   * A unit should have shown the pattern before it names it, so phrases that
+   * demonstrate these words are introduced in the lessons *before* the grammar
+   * lesson. Without this, a unit could explain "me gusta" having used it once.
+   */
+  grammarWords?: readonly string[];
+};
+
 export function planUnit(
   unit: PlanUnit,
   priorUnits: readonly PlanUnit[],
-  lessonKinds: readonly LessonKind[] = UNIT_LESSON_KINDS,
-  sharedQueues: ReviewQueues = createReviewQueues(),
+  {
+    lessonKinds = UNIT_LESSON_KINDS,
+    sharedQueues = createReviewQueues(),
+    resolveKnown,
+    grammarWords = [],
+  }: PlanUnitOptions = {},
 ): PlannedLesson[] {
   const vocabulary = unit.items.filter((item) => item.kind === "vocabulary");
   const phrases = unit.items.filter((item) => item.kind === "phrase");
@@ -330,39 +511,126 @@ export function planUnit(
   const plans: PlannedLesson[] = [];
   const interleaver = createInterleaver(unit, priorUnits, sharedQueues);
 
+  const grammarLesson = lessonKinds.indexOf("grammar");
+  let patternShown = false;
+
   lessonKinds.forEach((kind, index) => {
     const load = loads[index] ?? { vocabulary: 0, phrases: 0 };
+    // Before the grammar lesson, bias selection toward its pattern.
+    const grammarNeeded = grammarLesson >= 0 && index <= grammarLesson;
     const newIds: string[] = [];
 
-    // Vocabulary goes in curriculum order — that order is the pedagogy, and for
-    // the early units it has been hand-sequenced.
-    for (let taken = 0; taken < load.vocabulary; taken += 1) {
-      const item = remainingVocabulary.shift();
-      if (!item) break;
-      addWords(knownWords, item.text);
-      newIds.push(item.id);
+    // Phrases are chosen first, then the vocabulary they need.
+    //
+    // Doing it the other way round let a lesson commit to "Vivo en un
+    // apartamento pequeño." and then teach a different set of words, so the
+    // learner met the sentence a lesson before `el apartamento` existed.
+    // Choosing the sentence first and supplying its words in the same lesson
+    // makes that structurally impossible.
+    const reachable = new Set(knownWords);
+    for (const item of remainingVocabulary) {
+      addWords(reachable, item.text);
     }
 
-    // Phrase patterns go in *readiness* order: whichever remaining pattern the
-    // learner can already read the most of. That keeps a lesson from opening
-    // with a sentence made of four words it has not taught.
+    const chosenPhrases: PlanItem[] = [];
+
     for (let taken = 0; taken < load.phrases; taken += 1) {
       if (remainingPhrases.length === 0) break;
 
-      let bestIndex = 0;
-      let bestCoverage = -1;
+      // Last chance: the grammar lesson must not name a pattern this unit has
+      // never shown, so if none of its sentences has demonstrated it yet, the
+      // choice is restricted to ones that do (and that the learner can read).
+      const mustShowPattern =
+        grammarNeeded && index === grammarLesson && !patternShown;
+      const candidates = mustShowPattern
+        ? remainingPhrases.filter(
+            (candidate) =>
+              demonstrates(candidate.text, grammarWords) &&
+              coverage(candidate.text, reachable, resolveKnown) === 1,
+          )
+        : remainingPhrases;
+      const pool = candidates.length > 0 ? candidates : remainingPhrases;
 
-      remainingPhrases.forEach((candidate, candidateIndex) => {
-        const score = coverage(candidate.text, knownWords);
-        if (score > bestCoverage) {
-          bestCoverage = score;
+      let bestIndex = 0;
+      let bestScore = -Infinity;
+
+      pool.forEach((candidate, candidateIndex) => {
+        // How much of it the learner could read once this lesson's vocabulary
+        // is taught, bucketed so grammar relevance only breaks near-ties.
+        const readable = coverage(candidate.text, reachable, resolveKnown);
+        // The bonus applies only to sentences that are *fully* readable, so
+        // preferring the unit's pattern can never pull a phrase in ahead of the
+        // words it needs. Among equally readable candidates it decides.
+        const showsPattern =
+          grammarNeeded && readable === 1 && demonstrates(candidate.text, grammarWords);
+        const score = Math.round(readable * 4) / 4 + (showsPattern ? 0.5 : 0);
+
+        if (score > bestScore) {
+          bestScore = score;
           bestIndex = candidateIndex;
         }
       });
 
-      const [item] = remainingPhrases.splice(bestIndex, 1);
+      const chosen = pool[bestIndex];
+      remainingPhrases.splice(remainingPhrases.indexOf(chosen), 1);
+      chosenPhrases.push(chosen);
+
+      if (demonstrates(chosen.text, grammarWords)) {
+        patternShown = true;
+      }
+    }
+
+    // Vocabulary: whatever those sentences are still missing comes first.
+    const needed = new Set<string>();
+    for (const phrase of chosenPhrases) {
+      for (const word of unknownWords(phrase.text, knownWords, resolveKnown)) {
+        needed.add(word);
+      }
+    }
+
+    for (let taken = 0; taken < load.vocabulary; taken += 1) {
+      if (remainingVocabulary.length === 0) break;
+
+      // Matched through the resolver, not by string equality: the sentence
+      // needs "estoy" and the vocabulary entry is "estar", which is the same
+      // word as far as the learner is concerned.
+      const supplies = remainingVocabulary.findIndex((item) => {
+        const supplied = contentWordSet(item.text);
+
+        return [...needed].some(
+          (word) =>
+            supplied.has(word) ||
+            (resolveKnown ? resolveKnown(word, supplied) : false),
+        );
+      });
+      const index =
+        supplies >= 0
+          ? supplies
+          : pickNextVocabulary(
+              remainingVocabulary,
+              remainingPhrases,
+              knownWords,
+              resolveKnown,
+              grammarNeeded ? grammarWords : [],
+            );
+
+      const [item] = remainingVocabulary.splice(index, 1);
+      const supplied = contentWordSet(item.text);
+
+      for (const word of [...needed]) {
+        if (supplied.has(word) || (resolveKnown && resolveKnown(word, supplied))) {
+          needed.delete(word);
+        }
+      }
+
       addWords(knownWords, item.text);
       newIds.push(item.id);
+    }
+
+    // Words before the sentences built from them.
+    for (const phrase of chosenPhrases) {
+      addWords(knownWords, phrase.text);
+      newIds.push(phrase.id);
     }
 
     const reviewLoad = REVIEW_LOAD[kind];

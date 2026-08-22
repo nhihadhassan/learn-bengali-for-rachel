@@ -20,7 +20,12 @@ import {
   memoryStrength,
   type MemoryEntries,
 } from "@/lib/review-policy";
-import type { Mistake, PhraseMemory, ProgressState } from "@/types/learning";
+import type {
+  ConceptMemory,
+  Mistake,
+  PhraseMemory,
+  ProgressState,
+} from "@/types/learning";
 
 /**
  * How well the learner knows an item, in the vocabulary the sequencing rules
@@ -42,6 +47,7 @@ const WEAK_BOX = 1;
 
 export type LearnerSnapshot = {
   memory: MemoryEntries;
+  concepts: Record<string, ConceptMemory>;
   /** Phrase ids missed recently, most recent first. */
   recentMistakePhraseIds: string[];
   completedLessonIds: ReadonlySet<string>;
@@ -50,6 +56,7 @@ export type LearnerSnapshot = {
 
 const EMPTY_SNAPSHOT: LearnerSnapshot = {
   memory: {},
+  concepts: {},
   recentMistakePhraseIds: [],
   completedLessonIds: new Set(),
   now: 0,
@@ -65,11 +72,13 @@ export function snapshotLearner(
   progress: Pick<
     ProgressState,
     "phraseMemory" | "mistakes" | "completedLessons"
-  >,
+  > &
+    Partial<Pick<ProgressState, "conceptMemory">>,
   now = Date.now(),
 ): LearnerSnapshot {
   return {
     memory: progress.phraseMemory ?? {},
+    concepts: progress.conceptMemory ?? {},
     recentMistakePhraseIds: recentMistakePhraseIds(progress.mistakes ?? [], now),
     completedLessonIds: new Set(progress.completedLessons ?? []),
     now,
@@ -98,6 +107,38 @@ function recentMistakePhraseIds(mistakes: readonly Mistake[], now: number): stri
   }
 
   return ids;
+}
+
+/** How many answers before a concept's accuracy means anything. */
+const CONCEPT_MIN_ANSWERS = 4;
+
+/** Above this accuracy, a concept counts as understood. */
+const CONCEPT_MASTERY = 0.8;
+
+/**
+ * 0-1 confidence in a grammar concept, or `undefined` when too little has been
+ * answered to say. Plain accuracy — no ladder, no scheduling.
+ */
+export function conceptStrength(
+  conceptId: string,
+  snapshot: LearnerSnapshot,
+): number | undefined {
+  const entry = snapshot.concepts[conceptId];
+
+  if (!entry || entry.total < CONCEPT_MIN_ANSWERS) {
+    return undefined;
+  }
+
+  return entry.correct / entry.total;
+}
+
+/** A concept the learner has demonstrated enough times to stop re-explaining. */
+export function isConceptMastered(
+  conceptId: string,
+  snapshot: LearnerSnapshot,
+): boolean {
+  const strength = conceptStrength(conceptId, snapshot);
+  return strength !== undefined && strength >= CONCEPT_MASTERY;
 }
 
 export function classifyPhrase(

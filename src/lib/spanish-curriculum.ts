@@ -28,7 +28,15 @@ import {
   type PlannedLesson,
 } from "@/lib/curriculum-plan";
 import { FEATURES } from "@/lib/feature-flags";
-import { getGrammarFocus } from "@/lib/grammar-drills";
+import { taughtWordSet } from "@/lib/curriculum-plan";
+import {
+  countPatternEncounters,
+  findGrammarRule,
+  getGrammarRule,
+  toGrammarFocus,
+  type GrammarFocusOptions,
+} from "@/lib/grammar-drills";
+import { isKnownForm } from "@/lib/spanish-lexicon";
 import type {
   DialogueScript,
   GrammarFocus,
@@ -44,13 +52,20 @@ type PackDialogue = {
   scenario: string;
   turns: Array<{
     speaker?: string;
-    prompt: { spanish: string; english: string };
+    prompt: { spanish: string; english: string; receptive?: boolean };
     reply: { spanish: string; english: string };
     distractors?: string[];
   }>;
 };
 
-type PackUnitWithExtras = PackUnit & { dialogue?: PackDialogue };
+type PackUnitWithExtras = PackUnit & {
+  dialogue?: PackDialogue;
+  /** Explicit grammar rule id; see `grammarFocusFor`. */
+  grammar_focus?: string;
+};
+
+/** The shape `@/lib/grammar-drills` exposes for an authored rule. */
+type RawGrammarRule = NonNullable<ReturnType<typeof getGrammarRule>>;
 
 const CEFR_DIFFICULTY: Record<string, string> = {
   Intro: "Intro",
@@ -121,25 +136,106 @@ function toPlanUnit(unit: PackUnitWithExtras, unitNumber: number): PlanUnit {
 }
 
 /**
+ * How many phrases must already demonstrate a pattern before it gets explained.
+ *
+ * Grammar lands when it names something the learner has half-noticed already.
+ * Below this many encounters, an explanation is a definition of a thing they
+ * have never seen. This is the bar for a rule picked automatically from a
+ * unit's declared targets.
+ */
+const MIN_PATTERN_ENCOUNTERS = 3;
+
+/**
+ * An *authored* focus only has to be visible in its own unit.
+ *
+ * Someone chose that rule for that unit; the gate's job is to catch a pattern
+ * with no evidence behind it, not to overrule a teaching decision because a
+ * different rule happens to appear more often across the whole course.
+ */
+const MIN_AUTHORED_ENCOUNTERS = 1;
+
+/**
  * Which grammar point a unit's "Grammar focus" lesson teaches.
  *
- * A unit declares two or three targets and they repeat across a whole section,
- * so rotating by unit number means consecutive units teach *different* points
- * instead of all ten units of Section 1 explaining articles.
+ * Sections 1-2 declare `grammar_focus` explicitly, chosen from what the unit's
+ * own language demonstrates. That replaced picking
+ * `grammar_targets[(unitNumber - 1) % targets.length]`, which is how a
+ * greetings unit ended up teaching noun gender and a unit of twelve adjectives
+ * ended up teaching articles.
+ *
+ * Two things still stand between an authored choice and the learner: the rule
+ * must have enough examples behind it (`MIN_PATTERN_ENCOUNTERS`), and the card
+ * it produces must be readable with the vocabulary they have. If the authored
+ * focus fails the gate, the best-supported alternative from the unit's declared
+ * targets is used instead.
  */
 function grammarFocusFor(
   unit: PackUnitWithExtras,
   unitNumber: number,
+  context: {
+    knownWords: ReadonlySet<string>;
+    seenPhrases: ReadonlyArray<{ romanized: string; english: string }>;
+    unitPhrases: ReadonlyArray<{ romanized: string; english: string }>;
+  },
 ): GrammarFocus | undefined {
-  const targets = unit.grammar_targets ?? [];
+  const focusOptions: GrammarFocusOptions = {
+    knownWords: context.knownWords,
+    resolveKnown: isKnownForm,
+    unitPhrases: context.unitPhrases,
+  };
 
-  if (targets.length === 0) {
-    return undefined;
+  const candidates: RawGrammarRule[] = [];
+  const authored = unit.grammar_focus ? getGrammarRule(unit.grammar_focus) : undefined;
+
+  if (authored) {
+    candidates.push(authored);
   }
 
-  const rotated = targets[(unitNumber - 1) % targets.length];
+  // Fallback order for un-authored units: the unit's declared targets, still
+  // rotated so consecutive units differ, but now gated on readiness.
+  const targets = unit.grammar_targets ?? [];
+  for (let offset = 0; offset < targets.length; offset += 1) {
+    const rule = findGrammarRule(targets[(unitNumber - 1 + offset) % targets.length]);
 
-  return getGrammarFocus(rotated) ?? getGrammarFocus(targets[0]);
+    if (rule && !candidates.includes(rule)) {
+      candidates.push(rule);
+    }
+  }
+
+  const isReady = (rule: RawGrammarRule) =>
+    rule === authored
+      ? countPatternEncounters(rule, context.unitPhrases) >= MIN_AUTHORED_ENCOUNTERS
+      : countPatternEncounters(rule, context.seenPhrases) >= MIN_PATTERN_ENCOUNTERS;
+
+  // Candidate order *is* the priority: the authored focus first, then the
+  // rotation. The readiness gate filters, it does not reorder — letting a
+  // merely-ready rule jump the queue is how unit 1 ended up explaining "el and
+  // la" instead of the querer pattern it was authored for.
+  for (const rule of candidates) {
+    if (!isReady(rule)) {
+      continue;
+    }
+
+    const focus = toGrammarFocus(rule, focusOptions);
+
+    // An authored rule is trusted with a single illustration; a rule picked by
+    // the fallback rotation has to show at least two, or it isn't teaching.
+    if (focus.examples.length >= (rule === authored ? 1 : 2)) {
+      return focus;
+    }
+  }
+
+  // Nothing has been seen often enough yet. Rather than skip grammar entirely,
+  // take the best-illustrated candidate — still in authored-first order.
+  for (const rule of candidates) {
+    const focus = toGrammarFocus(rule, focusOptions);
+
+    if (focus.examples.length >= 2) {
+      return focus;
+    }
+  }
+
+  return undefined;
 }
 
 function toDialogueScript(dialogue: PackDialogue | undefined): DialogueScript | undefined {
@@ -151,7 +247,11 @@ function toDialogueScript(dialogue: PackDialogue | undefined): DialogueScript | 
     scenario: dialogue.scenario,
     turns: dialogue.turns.map((turn) => ({
       speaker: turn.speaker,
-      prompt: { target: turn.prompt.spanish, english: turn.prompt.english },
+      prompt: {
+        target: turn.prompt.spanish,
+        english: turn.prompt.english,
+        receptive: turn.prompt.receptive,
+      },
       reply: { target: turn.reply.spanish, english: turn.reply.english },
       distractors: turn.distractors,
     })),
@@ -210,6 +310,7 @@ function adaptLesson(
   packLesson: PackLesson,
   unitNumber: number,
   planned: PlannedLesson | undefined,
+  grammar: GrammarFocus | undefined,
 ): Lesson {
   const base = {
     id: `${unit.id}-l${packLesson.lesson_index}`,
@@ -229,17 +330,17 @@ function adaptLesson(
   }
 
   const kind = toLessonKind(packLesson.name, packLesson.lesson_index);
-  const grammar = kind === "grammar" ? grammarFocusFor(unit, unitNumber) : undefined;
+  const lessonGrammar = kind === "grammar" ? grammar : undefined;
   const dialogue = kind === "context" ? toDialogueScript(unit.dialogue) : undefined;
-  const plan = toLessonPlan(planned, { grammar, dialogue });
+  const plan = toLessonPlan(planned, { grammar: lessonGrammar, dialogue });
 
   return {
     ...base,
     phrases: resolvePhrases([...plan.newPhraseIds, ...plan.reviewPhraseIds]),
     plan,
     // Rendered by the lesson intro's "What you'll learn" panel.
-    grammar: grammar
-      ? [{ point: grammar.title, notes: grammar.explanation }]
+    grammar: lessonGrammar
+      ? [{ point: lessonGrammar.title, notes: lessonGrammar.explanation }]
       : undefined,
   };
 }
@@ -260,6 +361,7 @@ function adaptUnit(
   unit: PackUnitWithExtras,
   unitNumber: number,
   plannedLessons: PlannedLesson[] | undefined,
+  grammar: GrammarFocus | undefined,
 ): Unit {
   return {
     id: unit.id,
@@ -270,7 +372,7 @@ function adaptUnit(
     // to keep 131 units navigable.
     section: sectionByNumber.get(unit.section),
     lessons: unit.lesson_sequence.map((lesson, index) =>
-      adaptLesson(unit, lesson, unitNumber, plannedLessons?.[index]),
+      adaptLesson(unit, lesson, unitNumber, plannedLessons?.[index], grammar),
     ),
     metadata: {
       difficultyBand: CEFR_DIFFICULTY[unit.cefr] ?? unit.cefr,
@@ -287,20 +389,81 @@ function buildUnits(): Unit[] {
   // last one left off instead of re-drawing the same few items.
   const reviewQueues = createReviewQueues();
 
+  // Walked in path order so each unit sees exactly what the learner has met
+  // before it: the words that make an example readable, and the phrases that
+  // decide whether a pattern has been seen often enough to name.
+  const knownWords = new Set<string>();
+  const seenPhrases: Array<{ romanized: string; english: string }> = [];
+
   return orderedUnits.map((unit, index) => {
     const planned = cumulativeEnabled
-      ? planUnit(
-          planUnits[index],
-          planUnits.slice(0, index),
-          unit.lesson_sequence.map((lesson) =>
+      ? planUnit(planUnits[index], planUnits.slice(0, index), {
+          lessonKinds: unit.lesson_sequence.map((lesson) =>
             toLessonKind(lesson.name, lesson.lesson_index),
           ),
-          reviewQueues,
-        )
+          sharedQueues: reviewQueues,
+          resolveKnown: isKnownForm,
+          grammarWords: grammarWordsFor(unit),
+        })
       : undefined;
 
-    return adaptUnit(unit, index + 1, planned);
+    const byId = new Map<string, { romanized: string; english: string }>();
+    for (const item of unit.vocabulary) {
+      byId.set(item.id, { romanized: item.spanish, english: item.english });
+    }
+    for (const item of unit.phrase_patterns) {
+      byId.set(item.id, { romanized: item.spanish, english: item.english });
+    }
+
+    // What the learner knows *when the grammar lesson runs* — not what the unit
+    // will eventually have taught. A card shown in lesson 3 may only use the
+    // items lessons 1-3 introduced, which is a stricter and more honest bar.
+    const grammarIndex = planned?.findIndex((lesson) => lesson.kind === "grammar") ?? -1;
+    const introducedByGrammar = (planned ?? [])
+      .slice(0, grammarIndex >= 0 ? grammarIndex + 1 : 0)
+      .flatMap((lesson) => lesson.newPhraseIds)
+      .map((id) => byId.get(id))
+      .filter((item): item is { romanized: string; english: string } => Boolean(item));
+
+    const knownAtGrammar = new Set(knownWords);
+    for (const item of introducedByGrammar) {
+      for (const word of contentWordsOf(item.romanized)) {
+        knownAtGrammar.add(word);
+      }
+    }
+
+    const grammar = cumulativeEnabled
+      ? grammarFocusFor(unit, index + 1, {
+          knownWords: knownAtGrammar,
+          seenPhrases: [...seenPhrases, ...introducedByGrammar],
+          unitPhrases: introducedByGrammar,
+        })
+      : undefined;
+
+    const unitPhrases = [...byId.values()];
+    for (const item of unitPhrases) {
+      for (const word of contentWordsOf(item.romanized)) {
+        knownWords.add(word);
+      }
+    }
+    seenPhrases.push(...unitPhrases);
+
+    return adaptUnit(unit, index + 1, planned, grammar);
   });
+}
+
+/**
+ * The words the unit's grammar lesson is built around, so the planner can make
+ * sure the learner meets them before that lesson explains them.
+ */
+function grammarWordsFor(unit: PackUnitWithExtras): string[] {
+  const rule = unit.grammar_focus ? getGrammarRule(unit.grammar_focus) : undefined;
+  return (rule?.markerGroups ?? []).flat();
+}
+
+/** Every word a taught item gives the learner; see `taughtWordSet`. */
+function contentWordsOf(text: string): string[] {
+  return [...taughtWordSet(text)];
 }
 
 /** The full research-grounded Spanish course as app units (sorted by section, unit). */

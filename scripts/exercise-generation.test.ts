@@ -5,7 +5,12 @@
  */
 import assert from "node:assert/strict";
 import test from "node:test";
-import { getLesson, getUnitByCoords, loadCurriculum } from "../src/curriculum/loader";
+import {
+  getLesson,
+  getUnitByCoords,
+  getUnitByExternalId,
+  loadCurriculum,
+} from "../src/curriculum/loader";
 import {
   generateDialogueResponse,
   generateFillBlank,
@@ -17,8 +22,10 @@ import { buildSeedBundle } from "../src/curriculum/seed";
 import { validateCurriculum } from "../src/curriculum/validate";
 
 const course = loadCurriculum();
-const unit = getUnitByCoords(course, 1, 1);
-assert.ok(unit, "Section 1 Unit 1 must exist");
+// By id, not by path position: Section 1 was resequenced so greetings opens the
+// course, and these tests are about how generators handle a unit's shape.
+const unit = getUnitByExternalId(course, "es-en-s01-u001");
+assert.ok(unit, "the café unit must exist");
 // Lesson 1 focuses on Unit 1's vocabulary and phrases; use it for every generator.
 const lesson = getLesson(unit, 1);
 assert.ok(lesson, "Unit 1 lesson 1 must exist");
@@ -28,8 +35,10 @@ test("the real curriculum validates against its schema", () => {
   assert.equal(result.valid, true, result.errors.slice(0, 5).join("; "));
 });
 
-test("Section 1 Unit 1 is the café unit we expect", () => {
+test("the café unit is well-formed enough to generate from", () => {
   assert.equal(unit.id, "es-en-s01-u001");
+  // Path position 1 of section 1 still resolves — to whichever unit opens it.
+  assert.ok(getUnitByCoords(course, 1, 1), "section 1 must have a first unit");
   assert.ok(unit.vocabulary.length >= 5);
   assert.ok(unit.phrase_patterns.length >= 2);
 });

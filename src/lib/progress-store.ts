@@ -62,6 +62,7 @@ const initialProgress: ProgressState = {
   mistakes: [],
   skippedListening: [],
   phraseMemory: {},
+  conceptMemory: {},
   practiceDays: [],
   answeredTotal: 0,
   answeredCorrect: 0,
@@ -91,6 +92,7 @@ function cloneInitialProgress(): ProgressState {
     mistakes: [],
     skippedListening: [],
     phraseMemory: {},
+    conceptMemory: {},
     practiceDays: [],
   };
 }
@@ -112,6 +114,7 @@ function normalizeProgress(value: unknown): ProgressState {
     mistakes: maybeProgress?.mistakes ?? [],
     skippedListening: maybeProgress?.skippedListening ?? [],
     phraseMemory: maybeProgress?.phraseMemory ?? {},
+    conceptMemory: maybeProgress?.conceptMemory ?? {},
     practiceDays: maybeProgress?.practiceDays ?? [],
     answeredTotal: maybeProgress?.answeredTotal ?? 0,
     answeredCorrect: maybeProgress?.answeredCorrect ?? 0,
@@ -518,6 +521,40 @@ export function useProgress() {
     }));
   }, [activeCurriculumId]);
 
+  /**
+   * Count an answer against the grammar concepts the question exercised.
+   *
+   * Separate from `recordPhraseResult` because a concept is not a phrase: the
+   * same "adjective agreement" skill shows up across dozens of sentences, and
+   * what matters is the running accuracy, not a review interval.
+   */
+  const recordConceptResult = useCallback(function recordConceptResult(
+    conceptIds: readonly string[],
+    isCorrect: boolean,
+    curriculumId = activeCurriculumId,
+  ) {
+    if (conceptIds.length === 0) {
+      return;
+    }
+
+    updateCurriculumProgress(curriculumId, (current) => {
+      const conceptMemory = { ...current.conceptMemory };
+      const now = new Date().toISOString();
+
+      for (const conceptId of conceptIds) {
+        const previous = conceptMemory[conceptId];
+
+        conceptMemory[conceptId] = {
+          correct: (previous?.correct ?? 0) + (isCorrect ? 1 : 0),
+          total: (previous?.total ?? 0) + 1,
+          lastSeenAt: now,
+        };
+      }
+
+      return { ...current, conceptMemory };
+    });
+  }, [activeCurriculumId]);
+
   // Finishing a practice/review session earns XP and counts toward the daily
   // streak, but does not mark any lesson complete.
   const completeReview = useCallback(function completeReview(
@@ -634,6 +671,7 @@ export function useProgress() {
     memorySummary,
     progress,
     recordAnswer,
+    recordConceptResult,
     recordEncounteredPhrase,
     recordLessonPosition,
     recordMistake,

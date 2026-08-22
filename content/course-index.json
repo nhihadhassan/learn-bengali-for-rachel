@@ -373,63 +373,8 @@
       "lessonCount": 786,
       "units": [
         {
-          "id": "es-en-s01-u001",
-          "number": 1,
-          "title": "Order at a café",
-          "description": "Order at a café",
-          "section": {
-            "number": 1,
-            "title": "¡Hola!",
-            "description": "Start with essential phrases and simple grammar concepts"
-          },
-          "lessons": [
-            {
-              "id": "es-en-s01-u001-l1",
-              "title": "Discover",
-              "summary": "Recognize new words and connect form, sound, and meaning.",
-              "difficulty": "Intro",
-              "phraseCount": 4
-            },
-            {
-              "id": "es-en-s01-u001-l2",
-              "title": "Build",
-              "summary": "Assemble useful phrases with strong support.",
-              "difficulty": "Intro",
-              "phraseCount": 8
-            },
-            {
-              "id": "es-en-s01-u001-l3",
-              "title": "Grammar focus",
-              "summary": "Notice and apply the unit's main grammatical patterns.",
-              "difficulty": "Intro",
-              "phraseCount": 11
-            },
-            {
-              "id": "es-en-s01-u001-l4",
-              "title": "Listen and speak",
-              "summary": "Understand and produce the unit language from audio.",
-              "difficulty": "Intro",
-              "phraseCount": 10
-            },
-            {
-              "id": "es-en-s01-u001-l5",
-              "title": "Use in context",
-              "summary": "Apply the language in a short dialogue or story.",
-              "difficulty": "Intro",
-              "phraseCount": 13
-            },
-            {
-              "id": "es-en-s01-u001-l6",
-              "title": "Unit review",
-              "summary": "Demonstrate recall across vocabulary, grammar, listening, and production.",
-              "difficulty": "Intro",
-              "phraseCount": 15
-            }
-          ]
-        },
-        {
           "id": "es-en-s01-u002",
-          "number": 2,
+          "number": 1,
           "title": "Greet people and say goodbye",
           "description": "Greet people and say goodbye",
           "section": {
@@ -443,42 +388,97 @@
               "title": "Discover",
               "summary": "Recognize new words and connect form, sound, and meaning.",
               "difficulty": "Intro",
-              "phraseCount": 7
+              "phraseCount": 4
             },
             {
               "id": "es-en-s01-u002-l2",
               "title": "Build",
               "summary": "Assemble useful phrases with strong support.",
               "difficulty": "Intro",
-              "phraseCount": 11
+              "phraseCount": 8
             },
             {
               "id": "es-en-s01-u002-l3",
               "title": "Grammar focus",
               "summary": "Notice and apply the unit's main grammatical patterns.",
               "difficulty": "Intro",
-              "phraseCount": 14
+              "phraseCount": 11
             },
             {
               "id": "es-en-s01-u002-l4",
-              "title": "Listen and speak",
-              "summary": "Understand and produce the unit language from audio.",
+              "title": "Listen and understand",
+              "summary": "Understand the unit language by ear.",
               "difficulty": "Intro",
-              "phraseCount": 14
+              "phraseCount": 12
             },
             {
               "id": "es-en-s01-u002-l5",
               "title": "Use in context",
               "summary": "Apply the language in a short dialogue or story.",
               "difficulty": "Intro",
-              "phraseCount": 17
+              "phraseCount": 13
             },
             {
               "id": "es-en-s01-u002-l6",
               "title": "Unit review",
               "summary": "Demonstrate recall across vocabulary, grammar, listening, and production.",
               "difficulty": "Intro",
-              "phraseCount": 16
+              "phraseCount": 15
+            }
+          ]
+        },
+        {
+          "id": "es-en-s01-u001",
+          "number": 2,
+          "title": "Order at a café",
+          "description": "Order at a café",
+          "section": {
+            "number": 1,
+            "title": "¡Hola!",
+            "description": "Start with essential phrases and simple grammar concepts"
+          },
+          "lessons": [
+            {
+              "id": "es-en-s01-u001-l1",
+              "title": "Discover",
+              "summary": "Recognize new words and connect form, sound, and meaning.",
+              "difficulty": "Intro",
+              "phraseCount": 7
+            },
+            {
+              "id": "es-en-s01-u001-l2",
+              "title": "Build",
+              "summary": "Assemble useful phrases with strong support.",
+              "difficulty": "Intro",
+              "phraseCount": 11
+            },
+            {
+              "id": "es-en-s01-u001-l3",
+              "title": "Grammar focus",
+              "summary": "Notice and apply the unit's main grammatical patterns.",
+              "difficulty": "Intro",
+              "phraseCount": 14
+            },
+            {
+              "id": "es-en-s01-u001-l4",
+              "title": "Listen and understand",
+              "summary": "Understand the unit language by ear.",
+              "difficulty": "Intro",
+              "phraseCount": 14
+            },
+            {
+              "id": "es-en-s01-u001-l5",
+              "title": "Use in context",
+              "summary": "Apply the language in a short dialogue or story.",
+              "difficulty": "Intro",
+              "phraseCount": 17
+            },
+            {
+              "id": "es-en-s01-u001-l6",
+              "title": "Unit review",
+              "summary": "Demonstrate recall across vocabulary, grammar, listening, and production.",
+              "difficulty": "Intro",
+              "phraseCount": 18
             }
           ]
         },
@@ -516,8 +516,8 @@
             },
             {
               "id": "es-en-s01-u003-l4",
-              "title": "Listen and speak",
-              "summary": "Understand and produce the unit language from audio.",
+              "title": "Listen and understand",
+              "summary": "Understand the unit language by ear.",
               "difficulty": "Intro",
               "phraseCount": 15
             },
@@ -571,8 +571,8 @@
             },
             {
               "id": "es-en-s01-u004-l4",
-              "title": "Listen and speak",
-              "summary": "Understand and produce the unit language from audio.",
+              "title": "Listen and understand",
+              "summary": "Understand the unit language by ear.",
               "difficulty": "Intro",
               "phraseCount": 14
             },
@@ -593,63 +593,8 @@
           ]
         },
         {
-          "id": "es-en-s01-u005",
-          "number": 5,
-          "title": "Describe people's personalities",
-          "description": "Describe people's personalities",
-          "section": {
-            "number": 1,
-            "title": "¡Hola!",
-            "description": "Start with essential phrases and simple grammar concepts"
-          },
-          "lessons": [
-            {
-              "id": "es-en-s01-u005-l1",
-              "title": "Discover",
-              "summary": "Recognize new words and connect form, sound, and meaning.",
-              "difficulty": "Intro",
-              "phraseCount": 7
-            },
-            {
-              "id": "es-en-s01-u005-l2",
-              "title": "Build",
-              "summary": "Assemble useful phrases with strong support.",
-              "difficulty": "Intro",
-              "phraseCount": 11
-            },
-            {
-              "id": "es-en-s01-u005-l3",
-              "title": "Grammar focus",
-              "summary": "Notice and apply the unit's main grammatical patterns.",
-              "difficulty": "Intro",
-              "phraseCount": 14
-            },
-            {
-              "id": "es-en-s01-u005-l4",
-              "title": "Listen and speak",
-              "summary": "Understand and produce the unit language from audio.",
-              "difficulty": "Intro",
-              "phraseCount": 15
-            },
-            {
-              "id": "es-en-s01-u005-l5",
-              "title": "Use in context",
-              "summary": "Apply the language in a short dialogue or story.",
-              "difficulty": "Intro",
-              "phraseCount": 17
-            },
-            {
-              "id": "es-en-s01-u005-l6",
-              "title": "Unit review",
-              "summary": "Demonstrate recall across vocabulary, grammar, listening, and production.",
-              "difficulty": "Intro",
-              "phraseCount": 23
-            }
-          ]
-        },
-        {
           "id": "es-en-s01-u006",
-          "number": 6,
+          "number": 5,
           "title": "Say where your things are",
           "description": "Say where your things are",
           "section": {
@@ -681,10 +626,10 @@
             },
             {
               "id": "es-en-s01-u006-l4",
-              "title": "Listen and speak",
-              "summary": "Understand and produce the unit language from audio.",
+              "title": "Listen and understand",
+              "summary": "Understand the unit language by ear.",
               "difficulty": "Intro",
-              "phraseCount": 14
+              "phraseCount": 15
             },
             {
               "id": "es-en-s01-u006-l5",
@@ -704,7 +649,7 @@
         },
         {
           "id": "es-en-s01-u007",
-          "number": 7,
+          "number": 6,
           "title": "Talk about places in the city",
           "description": "Talk about places in the city",
           "section": {
@@ -736,8 +681,8 @@
             },
             {
               "id": "es-en-s01-u007-l4",
-              "title": "Listen and speak",
-              "summary": "Understand and produce the unit language from audio.",
+              "title": "Listen and understand",
+              "summary": "Understand the unit language by ear.",
               "difficulty": "Intro",
               "phraseCount": 13
             },
@@ -750,6 +695,61 @@
             },
             {
               "id": "es-en-s01-u007-l6",
+              "title": "Unit review",
+              "summary": "Demonstrate recall across vocabulary, grammar, listening, and production.",
+              "difficulty": "Intro",
+              "phraseCount": 23
+            }
+          ]
+        },
+        {
+          "id": "es-en-s01-u009",
+          "number": 7,
+          "title": "Talk about the weather",
+          "description": "Talk about the weather",
+          "section": {
+            "number": 1,
+            "title": "¡Hola!",
+            "description": "Start with essential phrases and simple grammar concepts"
+          },
+          "lessons": [
+            {
+              "id": "es-en-s01-u009-l1",
+              "title": "Discover",
+              "summary": "Recognize new words and connect form, sound, and meaning.",
+              "difficulty": "Intro",
+              "phraseCount": 7
+            },
+            {
+              "id": "es-en-s01-u009-l2",
+              "title": "Build",
+              "summary": "Assemble useful phrases with strong support.",
+              "difficulty": "Intro",
+              "phraseCount": 11
+            },
+            {
+              "id": "es-en-s01-u009-l3",
+              "title": "Grammar focus",
+              "summary": "Notice and apply the unit's main grammatical patterns.",
+              "difficulty": "Intro",
+              "phraseCount": 14
+            },
+            {
+              "id": "es-en-s01-u009-l4",
+              "title": "Listen and understand",
+              "summary": "Understand the unit language by ear.",
+              "difficulty": "Intro",
+              "phraseCount": 15
+            },
+            {
+              "id": "es-en-s01-u009-l5",
+              "title": "Use in context",
+              "summary": "Apply the language in a short dialogue or story.",
+              "difficulty": "Intro",
+              "phraseCount": 18
+            },
+            {
+              "id": "es-en-s01-u009-l6",
               "title": "Unit review",
               "summary": "Demonstrate recall across vocabulary, grammar, listening, and production.",
               "difficulty": "Intro",
@@ -791,10 +791,10 @@
             },
             {
               "id": "es-en-s01-u008-l4",
-              "title": "Listen and speak",
-              "summary": "Understand and produce the unit language from audio.",
+              "title": "Listen and understand",
+              "summary": "Understand the unit language by ear.",
               "difficulty": "Intro",
-              "phraseCount": 14
+              "phraseCount": 15
             },
             {
               "id": "es-en-s01-u008-l5",
@@ -813,63 +813,8 @@
           ]
         },
         {
-          "id": "es-en-s01-u009",
-          "number": 9,
-          "title": "Talk about the weather",
-          "description": "Talk about the weather",
-          "section": {
-            "number": 1,
-            "title": "¡Hola!",
-            "description": "Start with essential phrases and simple grammar concepts"
-          },
-          "lessons": [
-            {
-              "id": "es-en-s01-u009-l1",
-              "title": "Discover",
-              "summary": "Recognize new words and connect form, sound, and meaning.",
-              "difficulty": "Intro",
-              "phraseCount": 7
-            },
-            {
-              "id": "es-en-s01-u009-l2",
-              "title": "Build",
-              "summary": "Assemble useful phrases with strong support.",
-              "difficulty": "Intro",
-              "phraseCount": 11
-            },
-            {
-              "id": "es-en-s01-u009-l3",
-              "title": "Grammar focus",
-              "summary": "Notice and apply the unit's main grammatical patterns.",
-              "difficulty": "Intro",
-              "phraseCount": 14
-            },
-            {
-              "id": "es-en-s01-u009-l4",
-              "title": "Listen and speak",
-              "summary": "Understand and produce the unit language from audio.",
-              "difficulty": "Intro",
-              "phraseCount": 15
-            },
-            {
-              "id": "es-en-s01-u009-l5",
-              "title": "Use in context",
-              "summary": "Apply the language in a short dialogue or story.",
-              "difficulty": "Intro",
-              "phraseCount": 18
-            },
-            {
-              "id": "es-en-s01-u009-l6",
-              "title": "Unit review",
-              "summary": "Demonstrate recall across vocabulary, grammar, listening, and production.",
-              "difficulty": "Intro",
-              "phraseCount": 23
-            }
-          ]
-        },
-        {
           "id": "es-en-s01-u010",
-          "number": 10,
+          "number": 9,
           "title": "Shop for fruits at the market",
           "description": "Shop for fruits at the market",
           "section": {
@@ -901,8 +846,8 @@
             },
             {
               "id": "es-en-s01-u010-l4",
-              "title": "Listen and speak",
-              "summary": "Understand and produce the unit language from audio.",
+              "title": "Listen and understand",
+              "summary": "Understand the unit language by ear.",
               "difficulty": "Intro",
               "phraseCount": 14
             },
@@ -915,6 +860,61 @@
             },
             {
               "id": "es-en-s01-u010-l6",
+              "title": "Unit review",
+              "summary": "Demonstrate recall across vocabulary, grammar, listening, and production.",
+              "difficulty": "Intro",
+              "phraseCount": 23
+            }
+          ]
+        },
+        {
+          "id": "es-en-s01-u005",
+          "number": 10,
+          "title": "Describe people's personalities",
+          "description": "Describe people's personalities",
+          "section": {
+            "number": 1,
+            "title": "¡Hola!",
+            "description": "Start with essential phrases and simple grammar concepts"
+          },
+          "lessons": [
+            {
+              "id": "es-en-s01-u005-l1",
+              "title": "Discover",
+              "summary": "Recognize new words and connect form, sound, and meaning.",
+              "difficulty": "Intro",
+              "phraseCount": 7
+            },
+            {
+              "id": "es-en-s01-u005-l2",
+              "title": "Build",
+              "summary": "Assemble useful phrases with strong support.",
+              "difficulty": "Intro",
+              "phraseCount": 11
+            },
+            {
+              "id": "es-en-s01-u005-l3",
+              "title": "Grammar focus",
+              "summary": "Notice and apply the unit's main grammatical patterns.",
+              "difficulty": "Intro",
+              "phraseCount": 14
+            },
+            {
+              "id": "es-en-s01-u005-l4",
+              "title": "Listen and understand",
+              "summary": "Understand the unit language by ear.",
+              "difficulty": "Intro",
+              "phraseCount": 15
+            },
+            {
+              "id": "es-en-s01-u005-l5",
+              "title": "Use in context",
+              "summary": "Apply the language in a short dialogue or story.",
+              "difficulty": "Intro",
+              "phraseCount": 17
+            },
+            {
+              "id": "es-en-s01-u005-l6",
               "title": "Unit review",
               "summary": "Demonstrate recall across vocabulary, grammar, listening, and production.",
               "difficulty": "Intro",
@@ -945,19 +945,19 @@
               "title": "Build",
               "summary": "Assemble useful phrases with strong support.",
               "difficulty": "Beginner",
-              "phraseCount": 10
+              "phraseCount": 11
             },
             {
               "id": "es-en-s02-u001-l3",
               "title": "Grammar focus",
               "summary": "Notice and apply the unit's main grammatical patterns.",
               "difficulty": "Beginner",
-              "phraseCount": 13
+              "phraseCount": 14
             },
             {
               "id": "es-en-s02-u001-l4",
-              "title": "Listen and speak",
-              "summary": "Understand and produce the unit language from audio.",
+              "title": "Listen and understand",
+              "summary": "Understand the unit language by ear.",
               "difficulty": "Beginner",
               "phraseCount": 13
             },
@@ -1000,19 +1000,19 @@
               "title": "Build",
               "summary": "Assemble useful phrases with strong support.",
               "difficulty": "Beginner",
-              "phraseCount": 10
+              "phraseCount": 11
             },
             {
               "id": "es-en-s02-u002-l3",
               "title": "Grammar focus",
               "summary": "Notice and apply the unit's main grammatical patterns.",
               "difficulty": "Beginner",
-              "phraseCount": 13
+              "phraseCount": 14
             },
             {
               "id": "es-en-s02-u002-l4",
-              "title": "Listen and speak",
-              "summary": "Understand and produce the unit language from audio.",
+              "title": "Listen and understand",
+              "summary": "Understand the unit language by ear.",
               "difficulty": "Beginner",
               "phraseCount": 13
             },
@@ -1055,21 +1055,21 @@
               "title": "Build",
               "summary": "Assemble useful phrases with strong support.",
               "difficulty": "Beginner",
-              "phraseCount": 10
+              "phraseCount": 11
             },
             {
               "id": "es-en-s02-u003-l3",
               "title": "Grammar focus",
               "summary": "Notice and apply the unit's main grammatical patterns.",
               "difficulty": "Beginner",
-              "phraseCount": 13
+              "phraseCount": 14
             },
             {
               "id": "es-en-s02-u003-l4",
-              "title": "Listen and speak",
-              "summary": "Understand and produce the unit language from audio.",
+              "title": "Listen and understand",
+              "summary": "Understand the unit language by ear.",
               "difficulty": "Beginner",
-              "phraseCount": 13
+              "phraseCount": 15
             },
             {
               "id": "es-en-s02-u003-l5",
@@ -1121,8 +1121,8 @@
             },
             {
               "id": "es-en-s02-u004-l4",
-              "title": "Listen and speak",
-              "summary": "Understand and produce the unit language from audio.",
+              "title": "Listen and understand",
+              "summary": "Understand the unit language by ear.",
               "difficulty": "Beginner",
               "phraseCount": 13
             },
@@ -1165,21 +1165,21 @@
               "title": "Build",
               "summary": "Assemble useful phrases with strong support.",
               "difficulty": "Beginner",
-              "phraseCount": 10
+              "phraseCount": 11
             },
             {
               "id": "es-en-s02-u005-l3",
               "title": "Grammar focus",
               "summary": "Notice and apply the unit's main grammatical patterns.",
               "difficulty": "Beginner",
-              "phraseCount": 13
+              "phraseCount": 14
             },
             {
               "id": "es-en-s02-u005-l4",
-              "title": "Listen and speak",
-              "summary": "Understand and produce the unit language from audio.",
+              "title": "Listen and understand",
+              "summary": "Understand the unit language by ear.",
               "difficulty": "Beginner",
-              "phraseCount": 13
+              "phraseCount": 15
             },
             {
               "id": "es-en-s02-u005-l5",
@@ -1220,19 +1220,19 @@
               "title": "Build",
               "summary": "Assemble useful phrases with strong support.",
               "difficulty": "Beginner",
-              "phraseCount": 10
+              "phraseCount": 11
             },
             {
               "id": "es-en-s02-u006-l3",
               "title": "Grammar focus",
               "summary": "Notice and apply the unit's main grammatical patterns.",
               "difficulty": "Beginner",
-              "phraseCount": 13
+              "phraseCount": 14
             },
             {
               "id": "es-en-s02-u006-l4",
-              "title": "Listen and speak",
-              "summary": "Understand and produce the unit language from audio.",
+              "title": "Listen and understand",
+              "summary": "Understand the unit language by ear.",
               "difficulty": "Beginner",
               "phraseCount": 13
             },
@@ -1275,19 +1275,19 @@
               "title": "Build",
               "summary": "Assemble useful phrases with strong support.",
               "difficulty": "Beginner",
-              "phraseCount": 10
+              "phraseCount": 11
             },
             {
               "id": "es-en-s02-u007-l3",
               "title": "Grammar focus",
               "summary": "Notice and apply the unit's main grammatical patterns.",
               "difficulty": "Beginner",
-              "phraseCount": 13
+              "phraseCount": 14
             },
             {
               "id": "es-en-s02-u007-l4",
-              "title": "Listen and speak",
-              "summary": "Understand and produce the unit language from audio.",
+              "title": "Listen and understand",
+              "summary": "Understand the unit language by ear.",
               "difficulty": "Beginner",
               "phraseCount": 13
             },
@@ -1330,21 +1330,21 @@
               "title": "Build",
               "summary": "Assemble useful phrases with strong support.",
               "difficulty": "Beginner",
-              "phraseCount": 10
+              "phraseCount": 11
             },
             {
               "id": "es-en-s02-u008-l3",
               "title": "Grammar focus",
               "summary": "Notice and apply the unit's main grammatical patterns.",
               "difficulty": "Beginner",
-              "phraseCount": 13
+              "phraseCount": 14
             },
             {
               "id": "es-en-s02-u008-l4",
-              "title": "Listen and speak",
-              "summary": "Understand and produce the unit language from audio.",
+              "title": "Listen and understand",
+              "summary": "Understand the unit language by ear.",
               "difficulty": "Beginner",
-              "phraseCount": 13
+              "phraseCount": 15
             },
             {
               "id": "es-en-s02-u008-l5",
@@ -1385,21 +1385,21 @@
               "title": "Build",
               "summary": "Assemble useful phrases with strong support.",
               "difficulty": "Beginner",
-              "phraseCount": 10
+              "phraseCount": 11
             },
             {
               "id": "es-en-s02-u009-l3",
               "title": "Grammar focus",
               "summary": "Notice and apply the unit's main grammatical patterns.",
               "difficulty": "Beginner",
-              "phraseCount": 13
+              "phraseCount": 14
             },
             {
               "id": "es-en-s02-u009-l4",
-              "title": "Listen and speak",
-              "summary": "Understand and produce the unit language from audio.",
+              "title": "Listen and understand",
+              "summary": "Understand the unit language by ear.",
               "difficulty": "Beginner",
-              "phraseCount": 13
+              "phraseCount": 15
             },
             {
               "id": "es-en-s02-u009-l5",
@@ -1440,19 +1440,19 @@
               "title": "Build",
               "summary": "Assemble useful phrases with strong support.",
               "difficulty": "Beginner",
-              "phraseCount": 10
+              "phraseCount": 11
             },
             {
               "id": "es-en-s02-u010-l3",
               "title": "Grammar focus",
               "summary": "Notice and apply the unit's main grammatical patterns.",
               "difficulty": "Beginner",
-              "phraseCount": 13
+              "phraseCount": 14
             },
             {
               "id": "es-en-s02-u010-l4",
-              "title": "Listen and speak",
-              "summary": "Understand and produce the unit language from audio.",
+              "title": "Listen and understand",
+              "summary": "Understand the unit language by ear.",
               "difficulty": "Beginner",
               "phraseCount": 13
             },
@@ -1495,21 +1495,21 @@
               "title": "Build",
               "summary": "Assemble useful phrases with strong support.",
               "difficulty": "Beginner",
-              "phraseCount": 10
+              "phraseCount": 11
             },
             {
               "id": "es-en-s02-u011-l3",
               "title": "Grammar focus",
               "summary": "Notice and apply the unit's main grammatical patterns.",
               "difficulty": "Beginner",
-              "phraseCount": 13
+              "phraseCount": 14
             },
             {
               "id": "es-en-s02-u011-l4",
-              "title": "Listen and speak",
-              "summary": "Understand and produce the unit language from audio.",
+              "title": "Listen and understand",
+              "summary": "Understand the unit language by ear.",
               "difficulty": "Beginner",
-              "phraseCount": 13
+              "phraseCount": 15
             },
             {
               "id": "es-en-s02-u011-l5",
@@ -1550,19 +1550,19 @@
               "title": "Build",
               "summary": "Assemble useful phrases with strong support.",
               "difficulty": "Beginner",
-              "phraseCount": 10
+              "phraseCount": 11
             },
             {
               "id": "es-en-s02-u012-l3",
               "title": "Grammar focus",
               "summary": "Notice and apply the unit's main grammatical patterns.",
               "difficulty": "Beginner",
-              "phraseCount": 13
+              "phraseCount": 14
             },
             {
               "id": "es-en-s02-u012-l4",
-              "title": "Listen and speak",
-              "summary": "Understand and produce the unit language from audio.",
+              "title": "Listen and understand",
+              "summary": "Understand the unit language by ear.",
               "difficulty": "Beginner",
               "phraseCount": 13
             },
@@ -1605,21 +1605,21 @@
               "title": "Build",
               "summary": "Assemble useful phrases with strong support.",
               "difficulty": "Beginner",
-              "phraseCount": 10
+              "phraseCount": 11
             },
             {
               "id": "es-en-s02-u013-l3",
               "title": "Grammar focus",
               "summary": "Notice and apply the unit's main grammatical patterns.",
               "difficulty": "Beginner",
-              "phraseCount": 13
+              "phraseCount": 14
             },
             {
               "id": "es-en-s02-u013-l4",
-              "title": "Listen and speak",
-              "summary": "Understand and produce the unit language from audio.",
+              "title": "Listen and understand",
+              "summary": "Understand the unit language by ear.",
               "difficulty": "Beginner",
-              "phraseCount": 13
+              "phraseCount": 15
             },
             {
               "id": "es-en-s02-u013-l5",
@@ -1660,7 +1660,7 @@
               "title": "Build",
               "summary": "Assemble useful phrases with strong support.",
               "difficulty": "Beginner",
-              "phraseCount": 10
+              "phraseCount": 11
             },
             {
               "id": "es-en-s02-u014-l3",
@@ -1671,8 +1671,8 @@
             },
             {
               "id": "es-en-s02-u014-l4",
-              "title": "Listen and speak",
-              "summary": "Understand and produce the unit language from audio.",
+              "title": "Listen and understand",
+              "summary": "Understand the unit language by ear.",
               "difficulty": "Beginner",
               "phraseCount": 13
             },
@@ -1726,8 +1726,8 @@
             },
             {
               "id": "es-en-s02-u015-l4",
-              "title": "Listen and speak",
-              "summary": "Understand and produce the unit language from audio.",
+              "title": "Listen and understand",
+              "summary": "Understand the unit language by ear.",
               "difficulty": "Beginner",
               "phraseCount": 13
             },
@@ -1781,8 +1781,8 @@
             },
             {
               "id": "es-en-s02-u016-l4",
-              "title": "Listen and speak",
-              "summary": "Understand and produce the unit language from audio.",
+              "title": "Listen and understand",
+              "summary": "Understand the unit language by ear.",
               "difficulty": "Beginner",
               "phraseCount": 13
             },
@@ -1836,8 +1836,8 @@
             },
             {
               "id": "es-en-s02-u017-l4",
-              "title": "Listen and speak",
-              "summary": "Understand and produce the unit language from audio.",
+              "title": "Listen and understand",
+              "summary": "Understand the unit language by ear.",
               "difficulty": "Beginner",
               "phraseCount": 13
             },
@@ -1880,21 +1880,21 @@
               "title": "Build",
               "summary": "Assemble useful phrases with strong support.",
               "difficulty": "Beginner",
-              "phraseCount": 10
+              "phraseCount": 11
             },
             {
               "id": "es-en-s02-u018-l3",
               "title": "Grammar focus",
               "summary": "Notice and apply the unit's main grammatical patterns.",
               "difficulty": "Beginner",
-              "phraseCount": 13
+              "phraseCount": 14
             },
             {
               "id": "es-en-s02-u018-l4",
-              "title": "Listen and speak",
-              "summary": "Understand and produce the unit language from audio.",
+              "title": "Listen and understand",
+              "summary": "Understand the unit language by ear.",
               "difficulty": "Beginner",
-              "phraseCount": 13
+              "phraseCount": 14
             },
             {
               "id": "es-en-s02-u018-l5",
@@ -1935,19 +1935,19 @@
               "title": "Build",
               "summary": "Assemble useful phrases with strong support.",
               "difficulty": "Beginner",
-              "phraseCount": 10
+              "phraseCount": 11
             },
             {
               "id": "es-en-s02-u019-l3",
               "title": "Grammar focus",
               "summary": "Notice and apply the unit's main grammatical patterns.",
               "difficulty": "Beginner",
-              "phraseCount": 13
+              "phraseCount": 14
             },
             {
               "id": "es-en-s02-u019-l4",
-              "title": "Listen and speak",
-              "summary": "Understand and produce the unit language from audio.",
+              "title": "Listen and understand",
+              "summary": "Understand the unit language by ear.",
               "difficulty": "Beginner",
               "phraseCount": 13
             },
@@ -1990,19 +1990,19 @@
               "title": "Build",
               "summary": "Assemble useful phrases with strong support.",
               "difficulty": "Beginner",
-              "phraseCount": 10
+              "phraseCount": 11
             },
             {
               "id": "es-en-s02-u020-l3",
               "title": "Grammar focus",
               "summary": "Notice and apply the unit's main grammatical patterns.",
               "difficulty": "Beginner",
-              "phraseCount": 13
+              "phraseCount": 14
             },
             {
               "id": "es-en-s02-u020-l4",
-              "title": "Listen and speak",
-              "summary": "Understand and produce the unit language from audio.",
+              "title": "Listen and understand",
+              "summary": "Understand the unit language by ear.",
               "difficulty": "Beginner",
               "phraseCount": 13
             },
@@ -2056,8 +2056,8 @@
             },
             {
               "id": "es-en-s02-u021-l4",
-              "title": "Listen and speak",
-              "summary": "Understand and produce the unit language from audio.",
+              "title": "Listen and understand",
+              "summary": "Understand the unit language by ear.",
               "difficulty": "Beginner",
               "phraseCount": 13
             },
@@ -2100,21 +2100,21 @@
               "title": "Build",
               "summary": "Assemble useful phrases with strong support.",
               "difficulty": "Beginner",
-              "phraseCount": 10
+              "phraseCount": 11
             },
             {
               "id": "es-en-s02-u022-l3",
               "title": "Grammar focus",
               "summary": "Notice and apply the unit's main grammatical patterns.",
               "difficulty": "Beginner",
-              "phraseCount": 13
+              "phraseCount": 14
             },
             {
               "id": "es-en-s02-u022-l4",
-              "title": "Listen and speak",
-              "summary": "Understand and produce the unit language from audio.",
+              "title": "Listen and understand",
+              "summary": "Understand the unit language by ear.",
               "difficulty": "Beginner",
-              "phraseCount": 13
+              "phraseCount": 14
             },
             {
               "id": "es-en-s02-u022-l5",
@@ -2155,21 +2155,21 @@
               "title": "Build",
               "summary": "Assemble useful phrases with strong support.",
               "difficulty": "Beginner",
-              "phraseCount": 10
+              "phraseCount": 11
             },
             {
               "id": "es-en-s02-u023-l3",
               "title": "Grammar focus",
               "summary": "Notice and apply the unit's main grammatical patterns.",
               "difficulty": "Beginner",
-              "phraseCount": 13
+              "phraseCount": 14
             },
             {
               "id": "es-en-s02-u023-l4",
-              "title": "Listen and speak",
-              "summary": "Understand and produce the unit language from audio.",
+              "title": "Listen and understand",
+              "summary": "Understand the unit language by ear.",
               "difficulty": "Beginner",
-              "phraseCount": 13
+              "phraseCount": 14
             },
             {
               "id": "es-en-s02-u023-l5",
@@ -2210,19 +2210,19 @@
               "title": "Build",
               "summary": "Assemble useful phrases with strong support.",
               "difficulty": "Beginner",
-              "phraseCount": 10
+              "phraseCount": 11
             },
             {
               "id": "es-en-s02-u024-l3",
               "title": "Grammar focus",
               "summary": "Notice and apply the unit's main grammatical patterns.",
               "difficulty": "Beginner",
-              "phraseCount": 13
+              "phraseCount": 14
             },
             {
               "id": "es-en-s02-u024-l4",
-              "title": "Listen and speak",
-              "summary": "Understand and produce the unit language from audio.",
+              "title": "Listen and understand",
+              "summary": "Understand the unit language by ear.",
               "difficulty": "Beginner",
               "phraseCount": 13
             },
@@ -2276,8 +2276,8 @@
             },
             {
               "id": "es-en-s02-u025-l4",
-              "title": "Listen and speak",
-              "summary": "Understand and produce the unit language from audio.",
+              "title": "Listen and understand",
+              "summary": "Understand the unit language by ear.",
               "difficulty": "Beginner",
               "phraseCount": 13
             },
@@ -2331,8 +2331,8 @@
             },
             {
               "id": "es-en-s02-u026-l4",
-              "title": "Listen and speak",
-              "summary": "Understand and produce the unit language from audio.",
+              "title": "Listen and understand",
+              "summary": "Understand the unit language by ear.",
               "difficulty": "Beginner",
               "phraseCount": 13
             },
@@ -2375,19 +2375,19 @@
               "title": "Build",
               "summary": "Assemble useful phrases with strong support.",
               "difficulty": "Beginner",
-              "phraseCount": 10
+              "phraseCount": 11
             },
             {
               "id": "es-en-s02-u027-l3",
               "title": "Grammar focus",
               "summary": "Notice and apply the unit's main grammatical patterns.",
               "difficulty": "Beginner",
-              "phraseCount": 13
+              "phraseCount": 14
             },
             {
               "id": "es-en-s02-u027-l4",
-              "title": "Listen and speak",
-              "summary": "Understand and produce the unit language from audio.",
+              "title": "Listen and understand",
+              "summary": "Understand the unit language by ear.",
               "difficulty": "Beginner",
               "phraseCount": 13
             },
@@ -2441,8 +2441,8 @@
             },
             {
               "id": "es-en-s02-u028-l4",
-              "title": "Listen and speak",
-              "summary": "Understand and produce the unit language from audio.",
+              "title": "Listen and understand",
+              "summary": "Understand the unit language by ear.",
               "difficulty": "Beginner",
               "phraseCount": 13
             },
@@ -2485,21 +2485,21 @@
               "title": "Build",
               "summary": "Assemble useful phrases with strong support.",
               "difficulty": "Beginner",
-              "phraseCount": 10
+              "phraseCount": 11
             },
             {
               "id": "es-en-s02-u029-l3",
               "title": "Grammar focus",
               "summary": "Notice and apply the unit's main grammatical patterns.",
               "difficulty": "Beginner",
-              "phraseCount": 13
+              "phraseCount": 14
             },
             {
               "id": "es-en-s02-u029-l4",
-              "title": "Listen and speak",
-              "summary": "Understand and produce the unit language from audio.",
+              "title": "Listen and understand",
+              "summary": "Understand the unit language by ear.",
               "difficulty": "Beginner",
-              "phraseCount": 13
+              "phraseCount": 14
             },
             {
               "id": "es-en-s02-u029-l5",
@@ -2551,8 +2551,8 @@
             },
             {
               "id": "es-en-s02-u030-l4",
-              "title": "Listen and speak",
-              "summary": "Understand and produce the unit language from audio.",
+              "title": "Listen and understand",
+              "summary": "Understand the unit language by ear.",
               "difficulty": "Beginner",
               "phraseCount": 13
             },
@@ -2595,19 +2595,19 @@
               "title": "Build",
               "summary": "Assemble useful phrases with strong support.",
               "difficulty": "Beginner",
-              "phraseCount": 10
+              "phraseCount": 11
             },
             {
               "id": "es-en-s02-u031-l3",
               "title": "Grammar focus",
               "summary": "Notice and apply the unit's main grammatical patterns.",
               "difficulty": "Beginner",
-              "phraseCount": 13
+              "phraseCount": 14
             },
             {
               "id": "es-en-s02-u031-l4",
-              "title": "Listen and speak",
-              "summary": "Understand and produce the unit language from audio.",
+              "title": "Listen and understand",
+              "summary": "Understand the unit language by ear.",
               "difficulty": "Beginner",
               "phraseCount": 13
             },
@@ -2661,8 +2661,8 @@
             },
             {
               "id": "es-en-s03-u001-l4",
-              "title": "Listen and speak",
-              "summary": "Understand and produce the unit language from audio.",
+              "title": "Listen and understand",
+              "summary": "Understand the unit language by ear.",
               "difficulty": "Beginner",
               "phraseCount": 13
             },
@@ -2716,8 +2716,8 @@
             },
             {
               "id": "es-en-s03-u002-l4",
-              "title": "Listen and speak",
-              "summary": "Understand and produce the unit language from audio.",
+              "title": "Listen and understand",
+              "summary": "Understand the unit language by ear.",
               "difficulty": "Beginner",
               "phraseCount": 13
             },
@@ -2771,8 +2771,8 @@
             },
             {
               "id": "es-en-s03-u003-l4",
-              "title": "Listen and speak",
-              "summary": "Understand and produce the unit language from audio.",
+              "title": "Listen and understand",
+              "summary": "Understand the unit language by ear.",
               "difficulty": "Beginner",
               "phraseCount": 13
             },
@@ -2826,8 +2826,8 @@
             },
             {
               "id": "es-en-s03-u004-l4",
-              "title": "Listen and speak",
-              "summary": "Understand and produce the unit language from audio.",
+              "title": "Listen and understand",
+              "summary": "Understand the unit language by ear.",
               "difficulty": "Beginner",
               "phraseCount": 13
             },
@@ -2881,8 +2881,8 @@
             },
             {
               "id": "es-en-s03-u005-l4",
-              "title": "Listen and speak",
-              "summary": "Understand and produce the unit language from audio.",
+              "title": "Listen and understand",
+              "summary": "Understand the unit language by ear.",
               "difficulty": "Beginner",
               "phraseCount": 13
             },
@@ -2936,8 +2936,8 @@
             },
             {
               "id": "es-en-s03-u006-l4",
-              "title": "Listen and speak",
-              "summary": "Understand and produce the unit language from audio.",
+              "title": "Listen and understand",
+              "summary": "Understand the unit language by ear.",
               "difficulty": "Beginner",
               "phraseCount": 13
             },
@@ -2991,8 +2991,8 @@
             },
             {
               "id": "es-en-s03-u007-l4",
-              "title": "Listen and speak",
-              "summary": "Understand and produce the unit language from audio.",
+              "title": "Listen and understand",
+              "summary": "Understand the unit language by ear.",
               "difficulty": "Beginner",
               "phraseCount": 13
             },
@@ -3046,8 +3046,8 @@
             },
             {
               "id": "es-en-s03-u008-l4",
-              "title": "Listen and speak",
-              "summary": "Understand and produce the unit language from audio.",
+              "title": "Listen and understand",
+              "summary": "Understand the unit language by ear.",
               "difficulty": "Beginner",
               "phraseCount": 13
             },
@@ -3101,8 +3101,8 @@
             },
             {
               "id": "es-en-s03-u009-l4",
-              "title": "Listen and speak",
-              "summary": "Understand and produce the unit language from audio.",
+              "title": "Listen and understand",
+              "summary": "Understand the unit language by ear.",
               "difficulty": "Beginner",
               "phraseCount": 13
             },
@@ -3156,8 +3156,8 @@
             },
             {
               "id": "es-en-s03-u010-l4",
-              "title": "Listen and speak",
-              "summary": "Understand and produce the unit language from audio.",
+              "title": "Listen and understand",
+              "summary": "Understand the unit language by ear.",
               "difficulty": "Beginner",
               "phraseCount": 13
             },
@@ -3211,8 +3211,8 @@
             },
             {
               "id": "es-en-s03-u011-l4",
-              "title": "Listen and speak",
-              "summary": "Understand and produce the unit language from audio.",
+              "title": "Listen and understand",
+              "summary": "Understand the unit language by ear.",
               "difficulty": "Beginner",
               "phraseCount": 13
             },
@@ -3266,8 +3266,8 @@
             },
             {
               "id": "es-en-s03-u012-l4",
-              "title": "Listen and speak",
-              "summary": "Understand and produce the unit language from audio.",
+              "title": "Listen and understand",
+              "summary": "Understand the unit language by ear.",
               "difficulty": "Beginner",
               "phraseCount": 13
             },
@@ -3321,8 +3321,8 @@
             },
             {
               "id": "es-en-s03-u013-l4",
-              "title": "Listen and speak",
-              "summary": "Understand and produce the unit language from audio.",
+              "title": "Listen and understand",
+              "summary": "Understand the unit language by ear.",
               "difficulty": "Beginner",
               "phraseCount": 13
             },
@@ -3376,8 +3376,8 @@
             },
             {
               "id": "es-en-s03-u014-l4",
-              "title": "Listen and speak",
-              "summary": "Understand and produce the unit language from audio.",
+              "title": "Listen and understand",
+              "summary": "Understand the unit language by ear.",
               "difficulty": "Beginner",
               "phraseCount": 13
             },
@@ -3431,8 +3431,8 @@
             },
             {
               "id": "es-en-s03-u015-l4",
-              "title": "Listen and speak",
-              "summary": "Understand and produce the unit language from audio.",
+              "title": "Listen and understand",
+              "summary": "Understand the unit language by ear.",
               "difficulty": "Beginner",
               "phraseCount": 13
             },
@@ -3486,8 +3486,8 @@
             },
             {
               "id": "es-en-s03-u016-l4",
-              "title": "Listen and speak",
-              "summary": "Understand and produce the unit language from audio.",
+              "title": "Listen and understand",
+              "summary": "Understand the unit language by ear.",
               "difficulty": "Beginner",
               "phraseCount": 13
             },
@@ -3541,8 +3541,8 @@
             },
             {
               "id": "es-en-s03-u017-l4",
-              "title": "Listen and speak",
-              "summary": "Understand and produce the unit language from audio.",
+              "title": "Listen and understand",
+              "summary": "Understand the unit language by ear.",
               "difficulty": "Beginner",
               "phraseCount": 13
             },
@@ -3596,8 +3596,8 @@
             },
             {
               "id": "es-en-s03-u018-l4",
-              "title": "Listen and speak",
-              "summary": "Understand and produce the unit language from audio.",
+              "title": "Listen and understand",
+              "summary": "Understand the unit language by ear.",
               "difficulty": "Beginner",
               "phraseCount": 13
             },
@@ -3651,8 +3651,8 @@
             },
             {
               "id": "es-en-s03-u019-l4",
-              "title": "Listen and speak",
-              "summary": "Understand and produce the unit language from audio.",
+              "title": "Listen and understand",
+              "summary": "Understand the unit language by ear.",
               "difficulty": "Beginner",
               "phraseCount": 13
             },
@@ -3706,8 +3706,8 @@
             },
             {
               "id": "es-en-s03-u020-l4",
-              "title": "Listen and speak",
-              "summary": "Understand and produce the unit language from audio.",
+              "title": "Listen and understand",
+              "summary": "Understand the unit language by ear.",
               "difficulty": "Beginner",
               "phraseCount": 13
             },
@@ -3761,8 +3761,8 @@
             },
             {
               "id": "es-en-s03-u021-l4",
-              "title": "Listen and speak",
-              "summary": "Understand and produce the unit language from audio.",
+              "title": "Listen and understand",
+              "summary": "Understand the unit language by ear.",
               "difficulty": "Beginner",
               "phraseCount": 13
             },
@@ -3816,8 +3816,8 @@
             },
             {
               "id": "es-en-s03-u022-l4",
-              "title": "Listen and speak",
-              "summary": "Understand and produce the unit language from audio.",
+              "title": "Listen and understand",
+              "summary": "Understand the unit language by ear.",
               "difficulty": "Beginner",
               "phraseCount": 13
             },
@@ -3871,8 +3871,8 @@
             },
             {
               "id": "es-en-s03-u023-l4",
-              "title": "Listen and speak",
-              "summary": "Understand and produce the unit language from audio.",
+              "title": "Listen and understand",
+              "summary": "Understand the unit language by ear.",
               "difficulty": "Beginner",
               "phraseCount": 13
             },
@@ -3926,8 +3926,8 @@
             },
             {
               "id": "es-en-s03-u024-l4",
-              "title": "Listen and speak",
-              "summary": "Understand and produce the unit language from audio.",
+              "title": "Listen and understand",
+              "summary": "Understand the unit language by ear.",
               "difficulty": "Beginner",
               "phraseCount": 13
             },
@@ -3981,8 +3981,8 @@
             },
             {
               "id": "es-en-s03-u025-l4",
-              "title": "Listen and speak",
-              "summary": "Understand and produce the unit language from audio.",
+              "title": "Listen and understand",
+              "summary": "Understand the unit language by ear.",
               "difficulty": "Beginner",
               "phraseCount": 13
             },
@@ -4036,8 +4036,8 @@
             },
             {
               "id": "es-en-s03-u026-l4",
-              "title": "Listen and speak",
-              "summary": "Understand and produce the unit language from audio.",
+              "title": "Listen and understand",
+              "summary": "Understand the unit language by ear.",
               "difficulty": "Beginner",
               "phraseCount": 13
             },
@@ -4091,8 +4091,8 @@
             },
             {
               "id": "es-en-s03-u027-l4",
-              "title": "Listen and speak",
-              "summary": "Understand and produce the unit language from audio.",
+              "title": "Listen and understand",
+              "summary": "Understand the unit language by ear.",
               "difficulty": "Beginner",
               "phraseCount": 13
             },
@@ -4146,8 +4146,8 @@
             },
             {
               "id": "es-en-s03-u028-l4",
-              "title": "Listen and speak",
-              "summary": "Understand and produce the unit language from audio.",
+              "title": "Listen and understand",
+              "summary": "Understand the unit language by ear.",
               "difficulty": "Beginner",
               "phraseCount": 13
             },
@@ -4201,8 +4201,8 @@
             },
             {
               "id": "es-en-s03-u029-l4",
-              "title": "Listen and speak",
-              "summary": "Understand and produce the unit language from audio.",
+              "title": "Listen and understand",
+              "summary": "Understand the unit language by ear.",
               "difficulty": "Beginner",
               "phraseCount": 13
             },
@@ -4256,8 +4256,8 @@
             },
             {
               "id": "es-en-s03-u030-l4",
-              "title": "Listen and speak",
-              "summary": "Understand and produce the unit language from audio.",
+              "title": "Listen and understand",
+              "summary": "Understand the unit language by ear.",
               "difficulty": "Beginner",
               "phraseCount": 13
             },
@@ -4311,8 +4311,8 @@
             },
             {
               "id": "es-en-s04-u001-l4",
-              "title": "Listen and speak",
-              "summary": "Understand and produce the unit language from audio.",
+              "title": "Listen and understand",
+              "summary": "Understand the unit language by ear.",
               "difficulty": "Elementary",
               "phraseCount": 13
             },
@@ -4366,8 +4366,8 @@
             },
             {
               "id": "es-en-s04-u002-l4",
-              "title": "Listen and speak",
-              "summary": "Understand and produce the unit language from audio.",
+              "title": "Listen and understand",
+              "summary": "Understand the unit language by ear.",
               "difficulty": "Elementary",
               "phraseCount": 13
             },
@@ -4421,8 +4421,8 @@
             },
             {
               "id": "es-en-s04-u003-l4",
-              "title": "Listen and speak",
-              "summary": "Understand and produce the unit language from audio.",
+              "title": "Listen and understand",
+              "summary": "Understand the unit language by ear.",
               "difficulty": "Elementary",
               "phraseCount": 13
             },
@@ -4476,8 +4476,8 @@
             },
             {
               "id": "es-en-s04-u004-l4",
-              "title": "Listen and speak",
-              "summary": "Understand and produce the unit language from audio.",
+              "title": "Listen and understand",
+              "summary": "Understand the unit language by ear.",
               "difficulty": "Elementary",
               "phraseCount": 13
             },
@@ -4531,8 +4531,8 @@
             },
             {
               "id": "es-en-s04-u005-l4",
-              "title": "Listen and speak",
-              "summary": "Understand and produce the unit language from audio.",
+              "title": "Listen and understand",
+              "summary": "Understand the unit language by ear.",
               "difficulty": "Elementary",
               "phraseCount": 13
             },
@@ -4586,8 +4586,8 @@
             },
             {
               "id": "es-en-s04-u006-l4",
-              "title": "Listen and speak",
-              "summary": "Understand and produce the unit language from audio.",
+              "title": "Listen and understand",
+              "summary": "Understand the unit language by ear.",
               "difficulty": "Elementary",
               "phraseCount": 13
             },
@@ -4641,8 +4641,8 @@
             },
             {
               "id": "es-en-s04-u007-l4",
-              "title": "Listen and speak",
-              "summary": "Understand and produce the unit language from audio.",
+              "title": "Listen and understand",
+              "summary": "Understand the unit language by ear.",
               "difficulty": "Elementary",
               "phraseCount": 13
             },
@@ -4696,8 +4696,8 @@
             },
             {
               "id": "es-en-s04-u008-l4",
-              "title": "Listen and speak",
-              "summary": "Understand and produce the unit language from audio.",
+              "title": "Listen and understand",
+              "summary": "Understand the unit language by ear.",
               "difficulty": "Elementary",
               "phraseCount": 13
             },
@@ -4751,8 +4751,8 @@
             },
             {
               "id": "es-en-s04-u009-l4",
-              "title": "Listen and speak",
-              "summary": "Understand and produce the unit language from audio.",
+              "title": "Listen and understand",
+              "summary": "Understand the unit language by ear.",
               "difficulty": "Elementary",
               "phraseCount": 13
             },
@@ -4806,8 +4806,8 @@
             },
             {
               "id": "es-en-s04-u010-l4",
-              "title": "Listen and speak",
-              "summary": "Understand and produce the unit language from audio.",
+              "title": "Listen and understand",
+              "summary": "Understand the unit language by ear.",
               "difficulty": "Elementary",
               "phraseCount": 13
             },
@@ -4861,8 +4861,8 @@
             },
             {
               "id": "es-en-s04-u011-l4",
-              "title": "Listen and speak",
-              "summary": "Understand and produce the unit language from audio.",
+              "title": "Listen and understand",
+              "summary": "Understand the unit language by ear.",
               "difficulty": "Elementary",
               "phraseCount": 13
             },
@@ -4916,8 +4916,8 @@
             },
             {
               "id": "es-en-s04-u012-l4",
-              "title": "Listen and speak",
-              "summary": "Understand and produce the unit language from audio.",
+              "title": "Listen and understand",
+              "summary": "Understand the unit language by ear.",
               "difficulty": "Elementary",
               "phraseCount": 13
             },
@@ -4971,8 +4971,8 @@
             },
             {
               "id": "es-en-s04-u013-l4",
-              "title": "Listen and speak",
-              "summary": "Understand and produce the unit language from audio.",
+              "title": "Listen and understand",
+              "summary": "Understand the unit language by ear.",
               "difficulty": "Elementary",
               "phraseCount": 13
             },
@@ -5026,8 +5026,8 @@
             },
             {
               "id": "es-en-s04-u014-l4",
-              "title": "Listen and speak",
-              "summary": "Understand and produce the unit language from audio.",
+              "title": "Listen and understand",
+              "summary": "Understand the unit language by ear.",
               "difficulty": "Elementary",
               "phraseCount": 13
             },
@@ -5081,8 +5081,8 @@
             },
             {
               "id": "es-en-s04-u015-l4",
-              "title": "Listen and speak",
-              "summary": "Understand and produce the unit language from audio.",
+              "title": "Listen and understand",
+              "summary": "Understand the unit language by ear.",
               "difficulty": "Elementary",
               "phraseCount": 13
             },
@@ -5136,8 +5136,8 @@
             },
             {
               "id": "es-en-s04-u016-l4",
-              "title": "Listen and speak",
-              "summary": "Understand and produce the unit language from audio.",
+              "title": "Listen and understand",
+              "summary": "Understand the unit language by ear.",
               "difficulty": "Elementary",
               "phraseCount": 13
             },
@@ -5191,8 +5191,8 @@
             },
             {
               "id": "es-en-s04-u017-l4",
-              "title": "Listen and speak",
-              "summary": "Understand and produce the unit language from audio.",
+              "title": "Listen and understand",
+              "summary": "Understand the unit language by ear.",
               "difficulty": "Elementary",
               "phraseCount": 13
             },
@@ -5246,8 +5246,8 @@
             },
             {
               "id": "es-en-s04-u018-l4",
-              "title": "Listen and speak",
-              "summary": "Understand and produce the unit language from audio.",
+              "title": "Listen and understand",
+              "summary": "Understand the unit language by ear.",
               "difficulty": "Elementary",
               "phraseCount": 13
             },
@@ -5301,8 +5301,8 @@
             },
             {
               "id": "es-en-s04-u019-l4",
-              "title": "Listen and speak",
-              "summary": "Understand and produce the unit language from audio.",
+              "title": "Listen and understand",
+              "summary": "Understand the unit language by ear.",
               "difficulty": "Elementary",
               "phraseCount": 13
             },
@@ -5356,8 +5356,8 @@
             },
             {
               "id": "es-en-s04-u020-l4",
-              "title": "Listen and speak",
-              "summary": "Understand and produce the unit language from audio.",
+              "title": "Listen and understand",
+              "summary": "Understand the unit language by ear.",
               "difficulty": "Elementary",
               "phraseCount": 13
             },
@@ -5411,8 +5411,8 @@
             },
             {
               "id": "es-en-s04-u021-l4",
-              "title": "Listen and speak",
-              "summary": "Understand and produce the unit language from audio.",
+              "title": "Listen and understand",
+              "summary": "Understand the unit language by ear.",
               "difficulty": "Elementary",
               "phraseCount": 13
             },
@@ -5466,8 +5466,8 @@
             },
             {
               "id": "es-en-s04-u022-l4",
-              "title": "Listen and speak",
-              "summary": "Understand and produce the unit language from audio.",
+              "title": "Listen and understand",
+              "summary": "Understand the unit language by ear.",
               "difficulty": "Elementary",
               "phraseCount": 13
             },
@@ -5521,8 +5521,8 @@
             },
             {
               "id": "es-en-s04-u023-l4",
-              "title": "Listen and speak",
-              "summary": "Understand and produce the unit language from audio.",
+              "title": "Listen and understand",
+              "summary": "Understand the unit language by ear.",
               "difficulty": "Elementary",
               "phraseCount": 13
             },
@@ -5576,8 +5576,8 @@
             },
             {
               "id": "es-en-s04-u024-l4",
-              "title": "Listen and speak",
-              "summary": "Understand and produce the unit language from audio.",
+              "title": "Listen and understand",
+              "summary": "Understand the unit language by ear.",
               "difficulty": "Elementary",
               "phraseCount": 13
             },
@@ -5631,8 +5631,8 @@
             },
             {
               "id": "es-en-s04-u025-l4",
-              "title": "Listen and speak",
-              "summary": "Understand and produce the unit language from audio.",
+              "title": "Listen and understand",
+              "summary": "Understand the unit language by ear.",
               "difficulty": "Elementary",
               "phraseCount": 13
             },
@@ -5686,8 +5686,8 @@
             },
             {
               "id": "es-en-s04-u026-l4",
-              "title": "Listen and speak",
-              "summary": "Understand and produce the unit language from audio.",
+              "title": "Listen and understand",
+              "summary": "Understand the unit language by ear.",
               "difficulty": "Elementary",
               "phraseCount": 13
             },
@@ -5741,8 +5741,8 @@
             },
             {
               "id": "es-en-s04-u027-l4",
-              "title": "Listen and speak",
-              "summary": "Understand and produce the unit language from audio.",
+              "title": "Listen and understand",
+              "summary": "Understand the unit language by ear.",
               "difficulty": "Elementary",
               "phraseCount": 13
             },
@@ -5796,8 +5796,8 @@
             },
             {
               "id": "es-en-s04-u028-l4",
-              "title": "Listen and speak",
-              "summary": "Understand and produce the unit language from audio.",
+              "title": "Listen and understand",
+              "summary": "Understand the unit language by ear.",
               "difficulty": "Elementary",
               "phraseCount": 13
             },
@@ -5851,8 +5851,8 @@
             },
             {
               "id": "es-en-s04-u029-l4",
-              "title": "Listen and speak",
-              "summary": "Understand and produce the unit language from audio.",
+              "title": "Listen and understand",
+              "summary": "Understand the unit language by ear.",
               "difficulty": "Elementary",
               "phraseCount": 13
             },
@@ -5906,8 +5906,8 @@
             },
             {
               "id": "es-en-s04-u030-l4",
-              "title": "Listen and speak",
-              "summary": "Understand and produce the unit language from audio.",
+              "title": "Listen and understand",
+              "summary": "Understand the unit language by ear.",
               "difficulty": "Elementary",
               "phraseCount": 13
             },
@@ -5961,8 +5961,8 @@
             },
             {
               "id": "es-en-s04-u031-l4",
-              "title": "Listen and speak",
-              "summary": "Understand and produce the unit language from audio.",
+              "title": "Listen and understand",
+              "summary": "Understand the unit language by ear.",
               "difficulty": "Elementary",
               "phraseCount": 13
             },
@@ -6016,8 +6016,8 @@
             },
             {
               "id": "es-en-s04-u032-l4",
-              "title": "Listen and speak",
-              "summary": "Understand and produce the unit language from audio.",
+              "title": "Listen and understand",
+              "summary": "Understand the unit language by ear.",
               "difficulty": "Elementary",
               "phraseCount": 13
             },
@@ -6071,8 +6071,8 @@
             },
             {
               "id": "es-en-s04-u033-l4",
-              "title": "Listen and speak",
-              "summary": "Understand and produce the unit language from audio.",
+              "title": "Listen and understand",
+              "summary": "Understand the unit language by ear.",
               "difficulty": "Elementary",
               "phraseCount": 13
             },
@@ -6126,8 +6126,8 @@
             },
             {
               "id": "es-en-s04-u034-l4",
-              "title": "Listen and speak",
-              "summary": "Understand and produce the unit language from audio.",
+              "title": "Listen and understand",
+              "summary": "Understand the unit language by ear.",
               "difficulty": "Elementary",
               "phraseCount": 13
             },
@@ -6181,8 +6181,8 @@
             },
             {
               "id": "es-en-s04-u035-l4",
-              "title": "Listen and speak",
-              "summary": "Understand and produce the unit language from audio.",
+              "title": "Listen and understand",
+              "summary": "Understand the unit language by ear.",
               "difficulty": "Elementary",
               "phraseCount": 13
             },
@@ -6236,8 +6236,8 @@
             },
             {
               "id": "es-en-s04-u036-l4",
-              "title": "Listen and speak",
-              "summary": "Understand and produce the unit language from audio.",
+              "title": "Listen and understand",
+              "summary": "Understand the unit language by ear.",
               "difficulty": "Elementary",
               "phraseCount": 13
             },
@@ -6291,8 +6291,8 @@
             },
             {
               "id": "es-en-s04-u037-l4",
-              "title": "Listen and speak",
-              "summary": "Understand and produce the unit language from audio.",
+              "title": "Listen and understand",
+              "summary": "Understand the unit language by ear.",
               "difficulty": "Elementary",
               "phraseCount": 13
             },
@@ -6346,8 +6346,8 @@
             },
             {
               "id": "es-en-s04-u038-l4",
-              "title": "Listen and speak",
-              "summary": "Understand and produce the unit language from audio.",
+              "title": "Listen and understand",
+              "summary": "Understand the unit language by ear.",
               "difficulty": "Elementary",
               "phraseCount": 13
             },
@@ -6401,8 +6401,8 @@
             },
             {
               "id": "es-en-s04-u039-l4",
-              "title": "Listen and speak",
-              "summary": "Understand and produce the unit language from audio.",
+              "title": "Listen and understand",
+              "summary": "Understand the unit language by ear.",
               "difficulty": "Elementary",
               "phraseCount": 13
             },
@@ -6456,8 +6456,8 @@
             },
             {
               "id": "es-en-s04-u040-l4",
-              "title": "Listen and speak",
-              "summary": "Understand and produce the unit language from audio.",
+              "title": "Listen and understand",
+              "summary": "Understand the unit language by ear.",
               "difficulty": "Elementary",
               "phraseCount": 13
             },
@@ -6511,8 +6511,8 @@
             },
             {
               "id": "es-en-s04-u041-l4",
-              "title": "Listen and speak",
-              "summary": "Understand and produce the unit language from audio.",
+              "title": "Listen and understand",
+              "summary": "Understand the unit language by ear.",
               "difficulty": "Elementary",
               "phraseCount": 13
             },
@@ -6566,8 +6566,8 @@
             },
             {
               "id": "es-en-s04-u042-l4",
-              "title": "Listen and speak",
-              "summary": "Understand and produce the unit language from audio.",
+              "title": "Listen and understand",
+              "summary": "Understand the unit language by ear.",
               "difficulty": "Elementary",
               "phraseCount": 13
             },
@@ -6621,8 +6621,8 @@
             },
             {
               "id": "es-en-s04-u043-l4",
-              "title": "Listen and speak",
-              "summary": "Understand and produce the unit language from audio.",
+              "title": "Listen and understand",
+              "summary": "Understand the unit language by ear.",
               "difficulty": "Elementary",
               "phraseCount": 13
             },
@@ -6676,8 +6676,8 @@
             },
             {
               "id": "es-en-s04-u044-l4",
-              "title": "Listen and speak",
-              "summary": "Understand and produce the unit language from audio.",
+              "title": "Listen and understand",
+              "summary": "Understand the unit language by ear.",
               "difficulty": "Elementary",
               "phraseCount": 13
             },
@@ -6731,8 +6731,8 @@
             },
             {
               "id": "es-en-s04-u045-l4",
-              "title": "Listen and speak",
-              "summary": "Understand and produce the unit language from audio.",
+              "title": "Listen and understand",
+              "summary": "Understand the unit language by ear.",
               "difficulty": "Elementary",
               "phraseCount": 13
             },
@@ -6786,8 +6786,8 @@
             },
             {
               "id": "es-en-s04-u046-l4",
-              "title": "Listen and speak",
-              "summary": "Understand and produce the unit language from audio.",
+              "title": "Listen and understand",
+              "summary": "Understand the unit language by ear.",
               "difficulty": "Elementary",
               "phraseCount": 13
             },
@@ -6841,8 +6841,8 @@
             },
             {
               "id": "es-en-s04-u047-l4",
-              "title": "Listen and speak",
-              "summary": "Understand and produce the unit language from audio.",
+              "title": "Listen and understand",
+              "summary": "Understand the unit language by ear.",
               "difficulty": "Elementary",
               "phraseCount": 13
             },
@@ -6896,8 +6896,8 @@
             },
             {
               "id": "es-en-s04-u048-l4",
-              "title": "Listen and speak",
-              "summary": "Understand and produce the unit language from audio.",
+              "title": "Listen and understand",
+              "summary": "Understand the unit language by ear.",
               "difficulty": "Elementary",
               "phraseCount": 13
             },
@@ -6951,8 +6951,8 @@
             },
             {
               "id": "es-en-s04-u049-l4",
-              "title": "Listen and speak",
-              "summary": "Understand and produce the unit language from audio.",
+              "title": "Listen and understand",
+              "summary": "Understand the unit language by ear.",
               "difficulty": "Elementary",
               "phraseCount": 13
             },
@@ -7006,8 +7006,8 @@
             },
             {
               "id": "es-en-s04-u050-l4",
-              "title": "Listen and speak",
-              "summary": "Understand and produce the unit language from audio.",
+              "title": "Listen and understand",
+              "summary": "Understand the unit language by ear.",
               "difficulty": "Elementary",
               "phraseCount": 13
             },
@@ -7061,8 +7061,8 @@
             },
             {
               "id": "es-en-s04-u051-l4",
-              "title": "Listen and speak",
-              "summary": "Understand and produce the unit language from audio.",
+              "title": "Listen and understand",
+              "summary": "Understand the unit language by ear.",
               "difficulty": "Elementary",
               "phraseCount": 13
             },
@@ -7116,8 +7116,8 @@
             },
             {
               "id": "es-en-s04-u052-l4",
-              "title": "Listen and speak",
-              "summary": "Understand and produce the unit language from audio.",
+              "title": "Listen and understand",
+              "summary": "Understand the unit language by ear.",
               "difficulty": "Elementary",
               "phraseCount": 13
             },
@@ -7171,8 +7171,8 @@
             },
             {
               "id": "es-en-s04-u053-l4",
-              "title": "Listen and speak",
-              "summary": "Understand and produce the unit language from audio.",
+              "title": "Listen and understand",
+              "summary": "Understand the unit language by ear.",
               "difficulty": "Elementary",
               "phraseCount": 13
             },
@@ -7226,8 +7226,8 @@
             },
             {
               "id": "es-en-s04-u054-l4",
-              "title": "Listen and speak",
-              "summary": "Understand and produce the unit language from audio.",
+              "title": "Listen and understand",
+              "summary": "Understand the unit language by ear.",
               "difficulty": "Elementary",
               "phraseCount": 13
             },
@@ -7281,8 +7281,8 @@
             },
             {
               "id": "es-en-s04-u055-l4",
-              "title": "Listen and speak",
-              "summary": "Understand and produce the unit language from audio.",
+              "title": "Listen and understand",
+              "summary": "Understand the unit language by ear.",
               "difficulty": "Elementary",
               "phraseCount": 13
             },
@@ -7336,8 +7336,8 @@
             },
             {
               "id": "es-en-s04-u056-l4",
-              "title": "Listen and speak",
-              "summary": "Understand and produce the unit language from audio.",
+              "title": "Listen and understand",
+              "summary": "Understand the unit language by ear.",
               "difficulty": "Elementary",
               "phraseCount": 13
             },
@@ -7391,8 +7391,8 @@
             },
             {
               "id": "es-en-s04-u057-l4",
-              "title": "Listen and speak",
-              "summary": "Understand and produce the unit language from audio.",
+              "title": "Listen and understand",
+              "summary": "Understand the unit language by ear.",
               "difficulty": "Elementary",
               "phraseCount": 13
             },
@@ -7446,8 +7446,8 @@
             },
             {
               "id": "es-en-s04-u058-l4",
-              "title": "Listen and speak",
-              "summary": "Understand and produce the unit language from audio.",
+              "title": "Listen and understand",
+              "summary": "Understand the unit language by ear.",
               "difficulty": "Elementary",
               "phraseCount": 13
             },
@@ -7501,8 +7501,8 @@
             },
             {
               "id": "es-en-s04-u059-l4",
-              "title": "Listen and speak",
-              "summary": "Understand and produce the unit language from audio.",
+              "title": "Listen and understand",
+              "summary": "Understand the unit language by ear.",
               "difficulty": "Elementary",
               "phraseCount": 13
             },
@@ -7556,8 +7556,8 @@
             },
             {
               "id": "es-en-s04-u060-l4",
-              "title": "Listen and speak",
-              "summary": "Understand and produce the unit language from audio.",
+              "title": "Listen and understand",
+              "summary": "Understand the unit language by ear.",
               "difficulty": "Elementary",
               "phraseCount": 13
             },

@@ -341,8 +341,9 @@ test("the six lesson types produce meaningfully different sessions", () => {
 });
 
 test("a planned lesson checks older material before it has taught anything new", () => {
-  // Unit 2 onwards has a backlog to draw on.
-  const lesson = spanishLesson("es-en-s01-u002-l1");
+  // A unit past the first has a backlog to draw on. Greetings now opens the
+  // course, so the café unit is the one that follows it.
+  const lesson = spanishLesson("es-en-s01-u001-l1");
   const steps = buildLessonSteps(lesson);
   const newIds = new Set(lesson.plan?.newPhraseIds ?? []);
   const firstQuestion = steps.find(

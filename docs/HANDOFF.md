@@ -319,16 +319,87 @@ six lesson names promised a difference the runtime never delivered.
 - **Support adaptation** — two misses in the last four questions softens the
   next hard question (translate → order → complete) without changing its slot.
 
-### Grammar
+### Grammar: chosen, gated, and illustrated with known words
+
+A unit declares **`grammar_focus`** — an explicit rule id — in
+`content/spanish-curriculum.json`. That replaced picking
+`grammar_targets[(unitNumber - 1) % targets.length]`, which is how a greetings
+unit came to teach noun gender and a unit of twelve adjectives came to teach
+articles. Sections 1-2 are authored; units without a focus still fall back to
+the rotation.
+
+Two gates stand between an authored choice and the learner
+(`grammarFocusFor` in `src/lib/spanish-curriculum.ts`):
+
+1. **Readiness.** An authored rule must be demonstrated at least once by the
+   unit's own material; a rotation pick needs three sightings across the course.
+   A pattern is named only after it has been met.
+2. **Readability.** `toGrammarFocus` filters a rule's example bank down to
+   sentences whose every word the learner has met *by the lesson the card
+   appears in* — not by the end of the unit. If too few survive, examples are
+   taken from the unit's own phrases. The audit fails any curated unit whose
+   grammar card shows an unknown word.
+
+The planner cooperates: `planUnit` front-loads phrases and vocabulary that
+demonstrate the unit's focus, and the grammar lesson will not be reached
+without at least one sentence showing the pattern.
 
 `content/spanish-grammar.json` holds one entry per grammar target the pack
-declares (38 targets, 32 rules). Each carries a two-sentence explanation, a few
+declares, plus seven rules written for the Intro section (`querer-pattern`,
+`buenas-agreement`, `ser-de-origin`, `possessives`, `estar-location-hay`,
+`question-words`, `weather-hace`). Each carries a two-sentence explanation, a few
 examples, and `markerGroups` — confusable sets such as `["soy","eres","es"]`.
 `grammar-drills.ts` blanks whichever marker appears in a sentence the learner
 already knows and offers the rest of that group as the options, so the question
 tests the pattern rather than the vocabulary. A rule with no usable sentence
 returns nothing and the lesson falls back to ordinary practice. `avoidPhrases`
 keeps famous exceptions (`el agua`) from being drilled as if they were the rule.
+
+### Pattern drills
+
+A `pattern` drill holds a frame steady and swaps what fills it — `Quiero ___`
+against *un café* / *el té* / *el agua*. It is the difference between
+remembering a sentence and owning a structure. Built in `buildPatternDrills`
+and rendered with the existing cloze step, so no new renderer was needed.
+
+### Concept strength
+
+`ProgressState.conceptMemory` is a running accuracy tally per grammar concept,
+written from the same answer path as phrase memory and read by
+`conceptStrength()` in `@/lib/learner-model`. It is **not** a second
+spaced-repetition system: no boxes, no due dates, and it never feeds review
+selection — `review-policy.ts` remains the only scheduler.
+
+### The lexicon (`content/spanish-lexicon.json`)
+
+Prerequisite checking used a three-character stem match, which treated `tienes`
+as a word the learner had never met and missed `voy`/`ir` entirely — noise that
+hid the real gaps. `@/lib/spanish-lexicon` now answers "is this word covered by
+something we taught?": **irregular forms are authored** (91 verbs), **regular
+plurals and -o/-a pairs are computed**, and names, numerals and structural glue
+count as transparent. `curriculum-plan` takes it as an injected
+`KnownWordResolver`, so that module stays language-agnostic.
+
+Note the two different word sets: `taughtWordSet` records everything a taught
+item gives the learner (including two-letter verbs like `ir`), while
+`contentWordSet` screens short and functional words out of *questions*. Using
+the question-side filter for knowledge tracking is what made "Voy a comprar
+fruta." look like it used an untaught verb.
+
+### Receptive language
+
+`DialogueLine.receptive` marks a prompt the learner only needs to *understand*
+— "Mucho gusto" in the first unit. The lesson shows a "New expression — just
+understand it for now" chip, and the audit exempts those lines from its
+unknown-word check. Replies are never receptive: the learner is never asked to
+produce untaught language.
+
+### Later sections
+
+`getLessonProfile(kind, band?)` accepts a CEFR band with an override table that
+is **deliberately empty**. The shape of A2/B1 lessons — longer listening,
+reading passages, mixed-skill sessions, less scaffolding — is a content decision
+not yet made, and it belongs there as data when it is.
 
 ### Rolling back
 
@@ -343,12 +414,18 @@ tagged `rollback/pre-learning-engine-v2`.
 npm run audit:curriculum
 ```
 
-Walks the generated course and reports phrases introduced before their
-prerequisites, grammar targets with no rule, material never revisited outside
-its unit, new-content overload, consecutive lessons that barely overlap, and
-incoherent authored dialogue. **Section 1 (units 1-10) findings fail the run**;
-the rest of the course reports warnings (10 at the time of writing, all
-prerequisite gaps in Section 2+ awaiting the same hand-sequencing treatment).
+Walks the generated course and reports: phrases introduced before their
+prerequisites · grammar examples using unseen vocabulary · a pattern explained
+before it has been met · dialogue prompts above an unknown-word threshold
+(receptive lines exempt) · a dialogue reply the learner has not been taught ·
+material never revisited outside its unit · new-content overload · consecutive
+lessons that barely overlap · incoherent authored dialogue.
+
+**Sections 1-2 (41 units) findings fail the run**, and they are held to a
+stricter bar than the rest: a sentence the learner will be asked to *build* must
+be fully readable when it appears, where Sections 3-4 are judged on being mostly
+readable. Those later sections report warnings (13 at the time of writing, all
+prerequisite gaps awaiting the same hand-sequencing treatment).
 
 ### Feature flags (`src/lib/feature-flags.ts`)
 
@@ -508,9 +585,17 @@ page load: voices aren't loaded yet, the engine is cold, and the synth can start
 - **Cloud sync** on top of the local-first store (see §6), using `db/`.
 - **Recorded audio** for high-frequency Spanish phrases (`public/audio/spanish/`,
   set `audioFile`) for quality beyond TTS.
-- **Hand-sequence Section 2** the way Section 1 was (§5a): reorder vocabulary,
-  close the 10 prerequisite gaps `npm run audit:curriculum` still warns about,
-  and author a `dialogue` block per unit.
+- **Hand-sequence Sections 3-4** the way Sections 1-2 were (§5a): assign an
+  explicit `grammar_focus`, close the 13 prerequisite gaps
+  `npm run audit:curriculum` still warns about, and author a `dialogue` block
+  per unit. Sections 3-4 currently rely on the grammar rotation and the
+  relation-aware dialogue fallback.
+- **Differentiate the duplicated Section 2 units.** `es-en-s02-u002` /
+  `u026` and `u004` / `u028` still ship identical phrase sets; four units teach
+  the same five sentences about hobbies.
+- **Author `patterns` data.** Pattern drills are currently derived from a
+  rule's markers. Explicit per-unit patterns would let a unit say which frames
+  matter and which fills belong in them.
 - **Listening for `spanish-peru`** — the capability is declared per course now,
   so it is a one-word change once the shorter phrase set has been checked.
 - **Content spot-check** across a sample of the 131 units for accuracy.

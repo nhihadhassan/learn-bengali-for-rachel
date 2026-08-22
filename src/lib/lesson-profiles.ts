@@ -255,8 +255,34 @@ const PROFILES: Record<LessonKind, LessonProfile> = {
   },
 };
 
-export function getLessonProfile(kind: LessonKind): LessonProfile {
-  return PROFILES[kind] ?? PROFILES.build;
+/**
+ * CEFR bands, in course order. The six-lesson rhythm is right for a beginner,
+ * but a 786-lesson course should not still be running the Intro shape at B1.
+ */
+export type CefrBand = "Intro" | "A1" | "A2" | "B1";
+
+/**
+ * Per-band profile overrides — the extension point for evolving later sections.
+ *
+ * Empty on purpose: the shape of A2/B1 lessons (longer listening, reading
+ * passages, mixed-skill sessions, less scaffolding) is a content decision that
+ * has not been made yet, and inventing it before the early course is right
+ * would be guessing. When it is made, it goes here as data rather than as a
+ * second engine — a band supplies only the fields it wants to change.
+ *
+ * See docs/HANDOFF.md §5a.
+ */
+const BAND_OVERRIDES: Partial<Record<CefrBand, Partial<Record<LessonKind, Partial<LessonProfile>>>>> =
+  {};
+
+export function getLessonProfile(
+  kind: LessonKind,
+  band?: CefrBand,
+): LessonProfile {
+  const base = PROFILES[kind] ?? PROFILES.build;
+  const override = band ? BAND_OVERRIDES[band]?.[kind] : undefined;
+
+  return override ? { ...base, ...override } : base;
 }
 
 export function allLessonProfiles(): LessonProfile[] {
