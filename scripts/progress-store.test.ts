@@ -33,6 +33,7 @@ function baseProgress(overrides: Partial<ProgressState> = {}): ProgressState {
     mistakes: [],
     skippedListening: [],
     phraseMemory: {},
+    conceptMemory: {},
     practiceDays: [],
     answeredTotal: 0,
     answeredCorrect: 0,

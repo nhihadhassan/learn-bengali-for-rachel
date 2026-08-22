@@ -132,6 +132,8 @@ export type LessonStep =
       scenario?: string;
       speaker?: string;
       turnIndex?: number;
+      /** The prompt uses an expression the learner only needs to recognise. */
+      promptReceptive?: boolean;
       history?: Array<{ speaker: "them" | "you"; romanized: string; english: string }>;
     }
   | {
@@ -149,6 +151,12 @@ export type LessonStep =
       prompt: string;
       /** Set when the blank is the grammar point rather than a content word. */
       grammarNote?: string;
+      /**
+       * Grammar concepts this question exercises. Answers are tallied against
+       * them so the course can tell a pattern is understood without running a
+       * second review schedule over it.
+       */
+      conceptIds?: string[];
     }
   | { id: string; type: "exercise"; exercise: Exercise };
 
@@ -394,10 +402,12 @@ function buildPlannedLessonSteps(
     }
   }
 
-  // Nothing may be taught and then never checked.
+  // Nothing may be taught and then never checked. Recorded in `usage` like any
+  // other question, so the recycle slots and closer don't ask it again.
   for (const phrase of newItems) {
     if (!covered.has(phrase.id)) {
       practiceSteps.push(buildRecognizeStep(phrase, context));
+      markUsed(usage, phrase, "recognize");
       covered.add(phrase.id);
     }
   }
@@ -470,6 +480,15 @@ function nextStepId(context: BuildContext, format: string, phrase: Phrase): stri
 }
 
 /**
+ * A vocabulary entry written as a gendered pair ("el profesor/la profesora") is
+ * two words, not a sentence. Building a word bank from it produces tokens like
+ * "profesor/la", so sentence formats skip these.
+ */
+function isSlashVariant(phrase: Phrase): boolean {
+  return phrase.romanized.includes("/");
+}
+
+/**
  * How many words a format needs to be worth asking. Below the minimum the
  * question either can't be built at all (`order` on one word) or is a worse
  * version of a simpler format.
@@ -481,13 +500,19 @@ function nextStepId(context: BuildContext, format: string, phrase: Phrase): stri
  */
 function splitBlank(words: string[], blankIndex: number) {
   const raw = words[blankIndex];
-  const trailing = raw.match(/[.,;:!?¿¡"']+$/)?.[0] ?? "";
-  const answer = trailing ? raw.slice(0, raw.length - trailing.length) : raw;
+  const leading = raw.match(/^[¿¡"']+/)?.[0] ?? "";
+  const withoutLeading = raw.slice(leading.length);
+  const trailing = withoutLeading.match(/[.,;:!?"']+$/)?.[0] ?? "";
+  const answer = trailing
+    ? withoutLeading.slice(0, withoutLeading.length - trailing.length)
+    : withoutLeading;
   const rest = words.slice(blankIndex + 1).join(" ");
+  const before = words.slice(0, blankIndex).join(" ");
 
   return {
     answer,
-    before: words.slice(0, blankIndex).join(" "),
+    // The opening "¿" belongs to the sentence, not to the word being chosen.
+    before: leading ? `${before} ${leading}`.trim() : before,
     after: rest ? `${trailing} ${rest}`.trim() : trailing,
   };
 }
@@ -581,14 +606,11 @@ function fillPracticeSlot(
     }
   }
 
-  // Everything this lesson can ask, it has already asked. Repeat the least-used
-  // item rather than dropping the slot and shipping a short lesson.
-  const phrase = pickPhraseForFormat(format, queue, usage);
-  const step = phrase ? buildFormatStep(format, phrase, context) : null;
-
-  return phrase && step
-    ? { phrase, format: stepFormatOf(step) ?? format, step }
-    : null;
+  // Everything this lesson can ask, it has already asked. Dropping the slot is
+  // better than asking an identical question twice — the slot is a recycle
+  // reserve or an easy closer, and a lesson one question shorter beats a lesson
+  // that repeats itself.
+  return null;
 }
 
 /** Record that `phrase` was just asked about in `format`. */
@@ -716,7 +738,7 @@ function tryBuildFormat(
     }
 
     case "order": {
-      if (words.length < 3) {
+      if (words.length < 3 || isSlashVariant(phrase)) {
         return null;
       }
 
@@ -730,7 +752,7 @@ function tryBuildFormat(
     }
 
     case "translate": {
-      if (words.length < 3) {
+      if (words.length < 3 || isSlashVariant(phrase)) {
         return null;
       }
 
@@ -756,7 +778,7 @@ function tryBuildFormat(
       const listeningEnabled =
         FEATURES.listening || Boolean(context.capabilities?.listening);
 
-      if (!listeningEnabled || words.length < 2) {
+      if (!listeningEnabled || words.length < 2 || isSlashVariant(phrase)) {
         return null;
       }
 
@@ -792,6 +814,22 @@ function buildGrammarDrillStep(
     return tryBuildFormat("order", drill.phrase, context);
   }
 
+  if (drill.kind === "pattern") {
+    return {
+      id: nextStepId(context, "pattern", drill.phrase),
+      type: "complete",
+      conceptIds: [focus.id],
+      phrase: drill.phrase,
+      before: drill.before,
+      after: drill.after,
+      answer: drill.answer,
+      hint: drill.hint,
+      options: drill.options,
+      prompt: `Use the pattern: ${drill.patternLabel}`,
+      grammarNote: focus.explanation,
+    };
+  }
+
   const id = nextStepId(context, "grammar-drill", drill.phrase);
 
   return {
@@ -805,6 +843,7 @@ function buildGrammarDrillStep(
     options: drill.options,
     prompt: `${focus.title}: pick the right form.`,
     grammarNote: focus.explanation,
+    conceptIds: [focus.id],
   };
 }
 
@@ -869,6 +908,7 @@ function buildDialogueSteps(
       scenario: script?.scenario,
       speaker: turn.speaker,
       turnIndex: index,
+      promptReceptive: turn.prompt.receptive,
       history: [...history],
     });
 
@@ -1657,6 +1697,11 @@ export function getStepPrompt(step: LessonStep) {
   }
 
   return "Lesson step";
+}
+
+/** Grammar concepts a step exercises, if any. */
+export function getStepConceptIds(step: LessonStep): string[] {
+  return step.type === "complete" ? (step.conceptIds ?? []) : [];
 }
 
 /** The phrase a step exercises, if any — used to update spaced-repetition memory. */

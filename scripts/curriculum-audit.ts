@@ -22,18 +22,48 @@
  */
 
 import { getLessonsForCurriculum } from "../src/lib/content";
-import { MAX_NEW_ITEMS_PER_LESSON, coverage } from "../src/lib/curriculum-plan";
-import { allGrammarRules, findGrammarRule } from "../src/lib/grammar-drills";
+import {
+  MAX_NEW_ITEMS_PER_LESSON,
+  coverage,
+  taughtWordSet,
+  unknownWords,
+} from "../src/lib/curriculum-plan";
+import { isKnownForm } from "../src/lib/spanish-lexicon";
+import {
+  allGrammarRules,
+  countPatternEncounters,
+  findGrammarRule,
+  getGrammarRule,
+} from "../src/lib/grammar-drills";
 import { isContentWord, normalizeWord, splitWords } from "../src/lib/text-tokens";
 import type { Lesson, Phrase } from "../src/types/learning";
 
 type Finding = { lessonId: string; rule: string; detail: string };
 
-/** Units 1-10 are the hand-sequenced ones this pass is responsible for. */
-const STRICT_UNIT_PREFIX = "es-en-s01-u0";
-const STRICT_UNITS = new Set(
-  Array.from({ length: 10 }, (_, index) => `${STRICT_UNIT_PREFIX}${String(index + 1).padStart(2, "0")}`),
-);
+/**
+ * The hand-curated part of the course: Section 1 (10 units) and Section 2 (31).
+ * Findings here are errors. Sections 3-4 are still the pack as shipped, so they
+ * report as warnings — a queue for the next content pass, not a gate.
+ */
+const STRICT_UNITS = new Set([
+  ...Array.from(
+    { length: 10 },
+    (_, index) => `es-en-s01-u${String(index + 1).padStart(3, "0")}`,
+  ),
+  ...Array.from(
+    { length: 31 },
+    (_, index) => `es-en-s02-u${String(index + 1).padStart(3, "0")}`,
+  ),
+]);
+
+/** A unit teaching more than this at once is doing too much. */
+const MAX_UNIT_VOCABULARY = 16;
+
+/** Above this share of unknown words, a dialogue prompt stops being input. */
+const MAX_DIALOGUE_UNKNOWN = 0.34;
+
+/** A question opening with a question word expects a statement in reply. */
+const INFORMATION_QUESTION = /¿\s*(qué|quién|dónde|cómo|cuánto|cuánta|cuántos|cuántas|cuándo|cuál|por qué)/i;
 
 /**
  * An item must come back *outside* the unit that introduced it. Measuring a gap
@@ -49,7 +79,7 @@ function isStrict(lesson: Lesson): boolean {
 }
 
 function contentWords(text: string): string[] {
-  return splitWords(text).filter(isContentWord).map(normalizeWord);
+  return [...taughtWordSet(text)];
 }
 
 function audit(): Finding[] {
@@ -59,6 +89,7 @@ function audit(): Finding[] {
     findings.push({ lessonId: lesson.id, rule, detail });
 
   const knownWords = new Set<string>();
+  const seenPhrases: Array<{ romanized: string; english: string }> = [];
   /** phrase id -> the units its lessons appeared in. */
   const seenInUnits = new Map<string, Set<string>>();
   const introducedIn = new Map<string, { unitId: string; lessonIndex: number }>();
@@ -74,6 +105,14 @@ function audit(): Finding[] {
 
     for (const phrase of lesson.phrases) {
       phraseById.set(phrase.id, phrase);
+    }
+
+    for (const id of plan.newPhraseIds) {
+      const phrase = phraseById.get(id);
+
+      if (phrase) {
+        seenPhrases.push({ romanized: phrase.romanized, english: phrase.english });
+      }
     }
 
     // --- new-content load ---------------------------------------------------
@@ -105,12 +144,14 @@ function audit(): Finding[] {
 
       // Only *phrase patterns* have prerequisites. A multi-word vocabulary
       // entry like "buenos días" is itself the thing being introduced.
-      if (
-        phrase.category === "phrase" &&
-        words.length > 1 &&
-        coverage(phrase.romanized, knownWords) < 0.5
-      ) {
-        const missing = words.filter((word) => !knownWords.has(word));
+      // The curated sections hold to a stricter bar: a sentence the learner
+      // will be asked to *build* must be fully readable when it appears. The
+      // rest of the course is judged on whether it is mostly readable.
+      const readable = coverage(phrase.romanized, knownWords, isKnownForm);
+      const bar = isStrict(lesson) ? 1 : 0.5;
+
+      if (phrase.category === "phrase" && words.length > 1 && readable < bar) {
+        const missing = unknownWords(phrase.romanized, knownWords, isKnownForm);
         add(
           lesson,
           "prerequisite",
@@ -149,18 +190,89 @@ function audit(): Finding[] {
     });
 
     // --- grammar ------------------------------------------------------------
-    if (plan.kind === "grammar" && !plan.grammar) {
-      add(lesson, "grammar-missing", "grammar lesson has no rule to teach");
+    if (plan.kind === "grammar") {
+      if (!plan.grammar) {
+        add(lesson, "grammar-missing", "grammar lesson has no rule to teach");
+      } else {
+        if (plan.grammar.examples.length < 2) {
+          add(
+            lesson,
+            "grammar-examples",
+            `"${plan.grammar.title}" is illustrated by ${plan.grammar.examples.length} example(s)`,
+          );
+        }
+
+        for (const example of plan.grammar.examples) {
+          const unseen = unknownWords(example.target, knownWords, isKnownForm);
+
+          if (unseen.length > 0) {
+            add(
+              lesson,
+              "grammar-example-unknown-words",
+              `"${example.target}" uses words the learner has not met: ${unseen.join(", ")}`,
+            );
+          }
+        }
+
+        // The pattern has to have been visible before it gets a name.
+        const rule = findGrammarRule(plan.grammar.id) ?? getGrammarRule(plan.grammar.id);
+
+        // The adapter enforces the fuller rule (an authored focus must be
+        // attested in its own unit; a rotation pick needs three sightings).
+        // The audit guards the floor: never name a pattern the learner has not
+        // met at all.
+        if (rule && countPatternEncounters(rule, seenPhrases) < 1) {
+          add(
+            lesson,
+            "grammar-too-early",
+            `"${plan.grammar.title}" is explained before the learner has met it`,
+          );
+        }
+      }
     }
 
     // --- dialogue -----------------------------------------------------------
     if (plan.dialogue) {
       for (const turn of plan.dialogue.turns) {
+        // A prompt the learner cannot read is not comprehensible input. Lines
+        // deliberately marked receptive are exempt: the UI tells the learner
+        // outright that they only need to understand those.
+        if (!turn.prompt.receptive) {
+          const promptWords = splitWords(turn.prompt.target).filter(isContentWord);
+          const unseen = unknownWords(turn.prompt.target, knownWords, isKnownForm);
+          const share = promptWords.length === 0 ? 0 : unseen.length / promptWords.length;
+
+          if (share > MAX_DIALOGUE_UNKNOWN) {
+            add(
+              lesson,
+              "dialogue-unknown-language",
+              `"${turn.prompt.target}" is ${Math.round(share * 100)}% unknown: ${unseen.join(", ")}`,
+            );
+          }
+        }
+
+        // The learner is never asked to produce untaught language.
+        const replyUnseen = unknownWords(turn.reply.target, knownWords, isKnownForm);
+
+        if (replyUnseen.length > 0) {
+          add(
+            lesson,
+            "dialogue-untaught-reply",
+            `reply "${turn.reply.target}" needs untaught words: ${replyUnseen.join(", ")}`,
+          );
+        }
+
         if (turn.prompt.target.includes("?") === false) {
           continue;
         }
 
-        if (turn.reply.target.includes("?")) {
+        // Answering a yes/no question with a question is ordinary conversation
+        // ("Anything else?" / "Could you bring us water?"). Only an information
+        // question — one opening with a question word — genuinely needs a
+        // statement back.
+        const asksForInformation = INFORMATION_QUESTION.test(turn.prompt.target);
+
+        if (asksForInformation && turn.reply.target.includes("?")) {
           add(
             lesson,
             "dialogue-relation",
@@ -239,24 +351,25 @@ function main(): void {
     console.log(`  ${label}: ${list.length}`);
     for (const [rule, entries] of byRule) {
       console.log(`    ${rule} (${entries.length})`);
-      for (const entry of entries.slice(0, 5)) {
+      const limit = process.argv.includes("--full") ? entries.length : 5;
+      for (const entry of entries.slice(0, limit)) {
         console.log(`      ${entry.lessonId}: ${entry.detail}`);
       }
-      if (entries.length > 5) {
-        console.log(`      …and ${entries.length - 5} more`);
+      if (entries.length > limit) {
+        console.log(`      …and ${entries.length - limit} more`);
       }
     }
   };
 
-  summarize("Section 1 errors", errors);
+  summarize("Sections 1-2 errors", errors);
   summarize("warnings (rest of course)", warnings);
 
   if (errors.length > 0) {
-    console.error("\n✗ Section 1 must be clean before shipping.");
+    console.error("\n✗ Sections 1-2 must be clean before shipping.");
     process.exit(1);
   }
 
-  console.log("\n✓ Section 1 is pedagogically clean.");
+  console.log("\n✓ Sections 1-2 are pedagogically clean.");
 }
 
 main();

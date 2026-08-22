@@ -33,6 +33,7 @@ import {
   getCorrectAnswerLabel,
   getExerciseMode,
   getStepExplanation,
+  getStepConceptIds,
   getStepPhraseId,
   getStepPrompt,
   getStreakMilestone,
@@ -102,6 +103,7 @@ function PracticeLessonFlow({
     completeReview,
     progress,
     recordAnswer,
+    recordConceptResult,
     recordEncounteredPhrase,
     recordLessonPosition,
     recordMistake,
@@ -271,6 +273,8 @@ function PracticeLessonFlow({
     if (phraseId) {
       recordPhraseResult(phraseId, isCorrect, lessonCurriculumId);
     }
+
+    recordConceptResult(getStepConceptIds(step), isCorrect, lessonCurriculumId);
 
     const results = [...recentResults, isCorrect].slice(-6);
     setRecentResults(results);
@@ -775,6 +779,11 @@ function PracticeLessonFlow({
               script={step.phrase.bengaliScript}
             />
           </div>
+          {/* Saying it aloud helps, and the learner should know the app is not
+              listening: nothing here records or scores speech. */}
+          <p className="mt-2 text-center text-xs font-semibold text-slate-500 dark:text-slate-400">
+            Try saying it out loud too — nothing is recorded or scored.
+          </p>
           <WordOrderExercise
             tokens={step.tokens}
             selected={orderTokens}
@@ -800,6 +809,13 @@ function PracticeLessonFlow({
             {formatPromptDisplay(step.prompt)}
           </h2>
           {step.history && <DialogueHistory turns={step.history} />}
+          {step.promptReceptive && (
+            /* The prompt deliberately uses something not taught yet. Say so,
+               rather than letting the learner think they forgot it. */
+            <p className="mt-3 inline-flex items-center gap-1.5 rounded-full bg-amber-50 px-3 py-1.5 text-xs font-black text-amber-900 dark:bg-amber-400/15 dark:text-amber-100">
+              New expression — just understand it for now
+            </p>
+          )}
           <div className="mt-3 flex items-end gap-2 sm:gap-3">
             <DialogueAvatar
               seed={step.promptRomanized.length}

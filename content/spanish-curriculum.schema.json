@@ -200,6 +200,10 @@
         },
         "dialogue": {
           "$ref": "#/$defs/dialogue"
+        },
+        "grammar_focus": {
+          "type": "string",
+          "description": "Rule id from content/spanish-grammar.json. Authored per unit; units without one fall back to the grammar_targets rotation."
         }
       }
     },
@@ -215,6 +219,10 @@
         },
         "english": {
           "type": "string"
+        },
+        "receptive": {
+          "type": "boolean",
+          "description": "Language the learner only needs to understand, not produce. Prompts only."
         }
       }
     },

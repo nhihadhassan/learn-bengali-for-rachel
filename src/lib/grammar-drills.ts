@@ -21,6 +21,7 @@
  */
 
 import rawGrammar from "../../content/spanish-grammar.json";
+import { unknownWords } from "@/lib/curriculum-plan";
 import { makeRng, seededShuffle, type Rng } from "@/lib/rng";
 import { normalizeWord, splitWords } from "@/lib/text-tokens";
 import type { GrammarFocus, Phrase } from "@/types/learning";
@@ -57,20 +58,127 @@ export function findGrammarRule(target: string): RawRule | undefined {
   return ruleByTarget.get(target.trim().toLowerCase());
 }
 
-/** The teachable form of a rule: what the lesson shows on its grammar card. */
-export function toGrammarFocus(rule: RawRule): GrammarFocus {
+/** A rule by its own id — how an explicitly authored `grammar_focus` resolves. */
+export function getGrammarRule(id: string): RawRule | undefined {
+  return ruleById.get(id);
+}
+
+export type GrammarFocusOptions = {
+  /**
+   * Normalized words the learner has met by this point. Examples containing
+   * anything outside this set are dropped — a grammar card that explains a
+   * pattern using three unknown words teaches nothing but discouragement.
+   */
+  knownWords?: ReadonlySet<string>;
+  /** How to decide a word is known; see `KnownWordResolver`. */
+  resolveKnown?: (word: string, known: ReadonlySet<string>) => boolean;
+  /**
+   * The unit's own phrases, used to build replacement examples when too few of
+   * the authored ones survive filtering.
+   */
+  unitPhrases?: ReadonlyArray<{ romanized: string; english: string }>;
+};
+
+/** Fewer than this many usable examples and the card isn't worth showing. */
+const MIN_EXAMPLES = 2;
+const MAX_EXAMPLES = 3;
+
+function exampleIsReadable(
+  example: { target: string },
+  { knownWords, resolveKnown }: GrammarFocusOptions,
+): boolean {
+  if (!knownWords) {
+    return true;
+  }
+
+  return unknownWords(example.target, knownWords, resolveKnown).length === 0;
+}
+
+/**
+ * The teachable form of a rule: what the lesson shows on its grammar card.
+ *
+ * Rules carry a generous example bank precisely so this can be selective. The
+ * authored examples are filtered down to the ones the learner can actually
+ * read, and if that leaves too few, the unit's own phrases stand in — a
+ * sentence from this very unit is the best possible illustration of its
+ * pattern.
+ */
+export function toGrammarFocus(
+  rule: RawRule,
+  options: GrammarFocusOptions = {},
+): GrammarFocus {
+  const readable = rule.examples.filter((example) =>
+    exampleIsReadable(example, options),
+  );
+  const examples = [...readable];
+
+  // Examples pulled from the unit's own phrases skip the readability filter on
+  // purpose: the learner is being taught that exact sentence in this very unit,
+  // so it is the most readable illustration available by definition.
+  if (examples.length < MIN_EXAMPLES && options.unitPhrases) {
+    const groups = rule.markerGroups ?? [];
+
+    for (const phrase of options.unitPhrases) {
+      if (examples.length >= MIN_EXAMPLES) {
+        break;
+      }
+
+      const shown = { id: "x", romanized: phrase.romanized, english: phrase.english } as Phrase;
+      const demonstrates = groups.some((group) => findMarker(shown, group, new Set()));
+
+      if (demonstrates && !examples.some((item) => item.target === phrase.romanized)) {
+        examples.push({ target: phrase.romanized, english: phrase.english });
+      }
+    }
+  }
+
   return {
     id: rule.id,
     title: rule.title,
     explanation: rule.explanation,
-    examples: rule.examples,
+    // Never fall back to unreadable examples: showing none is better than
+    // showing a sentence built from words the learner has never met.
+    examples: examples.slice(0, MAX_EXAMPLES),
     drill: rule.drill,
   };
 }
 
-export function getGrammarFocus(target: string): GrammarFocus | undefined {
+export function getGrammarFocus(
+  target: string,
+  options: GrammarFocusOptions = {},
+): GrammarFocus | undefined {
   const rule = findGrammarRule(target);
-  return rule ? toGrammarFocus(rule) : undefined;
+  return rule ? toGrammarFocus(rule, options) : undefined;
+}
+
+/**
+ * How many of `phrases` actually demonstrate this rule.
+ *
+ * The readiness gate: a pattern should be named only after the learner has met
+ * it enough times to have noticed it. Explaining "the ending tells you who"
+ * before any conjugated verb has appeared is a definition, not a lesson.
+ */
+export function countPatternEncounters(
+  rule: RawRule,
+  phrases: ReadonlyArray<{ romanized: string; english: string }>,
+): number {
+  const groups = rule.markerGroups ?? [];
+
+  if (groups.length === 0) {
+    return phrases.length;
+  }
+
+  let count = 0;
+
+  for (const phrase of phrases) {
+    const shown = { id: "x", romanized: phrase.romanized, english: phrase.english } as Phrase;
+
+    if (groups.some((group) => findMarker(shown, group, new Set()))) {
+      count += 1;
+    }
+  }
+
+  return count;
 }
 
 /**
@@ -79,6 +187,18 @@ export function getGrammarFocus(target: string): GrammarFocus | undefined {
  * keeps the dependency one-way.
  */
 export type GrammarDrill =
+  | {
+      kind: "pattern";
+      /** The frame being practised, e.g. "Quiero ___". */
+      phrase: Phrase;
+      before: string;
+      after: string;
+      answer: string;
+      options: string[];
+      hint: string;
+      /** What the frame is called, for the prompt. */
+      patternLabel: string;
+    }
   | {
       kind: "cloze";
       phrase: Phrase;
@@ -178,6 +298,115 @@ function clozeFromMatch(match: MarkerMatch, rng: Rng): GrammarDrill | null {
   };
 }
 
+/** Slot fills should be things, not adverbs or connectors. */
+const SLOT_CATEGORIES = new Set(["noun", "vocabulary", "adjective"]);
+
+/**
+ * Turn a sentence that demonstrates a rule into a substitution exercise.
+ *
+ * The marker (`Quiero`) stays put and the *slot after it* is blanked, with
+ * other things the learner could want offered alongside. Where a cloze drill
+ * asks "which form of the verb?", this asks "what else can I say with this
+ * frame?" — which is what makes a pattern reusable rather than memorised.
+ */
+function buildPatternDrills(
+  rule: RawRule,
+  knownPhrases: readonly Phrase[],
+  rng: Rng,
+): Extract<GrammarDrill, { kind: "pattern" }>[] {
+  const groups = rule.markerGroups ?? [];
+  const drills: Extract<GrammarDrill, { kind: "pattern" }>[] = [];
+
+  if (groups.length === 0) {
+    return drills;
+  }
+
+  // Things that can fill a slot: short items of the same kind, so the choice is
+  // "what else could I want?" rather than a grab-bag of any known word.
+  const fills = knownPhrases.filter((phrase) => {
+    const words = splitWords(phrase.romanized);
+    return (
+      words.length <= 2 &&
+      !phrase.romanized.includes("?") &&
+      SLOT_CATEGORIES.has(phrase.category)
+    );
+  });
+
+  if (fills.length < 3) {
+    return drills;
+  }
+
+  for (const phrase of seededShuffle(knownPhrases, rng)) {
+    if (drills.length >= 1) {
+      break;
+    }
+
+    const words = splitWords(phrase.romanized);
+
+    if (words.length < 3) {
+      continue;
+    }
+
+    const match = groups
+      .map((group) => findMarker(phrase, group, new Set()))
+      .find((found): found is MarkerMatch => Boolean(found));
+
+    if (!match) {
+      continue;
+    }
+
+    // The slot is what follows the marker, up to the first comma — "Quiero un
+    // café, por favor." practises the frame `Quiero ___`, not `Quiero ___, por
+    // favor`, and a courtesy tag is not part of the pattern.
+    const slotStart = match.start + match.length;
+    const tail: string[] = [];
+
+    for (const word of words.slice(slotStart)) {
+      tail.push(word);
+
+      if (word.includes(",")) {
+        break;
+      }
+    }
+
+    const rawTail = tail.join(" ");
+    const answer = rawTail.replace(/[.,;:!?]+$/, "");
+    // Punctuation the slot swallowed belongs back in the sentence, so the frame
+    // still reads "Quiero ___, por favor."
+    const carried = rawTail.slice(answer.length);
+
+    // One or two words is a slot; more is a sentence, and blanking it stops
+    // being a pattern exercise.
+    if (!answer || tail.length > 2) {
+      continue;
+    }
+
+    const alternatives = seededShuffle(
+      fills.filter((item) => normalizeWord(item.romanized) !== normalizeWord(answer)),
+      rng,
+    )
+      .slice(0, 3)
+      .map((item) => item.romanized);
+
+    if (alternatives.length < 2) {
+      continue;
+    }
+
+    drills.push({
+      kind: "pattern",
+      phrase,
+      before: words.slice(0, slotStart).join(" "),
+      after: `${carried} ${words.slice(slotStart + tail.length).join(" ")}`.trim(),
+      answer,
+      options: seededShuffle([answer, ...alternatives], rng),
+      hint: phrase.english,
+      patternLabel: `${words.slice(0, slotStart).join(" ")} …`,
+    });
+  }
+
+  return drills;
+}
+
 /**
  * Build drills for a rule from phrases the learner already knows.
  *
@@ -199,6 +428,15 @@ export function buildGrammarDrills(
   const rng = makeRng(`${seed}-grammar-${rule.id}`);
   const drills: GrammarDrill[] = [];
   const usedPhraseIds = new Set<string>();
+
+  // A pattern drill holds the frame steady and swaps what goes in the slot:
+  // "Quiero ___" against café / té / agua. It is the difference between
+  // remembering one sentence and owning a structure you can reuse.
+  for (const drill of buildPatternDrills(rule, knownPhrases, rng)) {
+    if (drills.length >= limit) break;
+    usedPhraseIds.add(drill.phrase.id);
+    drills.push(drill);
+  }
 
   if (rule.drill === "word-order") {
     for (const phrase of seededShuffle(knownPhrases, rng)) {
