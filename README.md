@@ -65,3 +65,7 @@ Stored in `localStorage` under `learn-bengali-rachel-progress`, per course
 (completed lessons, XP, streaks, mistakes, spaced-repetition memory, practice
 days, answer counts). Keep this key stable and keep the shape
 backward-compatible — `npm test` checks that older saves still load.
+
+## Licence
+
+Released under the [MIT License](LICENSE).

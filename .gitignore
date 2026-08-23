@@ -75,3 +75,9 @@ pnpm-debug.log*
 
 # vercel CLI link (local only)
 .vercel
+
+# Coding-agent scaffolding (local only)
+.agents/
+.claude/
+skills/
+skills-lock.json
