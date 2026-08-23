@@ -65,6 +65,17 @@ const KIND_BY_NAME: Record<string, LessonKind> = {
   "listen and speak": "listen",
   "use in context": "context",
   "unit review": "review",
+  // The pilot curriculum's lesson names. A unit names the lessons it needs, so
+  // this table is a vocabulary rather than a sequence.
+  "notice the pattern": "notice",
+  "work it out": "notice",
+  "story": "story",
+  "listen to a story": "story",
+  "read a story": "story",
+  "have a conversation": "scenario",
+  scenario: "scenario",
+  capstone: "capstone",
+  "put it together": "capstone",
 };
 
 export function toLessonKind(name: string, lessonIndex: number): LessonKind {
@@ -92,6 +103,14 @@ const NEW_WEIGHTS: Record<LessonKind, { vocabulary: number; phrases: number }> =
   context: { vocabulary: 1, phrases: 2 },
   review: { vocabulary: 0, phrases: 0 },
   strengthen: { vocabulary: 0, phrases: 0 },
+  // A discovery lesson has to *show* the pattern, so it leans on sentences.
+  notice: { vocabulary: 2, phrases: 2 },
+  // A story is built from language the learner already has; it introduces the
+  // odd word in passing rather than carrying a teaching load.
+  story: { vocabulary: 1, phrases: 1 },
+  scenario: { vocabulary: 1, phrases: 2 },
+  // Like the unit review, a capstone introduces nothing: it is the check.
+  capstone: { vocabulary: 0, phrases: 0 },
 };
 
 /**
@@ -169,10 +188,11 @@ function newItemPlan(
     while (overflow > 0) {
       const next = plan[index + 1];
 
-      // Never spill into the review lesson: "introduces nothing new" is what
-      // makes it a review. A slightly over-full teaching lesson is the lesser
-      // problem, so the overflow stops here instead.
-      if (!next || lessonKinds[index + 1] === "review") {
+      // Never spill into a lesson that teaches nothing — a review or a
+      // capstone. "Introduces nothing new" is what makes it a check rather than
+      // a lesson. A slightly over-full teaching lesson is the lesser problem,
+      // so the overflow stops here instead.
+      if (!next || newItemWeight(lessonKinds[index + 1]) === 0) {
         break;
       }
 
@@ -210,6 +230,11 @@ const REVIEW_LOAD: Record<
   context: { fromUnit: 10, fromEarlierUnits: 4 },
   review: { fromUnit: 15, fromEarlierUnits: 8 },
   strengthen: { fromUnit: 0, fromEarlierUnits: 12 },
+  notice: { fromUnit: 6, fromEarlierUnits: 3 },
+  story: { fromUnit: 9, fromEarlierUnits: 5 },
+  scenario: { fromUnit: 10, fromEarlierUnits: 4 },
+  // The capstone reaches across the whole pilot; that is what makes it earned.
+  capstone: { fromUnit: 18, fromEarlierUnits: 14 },
 };
 
 /** The weighted share a lesson kind takes of a unit's new material. */
@@ -660,7 +685,7 @@ export function planUnit(
   const leftovers = [...remainingVocabulary, ...remainingPhrases].map((item) => item.id);
   if (leftovers.length > 0) {
     const lastTeaching =
-      [...plans].reverse().find((plan) => plan.kind !== "review") ??
+      [...plans].reverse().find((plan) => newItemWeight(plan.kind) > 0) ??
       plans[plans.length - 1];
 
     if (lastTeaching) {
@@ -782,7 +807,10 @@ function createInterleaver(
 /** Build a `LessonPlan` from a planned lesson plus any authored extras. */
 export function toLessonPlan(
   planned: PlannedLesson,
-  extras: Pick<LessonPlan, "grammar" | "dialogue" | "patterns" | "band"> = {},
+  extras: Pick<
+    LessonPlan,
+    "grammar" | "dialogue" | "patterns" | "notices" | "stories" | "band" | "scaffold"
+  > = {},
 ): LessonPlan {
   return {
     kind: planned.kind,

@@ -18,6 +18,16 @@ export type ExerciseType =
 export type Phrase = {
   id: string;
   romanized: string;
+  /**
+   * A short sentence, made of language the learner already has, that shows the
+   * word being used. The pilot curriculum introduces vocabulary through this
+   * rather than through a bare gloss: "Tengo sed. Quiero agua." teaches `agua`
+   * better than "agua = water" does, and the direct meaning question can then
+   * come later, in a different lesson.
+   */
+  context?: { target: string; english: string };
+  /** Meaning support that isn't a translation. Concrete nouns only. */
+  emoji?: string;
   bengaliScript?: string;
   english: string;
   pronunciation: string;
@@ -159,7 +169,17 @@ export type LessonKind =
   | "listen"
   | "context"
   | "review"
-  | "strengthen";
+  | "strengthen"
+  // The pilot curriculum's kinds. A unit picks the lessons it needs rather than
+  // running all six in order, so these are additions, not replacements.
+  /** Pattern discovery: read examples, predict a form, *then* see the rule. */
+  | "notice"
+  /** Comprehensible input: a short story, understood rather than translated. */
+  | "story"
+  /** Dialogue-led: interpret and respond across several turns. */
+  | "scenario"
+  /** The end-of-pilot assessment shape. */
+  | "capstone";
 
 export type GrammarExample = {
   /** The example in the target language. */
@@ -241,6 +261,65 @@ export type LanguagePattern = {
   concepts?: string[];
 };
 
+/**
+ * A question with fixed options that isn't about one phrase.
+ *
+ * Pattern predictions and story comprehension both ask "which of these", but
+ * neither maps to a vocabulary item the way `recognize` does. One shape covers
+ * both rather than a step type per activity.
+ */
+export type ChoiceQuestion = {
+  prompt: string;
+  options: string[];
+  answer: string;
+  /** Shown after answering — the rule, or why that line means what it means. */
+  explanation?: string;
+  concepts?: string[];
+};
+
+/**
+ * Pattern discovery, Language-Transfer style.
+ *
+ * The examples come first and the rule comes *last*: the learner is asked to
+ * predict a form they were never taught, from three they have seen. Getting it
+ * right is the point — it is evidence the pattern is already half-known, which
+ * is exactly when an explanation lands.
+ */
+export type NoticeCard = {
+  id: string;
+  title: string;
+  /** What the learner reads before being asked anything. */
+  examples: GrammarExample[];
+  /** The prediction. Its `explanation` is the rule, revealed after answering. */
+  question: ChoiceQuestion;
+};
+
+/**
+ * A short story, told in language the learner mostly has.
+ *
+ * Checked for *meaning* — a gist question and a detail question — rather than
+ * word-by-word translation. The transcript is hidden until the learner asks
+ * for it, so the first pass is genuinely comprehension.
+ */
+export type StoryScript = {
+  id: string;
+  title: string;
+  /** English framing, one line, so the learner knows what they are hearing. */
+  setup?: string;
+  lines: DialogueLine[];
+  questions: ChoiceQuestion[];
+};
+
+/**
+ * How much support a lesson gives, 5 (most) down to 1 (least).
+ *
+ * Declared per unit so the pilot's twelve units visibly take the scaffolding
+ * away: unit 1 hands the learner every prop, unit 12 hands them almost none.
+ * Applied on top of the CEFR band; see `BAND_OVERRIDES` in
+ * `@/lib/lesson-profiles`.
+ */
+export type ScaffoldLevel = 1 | 2 | 3 | 4 | 5;
+
 export type LessonPlan = {
   kind: LessonKind;
   /** Introduced here for the first time in the course, in teaching order. */
@@ -253,6 +332,12 @@ export type LessonPlan = {
   dialogue?: DialogueScript;
   /** Reusable frames this lesson should practise. */
   patterns?: LanguagePattern[];
+  /** Pattern-discovery cards, for a `notice` lesson. */
+  notices?: NoticeCard[];
+  /** Mini-stories, for a `story` lesson. */
+  stories?: StoryScript[];
+  /** How much support this lesson gives; see `ScaffoldLevel`. */
+  scaffold?: ScaffoldLevel;
   /**
    * CEFR band, which decides how much scaffolding the profile keeps. See
    * `BAND_OVERRIDES` in `@/lib/lesson-profiles`.
@@ -350,6 +435,16 @@ export type PhraseMemory = {
   dueAt: string;
   // ISO timestamp of the most recent time it was practiced.
   lastSeenAt: string;
+  /**
+   * Correct answers on a *production* format — build it, type it, complete it.
+   *
+   * The Leitner box says how well an item is remembered; this says whether the
+   * learner has ever had to produce it, which is the difference between "has
+   * seen `agua`" and "can say `agua`". It is the one thing the state model in
+   * `@/lib/learning-state` cannot derive, so it is the one field added here.
+   * Optional: saves written before it existed simply have none.
+   */
+  produced?: number;
 };
 
 export type ProgressState = {

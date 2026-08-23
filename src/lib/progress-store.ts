@@ -507,18 +507,36 @@ export function useProgress() {
 
   // Spaced repetition: the schedule itself lives in @/lib/review-policy so the
   // Leitner ladder has exactly one definition.
+  /**
+   * `produced` marks answers the learner had to *make* the Spanish for, rather
+   * than pick the meaning of. The Leitner box already says how well an item is
+   * remembered; this is the one thing it cannot say, and it is what
+   * `@/lib/learning-state` uses to stop asking "what does hola mean?" forever.
+   */
   const recordPhraseResult = useCallback(function recordPhraseResult(
     phraseId: string,
     isCorrect: boolean,
     curriculumId = activeCurriculumId,
+    { produced = false }: { produced?: boolean } = {},
   ) {
-    updateCurriculumProgress(curriculumId, (current) => ({
-      ...current,
-      phraseMemory: {
-        ...current.phraseMemory,
-        [phraseId]: applyResult(current.phraseMemory[phraseId], isCorrect),
-      },
-    }));
+    updateCurriculumProgress(curriculumId, (current) => {
+      const previous = current.phraseMemory[phraseId];
+      const next = applyResult(previous, isCorrect);
+      const productions = previous?.produced ?? 0;
+
+      return {
+        ...current,
+        phraseMemory: {
+          ...current.phraseMemory,
+          [phraseId]:
+            produced && isCorrect
+              ? { ...next, produced: productions + 1 }
+              : productions > 0
+                ? { ...next, produced: productions }
+                : next,
+        },
+      };
+    });
   }, [activeCurriculumId]);
 
   /**

@@ -17,7 +17,7 @@
  * in it.
  */
 
-import type { LessonKind } from "@/types/learning";
+import type { LessonKind, ScaffoldLevel } from "@/types/learning";
 
 /** The question formats a profile can ask for. */
 export type StepFormat =
@@ -62,6 +62,23 @@ export type LessonProfile = {
   includeDialogue: boolean;
   /** Practise the unit's authored sentence frames. */
   includePatterns: boolean;
+  /** Show a pattern-discovery card and its prediction, when the plan has one. */
+  includeNotice: boolean;
+  /** Tell a mini-story and check that it was understood. */
+  includeStory: boolean;
+  /**
+   * Say-it-aloud steps. Listening and speaking are *modalities*, not lesson
+   * slots, so most profiles carry a couple rather than one lesson carrying all
+   * of them. Never evaluated — see `buildPronounceStep`.
+   */
+  pronounceSteps: number;
+  /**
+   * Which way to lean when an item's state offers a choice of format. The
+   * ladder in `@/lib/learning-state` proposes; this decides.
+   */
+  ladderBias: "comprehension" | "production" | "balanced";
+  /** Let word-bank translation become a typed answer. Support taken away. */
+  allowTypedAnswers: boolean;
   /** How many frames at most, so a lesson doesn't become a substitution table. */
   maxPatternSteps: number;
   /** Show the English meaning as a hint on cloze questions. */
@@ -78,7 +95,22 @@ export type LessonProfile = {
   recycleSlots: number;
 };
 
-const PROFILES: Record<LessonKind, LessonProfile> = {
+/**
+ * Fields most profiles don't care about. Spelling them out in all eleven rows
+ * would bury the fields that actually distinguish one lesson type from another.
+ */
+const PROFILE_DEFAULTS = {
+  includeNotice: false,
+  includeStory: false,
+  pronounceSteps: 0,
+  ladderBias: "balanced",
+  allowTypedAnswers: false,
+} as const satisfies Partial<LessonProfile>;
+
+type ProfileRow = Omit<LessonProfile, keyof typeof PROFILE_DEFAULTS> &
+  Partial<LessonProfile>;
+
+const PROFILE_ROWS: Record<LessonKind, ProfileRow> = {
   /**
    * A small amount of new language, met mostly by ear and by eye. Support is
    * high and production is light — the job here is form, sound and meaning.
@@ -244,6 +276,103 @@ const PROFILES: Record<LessonKind, LessonProfile> = {
     recycleSlots: 2,
   },
 
+  /**
+   * Work the pattern out first, be told second.
+   *
+   * The card shows three examples and asks for a fourth form nobody taught. A
+   * learner who gets it has already half-noticed the rule, which is the only
+   * moment an explanation is worth reading — so the rule is the *reveal*, not
+   * the opening.
+   */
+  notice: {
+    kind: "notice",
+    blurb: "Work out how Spanish does this, before anyone explains it.",
+    teachNewItems: true,
+    warmUpChecks: 1,
+    formatSequence: ["recognize", "complete", "produce", "order", "translate"],
+    includeGrammar: false,
+    includeDialogue: false,
+    includePatterns: true,
+    includeNotice: true,
+    maxPatternSteps: 2,
+    showMeaningHint: true,
+    wordBankPadding: 2,
+    reviewQuestionTarget: 4,
+    recycleSlots: 2,
+  },
+
+  /**
+   * Comprehensible input. A few sentences of mostly-known Spanish, heard before
+   * they are read, checked for meaning rather than translated word by word.
+   */
+  story: {
+    kind: "story",
+    blurb: "Follow a short story in Spanish. Meaning first.",
+    teachNewItems: true,
+    warmUpChecks: 1,
+    formatSequence: ["listen", "recognize", "complete", "translate", "listen"],
+    includeGrammar: false,
+    includeDialogue: false,
+    includePatterns: false,
+    includeStory: true,
+    maxPatternSteps: 0,
+    showMeaningHint: false,
+    wordBankPadding: 2,
+    reviewQuestionTarget: 5,
+    recycleSlots: 1,
+    pronounceSteps: 1,
+    ladderBias: "comprehension",
+  },
+
+  /**
+   * Take your part in a conversation. Heavier on production than "Use in
+   * context" is, and the English prop is gone.
+   */
+  scenario: {
+    kind: "scenario",
+    blurb: "Take your part in a real conversation.",
+    teachNewItems: true,
+    warmUpChecks: 2,
+    formatSequence: ["complete", "produce", "translate", "produce", "translate"],
+    includeGrammar: false,
+    includeDialogue: true,
+    includePatterns: true,
+    maxPatternSteps: 1,
+    showMeaningHint: false,
+    wordBankPadding: 3,
+    reviewQuestionTarget: 5,
+    recycleSlots: 2,
+    pronounceSteps: 1,
+    ladderBias: "production",
+  },
+
+  /**
+   * The end of the pilot: nothing new, the whole twelve units in play, and the
+   * conversation the course has been building toward.
+   */
+  capstone: {
+    kind: "capstone",
+    blurb: "Put it all together in one real conversation.",
+    teachNewItems: false,
+    warmUpChecks: 0,
+    formatSequence: [
+      "translate", "produce", "complete", "listen", "order",
+      "translate", "produce", "complete", "translate", "produce",
+    ],
+    includeGrammar: false,
+    includeDialogue: true,
+    includePatterns: true,
+    includeStory: true,
+    maxPatternSteps: 1,
+    showMeaningHint: false,
+    wordBankPadding: 4,
+    reviewQuestionTarget: 14,
+    recycleSlots: 2,
+    pronounceSteps: 1,
+    ladderBias: "production",
+    allowTypedAnswers: true,
+  },
+
   /** The Practice hub's spaced-repetition session: retrieval, no teaching. */
   strengthen: {
     kind: "strengthen",
@@ -272,6 +401,13 @@ const PROFILES: Record<LessonKind, LessonProfile> = {
     recycleSlots: 2,
   },
 };
+
+const PROFILES: Record<LessonKind, LessonProfile> = Object.fromEntries(
+  Object.entries(PROFILE_ROWS).map(([kind, row]) => [
+    kind,
+    { ...PROFILE_DEFAULTS, ...row },
+  ]),
+) as Record<LessonKind, LessonProfile>;
 
 /**
  * CEFR bands, in course order. The six-lesson rhythm is right for a beginner,
@@ -334,14 +470,38 @@ const BAND_OVERRIDES: Partial<
   },
 };
 
+/**
+ * How much support each scaffold level leaves in place.
+ *
+ * The band table above says how a *course* gets harder; this says how a
+ * *sequence of units* does, which is a different axis: the pilot's twelve units
+ * are all beginner units, and they still have to take the props away one at a
+ * time. Level 5 hands the learner everything; level 1 hands them almost
+ * nothing. Applied after the band, so a unit's own intent wins.
+ */
+const SCAFFOLD_OVERRIDES: Record<ScaffoldLevel, Partial<LessonProfile>> = {
+  5: { showMeaningHint: true, wordBankPadding: 0, allowTypedAnswers: false },
+  4: { showMeaningHint: true, wordBankPadding: 1, allowTypedAnswers: false },
+  3: { wordBankPadding: 2, allowTypedAnswers: false },
+  2: { showMeaningHint: false, wordBankPadding: 3 },
+  1: { showMeaningHint: false, wordBankPadding: 4, allowTypedAnswers: true },
+};
+
 export function getLessonProfile(
   kind: LessonKind,
   band?: CefrBand,
+  scaffold?: ScaffoldLevel,
 ): LessonProfile {
   const base = PROFILES[kind] ?? PROFILES.build;
-  const override = band ? BAND_OVERRIDES[band]?.[kind] : undefined;
+  const banded = band ? { ...base, ...BAND_OVERRIDES[band]?.[kind] } : base;
 
-  return override ? { ...base, ...override } : base;
+  // A review or capstone keeps its own padding: those lessons are the check,
+  // and softening them at a high scaffold level would defeat the point.
+  if (!scaffold || kind === "review" || kind === "capstone") {
+    return banded;
+  }
+
+  return { ...banded, ...SCAFFOLD_OVERRIDES[scaffold] };
 }
 
 export function allLessonProfiles(): LessonProfile[] {
