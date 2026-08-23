@@ -47,6 +47,7 @@ import {
   type StepFormat,
 } from "@/lib/lesson-profiles";
 import { makeRng, seededShuffle, type Rng } from "@/lib/rng";
+import { isKnownForm } from "@/lib/spanish-lexicon";
 import {
   isContentWord,
   normalizeWord,
@@ -59,6 +60,7 @@ import type {
   DialogueTurn,
   Exercise,
   GrammarFocus,
+  LanguagePattern,
   Lesson,
   LessonPlan,
   Phrase,
@@ -259,7 +261,7 @@ function buildPlannedLessonSteps(
   // A practice session over a planned lesson teaches nothing: everything in the
   // working set is treated as material to retrieve.
   const kind = reviewMode ? "strengthen" : plan.kind;
-  const profile = getLessonProfile(kind);
+  const profile = getLessonProfile(kind, plan.band);
   const rng = makeRng(`${lesson.id}-${kind}`);
   const byId = new Map(lesson.phrases.map((phrase) => [phrase.id, phrase]));
   const resolve = (ids: readonly string[]): Phrase[] =>
@@ -288,6 +290,7 @@ function buildPlannedLessonSteps(
 
   const context: BuildContext = {
     lesson,
+    resolveKnown: isKnownForm,
     profile,
     optionPool,
     wordPool,
@@ -343,9 +346,9 @@ function buildPlannedLessonSteps(
     });
   }
 
-  // --- grammar --------------------------------------------------------------
   const practiceSteps: LessonStep[] = [];
 
+  // --- grammar --------------------------------------------------------------
   if (profile.includeGrammar && plan.grammar) {
     practiceSteps.push({
       id: `${lesson.id}-grammar-${plan.grammar.id}`,
@@ -353,17 +356,42 @@ function buildPlannedLessonSteps(
       focus: plan.grammar,
     });
 
-    for (const drill of buildGrammarDrills(
-      plan.grammar,
-      lesson.phrases,
-      lesson.id,
-    )) {
+    // Skip the derived pattern drill when the unit authored its own frames:
+    // an authored pattern says what the unit wants built, where the derived one
+    // just takes whatever follows a marker.
+    const drills = buildGrammarDrills(plan.grammar, lesson.phrases, lesson.id, 3, {
+      includePatterns: !(profile.includePatterns && plan.patterns?.length),
+    });
+
+    for (const drill of drills) {
       const step = buildGrammarDrillStep(drill, plan.grammar, context);
 
       if (step) {
         // Grammar drills count as questions asked, so the practice block that
         // follows doesn't re-ask one of them in the same format.
         markUsed(usage, drill.phrase, stepFormatOf(step) ?? "complete");
+        practiceSteps.push(step);
+      }
+    }
+  }
+
+  // --- patterns -------------------------------------------------------------
+  // Authored frames: the frame stays put and the slot varies, so the learner
+  // practises a structure they can reuse rather than one memorised sentence.
+  // They sit after the grammar card because that card is what names the frame.
+  if (profile.includePatterns && plan.patterns?.length) {
+    const knownWords = new Set<string>();
+
+    for (const phrase of lesson.phrases) {
+      for (const word of splitWords(phrase.romanized)) {
+        knownWords.add(normalizeWord(word));
+      }
+    }
+
+    for (const pattern of plan.patterns.slice(0, profile.maxPatternSteps)) {
+      const step = buildPatternStep(pattern, context, knownWords);
+
+      if (step) {
         practiceSteps.push(step);
       }
     }
@@ -465,6 +493,8 @@ function buildPlannedLessonSteps(
 
 type BuildContext = {
   lesson: Lesson;
+  /** How the course decides a word is already known; see `KnownWordResolver`. */
+  resolveKnown?: (word: string, known: ReadonlySet<string>) => boolean;
   profile: LessonProfile;
   optionPool: readonly Phrase[];
   wordPool: string[];
@@ -802,6 +832,70 @@ function tryBuildFormat(
     default:
       return null;
   }
+}
+
+/**
+ * A question built from an authored sentence frame.
+ *
+ * The frame is fixed and the slot varies, so the learner practises *the
+ * structure* rather than one memorised sentence: `Quiero ___` against un café /
+ * el té / el agua. Fills the learner has not met are filtered out, so an early
+ * unit only ever offers words it has taught.
+ */
+function buildPatternStep(
+  pattern: LanguagePattern,
+  context: BuildContext,
+  known: ReadonlySet<string>,
+): LessonStep | null {
+  // Judge a fill by its content words, through the same "does the learner have
+  // this?" test the curriculum layer uses — so `Canadá` counts as readable
+  // without the course having to teach every place name, and "un café" is not
+  // rejected for an article.
+  const usable = pattern.fills.filter((fill) => {
+    const words = splitWords(fill.target).filter(isContentWord);
+    const check = words.length > 0 ? words : splitWords(fill.target);
+
+    return check.every(
+      (word) =>
+        known.has(normalizeWord(word)) ||
+        (context.resolveKnown?.(normalizeWord(word), known) ?? false),
+    );
+  });
+
+  // One answer and two alternatives is the smallest thing that still asks a
+  // question; below that the frame has nothing to vary.
+  if (usable.length < 3) {
+    return null;
+  }
+
+  const rng = makeRng(`${context.lesson.id}-${pattern.id}`);
+  const [answer, ...rest] = seededShuffle(usable, rng);
+  const [before, after = ""] = pattern.template.split("{}");
+  const phrase: Phrase = {
+    id: pattern.id,
+    romanized: pattern.template.replace("{}", answer.target),
+    english: pattern.english.replace("{}", answer.english),
+    pronunciation: "",
+    category: "phrase",
+  };
+
+  context.counter.value += 1;
+
+  return {
+    id: `${context.lesson.id}-pattern-${context.counter.value}-${pattern.id}`,
+    type: "complete",
+    phrase,
+    before: before.trim(),
+    after: after.trim(),
+    answer: answer.target,
+    hint: pattern.english.replace("{}", answer.english),
+    options: seededShuffle(
+      [answer.target, ...rest.slice(0, 3).map((fill) => fill.target)],
+      rng,
+    ),
+    prompt: `Use the pattern: ${before.trim()} …`,
+    conceptIds: pattern.concepts,
+  };
 }
 
 /** A grammar drill, rendered with the question types the learner already knows. */
@@ -1256,7 +1350,8 @@ export function adaptUpcomingSteps(
 function buildContextFor(lesson: Lesson): BuildContext {
   return {
     lesson,
-    profile: getLessonProfile(lesson.plan?.kind ?? "build"),
+    resolveKnown: isKnownForm,
+    profile: getLessonProfile(lesson.plan?.kind ?? "build", lesson.plan?.band),
     optionPool: lesson.phrases,
     wordPool: buildWordPool(lesson.phrases),
     capabilities: lesson.curriculumId

@@ -222,6 +222,25 @@ export type DialogueScript = {
  * consulted. The engine turns this into steps; the learner model decides which
  * of `reviewPhraseIds` actually get drilled today.
  */
+/**
+ * A reusable sentence frame and the things that can go in its slot.
+ *
+ * Authored, because which fills make sense in a frame is a judgement: "Quiero
+ * un café" and "Quiero el agua" are both fine, "Quiero muy" is not. The engine
+ * can infer frames from a grammar rule's markers, but an authored pattern says
+ * what the unit actually wants the learner to be able to build.
+ */
+export type LanguagePattern = {
+  id: string;
+  /** The frame, with `{}` marking the slot: "Quiero {}". */
+  template: string;
+  english: string;
+  /** What can fill the slot, in the target language. */
+  fills: Array<{ target: string; english: string }>;
+  /** Grammar concepts this pattern exercises. */
+  concepts?: string[];
+};
+
 export type LessonPlan = {
   kind: LessonKind;
   /** Introduced here for the first time in the course, in teaching order. */
@@ -232,6 +251,13 @@ export type LessonPlan = {
   interleavedPhraseIds?: string[];
   grammar?: GrammarFocus;
   dialogue?: DialogueScript;
+  /** Reusable frames this lesson should practise. */
+  patterns?: LanguagePattern[];
+  /**
+   * CEFR band, which decides how much scaffolding the profile keeps. See
+   * `BAND_OVERRIDES` in `@/lib/lesson-profiles`.
+   */
+  band?: "Intro" | "A1" | "A2" | "B1";
 };
 
 export type UnitMetadata = {

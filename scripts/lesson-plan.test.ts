@@ -28,6 +28,9 @@ import {
 import { MASTERY_BOX } from "@/lib/review-policy";
 import type { Lesson } from "@/types/learning";
 
+/** Of a unit's six lessons, five teach; the sixth is the review. */
+const TEACHING_LESSONS_PER_UNIT = 5;
+
 const spanish = getLessonsForCurriculum("spanish");
 const firstUnits = spanish.filter((lesson) => lesson.unitId.startsWith("es-en-s01-u0"));
 
@@ -53,12 +56,47 @@ test("every Spanish lesson carries a cumulative plan; other courses do not", () 
 });
 
 test("no lesson introduces more new material than the cap", () => {
+  // Five teaching lessons at the cap is a unit's capacity. A unit carrying more
+  // than that has to put the remainder somewhere, and the last teaching lesson
+  // takes it — the alternative is a review lesson that introduces new material,
+  // which would cost more than a slightly fuller lesson does.
+  const unitTotals = new Map<string, number>();
+  for (const lesson of spanish) {
+    unitTotals.set(
+      lesson.unitId,
+      (unitTotals.get(lesson.unitId) ?? 0) + planned(lesson).newPhraseIds.length,
+    );
+  }
+
+  const capacity = TEACHING_LESSONS_PER_UNIT * MAX_NEW_ITEMS_PER_LESSON;
+
   for (const lesson of spanish) {
     const plan = planned(lesson);
+    const total = unitTotals.get(lesson.unitId) ?? 0;
+    const allowed =
+      total > capacity
+        ? MAX_NEW_ITEMS_PER_LESSON +
+          Math.ceil((total - capacity) / TEACHING_LESSONS_PER_UNIT)
+        : MAX_NEW_ITEMS_PER_LESSON;
+
     assert.ok(
-      plan.newPhraseIds.length <= MAX_NEW_ITEMS_PER_LESSON,
-      `${lesson.id} introduces ${plan.newPhraseIds.length} new items`,
+      plan.newPhraseIds.length <= allowed,
+      `${lesson.id} introduces ${plan.newPhraseIds.length} new items (allowed ${allowed})`,
     );
+  }
+});
+
+test("a unit review still introduces nothing, even when its unit is full", () => {
+  for (const lesson of spanish) {
+    const plan = planned(lesson);
+
+    if (plan.kind === "review") {
+      assert.equal(
+        plan.newPhraseIds.length,
+        0,
+        `${lesson.id} is a review but introduces new material`,
+      );
+    }
   }
 });
 

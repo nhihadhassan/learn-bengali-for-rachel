@@ -59,7 +59,10 @@ NEXT_TEST_WASM=1 NEXT_TEST_WASM_DIR="$PWD/node_modules/@next/swc-wasm-nodejs" np
   language-agnostic.
 - **A unit's grammar is declared, not derived**: `grammar_focus` in
   `content/spanish-curriculum.json`, gated on the pattern having been met and
-  the examples being readable. Never reintroduce index arithmetic here.
+  the examples being readable. Un-authored units rank their targets by the
+  evidence the unit shows. Never reintroduce index arithmetic here.
+- **No two units may teach the same phrase set.** A third of the course once
+  did; `npm test` fails if it happens again.
 - `src/lib/review-policy.ts` owns spaced repetition. Nothing else defines
   intervals.
 - `src/lib/date-keys.ts` owns calendar days. Never use `toISOString()` for a
@@ -115,7 +118,7 @@ still supported for older content. Put new recorded files under
 - **Mistake recycling must not change the step count.** Slots are reserved and
   rewritten, so the progress bar only moves forward.
 - After touching the Spanish curriculum or the plan layer, run
-  `npm run audit:curriculum` — Sections 1-2 findings fail the run.
+  `npm run audit:curriculum` — every finding, in any section, fails the run.
 - **Never ask the learner to produce untaught language.** A dialogue prompt may
   carry new language if marked `receptive`; a reply may not.
 - Run lint, tests and build after code changes.

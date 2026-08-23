@@ -16,7 +16,8 @@
         "fuimos": "preterite nosotros",
         "era": "imperfect",
         "semos": "nosotros",
-        "sen": "ellos"
+        "sen": "ellos",
+        "fueron": "preterite ellos"
       }
     },
     {
@@ -40,7 +41,10 @@
         "tiene": "él/ella",
         "tenemos": "nosotros",
         "tienen": "ellos",
-        "tenen": "ellos"
+        "tenen": "ellos",
+        "tuve": "preterite yo",
+        "tuvo": "preterite él/ella",
+        "tenía": "imperfect"
       }
     },
     {
@@ -61,10 +65,13 @@
       "forms": {
         "puedo": "yo",
         "puedes": "tú",
-        "puede": "él/ella",
+        "puede": "present él/ella",
         "podemos": "nosotros",
         "pueden": "ellos",
-        "poden": "ellos"
+        "poden": "ellos",
+        "podrías": "conditional tú",
+        "podría": "conditional",
+        "pude": "preterite yo"
       }
     },
     {
@@ -506,7 +513,9 @@
         "traes": "tú",
         "trae": "él/ella",
         "traemos": "nosotros",
-        "traen": "ellos"
+        "traen": "ellos",
+        "traje": "preterite yo",
+        "trajo": "preterite él/ella"
       }
     },
     {
@@ -1013,6 +1022,51 @@
         "reunimos": "nosotros",
         "reunen": "ellos"
       }
+    },
+    {
+      "lemma": "haber",
+      "english": "there to be",
+      "forms": {
+        "hay": "present",
+        "hubo": "preterite",
+        "había": "imperfect",
+        "habrá": "future"
+      }
+    },
+    {
+      "lemma": "mover",
+      "english": "mover",
+      "forms": {
+        "mueve": "present él/ella",
+        "mueves": "present tú",
+        "muevo": "present yo"
+      }
+    },
+    {
+      "lemma": "mudarse",
+      "english": "mudarse",
+      "forms": {
+        "mudar": "infinitive"
+      }
+    },
+    {
+      "lemma": "encender",
+      "english": "encender",
+      "forms": {
+        "enciende": "present él/ella",
+        "enciendo": "present yo",
+        "enciendes": "present tú"
+      }
+    },
+    {
+      "lemma": "dar",
+      "english": "dar",
+      "forms": {
+        "dieron": "preterite ellos",
+        "dan": "present ellos",
+        "doy": "present yo",
+        "da": "present él/ella"
+      }
     }
   ],
   "transparent": {
@@ -1131,7 +1185,26 @@
       "parte",
       "final",
       "físicamente",
-      "suficiente"
+      "suficiente",
+      "próximo",
+      "próxima",
+      "solo",
+      "sola",
+      "correctamente",
+      "pude",
+      "quisiera",
+      "casi",
+      "alguien",
+      "durante",
+      "vez",
+      "tanto",
+      "cada",
+      "alguno",
+      "ninguno",
+      "conmigo",
+      "contigo",
+      "mes",
+      "meses"
     ]
   }
 }

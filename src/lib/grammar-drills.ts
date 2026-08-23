@@ -418,6 +418,7 @@ export function buildGrammarDrills(
   knownPhrases: readonly Phrase[],
   seed: string,
   limit = 3,
+  { includePatterns = true }: { includePatterns?: boolean } = {},
 ): GrammarDrill[] {
   const rule = ruleById.get(focus.id);
 
@@ -432,7 +433,7 @@ export function buildGrammarDrills(
   // A pattern drill holds the frame steady and swaps what goes in the slot:
   // "Quiero ___" against café / té / agua. It is the difference between
   // remembering one sentence and owning a structure you can reuse.
-  for (const drill of buildPatternDrills(rule, knownPhrases, rng)) {
+  for (const drill of includePatterns ? buildPatternDrills(rule, knownPhrases, rng) : []) {
     if (drills.length >= limit) break;
     usedPhraseIds.add(drill.phrase.id);
     drills.push(drill);

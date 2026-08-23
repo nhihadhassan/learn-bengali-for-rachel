@@ -355,12 +355,40 @@ tests the pattern rather than the vocabulary. A rule with no usable sentence
 returns nothing and the lesson falls back to ordinary practice. `avoidPhrases`
 keeps famous exceptions (`el agua`) from being drilled as if they were the rule.
 
+### Grammar selection has no arithmetic left in it
+
+Sections 1-2 declare `grammar_focus` by hand. Sections 3-4 do not, and used to
+rotate by unit index. They now **rank their declared targets by the evidence the
+unit itself puts in front of the learner**, and if a unit declares only targets
+its sentences never demonstrate — a unit about hobbies declaring "irregular
+present" — the search widens to every authored rule until it finds one the unit
+actually shows. All 90 un-authored grammar lessons now teach a pattern the
+learner has already met.
+
 ### Pattern drills
 
 A `pattern` drill holds a frame steady and swaps what fills it — `Quiero ___`
 against *un café* / *el té* / *el agua*. It is the difference between
 remembering a sentence and owning a structure. Built in `buildPatternDrills`
 and rendered with the existing cloze step, so no new renderer was needed.
+
+### Authored patterns
+
+A unit may declare `patterns`: a frame with a `{}` slot and the things that can
+fill it.
+
+```json
+{ "id": "es-en-s01-u001-pat01", "template": "Quiero {}", "english": "I want {}",
+  "fills": [{ "spanish": "un café", "english": "a coffee" }, …],
+  "concepts": ["querer-pattern"] }
+```
+
+The engine holds the frame and varies the slot, filtering fills to what the
+learner can read (through `isKnownForm`, so `Canadá` counts without the course
+teaching every place name). Authored patterns take precedence over the ones
+derived from a rule's markers — a unit that says which structures matter should
+get those. Which lesson types practise them, and how many, is per-profile
+(`includePatterns` / `maxPatternSteps`).
 
 ### Concept strength
 
@@ -394,12 +422,16 @@ understand it for now" chip, and the audit exempts those lines from its
 unknown-word check. Replies are never receptive: the learner is never asked to
 produce untaught language.
 
-### Later sections
+### Later sections take the scaffolding away
 
-`getLessonProfile(kind, band?)` accepts a CEFR band with an override table that
-is **deliberately empty**. The shape of A2/B1 lessons — longer listening,
-reading passages, mixed-skill sessions, less scaffolding — is a content decision
-not yet made, and it belongs there as data when it is.
+`getLessonProfile(kind, band?)` reads a CEFR band off `Lesson.plan.band` and
+applies `BAND_OVERRIDES`. A band supplies only the fields it changes:
+
+- **A1** — the English hint comes off cloze questions; word banks carry more decoys.
+- **A2** — fewer warm-up props, sentence-building over recognition, listening
+  that is no longer a two-word bank, and no meaning hint anywhere.
+
+B1 is still open. Adding it means adding a row, not touching the engine.
 
 ### Rolling back
 
@@ -421,11 +453,14 @@ before it has been met · dialogue prompts above an unknown-word threshold
 material never revisited outside its unit · new-content overload · consecutive
 lessons that barely overlap · incoherent authored dialogue.
 
-**Sections 1-2 (41 units) findings fail the run**, and they are held to a
-stricter bar than the rest: a sentence the learner will be asked to *build* must
-be fully readable when it appears, where Sections 3-4 are judged on being mostly
-readable. Those later sections report warnings (13 at the time of writing, all
-prerequisite gaps awaiting the same hand-sequencing treatment).
+**Every finding is an error, across all 131 units.** The whole course is held to
+the same bar: a sentence the learner will be asked to *build* must be fully
+readable when it appears. The audit reports clean at the time of writing.
+
+Two checks are deliberately shaped by structure rather than ideals: a unit
+holding more items than five 4-item lessons can carry may put the remainder in
+its last *teaching* lesson (never in the review), and the final two units of the
+course are exempt from "never revisited", since nothing follows them.
 
 ### Feature flags (`src/lib/feature-flags.ts`)
 
@@ -585,17 +620,16 @@ page load: voices aren't loaded yet, the engine is cold, and the synth can start
 - **Cloud sync** on top of the local-first store (see §6), using `db/`.
 - **Recorded audio** for high-frequency Spanish phrases (`public/audio/spanish/`,
   set `audioFile`) for quality beyond TTS.
-- **Hand-sequence Sections 3-4** the way Sections 1-2 were (§5a): assign an
-  explicit `grammar_focus`, close the 13 prerequisite gaps
-  `npm run audit:curriculum` still warns about, and author a `dialogue` block
-  per unit. Sections 3-4 currently rely on the grammar rotation and the
-  relation-aware dialogue fallback.
-- **Differentiate the duplicated Section 2 units.** `es-en-s02-u002` /
-  `u026` and `u004` / `u028` still ship identical phrase sets; four units teach
-  the same five sentences about hobbies.
-- **Author `patterns` data.** Pattern drills are currently derived from a
-  rule's markers. Explicit per-unit patterns would let a unit say which frames
-  matter and which fills belong in them.
+- **Author `patterns` beyond Sections 1-2.** 19 frames are authored; the rest of
+  the course still derives them from a rule's markers, which works but says less
+  about what a unit wants the learner to be able to build.
+- **Author the remaining 75 dialogues.** Every "Use in context" lesson now has a
+  conversation, but 75 of them are inferred (a question paired with a
+  topically-related statement) rather than written. Authored beats inferred.
+- **A B1 band.** `BAND_OVERRIDES` covers A1 and A2; the last stretch of the
+  course still runs the A2 shape.
+- **Spot-check Spanish accuracy** across Sections 3-4, whose vocabulary and
+  phrases are still largely as the pack shipped them.
 - **Listening for `spanish-peru`** — the capability is declared per course now,
   so it is a one-word change once the shorter phrase set has been checked.
 - **Content spot-check** across a sample of the 131 units for accuracy.

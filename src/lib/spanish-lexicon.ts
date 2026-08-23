@@ -78,6 +78,71 @@ export function isTransparentWord(word: string): boolean {
  * plural -s / -es, then the -o/-a gender pair, then both together
  * (`frescas` -> `fresco`).
  */
+/**
+ * Endings a regular verb takes across the tenses this course uses — present,
+ * preterite, imperfect, gerund and participle. Longest first, so "-ábamos" is
+ * stripped before "-a".
+ *
+ * This is rule-based morphology, not a parser: it exists so the curriculum
+ * audit can tell "a word the learner has never met" apart from "a form of a
+ * verb the course taught". Irregulars stay in the authored map.
+ */
+const VERB_ENDINGS = [
+  "ábamos", "íamos", "aríamos",
+  "aremos", "eremos", "iremos",
+  "abas", "aban", "aba",
+  "ías", "ían", "ía",
+  "amos", "emos", "imos",
+  "aste", "iste", "aron", "ieron",
+  "ando", "iendo", "ado", "ido",
+  "áis", "éis", "ís",
+  "as", "es", "an", "en",
+  "é", "í", "ó", "ió",
+  "o", "a", "e",
+];
+
+/**
+ * Infinitives a conjugated form could belong to.
+ *
+ * Authoring every form of every regular verb would be busywork — `funcionar`
+ * is entirely predictable. Only irregulars need the authored map; this rebuilds
+ * the rest, which is why "No funciona correctamente." stopped looking like it
+ * used a verb the course had never taught.
+ */
+/** Pronouns Spanish attaches to the end of an infinitive or command. */
+const ENCLITICS = ["melo", "telo", "selo", "nos", "me", "te", "se", "lo", "la", "los", "las", "le", "les"];
+
+function infinitiveCandidates(word: string): string[] {
+  const candidates = new Set<string>();
+
+  // "cambiarlo" is "cambiar" with the object stuck on the end. Strip it and
+  // recurse, so an attached pronoun never makes a taught verb look unknown.
+  for (const enclitic of ENCLITICS) {
+    if (word.endsWith(enclitic) && word.length > enclitic.length + 2) {
+      const base = word.slice(0, word.length - enclitic.length);
+      candidates.add(base);
+
+      for (const infinitive of infinitiveCandidates(base)) {
+        candidates.add(infinitive);
+      }
+    }
+  }
+
+  for (const ending of VERB_ENDINGS) {
+    if (!word.endsWith(ending) || word.length <= ending.length + 1) {
+      continue;
+    }
+
+    const stem = word.slice(0, word.length - ending.length);
+
+    for (const infinitive of ["ar", "er", "ir"]) {
+      candidates.add(stem + infinitive);
+    }
+  }
+
+  return [...candidates];
+}
+
 function regularVariants(word: string): string[] {
   const key = normalizeWord(word);
   const stems = new Set<string>([key]);
@@ -139,6 +204,12 @@ export function isKnownForm(word: string, known: ReadonlySet<string>): boolean {
 
   for (const variant of regularVariants(key)) {
     if (known.has(variant)) {
+      return true;
+    }
+  }
+
+  for (const infinitive of infinitiveCandidates(key)) {
+    if (known.has(infinitive)) {
       return true;
     }
   }
