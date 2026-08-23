@@ -18,6 +18,7 @@ import type {
   Unit as PackUnit,
 } from "@/curriculum/types";
 import { getCapabilities } from "@/lib/courses";
+import type { CefrBand } from "@/lib/lesson-profiles";
 import {
   createReviewQueues,
   planUnit,
@@ -30,6 +31,7 @@ import {
 import { FEATURES } from "@/lib/feature-flags";
 import { taughtWordSet } from "@/lib/curriculum-plan";
 import {
+  allGrammarRules,
   countPatternEncounters,
   findGrammarRule,
   getGrammarRule,
@@ -40,6 +42,7 @@ import { isKnownForm } from "@/lib/spanish-lexicon";
 import type {
   DialogueScript,
   GrammarFocus,
+  LanguagePattern,
   Lesson,
   Phrase,
   Unit,
@@ -58,14 +61,31 @@ type PackDialogue = {
   }>;
 };
 
+type PackPattern = {
+  id: string;
+  template: string;
+  english: string;
+  fills: Array<{ spanish: string; english: string }>;
+  concepts?: string[];
+};
+
 type PackUnitWithExtras = PackUnit & {
   dialogue?: PackDialogue;
+  patterns?: PackPattern[];
   /** Explicit grammar rule id; see `grammarFocusFor`. */
   grammar_focus?: string;
 };
 
 /** The shape `@/lib/grammar-drills` exposes for an authored rule. */
 type RawGrammarRule = NonNullable<ReturnType<typeof getGrammarRule>>;
+
+/** The pack's CEFR labels, as the profile table knows them. */
+const CEFR_BANDS: Record<string, CefrBand | undefined> = {
+  Intro: "Intro",
+  A1: "A1",
+  A2: "A2",
+  B1: "B1",
+};
 
 const CEFR_DIFFICULTY: Record<string, string> = {
   Intro: "Intro",
@@ -168,10 +188,15 @@ const MIN_AUTHORED_ENCOUNTERS = 1;
  * it produces must be readable with the vocabulary they have. If the authored
  * focus fails the gate, the best-supported alternative from the unit's declared
  * targets is used instead.
+ *
+ * Un-authored units (Sections 3-4) no longer rotate either. Their declared
+ * targets are ranked by **how much the unit's own sentences demonstrate each
+ * one**, which is the same question a person answers when authoring a focus by
+ * hand — just asked of the data. A unit whose phrases are full of `voy a` gets
+ * the near-future rule because it earns it, not because of its index.
  */
 function grammarFocusFor(
   unit: PackUnitWithExtras,
-  unitNumber: number,
   context: {
     knownWords: ReadonlySet<string>;
     seenPhrases: ReadonlyArray<{ romanized: string; english: string }>;
@@ -191,15 +216,40 @@ function grammarFocusFor(
     candidates.push(authored);
   }
 
-  // Fallback order for un-authored units: the unit's declared targets, still
-  // rotated so consecutive units differ, but now gated on readiness.
+  // Fallback for un-authored units: rank the declared targets by the evidence
+  // this unit puts in front of the learner. Ties keep the pack's own order, so
+  // the result is deterministic.
   const targets = unit.grammar_targets ?? [];
-  for (let offset = 0; offset < targets.length; offset += 1) {
-    const rule = findGrammarRule(targets[(unitNumber - 1 + offset) % targets.length]);
+  const ranked = targets
+    .map((target, index) => ({ rule: findGrammarRule(target), index }))
+    .filter((entry): entry is { rule: RawGrammarRule; index: number } => Boolean(entry.rule))
+    .map((entry) => ({
+      ...entry,
+      evidence: countPatternEncounters(entry.rule, context.unitPhrases),
+    }))
+    .sort((a, b) => b.evidence - a.evidence || a.index - b.index);
 
-    if (rule && !candidates.includes(rule)) {
-      candidates.push(rule);
+  for (const entry of ranked) {
+    if (!candidates.includes(entry.rule)) {
+      candidates.push(entry.rule);
     }
+  }
+
+  // Some units declare targets their own sentences never show — a unit about
+  // likes and hobbies declaring "irregular present", for instance. Rather than
+  // explain a pattern that is nowhere on screen, look across every authored
+  // rule for one this unit genuinely demonstrates.
+  if (!authored && ranked[0]?.evidence === 0) {
+    const observed = allGrammarRules()
+      .map((rule) => ({
+        rule,
+        evidence: countPatternEncounters(rule, context.unitPhrases),
+      }))
+      .filter((entry) => entry.evidence > 0)
+      .sort((a, b) => b.evidence - a.evidence || a.rule.id.localeCompare(b.rule.id));
+
+    // Ahead of the evidence-free declared targets, behind nothing else.
+    candidates.unshift(...observed.map((entry) => entry.rule).filter((rule) => !candidates.includes(rule)));
   }
 
   const isReady = (rule: RawGrammarRule) =>
@@ -236,6 +286,21 @@ function grammarFocusFor(
   }
 
   return undefined;
+}
+
+/** The pack writes a slot as `{}`; the app's type keeps that shape. */
+function toPatterns(patterns: PackPattern[] | undefined): LanguagePattern[] | undefined {
+  if (!patterns?.length) {
+    return undefined;
+  }
+
+  return patterns.map((pattern) => ({
+    id: pattern.id,
+    template: pattern.template,
+    english: pattern.english,
+    fills: pattern.fills.map((fill) => ({ target: fill.spanish, english: fill.english })),
+    concepts: pattern.concepts,
+  }));
 }
 
 function toDialogueScript(dialogue: PackDialogue | undefined): DialogueScript | undefined {
@@ -332,7 +397,12 @@ function adaptLesson(
   const kind = toLessonKind(packLesson.name, packLesson.lesson_index);
   const lessonGrammar = kind === "grammar" ? grammar : undefined;
   const dialogue = kind === "context" ? toDialogueScript(unit.dialogue) : undefined;
-  const plan = toLessonPlan(planned, { grammar: lessonGrammar, dialogue });
+  const plan = toLessonPlan(planned, {
+    grammar: lessonGrammar,
+    dialogue,
+    patterns: toPatterns(unit.patterns),
+    band: CEFR_BANDS[unit.cefr],
+  });
 
   return {
     ...base,
@@ -433,7 +503,7 @@ function buildUnits(): Unit[] {
     }
 
     const grammar = cumulativeEnabled
-      ? grammarFocusFor(unit, index + 1, {
+      ? grammarFocusFor(unit, {
           knownWords: knownAtGrammar,
           seenPhrases: [...seenPhrases, ...introducedByGrammar],
           unitPhrases: introducedByGrammar,

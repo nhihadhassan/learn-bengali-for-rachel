@@ -60,6 +60,10 @@ export type LessonProfile = {
   includeGrammar: boolean;
   /** Include the authored dialogue when the plan carries one. */
   includeDialogue: boolean;
+  /** Practise the unit's authored sentence frames. */
+  includePatterns: boolean;
+  /** How many frames at most, so a lesson doesn't become a substitution table. */
+  maxPatternSteps: number;
   /** Show the English meaning as a hint on cloze questions. */
   showMeaningHint: boolean;
   /** Extra distractor words in a word bank. More padding = less support. */
@@ -95,6 +99,8 @@ const PROFILES: Record<LessonKind, LessonProfile> = {
     ],
     includeGrammar: false,
     includeDialogue: false,
+    includePatterns: false,
+    maxPatternSteps: 0,
     showMeaningHint: true,
     wordBankPadding: 1,
     reviewQuestionTarget: 3,
@@ -122,6 +128,8 @@ const PROFILES: Record<LessonKind, LessonProfile> = {
     ],
     includeGrammar: false,
     includeDialogue: false,
+    includePatterns: true,
+    maxPatternSteps: 2,
     showMeaningHint: true,
     wordBankPadding: 2,
     reviewQuestionTarget: 4,
@@ -141,6 +149,8 @@ const PROFILES: Record<LessonKind, LessonProfile> = {
     formatSequence: ["recognize", "produce", "order", "translate", "produce"],
     includeGrammar: true,
     includeDialogue: false,
+    includePatterns: true,
+    maxPatternSteps: 2,
     showMeaningHint: true,
     wordBankPadding: 2,
     reviewQuestionTarget: 4,
@@ -167,6 +177,8 @@ const PROFILES: Record<LessonKind, LessonProfile> = {
     ],
     includeGrammar: false,
     includeDialogue: false,
+    includePatterns: false,
+    maxPatternSteps: 0,
     showMeaningHint: false,
     wordBankPadding: 2,
     reviewQuestionTarget: 5,
@@ -193,6 +205,8 @@ const PROFILES: Record<LessonKind, LessonProfile> = {
     ],
     includeGrammar: false,
     includeDialogue: true,
+    includePatterns: true,
+    maxPatternSteps: 1,
     showMeaningHint: true,
     wordBankPadding: 2,
     reviewQuestionTarget: 5,
@@ -222,6 +236,8 @@ const PROFILES: Record<LessonKind, LessonProfile> = {
     ],
     includeGrammar: false,
     includeDialogue: false,
+    includePatterns: true,
+    maxPatternSteps: 1,
     showMeaningHint: false,
     wordBankPadding: 3,
     reviewQuestionTarget: 12,
@@ -248,6 +264,8 @@ const PROFILES: Record<LessonKind, LessonProfile> = {
     ],
     includeGrammar: false,
     includeDialogue: false,
+    includePatterns: false,
+    maxPatternSteps: 0,
     showMeaningHint: false,
     wordBankPadding: 3,
     reviewQuestionTarget: 12,
@@ -262,18 +280,59 @@ const PROFILES: Record<LessonKind, LessonProfile> = {
 export type CefrBand = "Intro" | "A1" | "A2" | "B1";
 
 /**
- * Per-band profile overrides — the extension point for evolving later sections.
+ * How a lesson type changes as the course gets harder.
  *
- * Empty on purpose: the shape of A2/B1 lessons (longer listening, reading
- * passages, mixed-skill sessions, less scaffolding) is a content decision that
- * has not been made yet, and inventing it before the early course is right
- * would be guessing. When it is made, it goes here as data rather than as a
- * second engine — a band supplies only the fields it wants to change.
+ * The six-lesson rhythm is right for a beginner, but running the Intro shape
+ * unchanged through 786 lessons would mean a learner at A2 still getting the
+ * scaffolding they needed on day one. A band supplies only the fields it wants
+ * to change; everything else is inherited.
  *
- * See docs/HANDOFF.md §5a.
+ * The direction of travel is the same for every type: take away support, ask
+ * for more production, and lean harder on the ear.
  */
-const BAND_OVERRIDES: Partial<Record<CefrBand, Partial<Record<LessonKind, Partial<LessonProfile>>>>> =
-  {};
+const BAND_OVERRIDES: Partial<
+  Record<CefrBand, Partial<Record<LessonKind, Partial<LessonProfile>>>>
+> = {
+  // A1: the English hint starts coming off cloze questions, and word banks
+  // carry more decoys.
+  A1: {
+    build: { showMeaningHint: false, wordBankPadding: 3 },
+    context: { wordBankPadding: 3 },
+    review: { wordBankPadding: 4, reviewQuestionTarget: 14 },
+  },
+
+  // A2: fewer warm-up props, sentence-building over recognition, and listening
+  // that is no longer a two-word bank.
+  A2: {
+    discover: {
+      warmUpChecks: 1,
+      formatSequence: ["recognize", "listen", "produce", "listen", "produce", "complete", "recognize"],
+    },
+    build: {
+      showMeaningHint: false,
+      wordBankPadding: 4,
+      formatSequence: ["complete", "order", "translate", "translate", "order", "produce", "translate"],
+    },
+    grammar: { showMeaningHint: false, wordBankPadding: 3 },
+    listen: {
+      wordBankPadding: 4,
+      formatSequence: ["listen", "listen", "produce", "listen", "complete", "listen", "listen"],
+    },
+    context: {
+      showMeaningHint: false,
+      wordBankPadding: 3,
+      formatSequence: ["complete", "translate", "produce", "translate", "produce", "produce"],
+    },
+    review: {
+      wordBankPadding: 4,
+      reviewQuestionTarget: 16,
+      formatSequence: [
+        "translate", "produce", "listen", "translate", "order",
+        "produce", "complete", "listen", "translate", "produce",
+      ],
+    },
+  },
+};
 
 export function getLessonProfile(
   kind: LessonKind,

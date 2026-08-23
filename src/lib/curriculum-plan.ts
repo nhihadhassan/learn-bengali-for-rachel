@@ -169,7 +169,10 @@ function newItemPlan(
     while (overflow > 0) {
       const next = plan[index + 1];
 
-      if (!next) {
+      // Never spill into the review lesson: "introduces nothing new" is what
+      // makes it a review. A slightly over-full teaching lesson is the lesser
+      // problem, so the overflow stops here instead.
+      if (!next || lessonKinds[index + 1] === "review") {
         break;
       }
 
@@ -652,12 +655,16 @@ export function planUnit(
   });
 
   // Anything the loads left over (a unit with more items than the schedule
-  // covers) is folded into the review lesson so nothing is silently dropped.
+  // covers) is folded into the *last teaching* lesson, so nothing is dropped
+  // and the review lesson keeps its defining property: it introduces nothing.
   const leftovers = [...remainingVocabulary, ...remainingPhrases].map((item) => item.id);
   if (leftovers.length > 0) {
-    const last = plans[plans.length - 1];
-    if (last) {
-      last.newPhraseIds = [...last.newPhraseIds, ...leftovers];
+    const lastTeaching =
+      [...plans].reverse().find((plan) => plan.kind !== "review") ??
+      plans[plans.length - 1];
+
+    if (lastTeaching) {
+      lastTeaching.newPhraseIds = [...lastTeaching.newPhraseIds, ...leftovers];
     }
   }
 
@@ -775,7 +782,7 @@ function createInterleaver(
 /** Build a `LessonPlan` from a planned lesson plus any authored extras. */
 export function toLessonPlan(
   planned: PlannedLesson,
-  extras: Pick<LessonPlan, "grammar" | "dialogue"> = {},
+  extras: Pick<LessonPlan, "grammar" | "dialogue" | "patterns" | "band"> = {},
 ): LessonPlan {
   return {
     kind: planned.kind,

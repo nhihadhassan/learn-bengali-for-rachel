@@ -204,6 +204,12 @@
         "grammar_focus": {
           "type": "string",
           "description": "Rule id from content/spanish-grammar.json. Authored per unit; units without one fall back to the grammar_targets rotation."
+        },
+        "patterns": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/pattern"
+          }
         }
       }
     },
@@ -264,6 +270,53 @@
           "type": "array",
           "items": {
             "$ref": "#/$defs/dialogueTurn"
+          }
+        }
+      }
+    },
+    "patternFill": {
+      "type": "object",
+      "required": [
+        "spanish",
+        "english"
+      ],
+      "properties": {
+        "spanish": {
+          "type": "string"
+        },
+        "english": {
+          "type": "string"
+        }
+      }
+    },
+    "pattern": {
+      "type": "object",
+      "required": [
+        "id",
+        "template",
+        "english",
+        "fills"
+      ],
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "template": {
+          "type": "string"
+        },
+        "english": {
+          "type": "string"
+        },
+        "fills": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/patternFill"
+          }
+        },
+        "concepts": {
+          "type": "array",
+          "items": {
+            "type": "string"
           }
         }
       }

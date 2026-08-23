@@ -20,6 +20,7 @@ import {
   toGrammarFocus,
 } from "@/lib/grammar-drills";
 import { buildLessonSteps } from "@/lib/lesson-steps";
+import { getLessonProfile } from "@/lib/lesson-profiles";
 import { isKnownForm, lemmaOf, isTransparentWord } from "@/lib/spanish-lexicon";
 import { isContentWord, normalizeWord, splitWords } from "@/lib/text-tokens";
 import type { Lesson, Phrase } from "@/types/learning";
@@ -30,6 +31,7 @@ const pack = JSON.parse(readFileSync("content/spanish-curriculum.json", "utf8"))
     section: number;
     grammar_focus?: string;
     dialogue?: unknown;
+    phrase_patterns: Array<{ spanish: string }>;
   }>;
 };
 const packUnits = new Map(pack.units.map((unit) => [unit.id, unit]));
@@ -382,4 +384,161 @@ test('the listening lesson is not called "Listen and speak"', () => {
   }
 
   assert.ok(lessons.some((lesson) => lesson.title === "Listen and understand"));
+});
+
+// ---------------------------------------------------------------------------
+// Course-wide guarantees
+//
+// Sections 3-4 are not hand-authored, so these assert the *rules* that keep
+// them honest rather than the content itself.
+// ---------------------------------------------------------------------------
+
+test("no two units teach the same set of phrases", () => {
+  // 46 units — a third of the course — once shared a phrase set with another.
+  // "Me gusta leer." was introduced as new material in five different places.
+  const byPhraseSet = new Map<string, string[]>();
+
+  for (const unit of pack.units) {
+    const key = [...unit.phrase_patterns.map((p) => p.spanish)].sort().join("|");
+    byPhraseSet.set(key, [...(byPhraseSet.get(key) ?? []), unit.id]);
+  }
+
+  const duplicates = [...byPhraseSet.values()].filter((ids) => ids.length > 1);
+
+  assert.deepEqual(
+    duplicates,
+    [],
+    `units share a phrase set: ${duplicates.map((ids) => ids.join(" = ")).join("; ")}`,
+  );
+});
+
+test("every unit teaches grammar its own sentences demonstrate", () => {
+  // The rotation is gone: an un-authored unit ranks its declared targets by the
+  // evidence it puts in front of the learner, and falls back to any rule it
+  // does demonstrate rather than explaining one that is nowhere on screen.
+  let unitSeen: Array<{ romanized: string; english: string }> = [];
+  let currentUnit = "";
+
+  for (const lesson of lessons) {
+    if (lesson.unitId !== currentUnit) {
+      currentUnit = lesson.unitId;
+      unitSeen = [];
+    }
+
+    for (const id of lesson.plan?.newPhraseIds ?? []) {
+      const phrase = lesson.phrases.find((item) => item.id === id);
+
+      if (phrase) {
+        unitSeen.push({ romanized: phrase.romanized, english: phrase.english });
+      }
+    }
+
+    if (lesson.plan?.kind !== "grammar") {
+      continue;
+    }
+
+    const focus = lesson.plan.grammar;
+    assert.ok(focus, `${lesson.id} has no grammar to teach`);
+
+    const rule = getGrammarRule(focus!.id);
+    assert.ok(rule, `${lesson.id} teaches an unauthored rule "${focus!.id}"`);
+    assert.ok(
+      countPatternEncounters(rule!, unitSeen) >= 1,
+      `${lesson.id} explains "${focus!.title}" with no example in front of the learner`,
+    );
+  }
+});
+
+test("every 'Use in context' lesson actually has a conversation", () => {
+  // A quarter of them used to produce no dialogue at all, which left the lesson
+  // type indistinguishable from ordinary practice.
+  for (const lesson of lessons) {
+    if (lesson.plan?.kind !== "context") {
+      continue;
+    }
+
+    const turns = buildLessonSteps(lesson).filter((step) => step.type === "dialogue");
+
+    assert.ok(
+      turns.length > 0,
+      `${lesson.id} is a context lesson with no dialogue`,
+    );
+  }
+});
+
+test("authored patterns hold their frame and offer real alternatives", () => {
+  const withPatterns = lessons.filter((lesson) => lesson.plan?.patterns?.length);
+  assert.ok(withPatterns.length > 0, "no lesson carries authored patterns");
+
+  let seen = 0;
+
+  for (const lesson of withPatterns) {
+    for (const pattern of lesson.plan!.patterns!) {
+      assert.ok(
+        pattern.template.includes("{}"),
+        `${pattern.id} has no slot to vary`,
+      );
+      assert.ok(
+        pattern.fills.length >= 3,
+        `${pattern.id} offers ${pattern.fills.length} fills; a frame needs alternatives`,
+      );
+    }
+
+    for (const step of buildLessonSteps(lesson)) {
+      if (step.type !== "complete" || !step.prompt.startsWith("Use the pattern")) {
+        continue;
+      }
+
+      seen += 1;
+      assert.ok(step.options.includes(step.answer), `${step.id} omits its answer`);
+      assert.ok(step.options.length >= 3, `${step.id} has no alternatives`);
+      // The frame is the constant; only the slot changes.
+      assert.ok(step.before.length > 0, `${step.id} has an empty frame`);
+    }
+  }
+
+  assert.ok(seen > 0, "authored patterns never produced a question");
+});
+
+test("later sections take the scaffolding away", () => {
+  // The Intro shape should not still be running at A2: the English hint comes
+  // off, and word banks carry more decoys.
+  const intro = getLessonProfile("build", "Intro");
+  const a2 = getLessonProfile("build", "A2");
+
+  assert.equal(intro.showMeaningHint, true);
+  assert.equal(a2.showMeaningHint, false);
+  assert.ok(
+    a2.wordBankPadding > intro.wordBankPadding,
+    "an A2 word bank should be less generous than an Intro one",
+  );
+
+  // A band supplies only what it changes; the rest is inherited.
+  assert.equal(a2.kind, intro.kind);
+  assert.equal(getLessonProfile("build").showMeaningHint, intro.showMeaningHint);
+});
+
+test("a unit review introduces nothing, even in an overloaded unit", () => {
+  for (const lesson of lessons) {
+    if (lesson.plan?.kind === "review") {
+      assert.equal(
+        lesson.plan.newPhraseIds.length,
+        0,
+        `${lesson.id} is a review but introduces new material`,
+      );
+    }
+  }
+});
+
+test("conjugated and inflected forms resolve without being authored", () => {
+  // Regular morphology is derived, so only irregulars need the authored map.
+  const known = new Set(["funcionar", "hablar", "vivir", "comprar", "cambiar"]);
+
+  for (const form of ["funciona", "hablamos", "vivió", "compraba", "cambiando"]) {
+    assert.ok(isKnownForm(form, known), `${form} should resolve`);
+  }
+
+  // An attached object pronoun is not a different word.
+  assert.ok(isKnownForm("cambiarlo", known));
+  assert.ok(!isKnownForm("olvidar", known));
 });
