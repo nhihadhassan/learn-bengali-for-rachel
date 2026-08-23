@@ -1,0 +1,3833 @@
+{
+  "pilot_id": "es-en-pilot-v2",
+  "version": "2.0.0",
+  "note": "Spanish Curriculum v2 — the reworked Units 1-12. Authored, not generated. See docs/HANDOFF.md 5b.",
+  "section": {
+    "section": 1,
+    "title_es": "Primeros pasos",
+    "description": "Twelve units that take you from your first Spanish word to a whole short conversation."
+  },
+  "units": [
+    {
+      "id": "es-en-p01-u01",
+      "section": 1,
+      "unit": 1,
+      "title": "Your first words in Spanish",
+      "cefr": "Intro",
+      "score_range": "0-9",
+      "communicative_goal": "Hear Spanish, read it aloud, and say your first five words.",
+      "objective": "Hear Spanish, read it aloud, and say your first five words.",
+      "scaffold": 5,
+      "grammar_targets": [
+        "sound and spelling"
+      ],
+      "vocabulary": [
+        {
+          "id": "es-en-s01-u002-v11",
+          "spanish": "hola",
+          "english": "hello",
+          "part_of_speech": "expression",
+          "status": "pilot_authored",
+          "emoji": "👋"
+        },
+        {
+          "id": "es-en-s01-u002-v06",
+          "spanish": "gracias",
+          "english": "thank you",
+          "part_of_speech": "expression",
+          "status": "pilot_authored",
+          "emoji": "🙏"
+        },
+        {
+          "id": "es-en-p01-u01-v03",
+          "spanish": "sí",
+          "english": "yes",
+          "part_of_speech": "adverb",
+          "status": "pilot_authored",
+          "emoji": "✅"
+        },
+        {
+          "id": "es-en-p01-u01-v04",
+          "spanish": "no",
+          "english": "no",
+          "part_of_speech": "adverb",
+          "status": "pilot_authored",
+          "emoji": "❌"
+        },
+        {
+          "id": "es-en-p01-u01-v05",
+          "spanish": "español",
+          "english": "Spanish",
+          "part_of_speech": "noun",
+          "status": "pilot_authored",
+          "emoji": "🇪🇸"
+        }
+      ],
+      "phrase_patterns": [
+        {
+          "id": "es-en-p01-u01-p02",
+          "spanish": "Sí, gracias.",
+          "english": "Yes, thank you.",
+          "status": "pilot_authored"
+        },
+        {
+          "id": "es-en-p01-u01-p03",
+          "spanish": "No, gracias.",
+          "english": "No, thank you.",
+          "status": "pilot_authored"
+        }
+      ],
+      "lesson_sequence": [
+        {
+          "lesson_index": 1,
+          "name": "Discover",
+          "goal": "Meet five Spanish words and connect sound to meaning."
+        },
+        {
+          "lesson_index": 2,
+          "name": "Notice the pattern",
+          "goal": "Work out how three Spanish letters sound."
+        },
+        {
+          "lesson_index": 3,
+          "name": "Unit review",
+          "goal": "Bring back everything from this unit."
+        }
+      ],
+      "review_schedule_days": [
+        1,
+        3,
+        7,
+        14
+      ],
+      "unit_assessment": {
+        "can_do_statement": "Hear Spanish, read it aloud, and say your first five words."
+      },
+      "notices": [
+        {
+          "id": "p01-u01-n01",
+          "title": "Three letters that surprise you",
+          "examples": [
+            {
+              "spanish": "hola",
+              "english": "hello",
+              "note": "the h is silent — say OH-la"
+            },
+            {
+              "spanish": "español",
+              "english": "Spanish",
+              "note": "ñ sounds like the ny in canyon"
+            },
+            {
+              "spanish": "gracias",
+              "english": "thank you",
+              "note": "c before i sounds like s"
+            }
+          ],
+          "question": {
+            "prompt": "The h in hola is silent. So how does hasta start?",
+            "options": [
+              "like asta",
+              "with a breathy h",
+              "like jasta"
+            ],
+            "answer": "like asta",
+            "explanation": "The Spanish h is always silent — hola, hasta, hoy. You will never hear it, in any word.",
+            "concepts": [
+              "sound-spelling"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "es-en-p01-u02",
+      "section": 1,
+      "unit": 2,
+      "title": "Greet someone and say goodbye",
+      "cefr": "Intro",
+      "score_range": "0-9",
+      "communicative_goal": "Greet someone at any time of day, ask how they are, and say goodbye.",
+      "objective": "Greet someone at any time of day, ask how they are, and say goodbye.",
+      "scaffold": 5,
+      "grammar_targets": [
+        "greetings",
+        "buenos and buenas"
+      ],
+      "vocabulary": [
+        {
+          "id": "es-en-s01-u002-v01",
+          "spanish": "buenos días",
+          "english": "good morning",
+          "part_of_speech": "expression",
+          "status": "pilot_authored",
+          "emoji": "🌅"
+        },
+        {
+          "id": "es-en-s01-u002-v02",
+          "spanish": "buenas tardes",
+          "english": "good afternoon",
+          "part_of_speech": "expression",
+          "status": "pilot_authored",
+          "emoji": "🌇"
+        },
+        {
+          "id": "es-en-s01-u002-v03",
+          "spanish": "buenas noches",
+          "english": "good evening",
+          "part_of_speech": "expression",
+          "status": "pilot_authored",
+          "emoji": "🌙"
+        },
+        {
+          "id": "es-en-s01-u002-v04",
+          "spanish": "adiós",
+          "english": "goodbye",
+          "part_of_speech": "expression",
+          "status": "pilot_authored",
+          "emoji": "👋",
+          "context_es": "Adiós. Hasta luego.",
+          "context_en": "Goodbye. See you later."
+        },
+        {
+          "id": "es-en-s01-u002-v05",
+          "spanish": "hasta luego",
+          "english": "see you later",
+          "part_of_speech": "expression",
+          "status": "pilot_authored"
+        },
+        {
+          "id": "es-en-s01-u002-v07",
+          "spanish": "de nada",
+          "english": "you're welcome",
+          "part_of_speech": "expression",
+          "status": "pilot_authored",
+          "context_es": "Gracias. De nada.",
+          "context_en": "Thank you. You're welcome."
+        },
+        {
+          "id": "es-en-s01-u001-v02",
+          "spanish": "por favor",
+          "english": "please",
+          "part_of_speech": "expression",
+          "status": "pilot_authored",
+          "context_es": "Sí, por favor.",
+          "context_en": "Yes, please."
+        },
+        {
+          "id": "es-en-s01-u002-v12",
+          "spanish": "cómo",
+          "english": "how",
+          "part_of_speech": "question word",
+          "status": "pilot_authored",
+          "context_es": "¿Cómo estás?",
+          "context_en": "How are you?"
+        },
+        {
+          "id": "es-en-s01-u002-v10",
+          "spanish": "bien",
+          "english": "well",
+          "part_of_speech": "adverb",
+          "status": "pilot_authored",
+          "emoji": "👍",
+          "context_es": "Estoy bien, gracias.",
+          "context_en": "I am well, thank you."
+        },
+        {
+          "id": "es-en-s01-u002-v13",
+          "spanish": "estar",
+          "english": "to be (right now)",
+          "part_of_speech": "verb",
+          "status": "pilot_authored"
+        }
+      ],
+      "phrase_patterns": [
+        {
+          "id": "es-en-p01-u02-p01",
+          "spanish": "Hola, ¿cómo estás?",
+          "english": "Hello, how are you?",
+          "status": "pilot_authored"
+        },
+        {
+          "id": "es-en-p01-u02-p02",
+          "spanish": "Estoy bien, gracias.",
+          "english": "I am well, thank you.",
+          "status": "pilot_authored"
+        },
+        {
+          "id": "es-en-p01-u02-p04",
+          "spanish": "Buenas noches. Adiós.",
+          "english": "Good night. Goodbye.",
+          "status": "pilot_authored"
+        },
+        {
+          "id": "es-en-p01-u02-p05",
+          "spanish": "Adiós, hasta luego.",
+          "english": "Goodbye, see you later.",
+          "status": "pilot_authored"
+        },
+        {
+          "id": "es-en-p01-u02-p06",
+          "spanish": "Sí, por favor. Gracias.",
+          "english": "Yes, please. Thank you.",
+          "status": "pilot_authored"
+        }
+      ],
+      "lesson_sequence": [
+        {
+          "lesson_index": 1,
+          "name": "Discover",
+          "goal": "Meet the greetings, and hear when each one is used."
+        },
+        {
+          "lesson_index": 2,
+          "name": "Notice the pattern",
+          "goal": "Work out why it is buenos días but buenas tardes."
+        },
+        {
+          "lesson_index": 3,
+          "name": "Build",
+          "goal": "Put the greetings together into whole sentences."
+        },
+        {
+          "lesson_index": 4,
+          "name": "Use in context",
+          "goal": "Greet a neighbour and take your leave."
+        },
+        {
+          "lesson_index": 5,
+          "name": "Unit review",
+          "goal": "Bring back everything from this unit."
+        }
+      ],
+      "review_schedule_days": [
+        1,
+        3,
+        7,
+        14
+      ],
+      "unit_assessment": {
+        "can_do_statement": "Greet someone at any time of day, ask how they are, and say goodbye."
+      },
+      "notices": [
+        {
+          "id": "p01-u02-n01",
+          "title": "Buenos or buenas?",
+          "examples": [
+            {
+              "spanish": "buenos días",
+              "english": "good morning",
+              "note": "el día is masculine"
+            },
+            {
+              "spanish": "buenas tardes",
+              "english": "good afternoon",
+              "note": "la tarde is feminine"
+            },
+            {
+              "spanish": "buenas noches",
+              "english": "good evening",
+              "note": "la noche is feminine"
+            }
+          ],
+          "question": {
+            "prompt": "Spanish also wishes you good luck. La suerte is feminine. Which one is it?",
+            "options": [
+              "buena suerte",
+              "bueno suerte",
+              "buenos suerte"
+            ],
+            "answer": "buena suerte",
+            "explanation": "Describing words copy the noun's ending: masculine takes -o or -os, feminine takes -a or -as. That is the whole reason it is buenos días but buenas tardes.",
+            "concepts": [
+              "buenas-agreement"
+            ]
+          }
+        }
+      ],
+      "dialogues": [
+        {
+          "id": "p01-u02-d01",
+          "scenario": "You pass a neighbour on the stairs in the morning.",
+          "turns": [
+            {
+              "prompt": {
+                "spanish": "Buenos días. ¿Cómo estás?",
+                "english": "Good morning. How are you?"
+              },
+              "reply": {
+                "spanish": "Estoy bien, gracias.",
+                "english": "I am well, thank you."
+              },
+              "distractors": [
+                "De nada.",
+                "Hasta luego.",
+                "Buenas noches."
+              ],
+              "speaker": "Neighbour"
+            },
+            {
+              "prompt": {
+                "spanish": "Muy bien. Hasta luego.",
+                "english": "Very good. See you later.",
+                "receptive": true
+              },
+              "reply": {
+                "spanish": "Hasta luego.",
+                "english": "See you later."
+              },
+              "distractors": [
+                "Buenos días.",
+                "Sí, por favor.",
+                "Estoy bien, gracias."
+              ],
+              "speaker": "Neighbour"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "es-en-p01-u03",
+      "section": 1,
+      "unit": 3,
+      "title": "Say who you are, and ask who they are",
+      "cefr": "Intro",
+      "score_range": "0-9",
+      "communicative_goal": "Give your name, ask for someone else's, and say who a third person is.",
+      "objective": "Give your name, ask for someone else's, and say who a third person is.",
+      "scaffold": 4,
+      "grammar_targets": [
+        "reflexive verbs",
+        "subject pronouns"
+      ],
+      "vocabulary": [
+        {
+          "id": "es-en-s01-u002-v08",
+          "spanish": "llamarse",
+          "english": "to be called",
+          "part_of_speech": "verb",
+          "status": "pilot_authored",
+          "context_es": "Me llamo Ana.",
+          "context_en": "My name is Ana."
+        },
+        {
+          "id": "es-en-p01-u03-v03",
+          "spanish": "te",
+          "english": "yourself",
+          "part_of_speech": "pronoun",
+          "status": "pilot_authored",
+          "context_es": "¿Cómo te llamas?",
+          "context_en": "What is your name?"
+        },
+        {
+          "id": "es-en-s01-u003-v09",
+          "spanish": "ser",
+          "english": "to be",
+          "part_of_speech": "verb",
+          "status": "pilot_authored",
+          "context_es": "Yo soy Ana.",
+          "context_en": "I am Ana."
+        },
+        {
+          "id": "es-en-p01-u03-v05",
+          "spanish": "yo",
+          "english": "I",
+          "part_of_speech": "pronoun",
+          "status": "pilot_authored"
+        },
+        {
+          "id": "es-en-p01-u03-v06",
+          "spanish": "tú",
+          "english": "you",
+          "part_of_speech": "pronoun",
+          "status": "pilot_authored"
+        },
+        {
+          "id": "es-en-p01-u03-v07",
+          "spanish": "él",
+          "english": "he",
+          "part_of_speech": "pronoun",
+          "status": "pilot_authored",
+          "emoji": "👨"
+        },
+        {
+          "id": "es-en-p01-u03-v08",
+          "spanish": "ella",
+          "english": "she",
+          "part_of_speech": "pronoun",
+          "status": "pilot_authored",
+          "emoji": "👩"
+        },
+        {
+          "id": "es-en-p01-u03-v09",
+          "spanish": "mucho gusto",
+          "english": "nice to meet you",
+          "part_of_speech": "expression",
+          "status": "pilot_authored",
+          "emoji": "🤝"
+        },
+        {
+          "id": "es-en-s01-u004-v13",
+          "spanish": "quién",
+          "english": "who",
+          "part_of_speech": "question word",
+          "status": "pilot_authored",
+          "context_es": "¿Quién es él?",
+          "context_en": "Who is he?"
+        },
+        {
+          "id": "es-en-p01-u03-v11",
+          "spanish": "y",
+          "english": "and",
+          "part_of_speech": "conjunction",
+          "status": "pilot_authored"
+        }
+      ],
+      "phrase_patterns": [
+        {
+          "id": "es-en-p01-u03-p01",
+          "spanish": "Me llamo Ana.",
+          "english": "My name is Ana.",
+          "status": "pilot_authored"
+        },
+        {
+          "id": "es-en-p01-u03-p02",
+          "spanish": "¿Cómo te llamas?",
+          "english": "What is your name?",
+          "status": "pilot_authored"
+        },
+        {
+          "id": "es-en-p01-u03-p03",
+          "spanish": "Mucho gusto. Me llamo Ana.",
+          "english": "Nice to meet you. My name is Ana.",
+          "status": "pilot_authored"
+        },
+        {
+          "id": "es-en-p01-u03-p04",
+          "spanish": "Ella se llama Sofía.",
+          "english": "Her name is Sofía.",
+          "status": "pilot_authored"
+        },
+        {
+          "id": "es-en-p01-u03-p05",
+          "spanish": "¿Quién es él?",
+          "english": "Who is he?",
+          "status": "pilot_authored"
+        },
+        {
+          "id": "es-en-p01-u03-p06",
+          "spanish": "Yo soy Ana, ¿y tú?",
+          "english": "I am Ana, and you?",
+          "status": "pilot_authored"
+        }
+      ],
+      "lesson_sequence": [
+        {
+          "lesson_index": 1,
+          "name": "Discover",
+          "goal": "Meet the words for saying who you are."
+        },
+        {
+          "lesson_index": 2,
+          "name": "Build",
+          "goal": "Put your name and someone else's into sentences."
+        },
+        {
+          "lesson_index": 3,
+          "name": "Notice the pattern",
+          "goal": "Work out how Spanish says my name, your name, her name."
+        },
+        {
+          "lesson_index": 4,
+          "name": "Listen and understand",
+          "goal": "Catch names and introductions by ear."
+        },
+        {
+          "lesson_index": 5,
+          "name": "Have a conversation",
+          "goal": "Introduce yourself to someone new."
+        },
+        {
+          "lesson_index": 6,
+          "name": "Unit review",
+          "goal": "Bring back everything from this unit."
+        }
+      ],
+      "review_schedule_days": [
+        1,
+        3,
+        7,
+        14
+      ],
+      "unit_assessment": {
+        "can_do_statement": "Give your name, ask for someone else's, and say who a third person is."
+      },
+      "patterns": [
+        {
+          "id": "p01-u03-pat01",
+          "template": "¿Quién es {}?",
+          "english": "Who is {}?",
+          "fills": [
+            {
+              "spanish": "él",
+              "english": "he"
+            },
+            {
+              "spanish": "ella",
+              "english": "she"
+            },
+            {
+              "spanish": "Ana",
+              "english": "Ana"
+            },
+            {
+              "spanish": "Sofía",
+              "english": "Sofía"
+            }
+          ],
+          "concepts": [
+            "question-words"
+          ]
+        }
+      ],
+      "notices": [
+        {
+          "id": "p01-u03-n01",
+          "title": "me, te, se",
+          "examples": [
+            {
+              "spanish": "Me llamo Ana.",
+              "english": "I call myself Ana.",
+              "note": "me = myself"
+            },
+            {
+              "spanish": "¿Cómo te llamas?",
+              "english": "What do you call yourself?",
+              "note": "te = yourself"
+            },
+            {
+              "spanish": "Ella se llama Sofía.",
+              "english": "She calls herself Sofía.",
+              "note": "se = herself"
+            }
+          ],
+          "question": {
+            "prompt": "You have met me llamo and te llamas. How would you say his name is Diego?",
+            "options": [
+              "Se llama Diego.",
+              "Me llama Diego.",
+              "Te llama Diego."
+            ],
+            "answer": "Se llama Diego.",
+            "explanation": "Spanish literally says I call myself. The little word does the work: me is myself, te is yourself, se is himself or herself — which is why you rarely need él or ella at all.",
+            "concepts": [
+              "reflexive-llamarse"
+            ]
+          }
+        }
+      ],
+      "dialogues": [
+        {
+          "id": "p01-u03-d01",
+          "scenario": "Your first evening at a Spanish class.",
+          "turns": [
+            {
+              "prompt": {
+                "spanish": "Hola. ¿Cómo te llamas?",
+                "english": "Hello. What is your name?"
+              },
+              "reply": {
+                "spanish": "Me llamo Ana.",
+                "english": "My name is Ana."
+              },
+              "distractors": [
+                "Mucho gusto.",
+                "Ella se llama Sofía.",
+                "Estoy bien, gracias."
+              ],
+              "speaker": "Classmate"
+            },
+            {
+              "prompt": {
+                "spanish": "Mucho gusto, Ana. ¿Quién es ella?",
+                "english": "Nice to meet you, Ana. Who is she?"
+              },
+              "reply": {
+                "spanish": "Ella se llama Sofía.",
+                "english": "Her name is Sofía."
+              },
+              "distractors": [
+                "Me llamo Ana.",
+                "Buenas noches.",
+                "Sí, por favor."
+              ],
+              "speaker": "Classmate"
+            },
+            {
+              "prompt": {
+                "spanish": "Adiós, Ana.",
+                "english": "Goodbye, Ana."
+              },
+              "reply": {
+                "spanish": "Hasta luego.",
+                "english": "See you later."
+              },
+              "distractors": [
+                "Buenos días.",
+                "De nada.",
+                "¿Cómo te llamas?"
+              ],
+              "speaker": "Classmate"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "es-en-p01-u04",
+      "section": 1,
+      "unit": 4,
+      "title": "Say where you're from, and ask where they're from",
+      "cefr": "Intro",
+      "score_range": "0-9",
+      "communicative_goal": "Say which country and city you are from and live in, and ask someone else.",
+      "objective": "Say which country and city you are from and live in, and ask someone else.",
+      "scaffold": 4,
+      "grammar_targets": [
+        "ser de",
+        "question words"
+      ],
+      "vocabulary": [
+        {
+          "id": "es-en-s01-u003-v02",
+          "spanish": "de",
+          "english": "from",
+          "part_of_speech": "preposition",
+          "status": "pilot_authored"
+        },
+        {
+          "id": "es-en-p01-u04-v02",
+          "spanish": "España",
+          "english": "Spain",
+          "part_of_speech": "noun",
+          "status": "pilot_authored",
+          "emoji": "🇪🇸"
+        },
+        {
+          "id": "es-en-p01-u04-v03",
+          "spanish": "México",
+          "english": "Mexico",
+          "part_of_speech": "noun",
+          "status": "pilot_authored",
+          "emoji": "🇲🇽"
+        },
+        {
+          "id": "es-en-s01-u003-v01",
+          "spanish": "la ciudad",
+          "english": "city",
+          "part_of_speech": "noun",
+          "status": "pilot_authored",
+          "emoji": "🏙️"
+        },
+        {
+          "id": "es-en-s01-u003-v10",
+          "spanish": "vivir",
+          "english": "to live",
+          "part_of_speech": "verb",
+          "status": "pilot_authored",
+          "context_es": "Vivo en México.",
+          "context_en": "I live in Mexico."
+        },
+        {
+          "id": "es-en-p01-u04-v07",
+          "spanish": "en",
+          "english": "in",
+          "part_of_speech": "preposition",
+          "status": "pilot_authored"
+        },
+        {
+          "id": "es-en-s01-u003-v07",
+          "spanish": "aquí",
+          "english": "here",
+          "part_of_speech": "adverb",
+          "status": "pilot_authored",
+          "emoji": "📍"
+        },
+        {
+          "id": "es-en-s01-u003-v11",
+          "spanish": "dónde",
+          "english": "where",
+          "part_of_speech": "question word",
+          "status": "pilot_authored",
+          "context_es": "¿Dónde vives?",
+          "context_en": "Where do you live?"
+        },
+        {
+          "id": "es-en-p01-u04-v10",
+          "spanish": "también",
+          "english": "also",
+          "part_of_speech": "adverb",
+          "status": "pilot_authored"
+        },
+        {
+          "id": "es-en-s01-u004-v06",
+          "spanish": "la familia",
+          "english": "family",
+          "part_of_speech": "noun",
+          "status": "pilot_authored",
+          "emoji": "👨‍👩‍👧"
+        }
+      ],
+      "phrase_patterns": [
+        {
+          "id": "es-en-p01-u04-p01",
+          "spanish": "Soy de España.",
+          "english": "I am from Spain.",
+          "status": "pilot_authored"
+        },
+        {
+          "id": "es-en-p01-u04-p02",
+          "spanish": "¿De dónde eres?",
+          "english": "Where are you from?",
+          "status": "pilot_authored"
+        },
+        {
+          "id": "es-en-p01-u04-p03",
+          "spanish": "Vivo en México.",
+          "english": "I live in Mexico.",
+          "status": "pilot_authored"
+        },
+        {
+          "id": "es-en-p01-u04-p04",
+          "spanish": "¿Dónde vives?",
+          "english": "Where do you live?",
+          "status": "pilot_authored"
+        },
+        {
+          "id": "es-en-p01-u04-p05",
+          "spanish": "Ella es de México también.",
+          "english": "She is from Mexico too.",
+          "status": "pilot_authored"
+        },
+        {
+          "id": "es-en-p01-u04-p06",
+          "spanish": "Yo vivo aquí, en la ciudad.",
+          "english": "I live here, in the city.",
+          "status": "pilot_authored"
+        },
+        {
+          "id": "es-en-p01-u04-p07",
+          "spanish": "Mi familia vive en México.",
+          "english": "My family lives in Mexico.",
+          "status": "pilot_authored"
+        }
+      ],
+      "lesson_sequence": [
+        {
+          "lesson_index": 1,
+          "name": "Discover",
+          "goal": "Meet the words for countries, cities and where you live."
+        },
+        {
+          "lesson_index": 2,
+          "name": "Notice the pattern",
+          "goal": "Work out how ser changes with who is speaking."
+        },
+        {
+          "lesson_index": 3,
+          "name": "Build",
+          "goal": "Say where you are from and where you live."
+        },
+        {
+          "lesson_index": 4,
+          "name": "Listen and understand",
+          "goal": "Catch countries and cities by ear."
+        },
+        {
+          "lesson_index": 5,
+          "name": "Use in context",
+          "goal": "Swap origins with someone at a hostel."
+        },
+        {
+          "lesson_index": 6,
+          "name": "Unit review",
+          "goal": "Bring back everything from this unit."
+        }
+      ],
+      "review_schedule_days": [
+        1,
+        3,
+        7,
+        14
+      ],
+      "unit_assessment": {
+        "can_do_statement": "Say which country and city you are from and live in, and ask someone else."
+      },
+      "patterns": [
+        {
+          "id": "p01-u04-pat01",
+          "template": "Soy de {}.",
+          "english": "I am from {}.",
+          "fills": [
+            {
+              "spanish": "España",
+              "english": "Spain"
+            },
+            {
+              "spanish": "México",
+              "english": "Mexico"
+            },
+            {
+              "spanish": "aquí",
+              "english": "here"
+            },
+            {
+              "spanish": "la ciudad",
+              "english": "the city"
+            }
+          ],
+          "concepts": [
+            "ser-de-origin"
+          ]
+        }
+      ],
+      "notices": [
+        {
+          "id": "p01-u04-n01",
+          "title": "soy, eres, es",
+          "examples": [
+            {
+              "spanish": "Soy de España.",
+              "english": "I am from Spain.",
+              "note": "yo → soy"
+            },
+            {
+              "spanish": "¿De dónde eres?",
+              "english": "Where are you from?",
+              "note": "tú → eres"
+            },
+            {
+              "spanish": "Ella es de México.",
+              "english": "She is from Mexico.",
+              "note": "ella → es"
+            }
+          ],
+          "question": {
+            "prompt": "Diego is from Peru. Which one is right?",
+            "options": [
+              "Diego es de Perú.",
+              "Diego soy de Perú.",
+              "Diego eres de Perú."
+            ],
+            "answer": "Diego es de Perú.",
+            "explanation": "ser changes shape with who it is about: soy for I, eres for you, es for he or she. Add de plus a place and you have said where someone is from.",
+            "concepts": [
+              "ser-de-origin"
+            ]
+          }
+        }
+      ],
+      "dialogues": [
+        {
+          "id": "p01-u04-d01",
+          "scenario": "Two travellers share a table at a hostel.",
+          "turns": [
+            {
+              "prompt": {
+                "spanish": "Hola. ¿De dónde eres?",
+                "english": "Hello. Where are you from?"
+              },
+              "reply": {
+                "spanish": "Soy de España.",
+                "english": "I am from Spain."
+              },
+              "distractors": [
+                "Vivo aquí.",
+                "Me llamo Ana.",
+                "Hasta luego."
+              ],
+              "speaker": "Traveller"
+            },
+            {
+              "prompt": {
+                "spanish": "¿Y dónde vives ahora?",
+                "english": "And where do you live now?",
+                "receptive": true
+              },
+              "reply": {
+                "spanish": "Vivo en México.",
+                "english": "I live in Mexico."
+              },
+              "distractors": [
+                "Soy de España.",
+                "Mucho gusto.",
+                "Buenas tardes."
+              ],
+              "speaker": "Traveller"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "es-en-p01-u05",
+      "section": 1,
+      "unit": 5,
+      "title": "Be polite",
+      "cefr": "Intro",
+      "score_range": "0-9",
+      "communicative_goal": "Apologise, excuse yourself, and soften what you say.",
+      "objective": "Apologise, excuse yourself, and soften what you say.",
+      "scaffold": 4,
+      "grammar_targets": [
+        "courtesy expressions"
+      ],
+      "vocabulary": [
+        {
+          "id": "es-en-p01-u05-v01",
+          "spanish": "perdón",
+          "english": "sorry / excuse me",
+          "part_of_speech": "expression",
+          "status": "pilot_authored",
+          "emoji": "🙇"
+        },
+        {
+          "id": "es-en-p01-u05-v02",
+          "spanish": "lo siento",
+          "english": "I'm sorry",
+          "part_of_speech": "expression",
+          "status": "pilot_authored",
+          "context_es": "Lo siento mucho.",
+          "context_en": "I am very sorry."
+        },
+        {
+          "id": "es-en-p01-u05-v03",
+          "spanish": "disculpe",
+          "english": "excuse me (formal)",
+          "part_of_speech": "expression",
+          "status": "pilot_authored"
+        },
+        {
+          "id": "es-en-p01-u05-v04",
+          "spanish": "claro",
+          "english": "of course",
+          "part_of_speech": "adverb",
+          "status": "pilot_authored"
+        },
+        {
+          "id": "es-en-p01-u05-v05",
+          "spanish": "señor",
+          "english": "sir",
+          "part_of_speech": "noun",
+          "status": "pilot_authored",
+          "emoji": "👨"
+        },
+        {
+          "id": "es-en-p01-u05-v06",
+          "spanish": "señora",
+          "english": "madam",
+          "part_of_speech": "noun",
+          "status": "pilot_authored",
+          "emoji": "👩"
+        },
+        {
+          "id": "es-en-p01-u05-v07",
+          "spanish": "muy",
+          "english": "very",
+          "part_of_speech": "adverb",
+          "status": "pilot_authored",
+          "context_es": "Muy bien, gracias.",
+          "context_en": "Very well, thank you."
+        },
+        {
+          "id": "es-en-p01-u05-v08",
+          "spanish": "mucho",
+          "english": "a lot",
+          "part_of_speech": "adverb",
+          "status": "pilot_authored"
+        }
+      ],
+      "phrase_patterns": [
+        {
+          "id": "es-en-p01-u05-p01",
+          "spanish": "Perdón, señora.",
+          "english": "Sorry, madam.",
+          "status": "pilot_authored"
+        },
+        {
+          "id": "es-en-p01-u05-p02",
+          "spanish": "Disculpe, señor.",
+          "english": "Excuse me, sir.",
+          "status": "pilot_authored"
+        },
+        {
+          "id": "es-en-p01-u05-p03",
+          "spanish": "Lo siento mucho.",
+          "english": "I am very sorry.",
+          "status": "pilot_authored"
+        },
+        {
+          "id": "es-en-p01-u05-p04",
+          "spanish": "Muy bien, gracias.",
+          "english": "Very well, thank you.",
+          "status": "pilot_authored"
+        },
+        {
+          "id": "es-en-p01-u05-p05",
+          "spanish": "Claro, por favor.",
+          "english": "Of course, please.",
+          "status": "pilot_authored"
+        }
+      ],
+      "lesson_sequence": [
+        {
+          "lesson_index": 1,
+          "name": "Discover",
+          "goal": "Meet the words that keep a conversation friendly."
+        },
+        {
+          "lesson_index": 2,
+          "name": "Build",
+          "goal": "Apologise and excuse yourself in whole sentences."
+        },
+        {
+          "lesson_index": 3,
+          "name": "Listen and understand",
+          "goal": "Catch an apology by ear."
+        },
+        {
+          "lesson_index": 4,
+          "name": "Have a conversation",
+          "goal": "Bump into someone in the street."
+        },
+        {
+          "lesson_index": 5,
+          "name": "Unit review",
+          "goal": "Bring back everything from this unit."
+        }
+      ],
+      "review_schedule_days": [
+        1,
+        3,
+        7,
+        14
+      ],
+      "unit_assessment": {
+        "can_do_statement": "Apologise, excuse yourself, and soften what you say."
+      },
+      "dialogues": [
+        {
+          "id": "p01-u05-d01",
+          "scenario": "You bump into someone on a crowded street.",
+          "turns": [
+            {
+              "prompt": {
+                "spanish": "¡Perdón!",
+                "english": "Sorry!"
+              },
+              "reply": {
+                "spanish": "Lo siento mucho.",
+                "english": "I am very sorry."
+              },
+              "distractors": [
+                "Muy bien, gracias.",
+                "Buenas noches.",
+                "¿Dónde vives?"
+              ],
+              "speaker": "Stranger"
+            },
+            {
+              "prompt": {
+                "spanish": "¿Estás bien?",
+                "english": "Are you all right?",
+                "receptive": true
+              },
+              "reply": {
+                "spanish": "Muy bien, gracias.",
+                "english": "Very well, thank you."
+              },
+              "distractors": [
+                "Claro, por favor.",
+                "Me llamo Ana.",
+                "Soy de España."
+              ],
+              "speaker": "Stranger"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "es-en-p01-u06",
+      "section": 1,
+      "unit": 6,
+      "title": "Say what you want",
+      "cefr": "Intro",
+      "score_range": "0-9",
+      "communicative_goal": "Order what you want in a café and ask for the bill.",
+      "objective": "Order what you want in a café and ask for the bill.",
+      "scaffold": 3,
+      "grammar_targets": [
+        "querer + noun",
+        "noun gender and articles"
+      ],
+      "vocabulary": [
+        {
+          "id": "es-en-s01-u001-v10",
+          "spanish": "querer",
+          "english": "to want",
+          "part_of_speech": "verb",
+          "status": "pilot_authored",
+          "context_es": "Quiero un café.",
+          "context_en": "I want a coffee."
+        },
+        {
+          "id": "es-en-s01-u001-v03",
+          "spanish": "el café",
+          "english": "coffee",
+          "part_of_speech": "noun",
+          "status": "pilot_authored",
+          "emoji": "☕"
+        },
+        {
+          "id": "es-en-s01-u001-v04",
+          "spanish": "el té",
+          "english": "tea",
+          "part_of_speech": "noun",
+          "status": "pilot_authored",
+          "emoji": "🍵"
+        },
+        {
+          "id": "es-en-s01-u001-v05",
+          "spanish": "el agua",
+          "english": "water",
+          "part_of_speech": "noun",
+          "status": "pilot_authored",
+          "emoji": "💧",
+          "context_es": "Quiero agua, por favor.",
+          "context_en": "I want water, please."
+        },
+        {
+          "id": "es-en-p01-u06-v05",
+          "spanish": "un",
+          "english": "a (masculine)",
+          "part_of_speech": "article",
+          "status": "pilot_authored"
+        },
+        {
+          "id": "es-en-p01-u06-v06",
+          "spanish": "una",
+          "english": "a (feminine)",
+          "part_of_speech": "article",
+          "status": "pilot_authored"
+        },
+        {
+          "id": "es-en-p01-u06-v07",
+          "spanish": "el",
+          "english": "the (masculine)",
+          "part_of_speech": "article",
+          "status": "pilot_authored"
+        },
+        {
+          "id": "es-en-p01-u06-v08",
+          "spanish": "la",
+          "english": "the (feminine)",
+          "part_of_speech": "article",
+          "status": "pilot_authored"
+        },
+        {
+          "id": "es-en-s01-u001-v09",
+          "spanish": "la cuenta",
+          "english": "the bill",
+          "part_of_speech": "noun",
+          "status": "pilot_authored",
+          "emoji": "🧾"
+        },
+        {
+          "id": "es-en-p01-u06-v10",
+          "spanish": "comer",
+          "english": "to eat",
+          "part_of_speech": "verb",
+          "status": "pilot_authored",
+          "emoji": "🍽️"
+        },
+        {
+          "id": "es-en-p01-u06-v11",
+          "spanish": "beber",
+          "english": "to drink",
+          "part_of_speech": "verb",
+          "status": "pilot_authored",
+          "emoji": "🥤"
+        },
+        {
+          "id": "es-en-p01-u06-v12",
+          "spanish": "la mesa",
+          "english": "table",
+          "part_of_speech": "noun",
+          "status": "pilot_authored",
+          "emoji": "🪑"
+        },
+        {
+          "id": "es-en-s01-u006-v12",
+          "spanish": "la silla",
+          "english": "chair",
+          "part_of_speech": "noun",
+          "status": "pilot_authored",
+          "emoji": "💺"
+        },
+        {
+          "id": "es-en-s01-u006-v11",
+          "spanish": "la puerta",
+          "english": "door",
+          "part_of_speech": "noun",
+          "status": "pilot_authored",
+          "emoji": "🚪"
+        }
+      ],
+      "phrase_patterns": [
+        {
+          "id": "es-en-p01-u06-p01",
+          "spanish": "Quiero un café, por favor.",
+          "english": "I want a coffee, please.",
+          "status": "pilot_authored"
+        },
+        {
+          "id": "es-en-p01-u06-p02",
+          "spanish": "Quiero agua, por favor.",
+          "english": "I want water, please.",
+          "status": "pilot_authored"
+        },
+        {
+          "id": "es-en-p01-u06-p03",
+          "spanish": "¿Quieres un té?",
+          "english": "Do you want a tea?",
+          "status": "pilot_authored"
+        },
+        {
+          "id": "es-en-p01-u06-p04",
+          "spanish": "La cuenta, por favor.",
+          "english": "The bill, please.",
+          "status": "pilot_authored"
+        },
+        {
+          "id": "es-en-p01-u06-p05",
+          "spanish": "Quiero comer aquí.",
+          "english": "I want to eat here.",
+          "status": "pilot_authored"
+        },
+        {
+          "id": "es-en-p01-u06-p06",
+          "spanish": "Yo quiero beber té.",
+          "english": "I want to drink tea.",
+          "status": "pilot_authored"
+        },
+        {
+          "id": "es-en-p01-u06-p07",
+          "spanish": "Un café y un té, por favor.",
+          "english": "A coffee and a tea, please.",
+          "status": "pilot_authored"
+        },
+        {
+          "id": "es-en-p01-u06-p08",
+          "spanish": "Quiero una mesa, por favor.",
+          "english": "I want a table, please.",
+          "status": "pilot_authored"
+        }
+      ],
+      "lesson_sequence": [
+        {
+          "lesson_index": 1,
+          "name": "Discover",
+          "goal": "Meet what you can order, and the word for wanting it."
+        },
+        {
+          "lesson_index": 2,
+          "name": "Discover",
+          "goal": "Meet the café itself: the table, the chair, the door."
+        },
+        {
+          "lesson_index": 3,
+          "name": "Build",
+          "goal": "Order a drink and ask for the bill."
+        },
+        {
+          "lesson_index": 4,
+          "name": "Notice the pattern",
+          "goal": "Work out what can follow quiero."
+        },
+        {
+          "lesson_index": 5,
+          "name": "Grammar focus",
+          "goal": "Why some words take el and others take la."
+        },
+        {
+          "lesson_index": 6,
+          "name": "Have a conversation",
+          "goal": "Order at a café from start to finish."
+        },
+        {
+          "lesson_index": 7,
+          "name": "Unit review",
+          "goal": "Bring back everything from this unit."
+        }
+      ],
+      "review_schedule_days": [
+        1,
+        3,
+        7,
+        14
+      ],
+      "unit_assessment": {
+        "can_do_statement": "Order what you want in a café and ask for the bill."
+      },
+      "grammar_focus": "noun-gender-articles",
+      "patterns": [
+        {
+          "id": "p01-u06-pat01",
+          "template": "Quiero {}.",
+          "english": "I want {}.",
+          "fills": [
+            {
+              "spanish": "un café",
+              "english": "a coffee"
+            },
+            {
+              "spanish": "un té",
+              "english": "a tea"
+            },
+            {
+              "spanish": "agua",
+              "english": "water"
+            },
+            {
+              "spanish": "la cuenta",
+              "english": "the bill"
+            },
+            {
+              "spanish": "una mesa",
+              "english": "a table"
+            },
+            {
+              "spanish": "comer",
+              "english": "to eat"
+            }
+          ],
+          "concepts": [
+            "querer-pattern"
+          ]
+        }
+      ],
+      "notices": [
+        {
+          "id": "p01-u06-n01",
+          "title": "Quiero, and then whatever you want",
+          "examples": [
+            {
+              "spanish": "Quiero un café.",
+              "english": "I want a coffee."
+            },
+            {
+              "spanish": "Quiero agua.",
+              "english": "I want water."
+            },
+            {
+              "spanish": "Quiero comer aquí.",
+              "english": "I want to eat here.",
+              "note": "a whole verb works too"
+            }
+          ],
+          "question": {
+            "prompt": "You want the bill. Which one?",
+            "options": [
+              "Quiero la cuenta.",
+              "Quiero cuenta la.",
+              "La cuenta quiero."
+            ],
+            "answer": "Quiero la cuenta.",
+            "explanation": "Quiero means I want, and whatever you want goes straight after it — a thing (quiero un café) or an action (quiero comer). Nothing else has to change.",
+            "concepts": [
+              "querer-pattern"
+            ]
+          }
+        }
+      ],
+      "dialogues": [
+        {
+          "id": "p01-u06-d01",
+          "scenario": "Ordering at a café counter.",
+          "turns": [
+            {
+              "prompt": {
+                "spanish": "Buenos días. ¿Qué quiere tomar?",
+                "english": "Good morning. What would you like to drink?",
+                "receptive": true
+              },
+              "reply": {
+                "spanish": "Quiero un café, por favor.",
+                "english": "I want a coffee, please."
+              },
+              "distractors": [
+                "La cuenta, por favor.",
+                "Soy de España.",
+                "Muy bien, gracias."
+              ],
+              "speaker": "Barista"
+            },
+            {
+              "prompt": {
+                "spanish": "¿Algo más?",
+                "english": "Anything else?",
+                "receptive": true
+              },
+              "reply": {
+                "spanish": "No, gracias.",
+                "english": "No, thank you."
+              },
+              "distractors": [
+                "Sí, por favor.",
+                "Quiero comer aquí.",
+                "Adiós."
+              ],
+              "speaker": "Barista"
+            },
+            {
+              "prompt": {
+                "spanish": "Aquí tiene.",
+                "english": "Here you are.",
+                "receptive": true
+              },
+              "reply": {
+                "spanish": "La cuenta, por favor.",
+                "english": "The bill, please."
+              },
+              "distractors": [
+                "Quiero un té.",
+                "Buenas noches.",
+                "¿Dónde vives?"
+              ],
+              "speaker": "Barista"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "es-en-p01-u07",
+      "section": 1,
+      "unit": 7,
+      "title": "Say what you need, and ask for help",
+      "cefr": "Intro",
+      "score_range": "0-9",
+      "communicative_goal": "Ask for help, say you have not understood, and ask someone to slow down.",
+      "objective": "Ask for help, say you have not understood, and ask someone to slow down.",
+      "scaffold": 3,
+      "grammar_targets": [
+        "-ar present tense",
+        "poder + infinitive"
+      ],
+      "vocabulary": [
+        {
+          "id": "es-en-p01-u07-v01",
+          "spanish": "necesitar",
+          "english": "to need",
+          "part_of_speech": "verb",
+          "status": "pilot_authored",
+          "context_es": "Necesito ayuda.",
+          "context_en": "I need help."
+        },
+        {
+          "id": "es-en-p01-u07-v02",
+          "spanish": "la ayuda",
+          "english": "help",
+          "part_of_speech": "noun",
+          "status": "pilot_authored",
+          "emoji": "🆘"
+        },
+        {
+          "id": "es-en-s01-u008-v10",
+          "spanish": "hablar",
+          "english": "to speak",
+          "part_of_speech": "verb",
+          "status": "pilot_authored",
+          "emoji": "🗣️",
+          "context_es": "Hablo español.",
+          "context_en": "I speak Spanish."
+        },
+        {
+          "id": "es-en-s01-u008-v12",
+          "spanish": "entender",
+          "english": "to understand",
+          "part_of_speech": "verb",
+          "status": "pilot_authored",
+          "context_es": "No entiendo.",
+          "context_en": "I don't understand."
+        },
+        {
+          "id": "es-en-s01-u008-v05",
+          "spanish": "despacio",
+          "english": "slowly",
+          "part_of_speech": "adverb",
+          "status": "pilot_authored",
+          "emoji": "🐢"
+        },
+        {
+          "id": "es-en-p01-u07-v06",
+          "spanish": "poder",
+          "english": "to be able to",
+          "part_of_speech": "verb",
+          "status": "pilot_authored"
+        },
+        {
+          "id": "es-en-s01-u004-v03",
+          "spanish": "tener",
+          "english": "to have",
+          "part_of_speech": "verb",
+          "status": "pilot_authored",
+          "context_es": "Tengo un café.",
+          "context_en": "I have a coffee."
+        },
+        {
+          "id": "es-en-s02-u001-v12",
+          "spanish": "el baño",
+          "english": "bathroom",
+          "part_of_speech": "noun",
+          "status": "pilot_authored",
+          "emoji": "🚻"
+        },
+        {
+          "id": "es-en-p01-u07-v10",
+          "spanish": "más",
+          "english": "more",
+          "part_of_speech": "adverb",
+          "status": "pilot_authored"
+        },
+        {
+          "id": "es-en-p01-u07-v11",
+          "spanish": "ahora",
+          "english": "now",
+          "part_of_speech": "adverb",
+          "status": "pilot_authored"
+        },
+        {
+          "id": "es-en-s01-u005-v13",
+          "spanish": "pero",
+          "english": "but",
+          "part_of_speech": "conjunction",
+          "status": "pilot_authored"
+        },
+        {
+          "id": "es-en-s01-u006-v13",
+          "spanish": "buscar",
+          "english": "to look for",
+          "part_of_speech": "verb",
+          "status": "pilot_authored",
+          "emoji": "🔎",
+          "context_es": "Busco el baño.",
+          "context_en": "I'm looking for the bathroom."
+        },
+        {
+          "id": "es-en-s01-u008-v02",
+          "spanish": "escribir",
+          "english": "to write",
+          "part_of_speech": "verb",
+          "status": "pilot_authored",
+          "emoji": "✍️"
+        }
+      ],
+      "phrase_patterns": [
+        {
+          "id": "es-en-p01-u07-p01",
+          "spanish": "Necesito ayuda, por favor.",
+          "english": "I need help, please.",
+          "status": "pilot_authored"
+        },
+        {
+          "id": "es-en-p01-u07-p02",
+          "spanish": "No entiendo.",
+          "english": "I don't understand.",
+          "status": "pilot_authored"
+        },
+        {
+          "id": "es-en-p01-u07-p03",
+          "spanish": "¿Hablas español?",
+          "english": "Do you speak Spanish?",
+          "status": "pilot_authored"
+        },
+        {
+          "id": "es-en-p01-u07-p04",
+          "spanish": "Hablo español, pero despacio.",
+          "english": "I speak Spanish, but slowly.",
+          "status": "pilot_authored"
+        },
+        {
+          "id": "es-en-p01-u07-p05",
+          "spanish": "Ella habla español también.",
+          "english": "She speaks Spanish too.",
+          "status": "pilot_authored"
+        },
+        {
+          "id": "es-en-p01-u07-p06",
+          "spanish": "¿Puedes hablar más despacio?",
+          "english": "Can you speak more slowly?",
+          "status": "pilot_authored"
+        },
+        {
+          "id": "es-en-p01-u07-p07",
+          "spanish": "Necesito el baño, por favor.",
+          "english": "I need the bathroom, please.",
+          "status": "pilot_authored"
+        },
+        {
+          "id": "es-en-p01-u07-p08",
+          "spanish": "Ahora no puedo.",
+          "english": "I can't right now.",
+          "status": "pilot_authored"
+        },
+        {
+          "id": "es-en-p01-u07-p09",
+          "spanish": "Busco el baño.",
+          "english": "I'm looking for the bathroom.",
+          "status": "pilot_authored"
+        },
+        {
+          "id": "es-en-p01-u07-p10",
+          "spanish": "¿Puedes escribir despacio?",
+          "english": "Can you write it slowly?",
+          "status": "pilot_authored"
+        }
+      ],
+      "lesson_sequence": [
+        {
+          "lesson_index": 1,
+          "name": "Discover",
+          "goal": "Meet the words for needing, speaking and understanding."
+        },
+        {
+          "lesson_index": 2,
+          "name": "Build",
+          "goal": "Ask for what you need in whole sentences."
+        },
+        {
+          "lesson_index": 3,
+          "name": "Notice the pattern",
+          "goal": "Work out what a verb ending tells you."
+        },
+        {
+          "lesson_index": 4,
+          "name": "Listen and understand",
+          "goal": "Catch a request for help by ear."
+        },
+        {
+          "lesson_index": 5,
+          "name": "Listen to a story",
+          "goal": "Follow someone asking for help at a hotel."
+        },
+        {
+          "lesson_index": 6,
+          "name": "Have a conversation",
+          "goal": "Ask a stranger for help."
+        },
+        {
+          "lesson_index": 7,
+          "name": "Unit review",
+          "goal": "Bring back everything from this unit."
+        }
+      ],
+      "review_schedule_days": [
+        1,
+        3,
+        7,
+        14
+      ],
+      "unit_assessment": {
+        "can_do_statement": "Ask for help, say you have not understood, and ask someone to slow down."
+      },
+      "patterns": [
+        {
+          "id": "p01-u07-pat01",
+          "template": "Necesito {}.",
+          "english": "I need {}.",
+          "fills": [
+            {
+              "spanish": "ayuda",
+              "english": "help"
+            },
+            {
+              "spanish": "el baño",
+              "english": "the bathroom"
+            },
+            {
+              "spanish": "la cuenta",
+              "english": "the bill"
+            },
+            {
+              "spanish": "un café",
+              "english": "a coffee"
+            }
+          ],
+          "concepts": [
+            "querer-pattern"
+          ]
+        }
+      ],
+      "notices": [
+        {
+          "id": "p01-u07-n01",
+          "title": "The ending tells you who",
+          "examples": [
+            {
+              "spanish": "Hablo español.",
+              "english": "I speak Spanish.",
+              "note": "-o is I"
+            },
+            {
+              "spanish": "¿Hablas español?",
+              "english": "Do you speak Spanish?",
+              "note": "-as is you"
+            },
+            {
+              "spanish": "Ella habla español.",
+              "english": "She speaks Spanish.",
+              "note": "-a is he or she"
+            }
+          ],
+          "question": {
+            "prompt": "necesitar works exactly the same way. How do you say she needs help?",
+            "options": [
+              "Ella necesita ayuda.",
+              "Ella necesito ayuda.",
+              "Ella necesitas ayuda."
+            ],
+            "answer": "Ella necesita ayuda.",
+            "explanation": "Change the ending, not the word order: hablo, hablas, habla — necesito, necesitas, necesita. Because the ending already says who, Spanish usually drops yo and tú entirely.",
+            "concepts": [
+              "present-tense-foundations"
+            ]
+          }
+        }
+      ],
+      "stories": [
+        {
+          "id": "p01-u07-s01",
+          "title": "En el hotel",
+          "setup": "Ana has just arrived at her hotel and needs a hand.",
+          "lines": [
+            {
+              "spanish": "Hola. Me llamo Ana.",
+              "english": "Hello. My name is Ana."
+            },
+            {
+              "spanish": "Necesito ayuda, por favor.",
+              "english": "I need help, please."
+            },
+            {
+              "spanish": "No entiendo español muy bien.",
+              "english": "I don't understand Spanish very well."
+            },
+            {
+              "spanish": "¿Puedes hablar más despacio?",
+              "english": "Can you speak more slowly?"
+            },
+            {
+              "spanish": "Gracias. Muy bien.",
+              "english": "Thank you. Very good."
+            }
+          ],
+          "questions": [
+            {
+              "prompt": "What is Ana doing?",
+              "options": [
+                "Asking for help",
+                "Ordering a coffee",
+                "Saying goodbye"
+              ],
+              "answer": "Asking for help",
+              "explanation": "Necesito ayuda — I need help."
+            },
+            {
+              "prompt": "What does she ask the other person to do?",
+              "options": [
+                "Speak more slowly",
+                "Bring the bill",
+                "Say her name again"
+              ],
+              "answer": "Speak more slowly",
+              "explanation": "¿Puedes hablar más despacio? — Can you speak more slowly?"
+            }
+          ]
+        }
+      ],
+      "dialogues": [
+        {
+          "id": "p01-u07-d01",
+          "scenario": "At a hotel desk, in Spanish you only half understand.",
+          "turns": [
+            {
+              "prompt": {
+                "spanish": "Buenas tardes. ¿En qué puedo ayudarle?",
+                "english": "Good afternoon. How can I help you?",
+                "receptive": true
+              },
+              "reply": {
+                "spanish": "Necesito ayuda, por favor.",
+                "english": "I need help, please."
+              },
+              "distractors": [
+                "La cuenta, por favor.",
+                "Soy de México.",
+                "Buenas noches."
+              ],
+              "speaker": "Receptionist"
+            },
+            {
+              "prompt": {
+                "spanish": "Claro. ¿Habla español?",
+                "english": "Of course. Do you speak Spanish?"
+              },
+              "reply": {
+                "spanish": "Hablo español, pero despacio.",
+                "english": "I speak Spanish, but slowly."
+              },
+              "distractors": [
+                "No entiendo.",
+                "Quiero un café.",
+                "Mucho gusto."
+              ],
+              "speaker": "Receptionist"
+            },
+            {
+              "prompt": {
+                "spanish": "Muy bien. ¿Necesita algo más?",
+                "english": "Very good. Do you need anything else?",
+                "receptive": true
+              },
+              "reply": {
+                "spanish": "Necesito el baño, por favor.",
+                "english": "I need the bathroom, please."
+              },
+              "distractors": [
+                "Ahora no puedo.",
+                "Ella habla español también.",
+                "¿Dónde vives?"
+              ],
+              "speaker": "Receptionist"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "es-en-p01-u08",
+      "section": 1,
+      "unit": 8,
+      "title": "Understand and answer questions",
+      "cefr": "Intro",
+      "score_range": "0-9",
+      "communicative_goal": "Recognise the question you are being asked, and answer it.",
+      "objective": "Recognise the question you are being asked, and answer it.",
+      "scaffold": 3,
+      "grammar_targets": [
+        "question words",
+        "porque"
+      ],
+      "vocabulary": [
+        {
+          "id": "es-en-s01-u009-v15",
+          "spanish": "qué",
+          "english": "what",
+          "part_of_speech": "question word",
+          "status": "pilot_authored"
+        },
+        {
+          "id": "es-en-s01-u001-v12",
+          "spanish": "cuánto",
+          "english": "how much",
+          "part_of_speech": "question word",
+          "status": "pilot_authored",
+          "context_es": "¿Cuánto es?",
+          "context_en": "How much is it?"
+        },
+        {
+          "id": "es-en-p01-u08-v03",
+          "spanish": "cuándo",
+          "english": "when",
+          "part_of_speech": "question word",
+          "status": "pilot_authored"
+        },
+        {
+          "id": "es-en-p01-u08-v04",
+          "spanish": "por qué",
+          "english": "why",
+          "part_of_speech": "question word",
+          "status": "pilot_authored"
+        },
+        {
+          "id": "es-en-p01-u08-v05",
+          "spanish": "porque",
+          "english": "because",
+          "part_of_speech": "conjunction",
+          "status": "pilot_authored"
+        },
+        {
+          "id": "es-en-s01-u008-v04",
+          "spanish": "la pregunta",
+          "english": "question",
+          "part_of_speech": "noun",
+          "status": "pilot_authored",
+          "emoji": "❓"
+        },
+        {
+          "id": "es-en-s01-u005-v11",
+          "spanish": "la persona",
+          "english": "person",
+          "part_of_speech": "noun",
+          "status": "pilot_authored",
+          "emoji": "🧍"
+        },
+        {
+          "id": "es-en-p01-u08-v08",
+          "spanish": "todo",
+          "english": "everything",
+          "part_of_speech": "pronoun",
+          "status": "pilot_authored"
+        }
+      ],
+      "phrase_patterns": [
+        {
+          "id": "es-en-p01-u08-p01",
+          "spanish": "¿Qué necesitas?",
+          "english": "What do you need?",
+          "status": "pilot_authored"
+        },
+        {
+          "id": "es-en-p01-u08-p02",
+          "spanish": "¿Cuánto es?",
+          "english": "How much is it?",
+          "status": "pilot_authored"
+        },
+        {
+          "id": "es-en-p01-u08-p03",
+          "spanish": "¿Cuándo comes?",
+          "english": "When do you eat?",
+          "status": "pilot_authored"
+        },
+        {
+          "id": "es-en-p01-u08-p04",
+          "spanish": "¿Por qué hablas despacio?",
+          "english": "Why do you speak slowly?",
+          "status": "pilot_authored"
+        },
+        {
+          "id": "es-en-p01-u08-p05",
+          "spanish": "Porque no entiendo todo.",
+          "english": "Because I don't understand everything.",
+          "status": "pilot_authored"
+        },
+        {
+          "id": "es-en-p01-u08-p06",
+          "spanish": "No entiendo la pregunta.",
+          "english": "I don't understand the question.",
+          "status": "pilot_authored"
+        },
+        {
+          "id": "es-en-p01-u08-p07",
+          "spanish": "Tengo una pregunta.",
+          "english": "I have a question.",
+          "status": "pilot_authored"
+        },
+        {
+          "id": "es-en-p01-u08-p08",
+          "spanish": "¿Quién es la persona de México?",
+          "english": "Who is the person from Mexico?",
+          "status": "pilot_authored"
+        }
+      ],
+      "lesson_sequence": [
+        {
+          "lesson_index": 1,
+          "name": "Discover",
+          "goal": "Meet the question words and hear how they open a sentence."
+        },
+        {
+          "lesson_index": 2,
+          "name": "Notice the pattern",
+          "goal": "Work out where a question word goes."
+        },
+        {
+          "lesson_index": 3,
+          "name": "Build",
+          "goal": "Ask and answer questions of your own."
+        },
+        {
+          "lesson_index": 4,
+          "name": "Listen and understand",
+          "goal": "Catch which question you are being asked."
+        },
+        {
+          "lesson_index": 5,
+          "name": "Have a conversation",
+          "goal": "Be asked things by a stranger, and answer."
+        },
+        {
+          "lesson_index": 6,
+          "name": "Unit review",
+          "goal": "Bring back everything from this unit."
+        }
+      ],
+      "review_schedule_days": [
+        1,
+        3,
+        7,
+        14
+      ],
+      "unit_assessment": {
+        "can_do_statement": "Recognise the question you are being asked, and answer it."
+      },
+      "patterns": [
+        {
+          "id": "p01-u08-pat01",
+          "template": "¿{} necesitas?",
+          "english": "{} do you need?",
+          "fills": [
+            {
+              "spanish": "Qué",
+              "english": "What"
+            },
+            {
+              "spanish": "Cuándo",
+              "english": "When"
+            },
+            {
+              "spanish": "Cuánto",
+              "english": "How much"
+            },
+            {
+              "spanish": "Dónde",
+              "english": "Where"
+            }
+          ],
+          "concepts": [
+            "question-words"
+          ]
+        }
+      ],
+      "notices": [
+        {
+          "id": "p01-u08-n01",
+          "title": "The question word comes first",
+          "examples": [
+            {
+              "spanish": "¿Qué necesitas?",
+              "english": "What do you need?"
+            },
+            {
+              "spanish": "¿Dónde vives?",
+              "english": "Where do you live?"
+            },
+            {
+              "spanish": "¿Cuándo comes?",
+              "english": "When do you eat?"
+            }
+          ],
+          "question": {
+            "prompt": "You want to ask how much it is. Which one?",
+            "options": [
+              "¿Cuánto es?",
+              "¿Es cuánto?",
+              "¿Cuánto está es?"
+            ],
+            "answer": "¿Cuánto es?",
+            "explanation": "qué, dónde, cuándo, cuánto, quién, por qué — every one of them opens the question, with the verb straight after. Spanish needs no extra word where English adds do.",
+            "concepts": [
+              "question-words"
+            ]
+          }
+        }
+      ],
+      "dialogues": [
+        {
+          "id": "p01-u08-d01",
+          "scenario": "Someone at the next table strikes up a conversation.",
+          "turns": [
+            {
+              "prompt": {
+                "spanish": "¿De dónde eres?",
+                "english": "Where are you from?"
+              },
+              "reply": {
+                "spanish": "Soy de España.",
+                "english": "I am from Spain."
+              },
+              "distractors": [
+                "Tengo una pregunta.",
+                "Quiero un café.",
+                "Hasta luego."
+              ],
+              "speaker": "Stranger"
+            },
+            {
+              "prompt": {
+                "spanish": "¿Por qué hablas despacio?",
+                "english": "Why do you speak slowly?"
+              },
+              "reply": {
+                "spanish": "Porque no entiendo todo.",
+                "english": "Because I don't understand everything."
+              },
+              "distractors": [
+                "¿Cuánto es?",
+                "Mucho gusto.",
+                "Buenas noches."
+              ],
+              "speaker": "Stranger"
+            },
+            {
+              "prompt": {
+                "spanish": "¿Y qué necesitas ahora?",
+                "english": "And what do you need now?",
+                "receptive": true
+              },
+              "reply": {
+                "spanish": "Necesito ayuda, por favor.",
+                "english": "I need help, please."
+              },
+              "distractors": [
+                "No entiendo la pregunta.",
+                "Buenos días.",
+                "Ella habla español también."
+              ],
+              "speaker": "Stranger"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "es-en-p01-u09",
+      "section": 1,
+      "unit": 9,
+      "title": "Numbers, prices and quantities",
+      "cefr": "A1",
+      "score_range": "0-9",
+      "communicative_goal": "Count to twenty, ask what something costs, and buy it.",
+      "objective": "Count to twenty, ask what something costs, and buy it.",
+      "scaffold": 2,
+      "grammar_targets": [
+        "numbers",
+        "costar"
+      ],
+      "vocabulary": [
+        {
+          "id": "es-en-p01-u09-v01",
+          "spanish": "uno",
+          "english": "one",
+          "part_of_speech": "number",
+          "status": "pilot_authored",
+          "emoji": "1️⃣"
+        },
+        {
+          "id": "es-en-p01-u09-v02",
+          "spanish": "dos",
+          "english": "two",
+          "part_of_speech": "number",
+          "status": "pilot_authored",
+          "emoji": "2️⃣"
+        },
+        {
+          "id": "es-en-p01-u09-v03",
+          "spanish": "tres",
+          "english": "three",
+          "part_of_speech": "number",
+          "status": "pilot_authored",
+          "emoji": "3️⃣"
+        },
+        {
+          "id": "es-en-p01-u09-v04",
+          "spanish": "cuatro",
+          "english": "four",
+          "part_of_speech": "number",
+          "status": "pilot_authored",
+          "emoji": "4️⃣"
+        },
+        {
+          "id": "es-en-p01-u09-v05",
+          "spanish": "cinco",
+          "english": "five",
+          "part_of_speech": "number",
+          "status": "pilot_authored",
+          "emoji": "5️⃣"
+        },
+        {
+          "id": "es-en-p01-u09-v06",
+          "spanish": "seis",
+          "english": "six",
+          "part_of_speech": "number",
+          "status": "pilot_authored",
+          "emoji": "6️⃣"
+        },
+        {
+          "id": "es-en-p01-u09-v07",
+          "spanish": "siete",
+          "english": "seven",
+          "part_of_speech": "number",
+          "status": "pilot_authored",
+          "emoji": "7️⃣"
+        },
+        {
+          "id": "es-en-p01-u09-v08",
+          "spanish": "ocho",
+          "english": "eight",
+          "part_of_speech": "number",
+          "status": "pilot_authored",
+          "emoji": "8️⃣"
+        },
+        {
+          "id": "es-en-p01-u09-v09",
+          "spanish": "nueve",
+          "english": "nine",
+          "part_of_speech": "number",
+          "status": "pilot_authored",
+          "emoji": "9️⃣"
+        },
+        {
+          "id": "es-en-p01-u09-v10",
+          "spanish": "diez",
+          "english": "ten",
+          "part_of_speech": "number",
+          "status": "pilot_authored",
+          "emoji": "🔟"
+        },
+        {
+          "id": "es-en-p01-u09-v11",
+          "spanish": "veinte",
+          "english": "twenty",
+          "part_of_speech": "number",
+          "status": "pilot_authored"
+        },
+        {
+          "id": "es-en-s01-u001-v13",
+          "spanish": "costar",
+          "english": "to cost",
+          "part_of_speech": "verb",
+          "status": "pilot_authored",
+          "context_es": "¿Cuánto cuesta?",
+          "context_en": "How much does it cost?"
+        },
+        {
+          "id": "es-en-s01-u010-v08",
+          "spanish": "comprar",
+          "english": "to buy",
+          "part_of_speech": "verb",
+          "status": "pilot_authored",
+          "emoji": "🛒"
+        },
+        {
+          "id": "es-en-p01-u09-v14",
+          "spanish": "veces",
+          "english": "times",
+          "part_of_speech": "noun",
+          "status": "pilot_authored",
+          "context_es": "Como aquí dos veces.",
+          "context_en": "I eat here twice."
+        },
+        {
+          "id": "es-en-p01-u09-v15",
+          "spanish": "el euro",
+          "english": "euro",
+          "part_of_speech": "noun",
+          "status": "pilot_authored",
+          "emoji": "💶"
+        }
+      ],
+      "phrase_patterns": [
+        {
+          "id": "es-en-p01-u09-p01",
+          "spanish": "¿Cuánto cuesta?",
+          "english": "How much does it cost?",
+          "status": "pilot_authored"
+        },
+        {
+          "id": "es-en-p01-u09-p02",
+          "spanish": "Cuesta cinco euros.",
+          "english": "It costs five euros.",
+          "status": "pilot_authored"
+        },
+        {
+          "id": "es-en-p01-u09-p03",
+          "spanish": "Quiero comprar dos cafés.",
+          "english": "I want to buy two coffees.",
+          "status": "pilot_authored"
+        },
+        {
+          "id": "es-en-p01-u09-p04",
+          "spanish": "Uno, dos, tres.",
+          "english": "One, two, three.",
+          "status": "pilot_authored"
+        },
+        {
+          "id": "es-en-p01-u09-p05",
+          "spanish": "Necesito diez euros.",
+          "english": "I need ten euros.",
+          "status": "pilot_authored"
+        },
+        {
+          "id": "es-en-p01-u09-p06",
+          "spanish": "Como aquí dos veces.",
+          "english": "I eat here twice.",
+          "status": "pilot_authored"
+        },
+        {
+          "id": "es-en-p01-u09-p07",
+          "spanish": "Veinte euros, por favor.",
+          "english": "Twenty euros, please.",
+          "status": "pilot_authored"
+        }
+      ],
+      "lesson_sequence": [
+        {
+          "lesson_index": 1,
+          "name": "Discover",
+          "goal": "Meet the numbers one to ten."
+        },
+        {
+          "lesson_index": 2,
+          "name": "Build",
+          "goal": "Count out loud and put numbers into sentences."
+        },
+        {
+          "lesson_index": 3,
+          "name": "Discover",
+          "goal": "Meet twenty, euros, and what things cost."
+        },
+        {
+          "lesson_index": 4,
+          "name": "Listen and understand",
+          "goal": "Catch numbers and prices by ear."
+        },
+        {
+          "lesson_index": 5,
+          "name": "Listen to a story",
+          "goal": "Follow someone buying coffee."
+        },
+        {
+          "lesson_index": 6,
+          "name": "Have a conversation",
+          "goal": "Buy something and pay for it."
+        },
+        {
+          "lesson_index": 7,
+          "name": "Unit review",
+          "goal": "Bring back everything from this unit."
+        }
+      ],
+      "review_schedule_days": [
+        1,
+        3,
+        7,
+        14
+      ],
+      "unit_assessment": {
+        "can_do_statement": "Count to twenty, ask what something costs, and buy it."
+      },
+      "patterns": [
+        {
+          "id": "p01-u09-pat01",
+          "template": "Cuesta {} euros.",
+          "english": "It costs {} euros.",
+          "fills": [
+            {
+              "spanish": "tres",
+              "english": "three"
+            },
+            {
+              "spanish": "cinco",
+              "english": "five"
+            },
+            {
+              "spanish": "diez",
+              "english": "ten"
+            },
+            {
+              "spanish": "veinte",
+              "english": "twenty"
+            }
+          ],
+          "concepts": [
+            "numbers"
+          ]
+        }
+      ],
+      "stories": [
+        {
+          "id": "p01-u09-s01",
+          "title": "Dos cafés",
+          "setup": "Ana stops for coffee on the way to work.",
+          "lines": [
+            {
+              "spanish": "Ana quiere comprar un café.",
+              "english": "Ana wants to buy a coffee."
+            },
+            {
+              "spanish": "—Buenos días. ¿Cuánto cuesta?",
+              "english": "Good morning. How much does it cost?"
+            },
+            {
+              "spanish": "—Cuesta tres euros.",
+              "english": "It costs three euros."
+            },
+            {
+              "spanish": "—Quiero comprar dos cafés.",
+              "english": "I want to buy two coffees."
+            },
+            {
+              "spanish": "—Son seis euros, por favor.",
+              "english": "That's six euros, please.",
+              "receptive": true
+            }
+          ],
+          "questions": [
+            {
+              "prompt": "How much does one coffee cost?",
+              "options": [
+                "Three euros",
+                "Six euros",
+                "Two euros"
+              ],
+              "answer": "Three euros",
+              "explanation": "Cuesta tres euros — it costs three euros."
+            },
+            {
+              "prompt": "How many coffees does Ana buy?",
+              "options": [
+                "Two",
+                "Three",
+                "Six"
+              ],
+              "answer": "Two",
+              "explanation": "Quiero comprar dos cafés — and two at three euros each is why the total is six."
+            }
+          ]
+        }
+      ],
+      "dialogues": [
+        {
+          "id": "p01-u09-d01",
+          "scenario": "At the counter, paying for what you ordered.",
+          "turns": [
+            {
+              "prompt": {
+                "spanish": "Buenas tardes. ¿Qué quiere?",
+                "english": "Good afternoon. What would you like?",
+                "receptive": true
+              },
+              "reply": {
+                "spanish": "Quiero comprar dos cafés.",
+                "english": "I want to buy two coffees."
+              },
+              "distractors": [
+                "¿Cuánto cuesta?",
+                "Necesito ayuda.",
+                "Soy de España."
+              ],
+              "speaker": "Server"
+            },
+            {
+              "prompt": {
+                "spanish": "¿Necesita algo más?",
+                "english": "Do you need anything else?",
+                "receptive": true
+              },
+              "reply": {
+                "spanish": "No, gracias.",
+                "english": "No, thank you."
+              },
+              "distractors": [
+                "Cuesta cinco euros.",
+                "Uno, dos, tres.",
+                "Mucho gusto."
+              ],
+              "speaker": "Server"
+            },
+            {
+              "prompt": {
+                "spanish": "Son seis euros.",
+                "english": "That's six euros.",
+                "receptive": true
+              },
+              "reply": {
+                "spanish": "Muy bien, gracias.",
+                "english": "Very well, thank you."
+              },
+              "distractors": [
+                "¿Cuándo comes?",
+                "Veinte euros, por favor.",
+                "No entiendo la pregunta."
+              ],
+              "speaker": "Server"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "es-en-p01-u10",
+      "section": 1,
+      "unit": 10,
+      "title": "Say where things and places are",
+      "cefr": "A1",
+      "score_range": "0-9",
+      "communicative_goal": "Ask where a place is, say whether it is near or far, and say what there is.",
+      "objective": "Ask where a place is, say whether it is near or far, and say what there is.",
+      "scaffold": 2,
+      "grammar_targets": [
+        "estar for location",
+        "hay"
+      ],
+      "vocabulary": [
+        {
+          "id": "es-en-s02-u001-v08",
+          "spanish": "la casa",
+          "english": "house",
+          "part_of_speech": "noun",
+          "status": "pilot_authored",
+          "emoji": "🏠"
+        },
+        {
+          "id": "es-en-s01-u007-v01",
+          "spanish": "el banco",
+          "english": "bank",
+          "part_of_speech": "noun",
+          "status": "pilot_authored",
+          "emoji": "🏦"
+        },
+        {
+          "id": "es-en-p01-u10-v03",
+          "spanish": "el mercado",
+          "english": "market",
+          "part_of_speech": "noun",
+          "status": "pilot_authored",
+          "emoji": "🛍️"
+        },
+        {
+          "id": "es-en-s01-u007-v09",
+          "spanish": "la calle",
+          "english": "street",
+          "part_of_speech": "noun",
+          "status": "pilot_authored",
+          "emoji": "🛣️"
+        },
+        {
+          "id": "es-en-p01-u10-v05",
+          "spanish": "el hotel",
+          "english": "hotel",
+          "part_of_speech": "noun",
+          "status": "pilot_authored",
+          "emoji": "🏨"
+        },
+        {
+          "id": "es-en-p01-u10-v06",
+          "spanish": "el restaurante",
+          "english": "restaurant",
+          "part_of_speech": "noun",
+          "status": "pilot_authored",
+          "emoji": "🍽️"
+        },
+        {
+          "id": "es-en-s01-u003-v08",
+          "spanish": "allí",
+          "english": "there",
+          "part_of_speech": "adverb",
+          "status": "pilot_authored"
+        },
+        {
+          "id": "es-en-s01-u007-v04",
+          "spanish": "cerca",
+          "english": "near",
+          "part_of_speech": "adverb",
+          "status": "pilot_authored"
+        },
+        {
+          "id": "es-en-s01-u007-v05",
+          "spanish": "lejos",
+          "english": "far",
+          "part_of_speech": "adverb",
+          "status": "pilot_authored"
+        },
+        {
+          "id": "es-en-s01-u006-v01",
+          "spanish": "hay",
+          "english": "there is / there are",
+          "part_of_speech": "verb",
+          "status": "pilot_authored",
+          "context_es": "Hay un mercado en la calle.",
+          "context_en": "There is a market on the street."
+        },
+        {
+          "id": "es-en-s01-u007-v06",
+          "spanish": "ir",
+          "english": "to go",
+          "part_of_speech": "verb",
+          "status": "pilot_authored",
+          "context_es": "Voy a la calle.",
+          "context_en": "I'm going to the street."
+        },
+        {
+          "id": "es-en-p01-u10-v12",
+          "spanish": "a",
+          "english": "to",
+          "part_of_speech": "preposition",
+          "status": "pilot_authored"
+        },
+        {
+          "id": "es-en-s01-u007-v11",
+          "spanish": "el parque",
+          "english": "park",
+          "part_of_speech": "noun",
+          "status": "pilot_authored",
+          "emoji": "🌳"
+        },
+        {
+          "id": "es-en-s01-u006-v08",
+          "spanish": "la llave",
+          "english": "key",
+          "part_of_speech": "noun",
+          "status": "pilot_authored",
+          "emoji": "🔑"
+        },
+        {
+          "id": "es-en-s01-u006-v14",
+          "spanish": "la cosa",
+          "english": "thing",
+          "part_of_speech": "noun",
+          "status": "pilot_authored",
+          "emoji": "📦"
+        }
+      ],
+      "phrase_patterns": [
+        {
+          "id": "es-en-p01-u10-p01",
+          "spanish": "¿Dónde está el banco?",
+          "english": "Where is the bank?",
+          "status": "pilot_authored"
+        },
+        {
+          "id": "es-en-p01-u10-p02",
+          "spanish": "El banco está cerca.",
+          "english": "The bank is near.",
+          "status": "pilot_authored"
+        },
+        {
+          "id": "es-en-p01-u10-p03",
+          "spanish": "Hay un mercado en la calle.",
+          "english": "There is a market on the street.",
+          "status": "pilot_authored"
+        },
+        {
+          "id": "es-en-p01-u10-p04",
+          "spanish": "La casa está lejos.",
+          "english": "The house is far away.",
+          "status": "pilot_authored"
+        },
+        {
+          "id": "es-en-p01-u10-p05",
+          "spanish": "El hotel está allí.",
+          "english": "The hotel is there.",
+          "status": "pilot_authored"
+        },
+        {
+          "id": "es-en-p01-u10-p07",
+          "spanish": "Hay un restaurante cerca.",
+          "english": "There is a restaurant nearby.",
+          "status": "pilot_authored"
+        },
+        {
+          "id": "es-en-p01-u10-p09",
+          "spanish": "Voy al parque.",
+          "english": "I'm going to the park.",
+          "status": "pilot_authored"
+        },
+        {
+          "id": "es-en-p01-u10-p10",
+          "spanish": "Busco mis llaves.",
+          "english": "I'm looking for my keys.",
+          "status": "pilot_authored"
+        },
+        {
+          "id": "es-en-p01-u10-p08",
+          "spanish": "¿Está lejos el hotel?",
+          "english": "Is the hotel far?",
+          "status": "pilot_authored"
+        }
+      ],
+      "lesson_sequence": [
+        {
+          "lesson_index": 1,
+          "name": "Discover",
+          "goal": "Meet the places you will need to find."
+        },
+        {
+          "lesson_index": 2,
+          "name": "Discover",
+          "goal": "Meet the things you carry and lose."
+        },
+        {
+          "lesson_index": 3,
+          "name": "Notice the pattern",
+          "goal": "Work out when Spanish uses hay and when it uses está."
+        },
+        {
+          "lesson_index": 4,
+          "name": "Grammar focus",
+          "goal": "está and hay, side by side."
+        },
+        {
+          "lesson_index": 5,
+          "name": "Build",
+          "goal": "Ask where a place is and say how far it is."
+        },
+        {
+          "lesson_index": 6,
+          "name": "Have a conversation",
+          "goal": "Ask a passer-by for directions."
+        },
+        {
+          "lesson_index": 7,
+          "name": "Unit review",
+          "goal": "Bring back everything from this unit."
+        }
+      ],
+      "review_schedule_days": [
+        1,
+        3,
+        7,
+        14
+      ],
+      "unit_assessment": {
+        "can_do_statement": "Ask where a place is, say whether it is near or far, and say what there is."
+      },
+      "grammar_focus": "estar-location-hay",
+      "patterns": [
+        {
+          "id": "p01-u10-pat01",
+          "template": "¿Dónde está {}?",
+          "english": "Where is {}?",
+          "fills": [
+            {
+              "spanish": "el banco",
+              "english": "the bank"
+            },
+            {
+              "spanish": "el hotel",
+              "english": "the hotel"
+            },
+            {
+              "spanish": "el mercado",
+              "english": "the market"
+            },
+            {
+              "spanish": "la casa",
+              "english": "the house"
+            },
+            {
+              "spanish": "el parque",
+              "english": "the park"
+            },
+            {
+              "spanish": "el baño",
+              "english": "the bathroom"
+            }
+          ],
+          "concepts": [
+            "estar-location-hay"
+          ]
+        }
+      ],
+      "notices": [
+        {
+          "id": "p01-u10-n01",
+          "title": "hay or está?",
+          "examples": [
+            {
+              "spanish": "Hay un mercado en la calle.",
+              "english": "There is a market on the street.",
+              "note": "that one exists"
+            },
+            {
+              "spanish": "El banco está cerca.",
+              "english": "The bank is near.",
+              "note": "where a particular one is"
+            },
+            {
+              "spanish": "El hotel está allí.",
+              "english": "The hotel is there.",
+              "note": "again, a particular one"
+            }
+          ],
+          "question": {
+            "prompt": "You want to say there is a restaurant nearby. Which one?",
+            "options": [
+              "Hay un restaurante cerca.",
+              "Está un restaurante cerca.",
+              "Hay el restaurante cerca."
+            ],
+            "answer": "Hay un restaurante cerca.",
+            "explanation": "hay says something exists, and takes un or una. está says where a particular thing is, and takes el or la. That is why it is hay un mercado but el banco está cerca.",
+            "concepts": [
+              "estar-location-hay"
+            ]
+          }
+        }
+      ],
+      "dialogues": [
+        {
+          "id": "p01-u10-d01",
+          "scenario": "You stop someone in the street to ask directions.",
+          "turns": [
+            {
+              "prompt": {
+                "spanish": "Disculpe. ¿Necesita ayuda?",
+                "english": "Excuse me. Do you need help?"
+              },
+              "reply": {
+                "spanish": "¿Dónde está el banco?",
+                "english": "Where is the bank?"
+              },
+              "distractors": [
+                "Hay un mercado en la calle.",
+                "Quiero un café.",
+                "Me llamo Ana."
+              ],
+              "speaker": "Passer-by"
+            },
+            {
+              "prompt": {
+                "spanish": "Está en la calle, muy cerca.",
+                "english": "It's on the street, very near."
+              },
+              "reply": {
+                "spanish": "¿Está lejos el hotel?",
+                "english": "Is the hotel far?"
+              },
+              "distractors": [
+                "El banco está cerca.",
+                "Buenas noches.",
+                "No entiendo."
+              ],
+              "speaker": "Passer-by"
+            },
+            {
+              "prompt": {
+                "spanish": "No, el hotel está allí.",
+                "english": "No, the hotel is there."
+              },
+              "reply": {
+                "spanish": "Muy bien, gracias.",
+                "english": "Very well, thank you."
+              },
+              "distractors": [
+                "El mercado está allí.",
+                "¿Cuánto es?",
+                "Mucho gusto."
+              ],
+              "speaker": "Passer-by"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "es-en-p01-u11",
+      "section": 1,
+      "unit": 11,
+      "title": "Talk about today",
+      "cefr": "A1",
+      "score_range": "0-9",
+      "communicative_goal": "Say what the weather is doing and how you are feeling today.",
+      "objective": "Say what the weather is doing and how you are feeling today.",
+      "scaffold": 2,
+      "grammar_targets": [
+        "weather with hacer",
+        "estar for feelings"
+      ],
+      "vocabulary": [
+        {
+          "id": "es-en-s01-u009-v01",
+          "spanish": "hoy",
+          "english": "today",
+          "part_of_speech": "adverb",
+          "status": "pilot_authored",
+          "emoji": "📅"
+        },
+        {
+          "id": "es-en-s01-u009-v14",
+          "spanish": "el tiempo",
+          "english": "weather",
+          "part_of_speech": "noun",
+          "status": "pilot_authored",
+          "context_es": "¿Qué tiempo hace hoy?",
+          "context_en": "What is the weather like today?"
+        },
+        {
+          "id": "es-en-s01-u009-v13",
+          "spanish": "hacer",
+          "english": "to do / to make",
+          "part_of_speech": "verb",
+          "status": "pilot_authored"
+        },
+        {
+          "id": "es-en-s01-u009-v03",
+          "spanish": "el sol",
+          "english": "sun",
+          "part_of_speech": "noun",
+          "status": "pilot_authored",
+          "emoji": "☀️"
+        },
+        {
+          "id": "es-en-p01-u11-v05",
+          "spanish": "el frío",
+          "english": "cold",
+          "part_of_speech": "noun",
+          "status": "pilot_authored",
+          "emoji": "🥶"
+        },
+        {
+          "id": "es-en-p01-u11-v06",
+          "spanish": "el calor",
+          "english": "heat",
+          "part_of_speech": "noun",
+          "status": "pilot_authored",
+          "emoji": "🥵"
+        },
+        {
+          "id": "es-en-s01-u010-v07",
+          "spanish": "fresco/fresca",
+          "english": "cool",
+          "part_of_speech": "adjective",
+          "status": "pilot_authored",
+          "emoji": "🍃"
+        },
+        {
+          "id": "es-en-s01-u009-v11",
+          "spanish": "el cielo",
+          "english": "sky",
+          "part_of_speech": "noun",
+          "status": "pilot_authored",
+          "emoji": "🌤️"
+        },
+        {
+          "id": "es-en-s01-u009-v04",
+          "spanish": "la lluvia",
+          "english": "rain",
+          "part_of_speech": "noun",
+          "status": "pilot_authored",
+          "emoji": "🌧️"
+        },
+        {
+          "id": "es-en-p01-u11-v10",
+          "spanish": "cansado/cansada",
+          "english": "tired",
+          "part_of_speech": "adjective",
+          "status": "pilot_authored",
+          "emoji": "😴"
+        },
+        {
+          "id": "es-en-p01-u11-v11",
+          "spanish": "contento/contenta",
+          "english": "happy",
+          "part_of_speech": "adjective",
+          "status": "pilot_authored",
+          "emoji": "😊"
+        },
+        {
+          "id": "es-en-s01-u005-v10",
+          "spanish": "tranquilo/tranquila",
+          "english": "calm",
+          "part_of_speech": "adjective",
+          "status": "pilot_authored",
+          "emoji": "😌",
+          "context_es": "Hoy estoy tranquilo.",
+          "context_en": "Today I am calm."
+        }
+      ],
+      "phrase_patterns": [
+        {
+          "id": "es-en-p01-u11-p01",
+          "spanish": "¿Qué tiempo hace hoy?",
+          "english": "What is the weather like today?",
+          "status": "pilot_authored"
+        },
+        {
+          "id": "es-en-p01-u11-p02",
+          "spanish": "Hace sol.",
+          "english": "It is sunny.",
+          "status": "pilot_authored"
+        },
+        {
+          "id": "es-en-p01-u11-p03",
+          "spanish": "Hoy hace frío.",
+          "english": "It is cold today.",
+          "status": "pilot_authored"
+        },
+        {
+          "id": "es-en-p01-u11-p04",
+          "spanish": "Hace calor en México.",
+          "english": "It is hot in Mexico.",
+          "status": "pilot_authored"
+        },
+        {
+          "id": "es-en-p01-u11-p05",
+          "spanish": "Hay sol en el cielo.",
+          "english": "There is sun in the sky.",
+          "status": "pilot_authored"
+        },
+        {
+          "id": "es-en-p01-u11-p06",
+          "spanish": "Estoy cansado hoy.",
+          "english": "I am tired today.",
+          "status": "pilot_authored"
+        },
+        {
+          "id": "es-en-p01-u11-p07",
+          "spanish": "Estoy muy contento.",
+          "english": "I am very happy.",
+          "status": "pilot_authored"
+        },
+        {
+          "id": "es-en-p01-u11-p08",
+          "spanish": "Hace fresco aquí.",
+          "english": "It is cool here.",
+          "status": "pilot_authored"
+        },
+        {
+          "id": "es-en-p01-u11-p09",
+          "spanish": "Hoy estoy tranquilo.",
+          "english": "Today I am calm.",
+          "status": "pilot_authored"
+        }
+      ],
+      "lesson_sequence": [
+        {
+          "lesson_index": 1,
+          "name": "Discover",
+          "goal": "Meet the weather words and how you say you feel."
+        },
+        {
+          "lesson_index": 2,
+          "name": "Notice the pattern",
+          "goal": "Work out which verb the weather uses."
+        },
+        {
+          "lesson_index": 3,
+          "name": "Build",
+          "goal": "Describe today's weather and your own mood."
+        },
+        {
+          "lesson_index": 4,
+          "name": "Listen and understand",
+          "goal": "Catch a weather report by ear."
+        },
+        {
+          "lesson_index": 5,
+          "name": "Listen to a story",
+          "goal": "Follow a day in Madrid."
+        },
+        {
+          "lesson_index": 6,
+          "name": "Have a conversation",
+          "goal": "Compare notes on the day."
+        },
+        {
+          "lesson_index": 7,
+          "name": "Unit review",
+          "goal": "Bring back everything from this unit."
+        }
+      ],
+      "review_schedule_days": [
+        1,
+        3,
+        7,
+        14
+      ],
+      "unit_assessment": {
+        "can_do_statement": "Say what the weather is doing and how you are feeling today."
+      },
+      "patterns": [
+        {
+          "id": "p01-u11-pat01",
+          "template": "Hoy hace {}.",
+          "english": "Today it is {}.",
+          "fills": [
+            {
+              "spanish": "sol",
+              "english": "sunny"
+            },
+            {
+              "spanish": "frío",
+              "english": "cold"
+            },
+            {
+              "spanish": "calor",
+              "english": "hot"
+            },
+            {
+              "spanish": "fresco",
+              "english": "cool"
+            }
+          ],
+          "concepts": [
+            "weather-hace"
+          ]
+        }
+      ],
+      "notices": [
+        {
+          "id": "p01-u11-n01",
+          "title": "The weather is something Spanish makes",
+          "examples": [
+            {
+              "spanish": "Hace sol.",
+              "english": "It is sunny.",
+              "note": "literally: it makes sun"
+            },
+            {
+              "spanish": "Hoy hace frío.",
+              "english": "It is cold today."
+            },
+            {
+              "spanish": "Hace calor en México.",
+              "english": "It is hot in Mexico."
+            }
+          ],
+          "question": {
+            "prompt": "It is cool today. Which one?",
+            "options": [
+              "Hoy hace fresco.",
+              "Hoy es fresco.",
+              "Hoy está fresco."
+            ],
+            "answer": "Hoy hace fresco.",
+            "explanation": "Weather uses hacer: hace sol, hace frío, hace calor, hace fresco. How *you* feel is different — that uses estar: estoy cansado, estoy contento.",
+            "concepts": [
+              "weather-hace"
+            ]
+          }
+        }
+      ],
+      "stories": [
+        {
+          "id": "p01-u11-s01",
+          "title": "Un día en Madrid",
+          "setup": "Ana writes a few lines about her day.",
+          "lines": [
+            {
+              "spanish": "Hoy estoy en Madrid.",
+              "english": "Today I am in Madrid."
+            },
+            {
+              "spanish": "Hace sol, pero hace fresco.",
+              "english": "It is sunny, but it is cool."
+            },
+            {
+              "spanish": "Quiero comprar un café.",
+              "english": "I want to buy a coffee."
+            },
+            {
+              "spanish": "El café está cerca de la casa.",
+              "english": "The café is near the house."
+            },
+            {
+              "spanish": "Estoy muy contenta.",
+              "english": "I am very happy."
+            }
+          ],
+          "questions": [
+            {
+              "prompt": "What is the weather doing?",
+              "options": [
+                "Sunny but cool",
+                "Hot all day",
+                "Raining"
+              ],
+              "answer": "Sunny but cool",
+              "explanation": "Hace sol, pero hace fresco — two weather expressions joined by pero, but."
+            },
+            {
+              "prompt": "How does Ana feel?",
+              "options": [
+                "Happy",
+                "Tired",
+                "Cold"
+              ],
+              "answer": "Happy",
+              "explanation": "Estoy muy contenta. She is talking about herself, so it is estar, not hacer."
+            }
+          ]
+        }
+      ],
+      "dialogues": [
+        {
+          "id": "p01-u11-d01",
+          "scenario": "A friend messages you first thing in the morning.",
+          "turns": [
+            {
+              "prompt": {
+                "spanish": "Buenos días. ¿Qué tiempo hace hoy?",
+                "english": "Good morning. What's the weather like today?"
+              },
+              "reply": {
+                "spanish": "Hoy hace frío.",
+                "english": "It is cold today."
+              },
+              "distractors": [
+                "Estoy cansado hoy.",
+                "El banco está cerca.",
+                "Mucho gusto."
+              ],
+              "speaker": "Friend"
+            },
+            {
+              "prompt": {
+                "spanish": "¿Y cómo estás?",
+                "english": "And how are you?"
+              },
+              "reply": {
+                "spanish": "Estoy muy contento.",
+                "english": "I am very happy."
+              },
+              "distractors": [
+                "Hace calor en México.",
+                "¿Cuánto es?",
+                "Hasta luego."
+              ],
+              "speaker": "Friend"
+            },
+            {
+              "prompt": {
+                "spanish": "¿Quieres un café?",
+                "english": "Do you want a coffee?"
+              },
+              "reply": {
+                "spanish": "Sí, por favor. Gracias.",
+                "english": "Yes, please. Thank you."
+              },
+              "distractors": [
+                "No entiendo la pregunta.",
+                "Hace sol.",
+                "¿Dónde está el banco?"
+              ],
+              "speaker": "Friend"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "es-en-p01-u12",
+      "section": 1,
+      "unit": 12,
+      "title": "What you like, and your first real conversation",
+      "cefr": "A1",
+      "score_range": "0-9",
+      "communicative_goal": "Say what you like and prefer, then hold a whole short conversation from hello to goodbye.",
+      "objective": "Say what you like and prefer, then hold a whole short conversation from hello to goodbye.",
+      "scaffold": 1,
+      "grammar_targets": [
+        "gustar and friends",
+        "review of units 1-11"
+      ],
+      "vocabulary": [
+        {
+          "id": "es-en-s02-u002-v11",
+          "spanish": "el pasatiempo",
+          "english": "hobby",
+          "part_of_speech": "noun",
+          "status": "pilot_authored",
+          "emoji": "🎯"
+        },
+        {
+          "id": "es-en-s01-u005-v04",
+          "spanish": "divertido/divertida",
+          "english": "fun",
+          "part_of_speech": "adjective",
+          "status": "pilot_authored",
+          "emoji": "🎉"
+        },
+        {
+          "id": "es-en-p01-u12-v03",
+          "spanish": "el amigo",
+          "english": "friend",
+          "part_of_speech": "noun",
+          "status": "pilot_authored",
+          "emoji": "👥"
+        },
+        {
+          "id": "es-en-p01-u12-v04",
+          "spanish": "trabajar",
+          "english": "to work",
+          "part_of_speech": "verb",
+          "status": "pilot_authored",
+          "emoji": "💼",
+          "context_es": "Trabajo aquí.",
+          "context_en": "I work here."
+        },
+        {
+          "id": "es-en-p01-u12-v05",
+          "spanish": "vale",
+          "english": "okay",
+          "part_of_speech": "expression",
+          "status": "pilot_authored"
+        },
+        {
+          "id": "es-en-s02-u002-v05",
+          "spanish": "gustar",
+          "english": "to be pleasing (to like)",
+          "part_of_speech": "verb",
+          "status": "pilot_authored",
+          "context_es": "Me gusta el café.",
+          "context_en": "I like coffee."
+        },
+        {
+          "id": "es-en-s02-u002-v07",
+          "spanish": "preferir",
+          "english": "to prefer",
+          "part_of_speech": "verb",
+          "status": "pilot_authored",
+          "context_es": "Prefiero el té.",
+          "context_en": "I prefer tea."
+        },
+        {
+          "id": "es-en-s02-u002-v06",
+          "spanish": "encantar",
+          "english": "to love (something)",
+          "part_of_speech": "verb",
+          "status": "pilot_authored",
+          "emoji": "😍"
+        },
+        {
+          "id": "es-en-s02-u002-v12",
+          "spanish": "interesar",
+          "english": "to interest",
+          "part_of_speech": "verb",
+          "status": "pilot_authored"
+        },
+        {
+          "id": "es-en-s01-u008-v11",
+          "spanish": "aprender",
+          "english": "to learn",
+          "part_of_speech": "verb",
+          "status": "pilot_authored",
+          "emoji": "📚",
+          "context_es": "Me gusta aprender español.",
+          "context_en": "I like learning Spanish."
+        }
+      ],
+      "phrase_patterns": [
+        {
+          "id": "es-en-p01-u12-p01",
+          "spanish": "El español es divertido.",
+          "english": "Spanish is fun.",
+          "status": "pilot_authored"
+        },
+        {
+          "id": "es-en-p01-u12-p02",
+          "spanish": "Trabajo aquí.",
+          "english": "I work here.",
+          "status": "pilot_authored"
+        },
+        {
+          "id": "es-en-p01-u12-p03",
+          "spanish": "Tengo un amigo en México.",
+          "english": "I have a friend in Mexico.",
+          "status": "pilot_authored"
+        },
+        {
+          "id": "es-en-p01-u12-p04",
+          "spanish": "Es un pasatiempo muy divertido.",
+          "english": "It is a very fun hobby.",
+          "status": "pilot_authored"
+        },
+        {
+          "id": "es-en-p01-u12-p05",
+          "spanish": "Vale, hasta luego.",
+          "english": "Okay, see you later.",
+          "status": "pilot_authored"
+        },
+        {
+          "id": "es-en-p01-u12-p06",
+          "spanish": "Me gusta el café.",
+          "english": "I like coffee.",
+          "status": "pilot_authored"
+        },
+        {
+          "id": "es-en-p01-u12-p07",
+          "spanish": "Prefiero el té.",
+          "english": "I prefer tea.",
+          "status": "pilot_authored"
+        },
+        {
+          "id": "es-en-p01-u12-p08",
+          "spanish": "Me encanta España.",
+          "english": "I love Spain.",
+          "status": "pilot_authored"
+        },
+        {
+          "id": "es-en-p01-u12-p09",
+          "spanish": "¿Qué te interesa?",
+          "english": "What interests you?",
+          "status": "pilot_authored"
+        }
+      ],
+      "lesson_sequence": [
+        {
+          "lesson_index": 1,
+          "name": "Discover",
+          "goal": "Meet the last few words you need."
+        },
+        {
+          "lesson_index": 2,
+          "name": "Discover",
+          "goal": "Meet the verbs for liking, preferring and loving."
+        },
+        {
+          "lesson_index": 3,
+          "name": "Notice the pattern",
+          "goal": "Work out why Spanish says the coffee pleases me."
+        },
+        {
+          "lesson_index": 4,
+          "name": "Build",
+          "goal": "Say what you like, and what you would rather have."
+        },
+        {
+          "lesson_index": 5,
+          "name": "Read a story",
+          "goal": "Follow a whole conversation in Spanish.",
+          "uses": {
+            "stories": [
+              "p01-u12-s01"
+            ]
+          }
+        },
+        {
+          "lesson_index": 6,
+          "name": "Have a conversation",
+          "goal": "A short exchange with someone new.",
+          "uses": {
+            "dialogues": [
+              "p01-u12-d01"
+            ]
+          }
+        },
+        {
+          "lesson_index": 7,
+          "name": "Put it together",
+          "goal": "The full conversation, with no props.",
+          "uses": {
+            "dialogues": [
+              "p01-u12-d02"
+            ],
+            "stories": [
+              "p01-u12-s01"
+            ]
+          }
+        },
+        {
+          "lesson_index": 8,
+          "name": "Unit review",
+          "goal": "Everything from the first twelve units."
+        }
+      ],
+      "review_schedule_days": [
+        1,
+        3,
+        7,
+        14
+      ],
+      "unit_assessment": {
+        "can_do_statement": "Say what you like and prefer, then hold a whole short conversation from hello to goodbye."
+      },
+      "patterns": [
+        {
+          "id": "p01-u12-pat01",
+          "template": "Me gusta {}.",
+          "english": "I like {}.",
+          "fills": [
+            {
+              "spanish": "el café",
+              "english": "coffee"
+            },
+            {
+              "spanish": "el té",
+              "english": "tea"
+            },
+            {
+              "spanish": "el parque",
+              "english": "the park"
+            },
+            {
+              "spanish": "España",
+              "english": "Spain"
+            }
+          ],
+          "concepts": [
+            "gustar-preferir"
+          ]
+        }
+      ],
+      "notices": [
+        {
+          "id": "p01-u12-n01",
+          "title": "Spanish says it the other way round",
+          "examples": [
+            {
+              "spanish": "Me gusta el café.",
+              "english": "I like coffee.",
+              "note": "literally: the coffee pleases me"
+            },
+            {
+              "spanish": "Me encanta España.",
+              "english": "I love Spain.",
+              "note": "the same shape: Spain delights me"
+            },
+            {
+              "spanish": "¿Qué te interesa?",
+              "english": "What interests you?",
+              "note": "te, not me — what interests *you*"
+            }
+          ],
+          "question": {
+            "prompt": "You have met me gusta and te interesa. How would you ask does she like coffee?",
+            "options": [
+              "¿Le gusta el café?",
+              "¿Me gusta el café?",
+              "¿Te gusta el café?"
+            ],
+            "answer": "¿Le gusta el café?",
+            "explanation": "gustar, encantar and interesar all work backwards: the thing does the pleasing, and the little word says who it pleases. me = me, te = you, le = him or her. That is why it is me gusta and never yo gusto.",
+            "concepts": [
+              "gustar-preferir"
+            ]
+          }
+        }
+      ],
+      "stories": [
+        {
+          "id": "p01-u12-s01",
+          "title": "Ana y Diego",
+          "setup": "Ana sits down at a café in Madrid and someone says hello.",
+          "lines": [
+            {
+              "spanish": "Ana está en un café en Madrid.",
+              "english": "Ana is at a café in Madrid."
+            },
+            {
+              "spanish": "—Hola. Me llamo Ana. ¿Y tú?",
+              "english": "Hello. My name is Ana. And you?"
+            },
+            {
+              "spanish": "—Me llamo Diego. Mucho gusto.",
+              "english": "My name is Diego. Nice to meet you."
+            },
+            {
+              "spanish": "—¿De dónde eres?",
+              "english": "Where are you from?"
+            },
+            {
+              "spanish": "—Soy de México, pero vivo aquí.",
+              "english": "I am from Mexico, but I live here."
+            },
+            {
+              "spanish": "—¿Qué quieres beber?",
+              "english": "What do you want to drink?"
+            },
+            {
+              "spanish": "—Quiero un café, por favor.",
+              "english": "I want a coffee, please."
+            },
+            {
+              "spanish": "—Me gusta aprender español.",
+              "english": "I like learning Spanish."
+            }
+          ],
+          "questions": [
+            {
+              "prompt": "Where is Diego from?",
+              "options": [
+                "Mexico",
+                "Spain",
+                "He doesn't say"
+              ],
+              "answer": "Mexico",
+              "explanation": "Soy de México — de plus a place is where you are from."
+            },
+            {
+              "prompt": "Where does Diego live now?",
+              "options": [
+                "Here, in Madrid",
+                "In Mexico",
+                "He doesn't say"
+              ],
+              "answer": "Here, in Madrid",
+              "explanation": "…pero vivo aquí. pero — but — is what flips the sentence: from Mexico, living here."
+            },
+            {
+              "prompt": "What does Diego want to drink?",
+              "options": [
+                "A coffee",
+                "A tea",
+                "Water"
+              ],
+              "answer": "A coffee",
+              "explanation": "Quiero un café, por favor."
+            }
+          ]
+        }
+      ],
+      "dialogues": [
+        {
+          "id": "p01-u12-d01",
+          "scenario": "Someone sits down at your table.",
+          "turns": [
+            {
+              "prompt": {
+                "spanish": "Hola. ¿Trabajas aquí?",
+                "english": "Hello. Do you work here?",
+                "receptive": true
+              },
+              "reply": {
+                "spanish": "Trabajo aquí.",
+                "english": "I work here."
+              },
+              "distractors": [
+                "Vale, hasta luego.",
+                "El español es divertido.",
+                "¿Cuánto cuesta?"
+              ],
+              "speaker": "Diego"
+            },
+            {
+              "prompt": {
+                "spanish": "¿Y hablas español?",
+                "english": "And do you speak Spanish?"
+              },
+              "reply": {
+                "spanish": "Hablo español, pero despacio.",
+                "english": "I speak Spanish, but slowly."
+              },
+              "distractors": [
+                "Tengo un amigo en México.",
+                "Hace sol.",
+                "Buenas noches."
+              ],
+              "speaker": "Diego"
+            }
+          ]
+        },
+        {
+          "id": "p01-u12-d02",
+          "scenario": "The whole thing: meeting Diego, and ordering together.",
+          "turns": [
+            {
+              "prompt": {
+                "spanish": "Buenas tardes. ¿Cómo te llamas?",
+                "english": "Good afternoon. What's your name?"
+              },
+              "reply": {
+                "spanish": "Me llamo Ana.",
+                "english": "My name is Ana."
+              },
+              "distractors": [
+                "Soy de España.",
+                "Mucho gusto.",
+                "Hace sol."
+              ],
+              "speaker": "Diego"
+            },
+            {
+              "prompt": {
+                "spanish": "Mucho gusto, Ana. ¿De dónde eres?",
+                "english": "Nice to meet you, Ana. Where are you from?"
+              },
+              "reply": {
+                "spanish": "Soy de España.",
+                "english": "I am from Spain."
+              },
+              "distractors": [
+                "Vivo en México.",
+                "Quiero un café.",
+                "¿Cuánto es?"
+              ],
+              "speaker": "Diego"
+            },
+            {
+              "prompt": {
+                "spanish": "¿Y qué tiempo hace hoy?",
+                "english": "And what's the weather like today?"
+              },
+              "reply": {
+                "spanish": "Hoy hace frío.",
+                "english": "It is cold today."
+              },
+              "distractors": [
+                "Estoy muy contento.",
+                "El banco está cerca.",
+                "Trabajo aquí."
+              ],
+              "speaker": "Diego"
+            },
+            {
+              "prompt": {
+                "spanish": "¿Quieres un café?",
+                "english": "Do you want a coffee?"
+              },
+              "reply": {
+                "spanish": "Quiero un café, por favor.",
+                "english": "I want a coffee, please."
+              },
+              "distractors": [
+                "No entiendo la pregunta.",
+                "Hay un mercado en la calle.",
+                "Buenas noches."
+              ],
+              "speaker": "Diego"
+            },
+            {
+              "prompt": {
+                "spanish": "Son seis euros. ¿Algo más?",
+                "english": "That's six euros. Anything else?",
+                "receptive": true
+              },
+              "reply": {
+                "spanish": "La cuenta, por favor.",
+                "english": "The bill, please."
+              },
+              "distractors": [
+                "Quiero comprar dos cafés.",
+                "Hasta luego.",
+                "Necesito ayuda."
+              ],
+              "speaker": "Server"
+            },
+            {
+              "prompt": {
+                "spanish": "Hasta luego, Ana.",
+                "english": "See you later, Ana."
+              },
+              "reply": {
+                "spanish": "Vale, hasta luego.",
+                "english": "Okay, see you later."
+              },
+              "distractors": [
+                "Buenos días.",
+                "¿Dónde está el banco?",
+                "Lo siento mucho."
+              ],
+              "speaker": "Diego"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

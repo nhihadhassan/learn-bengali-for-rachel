@@ -25,6 +25,7 @@ import { getLessonsForCurriculum } from "../src/lib/content";
 import {
   MAX_NEW_ITEMS_PER_LESSON,
   coverage,
+  newItemWeight,
   taughtWordSet,
   unknownWords,
 } from "../src/lib/curriculum-plan";
@@ -52,8 +53,17 @@ function isStrict(): boolean {
   return true;
 }
 
-/** Of a unit's six lessons, five teach; the sixth is the review. */
-const TEACHING_LESSONS_PER_UNIT = 5;
+/**
+ * How many of a unit's lessons actually teach.
+ *
+ * This used to be the constant 5 — a unit had six lessons and one of them was
+ * the review. Pilot units run anywhere from three to eight lessons, so it is
+ * now counted from the data: any lesson whose kind carries a share of new
+ * material. A review or capstone carries none.
+ */
+function teachingLessonCount(lessons: readonly Lesson[]): number {
+  return lessons.filter((lesson) => newItemWeight(lesson.plan?.kind ?? "build") > 0).length;
+}
 
 /** Units at the very end of the course have no later unit to recycle them. */
 const UNITS_WITHOUT_A_FUTURE = 2;
@@ -80,19 +90,56 @@ function contentWords(text: string): string[] {
   return [...taughtWordSet(text)];
 }
 
+/**
+ * New vocabulary this lesson had no choice about: words one of its own new
+ * sentences uses and the learner has not met.
+ */
+function forcedVocabularyCount(
+  lesson: Lesson,
+  phraseById: ReadonlyMap<string, Phrase>,
+  knownWords: ReadonlySet<string>,
+): number {
+  const ids = lesson.plan?.newPhraseIds ?? [];
+  const items = ids
+    .map((id) => phraseById.get(id) ?? lesson.phrases.find((phrase) => phrase.id === id))
+    .filter((phrase): phrase is Phrase => Boolean(phrase));
+  const sentences = items.filter((phrase) => phrase.category === "phrase");
+  const needed = new Set(
+    sentences.flatMap((phrase) => unknownWords(phrase.romanized, knownWords, isKnownForm)),
+  );
+
+  if (needed.size === 0) {
+    return 0;
+  }
+
+  return items.filter((phrase) => {
+    if (phrase.category === "phrase") {
+      return false;
+    }
+
+    const supplied = new Set(contentWords(phrase.romanized));
+    return [...needed].some(
+      (word) => supplied.has(word) || isKnownForm(word, supplied),
+    );
+  }).length;
+}
+
 function audit(): Finding[] {
   const lessons = getLessonsForCurriculum("spanish");
   const findings: Finding[] = [];
   const add = (lesson: Lesson, rule: string, detail: string) =>
     findings.push({ lessonId: lesson.id, rule, detail });
 
-  // How much each unit has to teach, for the load check below.
+  // How much each unit has to teach, and across how many lessons, for the load
+  // check below.
   const unitNewItemCount = new Map<string, number>();
+  const unitLessons = new Map<string, Lesson[]>();
   for (const lesson of lessons) {
     unitNewItemCount.set(
       lesson.unitId,
       (unitNewItemCount.get(lesson.unitId) ?? 0) + (lesson.plan?.newPhraseIds.length ?? 0),
     );
+    unitLessons.set(lesson.unitId, [...(unitLessons.get(lesson.unitId) ?? []), lesson]);
   }
 
   const knownWords = new Set<string>();
@@ -129,12 +176,21 @@ function audit(): Finding[] {
     // least-bad place — better than a review lesson introducing new material.
     // That spill is a fact about the unit's size, so it is reported against the
     // unit rather than as a per-lesson failure; the ceiling still holds.
-    const unitCapacity = TEACHING_LESSONS_PER_UNIT * MAX_NEW_ITEMS_PER_LESSON;
+    const teachingLessons = Math.max(
+      1,
+      teachingLessonCount(unitLessons.get(lesson.unitId) ?? []),
+    );
+    const unitCapacity = teachingLessons * MAX_NEW_ITEMS_PER_LESSON;
     const unitItems = unitNewItemCount.get(lesson.unitId) ?? 0;
+    // A lesson may also go one over for each word one of *its own* new
+    // sentences needs. The planner deliberately breaks the ceiling rather than
+    // show a sentence containing a word it has not taught; the audit has to
+    // agree with that trade or it just reports the fix as a fault.
+    const forced = forcedVocabularyCount(lesson, phraseById, knownWords);
     const allowed =
-      unitItems > unitCapacity
-        ? MAX_NEW_ITEMS_PER_LESSON + Math.ceil((unitItems - unitCapacity) / TEACHING_LESSONS_PER_UNIT)
-        : MAX_NEW_ITEMS_PER_LESSON;
+      (unitItems > unitCapacity
+        ? MAX_NEW_ITEMS_PER_LESSON + Math.ceil((unitItems - unitCapacity) / teachingLessons)
+        : MAX_NEW_ITEMS_PER_LESSON) + forced;
 
     if (plan.newPhraseIds.length > allowed) {
       add(
@@ -144,8 +200,8 @@ function audit(): Finding[] {
       );
     }
 
-    if (unitItems > unitCapacity + TEACHING_LESSONS_PER_UNIT) {
-      add(lesson, "unit-overloaded", `unit teaches ${unitItems} items across ${TEACHING_LESSONS_PER_UNIT} lessons`);
+    if (unitItems > unitCapacity + teachingLessons) {
+      add(lesson, "unit-overloaded", `unit teaches ${unitItems} items across ${teachingLessons} lessons`);
     }
 
     if (plan.kind === "review" && plan.newPhraseIds.length > 0) {

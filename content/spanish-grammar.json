@@ -295,6 +295,25 @@
         {
           "target": "Estas fresas están frescas.",
           "english": "These strawberries are fresh."
+        },
+        {
+          "target": "Hoy estoy tranquilo.",
+          "english": "Today I am calm.",
+          "note": "masculine → -o"
+        },
+        {
+          "target": "Hoy estoy tranquila.",
+          "english": "Today I am calm.",
+          "note": "feminine → -a"
+        },
+        {
+          "target": "Es un pasatiempo divertido.",
+          "english": "It is a fun hobby.",
+          "note": "masculine → -o"
+        },
+        {
+          "target": "Hace fresco hoy.",
+          "english": "It is cool today."
         }
       ],
       "drill": "marker-cloze",

@@ -240,6 +240,9 @@ export const TEACH_TEST_LAG = 2;
 /** Difficulty weight for ordering the practice block, easiest first. */
 const EASY_CLOSER_MAX = 2;
 
+/** Below this many decoys, "tap what you hear" stops being transcription. */
+const MIN_LISTEN_PADDING = 2;
+
 /** Recycle slots carry this id prefix so they can be found and rewritten. */
 const RECYCLE_PREFIX = "recycle";
 
@@ -971,12 +974,14 @@ function tryBuildFormat(
       }
 
       // Pad the bank so "tap what you hear" is a real transcription rather
-      // than putting two given words in order.
+      // than putting two given words in order. The floor matters more than the
+      // profile here: at the highest scaffold level the padding is 0, and a
+      // two-word sentence would otherwise arrive as two tiles and no choice.
       const heard = new Set(words.map(normalizeWord));
       const extras = seededShuffle(
         context.wordPool.filter((word) => !heard.has(normalizeWord(word))),
         context.rng,
-      ).slice(0, context.profile.wordBankPadding);
+      ).slice(0, Math.max(context.profile.wordBankPadding, MIN_LISTEN_PADDING));
 
       return {
         id: nextStepId(context, "listen", phrase),

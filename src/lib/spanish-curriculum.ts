@@ -39,12 +39,28 @@ import {
   type GrammarFocusOptions,
 } from "@/lib/grammar-drills";
 import { isKnownForm } from "@/lib/spanish-lexicon";
+import {
+  PILOT_UNIT_COUNT,
+  pilotSection,
+  pilotUnits,
+  type PilotChoice,
+  type PilotDialogue,
+  type PilotLessonUses,
+  type PilotNotice,
+  type PilotStory,
+  type PilotUnit,
+  type PilotVocabulary,
+} from "@/lib/spanish-pilot";
 import type {
+  ChoiceQuestion,
   DialogueScript,
   GrammarFocus,
   LanguagePattern,
   Lesson,
+  NoticeCard,
   Phrase,
+  ScaffoldLevel,
+  StoryScript,
   Unit,
 } from "@/types/learning";
 
@@ -52,6 +68,8 @@ const course = rawCourse as unknown as Course;
 
 /** Authored dialogue, when a unit has one (see the pack schema's `dialogue`). */
 type PackDialogue = {
+  /** Present on pilot dialogues, so a lesson can ask for one by name. */
+  id?: string;
   scenario: string;
   turns: Array<{
     speaker?: string;
@@ -69,11 +87,31 @@ type PackPattern = {
   concepts?: string[];
 };
 
-type PackUnitWithExtras = PackUnit & {
+/**
+ * A unit as this adapter reads it: the pack's own shape, plus the optional
+ * fields the pilot units add. One type for both halves of the course is what
+ * lets the planner walk them in a single pass — which is what keeps Unit 13's
+ * interleaved review working against pilot units.
+ */
+type PackUnitWithExtras = Omit<
+  PackUnit,
+  "vocabulary" | "lesson_sequence" | "unit_assessment" | "provenance" | "review_schedule_days"
+> & {
+  vocabulary: PilotVocabulary[];
+  lesson_sequence: Array<
+    Pick<PackLesson, "lesson_index" | "name" | "goal"> & { uses?: PilotLessonUses }
+  >;
   dialogue?: PackDialogue;
+  /** Several short exchanges, so more than one lesson can hold a conversation. */
+  dialogues?: PilotDialogue[];
   patterns?: PackPattern[];
+  notices?: PilotNotice[];
+  stories?: PilotStory[];
   /** Explicit grammar rule id; see `grammarFocusFor`. */
   grammar_focus?: string;
+  /** How much support this unit gives; see `ScaffoldLevel`. */
+  scaffold?: ScaffoldLevel;
+  objective?: string;
 };
 
 /** The shape `@/lib/grammar-drills` exposes for an authored rule. */
@@ -99,12 +137,20 @@ const cumulativeEnabled =
   FEATURES.cumulativeLessons &&
   getCapabilities("spanish").lessonStrategy === "cumulative";
 
-function vocabularyPhrase(item: PackUnit["vocabulary"][number]): Phrase {
+function vocabularyPhrase(item: PilotVocabulary): Phrase {
   return {
     id: item.id,
     romanized: item.spanish,
     english: item.english,
     pronunciation: "",
+    emoji: item.emoji,
+    // A word introduced inside a sentence the learner can already mostly read
+    // is met the way words are actually met. The gloss is still there; it is
+    // just no longer the whole teach card.
+    context:
+      item.context_es && item.context_en
+        ? { target: item.context_es, english: item.context_en }
+        : undefined,
     // Part of speech doubles as the semantic grouping distractor selection
     // uses, so a noun is offered against other nouns.
     category: item.part_of_speech || "vocabulary",
@@ -124,9 +170,23 @@ function patternPhrase(item: PackUnit["phrase_patterns"][number]): Phrase {
 /** Every phrase in the course, keyed by id — review reaches across units. */
 const phraseById = new Map<string, Phrase>();
 
-const orderedUnits: PackUnitWithExtras[] = [...course.units].sort(
+const packUnits: PackUnitWithExtras[] = [...course.units].sort(
   (a, b) => a.section - b.section || a.unit - b.unit,
-) as PackUnitWithExtras[];
+) as unknown as PackUnitWithExtras[];
+
+/**
+ * The path: the pilot's twelve units, then the pack's units 13 onward.
+ *
+ * The tail is spliced rather than filtered so the seam is a position, not a
+ * list of ids — the pilot replaces "the first twelve units of the path",
+ * whichever units those happen to be.
+ */
+const orderedUnits: PackUnitWithExtras[] = FEATURES.spanishPilotV2
+  ? [
+      ...(pilotUnits as unknown as PackUnitWithExtras[]),
+      ...packUnits.slice(PILOT_UNIT_COUNT),
+    ]
+  : packUnits;
 
 for (const unit of orderedUnits) {
   for (const item of unit.vocabulary) {
@@ -303,6 +363,85 @@ function toPatterns(patterns: PackPattern[] | undefined): LanguagePattern[] | un
   }));
 }
 
+function toChoiceQuestion(question: PilotChoice): ChoiceQuestion {
+  return {
+    prompt: question.prompt,
+    options: question.options,
+    answer: question.answer,
+    explanation: question.explanation,
+    concepts: question.concepts,
+  };
+}
+
+function toNoticeCards(notices: PilotNotice[] | undefined): NoticeCard[] | undefined {
+  if (!notices?.length) {
+    return undefined;
+  }
+
+  return notices.map((notice) => ({
+    id: notice.id,
+    title: notice.title,
+    examples: notice.examples.map((example) => ({
+      target: example.spanish,
+      english: example.english,
+      note: example.note,
+    })),
+    question: toChoiceQuestion(notice.question),
+  }));
+}
+
+function toStoryScripts(stories: PilotStory[] | undefined): StoryScript[] | undefined {
+  if (!stories?.length) {
+    return undefined;
+  }
+
+  return stories.map((story) => ({
+    id: story.id,
+    title: story.title,
+    setup: story.setup,
+    lines: story.lines.map((line) => ({
+      target: line.spanish,
+      english: line.english,
+      receptive: line.receptive,
+    })),
+    questions: story.questions.map(toChoiceQuestion),
+  }));
+}
+
+/** Lesson kinds that hold a conversation. */
+function wantsDialogue(kind: string): boolean {
+  return kind === "context" || kind === "scenario" || kind === "capstone";
+}
+
+/**
+ * Which authored block this lesson gets.
+ *
+ * A lesson may name what it wants (`uses`), and otherwise the nth lesson that
+ * wants a dialogue gets the nth dialogue — so a unit with two conversations
+ * spreads them across its two conversation lessons without any wiring, and a
+ * unit with one gives that one to whoever asks.
+ */
+function pickAuthored<T>(
+  available: readonly T[] | undefined,
+  wanted: string[] | undefined,
+  occurrence: number,
+): T[] | undefined {
+  if (!available?.length) {
+    return undefined;
+  }
+
+  if (wanted?.length) {
+    const chosen = available.filter((item) => {
+      const id = (item as { id?: string }).id;
+      return id !== undefined && wanted.includes(id);
+    });
+
+    return chosen.length > 0 ? chosen : undefined;
+  }
+
+  return [available[occurrence % available.length]];
+}
+
 function toDialogueScript(dialogue: PackDialogue | undefined): DialogueScript | undefined {
   if (!dialogue?.turns?.length) {
     return undefined;
@@ -352,7 +491,10 @@ function resolvePhrases(ids: readonly string[]): Phrase[] {
  */
 const TAUGHT_WINDOW = 5;
 
-function rotatedPhrases(unit: PackUnitWithExtras, lesson: PackLesson): Phrase[] {
+function rotatedPhrases(
+  unit: PackUnitWithExtras,
+  lesson: Pick<PackLesson, "lesson_index">,
+): Phrase[] {
   const vocab = unit.vocabulary.map(vocabularyPhrase);
   const patterns = unit.phrase_patterns.map(patternPhrase);
   const combined: Phrase[] = [];
@@ -370,12 +512,16 @@ function rotatedPhrases(unit: PackUnitWithExtras, lesson: PackLesson): Phrase[] 
   return [...combined.slice(offset), ...combined.slice(0, offset)];
 }
 
+/** How many lessons of each kind have already claimed an authored block. */
+type BlockCursor = { dialogue: number; notice: number; story: number };
+
 function adaptLesson(
   unit: PackUnitWithExtras,
-  packLesson: PackLesson,
+  packLesson: PackUnitWithExtras["lesson_sequence"][number],
   unitNumber: number,
   planned: PlannedLesson | undefined,
   grammar: GrammarFocus | undefined,
+  cursor: BlockCursor,
 ): Lesson {
   const base = {
     id: `${unit.id}-l${packLesson.lesson_index}`,
@@ -396,12 +542,33 @@ function adaptLesson(
 
   const kind = toLessonKind(packLesson.name, packLesson.lesson_index);
   const lessonGrammar = kind === "grammar" ? grammar : undefined;
-  const dialogue = kind === "context" ? toDialogueScript(unit.dialogue) : undefined;
+
+  // A unit's conversations, discovery cards and stories are handed out to the
+  // lessons that want them, in order. The pack's single `dialogue` is the
+  // one-conversation case of the same rule.
+  const dialogues = unit.dialogues ?? (unit.dialogue ? [unit.dialogue] : undefined);
+  const dialogue = wantsDialogue(kind)
+    ? toDialogueScript(
+        pickAuthored(dialogues, packLesson.uses?.dialogues, cursor.dialogue++)?.[0],
+      )
+    : undefined;
+  const notices =
+    kind === "notice"
+      ? toNoticeCards(pickAuthored(unit.notices, packLesson.uses?.notices, cursor.notice++))
+      : undefined;
+  const stories =
+    kind === "story" || kind === "capstone"
+      ? toStoryScripts(pickAuthored(unit.stories, packLesson.uses?.stories, cursor.story++))
+      : undefined;
+
   const plan = toLessonPlan(planned, {
     grammar: lessonGrammar,
     dialogue,
     patterns: toPatterns(unit.patterns),
+    notices,
+    stories,
     band: CEFR_BANDS[unit.cefr],
+    scaffold: unit.scaffold,
   });
 
   return {
@@ -417,14 +584,16 @@ function adaptLesson(
 
 /** Section metadata from the pack, keyed by section number. */
 const sectionByNumber = new Map(
-  (course.sections ?? []).map((section) => [
-    section.section,
-    {
-      number: section.section,
-      title: section.title_es,
-      description: section.description,
-    },
-  ]),
+  [...(course.sections ?? []), ...(FEATURES.spanishPilotV2 ? [pilotSection] : [])].map(
+    (section) => [
+      section.section,
+      {
+        number: section.section,
+        title: section.title_es,
+        description: section.description,
+      },
+    ],
+  ),
 );
 
 function adaptUnit(
@@ -433,16 +602,18 @@ function adaptUnit(
   plannedLessons: PlannedLesson[] | undefined,
   grammar: GrammarFocus | undefined,
 ): Unit {
+  const cursor: BlockCursor = { dialogue: 0, notice: 0, story: 0 };
+
   return {
     id: unit.id,
     number: unitNumber,
     title: unit.title,
-    description: unit.communicative_goal,
+    description: unit.objective ?? unit.communicative_goal,
     // Sections are the course's four big chapters; the path browser uses them
     // to keep 131 units navigable.
     section: sectionByNumber.get(unit.section),
     lessons: unit.lesson_sequence.map((lesson, index) =>
-      adaptLesson(unit, lesson, unitNumber, plannedLessons?.[index], grammar),
+      adaptLesson(unit, lesson, unitNumber, plannedLessons?.[index], grammar, cursor),
     ),
     metadata: {
       difficultyBand: CEFR_DIFFICULTY[unit.cefr] ?? unit.cefr,
@@ -502,7 +673,10 @@ function buildUnits(): Unit[] {
       }
     }
 
-    const grammar = cumulativeEnabled
+    // A pilot unit need not contain a grammar lesson at all — grammar arrives
+    // when a unit has demonstrated something worth naming, not because the
+    // third slot is called "Grammar focus".
+    const grammar = cumulativeEnabled && grammarIndex >= 0
       ? grammarFocusFor(unit, {
           knownWords: knownAtGrammar,
           seenPhrases: [...seenPhrases, ...introducedByGrammar],

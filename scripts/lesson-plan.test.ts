@@ -14,6 +14,7 @@ import { getLessonsForCurriculum } from "@/lib/content";
 import {
   MAX_NEW_ITEMS_PER_LESSON,
   createReviewQueues,
+  newItemWeight,
   planUnit,
   sharesStem,
   toLessonKind,
@@ -27,9 +28,6 @@ import {
 } from "@/lib/learner-model";
 import { MASTERY_BOX } from "@/lib/review-policy";
 import type { Lesson } from "@/types/learning";
-
-/** Of a unit's six lessons, five teach; the sixth is the review. */
-const TEACHING_LESSONS_PER_UNIT = 5;
 
 const spanish = getLessonsForCurriculum("spanish");
 const firstUnits = spanish.filter((lesson) => lesson.unitId.startsWith("es-en-s01-u0"));
@@ -55,29 +53,40 @@ test("every Spanish lesson carries a cumulative plan; other courses do not", () 
   }
 });
 
-test("no lesson introduces more new material than the cap", () => {
-  // Five teaching lessons at the cap is a unit's capacity. A unit carrying more
-  // than that has to put the remainder somewhere, and the last teaching lesson
-  // takes it — the alternative is a review lesson that introduces new material,
-  // which would cost more than a slightly fuller lesson does.
+test("no lesson introduces much more new material than the cap", () => {
+  // A unit's capacity is its *teaching* lessons at the cap — counted, not
+  // assumed, now that units run anywhere from three to eight lessons. A unit
+  // carrying more than that has to put the remainder somewhere, and the last
+  // teaching lesson takes it: the alternative is a review lesson that
+  // introduces new material, which costs more than a slightly fuller lesson.
+  //
+  // The tolerance covers the planner's other deliberate overrun: a lesson takes
+  // an extra word rather than show a sentence built from one it has not taught.
+  const PREREQUISITE_TOLERANCE = 2;
   const unitTotals = new Map<string, number>();
+  const unitTeaching = new Map<string, number>();
+
   for (const lesson of spanish) {
+    const plan = planned(lesson);
     unitTotals.set(
       lesson.unitId,
-      (unitTotals.get(lesson.unitId) ?? 0) + planned(lesson).newPhraseIds.length,
+      (unitTotals.get(lesson.unitId) ?? 0) + plan.newPhraseIds.length,
+    );
+    unitTeaching.set(
+      lesson.unitId,
+      (unitTeaching.get(lesson.unitId) ?? 0) + (newItemWeight(plan.kind) > 0 ? 1 : 0),
     );
   }
-
-  const capacity = TEACHING_LESSONS_PER_UNIT * MAX_NEW_ITEMS_PER_LESSON;
 
   for (const lesson of spanish) {
     const plan = planned(lesson);
     const total = unitTotals.get(lesson.unitId) ?? 0;
+    const teaching = Math.max(1, unitTeaching.get(lesson.unitId) ?? 1);
+    const capacity = teaching * MAX_NEW_ITEMS_PER_LESSON;
     const allowed =
-      total > capacity
-        ? MAX_NEW_ITEMS_PER_LESSON +
-          Math.ceil((total - capacity) / TEACHING_LESSONS_PER_UNIT)
-        : MAX_NEW_ITEMS_PER_LESSON;
+      (total > capacity
+        ? MAX_NEW_ITEMS_PER_LESSON + Math.ceil((total - capacity) / teaching)
+        : MAX_NEW_ITEMS_PER_LESSON) + PREREQUISITE_TOLERANCE;
 
     assert.ok(
       plan.newPhraseIds.length <= allowed,

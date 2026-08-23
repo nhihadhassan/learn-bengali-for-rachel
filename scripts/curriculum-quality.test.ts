@@ -22,6 +22,7 @@ import {
 import { buildLessonSteps } from "@/lib/lesson-steps";
 import { getLessonProfile } from "@/lib/lesson-profiles";
 import { isKnownForm, lemmaOf, isTransparentWord } from "@/lib/spanish-lexicon";
+import { PILOT_UNIT_COUNT, pilotUnits } from "@/lib/spanish-pilot";
 import { isContentWord, normalizeWord, splitWords } from "@/lib/text-tokens";
 import type { Lesson, Phrase } from "@/types/learning";
 
@@ -29,18 +30,38 @@ const pack = JSON.parse(readFileSync("content/spanish-curriculum.json", "utf8"))
   units: Array<{
     id: string;
     section: number;
+    unit: number;
     grammar_focus?: string;
     dialogue?: unknown;
     phrase_patterns: Array<{ spanish: string }>;
   }>;
 };
-const packUnits = new Map(pack.units.map((unit) => [unit.id, unit]));
+/** Every unit the course actually runs — the pilot's, then the pack's tail. */
+const packUnits = new Map<string, { id: string; grammar_focus?: string }>([
+  ...pack.units.map((unit) => [unit.id, unit] as const),
+  ...pilotUnits.map((unit) => [unit.id, unit] as const),
+]);
 const lessons = getLessonsForCurriculum("spanish");
 
 /** Sections 1-2 are the hand-curated part this pass is responsible for. */
-const CURATED = new Set(
-  pack.units.filter((unit) => unit.section <= 2).map((unit) => unit.id),
+/** The v1 units the pilot took the place of, in path order. */
+const PILOT_REPLACED = new Set(
+  [...pack.units]
+    .sort((a, b) => a.section - b.section || a.unit - b.unit)
+    .slice(0, PILOT_UNIT_COUNT)
+    .map((unit) => unit.id),
 );
+
+/**
+ * The units held to the hand-authored bar: the pilot's twelve, plus the v1
+ * units of sections 1-2 that are still in the path behind them.
+ */
+const CURATED = new Set([
+  ...pilotUnits.map((unit) => unit.id),
+  ...pack.units
+    .filter((unit) => unit.section <= 2 && !PILOT_REPLACED.has(unit.id))
+    .map((unit) => unit.id),
+]);
 
 function contentWords(text: string): string[] {
   return [...taughtWordSet(text)];
@@ -77,8 +98,20 @@ const walked = walkCourse();
 // Grammar selection
 // ---------------------------------------------------------------------------
 
-test("every curated unit declares which grammar it teaches", () => {
-  for (const unitId of CURATED) {
+test("a unit that runs a grammar lesson declares which grammar it teaches", () => {
+  // Not every unit has a grammar lesson: the pilot names a pattern only when
+  // the pattern is worth naming, and discovers the rest. But a unit that *does*
+  // schedule one must say which rule, or it falls back to the rotation that
+  // gave a greetings unit noun gender.
+  const withGrammarLesson = new Set(
+    lessons
+      .filter((lesson) => lesson.plan?.kind === "grammar" && CURATED.has(lesson.unitId))
+      .map((lesson) => lesson.unitId),
+  );
+
+  assert.ok(withGrammarLesson.size > 0, "no curated unit runs a grammar lesson");
+
+  for (const unitId of withGrammarLesson) {
     assert.ok(
       packUnits.get(unitId)?.grammar_focus,
       `${unitId} has no grammar_focus — it would fall back to the rotation`,
@@ -131,14 +164,25 @@ test("a unit never explains a pattern the learner has not met", () => {
   }
 });
 
-test("greetings does not teach noun gender, and adjectives do teach agreement", () => {
+test("a unit with a grammar lesson teaches the rule it declares", () => {
+  // The pilot units that carry an explicit grammar lesson are the ones whose
+  // pattern is worth naming outright rather than discovering. Both are checked
+  // by id because both are hand-authored decisions, not derived ones.
   const focusOf = (unitId: string) =>
     lessons.find((lesson) => lesson.unitId === unitId && lesson.plan?.kind === "grammar")
       ?.plan?.grammar?.id;
 
-  assert.notEqual(focusOf("es-en-s01-u002"), "noun-gender-articles");
-  assert.equal(focusOf("es-en-s01-u005"), "adjective-agreement");
-  assert.equal(focusOf("es-en-s01-u001"), "querer-pattern");
+  assert.equal(focusOf("es-en-p01-u06"), "noun-gender-articles");
+  assert.equal(focusOf("es-en-p01-u10"), "estar-location-hay");
+
+  // And no unit runs a grammar lesson it never declared one for.
+  for (const unit of pilotUnits) {
+    const taught = focusOf(unit.id);
+
+    if (taught) {
+      assert.equal(taught, unit.grammar_focus, `${unit.id} teaches an undeclared rule`);
+    }
+  }
 });
 
 // ---------------------------------------------------------------------------
@@ -282,10 +326,24 @@ test("grammar drills carry the concept they exercise", () => {
   let tagged = 0;
 
   for (const lesson of grammarLessons) {
+    // A grammar lesson can carry two kinds of tagged question: drills from the
+    // rule it explains, and the unit's own authored sentence frames, which
+    // exercise their own concept. Both are legitimate; a concept from neither
+    // would mean a question is being tallied against a skill it never tested.
+    const allowed = new Set(
+      [
+        lesson.plan?.grammar?.id,
+        ...(lesson.plan?.patterns ?? []).flatMap((pattern) => pattern.concepts ?? []),
+      ].filter((id): id is string => Boolean(id)),
+    );
+
     for (const step of buildLessonSteps(lesson)) {
       if (step.type === "complete" && step.conceptIds?.length) {
         tagged += 1;
-        assert.equal(step.conceptIds[0], lesson.plan?.grammar?.id);
+        assert.ok(
+          allowed.has(step.conceptIds[0]),
+          `${lesson.id} tags a question with "${step.conceptIds[0]}", which it never exercises`,
+        );
       }
     }
   }
@@ -328,32 +386,48 @@ test("names, numbers and structure words are never prerequisites", () => {
 // Sequencing
 // ---------------------------------------------------------------------------
 
-test("Section 1 opens on greetings, not on café vocabulary", () => {
+test("the course opens on the pilot's first unit", () => {
   const first = lessons[0];
-  assert.equal(first.unitId, "es-en-s01-u002");
+  assert.equal(first.unitId, pilotUnits[0].id);
   assert.equal(first.unitNumber, 1);
 });
 
-test("resequencing did not change any lesson id", () => {
-  // Lesson ids are persisted in `completedLessons`; the reorder moves units in
-  // the path by changing a sort key, never their identity.
+test("the pilot replaced the head of the path and left the tail alone", () => {
+  // Lesson ids are persisted in `completedLessons`. The pilot units are new, so
+  // they carry new ids; every unit behind them must keep the id it has always
+  // had, or a learner's progress past unit 12 would quietly detach.
+  const pilotIds = new Set(pilotUnits.map((unit) => unit.id));
+
   for (const lesson of lessons) {
-    assert.match(lesson.id, /^es-en-s\d{2}-u\d{3}-l\d$/);
+    const pattern = pilotIds.has(lesson.unitId)
+      ? /^es-en-p01-u\d{2}-l\d$/
+      : /^es-en-s\d{2}-u\d{3}-l\d$/;
+
+    assert.match(lesson.id, pattern);
   }
 
   const ids = new Set(lessons.map((lesson) => lesson.id));
   assert.equal(ids.size, lessons.length, "lesson ids must stay unique");
-  assert.ok(ids.has("es-en-s01-u001-l1"), "the café unit keeps its ids");
-  assert.ok(ids.has("es-en-s01-u002-l1"), "the greetings unit keeps its ids");
+
+  // The v1 units the pilot did *not* replace are all still here.
+  const remaining = pack.units.filter((unit) => !PILOT_REPLACED.has(unit.id));
+  for (const unit of remaining) {
+    assert.ok(
+      lessons.some((lesson) => lesson.unitId === unit.id),
+      `${unit.id} fell out of the path`,
+    );
+  }
 });
 
 test("a phrase is never introduced before the words it is built from", () => {
   const known = new Set<string>();
 
   for (const lesson of lessons) {
-    if (!CURATED.has(lesson.unitId)) {
-      continue;
-    }
+    // Every lesson *contributes* to what the learner knows; only the curated
+    // ones are held to the bar. Walking only the curated ones is what made a
+    // v1 unit look like it introduced `ella` cold when a pilot unit two hours
+    // earlier had taught it.
+    const checked = CURATED.has(lesson.unitId);
 
     for (const id of lesson.plan?.newPhraseIds ?? []) {
       const phrase = lesson.phrases.find((item) => item.id === id);
@@ -362,7 +436,7 @@ test("a phrase is never introduced before the words it is built from", () => {
 
       // A one-word phrase pattern *is* the word it introduces, so it has no
       // prerequisites of its own — same guard the audit uses.
-      if (phrase.category === "phrase" && contentWords(phrase.romanized).length > 1) {
+      if (checked && phrase.category === "phrase" && contentWords(phrase.romanized).length > 1) {
         assert.deepEqual(
           unknownWords(phrase.romanized, known, isKnownForm),
           [],

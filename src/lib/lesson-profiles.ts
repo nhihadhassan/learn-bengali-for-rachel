@@ -137,6 +137,9 @@ const PROFILE_ROWS: Record<LessonKind, ProfileRow> = {
     wordBankPadding: 1,
     reviewQuestionTarget: 3,
     recycleSlots: 1,
+    // Hearing a new word and repeating it belongs with meeting it, not in a
+    // lesson of its own five screens later.
+    pronounceSteps: 1,
   },
 
   /**
@@ -166,6 +169,7 @@ const PROFILE_ROWS: Record<LessonKind, ProfileRow> = {
     wordBankPadding: 2,
     reviewQuestionTarget: 4,
     recycleSlots: 2,
+    pronounceSteps: 1,
   },
 
   /**
