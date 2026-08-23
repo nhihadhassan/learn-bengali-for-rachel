@@ -1695,7 +1695,10 @@ function buildWordPool(phrases: Phrase[]): string[] {
     splitWords(phrase.romanized).forEach((word) => {
       const bare = word.replace(/^[¿¡"']+/, "").replace(/[.,;:!?"']+$/, "");
 
-      if (bare) {
+      // A gendered pair ("vacío/vacía") is a dictionary entry, not a word you
+      // can tap into a sentence. Keeping it out of the pool stops word banks
+      // offering "Vacío/Vacía" as a tile.
+      if (bare && !bare.includes("/")) {
         words.add(bare);
       }
     });
