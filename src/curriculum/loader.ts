@@ -26,6 +26,15 @@ export function loadCurriculumSchema(): Record<string, unknown> {
   return readJson<Record<string, unknown>>("spanish-curriculum.schema.json");
 }
 
+/** The pilot pack (Spanish Curriculum v2, Units 1-12), unvalidated. */
+export function loadPilotRaw(): unknown {
+  return readJson<unknown>("spanish-pilot.json");
+}
+
+export function loadPilotSchema(): Record<string, unknown> {
+  return readJson<Record<string, unknown>>("spanish-pilot.schema.json");
+}
+
 interface ExerciseTemplates {
   version: string;
   templates: Record<string, { skills: string[]; prompt: string }>;

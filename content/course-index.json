@@ -370,663 +370,677 @@
     "spanish": {
       "id": "spanish",
       "unitCount": 131,
-      "lessonCount": 786,
+      "lessonCount": 788,
       "units": [
         {
-          "id": "es-en-s01-u002",
+          "id": "es-en-p01-u01",
           "number": 1,
-          "title": "Greet people and say goodbye",
-          "description": "Greet people and say goodbye",
+          "title": "Your first words in Spanish",
+          "description": "Hear Spanish, read it aloud, and say your first five words.",
           "section": {
             "number": 1,
-            "title": "¡Hola!",
-            "description": "Start with essential phrases and simple grammar concepts"
+            "title": "Primeros pasos",
+            "description": "Twelve units that take you from your first Spanish word to a whole short conversation."
           },
           "lessons": [
             {
-              "id": "es-en-s01-u002-l1",
+              "id": "es-en-p01-u01-l1",
               "title": "Discover",
-              "summary": "Recognize new words and connect form, sound, and meaning.",
+              "summary": "Meet five Spanish words and connect sound to meaning.",
               "difficulty": "Intro",
               "phraseCount": 4
             },
             {
-              "id": "es-en-s01-u002-l2",
-              "title": "Build",
-              "summary": "Assemble useful phrases with strong support.",
+              "id": "es-en-p01-u01-l2",
+              "title": "Notice the pattern",
+              "summary": "Work out how three Spanish letters sound.",
               "difficulty": "Intro",
-              "phraseCount": 8
+              "phraseCount": 7
             },
             {
-              "id": "es-en-s01-u002-l3",
-              "title": "Grammar focus",
-              "summary": "Notice and apply the unit's main grammatical patterns.",
+              "id": "es-en-p01-u01-l3",
+              "title": "Unit review",
+              "summary": "Bring back everything from this unit.",
+              "difficulty": "Intro",
+              "phraseCount": 7
+            }
+          ]
+        },
+        {
+          "id": "es-en-p01-u02",
+          "number": 2,
+          "title": "Greet someone and say goodbye",
+          "description": "Greet someone at any time of day, ask how they are, and say goodbye.",
+          "section": {
+            "number": 1,
+            "title": "Primeros pasos",
+            "description": "Twelve units that take you from your first Spanish word to a whole short conversation."
+          },
+          "lessons": [
+            {
+              "id": "es-en-p01-u02-l1",
+              "title": "Discover",
+              "summary": "Meet the greetings, and hear when each one is used.",
+              "difficulty": "Intro",
+              "phraseCount": 7
+            },
+            {
+              "id": "es-en-p01-u02-l2",
+              "title": "Notice the pattern",
+              "summary": "Work out why it is buenos días but buenas tardes.",
               "difficulty": "Intro",
               "phraseCount": 11
             },
             {
-              "id": "es-en-s01-u002-l4",
-              "title": "Listen and understand",
-              "summary": "Understand the unit language by ear.",
+              "id": "es-en-p01-u02-l3",
+              "title": "Build",
+              "summary": "Put the greetings together into whole sentences.",
+              "difficulty": "Intro",
+              "phraseCount": 9
+            },
+            {
+              "id": "es-en-p01-u02-l4",
+              "title": "Use in context",
+              "summary": "Greet a neighbour and take your leave.",
+              "difficulty": "Intro",
+              "phraseCount": 13
+            },
+            {
+              "id": "es-en-p01-u02-l5",
+              "title": "Unit review",
+              "summary": "Bring back everything from this unit.",
+              "difficulty": "Intro",
+              "phraseCount": 15
+            }
+          ]
+        },
+        {
+          "id": "es-en-p01-u03",
+          "number": 3,
+          "title": "Say who you are, and ask who they are",
+          "description": "Give your name, ask for someone else's, and say who a third person is.",
+          "section": {
+            "number": 1,
+            "title": "Primeros pasos",
+            "description": "Twelve units that take you from your first Spanish word to a whole short conversation."
+          },
+          "lessons": [
+            {
+              "id": "es-en-p01-u03-l1",
+              "title": "Discover",
+              "summary": "Meet the words for saying who you are.",
+              "difficulty": "Intro",
+              "phraseCount": 7
+            },
+            {
+              "id": "es-en-p01-u03-l2",
+              "title": "Build",
+              "summary": "Put your name and someone else's into sentences.",
+              "difficulty": "Intro",
+              "phraseCount": 10
+            },
+            {
+              "id": "es-en-p01-u03-l3",
+              "title": "Notice the pattern",
+              "summary": "Work out how Spanish says my name, your name, her name.",
               "difficulty": "Intro",
               "phraseCount": 12
             },
             {
-              "id": "es-en-s01-u002-l5",
-              "title": "Use in context",
-              "summary": "Apply the language in a short dialogue or story.",
+              "id": "es-en-p01-u03-l4",
+              "title": "Listen and understand",
+              "summary": "Catch names and introductions by ear.",
               "difficulty": "Intro",
               "phraseCount": 13
             },
             {
-              "id": "es-en-s01-u002-l6",
-              "title": "Unit review",
-              "summary": "Demonstrate recall across vocabulary, grammar, listening, and production.",
-              "difficulty": "Intro",
-              "phraseCount": 15
-            }
-          ]
-        },
-        {
-          "id": "es-en-s01-u001",
-          "number": 2,
-          "title": "Order at a café",
-          "description": "Order at a café",
-          "section": {
-            "number": 1,
-            "title": "¡Hola!",
-            "description": "Start with essential phrases and simple grammar concepts"
-          },
-          "lessons": [
-            {
-              "id": "es-en-s01-u001-l1",
-              "title": "Discover",
-              "summary": "Recognize new words and connect form, sound, and meaning.",
-              "difficulty": "Intro",
-              "phraseCount": 7
-            },
-            {
-              "id": "es-en-s01-u001-l2",
-              "title": "Build",
-              "summary": "Assemble useful phrases with strong support.",
-              "difficulty": "Intro",
-              "phraseCount": 11
-            },
-            {
-              "id": "es-en-s01-u001-l3",
-              "title": "Grammar focus",
-              "summary": "Notice and apply the unit's main grammatical patterns.",
-              "difficulty": "Intro",
-              "phraseCount": 14
-            },
-            {
-              "id": "es-en-s01-u001-l4",
-              "title": "Listen and understand",
-              "summary": "Understand the unit language by ear.",
-              "difficulty": "Intro",
-              "phraseCount": 14
-            },
-            {
-              "id": "es-en-s01-u001-l5",
-              "title": "Use in context",
-              "summary": "Apply the language in a short dialogue or story.",
-              "difficulty": "Intro",
-              "phraseCount": 17
-            },
-            {
-              "id": "es-en-s01-u001-l6",
-              "title": "Unit review",
-              "summary": "Demonstrate recall across vocabulary, grammar, listening, and production.",
+              "id": "es-en-p01-u03-l5",
+              "title": "Have a conversation",
+              "summary": "Introduce yourself to someone new.",
               "difficulty": "Intro",
               "phraseCount": 18
-            }
-          ]
-        },
-        {
-          "id": "es-en-s01-u003",
-          "number": 3,
-          "title": "Say where you are from",
-          "description": "Say where you are from",
-          "section": {
-            "number": 1,
-            "title": "¡Hola!",
-            "description": "Start with essential phrases and simple grammar concepts"
-          },
-          "lessons": [
-            {
-              "id": "es-en-s01-u003-l1",
-              "title": "Discover",
-              "summary": "Recognize new words and connect form, sound, and meaning.",
-              "difficulty": "Intro",
-              "phraseCount": 7
             },
             {
-              "id": "es-en-s01-u003-l2",
-              "title": "Build",
-              "summary": "Assemble useful phrases with strong support.",
-              "difficulty": "Intro",
-              "phraseCount": 11
-            },
-            {
-              "id": "es-en-s01-u003-l3",
-              "title": "Grammar focus",
-              "summary": "Notice and apply the unit's main grammatical patterns.",
-              "difficulty": "Intro",
-              "phraseCount": 14
-            },
-            {
-              "id": "es-en-s01-u003-l4",
-              "title": "Listen and understand",
-              "summary": "Understand the unit language by ear.",
-              "difficulty": "Intro",
-              "phraseCount": 15
-            },
-            {
-              "id": "es-en-s01-u003-l5",
-              "title": "Use in context",
-              "summary": "Apply the language in a short dialogue or story.",
-              "difficulty": "Intro",
-              "phraseCount": 17
-            },
-            {
-              "id": "es-en-s01-u003-l6",
+              "id": "es-en-p01-u03-l6",
               "title": "Unit review",
-              "summary": "Demonstrate recall across vocabulary, grammar, listening, and production.",
+              "summary": "Bring back everything from this unit.",
               "difficulty": "Intro",
-              "phraseCount": 23
+              "phraseCount": 21
             }
           ]
         },
         {
-          "id": "es-en-s01-u004",
+          "id": "es-en-p01-u04",
           "number": 4,
-          "title": "Introduce family and friends",
-          "description": "Introduce family and friends",
+          "title": "Say where you're from, and ask where they're from",
+          "description": "Say which country and city you are from and live in, and ask someone else.",
           "section": {
             "number": 1,
-            "title": "¡Hola!",
-            "description": "Start with essential phrases and simple grammar concepts"
+            "title": "Primeros pasos",
+            "description": "Twelve units that take you from your first Spanish word to a whole short conversation."
           },
           "lessons": [
             {
-              "id": "es-en-s01-u004-l1",
+              "id": "es-en-p01-u04-l1",
               "title": "Discover",
-              "summary": "Recognize new words and connect form, sound, and meaning.",
+              "summary": "Meet the words for countries, cities and where you live.",
               "difficulty": "Intro",
               "phraseCount": 7
             },
             {
-              "id": "es-en-s01-u004-l2",
-              "title": "Build",
-              "summary": "Assemble useful phrases with strong support.",
+              "id": "es-en-p01-u04-l2",
+              "title": "Notice the pattern",
+              "summary": "Work out how ser changes with who is speaking.",
               "difficulty": "Intro",
               "phraseCount": 11
             },
             {
-              "id": "es-en-s01-u004-l3",
-              "title": "Grammar focus",
-              "summary": "Notice and apply the unit's main grammatical patterns.",
+              "id": "es-en-p01-u04-l3",
+              "title": "Build",
+              "summary": "Say where you are from and where you live.",
               "difficulty": "Intro",
-              "phraseCount": 14
+              "phraseCount": 10
             },
             {
-              "id": "es-en-s01-u004-l4",
+              "id": "es-en-p01-u04-l4",
               "title": "Listen and understand",
-              "summary": "Understand the unit language by ear.",
-              "difficulty": "Intro",
-              "phraseCount": 14
-            },
-            {
-              "id": "es-en-s01-u004-l5",
-              "title": "Use in context",
-              "summary": "Apply the language in a short dialogue or story.",
-              "difficulty": "Intro",
-              "phraseCount": 17
-            },
-            {
-              "id": "es-en-s01-u004-l6",
-              "title": "Unit review",
-              "summary": "Demonstrate recall across vocabulary, grammar, listening, and production.",
-              "difficulty": "Intro",
-              "phraseCount": 23
-            }
-          ]
-        },
-        {
-          "id": "es-en-s01-u006",
-          "number": 5,
-          "title": "Say where your things are",
-          "description": "Say where your things are",
-          "section": {
-            "number": 1,
-            "title": "¡Hola!",
-            "description": "Start with essential phrases and simple grammar concepts"
-          },
-          "lessons": [
-            {
-              "id": "es-en-s01-u006-l1",
-              "title": "Discover",
-              "summary": "Recognize new words and connect form, sound, and meaning.",
-              "difficulty": "Intro",
-              "phraseCount": 7
-            },
-            {
-              "id": "es-en-s01-u006-l2",
-              "title": "Build",
-              "summary": "Assemble useful phrases with strong support.",
-              "difficulty": "Intro",
-              "phraseCount": 11
-            },
-            {
-              "id": "es-en-s01-u006-l3",
-              "title": "Grammar focus",
-              "summary": "Notice and apply the unit's main grammatical patterns.",
-              "difficulty": "Intro",
-              "phraseCount": 14
-            },
-            {
-              "id": "es-en-s01-u006-l4",
-              "title": "Listen and understand",
-              "summary": "Understand the unit language by ear.",
-              "difficulty": "Intro",
-              "phraseCount": 15
-            },
-            {
-              "id": "es-en-s01-u006-l5",
-              "title": "Use in context",
-              "summary": "Apply the language in a short dialogue or story.",
-              "difficulty": "Intro",
-              "phraseCount": 17
-            },
-            {
-              "id": "es-en-s01-u006-l6",
-              "title": "Unit review",
-              "summary": "Demonstrate recall across vocabulary, grammar, listening, and production.",
-              "difficulty": "Intro",
-              "phraseCount": 23
-            }
-          ]
-        },
-        {
-          "id": "es-en-s01-u007",
-          "number": 6,
-          "title": "Talk about places in the city",
-          "description": "Talk about places in the city",
-          "section": {
-            "number": 1,
-            "title": "¡Hola!",
-            "description": "Start with essential phrases and simple grammar concepts"
-          },
-          "lessons": [
-            {
-              "id": "es-en-s01-u007-l1",
-              "title": "Discover",
-              "summary": "Recognize new words and connect form, sound, and meaning.",
-              "difficulty": "Intro",
-              "phraseCount": 7
-            },
-            {
-              "id": "es-en-s01-u007-l2",
-              "title": "Build",
-              "summary": "Assemble useful phrases with strong support.",
-              "difficulty": "Intro",
-              "phraseCount": 11
-            },
-            {
-              "id": "es-en-s01-u007-l3",
-              "title": "Grammar focus",
-              "summary": "Notice and apply the unit's main grammatical patterns.",
+              "summary": "Catch countries and cities by ear.",
               "difficulty": "Intro",
               "phraseCount": 13
             },
             {
-              "id": "es-en-s01-u007-l4",
-              "title": "Listen and understand",
-              "summary": "Understand the unit language by ear.",
-              "difficulty": "Intro",
-              "phraseCount": 13
-            },
-            {
-              "id": "es-en-s01-u007-l5",
+              "id": "es-en-p01-u04-l5",
               "title": "Use in context",
-              "summary": "Apply the language in a short dialogue or story.",
-              "difficulty": "Intro",
-              "phraseCount": 17
-            },
-            {
-              "id": "es-en-s01-u007-l6",
-              "title": "Unit review",
-              "summary": "Demonstrate recall across vocabulary, grammar, listening, and production.",
-              "difficulty": "Intro",
-              "phraseCount": 23
-            }
-          ]
-        },
-        {
-          "id": "es-en-s01-u009",
-          "number": 7,
-          "title": "Talk about the weather",
-          "description": "Talk about the weather",
-          "section": {
-            "number": 1,
-            "title": "¡Hola!",
-            "description": "Start with essential phrases and simple grammar concepts"
-          },
-          "lessons": [
-            {
-              "id": "es-en-s01-u009-l1",
-              "title": "Discover",
-              "summary": "Recognize new words and connect form, sound, and meaning.",
-              "difficulty": "Intro",
-              "phraseCount": 7
-            },
-            {
-              "id": "es-en-s01-u009-l2",
-              "title": "Build",
-              "summary": "Assemble useful phrases with strong support.",
-              "difficulty": "Intro",
-              "phraseCount": 11
-            },
-            {
-              "id": "es-en-s01-u009-l3",
-              "title": "Grammar focus",
-              "summary": "Notice and apply the unit's main grammatical patterns.",
-              "difficulty": "Intro",
-              "phraseCount": 14
-            },
-            {
-              "id": "es-en-s01-u009-l4",
-              "title": "Listen and understand",
-              "summary": "Understand the unit language by ear.",
-              "difficulty": "Intro",
-              "phraseCount": 15
-            },
-            {
-              "id": "es-en-s01-u009-l5",
-              "title": "Use in context",
-              "summary": "Apply the language in a short dialogue or story.",
+              "summary": "Swap origins with someone at a hostel.",
               "difficulty": "Intro",
               "phraseCount": 18
             },
             {
-              "id": "es-en-s01-u009-l6",
+              "id": "es-en-p01-u04-l6",
               "title": "Unit review",
-              "summary": "Demonstrate recall across vocabulary, grammar, listening, and production.",
+              "summary": "Bring back everything from this unit.",
               "difficulty": "Intro",
               "phraseCount": 23
             }
           ]
         },
         {
-          "id": "es-en-s01-u008",
+          "id": "es-en-p01-u05",
+          "number": 5,
+          "title": "Be polite",
+          "description": "Apologise, excuse yourself, and soften what you say.",
+          "section": {
+            "number": 1,
+            "title": "Primeros pasos",
+            "description": "Twelve units that take you from your first Spanish word to a whole short conversation."
+          },
+          "lessons": [
+            {
+              "id": "es-en-p01-u05-l1",
+              "title": "Discover",
+              "summary": "Meet the words that keep a conversation friendly.",
+              "difficulty": "Intro",
+              "phraseCount": 9
+            },
+            {
+              "id": "es-en-p01-u05-l2",
+              "title": "Build",
+              "summary": "Apologise and excuse yourself in whole sentences.",
+              "difficulty": "Intro",
+              "phraseCount": 11
+            },
+            {
+              "id": "es-en-p01-u05-l3",
+              "title": "Listen and understand",
+              "summary": "Catch an apology by ear.",
+              "difficulty": "Intro",
+              "phraseCount": 13
+            },
+            {
+              "id": "es-en-p01-u05-l4",
+              "title": "Have a conversation",
+              "summary": "Bump into someone in the street.",
+              "difficulty": "Intro",
+              "phraseCount": 17
+            },
+            {
+              "id": "es-en-p01-u05-l5",
+              "title": "Unit review",
+              "summary": "Bring back everything from this unit.",
+              "difficulty": "Intro",
+              "phraseCount": 23
+            }
+          ]
+        },
+        {
+          "id": "es-en-p01-u06",
+          "number": 6,
+          "title": "Say what you want",
+          "description": "Order what you want in a café and ask for the bill.",
+          "section": {
+            "number": 1,
+            "title": "Primeros pasos",
+            "description": "Twelve units that take you from your first Spanish word to a whole short conversation."
+          },
+          "lessons": [
+            {
+              "id": "es-en-p01-u06-l1",
+              "title": "Discover",
+              "summary": "Meet what you can order, and the word for wanting it.",
+              "difficulty": "Intro",
+              "phraseCount": 6
+            },
+            {
+              "id": "es-en-p01-u06-l2",
+              "title": "Discover",
+              "summary": "Meet the café itself: the table, the chair, the door.",
+              "difficulty": "Intro",
+              "phraseCount": 6
+            },
+            {
+              "id": "es-en-p01-u06-l3",
+              "title": "Build",
+              "summary": "Order a drink and ask for the bill.",
+              "difficulty": "Intro",
+              "phraseCount": 10
+            },
+            {
+              "id": "es-en-p01-u06-l4",
+              "title": "Notice the pattern",
+              "summary": "Work out what can follow quiero.",
+              "difficulty": "Intro",
+              "phraseCount": 12
+            },
+            {
+              "id": "es-en-p01-u06-l5",
+              "title": "Grammar focus",
+              "summary": "Why some words take el and others take la.",
+              "difficulty": "Intro",
+              "phraseCount": 13
+            },
+            {
+              "id": "es-en-p01-u06-l6",
+              "title": "Have a conversation",
+              "summary": "Order at a café from start to finish.",
+              "difficulty": "Intro",
+              "phraseCount": 17
+            },
+            {
+              "id": "es-en-p01-u06-l7",
+              "title": "Unit review",
+              "summary": "Bring back everything from this unit.",
+              "difficulty": "Intro",
+              "phraseCount": 23
+            }
+          ]
+        },
+        {
+          "id": "es-en-p01-u07",
+          "number": 7,
+          "title": "Say what you need, and ask for help",
+          "description": "Ask for help, say you have not understood, and ask someone to slow down.",
+          "section": {
+            "number": 1,
+            "title": "Primeros pasos",
+            "description": "Twelve units that take you from your first Spanish word to a whole short conversation."
+          },
+          "lessons": [
+            {
+              "id": "es-en-p01-u07-l1",
+              "title": "Discover",
+              "summary": "Meet the words for needing, speaking and understanding.",
+              "difficulty": "Intro",
+              "phraseCount": 8
+            },
+            {
+              "id": "es-en-p01-u07-l2",
+              "title": "Build",
+              "summary": "Ask for what you need in whole sentences.",
+              "difficulty": "Intro",
+              "phraseCount": 11
+            },
+            {
+              "id": "es-en-p01-u07-l3",
+              "title": "Notice the pattern",
+              "summary": "Work out what a verb ending tells you.",
+              "difficulty": "Intro",
+              "phraseCount": 13
+            },
+            {
+              "id": "es-en-p01-u07-l4",
+              "title": "Listen and understand",
+              "summary": "Catch a request for help by ear.",
+              "difficulty": "Intro",
+              "phraseCount": 15
+            },
+            {
+              "id": "es-en-p01-u07-l5",
+              "title": "Listen to a story",
+              "summary": "Follow someone asking for help at a hotel.",
+              "difficulty": "Intro",
+              "phraseCount": 17
+            },
+            {
+              "id": "es-en-p01-u07-l6",
+              "title": "Have a conversation",
+              "summary": "Ask a stranger for help.",
+              "difficulty": "Intro",
+              "phraseCount": 17
+            },
+            {
+              "id": "es-en-p01-u07-l7",
+              "title": "Unit review",
+              "summary": "Bring back everything from this unit.",
+              "difficulty": "Intro",
+              "phraseCount": 23
+            }
+          ]
+        },
+        {
+          "id": "es-en-p01-u08",
           "number": 8,
-          "title": "Discuss languages",
-          "description": "Discuss languages",
+          "title": "Understand and answer questions",
+          "description": "Recognise the question you are being asked, and answer it.",
           "section": {
             "number": 1,
-            "title": "¡Hola!",
-            "description": "Start with essential phrases and simple grammar concepts"
+            "title": "Primeros pasos",
+            "description": "Twelve units that take you from your first Spanish word to a whole short conversation."
           },
           "lessons": [
             {
-              "id": "es-en-s01-u008-l1",
+              "id": "es-en-p01-u08-l1",
               "title": "Discover",
-              "summary": "Recognize new words and connect form, sound, and meaning.",
+              "summary": "Meet the question words and hear how they open a sentence.",
               "difficulty": "Intro",
               "phraseCount": 7
             },
             {
-              "id": "es-en-s01-u008-l2",
-              "title": "Build",
-              "summary": "Assemble useful phrases with strong support.",
+              "id": "es-en-p01-u08-l2",
+              "title": "Notice the pattern",
+              "summary": "Work out where a question word goes.",
               "difficulty": "Intro",
               "phraseCount": 11
             },
             {
-              "id": "es-en-s01-u008-l3",
-              "title": "Grammar focus",
-              "summary": "Notice and apply the unit's main grammatical patterns.",
+              "id": "es-en-p01-u08-l3",
+              "title": "Build",
+              "summary": "Ask and answer questions of your own.",
               "difficulty": "Intro",
-              "phraseCount": 14
+              "phraseCount": 10
             },
             {
-              "id": "es-en-s01-u008-l4",
+              "id": "es-en-p01-u08-l4",
               "title": "Listen and understand",
-              "summary": "Understand the unit language by ear.",
+              "summary": "Catch which question you are being asked.",
               "difficulty": "Intro",
-              "phraseCount": 15
+              "phraseCount": 12
             },
             {
-              "id": "es-en-s01-u008-l5",
-              "title": "Use in context",
-              "summary": "Apply the language in a short dialogue or story.",
+              "id": "es-en-p01-u08-l5",
+              "title": "Have a conversation",
+              "summary": "Be asked things by a stranger, and answer.",
               "difficulty": "Intro",
-              "phraseCount": 17
+              "phraseCount": 18
             },
             {
-              "id": "es-en-s01-u008-l6",
+              "id": "es-en-p01-u08-l6",
               "title": "Unit review",
-              "summary": "Demonstrate recall across vocabulary, grammar, listening, and production.",
+              "summary": "Bring back everything from this unit.",
               "difficulty": "Intro",
               "phraseCount": 23
             }
           ]
         },
         {
-          "id": "es-en-s01-u010",
+          "id": "es-en-p01-u09",
           "number": 9,
-          "title": "Shop for fruits at the market",
-          "description": "Shop for fruits at the market",
+          "title": "Numbers, prices and quantities",
+          "description": "Count to twenty, ask what something costs, and buy it.",
           "section": {
             "number": 1,
-            "title": "¡Hola!",
-            "description": "Start with essential phrases and simple grammar concepts"
+            "title": "Primeros pasos",
+            "description": "Twelve units that take you from your first Spanish word to a whole short conversation."
           },
           "lessons": [
             {
-              "id": "es-en-s01-u010-l1",
+              "id": "es-en-p01-u09-l1",
               "title": "Discover",
-              "summary": "Recognize new words and connect form, sound, and meaning.",
-              "difficulty": "Intro",
+              "summary": "Meet the numbers one to ten.",
+              "difficulty": "Beginner",
               "phraseCount": 7
             },
             {
-              "id": "es-en-s01-u010-l2",
+              "id": "es-en-p01-u09-l2",
               "title": "Build",
-              "summary": "Assemble useful phrases with strong support.",
-              "difficulty": "Intro",
+              "summary": "Count out loud and put numbers into sentences.",
+              "difficulty": "Beginner",
               "phraseCount": 11
             },
             {
-              "id": "es-en-s01-u010-l3",
-              "title": "Grammar focus",
-              "summary": "Notice and apply the unit's main grammatical patterns.",
-              "difficulty": "Intro",
-              "phraseCount": 14
-            },
-            {
-              "id": "es-en-s01-u010-l4",
-              "title": "Listen and understand",
-              "summary": "Understand the unit language by ear.",
-              "difficulty": "Intro",
-              "phraseCount": 14
-            },
-            {
-              "id": "es-en-s01-u010-l5",
-              "title": "Use in context",
-              "summary": "Apply the language in a short dialogue or story.",
-              "difficulty": "Intro",
-              "phraseCount": 17
-            },
-            {
-              "id": "es-en-s01-u010-l6",
-              "title": "Unit review",
-              "summary": "Demonstrate recall across vocabulary, grammar, listening, and production.",
-              "difficulty": "Intro",
-              "phraseCount": 23
-            }
-          ]
-        },
-        {
-          "id": "es-en-s01-u005",
-          "number": 10,
-          "title": "Describe people's personalities",
-          "description": "Describe people's personalities",
-          "section": {
-            "number": 1,
-            "title": "¡Hola!",
-            "description": "Start with essential phrases and simple grammar concepts"
-          },
-          "lessons": [
-            {
-              "id": "es-en-s01-u005-l1",
+              "id": "es-en-p01-u09-l3",
               "title": "Discover",
-              "summary": "Recognize new words and connect form, sound, and meaning.",
-              "difficulty": "Intro",
+              "summary": "Meet twenty, euros, and what things cost.",
+              "difficulty": "Beginner",
               "phraseCount": 7
             },
             {
-              "id": "es-en-s01-u005-l2",
-              "title": "Build",
-              "summary": "Assemble useful phrases with strong support.",
-              "difficulty": "Intro",
-              "phraseCount": 11
-            },
-            {
-              "id": "es-en-s01-u005-l3",
-              "title": "Grammar focus",
-              "summary": "Notice and apply the unit's main grammatical patterns.",
-              "difficulty": "Intro",
-              "phraseCount": 14
-            },
-            {
-              "id": "es-en-s01-u005-l4",
+              "id": "es-en-p01-u09-l4",
               "title": "Listen and understand",
-              "summary": "Understand the unit language by ear.",
-              "difficulty": "Intro",
+              "summary": "Catch numbers and prices by ear.",
+              "difficulty": "Beginner",
               "phraseCount": 15
             },
             {
-              "id": "es-en-s01-u005-l5",
-              "title": "Use in context",
-              "summary": "Apply the language in a short dialogue or story.",
-              "difficulty": "Intro",
-              "phraseCount": 17
+              "id": "es-en-p01-u09-l5",
+              "title": "Listen to a story",
+              "summary": "Follow someone buying coffee.",
+              "difficulty": "Beginner",
+              "phraseCount": 16
             },
             {
-              "id": "es-en-s01-u005-l6",
+              "id": "es-en-p01-u09-l6",
+              "title": "Have a conversation",
+              "summary": "Buy something and pay for it.",
+              "difficulty": "Beginner",
+              "phraseCount": 18
+            },
+            {
+              "id": "es-en-p01-u09-l7",
               "title": "Unit review",
-              "summary": "Demonstrate recall across vocabulary, grammar, listening, and production.",
-              "difficulty": "Intro",
+              "summary": "Bring back everything from this unit.",
+              "difficulty": "Beginner",
               "phraseCount": 23
             }
           ]
         },
         {
-          "id": "es-en-s02-u001",
+          "id": "es-en-p01-u10",
+          "number": 10,
+          "title": "Say where things and places are",
+          "description": "Ask where a place is, say whether it is near or far, and say what there is.",
+          "section": {
+            "number": 1,
+            "title": "Primeros pasos",
+            "description": "Twelve units that take you from your first Spanish word to a whole short conversation."
+          },
+          "lessons": [
+            {
+              "id": "es-en-p01-u10-l1",
+              "title": "Discover",
+              "summary": "Meet the places you will need to find.",
+              "difficulty": "Beginner",
+              "phraseCount": 7
+            },
+            {
+              "id": "es-en-p01-u10-l2",
+              "title": "Discover",
+              "summary": "Meet the things you carry and lose.",
+              "difficulty": "Beginner",
+              "phraseCount": 7
+            },
+            {
+              "id": "es-en-p01-u10-l3",
+              "title": "Notice the pattern",
+              "summary": "Work out when Spanish uses hay and when it uses está.",
+              "difficulty": "Beginner",
+              "phraseCount": 13
+            },
+            {
+              "id": "es-en-p01-u10-l4",
+              "title": "Grammar focus",
+              "summary": "está and hay, side by side.",
+              "difficulty": "Beginner",
+              "phraseCount": 14
+            },
+            {
+              "id": "es-en-p01-u10-l5",
+              "title": "Build",
+              "summary": "Ask where a place is and say how far it is.",
+              "difficulty": "Beginner",
+              "phraseCount": 11
+            },
+            {
+              "id": "es-en-p01-u10-l6",
+              "title": "Have a conversation",
+              "summary": "Ask a passer-by for directions.",
+              "difficulty": "Beginner",
+              "phraseCount": 18
+            },
+            {
+              "id": "es-en-p01-u10-l7",
+              "title": "Unit review",
+              "summary": "Bring back everything from this unit.",
+              "difficulty": "Beginner",
+              "phraseCount": 23
+            }
+          ]
+        },
+        {
+          "id": "es-en-p01-u11",
           "number": 11,
-          "title": "Describe your home",
-          "description": "Describe your home",
+          "title": "Talk about today",
+          "description": "Say what the weather is doing and how you are feeling today.",
           "section": {
-            "number": 2,
-            "title": "Quiero aprender español.",
-            "description": "Learn words, phrases, and grammar concepts for basic interactions"
+            "number": 1,
+            "title": "Primeros pasos",
+            "description": "Twelve units that take you from your first Spanish word to a whole short conversation."
           },
           "lessons": [
             {
-              "id": "es-en-s02-u001-l1",
+              "id": "es-en-p01-u11-l1",
               "title": "Discover",
-              "summary": "Recognize new words and connect form, sound, and meaning.",
+              "summary": "Meet the weather words and how you say you feel.",
               "difficulty": "Beginner",
-              "phraseCount": 7
+              "phraseCount": 9
             },
             {
-              "id": "es-en-s02-u001-l2",
-              "title": "Build",
-              "summary": "Assemble useful phrases with strong support.",
-              "difficulty": "Beginner",
-              "phraseCount": 11
-            },
-            {
-              "id": "es-en-s02-u001-l3",
-              "title": "Grammar focus",
-              "summary": "Notice and apply the unit's main grammatical patterns.",
-              "difficulty": "Beginner",
-              "phraseCount": 14
-            },
-            {
-              "id": "es-en-s02-u001-l4",
-              "title": "Listen and understand",
-              "summary": "Understand the unit language by ear.",
+              "id": "es-en-p01-u11-l2",
+              "title": "Notice the pattern",
+              "summary": "Work out which verb the weather uses.",
               "difficulty": "Beginner",
               "phraseCount": 13
             },
             {
-              "id": "es-en-s02-u001-l5",
-              "title": "Use in context",
-              "summary": "Apply the language in a short dialogue or story.",
+              "id": "es-en-p01-u11-l3",
+              "title": "Build",
+              "summary": "Describe today's weather and your own mood.",
+              "difficulty": "Beginner",
+              "phraseCount": 11
+            },
+            {
+              "id": "es-en-p01-u11-l4",
+              "title": "Listen and understand",
+              "summary": "Catch a weather report by ear.",
+              "difficulty": "Beginner",
+              "phraseCount": 14
+            },
+            {
+              "id": "es-en-p01-u11-l5",
+              "title": "Listen to a story",
+              "summary": "Follow a day in Madrid.",
+              "difficulty": "Beginner",
+              "phraseCount": 15
+            },
+            {
+              "id": "es-en-p01-u11-l6",
+              "title": "Have a conversation",
+              "summary": "Compare notes on the day.",
               "difficulty": "Beginner",
               "phraseCount": 17
             },
             {
-              "id": "es-en-s02-u001-l6",
+              "id": "es-en-p01-u11-l7",
               "title": "Unit review",
-              "summary": "Demonstrate recall across vocabulary, grammar, listening, and production.",
+              "summary": "Bring back everything from this unit.",
               "difficulty": "Beginner",
               "phraseCount": 23
             }
           ]
         },
         {
-          "id": "es-en-s02-u002",
+          "id": "es-en-p01-u12",
           "number": 12,
-          "title": "Talk about your interests",
-          "description": "Talk about your interests",
+          "title": "What you like, and your first real conversation",
+          "description": "Say what you like and prefer, then hold a whole short conversation from hello to goodbye.",
           "section": {
-            "number": 2,
-            "title": "Quiero aprender español.",
-            "description": "Learn words, phrases, and grammar concepts for basic interactions"
+            "number": 1,
+            "title": "Primeros pasos",
+            "description": "Twelve units that take you from your first Spanish word to a whole short conversation."
           },
           "lessons": [
             {
-              "id": "es-en-s02-u002-l1",
+              "id": "es-en-p01-u12-l1",
               "title": "Discover",
-              "summary": "Recognize new words and connect form, sound, and meaning.",
+              "summary": "Meet the last few words you need.",
               "difficulty": "Beginner",
               "phraseCount": 7
             },
             {
-              "id": "es-en-s02-u002-l2",
+              "id": "es-en-p01-u12-l2",
+              "title": "Discover",
+              "summary": "Meet the verbs for liking, preferring and loving.",
+              "difficulty": "Beginner",
+              "phraseCount": 6
+            },
+            {
+              "id": "es-en-p01-u12-l3",
+              "title": "Notice the pattern",
+              "summary": "Work out why Spanish says the coffee pleases me.",
+              "difficulty": "Beginner",
+              "phraseCount": 12
+            },
+            {
+              "id": "es-en-p01-u12-l4",
               "title": "Build",
-              "summary": "Assemble useful phrases with strong support.",
+              "summary": "Say what you like, and what you would rather have.",
               "difficulty": "Beginner",
-              "phraseCount": 11
+              "phraseCount": 10
             },
             {
-              "id": "es-en-s02-u002-l3",
-              "title": "Grammar focus",
-              "summary": "Notice and apply the unit's main grammatical patterns.",
+              "id": "es-en-p01-u12-l5",
+              "title": "Read a story",
+              "summary": "Follow a whole conversation in Spanish.",
               "difficulty": "Beginner",
-              "phraseCount": 14
+              "phraseCount": 16
             },
             {
-              "id": "es-en-s02-u002-l4",
-              "title": "Listen and understand",
-              "summary": "Understand the unit language by ear.",
+              "id": "es-en-p01-u12-l6",
+              "title": "Have a conversation",
+              "summary": "A short exchange with someone new.",
               "difficulty": "Beginner",
-              "phraseCount": 13
+              "phraseCount": 18
             },
             {
-              "id": "es-en-s02-u002-l5",
-              "title": "Use in context",
-              "summary": "Apply the language in a short dialogue or story.",
+              "id": "es-en-p01-u12-l7",
+              "title": "Put it together",
+              "summary": "The full conversation, with no props.",
               "difficulty": "Beginner",
-              "phraseCount": 17
+              "phraseCount": 32
             },
             {
-              "id": "es-en-s02-u002-l6",
+              "id": "es-en-p01-u12-l8",
               "title": "Unit review",
-              "summary": "Demonstrate recall across vocabulary, grammar, listening, and production.",
+              "summary": "Everything from the first twelve units.",
               "difficulty": "Beginner",
               "phraseCount": 23
             }

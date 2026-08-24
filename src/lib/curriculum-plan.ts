@@ -65,6 +65,17 @@ const KIND_BY_NAME: Record<string, LessonKind> = {
   "listen and speak": "listen",
   "use in context": "context",
   "unit review": "review",
+  // The pilot curriculum's lesson names. A unit names the lessons it needs, so
+  // this table is a vocabulary rather than a sequence.
+  "notice the pattern": "notice",
+  "work it out": "notice",
+  "story": "story",
+  "listen to a story": "story",
+  "read a story": "story",
+  "have a conversation": "scenario",
+  scenario: "scenario",
+  capstone: "capstone",
+  "put it together": "capstone",
 };
 
 export function toLessonKind(name: string, lessonIndex: number): LessonKind {
@@ -92,6 +103,16 @@ const NEW_WEIGHTS: Record<LessonKind, { vocabulary: number; phrases: number }> =
   context: { vocabulary: 1, phrases: 2 },
   review: { vocabulary: 0, phrases: 0 },
   strengthen: { vocabulary: 0, phrases: 0 },
+  // A discovery lesson needs the *words* in hand and one good sentence to
+  // notice. Two new sentences at once and the pattern competes with the
+  // vocabulary they are built from.
+  notice: { vocabulary: 3, phrases: 1 },
+  // A story is built from language the learner already has; it introduces the
+  // odd word in passing rather than carrying a teaching load.
+  story: { vocabulary: 1, phrases: 1 },
+  scenario: { vocabulary: 1, phrases: 2 },
+  // Like the unit review, a capstone introduces nothing: it is the check.
+  capstone: { vocabulary: 0, phrases: 0 },
 };
 
 /**
@@ -169,10 +190,11 @@ function newItemPlan(
     while (overflow > 0) {
       const next = plan[index + 1];
 
-      // Never spill into the review lesson: "introduces nothing new" is what
-      // makes it a review. A slightly over-full teaching lesson is the lesser
-      // problem, so the overflow stops here instead.
-      if (!next || lessonKinds[index + 1] === "review") {
+      // Never spill into a lesson that teaches nothing — a review or a
+      // capstone. "Introduces nothing new" is what makes it a check rather than
+      // a lesson. A slightly over-full teaching lesson is the lesser problem,
+      // so the overflow stops here instead.
+      if (!next || newItemWeight(lessonKinds[index + 1]) === 0) {
         break;
       }
 
@@ -210,6 +232,11 @@ const REVIEW_LOAD: Record<
   context: { fromUnit: 10, fromEarlierUnits: 4 },
   review: { fromUnit: 15, fromEarlierUnits: 8 },
   strengthen: { fromUnit: 0, fromEarlierUnits: 12 },
+  notice: { fromUnit: 6, fromEarlierUnits: 3 },
+  story: { fromUnit: 9, fromEarlierUnits: 5 },
+  scenario: { fromUnit: 10, fromEarlierUnits: 4 },
+  // The capstone reaches across the whole pilot; that is what makes it earned.
+  capstone: { fromUnit: 18, fromEarlierUnits: 14 },
 };
 
 /** The weighted share a lesson kind takes of a unit's new material. */
@@ -234,16 +261,46 @@ const SPACED_UNIT_DISTANCES = [1, 2, 4, 8, 16];
  */
 function contentWordSet(text: string): Set<string> {
   const words = new Set<string>();
+  const tokens = splitWords(text);
 
-  for (const token of splitWords(text)) {
+  tokens.forEach((token, index) => {
+    if (isProperNoun(token, index, tokens)) {
+      return;
+    }
+
     for (const word of token.split("/")) {
       if (word && isContentWord(word)) {
         words.add(normalizeWord(word));
       }
     }
-  }
+  });
 
   return words;
+}
+
+/**
+ * A name is not vocabulary.
+ *
+ * "Ella se llama Sofía." does not introduce a word the course owes the learner
+ * an explanation for — Sofía is a person, and no curriculum teaches it. The
+ * signal is capitalisation away from the start of a sentence, which is exactly
+ * what Spanish orthography uses for names and nowhere else (months, days,
+ * languages and nationalities are all lowercase).
+ */
+function isProperNoun(token: string, index: number, tokens: readonly string[]): boolean {
+  const bare = token.replace(/^[¿¡"'(]+/, "");
+
+  if (!/^\p{Lu}/u.test(bare)) {
+    return false;
+  }
+
+  if (index === 0) {
+    return false;
+  }
+
+  // Capitalised because the previous token ended a sentence, not because it is
+  // a name.
+  return !/[.!?]$/.test(tokens[index - 1]);
 }
 
 /**
@@ -591,7 +648,15 @@ export function planUnit(
       }
     }
 
-    for (let taken = 0; taken < load.vocabulary; taken += 1) {
+    // The loop runs for the lesson's share of vocabulary *and* for as long as
+    // one of this lesson's chosen sentences is still missing a word.
+    //
+    // Holding to the share exactly is what produced "Buenas noches. Adiós."
+    // in a lesson with only two vocabulary slots, both spent elsewhere: the
+    // sentence arrived and `adiós` did not. A lesson one item over its share is
+    // a much smaller problem than a sentence containing a word the course has
+    // never shown.
+    for (let taken = 0; taken < load.vocabulary || needed.size > 0; taken += 1) {
       if (remainingVocabulary.length === 0) break;
 
       // Matched through the resolver, not by string equality: the sentence
@@ -606,6 +671,14 @@ export function planUnit(
             (resolveKnown ? resolveKnown(word, supplied) : false),
         );
       });
+
+      // Past the lesson's share, only a word one of its sentences needs is
+      // worth taking. Nothing supplies the rest — a name, or a word this unit
+      // simply does not teach — so stop rather than pull the whole unit in.
+      if (taken >= load.vocabulary && supplies < 0) {
+        break;
+      }
+
       const index =
         supplies >= 0
           ? supplies
@@ -660,7 +733,7 @@ export function planUnit(
   const leftovers = [...remainingVocabulary, ...remainingPhrases].map((item) => item.id);
   if (leftovers.length > 0) {
     const lastTeaching =
-      [...plans].reverse().find((plan) => plan.kind !== "review") ??
+      [...plans].reverse().find((plan) => newItemWeight(plan.kind) > 0) ??
       plans[plans.length - 1];
 
     if (lastTeaching) {
@@ -782,7 +855,10 @@ function createInterleaver(
 /** Build a `LessonPlan` from a planned lesson plus any authored extras. */
 export function toLessonPlan(
   planned: PlannedLesson,
-  extras: Pick<LessonPlan, "grammar" | "dialogue" | "patterns" | "band"> = {},
+  extras: Pick<
+    LessonPlan,
+    "grammar" | "dialogue" | "patterns" | "notices" | "stories" | "band" | "scaffold"
+  > = {},
 ): LessonPlan {
   return {
     kind: planned.kind,

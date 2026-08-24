@@ -13,6 +13,15 @@ export const FEATURES = {
    * rollback for the learning-engine work, without a revert.
    */
   cumulativeLessons: true,
+  /**
+   * Spanish Curriculum v2 — the reworked Units 1-12.
+   *
+   * On, the pilot units replace the first twelve units of the path and Units
+   * 13+ continue unchanged behind them. Off, the course is exactly what it was
+   * before the pilot: `content/spanish-curriculum.json` is never edited, so
+   * this flag is a complete rollback and not merely a hiding place.
+   */
+  spanishPilotV2: true,
   listening: false,
   dialogue: false,
   aiRoleplay: false,

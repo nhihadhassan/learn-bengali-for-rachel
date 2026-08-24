@@ -35,6 +35,7 @@ import {
   getStepExplanation,
   getStepConceptIds,
   getStepPhraseId,
+  getStepProductionFormat,
   getStepPrompt,
   getStreakMilestone,
   isListeningStep,
@@ -58,8 +59,11 @@ import {
   LearnStep,
   MatchingExercise,
   MultipleChoiceOptions,
+  NoticeStep,
+  PronounceStep,
   QuestionStep,
   SpeakPracticeStep,
+  StoryStep,
   WordOrderExercise,
   type AnswerState,
 } from "@/components/lesson/steps/exercise-steps";
@@ -271,7 +275,11 @@ function PracticeLessonFlow({
 
     const phraseId = getStepPhraseId(step);
     if (phraseId) {
-      recordPhraseResult(phraseId, isCorrect, lessonCurriculumId);
+      // Producing the Spanish is a different achievement from recognising it,
+      // and the difficulty ladder needs to know which one just happened.
+      recordPhraseResult(phraseId, isCorrect, lessonCurriculumId, {
+        produced: Boolean(getStepProductionFormat(step)),
+      });
     }
 
     recordConceptResult(getStepConceptIds(step), isCorrect, lessonCurriculumId);
@@ -395,12 +403,18 @@ function PracticeLessonFlow({
     }
 
     if (step.type === "order" || step.type === "translate" || step.type === "listen") {
-      const assembled = orderTokens.map((tokenIndex) => step.tokens[tokenIndex]).join(" ");
+      // At the lowest scaffold level a translation is typed, not tapped. Same
+      // answer check either way — `checkTypedAnswer` already forgives accents
+      // and punctuation.
+      const assembled =
+        step.type === "translate" && step.typed
+          ? typedAnswer
+          : orderTokens.map((tokenIndex) => step.tokens[tokenIndex]).join(" ");
       const isCorrect = checkTypedAnswer(assembled, step.phrase.romanized).isCorrect;
       finishQuestion(isCorrect, assembled, step.phrase.romanized);
     }
 
-    if (step.type === "dialogue") {
+    if (step.type === "dialogue" || step.type === "choice") {
       finishQuestion(selectedAnswer === step.answer, selectedAnswer, step.answer);
     }
 
@@ -447,13 +461,18 @@ function PracticeLessonFlow({
       step.type === "recognize" ||
       step.type === "produce" ||
       step.type === "complete" ||
-      step.type === "dialogue"
+      step.type === "dialogue" ||
+      step.type === "choice"
     ) {
       return selectedAnswer.length > 0;
     }
 
     if (step.type === "order") {
       return orderTokens.length === step.tokens.length;
+    }
+
+    if (step.type === "translate" && step.typed) {
+      return typedAnswer.trim().length > 0;
     }
 
     if (step.type === "translate" || step.type === "listen") {
@@ -558,6 +577,55 @@ function PracticeLessonFlow({
 
       {step.type === "grammar" && (
         <GrammarStep locale={lesson.locale} step={step} onContinue={moveNext} />
+      )}
+
+      {step.type === "notice" && (
+        <NoticeStep locale={lesson.locale} step={step} onContinue={moveNext} />
+      )}
+
+      {step.type === "story" && (
+        <StoryStep locale={lesson.locale} step={step} onContinue={moveNext} />
+      )}
+
+      {step.type === "pronounce" && (
+        <PronounceStep locale={lesson.locale} step={step} onContinue={moveNext} />
+      )}
+
+      {step.type === "choice" && (
+        <QuestionStep
+          answerState={answerState}
+          canCheck={canCheck}
+          /* A prediction's explanation *is* the rule, so it wins over the
+             generic "why" the engine would otherwise assemble — and it opens
+             on its own, because the learner has just earned it. */
+          explanation={step.explanation ?? explanation}
+          explanationLabel={step.explanation ? "Here's why" : "Explain"}
+          explanationOpen={Boolean(step.explanation)}
+          correctAnswer={step.answer}
+          onCheck={checkAnswer}
+          onContinue={moveNext}
+        >
+          <p className="text-sm font-black uppercase tracking-[0.14em] text-amber-700 dark:text-amber-300">
+            Work it out
+          </p>
+          <h2 className="mt-2 text-xl font-black sm:text-2xl">
+            {formatPromptDisplay(step.prompt)}
+          </h2>
+          {step.audioTarget && (
+            <div className="mt-3 flex items-center justify-between rounded-3xl border border-amber-100 bg-amber-50 p-3 shadow-inner dark:border-amber-300/20 dark:bg-amber-400/12 sm:p-4">
+              <p className="text-2xl font-black sm:text-3xl">
+                {formatRomanizedDisplay(step.audioTarget)}
+              </p>
+              <SpeakerButton locale={lesson.locale} romanized={step.audioTarget} />
+            </div>
+          )}
+          <MultipleChoiceOptions
+            options={step.options}
+            selectedAnswer={selectedAnswer}
+            setSelectedAnswer={setSelectedAnswer}
+            isLocked={answerState !== "idle"}
+          />
+        </QuestionStep>
       )}
 
       {step.type === "speak" && (
@@ -746,12 +814,35 @@ function PracticeLessonFlow({
               {capitalizeDisplayText(step.phrase.english)}
             </p>
           </div>
-          <WordOrderExercise
-            tokens={step.tokens}
-            selected={orderTokens}
-            setSelected={setOrderTokens}
-            isLocked={answerState !== "idle"}
-          />
+          {step.typed ? (
+            <div className="mt-4">
+              <label
+                className="text-xs font-black uppercase tracking-[0.14em] text-slate-500 dark:text-slate-400"
+                htmlFor="translate-typed"
+              >
+                Your answer
+              </label>
+              <input
+                id="translate-typed"
+                autoComplete="off"
+                autoCapitalize="off"
+                autoCorrect="off"
+                spellCheck={false}
+                className="mt-2 w-full rounded-3xl border border-slate-200 bg-white px-4 py-3 text-lg font-bold text-slate-900 outline-none focus:border-violet-400 disabled:opacity-70 dark:border-white/12 dark:bg-white/[0.06] dark:text-slate-50"
+                disabled={answerState !== "idle"}
+                onChange={(event) => setTypedAnswer(event.target.value)}
+                placeholder="Escribe en español…"
+                value={typedAnswer}
+              />
+            </div>
+          ) : (
+            <WordOrderExercise
+              tokens={step.tokens}
+              selected={orderTokens}
+              setSelected={setOrderTokens}
+              isLocked={answerState !== "idle"}
+            />
+          )}
         </QuestionStep>
       )}
 

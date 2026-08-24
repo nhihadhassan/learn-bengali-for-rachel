@@ -358,7 +358,14 @@ export function LearnStep({
           <p className="text-sm font-black uppercase tracking-[0.14em] text-cyan-700 dark:text-cyan-200">
             New Phrase
           </p>
-          <h2 className="mt-3 text-5xl font-black leading-tight text-slate-950 dark:text-slate-50">
+          <h2 className="mt-3 flex flex-wrap items-center gap-3 text-5xl font-black leading-tight text-slate-950 dark:text-slate-50">
+            {/* Meaning support that isn't a translation. Concrete nouns only —
+                the curriculum omits it where an emoji would be a riddle. */}
+            {step.phrase.emoji && (
+              <span aria-hidden className="text-5xl leading-none">
+                {step.phrase.emoji}
+              </span>
+            )}
             {formatRomanizedDisplay(step.phrase.romanized)}
           </h2>
         </div>
@@ -372,6 +379,31 @@ export function LearnStep({
       </div>
 
       <div className="mt-6 grid gap-3">
+        {/* The word inside a sentence the learner can already mostly read.
+            Shown above the gloss on purpose: "Tengo sed. Quiero agua." carries
+            the meaning, and the English line below is the safety net rather
+            than the lesson. */}
+        {step.phrase.context && (
+          <div className="rounded-3xl border border-amber-100 bg-amber-50 p-4 shadow-inner dark:border-amber-300/20 dark:bg-amber-400/12">
+            <div className="flex items-start justify-between gap-3">
+              <div className="min-w-0">
+                <p className="text-xs font-black uppercase tracking-[0.14em] text-amber-700 dark:text-amber-200">
+                  In use
+                </p>
+                <p className="mt-1 text-xl font-black text-slate-950 dark:text-slate-50">
+                  {step.phrase.context.target}
+                </p>
+                <p className="mt-1 text-sm font-semibold text-slate-600 dark:text-slate-300">
+                  {capitalizeDisplayText(step.phrase.context.english)}
+                </p>
+              </div>
+              <SpeakerButton
+                locale={locale}
+                romanized={step.phrase.context.target}
+              />
+            </div>
+          </div>
+        )}
         <div className="rounded-3xl border border-cyan-100 bg-cyan-50 p-4 shadow-inner dark:border-cyan-300/20 dark:bg-cyan-400/12">
           <p className="text-xs font-black uppercase tracking-[0.14em] text-cyan-700 dark:text-cyan-200">
             Meaning
@@ -511,6 +543,8 @@ export function QuestionStep({
   children,
   correctAnswer,
   explanation,
+  explanationLabel = "Explain",
+  explanationOpen = false,
   idleHint,
   onCheck,
   onContinue,
@@ -523,6 +557,17 @@ export function QuestionStep({
   children: ReactNode;
   correctAnswer: string;
   explanation?: string;
+  /** Heading on the disclosure. A discovery reveal is not an "Explain". */
+  explanationLabel?: string;
+  /**
+   * Open the explanation without a click.
+   *
+   * On an ordinary question the "why" is optional — most learners want to move
+   * on. On a pattern-discovery question the rule *is* the payoff: the learner
+   * has just guessed a form nobody taught them, and hiding the answer behind a
+   * disclosure wastes the one moment they are most ready to read it.
+   */
+  explanationOpen?: boolean;
   idleHint?: string;
   onCheck: () => void;
   onContinue: () => void;
@@ -585,9 +630,12 @@ export function QuestionStep({
         )}
 
         {isAnswered && explanation && (
-          <details className="mb-3 rounded-2xl border border-slate-200 bg-slate-50 px-3 py-2 text-sm dark:border-white/10 dark:bg-white/[0.06]">
+          <details
+            open={explanationOpen}
+            className="mb-3 rounded-2xl border border-slate-200 bg-slate-50 px-3 py-2 text-sm dark:border-white/10 dark:bg-white/[0.06]"
+          >
             <summary className="cursor-pointer font-black text-slate-700 marker:text-violet-500 dark:text-slate-200">
-              Explain
+              {explanationLabel}
             </summary>
             <p className="mt-2 font-semibold leading-6 text-slate-600 dark:text-slate-300">
               {explanation}
@@ -884,6 +932,223 @@ export function WordOrderExercise({
             {formatRomanizedDisplay(token)}
           </button>
         ))}
+      </div>
+    </div>
+  );
+}
+
+/**
+ * Pattern discovery: examples and nothing else.
+ *
+ * There is deliberately no rule on this card. The learner reads three examples
+ * and is then asked for a fourth form nobody taught them; the rule arrives as
+ * the explanation on that question. Putting it here instead would turn a
+ * discovery into a paragraph to skim.
+ */
+export function NoticeStep({
+  locale,
+  onContinue,
+  step,
+}: {
+  locale?: string;
+  onContinue: () => void;
+  step: Extract<LessonStep, { type: "notice" }>;
+}) {
+  return (
+    <div>
+      <p className="text-sm font-black uppercase tracking-[0.14em] text-amber-700 dark:text-amber-300">
+        Notice
+      </p>
+      <h2 className="mt-2 text-3xl font-black leading-tight text-slate-950 dark:text-slate-50">
+        {step.card.title}
+      </h2>
+      <p className="mt-3 text-base font-semibold leading-7 text-slate-600 dark:text-slate-300">
+        Read these. What do they have in common?
+      </p>
+
+      <div className="mt-5 grid gap-2">
+        {step.card.examples.map((example) => (
+          <div
+            key={example.target}
+            className="flex items-start justify-between gap-3 rounded-3xl border border-amber-100 bg-amber-50 p-4 shadow-inner dark:border-amber-300/20 dark:bg-amber-400/12"
+          >
+            <div className="min-w-0">
+              <p className="text-lg font-black text-slate-950 dark:text-slate-50">
+                {example.target}
+              </p>
+              <p className="mt-0.5 text-sm font-semibold text-slate-600 dark:text-slate-300">
+                {capitalizeDisplayText(example.english)}
+              </p>
+              {example.note && (
+                <p className="mt-1 text-xs font-bold uppercase tracking-[0.1em] text-amber-700 dark:text-amber-300">
+                  {example.note}
+                </p>
+              )}
+            </div>
+            <SpeakerButton locale={locale} romanized={example.target} />
+          </div>
+        ))}
+      </div>
+
+      <AppButton type="button" onClick={onContinue} className="mt-6 w-full sm:w-auto">
+        Work it out <ArrowRight size={18} />
+      </AppButton>
+    </div>
+  );
+}
+
+/**
+ * A mini-story, heard before it is read.
+ *
+ * The English is behind a disclosure on purpose. A translation sitting beside
+ * every line means the learner reads the English and skims the Spanish, which
+ * is the opposite of comprehensible input — so the first pass is Spanish and
+ * audio, and the transcript is there for anyone who needs it.
+ */
+export function StoryStep({
+  locale,
+  onContinue,
+  step,
+}: {
+  locale?: string;
+  onContinue: () => void;
+  step: Extract<LessonStep, { type: "story" }>;
+}) {
+  const [showEnglish, setShowEnglish] = useState(false);
+
+  function playAll() {
+    // One line at a time would need sequencing the speech queue; playing the
+    // joined text is what the browser voice handles reliably.
+    void playPronunciation({
+      debug: true,
+      locale,
+      romanized: step.story.lines.map((line) => line.target).join(" "),
+    });
+  }
+
+  return (
+    <div>
+      <p className="text-sm font-black uppercase tracking-[0.14em] text-violet-700 dark:text-violet-300">
+        Story
+      </p>
+      <h2 className="mt-2 text-3xl font-black leading-tight text-slate-950 dark:text-slate-50">
+        {step.story.title}
+      </h2>
+      {step.story.setup && (
+        <p className="mt-3 text-base font-semibold leading-7 text-slate-600 dark:text-slate-300">
+          {step.story.setup}
+        </p>
+      )}
+
+      <div className="mt-5 grid gap-2">
+        {step.story.lines.map((line, index) => (
+          <div
+            key={`${step.story.id}-${index}`}
+            className="flex items-start justify-between gap-3 rounded-3xl border border-violet-100 bg-violet-50 p-4 shadow-inner dark:border-violet-300/20 dark:bg-violet-400/12"
+          >
+            <div className="min-w-0">
+              <p className="text-lg font-black text-slate-950 dark:text-slate-50">
+                {line.target}
+              </p>
+              {showEnglish && (
+                <p className="mt-0.5 text-sm font-semibold text-slate-600 dark:text-slate-300">
+                  {capitalizeDisplayText(line.english)}
+                </p>
+              )}
+              {line.receptive && !showEnglish && (
+                <p className="mt-1 text-xs font-bold uppercase tracking-[0.1em] text-violet-700 dark:text-violet-300">
+                  New expression — just understand it for now
+                </p>
+              )}
+            </div>
+            <SpeakerButton locale={locale} romanized={line.target} />
+          </div>
+        ))}
+      </div>
+
+      <div className="mt-5 grid gap-3 sm:flex sm:flex-wrap sm:justify-end">
+        <AppButton
+          type="button"
+          variant="secondary"
+          onClick={() => setShowEnglish((shown) => !shown)}
+        >
+          <Lightbulb size={18} />
+          {showEnglish ? "Hide English" : "Show English"}
+        </AppButton>
+        <AppButton type="button" variant="secondary" onClick={playAll}>
+          <Volume2 size={18} />
+          Play again
+        </AppButton>
+        <AppButton type="button" onClick={onContinue}>
+          I understood it <ArrowRight size={18} />
+        </AppButton>
+      </div>
+    </div>
+  );
+}
+
+/**
+ * Say it out loud.
+ *
+ * Nothing here is recorded, scored, or compared to anything. The app has no
+ * speech recognition, and a step that looked like it was listening would be a
+ * lie the learner would believe — so the copy says plainly that nobody is
+ * checking, and the only button is "I said it".
+ */
+export function PronounceStep({
+  locale,
+  onContinue,
+  step,
+}: {
+  locale?: string;
+  onContinue: () => void;
+  step: Extract<LessonStep, { type: "pronounce" }>;
+}) {
+  function playAgain() {
+    void playPronunciation({
+      audioFile: step.phrase.audioFile,
+      audioUrl: step.phrase.audioUrl,
+      debug: true,
+      locale,
+      romanized: step.phrase.romanized,
+    });
+  }
+
+  return (
+    <div>
+      <p className="text-sm font-black uppercase tracking-[0.14em] text-fuchsia-700 dark:text-fuchsia-200">
+        Out loud
+      </p>
+      <h2 className="mt-2 text-2xl font-black">{step.prompt}</h2>
+      <p className="mt-2 text-sm font-semibold text-slate-600 dark:text-slate-300">
+        Nothing is being recorded or scored — this one is just for your mouth.
+      </p>
+
+      <div className="mt-5 flex items-center justify-between gap-4 rounded-3xl border border-fuchsia-100 bg-fuchsia-50 p-5 shadow-inner dark:border-fuchsia-300/20 dark:bg-fuchsia-400/12">
+        <div className="min-w-0">
+          <p className="text-3xl font-black leading-tight sm:text-4xl">
+            {formatRomanizedDisplay(step.phrase.romanized)}
+          </p>
+          <p className="mt-2 text-lg font-bold text-slate-600 dark:text-slate-300">
+            {capitalizeDisplayText(step.phrase.english)}
+          </p>
+        </div>
+        <SpeakerButton
+          audioFile={step.phrase.audioFile}
+          audioUrl={step.phrase.audioUrl}
+          locale={locale}
+          romanized={step.phrase.romanized}
+        />
+      </div>
+
+      <div className="mt-5 grid gap-3 sm:flex sm:flex-wrap sm:justify-end">
+        <AppButton type="button" variant="secondary" onClick={playAgain}>
+          <Volume2 size={18} />
+          Play again
+        </AppButton>
+        <AppButton type="button" onClick={onContinue}>
+          I said it <ArrowRight size={18} />
+        </AppButton>
       </div>
     </div>
   );

@@ -41,6 +41,11 @@ import {
   type LearnerSnapshot,
 } from "@/lib/learner-model";
 import {
+  formatLadder,
+  isProductionFormat,
+  itemState,
+} from "@/lib/learning-state";
+import {
   FORMAT_FALLBACKS,
   getLessonProfile,
   type LessonProfile,
@@ -57,13 +62,16 @@ import {
   splitWords,
 } from "@/lib/text-tokens";
 import type {
+  ChoiceQuestion,
   DialogueTurn,
   Exercise,
   GrammarFocus,
   LanguagePattern,
   Lesson,
   LessonPlan,
+  NoticeCard,
   Phrase,
+  StoryScript,
 } from "@/types/learning";
 
 export type LessonStep =
@@ -109,6 +117,11 @@ export type LessonStep =
       phrase: Phrase;
       tokens: string[];
       prompt: string;
+      /**
+       * Type the sentence instead of tapping a word bank. The last rung of the
+       * ladder, and the point where the bank stops doing half the work.
+       */
+      typed?: boolean;
     }
   | {
       // Listening: hear a sentence and rebuild it from a word bank. Only for
@@ -160,6 +173,44 @@ export type LessonStep =
        */
       conceptIds?: string[];
     }
+  | {
+      // Pattern discovery: three examples and nothing else. The rule is not
+      // here — it arrives as the *explanation* on the prediction that follows,
+      // which is the whole point of noticing before being told.
+      id: string;
+      type: "notice";
+      card: NoticeCard;
+    }
+  | {
+      // A mini-story, heard before it is read. Not a question: the checks come
+      // after it, as `choice` steps.
+      id: string;
+      type: "story";
+      story: StoryScript;
+    }
+  | {
+      // Say it out loud. **Never evaluated** — no microphone, no scoring, and
+      // the copy says so. A prompt to use the mouth, not a test.
+      id: string;
+      type: "pronounce";
+      phrase: Phrase;
+      prompt: string;
+    }
+  | {
+      // A question with fixed options that isn't about one vocabulary item:
+      // "what happened in the story?", "which form would Spanish use?". One
+      // shape for both rather than a step type per activity.
+      id: string;
+      type: "choice";
+      prompt: string;
+      options: string[];
+      answer: string;
+      /** Shown after answering. For a prediction, this is the rule. */
+      explanation?: string;
+      conceptIds?: string[];
+      /** Spanish worth hearing while the question is on screen. */
+      audioTarget?: string;
+    }
   | { id: string; type: "exercise"; exercise: Exercise };
 
 export type LessonStepType = LessonStep["type"];
@@ -189,8 +240,68 @@ export const TEACH_TEST_LAG = 2;
 /** Difficulty weight for ordering the practice block, easiest first. */
 const EASY_CLOSER_MAX = 2;
 
+/** Below this many decoys, "tap what you hear" stops being transcription. */
+const MIN_LISTEN_PADDING = 2;
+
 /** Recycle slots carry this id prefix so they can be found and rewritten. */
 const RECYCLE_PREFIX = "recycle";
+
+/**
+ * Different words for the same instruction.
+ *
+ * A listening lesson asks four listening questions, and reading "Tap what you
+ * hear." four times is a large part of why lessons felt machine-made — the
+ * work varies and the page does not. The variant is chosen by how many times
+ * the lesson has already used that format, so it is deterministic and the
+ * wording never contradicts the task.
+ */
+const PROMPT_VARIANTS: Partial<Record<StepFormat, string[]>> = {
+  listen: [
+    "Tap what you hear.",
+    "Listen, then build what was said.",
+    "What did you hear? Tap it out.",
+    "Listen once more and tap it back.",
+  ],
+  complete: [
+    "Pick the missing word to complete the sentence.",
+    "One word is missing. Which one?",
+    "Fill the gap.",
+    "Which word belongs in the gap?",
+  ],
+  order: [
+    "Tap the words in the correct order.",
+    "Put these words in order.",
+    "Rebuild the sentence.",
+  ],
+  translate: [
+    "Tap the words to build the translation.",
+    "Say this in Spanish, word by word.",
+    "Build the Spanish for this.",
+  ],
+};
+
+/**
+ * The instruction for a format, varied by how often the lesson has used it.
+ *
+ * `usage` counts questions already asked, so the first `complete` reads one way
+ * and the third reads another.
+ */
+function promptFor(
+  format: StepFormat,
+  fallback: string,
+  context: BuildContext,
+): string {
+  const variants = PROMPT_VARIANTS[format];
+
+  if (!variants?.length) {
+    return fallback;
+  }
+
+  const used = context.formatUse.get(format) ?? 0;
+  context.formatUse.set(format, used + 1);
+
+  return variants[used % variants.length];
+}
 
 export type BuildLessonStepsOptions = {
   reviewMode?: boolean;
@@ -261,7 +372,7 @@ function buildPlannedLessonSteps(
   // A practice session over a planned lesson teaches nothing: everything in the
   // working set is treated as material to retrieve.
   const kind = reviewMode ? "strengthen" : plan.kind;
-  const profile = getLessonProfile(kind, plan.band);
+  const profile = getLessonProfile(kind, plan.band, plan.scaffold);
   const rng = makeRng(`${lesson.id}-${kind}`);
   const byId = new Map(lesson.phrases.map((phrase) => [phrase.id, phrase]));
   const resolve = (ids: readonly string[]): Phrase[] =>
@@ -292,11 +403,13 @@ function buildPlannedLessonSteps(
     lesson,
     resolveKnown: isKnownForm,
     profile,
+    snapshot,
     optionPool,
     wordPool,
     capabilities,
     rng,
     counter: { value: 0 },
+    formatUse: new Map(),
   };
 
   // Which item has been asked about, and in which format. Shared by the warm-up
@@ -348,6 +461,19 @@ function buildPlannedLessonSteps(
 
   const practiceSteps: LessonStep[] = [];
 
+  // --- say it aloud ---------------------------------------------------------
+  // Right after the teach cards, while the sound is still in the ear. Ungraded.
+  practiceSteps.push(
+    ...buildPronounceSteps(newItems.length > 0 ? newItems : reviewItems, context),
+  );
+
+  // --- notice ---------------------------------------------------------------
+  // Before the grammar card, always: the examples have to be read and the
+  // prediction made while the learner still has nothing to recite.
+  if (profile.includeNotice && plan.notices?.length) {
+    practiceSteps.push(...buildNoticeSteps(plan.notices, context));
+  }
+
   // --- grammar --------------------------------------------------------------
   if (profile.includeGrammar && plan.grammar) {
     practiceSteps.push({
@@ -397,6 +523,13 @@ function buildPlannedLessonSteps(
     }
   }
 
+  // --- story ----------------------------------------------------------------
+  // Input before work: the story is the language this lesson then practises,
+  // so it comes ahead of the practice block rather than after it.
+  if (profile.includeStory && plan.stories?.length) {
+    practiceSteps.push(...buildStorySteps(plan.stories, context));
+  }
+
   // --- the profile's practice sequence --------------------------------------
   // New items lead so every one of them is definitely checked; the review items
   // the learner model chose follow. Items are matched to formats by shape —
@@ -432,12 +565,21 @@ function buildPlannedLessonSteps(
 
   // Nothing may be taught and then never checked. Recorded in `usage` like any
   // other question, so the recycle slots and closer don't ask it again.
+  //
+  // The format follows the same rules as the rest of the lesson rather than
+  // defaulting to recognition — a sweep-up question is still a question, and a
+  // lesson whose leftovers are all "what does this mean?" reads as a glossary.
   for (const phrase of newItems) {
-    if (!covered.has(phrase.id)) {
-      practiceSteps.push(buildRecognizeStep(phrase, context));
-      markUsed(usage, phrase, "recognize");
-      covered.add(phrase.id);
+    if (covered.has(phrase.id)) {
+      continue;
     }
+
+    const filled = fillPracticeSlot("produce", [phrase], usage, context);
+    const step = filled?.step ?? buildRecognizeStep(phrase, context);
+
+    markUsed(usage, phrase, filled?.format ?? "recognize");
+    practiceSteps.push(step);
+    covered.add(phrase.id);
   }
 
   // --- dialogue -------------------------------------------------------------
@@ -471,8 +613,15 @@ function buildPlannedLessonSteps(
   const lastStep = practiceSteps[practiceSteps.length - 1];
 
   if (!lastStep || stepDifficulty(lastStep) > EASY_CLOSER_MAX) {
+    // Recognition is the gentlest way to finish, unless the lesson has already
+    // leaned on it — in which case "pick the Spanish" is just as easy a win and
+    // does not tip the session into being mostly glossary.
+    const asked = practiceSteps.filter((step) => !isTeachingStep(step));
+    const recognitions = asked.filter((step) => step.type === "recognize").length;
+    const closerFormat: StepFormat =
+      asked.length > 0 && recognitions * 2 >= asked.length ? "produce" : "recognize";
     const closer = fillPracticeSlot(
-      "recognize",
+      closerFormat,
       [...newItems, ...reviewItems],
       usage,
       context,
@@ -488,7 +637,7 @@ function buildPlannedLessonSteps(
 
   steps.push(...practiceSteps);
 
-  return enforceTeachTestLag(steps);
+  return spaceRepeatedItems(enforceTeachTestLag(steps));
 }
 
 type BuildContext = {
@@ -496,17 +645,44 @@ type BuildContext = {
   /** How the course decides a word is already known; see `KnownWordResolver`. */
   resolveKnown?: (word: string, known: ReadonlySet<string>) => boolean;
   profile: LessonProfile;
+  /**
+   * What the learner has done with each item, for the difficulty ladder in
+   * `@/lib/learning-state`. Absent — or empty, for a first-time learner — means
+   * the profile's own `formatSequence` decides, unchanged.
+   */
+  snapshot?: LearnerSnapshot;
   optionPool: readonly Phrase[];
   wordPool: string[];
   capabilities: ReturnType<typeof getCapabilities> | undefined;
   rng: Rng;
   /** Makes every generated step id unique even when a phrase repeats. */
   counter: { value: number };
+  /** How many times each format has been asked, for instruction wording. */
+  formatUse: Map<StepFormat, number>;
 };
 
 function nextStepId(context: BuildContext, format: string, phrase: Phrase): string {
   context.counter.value += 1;
   return `${context.lesson.id}-${format}-${context.counter.value}-${phrase.id}`;
+}
+
+/**
+ * Parts of speech that carry no meaning on their own.
+ *
+ * `Phrase.category` holds the curriculum's `part_of_speech`, which is a better
+ * judge of this than word shape: *pero* is five letters and passes every
+ * heuristic, and is still nothing to listen to by itself.
+ */
+const FUNCTION_CATEGORIES = new Set([
+  "conjunction",
+  "preposition",
+  "article",
+  "pronoun",
+  "determiner",
+]);
+
+function isFunctionCategory(phrase: Phrase): boolean {
+  return FUNCTION_CATEGORIES.has(phrase.category.toLowerCase());
 }
 
 /**
@@ -568,7 +744,10 @@ const FORMAT_MIN_WORDS: Record<StepFormat, number> = {
   // Cloze wants a real sentence: blanking the only content word of "el café"
   // leaves "el ___", which is a vocabulary question wearing a cloze costume.
   complete: 3,
-  listen: 2,
+  // One word is a perfectly good listening question — hear it, pick it out of
+  // four. Requiring two turned every single-word listening slot into "what does
+  // this mean?", which is how a listening lesson ended up mostly reading.
+  listen: 1,
   order: 3,
   translate: 3,
 };
@@ -605,6 +784,109 @@ function pickPhraseForFormat(
   return rankCandidates(format, queue, usage)[0];
 }
 
+/** Does this snapshot know anything at all? */
+function hasHistory(snapshot: LearnerSnapshot | undefined): snapshot is LearnerSnapshot {
+  return Boolean(snapshot && Object.keys(snapshot.memory).length > 0);
+}
+
+/**
+ * The formats worth trying for one item, in order.
+ *
+ * The profile's request leads whenever the item's state allows it — that is
+ * what keeps a listening lesson a listening lesson. When it doesn't, the
+ * ladder's own top rung is used instead: asking someone to transcribe a word
+ * they met once is not a listening exercise, it's a guess.
+ */
+function slotFormats(
+  phrase: Phrase,
+  requested: StepFormat,
+  context: BuildContext,
+): StepFormat[] {
+  if (!hasHistory(context.snapshot)) {
+    return [requested, ...FORMAT_FALLBACKS[requested]];
+  }
+
+  const state = itemState(phrase.id, context.snapshot);
+
+  // An item the learner has never met is not "at the bottom of the ladder" —
+  // it is off it. It was taught in this lesson, minutes ago, and what to ask
+  // about it is the profile's business. Running it through the ladder made
+  // every brand-new word a recognition question and turned a Discover lesson
+  // into eight glosses in a row.
+  if (state === "unseen") {
+    return [requested, ...FORMAT_FALLBACKS[requested]];
+  }
+
+  const rungs = formatLadder(state, context.profile);
+  const ordered = rungs.includes(requested) ? [requested, ...rungs] : rungs;
+
+  return [...new Set([...ordered, ...FORMAT_FALLBACKS[requested]])];
+}
+
+/**
+ * Item-first slot filling, used only once the learner has a history.
+ *
+ * The cold path asks "who can answer this format?"; this asks "what is this
+ * learner ready to be asked about this item?", which is the difference between
+ * a lesson that repeats itself and one that climbs.
+ *
+ * The two passes matter. Asking each candidate's ladder straight away sounds
+ * right and is wrong: the first candidate for a `translate` slot might be an
+ * item met once, whose ladder tops out at `recognize`, and the slot silently
+ * becomes a vocabulary question. Do that across a lesson and a returning
+ * learner gets ten "what does this mean?" in a row — the exact complaint this
+ * work exists to answer. So: first look for an item that is *ready* for the
+ * format the profile asked for, and only drop a rung when none is.
+ */
+function fillFromLadder(
+  requested: StepFormat,
+  queue: readonly Phrase[],
+  usage: ReadonlyMap<string, number>,
+  context: BuildContext,
+): { phrase: Phrase; format: StepFormat; step: LessonStep } | null {
+  if (!hasHistory(context.snapshot)) {
+    return null;
+  }
+
+  const ranked = rankCandidates(requested, queue, usage);
+  const unused = (phrase: Phrase, format: StepFormat) =>
+    (usage.get(`${phrase.id}::${format}`) ?? 0) === 0;
+
+  // Pass 1: someone ready for the question the profile wanted to ask.
+  for (const phrase of ranked) {
+    if (!slotFormats(phrase, requested, context).includes(requested)) {
+      continue;
+    }
+
+    if (!unused(phrase, requested)) {
+      continue;
+    }
+
+    const step = tryBuildFormat(requested, phrase, context);
+
+    if (step) {
+      return { phrase, format: requested, step };
+    }
+  }
+
+  // Pass 2: nobody is. Take the best each candidate is ready for.
+  for (const phrase of ranked) {
+    for (const format of slotFormats(phrase, requested, context)) {
+      if (!unused(phrase, format)) {
+        continue;
+      }
+
+      const step = tryBuildFormat(format, phrase, context);
+
+      if (step) {
+        return { phrase, format, step };
+      }
+    }
+  }
+
+  return null;
+}
+
 /**
  * Fill one slot in the profile's practice sequence, never repeating a question
  * the lesson has already asked.
@@ -620,6 +902,16 @@ function fillPracticeSlot(
   usage: ReadonlyMap<string, number>,
   context: BuildContext,
 ): { phrase: Phrase; format: StepFormat; step: LessonStep } | null {
+  // A learner with a history gets asked at the level each item has earned; a
+  // first-time learner gets the profile's sequence exactly as before, so a
+  // cold-start lesson stays deterministic and every existing assertion about
+  // it still describes real behaviour.
+  const laddered = fillFromLadder(format, queue, usage, context);
+
+  if (laddered) {
+    return laddered;
+  }
+
   const formats: StepFormat[] = [format, ...FORMAT_FALLBACKS[format]];
 
   for (const candidateFormat of formats) {
@@ -763,7 +1055,7 @@ function tryBuildFormat(
           contentWordPool(context.wordPool, blank.answer),
           id,
         ),
-        prompt: "Pick the missing word to complete the sentence.",
+        prompt: promptFor("complete", "Pick the missing word to complete the sentence.", context),
       };
     }
 
@@ -777,7 +1069,7 @@ function tryBuildFormat(
         type: "order",
         phrase,
         tokens: shuffleTokens(words),
-        prompt: "Tap the words in the correct order.",
+        prompt: promptFor("order", "Tap the words in the correct order.", context),
       };
     }
 
@@ -795,12 +1087,20 @@ function tryBuildFormat(
         context.rng,
       ).slice(0, context.profile.wordBankPadding);
 
+      // At the lowest scaffold level the bank comes away entirely and the
+      // learner writes the sentence. The tokens are still built so a struggling
+      // learner can be handed the bank back mid-lesson (`adaptUpcomingSteps`).
+      const typed = context.profile.allowTypedAnswers;
+
       return {
         id,
         type: "translate",
         phrase,
         tokens: shuffle([...words, ...distractors]),
-        prompt: "Tap the words to build the translation.",
+        prompt: typed
+          ? "Write this in Spanish."
+          : promptFor("translate", "Tap the words to build the translation.", context),
+        typed,
       };
     }
 
@@ -808,24 +1108,38 @@ function tryBuildFormat(
       const listeningEnabled =
         FEATURES.listening || Boolean(context.capabilities?.listening);
 
-      if (!listeningEnabled || words.length < 2 || isSlashVariant(phrase)) {
+      // A single word can be a listening question, but only a real one. "Tap
+      // what you hear" on *a*, *pero* or *y* tests hearing, not Spanish — so a
+      // lone word has to be one that carries meaning, judged by the part of
+      // speech the curriculum gave it as well as by its shape.
+      const singleFunctionWord =
+        words.length === 1 && (!isContentWord(words[0]) || isFunctionCategory(phrase));
+
+      if (
+        !listeningEnabled ||
+        words.length < 1 ||
+        singleFunctionWord ||
+        isSlashVariant(phrase)
+      ) {
         return null;
       }
 
       // Pad the bank so "tap what you hear" is a real transcription rather
-      // than putting two given words in order.
+      // than putting two given words in order. The floor matters more than the
+      // profile here: at the highest scaffold level the padding is 0, and a
+      // two-word sentence would otherwise arrive as two tiles and no choice.
       const heard = new Set(words.map(normalizeWord));
       const extras = seededShuffle(
         context.wordPool.filter((word) => !heard.has(normalizeWord(word))),
         context.rng,
-      ).slice(0, context.profile.wordBankPadding);
+      ).slice(0, Math.max(context.profile.wordBankPadding, MIN_LISTEN_PADDING));
 
       return {
         id: nextStepId(context, "listen", phrase),
         type: "listen",
         phrase,
         tokens: shuffle([...words, ...extras]),
-        prompt: "Tap what you hear.",
+        prompt: promptFor("listen", "Tap what you hear.", context),
       };
     }
 
@@ -939,6 +1253,130 @@ function buildGrammarDrillStep(
     grammarNote: focus.explanation,
     conceptIds: [focus.id],
   };
+}
+
+/**
+ * A prediction or comprehension question.
+ *
+ * Authored, options and all: "which form would Spanish use here?" and "why did
+ * she say that?" are judgements, not something to generate from a phrase list.
+ */
+function buildChoiceStep(
+  question: ChoiceQuestion,
+  context: BuildContext,
+  key: string,
+  audioTarget?: string,
+): LessonStep | null {
+  const options = [...new Set(question.options)];
+
+  // Two real alternatives is the floor; below it the learner is pressing
+  // "continue" with extra steps.
+  if (options.length < 2 || !options.includes(question.answer)) {
+    return null;
+  }
+
+  context.counter.value += 1;
+
+  return {
+    id: `${context.lesson.id}-choice-${context.counter.value}-${key}`,
+    type: "choice",
+    prompt: question.prompt,
+    options: seededShuffle(options, context.rng),
+    answer: question.answer,
+    explanation: question.explanation,
+    conceptIds: question.concepts,
+    audioTarget,
+  };
+}
+
+/**
+ * Pattern discovery: examples, then a form nobody taught.
+ *
+ * The card carries no rule. The rule is the prediction's `explanation`, shown
+ * only once the learner has committed to an answer — because an explanation
+ * read *after* a guess is the one that sticks, and because getting it right is
+ * itself the evidence that the pattern was ready to be named.
+ */
+function buildNoticeSteps(
+  notices: readonly NoticeCard[],
+  context: BuildContext,
+): LessonStep[] {
+  const steps: LessonStep[] = [];
+
+  for (const card of notices) {
+    const question = buildChoiceStep(card.question, context, card.id);
+
+    // No question means no discovery — a card of examples on its own is a
+    // wall of text the learner scrolls past.
+    if (!question) {
+      continue;
+    }
+
+    steps.push({ id: `${context.lesson.id}-notice-${card.id}`, type: "notice", card });
+    steps.push(question);
+  }
+
+  return steps;
+}
+
+/** A story, then what it meant. The transcript stays hidden until asked for. */
+function buildStorySteps(
+  stories: readonly StoryScript[],
+  context: BuildContext,
+): LessonStep[] {
+  const steps: LessonStep[] = [];
+
+  for (const story of stories) {
+    const questions = story.questions
+      .map((question, index) =>
+        buildChoiceStep(question, context, `${story.id}-q${index}`),
+      )
+      .filter((step): step is LessonStep => Boolean(step));
+
+    if (questions.length === 0) {
+      continue;
+    }
+
+    steps.push({ id: `${context.lesson.id}-story-${story.id}`, type: "story", story });
+    steps.push(...questions);
+  }
+
+  return steps;
+}
+
+/**
+ * Say it out loud.
+ *
+ * Deliberately ungraded and unrecorded. The app has no speech recognition, and
+ * a step that *looked* like it was listening would be a lie the learner would
+ * believe. Saying a sentence aloud is worth doing anyway, so it is offered as
+ * exactly that and nothing more.
+ */
+function buildPronounceSteps(
+  candidates: readonly Phrase[],
+  context: BuildContext,
+): LessonStep[] {
+  const count = context.profile.pronounceSteps;
+
+  if (count <= 0) {
+    return [];
+  }
+
+  // Sentences first: repeating a single word teaches less than repeating a
+  // phrase with a shape to it.
+  const ranked = [...candidates]
+    .filter((phrase) => !isSlashVariant(phrase))
+    .sort(
+      (a, b) =>
+        splitWords(b.romanized).length - splitWords(a.romanized).length,
+    );
+
+  return ranked.slice(0, count).map((phrase) => ({
+    id: `${context.lesson.id}-pronounce-${phrase.id}`,
+    type: "pronounce" as const,
+    phrase,
+    prompt: "Listen, then say it out loud.",
+  }));
 }
 
 // ---------------------------------------------------------------------------
@@ -1172,6 +1610,78 @@ function findLagViolation(steps: LessonStep[]): number {
   return -1;
 }
 
+/**
+ * How many steps must separate two questions about the same item.
+ *
+ * The teach/test lag stops "read *adiós*, click *adiós*". This stops the other
+ * half of the same problem: being asked about `adiós` twice in a row, which
+ * tests whether the last screen is still on the retina rather than whether the
+ * word is known. Retrieval has to be interrupted to be retrieval.
+ */
+export const MIN_RETRIEVAL_GAP = 2;
+
+/**
+ * Push apart consecutive questions about the same item.
+ *
+ * Runs after `enforceTeachTestLag` and moves steps *later* only, so the two
+ * passes cannot fight each other. A step with nowhere later to go is left where
+ * it is: a slightly close repeat beats dropping a question.
+ */
+export function spaceRepeatedItems(steps: LessonStep[]): LessonStep[] {
+  const out = [...steps];
+
+  for (let pass = 0; pass < 8; pass += 1) {
+    const violation = findRepeatViolation(out);
+
+    if (violation < 0) {
+      return out;
+    }
+
+    const [step] = out.splice(violation, 1);
+    const target = Math.min(out.length, violation + MIN_RETRIEVAL_GAP);
+
+    // Nothing to move it past — leave it alone rather than loop forever.
+    if (target <= violation) {
+      out.splice(violation, 0, step);
+      return out;
+    }
+
+    out.splice(target, 0, step);
+  }
+
+  return out;
+}
+
+function findRepeatViolation(steps: LessonStep[]): number {
+  for (let index = 1; index < steps.length; index += 1) {
+    const phraseId = getStepPhraseId(steps[index]);
+
+    if (!phraseId || isTeachingStep(steps[index])) {
+      continue;
+    }
+
+    for (
+      let back = 1;
+      back < MIN_RETRIEVAL_GAP && index - back >= 0;
+      back += 1
+    ) {
+      const earlier = steps[index - back];
+
+      // A teach card is handled by `enforceTeachTestLag`; this pass is only
+      // about two *questions* landing on top of each other.
+      if (isTeachingStep(earlier)) {
+        continue;
+      }
+
+      if (getStepPhraseId(earlier) === phraseId) {
+        return index;
+      }
+    }
+  }
+
+  return -1;
+}
+
 /** A question step that reuses a recycle slot keeps this marker in its id. */
 export function isRecycleSlot(step: LessonStep): boolean {
   return step.id.includes(`-${RECYCLE_PREFIX}-`);
@@ -1351,13 +1861,18 @@ function buildContextFor(lesson: Lesson): BuildContext {
   return {
     lesson,
     resolveKnown: isKnownForm,
-    profile: getLessonProfile(lesson.plan?.kind ?? "build", lesson.plan?.band),
+    profile: getLessonProfile(
+      lesson.plan?.kind ?? "build",
+      lesson.plan?.band,
+      lesson.plan?.scaffold,
+    ),
     optionPool: lesson.phrases,
     wordPool: buildWordPool(lesson.phrases),
     capabilities: lesson.curriculumId
       ? getCapabilities(lesson.curriculumId as CourseId)
       : undefined,
     rng: makeRng(`${lesson.id}-adaptive`),
+    formatUse: new Map(),
     // Offset so an adapted step id can never collide with a planned one.
     counter: { value: 1000 },
   };
@@ -1624,18 +2139,24 @@ export function stepDifficulty(step: LessonStep): number {
     case "intro":
     case "learn":
     case "grammar":
+    case "notice":
+    case "story":
+    case "pronounce":
       return 0;
     case "recognize":
       return 1;
+    case "choice":
     case "produce":
     case "complete":
     case "dialogue":
       return 2;
     case "order":
       return 3;
-    case "translate":
     case "listen":
       return 4;
+    // Typing a sentence with no word bank is the hardest thing the app asks.
+    case "translate":
+      return step.typed ? 5 : 4;
     case "exercise":
       switch (step.exercise.type) {
         case "multiple-choice":
@@ -1666,7 +2187,16 @@ export function isWorkStep(step: LessonStep): boolean {
 
 /** Steps that teach rather than test. Excluded from the accuracy figure. */
 export function isTeachingStep(step: LessonStep): boolean {
-  return step.type === "intro" || step.type === "learn" || step.type === "grammar";
+  return (
+    step.type === "intro" ||
+    step.type === "learn" ||
+    step.type === "grammar" ||
+    step.type === "notice" ||
+    step.type === "story" ||
+    // Saying a sentence aloud is practice, but nothing about it is graded, so
+    // counting it toward accuracy would inflate every score.
+    step.type === "pronounce"
+  );
 }
 
 export function countWorkSteps(steps: LessonStep[]): number {
@@ -1689,7 +2219,11 @@ export function countCompletedWorkSteps(
  * before they have read them.
  */
 function buildWordPool(phrases: Phrase[]): string[] {
-  const words = new Set<string>();
+  // Keyed by the normalized word so "Sí" and "sí" cannot both become tiles.
+  // The pool is only ever a source of *distractors* — the words of the sentence
+  // being built come from the phrase itself — so collapsing case here loses
+  // nothing and stops a bank offering the same word twice.
+  const words = new Map<string, string>();
 
   phrases.forEach((phrase) => {
     splitWords(phrase.romanized).forEach((word) => {
@@ -1698,13 +2232,23 @@ function buildWordPool(phrases: Phrase[]): string[] {
       // A gendered pair ("vacío/vacía") is a dictionary entry, not a word you
       // can tap into a sentence. Keeping it out of the pool stops word banks
       // offering "Vacío/Vacía" as a tile.
-      if (bare && !bare.includes("/")) {
-        words.add(bare);
+      if (!bare || bare.includes("/")) {
+        return;
+      }
+
+      const key = normalizeWord(bare);
+
+      // Prefer the lowercase form: a distractor should not look like the start
+      // of a sentence.
+      const existing = words.get(key);
+
+      if (!existing || (existing !== existing.toLowerCase() && bare === bare.toLowerCase())) {
+        words.set(key, bare);
       }
     });
   });
 
-  return [...words];
+  return [...words.values()];
 }
 
 /** Word-bank translation: correct target words plus a few distractors, shuffled. */
@@ -1785,9 +2329,19 @@ export function getStepPrompt(step: LessonStep) {
     step.type === "listen" ||
     step.type === "dialogue" ||
     step.type === "complete" ||
+    step.type === "choice" ||
+    step.type === "pronounce" ||
     step.type === "speak"
   ) {
     return step.prompt;
+  }
+
+  if (step.type === "notice") {
+    return step.card.title;
+  }
+
+  if (step.type === "story") {
+    return step.story.title;
   }
 
   if (step.type === "exercise") {
@@ -1799,7 +2353,11 @@ export function getStepPrompt(step: LessonStep) {
 
 /** Grammar concepts a step exercises, if any. */
 export function getStepConceptIds(step: LessonStep): string[] {
-  return step.type === "complete" ? (step.conceptIds ?? []) : [];
+  if (step.type === "complete" || step.type === "choice") {
+    return step.conceptIds ?? [];
+  }
+
+  return [];
 }
 
 /** The phrase a step exercises, if any — used to update spaced-repetition memory. */
@@ -1924,4 +2482,16 @@ export function countQuestionSteps(steps: LessonStep[]): number {
   return steps.filter(
     (step) => !isTeachingStep(step) && step.type !== "speak",
   ).length;
+}
+
+/**
+ * The format a graded step used, for the production tally in `PhraseMemory`.
+ *
+ * Returns nothing for steps that are not a climb up the ladder — a dialogue
+ * reply is chosen from four options, and a story question is about meaning
+ * rather than about producing an item.
+ */
+export function getStepProductionFormat(step: LessonStep): StepFormat | null {
+  const format = stepFormatOf(step);
+  return format && isProductionFormat(format) ? format : null;
 }
