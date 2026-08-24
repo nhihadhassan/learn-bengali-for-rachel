@@ -48,9 +48,19 @@ NEXT_TEST_WASM=1 NEXT_TEST_WASM_DIR="$PWD/node_modules/@next/swc-wasm-nodejs" np
   cumulative (courses with `lessonStrategy: "cumulative"`, which carry a
   `Lesson.plan`) and the original phrase-book path for everything else.
 - **`src/lib/curriculum-plan.ts` decides what a lesson teaches and revisits**;
-  `src/lib/lesson-profiles.ts` is the config table that makes the six Spanish
-  lesson types different; `src/lib/learner-model.ts` turns saved progress into
+  `src/lib/lesson-profiles.ts` is the config table that makes the Spanish lesson
+  types different; `src/lib/learner-model.ts` turns saved progress into
   new/weak/due/strong (deriving everything from `review-policy.ts`).
+- **`src/lib/learning-state.ts` decides *how hard* to ask** about an item, from
+  what the learner has done with it. Derived, never a second scheduler, and it
+  never chooses what to review. A brand-new item is **off** the ladder, not at
+  the bottom of it — what to ask about a word taught ninety seconds ago is the
+  profile's business.
+- **Units 1-12 of Spanish come from `content/spanish-pilot.json`**, spliced over
+  the head of the path behind `FEATURES.spanishPilotV2`. A pilot unit is a pack
+  unit with extra optional fields, so one adapter and one planner walk cover
+  both halves — which is what keeps Unit 13's interleaved review working across
+  the seam. `content/spanish-curriculum.json` is never edited. See HANDOFF §5b.
 - `src/lib/distractors.ts` owns wrong-answer selection; `src/lib/rng.ts` is the
   one seeded PRNG (`src/curriculum/rng.ts` re-exports it).
 - **`src/lib/spanish-lexicon.ts` decides what counts as already known** —
@@ -60,7 +70,8 @@ NEXT_TEST_WASM=1 NEXT_TEST_WASM_DIR="$PWD/node_modules/@next/swc-wasm-nodejs" np
 - **A unit's grammar is declared, not derived**: `grammar_focus` in
   `content/spanish-curriculum.json`, gated on the pattern having been met and
   the examples being readable. Un-authored units rank their targets by the
-  evidence the unit shows. Never reintroduce index arithmetic here.
+  evidence the unit shows. Never reintroduce index arithmetic here. A unit is
+  **not** required to have a grammar lesson at all.
 - **No two units may teach the same phrase set.** A third of the course once
   did; `npm test` fails if it happens again.
 - `src/lib/review-policy.ts` owns spaced repetition. Nothing else defines
@@ -114,11 +125,22 @@ still supported for older content. Put new recorded files under
 - Keep UI mobile-first; prefer existing components before adding new ones.
 - **Never repeat a question inside a lesson.** Every part of a planned lesson
   shares one `usage` map; `npm test` asserts no lesson asks the same
-  (format, phrase) twice. Same for `TEACH_TEST_LAG`.
+  (format, phrase) twice. Same for `TEACH_TEST_LAG`, and for
+  `MIN_RETRIEVAL_GAP` — two questions about the same item may not sit next to
+  each other.
+- **Address lessons by path position and kind, not by id.** Ids move when units
+  are replaced; every test that named `es-en-s01-u001-l1` broke at once.
 - **Mistake recycling must not change the step count.** Slots are reserved and
   rewritten, so the progress bar only moves forward.
 - After touching the Spanish curriculum or the plan layer, run
-  `npm run audit:curriculum` — every finding, in any section, fails the run.
+  `npm run audit:curriculum` — every finding, in any section, fails the run. It
+  also builds every pilot lesson's real steps, twice, and fails on recognition
+  dominance, low format variety, a lesson with no production, or repeated
+  prompt wording.
+- **Replacing units breaks later units.** The audit names every prerequisite the
+  swap took away; teach them back rather than lowering the bar.
+- **Never imply speech is being evaluated.** There is no speech recognition. The
+  `pronounce` step says plainly that nothing is recorded or scored.
 - **Never ask the learner to produce untaught language.** A dialogue prompt may
   carry new language if marked `receptive`; a reply may not.
 - Run lint, tests and build after code changes.

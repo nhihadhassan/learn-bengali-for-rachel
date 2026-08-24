@@ -457,10 +457,141 @@ lessons that barely overlap · incoherent authored dialogue.
 the same bar: a sentence the learner will be asked to *build* must be fully
 readable when it appears. The audit reports clean at the time of writing.
 
-Two checks are deliberately shaped by structure rather than ideals: a unit
-holding more items than five 4-item lessons can carry may put the remainder in
-its last *teaching* lesson (never in the review), and the final two units of the
-course are exempt from "never revisited", since nothing follows them.
+Three checks are deliberately shaped by structure rather than ideals:
+
+- A unit holding more items than its *teaching* lessons can carry at the cap may
+  put the remainder in its last teaching lesson, never in the review. Teaching
+  lessons are counted, not assumed — units run from three to eight lessons.
+- A lesson may go one item over the cap for each word one of *its own* new
+  sentences needs. The planner breaks the ceiling rather than show a sentence
+  built from a word it has not taught, and the audit has to agree with that
+  trade or it reports the fix as a fault.
+- The final units of the course are exempt from "never revisited", since nothing
+  follows them.
+
+---
+
+## 5b. Spanish Curriculum v2 — the Units 1-12 pilot
+
+A **pilot**, not a migration. Units 1-12 of the Spanish path were rewritten;
+Units 13+ run on the pack exactly as before. The point is to have twelve units
+good enough to use, critique and re-refine before anything else moves.
+
+### Where it lives
+
+- `content/spanish-pilot.json` — the twelve units. Its own schema
+  (`content/spanish-pilot.schema.json`), checked by `npm run validate:curriculum`
+  alongside the pack.
+- `src/lib/spanish-pilot.ts` — loads and types it.
+- `src/lib/spanish-curriculum.ts` — splices the pilot over the first twelve
+  positions of the path when `FEATURES.spanishPilotV2` is on.
+
+**`content/spanish-curriculum.json` is never edited.** That is what makes the
+flag a real rollback rather than a hiding place: off, the course is 131 units
+and 786 lessons, byte for byte what it was.
+
+A pilot unit is **a pack unit with extra optional fields**, not a new format.
+One adapter, one planner walk and one audit therefore cover both halves — and,
+more importantly, Unit 13 interleaves its review against pilot units because
+they were planned in the same pass. A post-hoc overlay would have broken
+cumulative review at exactly the seam that matters.
+
+### What the pilot changes
+
+| | Before | Now |
+|---|---|---|
+| Lesson sequence | the same six, every unit | 3 to 8 lessons, chosen per unit |
+| Grammar | a Grammar focus lesson in every unit | two units name a rule; the rest discover theirs |
+| New words | `agua = water`, then "what does agua mean?" | met inside a sentence the learner can already read, with an emoji where a noun has an obvious one |
+| Question choice | the profile's fixed `formatSequence` | the item's state decides how hard it is fair to ask |
+| Listening | lesson 4 | a modality, in every lesson type |
+| Support | fixed per lesson type | a scaffold level per unit, 5 down to 1 |
+
+Authored deliberately, not generated: nine discovery cards, four mini-stories,
+thirteen dialogues, the sentence frames, and a six-turn capstone. Cloze,
+ordering, recall, review selection and spacing stay system-driven.
+
+### Progress
+
+Pilot units carry **new ids**, so Units 1-12 read as fresh — which is what you
+want from something you intend to replay and critique. Vocabulary **reuses the
+v1 id wherever the same word is taught** (`hola` is still
+`es-en-s01-u002-v11`), so spaced-repetition memory, the word bank and mistake
+history carry over. Completion entries for replaced lessons stay in storage,
+inert. Nothing past unit 12 is affected.
+
+### The handoff constraint
+
+Replacing twelve units broke prerequisites for fifteen later lessons that used
+words those units taught — `preferir`, `familia`, `silla`, `tranquilo`,
+`aprender` and the rest. The audit named every one precisely, and the pilot now
+teaches all of them. **This check is the reason the pilot is safe to extend:**
+any future unit swap will be caught the same way.
+
+### Learning state (`src/lib/learning-state.ts`)
+
+`itemState(phraseId, snapshot)` places an item on a ladder — `unseen`,
+`encountered`, `recognized`, `retrieved`, `applied`, `durable` — and
+`formatLadder(state, profile)` says which question formats are fair at that
+rung. `buildPlannedLessonSteps` looks for an item **ready for the format the
+profile asked for** before dropping a rung, so a listening lesson stays a
+listening lesson.
+
+It is derived, like `conceptStrength`: `review-policy.ts` remains the one memory
+model, and this never chooses *what* to review, only how to ask. The single
+stored field it needs is `PhraseMemory.produced` — how many times an item has
+been answered correctly in a production format, which a Leitner box cannot say.
+Optional and nested; saves without it load unchanged.
+
+**A brand-new item is off the ladder, not at the bottom of it.** A word taught
+ninety seconds ago is the profile's business. Getting this wrong turned every
+Discover lesson into eight glosses in a row.
+
+### New lesson kinds and step types
+
+Four kinds — `notice`, `story`, `scenario`, `capstone` — and four step types:
+
+- **`notice`** — three examples and *no rule*. The rule is the explanation on
+  the prediction that follows, revealed only once the learner has committed to
+  an answer.
+- **`story`** — a short passage, heard before it is read, with the English
+  behind a disclosure so the first pass is genuinely comprehension.
+- **`pronounce`** — say it aloud. **Never evaluated**: no microphone, no score,
+  and the copy says so. The app has no speech recognition and a step that looked
+  like it was listening would be a lie the learner would believe.
+- **`choice`** — one question shape for predictions and story comprehension
+  alike, rather than a step type per activity.
+
+`translate` gains a typed mode at the lowest scaffold level: no word bank, and
+`checkTypedAnswer` forgives accents and punctuation.
+
+### The step-level audit
+
+Everything in §5a's audit walks *plans*. That is right for prerequisites and
+blind to "this feels templated" — you cannot see that eight of twelve questions
+are word→meaning in a plan, only in the questions. `auditPilotLessons` builds
+every pilot lesson **twice** (cold, and with a learner who has a history, since
+the ladder only engages for the second) and checks:
+
+`direct-translation-share` · `low-variety` · `no-production` ·
+`repeated-prompt` · `no-questions` · `late-scaffolding`
+
+Thresholds were set from the pilot's real output, not chosen in advance. Where a
+check would have forced worse teaching it was dropped rather than satisfied.
+
+### Rolling back the pilot
+
+`FEATURES.spanishPilotV2 = false`. The pre-pilot tip is tagged
+`rollback/pre-pilot-v2`.
+
+### Known gaps
+
+- Emoji only; no image layer. A real one is a separate pass.
+- The pilot's own units are held to the step-level bar; Units 13+ are not.
+- `strengthen` and `review` still read the same across the pilot; only
+  `discover` and `review` differentiate by CEFR band so far.
+
+---
 
 ### Feature flags (`src/lib/feature-flags.ts`)
 
@@ -468,6 +599,7 @@ Unfinished features ship "dark" and flip on via a flag:
 
 - `explainMyAnswer: true` — live.
 - `cumulativeLessons: true` — live; the rollback switch for §5a.
+- `spanishPilotV2: true` — live; the rollback switch for §5b.
 - `listening: false`, `dialogue: false` — the **global** flags. Per-course
   support is no longer an id check: it comes from the course's capabilities in
   `src/lib/courses.ts` (the Spanish course declares `listening` and `dialogue`;
