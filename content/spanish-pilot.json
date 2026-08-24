@@ -1078,6 +1078,18 @@
           "spanish": "Claro, por favor.",
           "english": "Of course, please.",
           "status": "pilot_authored"
+        },
+        {
+          "id": "es-en-p01-u05-p06",
+          "spanish": "Perdón, no soy de aquí.",
+          "english": "Sorry, I'm not from here.",
+          "status": "pilot_authored"
+        },
+        {
+          "id": "es-en-p01-u05-p07",
+          "spanish": "Disculpe, señora. ¿Cómo estás?",
+          "english": "Excuse me, madam. How are you?",
+          "status": "pilot_authored"
         }
       ],
       "lesson_sequence": [
@@ -1207,34 +1219,6 @@
           "emoji": "💧",
           "context_es": "Quiero agua, por favor.",
           "context_en": "I want water, please."
-        },
-        {
-          "id": "es-en-p01-u06-v05",
-          "spanish": "un",
-          "english": "a (masculine)",
-          "part_of_speech": "article",
-          "status": "pilot_authored"
-        },
-        {
-          "id": "es-en-p01-u06-v06",
-          "spanish": "una",
-          "english": "a (feminine)",
-          "part_of_speech": "article",
-          "status": "pilot_authored"
-        },
-        {
-          "id": "es-en-p01-u06-v07",
-          "spanish": "el",
-          "english": "the (masculine)",
-          "part_of_speech": "article",
-          "status": "pilot_authored"
-        },
-        {
-          "id": "es-en-p01-u06-v08",
-          "spanish": "la",
-          "english": "the (feminine)",
-          "part_of_speech": "article",
-          "status": "pilot_authored"
         },
         {
           "id": "es-en-s01-u001-v09",

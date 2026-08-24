@@ -37,6 +37,13 @@ import {
   getGrammarRule,
 } from "../src/lib/grammar-drills";
 import { isContentWord, normalizeWord, splitWords } from "../src/lib/text-tokens";
+import {
+  buildLessonSteps,
+  getStepPrompt,
+  isTeachingStep,
+} from "../src/lib/lesson-steps";
+import { emptyLearnerSnapshot, type LearnerSnapshot } from "../src/lib/learner-model";
+import { pilotUnits } from "../src/lib/spanish-pilot";
 import type { Lesson, Phrase } from "../src/types/learning";
 
 type Finding = { lessonId: string; rule: string; detail: string };
@@ -73,6 +80,18 @@ const MAX_UNIT_VOCABULARY = 16;
 
 /** Above this share of unknown words, a dialogue prompt stops being input. */
 const MAX_DIALOGUE_UNKNOWN = 0.34;
+
+/** Above this share, a lesson is a glossary with a progress bar. */
+const MAX_RECOGNITION_SHARE = 0.5;
+
+/** A lesson of any length should ask in more than a couple of ways. */
+const MIN_QUESTION_KINDS = 3;
+
+/** The same wording more than this often reads as one question repeated. */
+const MAX_IDENTICAL_PROMPTS = 4;
+
+/** Step types where the learner assembles Spanish rather than picking meaning. */
+const PRODUCTION_STEPS = new Set(["produce", "complete", "order", "translate"]);
 
 /** A question opening with a question word expects a statement in reply. */
 const INFORMATION_QUESTION = /¿\s*(qué|quién|dónde|cómo|cuánto|cuánta|cuántos|cuántas|cuándo|cuál|por qué)/i;
@@ -122,6 +141,153 @@ function forcedVocabularyCount(
       (word) => supplied.has(word) || isKnownForm(word, supplied),
     );
   }).length;
+}
+
+/**
+ * The pilot's checks, run against the **steps a learner actually sees**.
+ *
+ * Everything above this walks plans: what a lesson introduces and brings back.
+ * That is the right level for prerequisites and spacing, and it is blind to the
+ * complaint this whole pass exists to answer — that lessons feel templated. You
+ * cannot see "eight of these twelve questions are «what does X mean»" in a
+ * plan; you can only see it in the questions.
+ *
+ * Each lesson is built twice: once as a first-time learner meets it, and once
+ * with a learner who has a history, since the difficulty ladder only engages
+ * for the second. A finding on either build is a finding.
+ *
+ * The thresholds below were set from the pilot's real output, not chosen in
+ * advance. Where a check would have forced worse teaching it was dropped
+ * rather than satisfied — see `docs/HANDOFF.md` §5b.
+ */
+function auditPilotLessons(lessons: readonly Lesson[]): Finding[] {
+  const findings: Finding[] = [];
+  const pilotIds = new Set(pilotUnits.map((unit) => unit.id));
+  const pilot = lessons.filter((lesson) => pilotIds.has(lesson.unitId));
+
+  if (pilot.length === 0) {
+    return findings;
+  }
+
+  const add = (lesson: Lesson, rule: string, detail: string) =>
+    findings.push({ lessonId: lesson.id, rule, detail });
+
+  /** A learner who has met everything up to this lesson, some of it produced. */
+  const snapshotBefore = (target: Lesson): LearnerSnapshot => {
+    const memory: LearnerSnapshot["memory"] = {};
+    const day = 24 * 60 * 60 * 1000;
+    let seen = 0;
+
+    for (const lesson of lessons) {
+      if (lesson.id === target.id) {
+        break;
+      }
+
+      for (const id of lesson.plan?.newPhraseIds ?? []) {
+        seen += 1;
+        memory[id] = {
+          box: seen % 5,
+          dueAt: new Date(Date.now() - day).toISOString(),
+          lastSeenAt: new Date(Date.now() - day).toISOString(),
+          produced: seen % 3,
+        };
+      }
+    }
+
+    return { ...emptyLearnerSnapshot(), memory };
+  };
+
+  /** Scaffold level per unit, for the "support falls away" check. */
+  const scaffoldOf = new Map<string, number>();
+
+  for (const lesson of pilot) {
+    const builds = [
+      buildLessonSteps(lesson),
+      buildLessonSteps(lesson, { learner: snapshotBefore(lesson) }),
+    ];
+
+    if (lesson.plan?.scaffold) {
+      scaffoldOf.set(lesson.unitId, lesson.plan.scaffold);
+    }
+
+    builds.forEach((steps, build) => {
+      const questions = steps.filter((step) => !isTeachingStep(step));
+      const label = build === 0 ? "first time" : "with memory";
+
+      if (questions.length === 0) {
+        add(lesson, "no-questions", `${label}: the lesson asks nothing`);
+        return;
+      }
+
+      // --- how much of the lesson is "what does this word mean" -------------
+      //
+      // Recognition is a legitimate technique and the first rung of the
+      // ladder; it stops being teaching when it is most of the lesson.
+      const recognize = questions.filter((step) => step.type === "recognize").length;
+
+      if (recognize / questions.length > MAX_RECOGNITION_SHARE) {
+        add(
+          lesson,
+          "direct-translation-share",
+          `${label}: ${recognize}/${questions.length} questions are word→meaning`,
+        );
+      }
+
+      // --- variety ----------------------------------------------------------
+      const kinds = new Set(questions.map((step) => step.type));
+
+      if (questions.length >= 6 && kinds.size < MIN_QUESTION_KINDS) {
+        add(
+          lesson,
+          "low-variety",
+          `${label}: ${questions.length} questions in only ${kinds.size} format(s)`,
+        );
+      }
+
+      // --- production -------------------------------------------------------
+      //
+      // A lesson the learner can finish without ever assembling Spanish is a
+      // lesson they can pass without learning to say anything.
+      const produces = questions.some((step) =>
+        PRODUCTION_STEPS.has(step.type),
+      );
+
+      if (!produces) {
+        add(lesson, "no-production", `${label}: nothing asks the learner to build Spanish`);
+      }
+
+      // --- repeated wording -------------------------------------------------
+      const prompts = questions.map((step) => getStepPrompt(step));
+      const counts = new Map<string, number>();
+
+      for (const prompt of prompts) {
+        counts.set(prompt, (counts.get(prompt) ?? 0) + 1);
+      }
+
+      for (const [prompt, count] of counts) {
+        if (count > MAX_IDENTICAL_PROMPTS) {
+          add(lesson, "repeated-prompt", `${label}: "${prompt}" asked ${count} times`);
+        }
+      }
+    });
+  }
+
+  // --- support falls away across the pilot ----------------------------------
+  const scaffolds = pilotUnits
+    .map((unit) => scaffoldOf.get(unit.id))
+    .filter((level): level is number => level !== undefined);
+
+  for (let index = 1; index < scaffolds.length; index += 1) {
+    if (scaffolds[index] > scaffolds[index - 1]) {
+      findings.push({
+        lessonId: pilotUnits[index].id,
+        rule: "late-scaffolding",
+        detail: `scaffold rises from ${scaffolds[index - 1]} to ${scaffolds[index]}`,
+      });
+    }
+  }
+
+  return findings;
 }
 
 function audit(): Finding[] {
@@ -373,7 +539,12 @@ function audit(): Finding[] {
   // The last units of the course have nothing after them to bring their
   // material back, so "never revisited" is a fact about where the course ends
   // rather than a flaw in the sequencing.
-  const lastRevisitableUnit = lessons.length - UNITS_WITHOUT_A_FUTURE * 6;
+  const averageLessonsPerUnit = Math.max(
+    1,
+    Math.round(lessons.length / Math.max(1, unitLessons.size)),
+  );
+  const lastRevisitableUnit =
+    lessons.length - UNITS_WITHOUT_A_FUTURE * averageLessonsPerUnit;
 
   for (const [id, origin] of introducedIn) {
     const units = seenInUnits.get(id) ?? new Set<string>();
@@ -387,6 +558,8 @@ function audit(): Finding[] {
       );
     }
   }
+
+  findings.push(...auditPilotLessons(lessons));
 
   // --- every declared grammar target has a rule -----------------------------
   const targets = new Set(

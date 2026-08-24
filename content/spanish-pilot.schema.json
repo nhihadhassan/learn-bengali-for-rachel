@@ -1,0 +1,222 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.local/spanish-pilot.schema.json",
+  "title": "Spanish Curriculum v2 — pilot pack (Units 1-12)",
+  "description": "A superset of the unit shape in spanish-curriculum.schema.json. The extra fields are the pilot's: authored discovery cards, mini-stories, several dialogues per unit, a scaffold level, and vocabulary that can arrive inside a sentence.",
+  "type": "object",
+  "required": ["pilot_id", "version", "section", "units"],
+  "properties": {
+    "pilot_id": { "type": "string" },
+    "version": { "type": "string" },
+    "note": { "type": "string" },
+    "section": {
+      "type": "object",
+      "required": ["section", "title_es", "description"],
+      "properties": {
+        "section": { "type": "integer", "minimum": 1 },
+        "title_es": { "type": "string" },
+        "description": { "type": "string" }
+      }
+    },
+    "units": { "type": "array", "items": { "$ref": "#/$defs/unit" } }
+  },
+  "$defs": {
+    "vocab": {
+      "type": "object",
+      "required": ["id", "spanish", "english", "part_of_speech"],
+      "properties": {
+        "id": { "type": "string" },
+        "spanish": { "type": "string" },
+        "english": { "type": "string" },
+        "part_of_speech": { "type": "string" },
+        "status": { "type": "string" },
+        "emoji": {
+          "type": "string",
+          "description": "Meaning support that is not a translation. Concrete nouns only — an emoji for an abstract word is a riddle."
+        },
+        "context_es": {
+          "type": "string",
+          "description": "A sentence, built from language the learner already has, that uses the word. Paired with context_en."
+        },
+        "context_en": { "type": "string" }
+      }
+    },
+    "phrase": {
+      "type": "object",
+      "required": ["id", "spanish", "english"],
+      "properties": {
+        "id": { "type": "string" },
+        "spanish": { "type": "string" },
+        "english": { "type": "string" },
+        "status": { "type": "string" }
+      }
+    },
+    "lesson": {
+      "type": "object",
+      "required": ["lesson_index", "name", "goal"],
+      "properties": {
+        "lesson_index": { "type": "integer", "minimum": 1 },
+        "name": {
+          "type": "string",
+          "description": "Maps to a LessonKind via KIND_BY_NAME in src/lib/curriculum-plan.ts. An unrecognised name falls back to the six-lesson default for its position."
+        },
+        "goal": { "type": "string" },
+        "uses": {
+          "type": "object",
+          "description": "Which authored blocks this lesson takes. Omit it and the nth lesson that wants one gets the nth block.",
+          "properties": {
+            "notices": { "type": "array", "items": { "type": "string" } },
+            "stories": { "type": "array", "items": { "type": "string" } },
+            "dialogues": { "type": "array", "items": { "type": "string" } }
+          }
+        }
+      }
+    },
+    "line": {
+      "type": "object",
+      "required": ["spanish", "english"],
+      "properties": {
+        "spanish": { "type": "string" },
+        "english": { "type": "string" },
+        "receptive": {
+          "type": "boolean",
+          "description": "Language the learner only needs to understand. Replies are never receptive: nobody is asked to produce untaught Spanish."
+        }
+      }
+    },
+    "choice": {
+      "type": "object",
+      "required": ["prompt", "options", "answer"],
+      "properties": {
+        "prompt": { "type": "string" },
+        "options": { "type": "array", "items": { "type": "string" } },
+        "answer": { "type": "string" },
+        "explanation": {
+          "type": "string",
+          "description": "Shown after answering. On a discovery card's question this is the rule — which is why the card itself carries none."
+        },
+        "concepts": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "notice": {
+      "type": "object",
+      "required": ["id", "title", "examples", "question"],
+      "properties": {
+        "id": { "type": "string" },
+        "title": { "type": "string" },
+        "examples": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["spanish", "english"],
+            "properties": {
+              "spanish": { "type": "string" },
+              "english": { "type": "string" },
+              "note": { "type": "string" }
+            }
+          }
+        },
+        "question": { "$ref": "#/$defs/choice" }
+      }
+    },
+    "story": {
+      "type": "object",
+      "required": ["id", "title", "lines", "questions"],
+      "properties": {
+        "id": { "type": "string" },
+        "title": { "type": "string" },
+        "setup": { "type": "string" },
+        "lines": { "type": "array", "items": { "$ref": "#/$defs/line" } },
+        "questions": { "type": "array", "items": { "$ref": "#/$defs/choice" } }
+      }
+    },
+    "dialogue": {
+      "type": "object",
+      "required": ["scenario", "turns"],
+      "properties": {
+        "id": { "type": "string" },
+        "scenario": { "type": "string" },
+        "turns": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["prompt", "reply"],
+            "properties": {
+              "speaker": { "type": "string" },
+              "prompt": { "$ref": "#/$defs/line" },
+              "reply": { "$ref": "#/$defs/line" },
+              "distractors": { "type": "array", "items": { "type": "string" } }
+            }
+          }
+        }
+      }
+    },
+    "patternFill": {
+      "type": "object",
+      "required": ["spanish", "english"],
+      "properties": {
+        "spanish": { "type": "string" },
+        "english": { "type": "string" }
+      }
+    },
+    "pattern": {
+      "type": "object",
+      "required": ["id", "template", "english", "fills"],
+      "properties": {
+        "id": { "type": "string" },
+        "template": { "type": "string", "description": "The frame, with {} marking the slot." },
+        "english": { "type": "string" },
+        "fills": { "type": "array", "items": { "$ref": "#/$defs/patternFill" } },
+        "concepts": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "unit": {
+      "type": "object",
+      "required": [
+        "id",
+        "section",
+        "unit",
+        "title",
+        "cefr",
+        "objective",
+        "grammar_targets",
+        "vocabulary",
+        "phrase_patterns",
+        "lesson_sequence"
+      ],
+      "properties": {
+        "id": { "type": "string" },
+        "section": { "type": "integer" },
+        "unit": { "type": "integer" },
+        "title": { "type": "string" },
+        "cefr": { "type": "string" },
+        "score_range": { "type": "string" },
+        "communicative_goal": { "type": "string" },
+        "objective": {
+          "type": "string",
+          "description": "The can-do statement this unit exists to deliver."
+        },
+        "scaffold": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 5,
+          "description": "How much support the unit's lessons give: 5 hands the learner every prop, 1 hands them almost none."
+        },
+        "grammar_targets": { "type": "array", "items": { "type": "string" } },
+        "grammar_focus": {
+          "type": "string",
+          "description": "Rule id from content/spanish-grammar.json. Required only of a unit that schedules a Grammar focus lesson."
+        },
+        "vocabulary": { "type": "array", "items": { "$ref": "#/$defs/vocab" } },
+        "phrase_patterns": { "type": "array", "items": { "$ref": "#/$defs/phrase" } },
+        "lesson_sequence": { "type": "array", "items": { "$ref": "#/$defs/lesson" } },
+        "patterns": { "type": "array", "items": { "$ref": "#/$defs/pattern" } },
+        "notices": { "type": "array", "items": { "$ref": "#/$defs/notice" } },
+        "stories": { "type": "array", "items": { "$ref": "#/$defs/story" } },
+        "dialogues": { "type": "array", "items": { "$ref": "#/$defs/dialogue" } },
+        "review_schedule_days": { "type": "array", "items": { "type": "integer" } },
+        "unit_assessment": { "type": "object" }
+      }
+    }
+  }
+}

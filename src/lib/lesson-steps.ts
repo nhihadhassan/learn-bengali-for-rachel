@@ -246,6 +246,63 @@ const MIN_LISTEN_PADDING = 2;
 /** Recycle slots carry this id prefix so they can be found and rewritten. */
 const RECYCLE_PREFIX = "recycle";
 
+/**
+ * Different words for the same instruction.
+ *
+ * A listening lesson asks four listening questions, and reading "Tap what you
+ * hear." four times is a large part of why lessons felt machine-made — the
+ * work varies and the page does not. The variant is chosen by how many times
+ * the lesson has already used that format, so it is deterministic and the
+ * wording never contradicts the task.
+ */
+const PROMPT_VARIANTS: Partial<Record<StepFormat, string[]>> = {
+  listen: [
+    "Tap what you hear.",
+    "Listen, then build what was said.",
+    "What did you hear? Tap it out.",
+    "Listen once more and tap it back.",
+  ],
+  complete: [
+    "Pick the missing word to complete the sentence.",
+    "One word is missing. Which one?",
+    "Fill the gap.",
+    "Which word belongs in the gap?",
+  ],
+  order: [
+    "Tap the words in the correct order.",
+    "Put these words in order.",
+    "Rebuild the sentence.",
+  ],
+  translate: [
+    "Tap the words to build the translation.",
+    "Say this in Spanish, word by word.",
+    "Build the Spanish for this.",
+  ],
+};
+
+/**
+ * The instruction for a format, varied by how often the lesson has used it.
+ *
+ * `usage` counts questions already asked, so the first `complete` reads one way
+ * and the third reads another.
+ */
+function promptFor(
+  format: StepFormat,
+  fallback: string,
+  context: BuildContext,
+): string {
+  const variants = PROMPT_VARIANTS[format];
+
+  if (!variants?.length) {
+    return fallback;
+  }
+
+  const used = context.formatUse.get(format) ?? 0;
+  context.formatUse.set(format, used + 1);
+
+  return variants[used % variants.length];
+}
+
 export type BuildLessonStepsOptions = {
   reviewMode?: boolean;
   /**
@@ -352,6 +409,7 @@ function buildPlannedLessonSteps(
     capabilities,
     rng,
     counter: { value: 0 },
+    formatUse: new Map(),
   };
 
   // Which item has been asked about, and in which format. Shared by the warm-up
@@ -507,12 +565,21 @@ function buildPlannedLessonSteps(
 
   // Nothing may be taught and then never checked. Recorded in `usage` like any
   // other question, so the recycle slots and closer don't ask it again.
+  //
+  // The format follows the same rules as the rest of the lesson rather than
+  // defaulting to recognition — a sweep-up question is still a question, and a
+  // lesson whose leftovers are all "what does this mean?" reads as a glossary.
   for (const phrase of newItems) {
-    if (!covered.has(phrase.id)) {
-      practiceSteps.push(buildRecognizeStep(phrase, context));
-      markUsed(usage, phrase, "recognize");
-      covered.add(phrase.id);
+    if (covered.has(phrase.id)) {
+      continue;
     }
+
+    const filled = fillPracticeSlot("produce", [phrase], usage, context);
+    const step = filled?.step ?? buildRecognizeStep(phrase, context);
+
+    markUsed(usage, phrase, filled?.format ?? "recognize");
+    practiceSteps.push(step);
+    covered.add(phrase.id);
   }
 
   // --- dialogue -------------------------------------------------------------
@@ -546,8 +613,15 @@ function buildPlannedLessonSteps(
   const lastStep = practiceSteps[practiceSteps.length - 1];
 
   if (!lastStep || stepDifficulty(lastStep) > EASY_CLOSER_MAX) {
+    // Recognition is the gentlest way to finish, unless the lesson has already
+    // leaned on it — in which case "pick the Spanish" is just as easy a win and
+    // does not tip the session into being mostly glossary.
+    const asked = practiceSteps.filter((step) => !isTeachingStep(step));
+    const recognitions = asked.filter((step) => step.type === "recognize").length;
+    const closerFormat: StepFormat =
+      asked.length > 0 && recognitions * 2 >= asked.length ? "produce" : "recognize";
     const closer = fillPracticeSlot(
-      "recognize",
+      closerFormat,
       [...newItems, ...reviewItems],
       usage,
       context,
@@ -583,11 +657,32 @@ type BuildContext = {
   rng: Rng;
   /** Makes every generated step id unique even when a phrase repeats. */
   counter: { value: number };
+  /** How many times each format has been asked, for instruction wording. */
+  formatUse: Map<StepFormat, number>;
 };
 
 function nextStepId(context: BuildContext, format: string, phrase: Phrase): string {
   context.counter.value += 1;
   return `${context.lesson.id}-${format}-${context.counter.value}-${phrase.id}`;
+}
+
+/**
+ * Parts of speech that carry no meaning on their own.
+ *
+ * `Phrase.category` holds the curriculum's `part_of_speech`, which is a better
+ * judge of this than word shape: *pero* is five letters and passes every
+ * heuristic, and is still nothing to listen to by itself.
+ */
+const FUNCTION_CATEGORIES = new Set([
+  "conjunction",
+  "preposition",
+  "article",
+  "pronoun",
+  "determiner",
+]);
+
+function isFunctionCategory(phrase: Phrase): boolean {
+  return FUNCTION_CATEGORIES.has(phrase.category.toLowerCase());
 }
 
 /**
@@ -649,7 +744,10 @@ const FORMAT_MIN_WORDS: Record<StepFormat, number> = {
   // Cloze wants a real sentence: blanking the only content word of "el café"
   // leaves "el ___", which is a vocabulary question wearing a cloze costume.
   complete: 3,
-  listen: 2,
+  // One word is a perfectly good listening question — hear it, pick it out of
+  // four. Requiring two turned every single-word listening slot into "what does
+  // this mean?", which is how a listening lesson ended up mostly reading.
+  listen: 1,
   order: 3,
   translate: 3,
 };
@@ -708,7 +806,18 @@ function slotFormats(
     return [requested, ...FORMAT_FALLBACKS[requested]];
   }
 
-  const rungs = formatLadder(itemState(phrase.id, context.snapshot), context.profile);
+  const state = itemState(phrase.id, context.snapshot);
+
+  // An item the learner has never met is not "at the bottom of the ladder" —
+  // it is off it. It was taught in this lesson, minutes ago, and what to ask
+  // about it is the profile's business. Running it through the ladder made
+  // every brand-new word a recognition question and turned a Discover lesson
+  // into eight glosses in a row.
+  if (state === "unseen") {
+    return [requested, ...FORMAT_FALLBACKS[requested]];
+  }
+
+  const rungs = formatLadder(state, context.profile);
   const ordered = rungs.includes(requested) ? [requested, ...rungs] : rungs;
 
   return [...new Set([...ordered, ...FORMAT_FALLBACKS[requested]])];
@@ -720,6 +829,14 @@ function slotFormats(
  * The cold path asks "who can answer this format?"; this asks "what is this
  * learner ready to be asked about this item?", which is the difference between
  * a lesson that repeats itself and one that climbs.
+ *
+ * The two passes matter. Asking each candidate's ladder straight away sounds
+ * right and is wrong: the first candidate for a `translate` slot might be an
+ * item met once, whose ladder tops out at `recognize`, and the slot silently
+ * becomes a vocabulary question. Do that across a lesson and a returning
+ * learner gets ten "what does this mean?" in a row — the exact complaint this
+ * work exists to answer. So: first look for an item that is *ready* for the
+ * format the profile asked for, and only drop a rung when none is.
  */
 function fillFromLadder(
   requested: StepFormat,
@@ -731,9 +848,31 @@ function fillFromLadder(
     return null;
   }
 
-  for (const phrase of rankCandidates(requested, queue, usage)) {
+  const ranked = rankCandidates(requested, queue, usage);
+  const unused = (phrase: Phrase, format: StepFormat) =>
+    (usage.get(`${phrase.id}::${format}`) ?? 0) === 0;
+
+  // Pass 1: someone ready for the question the profile wanted to ask.
+  for (const phrase of ranked) {
+    if (!slotFormats(phrase, requested, context).includes(requested)) {
+      continue;
+    }
+
+    if (!unused(phrase, requested)) {
+      continue;
+    }
+
+    const step = tryBuildFormat(requested, phrase, context);
+
+    if (step) {
+      return { phrase, format: requested, step };
+    }
+  }
+
+  // Pass 2: nobody is. Take the best each candidate is ready for.
+  for (const phrase of ranked) {
     for (const format of slotFormats(phrase, requested, context)) {
-      if ((usage.get(`${phrase.id}::${format}`) ?? 0) > 0) {
+      if (!unused(phrase, format)) {
         continue;
       }
 
@@ -916,7 +1055,7 @@ function tryBuildFormat(
           contentWordPool(context.wordPool, blank.answer),
           id,
         ),
-        prompt: "Pick the missing word to complete the sentence.",
+        prompt: promptFor("complete", "Pick the missing word to complete the sentence.", context),
       };
     }
 
@@ -930,7 +1069,7 @@ function tryBuildFormat(
         type: "order",
         phrase,
         tokens: shuffleTokens(words),
-        prompt: "Tap the words in the correct order.",
+        prompt: promptFor("order", "Tap the words in the correct order.", context),
       };
     }
 
@@ -960,7 +1099,7 @@ function tryBuildFormat(
         tokens: shuffle([...words, ...distractors]),
         prompt: typed
           ? "Write this in Spanish."
-          : "Tap the words to build the translation.",
+          : promptFor("translate", "Tap the words to build the translation.", context),
         typed,
       };
     }
@@ -969,7 +1108,19 @@ function tryBuildFormat(
       const listeningEnabled =
         FEATURES.listening || Boolean(context.capabilities?.listening);
 
-      if (!listeningEnabled || words.length < 2 || isSlashVariant(phrase)) {
+      // A single word can be a listening question, but only a real one. "Tap
+      // what you hear" on *a*, *pero* or *y* tests hearing, not Spanish — so a
+      // lone word has to be one that carries meaning, judged by the part of
+      // speech the curriculum gave it as well as by its shape.
+      const singleFunctionWord =
+        words.length === 1 && (!isContentWord(words[0]) || isFunctionCategory(phrase));
+
+      if (
+        !listeningEnabled ||
+        words.length < 1 ||
+        singleFunctionWord ||
+        isSlashVariant(phrase)
+      ) {
         return null;
       }
 
@@ -988,7 +1139,7 @@ function tryBuildFormat(
         type: "listen",
         phrase,
         tokens: shuffle([...words, ...extras]),
-        prompt: "Tap what you hear.",
+        prompt: promptFor("listen", "Tap what you hear.", context),
       };
     }
 
@@ -1721,6 +1872,7 @@ function buildContextFor(lesson: Lesson): BuildContext {
       ? getCapabilities(lesson.curriculumId as CourseId)
       : undefined,
     rng: makeRng(`${lesson.id}-adaptive`),
+    formatUse: new Map(),
     // Offset so an adapted step id can never collide with a planned one.
     counter: { value: 1000 },
   };
@@ -2067,7 +2219,11 @@ export function countCompletedWorkSteps(
  * before they have read them.
  */
 function buildWordPool(phrases: Phrase[]): string[] {
-  const words = new Set<string>();
+  // Keyed by the normalized word so "Sí" and "sí" cannot both become tiles.
+  // The pool is only ever a source of *distractors* — the words of the sentence
+  // being built come from the phrase itself — so collapsing case here loses
+  // nothing and stops a bank offering the same word twice.
+  const words = new Map<string, string>();
 
   phrases.forEach((phrase) => {
     splitWords(phrase.romanized).forEach((word) => {
@@ -2076,13 +2232,23 @@ function buildWordPool(phrases: Phrase[]): string[] {
       // A gendered pair ("vacío/vacía") is a dictionary entry, not a word you
       // can tap into a sentence. Keeping it out of the pool stops word banks
       // offering "Vacío/Vacía" as a tile.
-      if (bare && !bare.includes("/")) {
-        words.add(bare);
+      if (!bare || bare.includes("/")) {
+        return;
+      }
+
+      const key = normalizeWord(bare);
+
+      // Prefer the lowercase form: a distractor should not look like the start
+      // of a sentence.
+      const existing = words.get(key);
+
+      if (!existing || (existing !== existing.toLowerCase() && bare === bare.toLowerCase())) {
+        words.set(key, bare);
       }
     });
   });
 
-  return [...words];
+  return [...words.values()];
 }
 
 /** Word-bank translation: correct target words plus a few distractors, shuffled. */

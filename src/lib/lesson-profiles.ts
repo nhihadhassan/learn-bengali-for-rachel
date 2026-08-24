@@ -120,12 +120,14 @@ const PROFILE_ROWS: Record<LessonKind, ProfileRow> = {
     blurb: "Meet a few new words and connect sound to meaning.",
     teachNewItems: true,
     warmUpChecks: 2,
+    // Two recognitions, not three: the rest of the climb is worth more than a
+    // third "what does this mean?", and the lesson still ends easy.
     formatSequence: [
       "recognize",
       "listen",
-      "recognize",
       "produce",
       "listen",
+      "complete",
       "produce",
       "recognize",
     ],
@@ -433,12 +435,27 @@ export type CefrBand = "Intro" | "A1" | "A2" | "B1";
 const BAND_OVERRIDES: Partial<
   Record<CefrBand, Partial<Record<LessonKind, Partial<LessonProfile>>>>
 > = {
-  // A1: the English hint starts coming off cloze questions, and word banks
-  // carry more decoys.
+  // A1: the English hint starts coming off cloze questions, word banks carry
+  // more decoys, and the shape of a lesson changes — not just its support.
+  //
+  // An Intro Discover and an A1 Discover asking the same seven questions in the
+  // same order is the template showing through, and it is what a learner means
+  // by "these all feel the same". By A1 the ear should be doing more of the
+  // work and the first question should not be a gloss.
   A1: {
+    discover: {
+      formatSequence: ["listen", "recognize", "produce", "listen", "complete", "produce", "listen"],
+    },
     build: { showMeaningHint: false, wordBankPadding: 3 },
     context: { wordBankPadding: 3 },
-    review: { wordBankPadding: 4, reviewQuestionTarget: 14 },
+    review: {
+      wordBankPadding: 4,
+      reviewQuestionTarget: 14,
+      formatSequence: [
+        "translate", "complete", "listen", "produce", "order",
+        "translate", "listen", "complete", "produce", "translate",
+      ],
+    },
   },
 
   // A2: fewer warm-up props, sentence-building over recognition, and listening

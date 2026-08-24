@@ -385,11 +385,17 @@ test("a planned lesson checks older material before it has taught anything new",
 });
 
 test("lesson length stays near five minutes", () => {
-  for (const lesson of SPANISH_LESSONS.slice(0, 60)) {
+  // Every lesson, not a sample: variable-length units mean the long one is
+  // wherever the content happens to be heaviest. A capstone is allowed to run
+  // longer — it is the end of twelve units, and the point is that it feels
+  // like an occasion.
+  for (const lesson of SPANISH_LESSONS) {
     const steps = buildLessonSteps(lesson);
+    const ceiling = lesson.plan?.kind === "capstone" ? 24 : 20;
+
     assert.ok(
-      steps.length >= 8 && steps.length <= 20,
-      `${lesson.id} generated ${steps.length} steps`,
+      steps.length >= 8 && steps.length <= ceiling,
+      `${lesson.id} (${lesson.plan?.kind}) generated ${steps.length} steps`,
     );
   }
 });
