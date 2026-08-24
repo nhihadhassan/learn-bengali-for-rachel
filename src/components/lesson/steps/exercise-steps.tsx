@@ -543,6 +543,8 @@ export function QuestionStep({
   children,
   correctAnswer,
   explanation,
+  explanationLabel = "Explain",
+  explanationOpen = false,
   idleHint,
   onCheck,
   onContinue,
@@ -555,6 +557,17 @@ export function QuestionStep({
   children: ReactNode;
   correctAnswer: string;
   explanation?: string;
+  /** Heading on the disclosure. A discovery reveal is not an "Explain". */
+  explanationLabel?: string;
+  /**
+   * Open the explanation without a click.
+   *
+   * On an ordinary question the "why" is optional — most learners want to move
+   * on. On a pattern-discovery question the rule *is* the payoff: the learner
+   * has just guessed a form nobody taught them, and hiding the answer behind a
+   * disclosure wastes the one moment they are most ready to read it.
+   */
+  explanationOpen?: boolean;
   idleHint?: string;
   onCheck: () => void;
   onContinue: () => void;
@@ -617,9 +630,12 @@ export function QuestionStep({
         )}
 
         {isAnswered && explanation && (
-          <details className="mb-3 rounded-2xl border border-slate-200 bg-slate-50 px-3 py-2 text-sm dark:border-white/10 dark:bg-white/[0.06]">
+          <details
+            open={explanationOpen}
+            className="mb-3 rounded-2xl border border-slate-200 bg-slate-50 px-3 py-2 text-sm dark:border-white/10 dark:bg-white/[0.06]"
+          >
             <summary className="cursor-pointer font-black text-slate-700 marker:text-violet-500 dark:text-slate-200">
-              Explain
+              {explanationLabel}
             </summary>
             <p className="mt-2 font-semibold leading-6 text-slate-600 dark:text-slate-300">
               {explanation}

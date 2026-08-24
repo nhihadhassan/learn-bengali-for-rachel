@@ -596,8 +596,11 @@ function PracticeLessonFlow({
           answerState={answerState}
           canCheck={canCheck}
           /* A prediction's explanation *is* the rule, so it wins over the
-             generic "why" the engine would otherwise assemble. */
+             generic "why" the engine would otherwise assemble — and it opens
+             on its own, because the learner has just earned it. */
           explanation={step.explanation ?? explanation}
+          explanationLabel={step.explanation ? "Here's why" : "Explain"}
+          explanationOpen={Boolean(step.explanation)}
           correctAnswer={step.answer}
           onCheck={checkAnswer}
           onContinue={moveNext}
