@@ -46,7 +46,22 @@ import { emptyLearnerSnapshot, type LearnerSnapshot } from "../src/lib/learner-m
 import { pilotUnits } from "../src/lib/spanish-pilot";
 import type { Lesson, Phrase } from "../src/types/learning";
 
-type Finding = { lessonId: string; rule: string; detail: string };
+type Finding = {
+  lessonId: string;
+  rule: string;
+  detail: string;
+  /**
+   * A finding that reports rather than gates.
+   *
+   * The plan-level checks are errors everywhere — a prerequisite gap in unit 90
+   * is as real as one in unit 2. The *step-level* checks are different: they
+   * describe how a lesson feels to work through, and the 119 units the pilot
+   * did not touch have never been held to that bar. Failing the build on them
+   * would say the pack shipped broken, which is not the claim; the claim is
+   * that we now know where it is weak.
+   */
+  advisory?: boolean;
+};
 
 /**
  * Every finding is an error.
@@ -163,14 +178,23 @@ function forcedVocabularyCount(
 function auditPilotLessons(lessons: readonly Lesson[]): Finding[] {
   const findings: Finding[] = [];
   const pilotIds = new Set(pilotUnits.map((unit) => unit.id));
-  const pilot = lessons.filter((lesson) => pilotIds.has(lesson.unitId));
+
+  // Every lesson is checked; only the pilot's gate the build. Running the same
+  // questions over the rest of the course is what tells us whether migrating
+  // more units is worth doing, and which ones to take first.
+  const pilot = lessons.filter((lesson) => lesson.plan);
 
   if (pilot.length === 0) {
     return findings;
   }
 
   const add = (lesson: Lesson, rule: string, detail: string) =>
-    findings.push({ lessonId: lesson.id, rule, detail });
+    findings.push({
+      lessonId: lesson.id,
+      rule,
+      detail,
+      advisory: !pilotIds.has(lesson.unitId),
+    });
 
   /** A learner who has met everything up to this lesson, some of it produced. */
   const snapshotBefore = (target: Lesson): LearnerSnapshot => {
@@ -579,14 +603,23 @@ function audit(): Finding[] {
   return findings;
 }
 
+/** How many distinct units an advisory list touches. */
+function advisoryUnitCount(findings: readonly Finding[]): number {
+  return new Set(findings.map((finding) => finding.lessonId.replace(/-l\d+$/, ""))).size;
+}
+
+function unitCount(lessons: ReadonlyMap<string, Lesson>): number {
+  return new Set([...lessons.values()].map((lesson) => lesson.unitId)).size;
+}
+
 function main(): void {
   const findings = audit();
   const lessonsById = new Map(
     getLessonsForCurriculum("spanish").map((lesson) => [lesson.id, lesson]),
   );
 
-  const errors = findings;
-  const warnings: Finding[] = [];
+  const errors = findings.filter((finding) => !finding.advisory);
+  const warnings = findings.filter((finding) => finding.advisory);
 
   console.log(
     `Audited ${lessonsById.size} Spanish lessons against ${allGrammarRules().length} grammar rules.`,
@@ -617,14 +650,20 @@ function main(): void {
   };
 
   summarize("errors", errors);
-  summarize("warnings (rest of course)", warnings);
+  summarize("advisory (units the pilot has not reached)", warnings);
+
+  if (warnings.length > 0) {
+    console.log(
+      `\n  ${advisoryUnitCount(warnings)} of the ${unitCount(lessonsById)} units carry an advisory finding.`,
+    );
+  }
 
   if (errors.length > 0) {
     console.error("\n✗ The curriculum must be clean before shipping.");
     process.exit(1);
   }
 
-  console.log("\n✓ The whole Spanish course is pedagogically clean.");
+  console.log("\n✓ No errors. Advisories are a map of what to migrate next, not a gate.");
 }
 
 main();

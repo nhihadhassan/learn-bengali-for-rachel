@@ -255,6 +255,21 @@ const RECYCLE_PREFIX = "recycle";
  * the lesson has already used that format, so it is deterministic and the
  * wording never contradicts the task.
  */
+/**
+ * Wordings for a dialogue turn.
+ *
+ * Six turns of "How do you reply?" is the capstone's own conversation reading
+ * like a form. Varied by turn, so the exchange sounds like an exchange.
+ */
+const DIALOGUE_PROMPTS = [
+  "How do you reply?",
+  "What do you say?",
+  "Your turn — what fits?",
+  "How do you answer that?",
+  "What comes next from you?",
+  "And your reply?",
+];
+
 const PROMPT_VARIANTS: Partial<Record<StepFormat, string[]>> = {
   listen: [
     "Tap what you hear.",
@@ -1400,7 +1415,7 @@ function buildDialogueSteps(
 ): LessonStep[] {
   const script = plan.dialogue;
   const turns: DialogueTurn[] = script?.turns?.length
-    ? script.turns.slice(0, 3)
+    ? script.turns.slice(0, context.profile.maxDialogueTurns)
     : ([inferDialogueTurn(lesson)].filter(Boolean) as DialogueTurn[]);
 
   if (turns.length === 0) {
@@ -1436,7 +1451,7 @@ function buildDialogueSteps(
       promptEnglish: turn.prompt.english,
       options,
       answer: turn.reply.target,
-      prompt: "How do you reply?",
+      prompt: DIALOGUE_PROMPTS[index % DIALOGUE_PROMPTS.length],
       scenario: script?.scenario,
       speaker: turn.speaker,
       turnIndex: index,

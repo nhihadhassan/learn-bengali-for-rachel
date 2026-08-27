@@ -60,6 +60,15 @@ export type LessonProfile = {
   includeGrammar: boolean;
   /** Include the authored dialogue when the plan carries one. */
   includeDialogue: boolean;
+  /**
+   * How many turns of an authored conversation to play.
+   *
+   * Three is right for an ordinary "Use in context": a lesson has other work to
+   * do. A capstone is the exception — it exists to be the whole conversation,
+   * and truncating it is the difference between an exchange that feels earned
+   * and one that stops halfway through saying hello.
+   */
+  maxDialogueTurns: number;
   /** Practise the unit's authored sentence frames. */
   includePatterns: boolean;
   /** Show a pattern-discovery card and its prediction, when the plan has one. */
@@ -100,6 +109,7 @@ export type LessonProfile = {
  * would bury the fields that actually distinguish one lesson type from another.
  */
 const PROFILE_DEFAULTS = {
+  maxDialogueTurns: 3,
   includeNotice: false,
   includeStory: false,
   pronounceSteps: 0,
@@ -361,10 +371,10 @@ const PROFILE_ROWS: Record<LessonKind, ProfileRow> = {
     blurb: "Put it all together in one real conversation.",
     teachNewItems: false,
     warmUpChecks: 0,
-    formatSequence: [
-      "translate", "produce", "complete", "listen", "order",
-      "translate", "produce", "complete", "translate", "produce",
-    ],
+    // Shorter than the unit review's ten, because the six-turn conversation is
+    // itself most of the work. Padding it out with drills would make the
+    // capstone longer without making it more of an occasion.
+    formatSequence: ["translate", "produce", "complete", "listen", "order", "translate", "produce"],
     includeGrammar: false,
     includeDialogue: true,
     includePatterns: true,
@@ -377,6 +387,8 @@ const PROFILE_ROWS: Record<LessonKind, ProfileRow> = {
     pronounceSteps: 1,
     ladderBias: "production",
     allowTypedAnswers: true,
+    // The point of the capstone is the whole conversation, start to finish.
+    maxDialogueTurns: 8,
   },
 
   /** The Practice hub's spaced-repetition session: retrieval, no teaching. */

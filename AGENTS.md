@@ -134,9 +134,12 @@ still supported for older content. Put new recorded files under
   rewritten, so the progress bar only moves forward.
 - After touching the Spanish curriculum or the plan layer, run
   `npm run audit:curriculum` — every finding, in any section, fails the run. It
-  also builds every pilot lesson's real steps, twice, and fails on recognition
+  also builds every lesson's real steps, twice, and fails on recognition
   dominance, low format variety, a lesson with no production, or repeated
-  prompt wording.
+  prompt wording — for the pilot's units. The rest of the course reports the
+  same findings as *advisory*: a map of what to migrate next, not a gate.
+- `npm run dump:lesson <lessonId>` prints the steps a learner actually sees.
+  Reading those caught more real problems in this codebase than any other tool.
 - **Replacing units breaks later units.** The audit names every prerequisite the
   swap took away; teach them back rather than lowering the bar.
 - **Never imply speech is being evaluated.** There is no speech recognition. The

@@ -114,7 +114,8 @@ NEXT_TEST_WASM=1 NEXT_TEST_WASM_DIR="$PWD/node_modules/@next/swc-wasm-nodejs" np
 Curriculum pipeline scripts (see §4):
 
 ```bash
-npm run validate:curriculum        # validate the Spanish pack against its schema
+npm run validate:curriculum        # validate both curriculum packs against their schemas
+npm run dump:lesson <lessonId|unitNumber>   # print the real steps a lesson produces
 npm run seed:curriculum            # build the DB-ready seed bundle (db/seed/, gitignored)
 npm run build:course-index         # regenerate content/course-index.json after content changes
 npm run test:exercise-generation   # just the exercise-generator tests
@@ -578,6 +579,19 @@ the ladder only engages for the second) and checks:
 
 Thresholds were set from the pilot's real output, not chosen in advance. Where a
 check would have forced worse teaching it was dropped rather than satisfied.
+
+**It runs over all 788 lessons, but only the pilot's 74 gate the build.** The
+other 714 report as *advisory*: the units the pilot has not reached have never
+been held to this bar, and failing the build on them would claim the pack
+shipped broken. The advisory list is a map of what to migrate next.
+
+At the time of writing that list is **empty** — worst recognition share outside
+the pilot is 0.44 against a 0.5 threshold, fewest formats is 4 against 3. The
+engine-level fixes (the ladder, single-word listening, the recognition-heavy
+sweep-up and closer) lifted the whole course, not just the twelve units. What
+units 13+ still lack is *authored* content — discovery cards, stories,
+contextual introductions, lesson sequences chosen per unit — not exercise
+variety.
 
 ### Rolling back the pilot
 
