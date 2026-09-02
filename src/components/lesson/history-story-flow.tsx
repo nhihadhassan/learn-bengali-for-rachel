@@ -98,7 +98,7 @@ export function HistoryStoryFlow({ lesson }: { lesson: Lesson }) {
 
           <div className="mt-6 flex justify-end">
             <AppButton type="button" onClick={completeChapter}>
-              Complete chapter <ArrowRight size={18} />
+              Complete chapter <ArrowRight size={18} aria-hidden="true" />
             </AppButton>
           </div>
         </article>
@@ -175,7 +175,7 @@ export function HistoryStoryFlow({ lesson }: { lesson: Lesson }) {
 
         <div className="mt-6 flex flex-wrap justify-end gap-3">
           <AppButton type="button" onClick={completeChapter}>
-            Complete chapter <ArrowRight size={18} />
+              Complete chapter <ArrowRight size={18} aria-hidden="true" />
           </AppButton>
         </div>
       </div>

@@ -1,10 +1,14 @@
 import Link from "next/link";
 import { ArrowRight, ExternalLink, Music } from "lucide-react";
 import { listenAlong, songDurationSeconds, songs } from "@/lib/music";
+import { createPageMetadata } from "@/lib/site-metadata";
 
-export const metadata = {
-  title: "Music",
-};
+export const metadata = createPageMetadata({
+  title: "Music Practice",
+  description:
+    "Practice beginner Spanish with original lyric activities and listening links.",
+  path: "/music",
+});
 
 export default function MusicPage() {
   return (
@@ -16,7 +20,7 @@ export default function MusicPage() {
         />
         <div className="relative">
           <p className="inline-flex items-center gap-2 text-xs font-black uppercase tracking-[0.14em] text-violet-200">
-            <Music size={14} /> Music
+            <Music size={14} aria-hidden="true" /> Music
           </p>
           <h1 className="mt-1 text-2xl font-black leading-tight sm:text-3xl">
             Learn Spanish through song
@@ -50,6 +54,7 @@ export default function MusicPage() {
               </div>
               <ArrowRight
                 size={18}
+                aria-hidden="true"
                 className="shrink-0 text-violet-600 transition group-hover:translate-x-0.5 dark:text-violet-300"
               />
             </Link>
@@ -98,7 +103,7 @@ export default function MusicPage() {
                   className="inline-flex items-center gap-1.5 rounded-full border border-slate-200 bg-slate-50 px-3 py-2 text-sm font-black text-slate-700 transition hover:-translate-y-0.5 hover:bg-slate-100 dark:border-white/10 dark:bg-white/10 dark:text-slate-100 dark:hover:bg-white/15"
                 >
                   {link.label}
-                  <ExternalLink size={14} />
+                  <ExternalLink size={14} aria-hidden="true" />
                 </a>
               ))}
             </div>

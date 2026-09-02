@@ -42,7 +42,7 @@ export function LessonChrome({
         aria-label={exitLabel}
         className="inline-grid size-11 shrink-0 place-items-center rounded-full text-slate-500 transition hover:bg-slate-900/5 hover:text-slate-900 active:scale-95 dark:text-slate-400 dark:hover:bg-white/10 dark:hover:text-white"
       >
-        <X size={22} />
+        <X size={22} aria-hidden="true" />
       </Link>
 
       <div

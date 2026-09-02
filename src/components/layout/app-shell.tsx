@@ -99,9 +99,10 @@ export function AppShell({ children }: { children: ReactNode }) {
             {progress.streak > 0 && (
               <span
                 className="inline-flex min-h-9 items-center gap-1.5 rounded-full px-2.5 text-sm font-black text-orange-600 dark:text-orange-300"
+                aria-label={`${progress.streak} day streak`}
                 title={`${progress.streak} day streak`}
               >
-                <Flame size={16} fill="currentColor" />
+                <Flame size={16} fill="currentColor" aria-hidden="true" />
                 {progress.streak}
               </span>
             )}
@@ -115,7 +116,7 @@ export function AppShell({ children }: { children: ReactNode }) {
                   "bg-slate-900/5 text-slate-900 dark:bg-white/10 dark:text-white",
               )}
             >
-              <Settings size={19} />
+              <Settings size={19} aria-hidden="true" />
             </Link>
           </div>
         </div>
@@ -143,7 +144,7 @@ export function AppShell({ children }: { children: ReactNode }) {
                 )}
               >
                 <span className="relative">
-                  <Icon size={22} />
+                  <Icon size={22} aria-hidden="true" />
                   {badge > 0 && <NavBadge count={badge} />}
                 </span>
                 {item.label}
@@ -189,7 +190,7 @@ function NavLink({
       )}
     >
       <span className="relative">
-        <Icon size={17} />
+        <Icon size={17} aria-hidden="true" />
         {badge > 0 && <NavBadge count={badge} />}
       </span>
       {label}
@@ -274,6 +275,7 @@ function CourseMenu({
         <span className="max-w-24 truncate">{course.shortLabel}</span>
         <ChevronDown
           size={14}
+          aria-hidden="true"
           className={cn("transition-transform", open && "rotate-180")}
         />
       </button>
@@ -321,7 +323,7 @@ function CourseMenu({
                   </span>
                 </span>
                 {isActive && (
-                  <Check size={17} className="shrink-0 text-violet-600 dark:text-violet-300" />
+                  <Check size={17} aria-hidden="true" className="shrink-0 text-violet-600 dark:text-violet-300" />
                 )}
               </button>
             );

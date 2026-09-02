@@ -6,6 +6,14 @@ import "./globals.css";
 import { AppShell } from "@/components/layout/app-shell";
 import { OfflineIndicator } from "@/components/offline/offline-indicator";
 import { ServiceWorkerRegister } from "@/components/offline/service-worker-register";
+import {
+  ROOT_TITLE,
+  SITE_DESCRIPTION,
+  SITE_NAME,
+  SITE_URL,
+  SOCIAL_IMAGE_PATH,
+  structuredData,
+} from "@/lib/site-metadata";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -34,10 +42,33 @@ const themeScript = `
 `;
 
 export const metadata: Metadata = {
-  title: "Learning for Rachel",
-  description:
-    "A beginner learning app with Bengali, Spanish for Peru, and bite-size history stories.",
+  metadataBase: new URL(SITE_URL),
+  title: {
+    default: ROOT_TITLE,
+    template: `%s | ${SITE_NAME}`,
+  },
+  description: SITE_DESCRIPTION,
   manifest: "/manifest.webmanifest",
+  openGraph: {
+    title: ROOT_TITLE,
+    description: SITE_DESCRIPTION,
+    siteName: SITE_NAME,
+    type: "website",
+    images: [
+      {
+        url: SOCIAL_IMAGE_PATH,
+        width: 1200,
+        height: 630,
+        alt: "Learning for Rachel — language and history learning",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: ROOT_TITLE,
+    description: SITE_DESCRIPTION,
+    images: [SOCIAL_IMAGE_PATH],
+  },
   appleWebApp: {
     capable: true,
     statusBarStyle: "default",
@@ -79,6 +110,12 @@ export default function RootLayout({
         >
           {themeScript}
         </Script>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(structuredData).replace(/</g, "\\u003c"),
+          }}
+        />
       </head>
       <body className="font-sans antialiased">
         <ServiceWorkerRegister />

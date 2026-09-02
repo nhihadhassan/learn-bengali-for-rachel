@@ -89,11 +89,11 @@ export function SpeakerButton({
         )}
       >
         {isLoading ? (
-          <Loader2 size={19} className="animate-spin" />
+          <Loader2 size={19} aria-hidden="true" className="animate-spin" />
         ) : isUnavailable ? (
-          <VolumeX size={20} />
+          <VolumeX size={20} aria-hidden="true" />
         ) : (
-          <Volume2 size={20} />
+          <Volume2 size={20} aria-hidden="true" />
         )}
       </button>
       <span className="sr-only" role="status" aria-live="polite">

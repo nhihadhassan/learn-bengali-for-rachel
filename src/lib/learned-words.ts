@@ -1,14 +1,14 @@
-import { getCurriculum } from "@/lib/content";
-import type { CurriculumId, LearnedWord, ProgressState } from "@/types/learning";
+import type { Curriculum, CurriculumId, LearnedWord, ProgressState } from "@/types/learning";
 
 export function getLearnedWords(
   progress: ProgressState,
-  curriculumId: CurriculumId,
+  curriculum: Curriculum,
 ): LearnedWord[] {
   const completedLessons = new Set(progress.completedLessons);
   const encounteredPhrases = new Set(progress.encounteredPhraseIds);
   const learnedWords = new Map<string, LearnedWord>();
-  const units = getCurriculum(curriculumId).units;
+  const curriculumId: CurriculumId = curriculum.id;
+  const units = curriculum.units;
 
   for (const unit of units) {
     for (const lesson of unit.lessons) {

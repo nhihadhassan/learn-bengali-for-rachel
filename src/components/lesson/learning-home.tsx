@@ -85,7 +85,7 @@ export function LearningHome() {
                 className="group mt-5 inline-flex min-h-14 w-full items-center justify-center gap-2 rounded-2xl bg-white px-6 text-base font-black text-violet-800 shadow-[0_5px_0_rgba(255,255,255,0.4)] transition hover:-translate-y-0.5 hover:bg-violet-50 active:translate-y-0.5 sm:w-auto"
               >
                 {resumeLessonId ? "Continue" : "Start"} {nouns.lesson}
-                <ArrowRight size={20} className="transition group-hover:translate-x-0.5" />
+                <ArrowRight size={20} aria-hidden="true" className="transition group-hover:translate-x-0.5" />
               </Link>
             </>
           ) : (
@@ -104,7 +104,7 @@ export function LearningHome() {
                 href="/practice"
                 className="mt-5 inline-flex min-h-14 items-center justify-center gap-2 rounded-2xl bg-white px-6 text-base font-black text-violet-800 shadow-[0_5px_0_rgba(255,255,255,0.4)] transition hover:-translate-y-0.5 active:translate-y-0.5"
               >
-                <Dumbbell size={19} />
+                <Dumbbell size={19} aria-hidden="true" />
                 Go to practice
               </Link>
             </>
@@ -128,12 +128,12 @@ export function LearningHome() {
           {(canTestOut || duePhraseCount > 0) && (
             <div className="mt-4 flex flex-wrap gap-2">
               {duePhraseCount > 0 && (
-                <HeaderChip href="/practice" icon={<Dumbbell size={14} />}>
+                <HeaderChip href="/practice" icon={<Dumbbell size={14} aria-hidden="true" />}>
                   {duePhraseCount} due for review
                 </HeaderChip>
               )}
               {canTestOut && (
-                <HeaderChip href="/placement" icon={<Gauge size={14} />}>
+                <HeaderChip href="/placement" icon={<Gauge size={14} aria-hidden="true" />}>
                   Already know some? Test out
                 </HeaderChip>
               )}

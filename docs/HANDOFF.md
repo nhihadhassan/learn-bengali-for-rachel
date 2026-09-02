@@ -727,7 +727,18 @@ page load: voices aren't loaded yet, the engine is cold, and the synth can start
 
 ---
 
-## 8. Development rules
+## 8. Web foundation and accessibility notes
+
+- Public metadata, canonicals, robots, sitemap, JSON-LD and the social preview
+  are defined in `src/lib/site-metadata.ts` and the corresponding App Router
+  metadata routes.
+- The current renderer has no HTML `<img>` elements requiring alt text. The
+  dialogue avatar remains a meaningfully labelled SVG; decorative icons and
+  repeated emoji are hidden from assistive technology.
+- Application/session surfaces are explicitly noindexed and excluded from the
+  sitemap; only the public learning and authored music pages are discoverable.
+
+## 9. Development rules
 
 - **Dynamic lesson flow (non-negotiable).** Never test a word in the step
   immediately after introducing it — no "here is *adios*" card followed by a
@@ -757,7 +768,7 @@ page load: voices aren't loaded yet, the engine is cold, and the synth can start
 
 ---
 
-## 9. Suggested next steps
+## 10. Suggested next steps
 
 - **Finish the bundle split.** `/vocabulary`, `/strengthen` and `/placement`
   still load the full Spanish pack because they need phrases for the *active*

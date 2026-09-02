@@ -71,6 +71,7 @@ export function ThemeToggle({ className }: { className?: string }) {
     >
       <Sun
         size={18}
+        aria-hidden="true"
         className={cn(
           "absolute transition duration-300 group-hover:rotate-12",
           isDark ? "scale-0 opacity-0 rotate-90" : "scale-100 opacity-100 rotate-0",
@@ -78,6 +79,7 @@ export function ThemeToggle({ className }: { className?: string }) {
       />
       <Moon
         size={18}
+        aria-hidden="true"
         className={cn(
           "absolute transition duration-300 group-hover:-rotate-12",
           isDark ? "scale-100 opacity-100 rotate-0" : "scale-0 opacity-0 -rotate-90",

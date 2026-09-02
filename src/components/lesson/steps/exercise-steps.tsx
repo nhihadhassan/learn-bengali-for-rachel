@@ -119,7 +119,7 @@ export function IntroStep({
           onClick={onContinue}
           className="mt-6"
         >
-          Connect the story <ArrowRight size={18} />
+          Connect the story <ArrowRight size={18} aria-hidden="true" />
         </AppButton>
       </div>
     );
@@ -147,7 +147,7 @@ export function IntroStep({
         onClick={onContinue}
         className="mt-7 min-h-14 w-full text-base sm:w-auto sm:min-w-56"
       >
-        Start <ArrowRight size={20} />
+        Start <ArrowRight size={20} aria-hidden="true" />
       </AppButton>
 
       {/* Objectives, grammar notes and the phrase list stay available, but
@@ -171,10 +171,11 @@ function LessonTips({ lesson }: { lesson: Lesson }) {
   return (
     <details className="group mt-6 rounded-3xl border border-slate-200 bg-slate-50/80 p-4 text-left shadow-inner dark:border-white/10 dark:bg-white/[0.06]">
       <summary className="flex min-h-11 cursor-pointer items-center gap-2 text-sm font-black text-slate-600 marker:content-[''] dark:text-slate-300">
-        <Lightbulb size={17} />
+        <Lightbulb size={17} aria-hidden="true" />
         What you&apos;ll learn
         <ChevronDown
           size={17}
+          aria-hidden="true"
           className="ml-auto transition-transform group-open:rotate-180"
         />
       </summary>
@@ -191,7 +192,7 @@ function LessonTips({ lesson }: { lesson: Lesson }) {
                   key={objective}
                   className="flex items-start gap-2 text-sm font-semibold text-slate-700 dark:text-slate-200"
                 >
-                  <Check size={15} className="mt-0.5 shrink-0 text-emerald-600 dark:text-emerald-300" />
+                  <Check size={15} aria-hidden="true" className="mt-0.5 shrink-0 text-emerald-600 dark:text-emerald-300" />
                   {capitalizeDisplayText(objective)}
                 </li>
               ))}
@@ -299,7 +300,7 @@ export function GrammarStep({
       </div>
 
       <AppButton type="button" onClick={onContinue} className="mt-6 w-full sm:w-auto">
-        Try it <ArrowRight size={18} />
+        Try it <ArrowRight size={18} aria-hidden="true" />
       </AppButton>
     </div>
   );
@@ -432,7 +433,7 @@ export function LearnStep({
         onClick={onContinue}
         className="mt-5 w-full sm:mt-6 sm:w-auto"
       >
-        Practice it <ArrowRight size={18} />
+        Practice it <ArrowRight size={18} aria-hidden="true" />
       </AppButton>
     </div>
   );
@@ -522,7 +523,7 @@ export function SpeakPracticeStep({
 
       <div className="mt-5 grid gap-3 sm:flex sm:flex-wrap sm:justify-end">
         <AppButton type="button" variant="secondary" onClick={onSkip}>
-          <VolumeX size={18} />
+          <VolumeX size={18} aria-hidden="true" />
           Skip for now
         </AppButton>
         <AppButton type="button" variant="secondary" onClick={playAgain}>
@@ -530,7 +531,7 @@ export function SpeakPracticeStep({
           Play again
         </AppButton>
         <AppButton type="button" onClick={onDone}>
-          I said it <ArrowRight size={18} />
+          I said it <ArrowRight size={18} aria-hidden="true" />
         </AppButton>
       </div>
     </div>
@@ -596,11 +597,11 @@ export function QuestionStep({
             )}
           >
             {answerState === "correct" ? (
-              <Check size={20} />
+              <Check size={20} aria-hidden="true" />
             ) : answerState === "skipped" ? (
-              <VolumeX size={20} />
+              <VolumeX size={20} aria-hidden="true" />
             ) : (
-              <X size={20} />
+              <X size={20} aria-hidden="true" />
             )}
             <div>
               <p>
@@ -654,7 +655,7 @@ export function QuestionStep({
                     onClick={onSkip}
                     className="flex-1"
                   >
-                    <VolumeX size={18} />
+                    <VolumeX size={18} aria-hidden="true" />
                     {skipLabel}
                   </AppButton>
                 )}
@@ -681,7 +682,7 @@ export function QuestionStep({
               variant={answerState === "skipped" ? "primary" : "success"}
               className="w-full"
             >
-              Continue <ArrowRight size={18} />
+              Continue <ArrowRight size={18} aria-hidden="true" />
             </AppButton>
           )}
         </div>
@@ -991,7 +992,7 @@ export function NoticeStep({
       </div>
 
       <AppButton type="button" onClick={onContinue} className="mt-6 w-full sm:w-auto">
-        Work it out <ArrowRight size={18} />
+        Work it out <ArrowRight size={18} aria-hidden="true" />
       </AppButton>
     </div>
   );
@@ -1072,7 +1073,7 @@ export function StoryStep({
           variant="secondary"
           onClick={() => setShowEnglish((shown) => !shown)}
         >
-          <Lightbulb size={18} />
+          <Lightbulb size={18} aria-hidden="true" />
           {showEnglish ? "Hide English" : "Show English"}
         </AppButton>
         <AppButton type="button" variant="secondary" onClick={playAll}>
@@ -1080,7 +1081,7 @@ export function StoryStep({
           Play again
         </AppButton>
         <AppButton type="button" onClick={onContinue}>
-          I understood it <ArrowRight size={18} />
+          I understood it <ArrowRight size={18} aria-hidden="true" />
         </AppButton>
       </div>
     </div>
@@ -1147,7 +1148,7 @@ export function PronounceStep({
           Play again
         </AppButton>
         <AppButton type="button" onClick={onContinue}>
-          I said it <ArrowRight size={18} />
+          I said it <ArrowRight size={18} aria-hidden="true" />
         </AppButton>
       </div>
     </div>

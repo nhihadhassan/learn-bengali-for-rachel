@@ -67,14 +67,14 @@ export function LessonCompleteScreen({
         </p>
 
         <div className="mt-6 grid grid-cols-3 gap-2 rounded-2xl border border-white/15 bg-white/10 p-3 shadow-inner sm:gap-3 sm:p-4">
-          <CompletionStat icon={<Trophy size={16} />} label="XP" value={`+${xpEarned}`} />
+          <CompletionStat icon={<Trophy size={16} aria-hidden="true" />} label="XP" value={`+${xpEarned}`} />
           <CompletionStat
             icon={<Gem size={16} />}
             label="Gems"
             value={gemsEarned > 0 ? `+${gemsEarned}` : "—"}
           />
           <CompletionStat
-            icon={<Flame size={16} />}
+            icon={<Flame size={16} aria-hidden="true" />}
             label="Streak"
             value={`${streak}d`}
           />
@@ -82,11 +82,11 @@ export function LessonCompleteScreen({
 
         <div className="mt-6 grid gap-2 sm:flex sm:flex-wrap">
           <CompletionLink href={nextHref} variant="primary">
-            {nextLabel} <ArrowRight size={18} />
+            {nextLabel} <ArrowRight size={18} aria-hidden="true" />
           </CompletionLink>
           {mistakeCount > 0 && (
             <CompletionLink href="/review" variant="secondary">
-              <RotateCcw size={17} />
+              <RotateCcw size={17} aria-hidden="true" />
               Fix {mistakeCount} {mistakeCount === 1 ? "mistake" : "mistakes"}
             </CompletionLink>
           )}

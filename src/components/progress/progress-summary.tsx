@@ -230,7 +230,7 @@ export function ProgressSummary() {
                   href="/review"
                   className="mt-4 inline-flex min-h-12 items-center gap-2 rounded-2xl bg-rose-600 px-4 font-black text-white transition hover:-translate-y-0.5 active:translate-y-0.5"
                 >
-                  Review mistakes <ArrowRight size={17} />
+                  Review mistakes <ArrowRight size={17} aria-hidden="true" />
                 </Link>
               </>
             ) : (
@@ -247,7 +247,7 @@ export function ProgressSummary() {
             </h2>
             <div className="mt-3 flex flex-wrap items-center gap-3">
               <RewardPill
-                icon={<Trophy size={16} className="text-amber-500" />}
+                icon={<Trophy size={16} aria-hidden="true" className="text-amber-500" />}
                 value={`${progress.xp} XP`}
               />
               <RewardPill
@@ -336,7 +336,7 @@ function EmptyProgress({ lessonNoun }: { lessonNoun: string }) {
   return (
     <section className="rounded-3xl border border-slate-200 bg-white p-6 text-center dark:border-white/10 dark:bg-white/[0.05]">
       <span className="mx-auto grid size-14 place-items-center rounded-2xl bg-violet-100 text-violet-700 dark:bg-violet-400/15 dark:text-violet-200">
-        <Sparkles size={26} />
+        <Sparkles size={26} aria-hidden="true" />
       </span>
       <h2 className="mt-4 text-xl font-black text-slate-900 dark:text-slate-50">
         Nothing to measure yet
@@ -350,7 +350,7 @@ function EmptyProgress({ lessonNoun }: { lessonNoun: string }) {
         href="/lessons"
         className="mt-6 inline-flex min-h-12 items-center gap-2 rounded-2xl bg-violet-600 px-5 font-black text-white shadow-[0_5px_0_#5b21b6] transition hover:-translate-y-0.5 active:translate-y-0.5"
       >
-        Start learning <ArrowRight size={18} />
+        Start learning <ArrowRight size={18} aria-hidden="true" />
       </Link>
     </section>
   );

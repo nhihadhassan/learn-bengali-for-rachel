@@ -4,9 +4,9 @@ import { useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { ArrowLeft, ArrowRight, Check, Gauge, X } from "lucide-react";
-import { getCurriculum } from "@/lib/content";
 import { capitalizeDisplayText, formatRomanizedDisplay } from "@/lib/display-text";
 import { useProgress } from "@/lib/progress-store";
+import { useCourseContent } from "@/lib/use-course-content";
 import { cn } from "@/lib/utils";
 import type { Phrase } from "@/types/learning";
 import { AnswerButton, AppButton } from "@/components/ui/app-button";
@@ -34,13 +34,13 @@ type Question = {
 export default function PlacementPage() {
   const router = useRouter();
   const { activeCurriculumId, applyPlacement } = useProgress();
-  const curriculum = getCurriculum(activeCurriculumId);
+  const { curriculum, error, isLoading, retry } = useCourseContent(activeCurriculumId);
 
   const units = useMemo(
     () =>
-      curriculum.units.filter((unit) =>
+      curriculum?.units.filter((unit) =>
         unit.lessons.some((lesson) => lesson.phrases.length > 0),
-      ),
+      ) ?? [],
     [curriculum],
   );
   const allMeanings = useMemo(
@@ -62,18 +62,20 @@ export default function PlacementPage() {
   // lesson/phrase ids it needs are collected here.
   const placementSource = useMemo(
     () =>
-      new Map(
-        curriculum.units.map((unit) => [
-          unit.number,
-          {
-            lessonIds: unit.lessons.map((lesson) => lesson.id),
-            phraseIds: unit.lessons.flatMap((lesson) =>
-              lesson.phrases.map((phrase) => phrase.id),
-            ),
-          },
-        ]),
-      ),
-    [curriculum.units],
+      curriculum
+        ? new Map(
+            curriculum.units.map((unit) => [
+              unit.number,
+              {
+                lessonIds: unit.lessons.map((lesson) => lesson.id),
+                phraseIds: unit.lessons.flatMap((lesson) =>
+                  lesson.phrases.map((phrase) => phrase.id),
+                ),
+              },
+            ]),
+          )
+        : new Map(),
+    [curriculum],
   );
 
   const [phase, setPhase] = useState<"intro" | "quiz" | "result">("intro");
@@ -205,7 +207,7 @@ export default function PlacementPage() {
       aria-label="Back to lessons"
       className="inline-grid size-9 shrink-0 place-items-center rounded-xl border border-slate-200 bg-white text-slate-700 shadow-sm transition hover:bg-slate-50 dark:border-white/10 dark:bg-white/10 dark:text-slate-100 dark:hover:bg-white/15 sm:size-10"
     >
-      <ArrowLeft size={18} />
+      <ArrowLeft size={18} aria-hidden="true" />
     </Link>
   );
 
@@ -214,7 +216,7 @@ export default function PlacementPage() {
       {backLink}
       <div className="min-w-0">
         <p className="flex items-center gap-1.5 truncate text-xs font-black uppercase tracking-[0.14em] text-violet-600 dark:text-violet-300">
-          <Gauge size={13} /> Placement
+          <Gauge size={13} aria-hidden="true" /> Placement
         </p>
         <h1 className="truncate text-xl font-black leading-tight text-slate-950 dark:text-slate-50 sm:text-2xl">
           {title}
@@ -222,6 +224,37 @@ export default function PlacementPage() {
       </div>
     </div>
   );
+
+  if (error) {
+    return (
+      <div className="mx-auto max-w-2xl space-y-3 px-4 pt-4">
+        {header("Placement check unavailable")}
+        <p className="text-sm font-semibold text-slate-600 dark:text-slate-300">
+          This course content could not load. Try again when you are online.
+        </p>
+        <button
+          type="button"
+          onClick={retry}
+          className="inline-flex min-h-11 items-center rounded-xl bg-violet-600 px-4 font-black text-white transition hover:bg-violet-500"
+        >
+          Try again
+        </button>
+      </div>
+    );
+  }
+
+  if (isLoading || !curriculum) {
+    return (
+      <div className="mx-auto max-w-2xl space-y-3 px-4 pt-4">
+        <p className="text-xs font-black uppercase tracking-[0.14em] text-violet-600 dark:text-violet-300">
+          Placement
+        </p>
+        <h1 className="text-2xl font-black text-slate-950 dark:text-slate-50">
+          Loading placement check…
+        </h1>
+      </div>
+    );
+  }
 
   if (units.length < 2) {
     return (
@@ -240,7 +273,7 @@ export default function PlacementPage() {
         {header(`Test out of ${curriculum.label}`)}
         <ExerciseCard>
           <span className="grid size-14 place-items-center rounded-3xl bg-violet-600 text-white shadow-[0_14px_30px_rgba(124,58,237,0.22)]">
-            <Gauge size={26} />
+            <Gauge size={26} aria-hidden="true" />
           </span>
           <h2 className="mt-4 text-2xl font-black leading-tight">
             Already know some {curriculum.label}?
@@ -251,7 +284,7 @@ export default function PlacementPage() {
             you at the right spot. You can always go back to earlier lessons.
           </p>
           <AppButton type="button" onClick={startQuiz} className="mt-6 min-h-14 w-full text-base sm:w-auto">
-            Start the check <ArrowRight size={20} />
+            Start the check <ArrowRight size={20} aria-hidden="true" />
           </AppButton>
         </ExerciseCard>
       </div>
@@ -269,7 +302,7 @@ export default function PlacementPage() {
           <div className="celebration-burst" aria-hidden="true" />
           <div className="relative z-10">
             <span className="warm-glow grid size-16 place-items-center rounded-3xl bg-white text-violet-700">
-              <Gauge size={28} />
+              <Gauge size={28} aria-hidden="true" />
             </span>
             {isBeginner ? (
               <>
@@ -285,7 +318,7 @@ export default function PlacementPage() {
                   href="/lessons"
                   className="mt-6 inline-flex min-h-12 items-center gap-2 rounded-2xl bg-white px-5 py-3 font-black text-violet-800 shadow-[0_6px_0_rgba(255,255,255,0.45)] transition hover:-translate-y-0.5 active:translate-y-1"
                 >
-                  Go to lessons <ArrowRight size={18} />
+                  Go to lessons <ArrowRight size={18} aria-hidden="true" />
                 </Link>
               </>
             ) : (
@@ -309,7 +342,7 @@ export default function PlacementPage() {
                     className="group inline-flex min-h-12 items-center gap-2 rounded-2xl bg-white px-5 py-3 font-black text-violet-800 shadow-[0_6px_0_rgba(255,255,255,0.45)] transition hover:-translate-y-0.5 active:translate-y-1"
                   >
                     Start at Unit {estimatedUnit}
-                    <ArrowRight size={18} className="transition group-hover:translate-x-0.5" />
+                    <ArrowRight size={18} aria-hidden="true" className="transition group-hover:translate-x-0.5" />
                   </button>
                   <Link
                     href="/lessons"
@@ -370,7 +403,7 @@ export default function PlacementPage() {
                       : "border border-rose-100 bg-rose-50 text-rose-800 dark:border-rose-300/25 dark:bg-rose-400/14 dark:text-rose-100",
                   )}
                 >
-                  {answerState === "correct" ? <Check size={20} /> : <X size={20} />}
+                  {answerState === "correct" ? <Check size={20} aria-hidden="true" /> : <X size={20} aria-hidden="true" />}
                   <p>
                     {answerState === "correct"
                       ? "Correct"
@@ -404,7 +437,7 @@ export default function PlacementPage() {
                   className="w-full"
                 >
                   {asked + 1 >= MAX_QUESTIONS ? "See result" : "Continue"}{" "}
-                  <ArrowRight size={18} />
+                  <ArrowRight size={18} aria-hidden="true" />
                 </AppButton>
               )}
             </div>

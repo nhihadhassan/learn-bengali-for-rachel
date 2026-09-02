@@ -554,7 +554,7 @@ function PracticeLessonFlow({
               streakMilestone >= 10 ? "size-12" : "size-10",
             )}
           >
-            <Flame size={18} className="flame-dance" fill="currentColor" />
+            <Flame size={18} aria-hidden="true" className="flame-dance" fill="currentColor" />
           </span>
           <span>{streakMilestone} correct in a row</span>
           <span className="xp-pop ml-auto rounded-full bg-white px-3 py-1 text-xs text-violet-800 shadow-sm dark:bg-white/12 dark:text-violet-100">

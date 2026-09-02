@@ -179,7 +179,7 @@ function SectionedPath({
             onClick={() => goToSection(sectionIndex - 1)}
             className="inline-grid size-11 shrink-0 place-items-center rounded-full text-slate-500 transition hover:bg-slate-100 disabled:opacity-30 dark:text-slate-400 dark:hover:bg-white/10"
           >
-            <ChevronLeft size={20} />
+            <ChevronLeft size={20} aria-hidden="true" />
           </button>
 
           <div className="min-w-0 flex-1 text-center">
@@ -203,7 +203,7 @@ function SectionedPath({
             onClick={() => goToSection(sectionIndex + 1)}
             className="inline-grid size-11 shrink-0 place-items-center rounded-full text-slate-500 transition hover:bg-slate-100 disabled:opacity-30 dark:text-slate-400 dark:hover:bg-white/10"
           >
-            <ChevronRight size={20} />
+            <ChevronRight size={20} aria-hidden="true" />
           </button>
         </div>
 
@@ -372,6 +372,7 @@ function UnitCard({
         </span>
         <ChevronRight
           size={18}
+          aria-hidden="true"
           className={cn(
             "shrink-0 text-slate-400 transition-transform",
             open && "rotate-90",
@@ -456,13 +457,13 @@ function LessonRow({
         )}
       >
         {isCompleted ? (
-          <Check size={19} />
+          <Check size={19} aria-hidden="true" />
         ) : isHistory ? (
           <HistoryIcon name={lesson.icon} size={19} />
         ) : isCurrent ? (
-          <Play size={17} fill="currentColor" />
+          <Play size={17} fill="currentColor" aria-hidden="true" />
         ) : (
-          <Circle size={15} />
+          <Circle size={15} aria-hidden="true" />
         )}
       </span>
 
@@ -477,7 +478,7 @@ function LessonRow({
 
       {isCurrent && (
         <span className="inline-flex shrink-0 items-center gap-1 rounded-full bg-violet-600 px-2.5 py-1 text-[11px] font-black uppercase tracking-wide text-white">
-          <Sparkles size={12} />
+          <Sparkles size={12} aria-hidden="true" />
           Next
         </span>
       )}
@@ -507,7 +508,7 @@ function UnitProgressRing({
     >
       <span className="grid size-9 place-items-center rounded-full bg-white text-sm font-black text-slate-700 dark:bg-[#221d38] dark:text-slate-200">
         {isComplete ? (
-          <Check size={16} className="text-emerald-600 dark:text-emerald-300" />
+          <Check size={16} aria-hidden="true" className="text-emerald-600 dark:text-emerald-300" />
         ) : (
           label
         )}

@@ -14,7 +14,7 @@ const backLink = (
     aria-label="Back to lessons"
     className="inline-grid size-9 shrink-0 place-items-center rounded-xl border border-slate-200 bg-white text-slate-700 shadow-sm transition hover:bg-slate-50 dark:border-white/10 dark:bg-white/10 dark:text-slate-100 dark:hover:bg-white/15 sm:size-10"
   >
-    <ArrowLeft size={18} />
+    <ArrowLeft size={18} aria-hidden="true" />
   </Link>
 );
 
@@ -138,7 +138,7 @@ export default function RoleplayPage() {
           aria-label="Send"
           className="inline-grid size-12 shrink-0 place-items-center rounded-2xl bg-violet-600 text-white shadow-[0_6px_0_#5b21b6] transition hover:-translate-y-0.5 active:translate-y-1 disabled:opacity-55"
         >
-          <Send size={18} />
+          <Send size={18} aria-hidden="true" />
         </button>
       </div>
     </div>

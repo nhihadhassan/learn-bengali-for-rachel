@@ -3,25 +3,26 @@
 import { useMemo, useState } from "react";
 import Link from "next/link";
 import { BookOpen, CheckCircle2, Search } from "lucide-react";
-import { getCurriculum } from "@/lib/content";
 import { getCourse } from "@/lib/courses";
 import { capitalizeDisplayText, formatRomanizedDisplay } from "@/lib/display-text";
 import { getLearnedWords, getVocabularyUnitOptions } from "@/lib/learned-words";
 import { useProgress } from "@/lib/progress-store";
+import { useCourseContent } from "@/lib/use-course-content";
+import type { Curriculum } from "@/types/learning";
 import { HistoryIcon } from "@/components/lesson/history-icon";
 import { SpeakerButton } from "@/components/lesson/speaker-button";
 
 export function LearnedWordsReview() {
   const { activeCurriculumId, progress } = useProgress();
-  const curriculum = getCurriculum(activeCurriculumId);
+  const { curriculum, error, isLoading, retry } = useCourseContent(activeCurriculumId);
   // Use the real course label (minus any "(full course)" suffix) so new courses
   // never mislabel as "Bengali".
   const languageLabel = getCourse(activeCurriculumId).shortLabel;
   const [query, setQuery] = useState("");
   const [unitFilter, setUnitFilter] = useState("all");
   const learnedWords = useMemo(
-    () => getLearnedWords(progress, activeCurriculumId),
-    [activeCurriculumId, progress],
+    () => (curriculum ? getLearnedWords(progress, curriculum) : []),
+    [curriculum, progress],
   );
   const unitOptions = useMemo(
     () => getVocabularyUnitOptions(learnedWords),
@@ -46,6 +47,14 @@ export function LearnedWordsReview() {
     });
   }, [learnedWords, query, unitFilter]);
 
+  if (error) {
+    return <CourseContentState label="This course content could not load." retry={retry} />;
+  }
+
+  if (isLoading || !curriculum) {
+    return <CourseContentState label="Loading your word bank…" />;
+  }
+
   if (curriculum.mode === "history") {
     return (
       <HistoryRecap
@@ -63,7 +72,7 @@ export function LearnedWordsReview() {
     return (
       <section className="animate-soft-rise rounded-[34px] bg-slate-950 p-6 text-white shadow-[0_24px_80px_rgba(15,23,42,0.22)] ring-1 ring-white/10 sm:p-8">
         <span className="grid size-14 place-items-center rounded-2xl bg-white/10 text-emerald-100">
-          <BookOpen size={28} />
+          <BookOpen size={28} aria-hidden="true" />
         </span>
         <p className="mt-5 text-sm font-black uppercase tracking-[0.14em] text-emerald-100">
           {languageLabel} Vocabulary
@@ -109,6 +118,7 @@ export function LearnedWordsReview() {
             <span className="sr-only">Search vocabulary</span>
             <Search
               size={19}
+              aria-hidden="true"
               className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 dark:text-slate-500"
             />
             <input
@@ -203,7 +213,7 @@ function HistoryRecap({
   setUnitFilter,
   unitFilter,
 }: {
-  curriculum: ReturnType<typeof getCurriculum>;
+  curriculum: Curriculum;
   progress: ReturnType<typeof useProgress>["progress"];
   query: string;
   setQuery: (query: string) => void;
@@ -253,6 +263,7 @@ function HistoryRecap({
             <span className="sr-only">Search history recap</span>
             <Search
               size={19}
+              aria-hidden="true"
               className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 dark:text-slate-500"
             />
             <input
@@ -323,5 +334,30 @@ function HistoryRecap({
         })}
       </div>
     </div>
+  );
+}
+
+function CourseContentState({
+  label,
+  retry,
+}: {
+  label: string;
+  retry?: () => void;
+}) {
+  return (
+    <section className="mx-auto max-w-2xl rounded-[30px] border border-slate-200 bg-white p-8 text-center shadow-sm dark:border-white/10 dark:bg-white/[0.05]">
+      <h1 className="text-2xl font-black text-slate-950 dark:text-slate-50">
+        {label}
+      </h1>
+      {retry && (
+        <button
+          type="button"
+          onClick={retry}
+          className="mt-5 inline-flex min-h-11 items-center rounded-xl bg-violet-600 px-4 font-black text-white transition hover:bg-violet-500"
+        >
+          Try again
+        </button>
+      )}
+    </section>
   );
 }

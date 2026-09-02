@@ -1,7 +1,7 @@
 {
   "name": "Learning for Rachel",
   "short_name": "For Rachel",
-  "description": "Beginner Bengali, Spanish for Peru, Malayalam, and bite-size history stories — works offline.",
+  "description": "Bengali, Spanish, Malayalam, and bite-size history lessons that work offline.",
   "start_url": "/lessons",
   "scope": "/",
   "display": "standalone",

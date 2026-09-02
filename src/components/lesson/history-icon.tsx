@@ -46,5 +46,5 @@ export function HistoryIcon({
 }) {
   const Icon = historyIcons[name as keyof typeof historyIcons] ?? Landmark;
 
-  return <Icon size={size} />;
+  return <Icon size={size} aria-hidden="true" />;
 }

@@ -1,14 +1,15 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import { ArrowRight, Check, RotateCcw, VolumeX } from "lucide-react";
 import { checkTypedAnswer } from "@/lib/answer-checking";
 import { locateLesson } from "@/lib/course-index";
 import { getCourse } from "@/lib/courses";
-import { getAuthoredLesson } from "@/lib/core-content";
+import { loadAuthoredLesson } from "@/lib/course-loader";
 import { capitalizeDisplayText, formatRomanizedDisplay } from "@/lib/display-text";
 import { useProgress } from "@/lib/progress-store";
+import type { Lesson } from "@/types/learning";
 import type {
   AudioPrompt,
   MatchingPair,
@@ -83,6 +84,7 @@ export function MistakeReview() {
             })
           }
           total={activeMistakes.length}
+          curriculumId={activeCurriculumId}
         />
       </div>
     </div>
@@ -125,7 +127,7 @@ function SkippedListeningCard({
     <ExerciseCard>
       <div className="mb-5 flex items-start gap-3">
         <span className="grid size-10 shrink-0 place-items-center rounded-xl bg-violet-50 text-violet-700 dark:bg-violet-400/15 dark:text-violet-200">
-          <VolumeX size={20} />
+          <VolumeX size={20} aria-hidden="true" />
         </span>
         <div>
           <p className="text-sm font-black uppercase tracking-[0.14em] text-slate-500 dark:text-slate-400">
@@ -153,7 +155,7 @@ function SkippedListeningCard({
           href={`/practice/${skipped.lessonId}`}
           className="inline-flex min-h-12 items-center gap-2 rounded-2xl bg-violet-600 px-5 py-3 font-black text-white shadow-[0_6px_0_#5b21b6] transition hover:-translate-y-0.5 hover:bg-fuchsia-500 active:translate-y-1"
         >
-          Open lesson <ArrowRight size={18} />
+          Open lesson <ArrowRight size={18} aria-hidden="true" />
         </Link>
         <AppButton
           type="button"
@@ -169,11 +171,13 @@ function SkippedListeningCard({
 
 function MistakeCard({
   currentIndex,
+  curriculumId,
   mistake,
   onMoveNext,
   total,
 }: {
   currentIndex: number;
+  curriculumId: Parameters<typeof loadAuthoredLesson>[0];
   mistake: Mistake;
   onMoveNext: () => void;
   total: number;
@@ -183,9 +187,32 @@ function MistakeCard({
   const [matches, setMatches] = useState<Record<string, string>>({});
   const [feedback, setFeedback] = useState<"idle" | "correct" | "wrong">("idle");
   const { resolveMistake } = useProgress();
+  const [authoredLesson, setAuthoredLesson] = useState<Lesson | undefined>();
+
+  useEffect(() => {
+    let cancelled = false;
+
+    loadAuthoredLesson(curriculumId, mistake.lessonId).then(
+      (lesson) => {
+        if (!cancelled) {
+          setAuthoredLesson(lesson);
+        }
+      },
+      () => {
+        if (!cancelled) {
+          setAuthoredLesson(undefined);
+        }
+      },
+    );
+
+    return () => {
+      cancelled = true;
+    };
+  }, [curriculumId, mistake.lessonId]);
+
   const multipleChoiceReview = useMemo(
-    () => getMultipleChoiceReview(mistake),
-    [mistake],
+    () => getMultipleChoiceReview(mistake, authoredLesson),
+    [authoredLesson, mistake],
   );
   const matchingPairs = useMemo(
     () => parseMatchingAnswer(mistake.correctAnswer),
@@ -228,7 +255,7 @@ function MistakeCard({
       <div className="mb-5 flex items-start justify-between gap-3">
         <div className="flex items-start gap-3">
           <span className="grid size-10 shrink-0 place-items-center rounded-xl bg-rose-50 text-rose-700 dark:bg-rose-400/15 dark:text-rose-200">
-            <RotateCcw size={20} />
+            <RotateCcw size={20} aria-hidden="true" />
           </span>
           <div>
             <p className="text-sm font-black uppercase tracking-[0.14em] text-slate-500 dark:text-slate-400">
@@ -285,7 +312,7 @@ function MistakeCard({
 
       {feedback === "correct" && (
         <p className="streak-pop mt-3 inline-flex items-center gap-2 rounded-2xl border border-emerald-100 bg-emerald-50 px-3 py-2 font-bold text-emerald-800 shadow-sm dark:border-emerald-300/25 dark:bg-emerald-400/14 dark:text-emerald-100">
-          <Check size={18} /> Cleared
+          <Check size={18} aria-hidden="true" /> Cleared
         </p>
       )}
 
@@ -309,7 +336,7 @@ function MistakeCard({
           variant="secondary"
           className="mt-5"
         >
-          Skip for now <ArrowRight size={18} />
+          Skip for now <ArrowRight size={18} aria-hidden="true" />
         </AppButton>
       )}
     </ExerciseCard>
@@ -413,8 +440,8 @@ function MatchingReview({
 
 function getMultipleChoiceReview(
   mistake: Mistake,
+  lesson: Lesson | undefined,
 ): MultipleChoiceReviewData | null {
-  const lesson = getAuthoredLesson(mistake.lessonId);
   const exerciseId = mistake.exerciseId.replace(
     `${mistake.lessonId}-review-`,
     "",
@@ -489,7 +516,7 @@ function NothingToFix() {
 
       <section className="rounded-3xl border border-emerald-200 bg-emerald-50 p-6 text-center dark:border-emerald-400/25 dark:bg-emerald-400/10">
         <span className="mx-auto grid size-14 place-items-center rounded-2xl bg-emerald-600 text-white">
-          <Check size={26} />
+          <Check size={26} aria-hidden="true" />
         </span>
         <h2 className="mt-4 text-xl font-black text-slate-900 dark:text-slate-50">
           No open mistakes in {course.label}
@@ -515,7 +542,7 @@ function NothingToFix() {
                   Spaced repetition picks them for you.
                 </span>
               </span>
-              <ArrowRight size={18} className="shrink-0 text-slate-400" />
+              <ArrowRight size={18} aria-hidden="true" className="shrink-0 text-slate-400" />
             </Link>
           )}
           <Link
@@ -528,7 +555,7 @@ function NothingToFix() {
                 Checkpoints, {course.nouns.wordBank.toLowerCase()} and more.
               </span>
             </span>
-            <ArrowRight size={18} className="shrink-0 text-slate-400" />
+            <ArrowRight size={18} aria-hidden="true" className="shrink-0 text-slate-400" />
           </Link>
           <Link
             href="/lessons"
@@ -540,7 +567,7 @@ function NothingToFix() {
                 Pick up the next {course.nouns.lesson}.
               </span>
             </span>
-            <ArrowRight size={18} className="shrink-0 text-slate-400" />
+            <ArrowRight size={18} aria-hidden="true" className="shrink-0 text-slate-400" />
           </Link>
         </div>
       </section>

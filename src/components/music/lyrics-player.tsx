@@ -172,7 +172,7 @@ export function LyricsPlayer({ song }: { song: Song }) {
             aria-label={isPlaying ? "Pause" : "Play"}
             className="inline-grid size-16 place-items-center rounded-full bg-violet-600 text-white shadow-[0_10px_30px_rgba(124,58,237,0.35)] transition hover:-translate-y-0.5 hover:bg-violet-500 active:translate-y-0.5"
           >
-            {isPlaying ? <Pause size={26} fill="currentColor" /> : <Play size={26} fill="currentColor" />}
+            {isPlaying ? <Pause size={26} fill="currentColor" aria-hidden="true" /> : <Play size={26} fill="currentColor" aria-hidden="true" />}
           </button>
 
           <button
@@ -181,7 +181,7 @@ export function LyricsPlayer({ song }: { song: Song }) {
             aria-label="Restart"
             className="inline-grid size-11 place-items-center rounded-2xl border border-slate-200 bg-white text-slate-500 shadow-sm transition hover:bg-slate-50 dark:border-white/10 dark:bg-white/10 dark:text-slate-300"
           >
-            <RotateCcw size={20} />
+            <RotateCcw size={20} aria-hidden="true" />
           </button>
         </div>
       </div>

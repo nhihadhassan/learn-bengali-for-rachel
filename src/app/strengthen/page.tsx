@@ -9,14 +9,13 @@ import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import { ArrowLeft, ArrowRight, Brain } from "lucide-react";
 import { LessonFlow } from "@/components/lesson/lesson-flow";
-import { getCurriculum, getPhrase } from "@/lib/content";
 import { getCourse } from "@/lib/courses";
 import { useProgress } from "@/lib/progress-store";
+import { useCourseContent } from "@/lib/use-course-content";
 import type { Lesson, Phrase } from "@/types/learning";
 
 export default function StrengthenPage() {
   const { activeCurriculumId, reviewPhraseIds } = useProgress();
-  const curriculum = getCurriculum(activeCurriculumId);
   const course = getCourse(activeCurriculumId);
 
   // Snapshot the queue once, after the persisted store has loaded, so that
@@ -25,18 +24,26 @@ export default function StrengthenPage() {
   // non-empty value from the external store.
   const [sessionIds, setSessionIds] = useState<string[] | null>(null);
   useEffect(() => {
-    if (sessionIds === null && reviewPhraseIds.length > 0) {
+    if (sessionIds === null) {
       // eslint-disable-next-line react-hooks/set-state-in-effect -- one-time latch of an async-loaded store value
       setSessionIds(reviewPhraseIds);
     }
   }, [reviewPhraseIds, sessionIds]);
 
+  const { curriculum, error, isLoading, retry } = useCourseContent(
+    activeCurriculumId,
+    sessionIds !== null && sessionIds.length > 0,
+  );
+
   const phrases = useMemo(
     () =>
       (sessionIds ?? [])
-        .map((id) => getPhrase(id, activeCurriculumId))
+        .map((id) => curriculum?.units
+          .flatMap((unit) => unit.lessons)
+          .flatMap((lesson) => lesson.phrases)
+          .find((phrase) => phrase.id === id))
         .filter((phrase): phrase is Phrase => Boolean(phrase)),
-    [sessionIds, activeCurriculumId],
+    [sessionIds, curriculum],
   );
 
   const reviewLesson = useMemo<Lesson>(
@@ -50,7 +57,7 @@ export default function StrengthenPage() {
       phrases,
       exercises: [],
       curriculumId: activeCurriculumId,
-      locale: curriculum.locale,
+      locale: curriculum?.locale ?? course.locale,
       // Declaring the session kind lets courses that use the cumulative engine
       // apply their "retrieval, no teaching" profile — less scaffolding and
       // harder formats. Courses on the simple strategy ignore it.
@@ -60,11 +67,45 @@ export default function StrengthenPage() {
         reviewPhraseIds: phrases.map((phrase) => phrase.id),
       },
     }),
-    [activeCurriculumId, curriculum.locale, phrases],
+    [activeCurriculumId, course.locale, curriculum?.locale, phrases],
   );
 
   // Still snapshotting the queue on first mount.
   if (sessionIds === null) {
+    return (
+      <div className="mx-auto flex max-w-2xl items-center gap-3 px-4 pt-4">
+        <BackLink />
+        <p className="text-sm font-bold text-slate-500 dark:text-slate-400">
+          Loading practice…
+        </p>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="mx-auto max-w-2xl space-y-4 px-4 pt-4">
+        <BackLink />
+        <section className="rounded-3xl border border-rose-200 bg-rose-50 p-6 text-center dark:border-rose-400/25 dark:bg-rose-400/10">
+          <h1 className="text-xl font-black text-rose-900 dark:text-rose-100">
+            Practice could not load
+          </h1>
+          <p className="mt-2 text-sm font-semibold text-rose-800/80 dark:text-rose-100/80">
+            Try again when the course content is available.
+          </p>
+          <button
+            type="button"
+            onClick={retry}
+            className="mt-5 inline-flex min-h-11 items-center rounded-xl bg-violet-600 px-4 font-black text-white transition hover:bg-violet-500"
+          >
+            Try again
+          </button>
+        </section>
+      </div>
+    );
+  }
+
+  if (isLoading || (sessionIds.length > 0 && !curriculum)) {
     return (
       <div className="mx-auto flex max-w-2xl items-center gap-3 px-4 pt-4">
         <BackLink />
@@ -81,7 +122,7 @@ export default function StrengthenPage() {
         <BackLink />
         <section className="rounded-3xl border border-slate-200 bg-white p-6 text-center dark:border-white/10 dark:bg-white/[0.05]">
           <span className="mx-auto grid size-14 place-items-center rounded-2xl bg-violet-100 text-violet-700 dark:bg-violet-400/15 dark:text-violet-200">
-            <Brain size={26} />
+            <Brain size={26} aria-hidden="true" />
           </span>
           <h1 className="mt-4 text-xl font-black text-slate-900 dark:text-slate-50">
             Nothing to strengthen yet
@@ -93,7 +134,7 @@ export default function StrengthenPage() {
             href="/lessons"
             className="mt-6 inline-flex min-h-12 items-center gap-2 rounded-2xl bg-violet-600 px-5 font-black text-white shadow-[0_5px_0_#5b21b6] transition hover:-translate-y-0.5 active:translate-y-0.5"
           >
-            Go to {course.nouns.lessons} <ArrowRight size={18} />
+            Go to {course.nouns.lessons} <ArrowRight size={18} aria-hidden="true" />
           </Link>
         </section>
       </div>
@@ -111,7 +152,7 @@ function BackLink() {
       aria-label="Back to practice"
       className="inline-grid size-11 shrink-0 place-items-center rounded-full text-slate-500 transition hover:bg-slate-900/5 hover:text-slate-900 dark:text-slate-400 dark:hover:bg-white/10 dark:hover:text-white"
     >
-      <ArrowLeft size={20} />
+      <ArrowLeft size={20} aria-hidden="true" />
     </Link>
   );
 }

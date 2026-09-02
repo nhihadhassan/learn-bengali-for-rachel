@@ -59,7 +59,7 @@ export function CoursePicker() {
               <span>{totals.completed} lessons finished</span>
               {totals.bestStreak > 0 && (
                 <span className="inline-flex items-center gap-1.5 text-orange-300">
-                  <Flame size={15} fill="currentColor" />
+                  <Flame size={15} fill="currentColor" aria-hidden="true" />
                   {totals.bestStreak} day streak
                 </span>
               )}
@@ -134,7 +134,7 @@ export function CoursePicker() {
                 </span>
                 <span className="inline-flex items-center gap-1 text-sm font-black text-violet-700 transition group-hover:gap-2 dark:text-violet-300">
                   {completed > 0 ? "Continue" : "Start"}
-                  <ArrowRight size={16} />
+                  <ArrowRight size={16} aria-hidden="true" />
                 </span>
               </div>
             </button>

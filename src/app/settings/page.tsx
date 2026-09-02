@@ -61,7 +61,7 @@ export default function SettingsPage() {
         </h1>
       </header>
 
-      <SettingsCard icon={<Palette size={20} />} title="Appearance">
+      <SettingsCard icon={<Palette size={20} aria-hidden="true" />} title="Appearance">
         <div className="flex items-center justify-between gap-4">
           <div>
             <p className="text-sm font-black text-slate-800 dark:text-slate-100">
@@ -76,7 +76,7 @@ export default function SettingsPage() {
       </SettingsCard>
 
       {course.capabilities.placement && (
-        <SettingsCard icon={<Gauge size={20} />} title="Placement">
+        <SettingsCard icon={<Gauge size={20} aria-hidden="true" />} title="Placement">
           <div className="flex flex-wrap items-center justify-between gap-4">
             <div>
               <p className="text-sm font-black text-slate-800 dark:text-slate-100">
@@ -97,7 +97,7 @@ export default function SettingsPage() {
         </SettingsCard>
       )}
 
-      <SettingsCard icon={<CloudDownload size={20} />} title="Offline">
+      <SettingsCard icon={<CloudDownload size={20} aria-hidden="true" />} title="Offline">
         <p className="text-sm font-semibold leading-6 text-slate-600 dark:text-slate-300">
           This app works offline for {course.nouns.lessons} you have already
           opened. Add it to your Home Screen (Share → Add to Home Screen) to open
@@ -105,7 +105,7 @@ export default function SettingsPage() {
         </p>
       </SettingsCard>
 
-      <SettingsCard icon={<Database size={20} />} title="Your data">
+      <SettingsCard icon={<Database size={20} aria-hidden="true" />} title="Your data">
         <p className="text-sm font-semibold leading-6 text-slate-600 dark:text-slate-300">
           Progress lives in this browser only — there is no account and nothing
           is uploaded. Clearing your browser data, or using a different device or
@@ -192,7 +192,7 @@ export default function SettingsPage() {
       </SettingsCard>
 
       <p className="px-1 pb-2 text-center text-xs font-semibold text-slate-500 dark:text-slate-400">
-        <Moon size={12} className="mr-1 inline" />
+        <Moon size={12} aria-hidden="true" className="mr-1 inline" />
         Learning for Rachel · {COURSES.length} courses
       </p>
     </div>

@@ -85,7 +85,7 @@ export function PracticeHub() {
           }
           disabled={!hasSomethingToPractice}
           href="/strengthen"
-          icon={<Brain size={22} />}
+          icon={<Brain size={22} aria-hidden="true" />}
           label={duePhraseCount > 0 ? `${duePhraseCount} due` : undefined}
           primary
           title={duePhraseCount > 0 ? "Review what's due" : "Strengthen weak phrases"}
@@ -97,7 +97,7 @@ export function PracticeHub() {
           accent="rose"
           description="Retry the questions you got wrong. Getting one right clears it."
           href="/review"
-          icon={<RotateCcw size={22} />}
+          icon={<RotateCcw size={22} aria-hidden="true" />}
           label={`${activeMistakes.length}`}
           title={`Fix ${activeMistakes.length} ${activeMistakes.length === 1 ? "mistake" : "mistakes"}`}
         />
@@ -108,7 +108,7 @@ export function PracticeHub() {
           accent="cyan"
           description="Audio prompts you set aside. Come back when sound is convenient."
           href="/review"
-          icon={<VolumeX size={22} />}
+          icon={<VolumeX size={22} aria-hidden="true" />}
           label={`${activeSkippedListening.length}`}
           title="Skipped audio practice"
         />
@@ -139,7 +139,7 @@ export function PracticeHub() {
                 <span className="truncate">
                   {unit.number}. {unit.title}
                 </span>
-                <ArrowRight size={16} className="shrink-0 text-slate-400" />
+                <ArrowRight size={16} aria-hidden="true" className="shrink-0 text-slate-400" />
               </Link>
             ))}
           </div>
@@ -152,7 +152,7 @@ export function PracticeHub() {
           compact
           description={`Every ${isHistory ? "moment" : "word and phrase"} you've met, searchable.`}
           href="/vocabulary"
-          icon={<BookOpen size={20} />}
+          icon={<BookOpen size={20} aria-hidden="true" />}
           title={nouns.wordBank}
         />
         {course.capabilities.music && (
@@ -161,7 +161,7 @@ export function PracticeHub() {
             compact
             description="Sing along to simple practice songs with synced lyrics."
             href="/music"
-            icon={<Music size={20} />}
+            icon={<Music size={20} aria-hidden="true" />}
             title="Music"
           />
         )}
@@ -253,7 +253,7 @@ function PracticeCard({
         </span>
       </span>
       {!disabled && (
-        <ArrowRight size={18} className="shrink-0 self-center text-slate-400" />
+        <ArrowRight size={18} aria-hidden="true" className="shrink-0 self-center text-slate-400" />
       )}
     </>
   );
@@ -285,7 +285,7 @@ function EmptyPractice({ nouns }: { nouns: string }) {
   return (
     <section className="rounded-3xl border border-slate-200 bg-white p-6 text-center dark:border-white/10 dark:bg-white/[0.05]">
       <span className="mx-auto grid size-14 place-items-center rounded-2xl bg-violet-100 text-violet-700 dark:bg-violet-400/15 dark:text-violet-200">
-        <Sparkles size={26} />
+        <Sparkles size={26} aria-hidden="true" />
       </span>
       <h2 className="mt-4 text-xl font-black text-slate-900 dark:text-slate-50">
         Practice unlocks as you learn
@@ -299,7 +299,7 @@ function EmptyPractice({ nouns }: { nouns: string }) {
         href="/lessons"
         className="mt-6 inline-flex min-h-12 items-center gap-2 rounded-2xl bg-violet-600 px-5 font-black text-white shadow-[0_5px_0_#5b21b6] transition hover:-translate-y-0.5 active:translate-y-0.5"
       >
-        Start a {nouns} <ArrowRight size={18} />
+        Start a {nouns} <ArrowRight size={18} aria-hidden="true" />
       </Link>
     </section>
   );
