@@ -1,4 +1,4 @@
-import { loadCurriculumSchema, loadPilotSchema } from "./loader";
+import { loadBengaliSchema, loadCurriculumSchema, loadPilotSchema } from "./loader";
 import type { ValidationResult } from "./types";
 
 // A small, dependency-free JSON Schema validator covering exactly the subset the
@@ -133,4 +133,9 @@ export function validateCurriculum(data: unknown): ValidationResult {
 /** Validate the pilot pack (Spanish Curriculum v2) against its own schema. */
 export function validatePilot(data: unknown): ValidationResult {
   return validateAgainstSchema(data, loadPilotSchema());
+}
+
+/** Validate the Bengali pack (Bengali Curriculum v2) against its own schema. */
+export function validateBengali(data: unknown): ValidationResult {
+  return validateAgainstSchema(data, loadBengaliSchema());
 }

@@ -1,19 +1,37 @@
 /**
  * Print the real step sequence a lesson produces.
  *
- *   npx tsx scripts/dump-lesson.ts <unitNumberOrLessonId> [--learner]
+ *   npx tsx scripts/dump-lesson.ts <unitNumberOrLessonId> [--course=<id>] [--learner]
  *
  * Reading the JSON tells you what a unit contains; this tells you what the
  * learner actually sees, which is the only thing worth reviewing.
+ *
+ * The course defaults to Spanish, and a lesson id picks its own course — so
+ * `dump-lesson bn-en-s01-u02-l3` needs no flag. `--course` is only for the
+ * unit-number form.
  */
-import { getCurriculum } from "../src/lib/content";
+import { curricula, getCurriculum } from "../src/lib/content";
+import { isCourseId, type CourseId } from "../src/lib/courses";
 import { buildLessonSteps, getStepPrompt } from "../src/lib/lesson-steps";
 import { emptyLearnerSnapshot, type LearnerSnapshot } from "../src/lib/learner-model";
 import type { Lesson } from "../src/types/learning";
 
 const arg = process.argv[2] ?? "1";
 const withLearner = process.argv.includes("--learner");
-const units = getCurriculum("spanish").units;
+
+/** The course a lesson id belongs to, so an id alone is enough to dump it. */
+function courseOfLesson(lessonId: string): CourseId | undefined {
+  return curricula.find((curriculum) =>
+    curriculum.units.some((unit) => unit.lessons.some((lesson) => lesson.id === lessonId)),
+  )?.id;
+}
+
+const requested = process.argv
+  .find((value) => value.startsWith("--course="))
+  ?.slice("--course=".length);
+const courseId: CourseId =
+  courseOfLesson(arg) ?? (isCourseId(requested) ? requested : "spanish");
+const units = getCurriculum(courseId).units;
 
 /** A learner who has met everything up to this lesson and produced some of it. */
 function snapshotBefore(lesson: Lesson): LearnerSnapshot {
@@ -110,9 +128,10 @@ if (arg.includes("-")) {
     console.error(`No lesson ${arg}`);
     process.exit(1);
   }
+  console.log(`COURSE ${courseId}`);
   describe(lesson);
 } else {
   const unit = units[Number(arg) - 1];
-  console.log(`UNIT ${unit.number}: ${unit.title} — ${unit.description}`);
+  console.log(`COURSE ${courseId} · UNIT ${unit.number}: ${unit.title} — ${unit.description}`);
   unit.lessons.forEach(describe);
 }

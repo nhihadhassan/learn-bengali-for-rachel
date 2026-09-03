@@ -7,6 +7,7 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 import { getLessonsForCurriculum } from "@/lib/content";
+import { COURSE_IDS, getCapabilities } from "@/lib/courses";
 import {
   allGrammarRules,
   buildGrammarDrills,
@@ -106,12 +107,25 @@ test("known exceptions are never drilled as if they were the rule", () => {
   }
 });
 
+/** Courses that plan cumulatively — the only ones that name a grammar point. */
+const CUMULATIVE = COURSE_IDS.filter(
+  (id) => getCapabilities(id).lessonStrategy === "cumulative",
+);
+
 test("Grammar focus lessons actually teach and then drill grammar", () => {
-  const grammarLessons = getLessonsForCurriculum("spanish")
-    .filter((lesson) => lesson.plan?.kind === "grammar")
-    .slice(0, 12);
+  const grammarLessons = CUMULATIVE.flatMap((courseId) =>
+    getLessonsForCurriculum(courseId)
+      .filter((lesson) => lesson.plan?.kind === "grammar")
+      .slice(0, 12),
+  );
 
   assert.ok(grammarLessons.length > 0);
+  // Both cumulative courses must be represented, or this test could pass while
+  // one of them silently stopped producing grammar lessons at all.
+  assert.equal(
+    new Set(grammarLessons.map((lesson) => lesson.curriculumId)).size,
+    CUMULATIVE.length,
+  );
 
   let withDrills = 0;
 
@@ -140,8 +154,17 @@ test("Grammar focus lessons actually teach and then drill grammar", () => {
   );
 });
 
-test("other courses never get a grammar card", () => {
-  for (const courseId of ["bengali", "malayalam", "spanish-peru"] as const) {
+test("phrase-book courses never get a grammar card", () => {
+  // Asked of the registry rather than a hand-written list of ids: when Bengali
+  // became cumulative, a hard-coded list would have gone on asserting the old
+  // behaviour of a course that no longer had it.
+  const phraseBook = COURSE_IDS.filter(
+    (id) => getCapabilities(id).lessonStrategy === "simple",
+  );
+
+  assert.ok(phraseBook.length > 0);
+
+  for (const courseId of phraseBook) {
     for (const lesson of getLessonsForCurriculum(courseId)) {
       const types = buildLessonSteps(lesson).map((step) => step.type);
       assert.ok(!types.includes("grammar"), `${courseId}/${lesson.id}`);

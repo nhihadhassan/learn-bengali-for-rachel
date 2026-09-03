@@ -3,182 +3,925 @@
   "courses": {
     "bengali": {
       "id": "bengali",
-      "unitCount": 8,
-      "lessonCount": 16,
+      "unitCount": 19,
+      "lessonCount": 96,
       "units": [
         {
-          "id": "u01",
+          "id": "bn-en-s01-u01",
           "number": 1,
-          "title": "First Conversations",
-          "description": "Start with respectful greetings, goodbyes, and the first question Rachel will hear.",
+          "title": "Your first words in Bengali",
+          "description": "Greet someone, thank them, and say yes and no.",
+          "section": {
+            "number": 1,
+            "title": "Your first Bengali",
+            "description": "Greetings, how you are, your name, and the things around you."
+          },
           "lessons": [
             {
-              "id": "u01-l01-greetings",
-              "title": "Greetings",
-              "summary": "Say a respectful greeting, thank you, and goodbye in simple spoken Bengali.",
-              "difficulty": "beginner",
+              "id": "bn-en-s01-u01-l1",
+              "title": "Discover",
+              "summary": "Meet your first Bengali words.",
+              "difficulty": "Intro",
+              "phraseCount": 3
+            },
+            {
+              "id": "bn-en-s01-u01-l2",
+              "title": "Build",
+              "summary": "Put two of them together into a whole reply.",
+              "difficulty": "Intro",
               "phraseCount": 6
             },
             {
-              "id": "u01-l02-how-are-you",
-              "title": "How Are You?",
-              "summary": "Ask how someone is and answer with simple friendly replies.",
-              "difficulty": "beginner",
-              "phraseCount": 6
+              "id": "bn-en-s01-u01-l3",
+              "title": "Notice the pattern",
+              "summary": "Work out how a Bengali greeting is answered.",
+              "difficulty": "Intro",
+              "phraseCount": 9
+            },
+            {
+              "id": "bn-en-s01-u01-l4",
+              "title": "Unit review",
+              "summary": "Bring back everything from this unit.",
+              "difficulty": "Intro",
+              "phraseCount": 9
             }
           ]
         },
         {
-          "id": "u02",
+          "id": "bn-en-s01-u02",
           "number": 2,
-          "title": "Names and People",
-          "description": "Introduce yourself, ask names, and talk about family in romanized Bengali.",
+          "title": "How are you?",
+          "description": "Ask how someone is and say how you are.",
+          "section": {
+            "number": 1,
+            "title": "Your first Bengali",
+            "description": "Greetings, how you are, your name, and the things around you."
+          },
           "lessons": [
             {
-              "id": "u02-l01-introduce-yourself",
-              "title": "Introduce Yourself",
-              "summary": "Say your name, ask a name, and say you are Rachel.",
-              "difficulty": "beginner",
-              "phraseCount": 6
+              "id": "bn-en-s01-u02-l1",
+              "title": "Discover",
+              "summary": "Meet ami, tumi, and the word for being well.",
+              "difficulty": "Intro",
+              "phraseCount": 7
             },
             {
-              "id": "u02-l02-family-words",
-              "title": "Family Words",
-              "summary": "Learn simple family words and short sentences about people.",
-              "difficulty": "beginner",
-              "phraseCount": 6
+              "id": "bn-en-s01-u02-l2",
+              "title": "Notice the pattern",
+              "summary": "Work out why achi becomes acho.",
+              "difficulty": "Intro",
+              "phraseCount": 11
+            },
+            {
+              "id": "bn-en-s01-u02-l3",
+              "title": "Build",
+              "summary": "Put the pieces together into whole sentences.",
+              "difficulty": "Intro",
+              "phraseCount": 11
+            },
+            {
+              "id": "bn-en-s01-u02-l4",
+              "title": "Have a conversation",
+              "summary": "Greet someone and answer how you are.",
+              "difficulty": "Intro",
+              "phraseCount": 14
+            },
+            {
+              "id": "bn-en-s01-u02-l5",
+              "title": "Unit review",
+              "summary": "Bring back everything from this unit.",
+              "difficulty": "Intro",
+              "phraseCount": 15
             }
           ]
         },
         {
-          "id": "u03",
+          "id": "bn-en-s01-u03",
           "number": 3,
-          "title": "Food and Water",
-          "description": "Ask for water, food, tea, and simple everyday needs.",
+          "title": "Goodbye, and see you again",
+          "description": "End a conversation warmly at any time of day.",
+          "section": {
+            "number": 1,
+            "title": "Your first Bengali",
+            "description": "Greetings, how you are, your name, and the things around you."
+          },
           "lessons": [
             {
-              "id": "u03-l01-food-and-water",
-              "title": "Food and Water",
-              "summary": "Say what you want using short food and drink phrases.",
-              "difficulty": "beginner",
-              "phraseCount": 6
+              "id": "bn-en-s01-u03-l1",
+              "title": "Discover",
+              "summary": "Meet the words for morning, night and meeting again.",
+              "difficulty": "Intro",
+              "phraseCount": 7
             },
             {
-              "id": "u03-l02-hungry-and-thirsty",
-              "title": "Hungry and Thirsty",
-              "summary": "Say you are hungry, thirsty, or full in everyday Bengali.",
-              "difficulty": "beginner",
-              "phraseCount": 6
+              "id": "bn-en-s01-u03-l2",
+              "title": "Build",
+              "summary": "Build a goodbye out of pieces you already know.",
+              "difficulty": "Intro",
+              "phraseCount": 11
+            },
+            {
+              "id": "bn-en-s01-u03-l3",
+              "title": "Have a conversation",
+              "summary": "Say goodnight and leave warmly.",
+              "difficulty": "Intro",
+              "phraseCount": 17
+            },
+            {
+              "id": "bn-en-s01-u03-l4",
+              "title": "Unit review",
+              "summary": "Bring back everything from this unit.",
+              "difficulty": "Intro",
+              "phraseCount": 21
             }
           ]
         },
         {
-          "id": "u04",
+          "id": "bn-en-s01-u04",
           "number": 4,
-          "title": "Questions and Replies",
-          "description": "Practice yes, no, common replies, and simple questions.",
+          "title": "Your name and mine",
+          "description": "Say your name, ask someone else's, and say you are learning Bengali.",
+          "section": {
+            "number": 1,
+            "title": "Your first Bengali",
+            "description": "Greetings, how you are, your name, and the things around you."
+          },
           "lessons": [
             {
-              "id": "u04-l01-yes-no-replies",
-              "title": "Yes, No, and Replies",
-              "summary": "Use tiny replies that keep a conversation moving.",
-              "difficulty": "beginner",
-              "phraseCount": 6
+              "id": "bn-en-s01-u04-l1",
+              "title": "Discover",
+              "summary": "Meet naam, amar and tomar.",
+              "difficulty": "Intro",
+              "phraseCount": 7
             },
             {
-              "id": "u04-l02-simple-questions",
-              "title": "Simple Questions",
-              "summary": "Ask what, where, and why with useful short phrases.",
-              "difficulty": "beginner",
-              "phraseCount": 6
+              "id": "bn-en-s01-u04-l2",
+              "title": "Notice the pattern",
+              "summary": "Work out how ami turns into amar.",
+              "difficulty": "Intro",
+              "phraseCount": 11
+            },
+            {
+              "id": "bn-en-s01-u04-l3",
+              "title": "Grammar focus",
+              "summary": "Name the possessive pattern and drill it.",
+              "difficulty": "Intro",
+              "phraseCount": 14
+            },
+            {
+              "id": "bn-en-s01-u04-l4",
+              "title": "Have a conversation",
+              "summary": "Introduce yourself to someone new.",
+              "difficulty": "Intro",
+              "phraseCount": 19
+            },
+            {
+              "id": "bn-en-s01-u04-l5",
+              "title": "Unit review",
+              "summary": "Bring back everything from this unit.",
+              "difficulty": "Intro",
+              "phraseCount": 23
             }
           ]
         },
         {
-          "id": "u05",
+          "id": "bn-en-s01-u05",
           "number": 5,
-          "title": "Feelings and Help",
-          "description": "Say how you feel and ask for help in short spoken phrases.",
+          "title": "This and that",
+          "description": "Point at things, name them, and say whose they are.",
+          "section": {
+            "number": 1,
+            "title": "Your first Bengali",
+            "description": "Greetings, how you are, your name, and the things around you."
+          },
           "lessons": [
             {
-              "id": "u05-l01-basic-feelings",
-              "title": "Basic Feelings",
-              "summary": "Talk about being happy, tired, sick, or worried.",
-              "difficulty": "beginner",
-              "phraseCount": 6
+              "id": "bn-en-s01-u05-l1",
+              "title": "Discover",
+              "summary": "Meet eta, ota and the things around the house.",
+              "difficulty": "Intro",
+              "phraseCount": 7
             },
             {
-              "id": "u05-l02-asking-for-help",
-              "title": "Asking for Help",
-              "summary": "Ask for help, slower speech, and simple understanding checks.",
-              "difficulty": "beginner",
-              "phraseCount": 6
+              "id": "bn-en-s01-u05-l2",
+              "title": "Notice the pattern",
+              "summary": "Work out what is missing from a Bengali sentence.",
+              "difficulty": "Intro",
+              "phraseCount": 11
+            },
+            {
+              "id": "bn-en-s01-u05-l3",
+              "title": "Build",
+              "summary": "Say whose something is.",
+              "difficulty": "Intro",
+              "phraseCount": 11
+            },
+            {
+              "id": "bn-en-s01-u05-l4",
+              "title": "Grammar focus",
+              "summary": "Name the near/far pattern and drill it.",
+              "difficulty": "Intro",
+              "phraseCount": 14
+            },
+            {
+              "id": "bn-en-s01-u05-l5",
+              "title": "Unit review",
+              "summary": "Bring back everything from this unit.",
+              "difficulty": "Intro",
+              "phraseCount": 23
             }
           ]
         },
         {
-          "id": "u06",
+          "id": "bn-en-s01-u06",
           "number": 6,
-          "title": "Visiting Someone’s Home",
-          "description": "Warm phrases for arriving, sitting, thanking, and leaving politely.",
+          "title": "Yes, no, and sorry",
+          "description": "Keep a conversation going when you have not quite understood.",
+          "section": {
+            "number": 1,
+            "title": "Your first Bengali",
+            "description": "Greetings, how you are, your name, and the things around you."
+          },
           "lessons": [
             {
-              "id": "u06-l01-visiting-home",
-              "title": "Visiting a Home",
-              "summary": "Learn what to say when you arrive at someone’s home and want to be polite.",
-              "difficulty": "beginner",
-              "phraseCount": 6
+              "id": "bn-en-s01-u06-l1",
+              "title": "Discover",
+              "summary": "Meet the small words that keep a conversation moving.",
+              "difficulty": "Intro",
+              "phraseCount": 7
             },
             {
-              "id": "u06-l02-politeness-at-home",
-              "title": "Polite Home Phrases",
-              "summary": "Use warm, simple phrases for tea, thanks, and saying goodbye.",
-              "difficulty": "beginner",
-              "phraseCount": 6
+              "id": "bn-en-s01-u06-l2",
+              "title": "Build",
+              "summary": "Ask someone to say it again.",
+              "difficulty": "Intro",
+              "phraseCount": 11
+            },
+            {
+              "id": "bn-en-s01-u06-l3",
+              "title": "Notice the pattern",
+              "summary": "Work out how Bengali says you have something.",
+              "difficulty": "Intro",
+              "phraseCount": 14
+            },
+            {
+              "id": "bn-en-s01-u06-l4",
+              "title": "Unit review",
+              "summary": "Bring back everything from this unit.",
+              "difficulty": "Intro",
+              "phraseCount": 21
             }
           ]
         },
         {
-          "id": "u07",
+          "id": "bn-en-s02-u07",
           "number": 7,
-          "title": "Travel and Getting Around",
-          "description": "Short phrases for directions, taxis, and finding your way.",
+          "title": "Water, tea and rice",
+          "description": "Ask for what you want at a table.",
+          "section": {
+            "number": 2,
+            "title": "Everyday Bengali",
+            "description": "Food, family, questions, and saying what you are doing and how you feel."
+          },
           "lessons": [
             {
-              "id": "u07-l01-getting-around",
-              "title": "Getting Around",
-              "summary": "Learn simple direction phrases for moving around town.",
-              "difficulty": "beginner",
-              "phraseCount": 6
+              "id": "bn-en-s02-u07-l1",
+              "title": "Discover",
+              "summary": "Meet the food and drink you will ask for most.",
+              "difficulty": "Beginner",
+              "phraseCount": 7
             },
             {
-              "id": "u07-l02-transport-help",
-              "title": "Transport Help",
-              "summary": "Ask for a taxi, station, or help when you are not sure where to go.",
-              "difficulty": "beginner",
-              "phraseCount": 6
+              "id": "bn-en-s02-u07-l2",
+              "title": "Build",
+              "summary": "Ask for something in a whole sentence.",
+              "difficulty": "Beginner",
+              "phraseCount": 10
+            },
+            {
+              "id": "bn-en-s02-u07-l3",
+              "title": "Notice the pattern",
+              "summary": "Work out where the verb goes.",
+              "difficulty": "Beginner",
+              "phraseCount": 12
+            },
+            {
+              "id": "bn-en-s02-u07-l4",
+              "title": "Grammar focus",
+              "summary": "Name the wanting pattern and drill it.",
+              "difficulty": "Beginner",
+              "phraseCount": 13
+            },
+            {
+              "id": "bn-en-s02-u07-l5",
+              "title": "Have a conversation",
+              "summary": "Accept and ask for food at someone's table.",
+              "difficulty": "Beginner",
+              "phraseCount": 17
+            },
+            {
+              "id": "bn-en-s02-u07-l6",
+              "title": "Unit review",
+              "summary": "Bring back everything from this unit.",
+              "difficulty": "Beginner",
+              "phraseCount": 23
             }
           ]
         },
         {
-          "id": "u08",
+          "id": "bn-en-s02-u08",
           "number": 8,
-          "title": "Daily Talk and Care",
-          "description": "Small talk, affection, care, and urgent help in simple Bengali.",
+          "title": "Hungry, thirsty, full",
+          "description": "Say how your body feels, and what you like.",
+          "section": {
+            "number": 2,
+            "title": "Everyday Bengali",
+            "description": "Food, family, questions, and saying what you are doing and how you feel."
+          },
           "lessons": [
             {
-              "id": "u08-l01-small-talk",
-              "title": "Questions and Small Talk",
-              "summary": "Use quick everyday lines for weather, work, and casual conversation.",
-              "difficulty": "beginner",
+              "id": "bn-en-s02-u08-l1",
+              "title": "Discover",
+              "summary": "Meet hunger, thirst and liking something.",
+              "difficulty": "Beginner",
+              "phraseCount": 8
+            },
+            {
+              "id": "bn-en-s02-u08-l2",
+              "title": "Notice the pattern",
+              "summary": "Work out why hunger takes amar and not ami.",
+              "difficulty": "Beginner",
+              "phraseCount": 13
+            },
+            {
+              "id": "bn-en-s02-u08-l3",
+              "title": "Build",
+              "summary": "Say how you feel in a whole sentence.",
+              "difficulty": "Beginner",
+              "phraseCount": 10
+            },
+            {
+              "id": "bn-en-s02-u08-l4",
+              "title": "Read a story",
+              "summary": "Follow a short scene at home. Meaning first.",
+              "difficulty": "Beginner",
+              "phraseCount": 15
+            },
+            {
+              "id": "bn-en-s02-u08-l5",
+              "title": "Unit review",
+              "summary": "Bring back everything from this unit.",
+              "difficulty": "Beginner",
+              "phraseCount": 22
+            }
+          ]
+        },
+        {
+          "id": "bn-en-s02-u09",
+          "number": 9,
+          "title": "Family and friends",
+          "description": "Introduce the people around you and ask who someone is.",
+          "section": {
+            "number": 2,
+            "title": "Everyday Bengali",
+            "description": "Food, family, questions, and saying what you are doing and how you feel."
+          },
+          "lessons": [
+            {
+              "id": "bn-en-s02-u09-l1",
+              "title": "Discover",
+              "summary": "Meet the words for the people closest to you.",
+              "difficulty": "Beginner",
+              "phraseCount": 7
+            },
+            {
+              "id": "bn-en-s02-u09-l2",
+              "title": "Build",
+              "summary": "Say who someone is.",
+              "difficulty": "Beginner",
+              "phraseCount": 11
+            },
+            {
+              "id": "bn-en-s02-u09-l3",
+              "title": "Have a conversation",
+              "summary": "Talk a friend through a family photo.",
+              "difficulty": "Beginner",
+              "phraseCount": 16
+            },
+            {
+              "id": "bn-en-s02-u09-l4",
+              "title": "Notice the pattern",
+              "summary": "Work out how Bengali handles he and she.",
+              "difficulty": "Beginner",
+              "phraseCount": 13
+            },
+            {
+              "id": "bn-en-s02-u09-l5",
+              "title": "Unit review",
+              "summary": "Bring back everything from this unit.",
+              "difficulty": "Beginner",
+              "phraseCount": 23
+            }
+          ]
+        },
+        {
+          "id": "bn-en-s02-u10",
+          "number": 10,
+          "title": "Asking questions",
+          "description": "Ask where, why, when and how much.",
+          "section": {
+            "number": 2,
+            "title": "Everyday Bengali",
+            "description": "Food, family, questions, and saying what you are doing and how you feel."
+          },
+          "lessons": [
+            {
+              "id": "bn-en-s02-u10-l1",
+              "title": "Discover",
+              "summary": "Meet the six words that open a question.",
+              "difficulty": "Beginner",
+              "phraseCount": 7
+            },
+            {
+              "id": "bn-en-s02-u10-l2",
+              "title": "Notice the pattern",
+              "summary": "Work out where a question word goes.",
+              "difficulty": "Beginner",
+              "phraseCount": 11
+            },
+            {
+              "id": "bn-en-s02-u10-l3",
+              "title": "Grammar focus",
+              "summary": "Name the question pattern and drill it.",
+              "difficulty": "Beginner",
+              "phraseCount": 14
+            },
+            {
+              "id": "bn-en-s02-u10-l4",
+              "title": "Build",
+              "summary": "Ask for a place and a price.",
+              "difficulty": "Beginner",
+              "phraseCount": 10
+            },
+            {
+              "id": "bn-en-s02-u10-l5",
+              "title": "Unit review",
+              "summary": "Bring back everything from this unit.",
+              "difficulty": "Beginner",
+              "phraseCount": 23
+            }
+          ]
+        },
+        {
+          "id": "bn-en-s02-u11",
+          "number": 11,
+          "title": "What are you doing?",
+          "description": "Say what you are doing right now, and ask what someone else is.",
+          "section": {
+            "number": 2,
+            "title": "Everyday Bengali",
+            "description": "Food, family, questions, and saying what you are doing and how you feel."
+          },
+          "lessons": [
+            {
+              "id": "bn-en-s02-u11-l1",
+              "title": "Discover",
+              "summary": "Meet the doing-it-now forms.",
+              "difficulty": "Beginner",
               "phraseCount": 6
             },
             {
-              "id": "u08-l02-care-and-emergencies",
-              "title": "Care and Emergencies",
-              "summary": "Say warm caring phrases and ask for serious help when needed.",
-              "difficulty": "beginner",
+              "id": "bn-en-s02-u11-l2",
+              "title": "Notice the pattern",
+              "summary": "Work out what -ch- adds to a verb.",
+              "difficulty": "Beginner",
+              "phraseCount": 9
+            },
+            {
+              "id": "bn-en-s02-u11-l3",
+              "title": "Build",
+              "summary": "Say what you are doing right now.",
+              "difficulty": "Beginner",
+              "phraseCount": 10
+            },
+            {
+              "id": "bn-en-s02-u11-l4",
+              "title": "Grammar focus",
+              "summary": "Name the pattern and drill the three endings.",
+              "difficulty": "Beginner",
+              "phraseCount": 12
+            },
+            {
+              "id": "bn-en-s02-u11-l5",
+              "title": "Have a conversation",
+              "summary": "Answer the phone in Bengali.",
+              "difficulty": "Beginner",
+              "phraseCount": 16
+            },
+            {
+              "id": "bn-en-s02-u11-l6",
+              "title": "Unit review",
+              "summary": "Bring back everything from this unit.",
+              "difficulty": "Beginner",
+              "phraseCount": 21
+            }
+          ]
+        },
+        {
+          "id": "bn-en-s02-u12",
+          "number": 12,
+          "title": "How you feel",
+          "description": "Say you are happy, tired or unwell.",
+          "section": {
+            "number": 2,
+            "title": "Everyday Bengali",
+            "description": "Food, family, questions, and saying what you are doing and how you feel."
+          },
+          "lessons": [
+            {
+              "id": "bn-en-s02-u12-l1",
+              "title": "Discover",
+              "summary": "Meet the words for how you feel.",
+              "difficulty": "Beginner",
+              "phraseCount": 7
+            },
+            {
+              "id": "bn-en-s02-u12-l2",
+              "title": "Build",
+              "summary": "Say how you are in a whole sentence.",
+              "difficulty": "Beginner",
+              "phraseCount": 11
+            },
+            {
+              "id": "bn-en-s02-u12-l3",
+              "title": "Notice the pattern",
+              "summary": "Work out how ach- is made negative.",
+              "difficulty": "Beginner",
+              "phraseCount": 13
+            },
+            {
+              "id": "bn-en-s02-u12-l4",
+              "title": "Read a story",
+              "summary": "Follow a tired evening at home.",
+              "difficulty": "Beginner",
+              "phraseCount": 18
+            },
+            {
+              "id": "bn-en-s02-u12-l5",
+              "title": "Unit review",
+              "summary": "Bring back everything from this unit.",
+              "difficulty": "Beginner",
+              "phraseCount": 23
+            }
+          ]
+        },
+        {
+          "id": "bn-en-s03-u13",
+          "number": 13,
+          "title": "Asking for help",
+          "description": "Ask someone to slow down, repeat, or give you a hand — politely.",
+          "section": {
+            "number": 3,
+            "title": "Out in the world",
+            "description": "Asking for help, finding your way, visiting a home, and small talk."
+          },
+          "lessons": [
+            {
+              "id": "bn-en-s03-u13-l1",
+              "title": "Discover",
+              "summary": "Meet the words that get you unstuck.",
+              "difficulty": "Beginner",
+              "phraseCount": 7
+            },
+            {
+              "id": "bn-en-s03-u13-l2",
+              "title": "Build",
+              "summary": "Ask someone to slow down.",
+              "difficulty": "Beginner",
+              "phraseCount": 11
+            },
+            {
+              "id": "bn-en-s03-u13-l3",
+              "title": "Notice the pattern",
+              "summary": "Work out the difference between koro and korun.",
+              "difficulty": "Beginner",
+              "phraseCount": 12
+            },
+            {
+              "id": "bn-en-s03-u13-l4",
+              "title": "Grammar focus",
+              "summary": "Name the respect pattern and drill it.",
+              "difficulty": "Beginner",
+              "phraseCount": 13
+            },
+            {
+              "id": "bn-en-s03-u13-l5",
+              "title": "Have a conversation",
+              "summary": "Get through a shop without understanding everything.",
+              "difficulty": "Beginner",
+              "phraseCount": 18
+            },
+            {
+              "id": "bn-en-s03-u13-l6",
+              "title": "Unit review",
+              "summary": "Bring back everything from this unit.",
+              "difficulty": "Beginner",
+              "phraseCount": 23
+            }
+          ]
+        },
+        {
+          "id": "bn-en-s03-u14",
+          "number": 14,
+          "title": "Which way?",
+          "description": "Give and follow simple directions.",
+          "section": {
+            "number": 3,
+            "title": "Out in the world",
+            "description": "Asking for help, finding your way, visiting a home, and small talk."
+          },
+          "lessons": [
+            {
+              "id": "bn-en-s03-u14-l1",
+              "title": "Discover",
+              "summary": "Meet left, right, ahead and far.",
+              "difficulty": "Beginner",
+              "phraseCount": 8
+            },
+            {
+              "id": "bn-en-s03-u14-l2",
+              "title": "Build",
+              "summary": "Give someone a direction.",
+              "difficulty": "Beginner",
+              "phraseCount": 11
+            },
+            {
+              "id": "bn-en-s03-u14-l3",
+              "title": "Notice the pattern",
+              "summary": "Work out where a position word goes.",
+              "difficulty": "Beginner",
+              "phraseCount": 13
+            },
+            {
+              "id": "bn-en-s03-u14-l4",
+              "title": "Grammar focus",
+              "summary": "Name the postposition pattern and drill it.",
+              "difficulty": "Beginner",
+              "phraseCount": 13
+            },
+            {
+              "id": "bn-en-s03-u14-l5",
+              "title": "Unit review",
+              "summary": "Bring back everything from this unit.",
+              "difficulty": "Beginner",
+              "phraseCount": 23
+            }
+          ]
+        },
+        {
+          "id": "bn-en-s03-u15",
+          "number": 15,
+          "title": "Buses, taxis and getting lost",
+          "description": "Get where you are going, and say so when you are lost.",
+          "section": {
+            "number": 3,
+            "title": "Out in the world",
+            "description": "Asking for help, finding your way, visiting a home, and small talk."
+          },
+          "lessons": [
+            {
+              "id": "bn-en-s03-u15-l1",
+              "title": "Discover",
+              "summary": "Meet buses, taxis and the station.",
+              "difficulty": "Beginner",
               "phraseCount": 6
+            },
+            {
+              "id": "bn-en-s03-u15-l2",
+              "title": "Build",
+              "summary": "Say where you are going.",
+              "difficulty": "Beginner",
+              "phraseCount": 9
+            },
+            {
+              "id": "bn-en-s03-u15-l3",
+              "title": "Grammar focus",
+              "summary": "Name the -bo ending and drill what you will do.",
+              "difficulty": "Beginner",
+              "phraseCount": 12
+            },
+            {
+              "id": "bn-en-s03-u15-l4",
+              "title": "Have a conversation",
+              "summary": "Get across town and off at the right stop.",
+              "difficulty": "Beginner",
+              "phraseCount": 16
+            },
+            {
+              "id": "bn-en-s03-u15-l5",
+              "title": "Unit review",
+              "summary": "Bring back everything from this unit.",
+              "difficulty": "Beginner",
+              "phraseCount": 20
+            }
+          ]
+        },
+        {
+          "id": "bn-en-s03-u16",
+          "number": 16,
+          "title": "Arriving as a guest",
+          "description": "Arrive at someone's home, ask to come in and sit, and say when you are leaving.",
+          "section": {
+            "number": 3,
+            "title": "Out in the world",
+            "description": "Asking for help, finding your way, visiting a home, and small talk."
+          },
+          "lessons": [
+            {
+              "id": "bn-en-s03-u16-l1",
+              "title": "Discover",
+              "summary": "Meet the words for arriving and being made welcome.",
+              "difficulty": "Beginner",
+              "phraseCount": 6
+            },
+            {
+              "id": "bn-en-s03-u16-l2",
+              "title": "Build",
+              "summary": "Ask to come in and to sit down.",
+              "difficulty": "Beginner",
+              "phraseCount": 9
+            },
+            {
+              "id": "bn-en-s03-u16-l3",
+              "title": "Have a conversation",
+              "summary": "Get yourself through someone's front door.",
+              "difficulty": "Beginner",
+              "phraseCount": 14
+            },
+            {
+              "id": "bn-en-s03-u16-l4",
+              "title": "Unit review",
+              "summary": "Bring back everything from this unit.",
+              "difficulty": "Beginner",
+              "phraseCount": 18
+            }
+          ]
+        },
+        {
+          "id": "bn-en-s03-u17",
+          "number": 17,
+          "title": "Tea, thanks and goodbye",
+          "description": "Accept what you are offered and leave a home warmly.",
+          "section": {
+            "number": 3,
+            "title": "Out in the world",
+            "description": "Asking for help, finding your way, visiting a home, and small talk."
+          },
+          "lessons": [
+            {
+              "id": "bn-en-s03-u17-l1",
+              "title": "Discover",
+              "summary": "Meet the words for thanks and a warm goodbye.",
+              "difficulty": "Beginner",
+              "phraseCount": 5
+            },
+            {
+              "id": "bn-en-s03-u17-l2",
+              "title": "Build",
+              "summary": "Accept a cup of tea properly.",
+              "difficulty": "Beginner",
+              "phraseCount": 7
+            },
+            {
+              "id": "bn-en-s03-u17-l3",
+              "title": "Read a story",
+              "summary": "Follow a first visit from the door to the goodbye.",
+              "difficulty": "Beginner",
+              "phraseCount": 11
+            },
+            {
+              "id": "bn-en-s03-u17-l4",
+              "title": "Have a conversation",
+              "summary": "Be a good guest, in Bengali.",
+              "difficulty": "Beginner",
+              "phraseCount": 11
+            },
+            {
+              "id": "bn-en-s03-u17-l5",
+              "title": "Notice the pattern",
+              "summary": "Work out how a request is made softer.",
+              "difficulty": "Beginner",
+              "phraseCount": 10
+            },
+            {
+              "id": "bn-en-s03-u17-l6",
+              "title": "Unit review",
+              "summary": "Bring back everything from this unit.",
+              "difficulty": "Beginner",
+              "phraseCount": 16
+            }
+          ]
+        },
+        {
+          "id": "bn-en-s03-u18",
+          "number": 18,
+          "title": "Small talk",
+          "description": "Talk about the day, the weather and what you are up to.",
+          "section": {
+            "number": 3,
+            "title": "Out in the world",
+            "description": "Asking for help, finding your way, visiting a home, and small talk."
+          },
+          "lessons": [
+            {
+              "id": "bn-en-s03-u18-l1",
+              "title": "Discover",
+              "summary": "Meet the weather and the shape of a day.",
+              "difficulty": "Beginner",
+              "phraseCount": 6
+            },
+            {
+              "id": "bn-en-s03-u18-l2",
+              "title": "Build",
+              "summary": "Say what today is like.",
+              "difficulty": "Beginner",
+              "phraseCount": 9
+            },
+            {
+              "id": "bn-en-s03-u18-l3",
+              "title": "Have a conversation",
+              "summary": "Make small talk with a neighbour.",
+              "difficulty": "Beginner",
+              "phraseCount": 13
+            },
+            {
+              "id": "bn-en-s03-u18-l4",
+              "title": "Notice the pattern",
+              "summary": "Work out how a sentence can have no verb.",
+              "difficulty": "Beginner",
+              "phraseCount": 11
+            },
+            {
+              "id": "bn-en-s03-u18-l5",
+              "title": "Unit review",
+              "summary": "Bring back everything from this unit.",
+              "difficulty": "Beginner",
+              "phraseCount": 19
+            }
+          ]
+        },
+        {
+          "id": "bn-en-s03-u19",
+          "number": 19,
+          "title": "Care, and when it matters",
+          "description": "Say you care, reassure someone, and get help in a hurry.",
+          "section": {
+            "number": 3,
+            "title": "Out in the world",
+            "description": "Asking for help, finding your way, visiting a home, and small talk."
+          },
+          "lessons": [
+            {
+              "id": "bn-en-s03-u19-l1",
+              "title": "Discover",
+              "summary": "Meet the words for caring and for trouble.",
+              "difficulty": "Beginner",
+              "phraseCount": 8
+            },
+            {
+              "id": "bn-en-s03-u19-l2",
+              "title": "Build",
+              "summary": "Reassure someone, and ask for help.",
+              "difficulty": "Beginner",
+              "phraseCount": 11
+            },
+            {
+              "id": "bn-en-s03-u19-l3",
+              "title": "Notice the pattern",
+              "summary": "Work out how a command is made negative.",
+              "difficulty": "Beginner",
+              "phraseCount": 12
+            },
+            {
+              "id": "bn-en-s03-u19-l4",
+              "title": "Have a conversation",
+              "summary": "Get a friend the help they need.",
+              "difficulty": "Beginner",
+              "phraseCount": 17
+            },
+            {
+              "id": "bn-en-s03-u19-l5",
+              "title": "Put it together",
+              "summary": "One long conversation, start to finish.",
+              "difficulty": "Beginner",
+              "phraseCount": 29
+            },
+            {
+              "id": "bn-en-s03-u19-l6",
+              "title": "Unit review",
+              "summary": "Bring back everything you have learned.",
+              "difficulty": "Beginner",
+              "phraseCount": 23
             }
           ]
         }

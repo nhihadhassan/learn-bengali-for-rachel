@@ -2,8 +2,9 @@
  * Turning a grammar rule into practice.
  *
  * The curriculum says *which* pattern a unit is about (`grammar_targets` in the
- * pack, resolved to a rule in `content/spanish-grammar.json`). This module
- * decides *how* to practise it, using sentences the learner has already met.
+ * pack, resolved to a rule in one of the `content/*-grammar.json` files). This
+ * module decides *how* to practise it, using sentences the learner has already
+ * met.
  *
  * That split is what makes grammar affordable across 131 units: a rule needs
  * one authored entry, not a drill per unit, and the drills it produces are
@@ -20,14 +21,27 @@
  * degrades to ordinary practice rather than inventing a broken question.
  */
 
-import rawGrammar from "../../content/spanish-grammar.json";
+import rawBengaliGrammar from "../../content/bengali-grammar.json";
+import rawSpanishGrammar from "../../content/spanish-grammar.json";
 import { unknownWords } from "@/lib/curriculum-plan";
 import { makeRng, seededShuffle, type Rng } from "@/lib/rng";
 import { normalizeWord, splitWords } from "@/lib/text-tokens";
 import type { GrammarFocus, Phrase } from "@/types/learning";
 
+/**
+ * Which language a rule is about.
+ *
+ * Rules from every language live in one registry, because the drill machinery
+ * is identical for all of them — a marker group is a marker group. The tag is
+ * what stops a Spanish unit picking up `bn-na-negation` because "na" happened
+ * to appear in one of its sentences: every lookup that could widen its search
+ * is scoped to one language.
+ */
+export type GrammarLanguage = "spanish" | "bengali";
+
 type RawRule = {
   id: string;
+  language: GrammarLanguage;
   targets: string[];
   title: string;
   explanation: string;
@@ -42,20 +56,46 @@ type RawRule = {
   avoidPhrases?: string[];
 };
 
-const grammar = rawGrammar as { version: number; rules: RawRule[] };
+type RawPack = { version: number; rules: Array<Omit<RawRule, "language">> };
 
+function tagged(pack: unknown, language: GrammarLanguage): RawRule[] {
+  return (pack as RawPack).rules.map((rule) => ({ ...rule, language }));
+}
+
+const rules: RawRule[] = [
+  ...tagged(rawSpanishGrammar, "spanish"),
+  ...tagged(rawBengaliGrammar, "bengali"),
+];
+
+/**
+ * Targets are matched per language.
+ *
+ * Two languages can legitimately want the same natural-language target name —
+ * "negation", "question words", "possessives" — and silently handing a Bengali
+ * unit the Spanish rule would produce a card that explains the wrong language
+ * with examples the learner has never seen.
+ */
 const ruleByTarget = new Map<string, RawRule>();
-for (const rule of grammar.rules) {
+for (const rule of rules) {
   for (const target of rule.targets) {
-    ruleByTarget.set(target.trim().toLowerCase(), rule);
+    ruleByTarget.set(`${rule.language}:${target.trim().toLowerCase()}`, rule);
   }
 }
 
-const ruleById = new Map(grammar.rules.map((rule) => [rule.id, rule]));
+const ruleById = new Map(rules.map((rule) => [rule.id, rule]));
 
-/** The rule a unit's declared grammar target maps to, if one is authored. */
-export function findGrammarRule(target: string): RawRule | undefined {
-  return ruleByTarget.get(target.trim().toLowerCase());
+/**
+ * The rule a unit's declared grammar target maps to, if one is authored.
+ *
+ * `language` defaults to Spanish so the 131-unit pack, which predates any
+ * second language and declares bare target names, keeps resolving exactly as
+ * it did.
+ */
+export function findGrammarRule(
+  target: string,
+  language: GrammarLanguage = "spanish",
+): RawRule | undefined {
+  return ruleByTarget.get(`${language}:${target.trim().toLowerCase()}`);
 }
 
 /** A rule by its own id — how an explicitly authored `grammar_focus` resolves. */
@@ -146,8 +186,9 @@ export function toGrammarFocus(
 export function getGrammarFocus(
   target: string,
   options: GrammarFocusOptions = {},
+  language: GrammarLanguage = "spanish",
 ): GrammarFocus | undefined {
-  const rule = findGrammarRule(target);
+  const rule = findGrammarRule(target, language);
   return rule ? toGrammarFocus(rule, options) : undefined;
 }
 
@@ -496,7 +537,13 @@ export function buildGrammarDrills(
   return drills;
 }
 
-/** Every authored rule — used by the curriculum audit. */
-export function allGrammarRules(): RawRule[] {
-  return grammar.rules;
+/**
+ * Every authored rule for a language — used by the curriculum audit and by the
+ * adapters' "does this unit demonstrate anything worth naming?" search.
+ *
+ * Omitting `language` returns every rule, which is what a test that just wants
+ * to check the shape of the whole file should ask for.
+ */
+export function allGrammarRules(language?: GrammarLanguage): RawRule[] {
+  return language ? rules.filter((rule) => rule.language === language) : rules;
 }

@@ -1,11 +1,15 @@
 /**
- * Validate both curriculum packs against their shipped JSON Schemas.
+ * Validate every curriculum pack against its shipped JSON Schema.
  * Exits non-zero on failure so it can gate the seed process and CI.
  *
  *   npm run validate:curriculum
  */
-import { loadCurriculumRaw, loadPilotRaw } from "../src/curriculum/loader";
-import { validateCurriculum, validatePilot } from "../src/curriculum/validate";
+import { loadBengaliRaw, loadCurriculumRaw, loadPilotRaw } from "../src/curriculum/loader";
+import {
+  validateBengali,
+  validateCurriculum,
+  validatePilot,
+} from "../src/curriculum/validate";
 import type { ValidationResult } from "../src/curriculum/types";
 
 function report(label: string, result: ValidationResult): boolean {
@@ -27,19 +31,22 @@ function report(label: string, result: ValidationResult): boolean {
 function main(): void {
   const course = loadCurriculumRaw() as { units?: unknown[]; sections?: unknown[] };
   const pilot = loadPilotRaw() as { units?: unknown[] };
+  const bengali = loadBengaliRaw() as { units?: unknown[]; sections?: unknown[] };
 
   const ok = [
-    report("Curriculum", validateCurriculum(course)),
-    report("Pilot", validatePilot(pilot)),
+    report("Spanish curriculum", validateCurriculum(course)),
+    report("Spanish pilot", validatePilot(pilot)),
+    report("Bengali curriculum", validateBengali(bengali)),
   ].every(Boolean);
 
   if (!ok) {
     process.exit(1);
   }
 
-  console.log("✓ Both curriculum packs are valid against their schemas.");
-  console.log(`  curriculum: ${course.sections?.length ?? 0} sections, ${course.units?.length ?? 0} units`);
-  console.log(`  pilot:      ${pilot.units?.length ?? 0} units`);
+  console.log("✓ Every curriculum pack is valid against its schema.");
+  console.log(`  spanish: ${course.sections?.length ?? 0} sections, ${course.units?.length ?? 0} units`);
+  console.log(`  pilot:   ${pilot.units?.length ?? 0} units`);
+  console.log(`  bengali: ${bengali.sections?.length ?? 0} sections, ${bengali.units?.length ?? 0} units`);
 }
 
 main();

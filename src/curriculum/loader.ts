@@ -35,6 +35,15 @@ export function loadPilotSchema(): Record<string, unknown> {
   return readJson<Record<string, unknown>>("spanish-pilot.schema.json");
 }
 
+/** The Bengali curriculum pack (Bengali Curriculum v2), unvalidated. */
+export function loadBengaliRaw(): unknown {
+  return readJson<unknown>("bengali-curriculum.json");
+}
+
+export function loadBengaliSchema(): Record<string, unknown> {
+  return readJson<Record<string, unknown>>("bengali-curriculum.schema.json");
+}
+
 interface ExerciseTemplates {
   version: string;
   templates: Record<string, { skills: string[]; prompt: string }>;

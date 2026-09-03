@@ -1,0 +1,482 @@
+{
+  "version": 1,
+  "note": "Word forms the Bengali curriculum uses, mapped back to the vocabulary entry that teaches them. Without this, prerequisite checking treats 'korcho' as a word the learner has never met even though 'kori' was taught two units ago — and those false positives hide the real gaps. Bengali is agglutinative and almost entirely regular at this level, so only the handful of genuinely irregular stems are listed; person endings, case endings and plurals are handled by rule in @/lib/bengali-lexicon. Romanization follows the course's own spelling, which is the spoken Bangladeshi standard. Original data written for this app.",
+  "verbs": [
+    {
+      "lemma": "acha",
+      "english": "to be (in a state), to be present",
+      "note": "Suppletive: the present stem is ach-, the past is chil-. No rule gets you from one to the other.",
+      "forms": {
+        "achi": "ami",
+        "acho": "tumi",
+        "achen": "apni",
+        "ache": "she",
+        "chilam": "past ami",
+        "chile": "past tumi",
+        "chilen": "past apni",
+        "chilo": "past she",
+        "nei": "negative (there is none)"
+      }
+    },
+    {
+      "lemma": "jaowa",
+      "english": "to go",
+      "note": "ja- in the present, ge- in the perfect.",
+      "forms": {
+        "jai": "ami",
+        "jao": "tumi",
+        "jan": "apni",
+        "jay": "she",
+        "jachhi": "ami, right now",
+        "jachho": "tumi, right now",
+        "jachhe": "she, right now",
+        "jabo": "ami, later",
+        "jabe": "tumi/she, later",
+        "jaben": "apni, later",
+        "gechi": "ami, perfect",
+        "gecho": "tumi, perfect",
+        "geche": "she, perfect",
+        "gelam": "ami, past",
+        "gele": "tumi, past",
+        "gelo": "she, past"
+      }
+    },
+    {
+      "lemma": "asha",
+      "english": "to come",
+      "note": "as- in the present, es- in the perfect.",
+      "forms": {
+        "ashi": "ami",
+        "asho": "tumi",
+        "ashen": "apni",
+        "ashe": "she",
+        "ashchi": "ami, right now",
+        "ashbo": "ami, later",
+        "ashbe": "tumi/she, later",
+        "ashben": "apni, later",
+        "eshechi": "ami, perfect",
+        "esheche": "she, perfect",
+        "elam": "ami, past",
+        "elo": "she, past",
+        "ashun": "please come (apni)",
+        "esho": "come (tumi)"
+      }
+    },
+    {
+      "lemma": "kora",
+      "english": "to do, to make",
+      "forms": {
+        "kori": "ami",
+        "koro": "tumi",
+        "koren": "apni",
+        "kore": "she",
+        "korchi": "ami, right now",
+        "korcho": "tumi, right now",
+        "korchen": "apni, right now",
+        "korche": "she, right now",
+        "korbo": "ami, later",
+        "korbe": "tumi/she, later",
+        "korben": "apni, later",
+        "korlam": "ami, past",
+        "korlo": "she, past",
+        "korte": "to do (with another verb)",
+        "korun": "please do (apni)"
+      }
+    },
+    {
+      "lemma": "chaowa",
+      "english": "to want",
+      "forms": {
+        "chai": "ami",
+        "chao": "tumi",
+        "chan": "apni",
+        "chay": "she",
+        "chailam": "ami, past",
+        "chaibo": "ami, later"
+      }
+    },
+    {
+      "lemma": "bola",
+      "english": "to say, to speak",
+      "forms": {
+        "boli": "ami",
+        "bolo": "tumi",
+        "bolen": "apni",
+        "bole": "she",
+        "bolchi": "ami, right now",
+        "bolcho": "tumi, right now",
+        "bolbo": "ami, later",
+        "bolben": "apni, later",
+        "bolun": "please say (apni)",
+        "bolte": "to say (with another verb)"
+      }
+    },
+    {
+      "lemma": "khaowa",
+      "english": "to eat",
+      "forms": {
+        "khai": "ami",
+        "khao": "tumi",
+        "khan": "apni",
+        "khay": "she",
+        "khachhi": "ami, right now",
+        "khachho": "tumi, right now",
+        "khabo": "ami, later",
+        "khabe": "tumi/she, later",
+        "kheyechi": "ami, perfect",
+        "khete": "to eat (with another verb)"
+      }
+    },
+    {
+      "lemma": "dewa",
+      "english": "to give",
+      "forms": {
+        "dai": "ami",
+        "dao": "tumi",
+        "den": "apni",
+        "dey": "she",
+        "debo": "ami, later",
+        "diben": "apni, later",
+        "din": "please give (apni)",
+        "dite": "to give (with another verb)"
+      }
+    },
+    {
+      "lemma": "newa",
+      "english": "to take",
+      "forms": {
+        "nii": "ami",
+        "nao": "tumi",
+        "nen": "apni",
+        "ney": "she",
+        "nebo": "ami, later",
+        "nite": "to take (with another verb)"
+      }
+    },
+    {
+      "lemma": "thaka",
+      "english": "to stay, to live",
+      "forms": {
+        "thaki": "ami",
+        "thako": "tumi",
+        "thaken": "apni",
+        "thake": "she",
+        "thakbo": "ami, later",
+        "thakben": "apni, later",
+        "thakun": "please stay (apni)"
+      }
+    },
+    {
+      "lemma": "dekha",
+      "english": "to see, to meet",
+      "forms": {
+        "dekhi": "ami",
+        "dekho": "tumi",
+        "dekhen": "apni",
+        "dekhe": "she",
+        "dekhbo": "ami, later",
+        "dekhchi": "ami, right now",
+        "dekhte": "to see (with another verb)"
+      }
+    },
+    {
+      "lemma": "shekha",
+      "english": "to learn",
+      "note": "The stem raises to shikh- before an ending.",
+      "forms": {
+        "shikhi": "ami",
+        "shikho": "tumi",
+        "shikhe": "she",
+        "shikhchi": "ami, right now",
+        "shikhcho": "tumi, right now",
+        "shikhbo": "ami, later",
+        "shikchi": "ami, right now (older spelling)"
+      }
+    },
+    {
+      "lemma": "bojha",
+      "english": "to understand",
+      "note": "The stem raises to bujh- before an ending.",
+      "forms": {
+        "bujhi": "ami",
+        "bujho": "tumi",
+        "bujhe": "she",
+        "bujhchi": "ami, right now",
+        "bujhte": "to understand (with another verb)"
+      }
+    },
+    {
+      "lemma": "para",
+      "english": "to be able",
+      "forms": {
+        "pari": "ami",
+        "paro": "tumi",
+        "paren": "apni",
+        "pare": "she",
+        "parchi": "ami, right now",
+        "parbo": "ami, later",
+        "parben": "apni, later"
+      }
+    },
+    {
+      "lemma": "bosha",
+      "english": "to sit",
+      "forms": {
+        "boshi": "ami",
+        "bosho": "tumi",
+        "boshen": "apni",
+        "boshe": "she",
+        "boshbo": "ami, later",
+        "boshte": "to sit (with another verb)",
+        "boshun": "please sit (apni)"
+      }
+    },
+    {
+      "lemma": "paowa",
+      "english": "to get, to feel (of hunger and thirst)",
+      "forms": {
+        "pai": "ami",
+        "pao": "tumi",
+        "pay": "she",
+        "peyechhe": "perfect (it has come over me)",
+        "peyechi": "ami, perfect"
+      }
+    },
+    {
+      "lemma": "lagha",
+      "english": "to feel, to be applied",
+      "forms": {
+        "lage": "she/it",
+        "lagche": "right now",
+        "legeche": "perfect"
+      }
+    },
+    {
+      "lemma": "haowa",
+      "english": "to happen, to become",
+      "forms": {
+        "hoi": "ami",
+        "hoy": "she/it",
+        "hobe": "later, it will be",
+        "holo": "past, it became",
+        "hochhe": "right now"
+      }
+    },
+    {
+      "lemma": "namha",
+      "english": "to get down, to get off",
+      "forms": {
+        "nami": "ami",
+        "namo": "tumi",
+        "name": "she",
+        "nambo": "ami, later",
+        "namben": "apni, later"
+      }
+    },
+    {
+      "lemma": "cholha",
+      "english": "to move, to go along",
+      "forms": {
+        "choli": "ami",
+        "cholo": "let's / you move",
+        "chole": "she",
+        "cholchi": "ami, right now",
+        "cholun": "please come along (apni)"
+      }
+    },
+    {
+      "lemma": "haraano",
+      "english": "to lose one's way",
+      "forms": {
+        "hariye": "having lost"
+      }
+    }
+  ],
+  "pronouns": {
+    "note": "Bengali pronouns take their own possessive and objective forms. They are irregular enough that a suffix rule would get them wrong, so they are listed.",
+    "forms": [
+      {
+        "base": "ami",
+        "english": "I",
+        "possessive": "amar",
+        "objective": "amake"
+      },
+      {
+        "base": "tumi",
+        "english": "you",
+        "possessive": "tomar",
+        "objective": "tomake"
+      },
+      {
+        "base": "apni",
+        "english": "you (respectful)",
+        "possessive": "apnar",
+        "objective": "apnake"
+      },
+      {
+        "base": "she",
+        "english": "he, she",
+        "possessive": "tar",
+        "objective": "take"
+      },
+      {
+        "base": "tini",
+        "english": "he, she (respectful)",
+        "possessive": "tar",
+        "objective": "take"
+      },
+      {
+        "base": "amra",
+        "english": "we",
+        "possessive": "amader",
+        "objective": "amader"
+      },
+      {
+        "base": "tara",
+        "english": "they",
+        "possessive": "tader",
+        "objective": "tader"
+      },
+      {
+        "base": "eta",
+        "english": "this",
+        "possessive": "etar",
+        "objective": "eta"
+      },
+      {
+        "base": "ota",
+        "english": "that",
+        "possessive": "otar",
+        "objective": "ota"
+      },
+      {
+        "base": "ke",
+        "english": "who",
+        "possessive": "kar",
+        "objective": "kake"
+      }
+    ]
+  },
+  "transparent": {
+    "note": "Words a beginner reads without being taught: names, numerals, and the English loanwords that spoken Bengali uses as they stand.",
+    "properNouns": [
+      "rachel",
+      "bangla",
+      "bangladesh",
+      "dhaka",
+      "sylhet",
+      "chittagong",
+      "khulna",
+      "rajshahi",
+      "amerika",
+      "canada",
+      "london",
+      "ramna",
+      "gulshan",
+      "eid",
+      "ramadan",
+      "nadia",
+      "shopna",
+      "rina",
+      "karim",
+      "rahim",
+      "amina",
+      "farida",
+      "sumon",
+      "tania"
+    ],
+    "numbers": [
+      "ek",
+      "ekta",
+      "dui",
+      "duita",
+      "tin",
+      "tinta",
+      "char",
+      "charta",
+      "panch",
+      "panchta",
+      "chhoy",
+      "shat",
+      "aat",
+      "noy",
+      "dosh",
+      "egaro",
+      "baro",
+      "bish",
+      "trish",
+      "pochish",
+      "ponchash",
+      "eksho",
+      "hajar"
+    ],
+    "loanwords": [
+      "bus",
+      "taxi",
+      "rickshaw",
+      "cng",
+      "station",
+      "bathroom",
+      "police",
+      "doctor",
+      "hospital",
+      "hotel",
+      "phone",
+      "mobile",
+      "emergency",
+      "ticket",
+      "airport",
+      "office",
+      "school",
+      "market",
+      "restaurant",
+      "internet",
+      "wifi",
+      "email"
+    ]
+  },
+  "structureWords": {
+    "note": "Structural glue absorbed from context rather than studied: connectors, particles, intensifiers and the question particle.",
+    "words": [
+      "ar",
+      "o",
+      "kintu",
+      "tai",
+      "to",
+      "ki",
+      "na",
+      "ha",
+      "je",
+      "jodi",
+      "tahole",
+      "khub",
+      "onek",
+      "ektu",
+      "aro",
+      "shob",
+      "shobai",
+      "beshi",
+      "kom",
+      "ei",
+      "oi",
+      "e",
+      "ta",
+      "ti",
+      "kono",
+      "ekhon",
+      "pore",
+      "age",
+      "aj",
+      "ajke",
+      "abar",
+      "aste",
+      "dhire",
+      "shudhu",
+      "matro",
+      "mane",
+      "ba",
+      "ebong",
+      "please"
+    ]
+  }
+}

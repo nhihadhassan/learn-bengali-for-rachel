@@ -11,6 +11,7 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 import { getLessonsForCurriculum } from "@/lib/content";
+import { COURSE_IDS, getCapabilities } from "@/lib/courses";
 import {
   MAX_NEW_ITEMS_PER_LESSON,
   createReviewQueues,
@@ -37,18 +38,26 @@ function planned(lesson: Lesson) {
   return lesson.plan!;
 }
 
-test("every Spanish lesson carries a cumulative plan; other courses do not", () => {
-  for (const lesson of spanish.slice(0, 60)) {
-    assert.ok(lesson.plan, `${lesson.id} should be planned`);
-  }
+test("a lesson carries a plan exactly when its course declares cumulative", () => {
+  // Driven by the registry, not by a list of ids: the strategy is a declared
+  // capability, and a test that names courses instead of asking goes stale the
+  // moment one of them changes strategy.
+  for (const courseId of COURSE_IDS) {
+    const cumulative = getCapabilities(courseId).lessonStrategy === "cumulative";
+    const lessons = getLessonsForCurriculum(courseId);
 
-  for (const courseId of ["bengali", "malayalam", "spanish-peru"] as const) {
-    for (const lesson of getLessonsForCurriculum(courseId)) {
-      assert.equal(
-        lesson.plan,
-        undefined,
-        `${courseId}/${lesson.id} must stay on the phrase-book path`,
-      );
+    assert.ok(lessons.length > 0, `${courseId} has no lessons`);
+
+    for (const lesson of cumulative ? lessons.slice(0, 60) : lessons) {
+      if (cumulative) {
+        assert.ok(lesson.plan, `${courseId}/${lesson.id} should be planned`);
+      } else {
+        assert.equal(
+          lesson.plan,
+          undefined,
+          `${courseId}/${lesson.id} must stay on the phrase-book path`,
+        );
+      }
     }
   }
 });

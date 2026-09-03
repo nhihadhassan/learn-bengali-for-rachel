@@ -300,7 +300,7 @@ function grammarFocusFor(
   // explain a pattern that is nowhere on screen, look across every authored
   // rule for one this unit genuinely demonstrates.
   if (!authored && ranked[0]?.evidence === 0) {
-    const observed = allGrammarRules()
+    const observed = allGrammarRules("spanish")
       .map((rule) => ({
         rule,
         evidence: countPatternEncounters(rule, context.unitPhrases),

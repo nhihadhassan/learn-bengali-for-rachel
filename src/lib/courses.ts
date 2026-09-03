@@ -98,6 +98,15 @@ export type CourseDescriptor = {
   description: string;
   /** BCP-47 locale used for pronunciation. */
   locale: string;
+  /**
+   * The language being taught, as it should read inside a sentence: "Write
+   * this in Spanish."
+   *
+   * Not the same thing as the label — "Spanish for Peru" teaches Spanish, and
+   * `shortLabel` there is "Peru", which would produce "Write this in Peru."
+   * A history course teaches no language and has none.
+   */
+  targetLanguage?: string;
   capabilities: CourseCapabilities;
   nouns: CourseNouns;
   accent: CourseAccent;
@@ -144,9 +153,19 @@ export const COURSES: CourseDescriptor[] = [
     shortLabel: "Bengali",
     description: "Simple spoken Bengali phrases for everyday conversation.",
     locale: "bn-BD",
-    // Romanized Bengali with script kept for pronunciation. Listening stays off:
-    // browser voices mangle romanized Bengali read as English.
-    capabilities: languageCapabilities({ script: true, transliteration: true }),
+    targetLanguage: "Bengali",
+    // Romanized Bengali with the script kept for pronunciation. Listening stays
+    // off: a "tap what you hear" question is only fair where a Bengali voice is
+    // reliably installed, and on most desktops it is not. Dialogue needs no
+    // audio at all — it is "how do you reply?" — so the rebuilt course gets it.
+    // Long enough (18 sequenced units) for cumulative planning to pay off:
+    // lessons build on each other and old units keep coming back.
+    capabilities: languageCapabilities({
+      script: true,
+      transliteration: true,
+      dialogue: true,
+      lessonStrategy: "cumulative",
+    }),
     nouns: LANGUAGE_NOUNS,
     accent: {
       emoji: "🇧🇩",
@@ -162,6 +181,7 @@ export const COURSES: CourseDescriptor[] = [
     description:
       "Travel Spanish for Peru: taxis, food, hotels, tours, and emergencies.",
     locale: "es-PE",
+    targetLanguage: "Spanish",
     // Listening/dialogue are proven on the full Spanish course first; this
     // travel course can opt in once its shorter phrase set is checked.
     capabilities: languageCapabilities({ music: true }),
@@ -180,6 +200,7 @@ export const COURSES: CourseDescriptor[] = [
     description:
       "A research-grounded Spanish course: 131 units from café basics to real conversations.",
     locale: "es",
+    targetLanguage: "Spanish",
     // Spanish browser voices are widely available and accurate, so this course
     // gets the audio-dependent exercise types.
     // Long enough (131 units) for cumulative sequencing to pay off: lessons
@@ -205,6 +226,7 @@ export const COURSES: CourseDescriptor[] = [
     description:
       "Malayalam made gentle for beginners with spoken, romanized phrases.",
     locale: "ml-IN",
+    targetLanguage: "Malayalam",
     capabilities: languageCapabilities({ transliteration: true }),
     nouns: LANGUAGE_NOUNS,
     accent: {
@@ -284,6 +306,16 @@ export function getCourseNouns(courseId: CourseId): CourseNouns {
  */
 export function getCourseShortName(courseId: CourseId): string {
   return getCourse(courseId).shortLabel;
+}
+
+/**
+ * The name of the language a course teaches, for copy like "Write this in
+ * Bengali." Falls back to the short label so a new course reads sensibly
+ * before anyone remembers to fill the field in.
+ */
+export function getTargetLanguage(courseId: CourseId): string {
+  const course = getCourse(courseId);
+  return course.targetLanguage ?? course.shortLabel;
 }
 
 /**

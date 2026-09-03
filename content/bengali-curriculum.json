@@ -1,0 +1,4268 @@
+{
+  "course_id": "bn-en-v2",
+  "version": "1.0.0",
+  "language": "bengali",
+  "register": "Colloquial Bangladeshi Bengali, romanized. tumi is the default level of address; apni is taught explicitly as the respectful one. The Bengali script is carried alongside every item so pronunciation reads real Bengali rather than an English approximation of it.",
+  "note": "Original curriculum written for this app. Vocabulary reuses the v1 phrase id wherever the same item is taught, so spaced-repetition memory, the word bank and mistake history carry over.",
+  "legal_note": "Not affiliated with, endorsed by, or derived from any commercial language course.",
+  "sections": [
+    {
+      "section": 1,
+      "title": "Your first Bengali",
+      "description": "Greetings, how you are, your name, and the things around you."
+    },
+    {
+      "section": 2,
+      "title": "Everyday Bengali",
+      "description": "Food, family, questions, and saying what you are doing and how you feel."
+    },
+    {
+      "section": 3,
+      "title": "Out in the world",
+      "description": "Asking for help, finding your way, visiting a home, and small talk."
+    }
+  ],
+  "units": [
+    {
+      "id": "bn-en-s01-u01",
+      "section": 1,
+      "unit": 1,
+      "cefr": "Intro",
+      "scaffold": 5,
+      "title": "Your first words in Bengali",
+      "objective": "Greet someone, thank them, and say yes and no.",
+      "grammar_targets": [
+        "greetings"
+      ],
+      "vocabulary": [
+        {
+          "id": "p-u01-l01-greetings-01",
+          "bengali": "assalamualaikum",
+          "script": "আসসালামু আলাইকুম",
+          "english": "hello",
+          "part_of_speech": "expression",
+          "pronunciation": "as-sa-laa-mu a-lay-kum",
+          "emoji": "👋"
+        },
+        {
+          "id": "p-u01-l01-greetings-02",
+          "bengali": "walaikum assalam",
+          "script": "ওয়ালাইকুম আসসালাম",
+          "english": "hello (reply)",
+          "part_of_speech": "expression",
+          "pronunciation": "wa-lay-kum as-sa-laam"
+        },
+        {
+          "id": "p-u01-l01-greetings-03",
+          "bengali": "dhonnobad",
+          "script": "ধন্যবাদ",
+          "english": "thank you",
+          "part_of_speech": "expression",
+          "pronunciation": "dhon-no-baad",
+          "emoji": "🙏"
+        },
+        {
+          "id": "p-u04-l01-yes-no-replies-01",
+          "bengali": "ha",
+          "script": "হ্যাঁ",
+          "english": "yes",
+          "part_of_speech": "adverb",
+          "pronunciation": "hã",
+          "emoji": "✅"
+        },
+        {
+          "id": "p-u04-l01-yes-no-replies-02",
+          "bengali": "na",
+          "script": "না",
+          "english": "no",
+          "part_of_speech": "adverb",
+          "pronunciation": "naa",
+          "emoji": "❌"
+        },
+        {
+          "id": "bn-en-s01-u01-v06",
+          "bengali": "onek",
+          "script": "অনেক",
+          "english": "a lot, very much",
+          "part_of_speech": "adverb",
+          "pronunciation": "OH-nek"
+        }
+      ],
+      "phrase_patterns": [
+        {
+          "id": "bn-en-s01-u01-p03",
+          "bengali": "ha, onek dhonnobad",
+          "script": "হ্যাঁ, অনেক ধন্যবাদ",
+          "english": "yes, thank you very much"
+        },
+        {
+          "id": "bn-en-s01-u01-p01",
+          "bengali": "ha, dhonnobad",
+          "script": "হ্যাঁ, ধন্যবাদ",
+          "english": "yes, thank you"
+        },
+        {
+          "id": "bn-en-s01-u01-p02",
+          "bengali": "na, dhonnobad",
+          "script": "না, ধন্যবাদ",
+          "english": "no, thank you"
+        }
+      ],
+      "notices": [
+        {
+          "id": "bn-u01-n01",
+          "title": "Bengali greetings come in pairs",
+          "examples": [
+            {
+              "bengali": "assalamualaikum",
+              "english": "hello",
+              "note": "what the first person says"
+            },
+            {
+              "bengali": "walaikum assalam",
+              "english": "hello (reply)",
+              "note": "the same words, turned around"
+            },
+            {
+              "bengali": "dhonnobad",
+              "english": "thank you",
+              "note": "this one works at any time of day"
+            }
+          ],
+          "question": {
+            "prompt": "Someone greets you with assalamualaikum. What do you say back?",
+            "options": [
+              "walaikum assalam",
+              "assalamualaikum",
+              "dhonnobad"
+            ],
+            "answer": "walaikum assalam",
+            "explanation": "A Bengali greeting is a matched pair: the reply is the same two words in the other order. Answering with assalamualaikum would be greeting them rather than replying to them."
+          }
+        }
+      ],
+      "lesson_sequence": [
+        {
+          "lesson_index": 1,
+          "name": "Discover",
+          "goal": "Meet your first Bengali words."
+        },
+        {
+          "lesson_index": 2,
+          "name": "Build",
+          "goal": "Put two of them together into a whole reply."
+        },
+        {
+          "lesson_index": 3,
+          "name": "Notice the pattern",
+          "goal": "Work out how a Bengali greeting is answered."
+        },
+        {
+          "lesson_index": 4,
+          "name": "Unit review",
+          "goal": "Bring back everything from this unit."
+        }
+      ]
+    },
+    {
+      "id": "bn-en-s01-u02",
+      "section": 1,
+      "unit": 2,
+      "cefr": "Intro",
+      "scaffold": 5,
+      "title": "How are you?",
+      "objective": "Ask how someone is and say how you are.",
+      "grammar_targets": [
+        "ach- endings"
+      ],
+      "vocabulary": [
+        {
+          "id": "bn-en-s01-u02-v01",
+          "bengali": "ami",
+          "script": "আমি",
+          "english": "I",
+          "part_of_speech": "pronoun",
+          "pronunciation": "AH-mi"
+        },
+        {
+          "id": "bn-en-s01-u02-v02",
+          "bengali": "tumi",
+          "script": "তুমি",
+          "english": "you",
+          "part_of_speech": "pronoun",
+          "pronunciation": "TU-mi"
+        },
+        {
+          "id": "bn-en-s01-u02-v03",
+          "bengali": "bhalo",
+          "script": "ভালো",
+          "english": "good, well",
+          "part_of_speech": "adjective",
+          "pronunciation": "BHA-lo"
+        },
+        {
+          "id": "bn-en-s01-u02-v04",
+          "bengali": "kemon",
+          "script": "কেমন",
+          "english": "how",
+          "part_of_speech": "question",
+          "pronunciation": "KEH-mon"
+        },
+        {
+          "id": "bn-en-s01-u02-v05",
+          "bengali": "achi",
+          "script": "আছি",
+          "english": "I am",
+          "part_of_speech": "verb",
+          "pronunciation": "AH-chi",
+          "context_bn": "ami bhalo achi",
+          "context_en": "I am well",
+          "context_script": "আমি ভালো আছি"
+        },
+        {
+          "id": "bn-en-s01-u02-v06",
+          "bengali": "acho",
+          "script": "আছো",
+          "english": "you are",
+          "part_of_speech": "verb",
+          "pronunciation": "AH-cho",
+          "context_bn": "tumi kemon acho?",
+          "context_en": "how are you?",
+          "context_script": "তুমি কেমন আছো?"
+        },
+        {
+          "id": "bn-en-s01-u02-v07",
+          "bengali": "khub",
+          "script": "খুব",
+          "english": "very",
+          "part_of_speech": "adverb",
+          "pronunciation": "khoob"
+        },
+        {
+          "id": "p-u01-l02-how-are-you-04",
+          "bengali": "motamuti",
+          "script": "মোটামুটি",
+          "english": "so-so",
+          "part_of_speech": "adverb",
+          "pronunciation": "mo-ta-MU-ti"
+        },
+        {
+          "id": "bn-en-s01-u02-v09",
+          "bengali": "thik",
+          "script": "ঠিক",
+          "english": "okay, fine",
+          "part_of_speech": "adjective",
+          "pronunciation": "thik"
+        },
+        {
+          "id": "bn-en-s01-u02-v10",
+          "bengali": "ar",
+          "script": "আর",
+          "english": "and",
+          "part_of_speech": "conjunction",
+          "pronunciation": "ar"
+        }
+      ],
+      "phrase_patterns": [
+        {
+          "id": "p-u01-l02-how-are-you-01",
+          "bengali": "tumi kemon acho?",
+          "script": "তুমি কেমন আছো?",
+          "english": "how are you?"
+        },
+        {
+          "id": "p-u01-l02-how-are-you-02",
+          "bengali": "ami bhalo achi",
+          "script": "আমি ভালো আছি",
+          "english": "I am well"
+        },
+        {
+          "id": "p-u01-l02-how-are-you-03",
+          "bengali": "khub bhalo",
+          "script": "খুব ভালো",
+          "english": "very good"
+        },
+        {
+          "id": "p-u01-l02-how-are-you-05",
+          "bengali": "ami thik achi",
+          "script": "আমি ঠিক আছি",
+          "english": "I am okay"
+        },
+        {
+          "id": "p-u01-l02-how-are-you-06",
+          "bengali": "ar tumi?",
+          "script": "আর তুমি?",
+          "english": "and you?"
+        },
+        {
+          "id": "bn-en-s01-u02-p06",
+          "bengali": "ami khub bhalo achi",
+          "script": "আমি খুব ভালো আছি",
+          "english": "I am very well"
+        }
+      ],
+      "notices": [
+        {
+          "id": "bn-u02-n01",
+          "title": "One word, two endings",
+          "examples": [
+            {
+              "bengali": "ami bhalo achi",
+              "english": "I am well",
+              "note": "achi goes with ami"
+            },
+            {
+              "bengali": "tumi kemon acho?",
+              "english": "how are you?",
+              "note": "acho goes with tumi"
+            },
+            {
+              "bengali": "ami thik achi",
+              "english": "I am okay",
+              "note": "ami again, so achi again"
+            }
+          ],
+          "question": {
+            "prompt": "You want to ask a friend how they are. Which is right?",
+            "options": [
+              "tumi kemon acho?",
+              "tumi kemon achi?",
+              "ami kemon acho?"
+            ],
+            "answer": "tumi kemon acho?",
+            "explanation": "The ending carries the person: -i belongs to ami, -o to tumi. Say achi about yourself and acho to whoever you are talking to.",
+            "concepts": [
+              "bn-ach-endings"
+            ]
+          }
+        }
+      ],
+      "dialogues": [
+        {
+          "id": "bn-u02-d01",
+          "scenario": "Meeting a friend on the street.",
+          "turns": [
+            {
+              "prompt": {
+                "bengali": "assalamualaikum",
+                "english": "hello"
+              },
+              "reply": {
+                "bengali": "walaikum assalam",
+                "english": "hello (reply)"
+              },
+              "distractors": [
+                "dhonnobad",
+                "ami bhalo achi",
+                "khub bhalo"
+              ],
+              "speaker": "Friend"
+            },
+            {
+              "prompt": {
+                "bengali": "tumi kemon acho?",
+                "english": "how are you?"
+              },
+              "reply": {
+                "bengali": "ami bhalo achi",
+                "english": "I am well"
+              },
+              "distractors": [
+                "motamuti",
+                "na, dhonnobad",
+                "khub bhalo"
+              ],
+              "speaker": "Friend"
+            },
+            {
+              "prompt": {
+                "bengali": "ar tumi?",
+                "english": "and you?"
+              },
+              "reply": {
+                "bengali": "ami khub bhalo achi",
+                "english": "I am very well"
+              },
+              "distractors": [
+                "dhonnobad",
+                "assalamualaikum",
+                "na, dhonnobad"
+              ],
+              "speaker": "Friend"
+            }
+          ]
+        }
+      ],
+      "lesson_sequence": [
+        {
+          "lesson_index": 1,
+          "name": "Discover",
+          "goal": "Meet ami, tumi, and the word for being well."
+        },
+        {
+          "lesson_index": 2,
+          "name": "Notice the pattern",
+          "goal": "Work out why achi becomes acho."
+        },
+        {
+          "lesson_index": 3,
+          "name": "Build",
+          "goal": "Put the pieces together into whole sentences."
+        },
+        {
+          "lesson_index": 4,
+          "name": "Have a conversation",
+          "goal": "Greet someone and answer how you are."
+        },
+        {
+          "lesson_index": 5,
+          "name": "Unit review",
+          "goal": "Bring back everything from this unit."
+        }
+      ]
+    },
+    {
+      "id": "bn-en-s01-u03",
+      "section": 1,
+      "unit": 3,
+      "cefr": "Intro",
+      "scaffold": 5,
+      "title": "Goodbye, and see you again",
+      "objective": "End a conversation warmly at any time of day.",
+      "grammar_targets": [
+        "greetings"
+      ],
+      "vocabulary": [
+        {
+          "id": "bn-en-s01-u03-v01",
+          "bengali": "abar",
+          "script": "আবার",
+          "english": "again",
+          "part_of_speech": "adverb"
+        },
+        {
+          "id": "bn-en-s01-u03-v02",
+          "bengali": "dekha",
+          "script": "দেখা",
+          "english": "meeting, seeing",
+          "part_of_speech": "noun"
+        },
+        {
+          "id": "bn-en-s01-u03-v03",
+          "bengali": "hobe",
+          "script": "হবে",
+          "english": "it will be",
+          "part_of_speech": "verb",
+          "context_bn": "abar dekha hobe",
+          "context_en": "we will meet again",
+          "context_script": "আবার দেখা হবে"
+        },
+        {
+          "id": "bn-en-s01-u03-v04",
+          "bengali": "thako",
+          "script": "থাকো",
+          "english": "stay",
+          "part_of_speech": "verb"
+        },
+        {
+          "id": "bn-en-s01-u03-v05",
+          "bengali": "shokal",
+          "script": "সকাল",
+          "english": "morning",
+          "part_of_speech": "noun",
+          "emoji": "🌅"
+        },
+        {
+          "id": "bn-en-s01-u03-v06",
+          "bengali": "raat",
+          "script": "রাত",
+          "english": "night",
+          "part_of_speech": "noun",
+          "emoji": "🌙"
+        },
+        {
+          "id": "bn-en-s01-u03-v07",
+          "bengali": "shuvo",
+          "script": "শুভ",
+          "english": "good, blessed",
+          "part_of_speech": "adjective"
+        },
+        {
+          "id": "bn-en-s01-u03-v08",
+          "bengali": "pore",
+          "script": "পরে",
+          "english": "later",
+          "part_of_speech": "adverb"
+        }
+      ],
+      "phrase_patterns": [
+        {
+          "id": "p-u01-l01-greetings-04",
+          "bengali": "abar dekha hobe",
+          "script": "আবার দেখা হবে",
+          "english": "see you again"
+        },
+        {
+          "id": "p-u01-l01-greetings-05",
+          "bengali": "bhalo thako",
+          "script": "ভালো থাকো",
+          "english": "stay well"
+        },
+        {
+          "id": "p-u01-l01-greetings-06",
+          "bengali": "shuvo shokal",
+          "script": "শুভ সকাল",
+          "english": "good morning"
+        },
+        {
+          "id": "bn-en-s01-u03-p04",
+          "bengali": "shuvo raat",
+          "script": "শুভ রাত",
+          "english": "good night"
+        },
+        {
+          "id": "p-u08-l01-small-talk-05",
+          "bengali": "pore dekha hobe",
+          "script": "পরে দেখা হবে",
+          "english": "see you later"
+        }
+      ],
+      "dialogues": [
+        {
+          "id": "bn-u03-d01",
+          "scenario": "Saying goodnight at the end of a visit.",
+          "turns": [
+            {
+              "prompt": {
+                "bengali": "shuvo raat",
+                "english": "good night"
+              },
+              "reply": {
+                "bengali": "shuvo raat, bhalo thako",
+                "english": "good night, stay well"
+              },
+              "distractors": [
+                "shuvo shokal",
+                "tumi kemon acho?",
+                "ami bhalo achi"
+              ],
+              "speaker": "Host"
+            },
+            {
+              "prompt": {
+                "bengali": "abar dekha hobe",
+                "english": "see you again"
+              },
+              "reply": {
+                "bengali": "ha, pore dekha hobe",
+                "english": "yes, see you later"
+              },
+              "distractors": [
+                "na, dhonnobad",
+                "shuvo shokal",
+                "khub bhalo"
+              ],
+              "speaker": "Host"
+            },
+            {
+              "prompt": {
+                "bengali": "bhalo thako",
+                "english": "stay well"
+              },
+              "reply": {
+                "bengali": "dhonnobad, bhalo thako",
+                "english": "thank you, stay well"
+              },
+              "distractors": [
+                "shuvo shokal",
+                "motamuti",
+                "tumi kemon acho?"
+              ],
+              "speaker": "Host"
+            }
+          ]
+        }
+      ],
+      "lesson_sequence": [
+        {
+          "lesson_index": 1,
+          "name": "Discover",
+          "goal": "Meet the words for morning, night and meeting again."
+        },
+        {
+          "lesson_index": 2,
+          "name": "Build",
+          "goal": "Build a goodbye out of pieces you already know."
+        },
+        {
+          "lesson_index": 3,
+          "name": "Have a conversation",
+          "goal": "Say goodnight and leave warmly."
+        },
+        {
+          "lesson_index": 4,
+          "name": "Unit review",
+          "goal": "Bring back everything from this unit."
+        }
+      ]
+    },
+    {
+      "id": "bn-en-s01-u04",
+      "section": 1,
+      "unit": 4,
+      "cefr": "Intro",
+      "scaffold": 4,
+      "title": "Your name and mine",
+      "objective": "Say your name, ask someone else's, and say you are learning Bengali.",
+      "grammar_targets": [
+        "possessives"
+      ],
+      "grammar_focus": "bn-amar-tomar",
+      "vocabulary": [
+        {
+          "id": "bn-en-s01-u04-v01",
+          "bengali": "naam",
+          "script": "নাম",
+          "english": "name",
+          "part_of_speech": "noun"
+        },
+        {
+          "id": "bn-en-s01-u04-v02",
+          "bengali": "amar",
+          "script": "আমার",
+          "english": "my",
+          "part_of_speech": "pronoun",
+          "context_bn": "amar naam Rachel",
+          "context_en": "my name is Rachel",
+          "context_script": "আমার নাম র‍্যাচেল"
+        },
+        {
+          "id": "bn-en-s01-u04-v03",
+          "bengali": "tomar",
+          "script": "তোমার",
+          "english": "your",
+          "part_of_speech": "pronoun"
+        },
+        {
+          "id": "bn-en-s01-u04-v04",
+          "bengali": "ki",
+          "script": "কী",
+          "english": "what",
+          "part_of_speech": "question"
+        },
+        {
+          "id": "bn-en-s01-u04-v05",
+          "bengali": "shikhchi",
+          "script": "শিখছি",
+          "english": "I am learning",
+          "part_of_speech": "verb"
+        },
+        {
+          "id": "bn-en-s01-u04-v06",
+          "bengali": "boli",
+          "script": "বলি",
+          "english": "I speak",
+          "part_of_speech": "verb"
+        },
+        {
+          "id": "bn-en-s01-u04-v07",
+          "bengali": "ektu",
+          "script": "একটু",
+          "english": "a little",
+          "part_of_speech": "adverb"
+        },
+        {
+          "id": "bn-en-s01-u04-v08",
+          "bengali": "apni",
+          "script": "আপনি",
+          "english": "you (respectful)",
+          "part_of_speech": "pronoun"
+        },
+        {
+          "id": "bn-en-s01-u04-v09",
+          "bengali": "apnar",
+          "script": "আপনার",
+          "english": "your (respectful)",
+          "part_of_speech": "pronoun"
+        },
+        {
+          "id": "bn-en-s01-u04-v10",
+          "bengali": "achen",
+          "script": "আছেন",
+          "english": "you are (respectful)",
+          "part_of_speech": "verb"
+        }
+      ],
+      "phrase_patterns": [
+        {
+          "id": "p-u02-l01-introduce-yourself-01",
+          "bengali": "ami Rachel",
+          "script": "আমি র‍্যাচেল",
+          "english": "I am Rachel"
+        },
+        {
+          "id": "p-u02-l01-introduce-yourself-02",
+          "bengali": "amar naam Rachel",
+          "script": "আমার নাম র‍্যাচেল",
+          "english": "my name is Rachel"
+        },
+        {
+          "id": "p-u02-l01-introduce-yourself-03",
+          "bengali": "tomar naam ki?",
+          "script": "তোমার নাম কী?",
+          "english": "what is your name?"
+        },
+        {
+          "id": "p-u02-l01-introduce-yourself-05",
+          "bengali": "ami Bangla shikhchi",
+          "script": "আমি বাংলা শিখছি",
+          "english": "I am learning Bengali"
+        },
+        {
+          "id": "p-u02-l01-introduce-yourself-06",
+          "bengali": "ami ektu Bangla boli",
+          "script": "আমি একটু বাংলা বলি",
+          "english": "I speak a little Bengali"
+        },
+        {
+          "id": "bn-en-s01-u04-p06",
+          "bengali": "apnar naam ki?",
+          "script": "আপনার নাম কী?",
+          "english": "what is your name? (respectful)"
+        },
+        {
+          "id": "bn-en-s01-u04-p07",
+          "bengali": "apni kemon achen?",
+          "script": "আপনি কেমন আছেন?",
+          "english": "how are you? (respectful)"
+        }
+      ],
+      "patterns": [
+        {
+          "id": "bn-u04-pat01",
+          "template": "amar naam {}",
+          "english": "my name is {}",
+          "fills": [
+            {
+              "bengali": "Rachel",
+              "english": "Rachel"
+            },
+            {
+              "bengali": "Nadia",
+              "english": "Nadia"
+            },
+            {
+              "bengali": "Karim",
+              "english": "Karim"
+            }
+          ],
+          "concepts": [
+            "bn-amar-tomar"
+          ]
+        }
+      ],
+      "notices": [
+        {
+          "id": "bn-u04-n01",
+          "title": "ami becomes amar",
+          "examples": [
+            {
+              "bengali": "ami bhalo achi",
+              "english": "I am well",
+              "note": "ami = I"
+            },
+            {
+              "bengali": "amar naam Rachel",
+              "english": "my name is Rachel",
+              "note": "amar = my"
+            },
+            {
+              "bengali": "tomar naam ki?",
+              "english": "what is your name?",
+              "note": "tumi = you, tomar = your"
+            }
+          ],
+          "question": {
+            "prompt": "tumi is \"you\". So how do you say \"your name\"?",
+            "options": [
+              "tomar naam",
+              "tumi naam",
+              "amar naam"
+            ],
+            "answer": "tomar naam",
+            "explanation": "Bengali changes the pronoun itself instead of adding a separate word: ami → amar, tumi → tomar, apni → apnar. The possessive comes first, just as it does in English.",
+            "concepts": [
+              "bn-amar-tomar"
+            ]
+          }
+        }
+      ],
+      "dialogues": [
+        {
+          "id": "bn-u04-d01",
+          "scenario": "Meeting someone your own age at a friend's house.",
+          "turns": [
+            {
+              "prompt": {
+                "bengali": "assalamualaikum. tomar naam ki?",
+                "english": "hello. what is your name?"
+              },
+              "reply": {
+                "bengali": "amar naam Rachel",
+                "english": "my name is Rachel"
+              },
+              "distractors": [
+                "tomar naam ki?",
+                "ami bhalo achi",
+                "abar dekha hobe"
+              ],
+              "speaker": "Nadia"
+            },
+            {
+              "prompt": {
+                "bengali": "tumi kemon acho?",
+                "english": "how are you?"
+              },
+              "reply": {
+                "bengali": "ami khub bhalo achi",
+                "english": "I am very well"
+              },
+              "distractors": [
+                "amar naam Rachel",
+                "shuvo raat",
+                "na, dhonnobad"
+              ],
+              "speaker": "Nadia"
+            },
+            {
+              "prompt": {
+                "bengali": "tumi Bangla bolo?",
+                "english": "do you speak Bengali?"
+              },
+              "reply": {
+                "bengali": "ami ektu Bangla boli",
+                "english": "I speak a little Bengali"
+              },
+              "distractors": [
+                "amar naam Rachel",
+                "dhonnobad, bhalo thako",
+                "khub bhalo"
+              ],
+              "speaker": "Nadia"
+            }
+          ]
+        }
+      ],
+      "lesson_sequence": [
+        {
+          "lesson_index": 1,
+          "name": "Discover",
+          "goal": "Meet naam, amar and tomar."
+        },
+        {
+          "lesson_index": 2,
+          "name": "Notice the pattern",
+          "goal": "Work out how ami turns into amar."
+        },
+        {
+          "lesson_index": 3,
+          "name": "Grammar focus",
+          "goal": "Name the possessive pattern and drill it."
+        },
+        {
+          "lesson_index": 4,
+          "name": "Have a conversation",
+          "goal": "Introduce yourself to someone new."
+        },
+        {
+          "lesson_index": 5,
+          "name": "Unit review",
+          "goal": "Bring back everything from this unit."
+        }
+      ]
+    },
+    {
+      "id": "bn-en-s01-u05",
+      "section": 1,
+      "unit": 5,
+      "cefr": "Intro",
+      "scaffold": 4,
+      "title": "This and that",
+      "objective": "Point at things, name them, and say whose they are.",
+      "grammar_targets": [
+        "demonstratives"
+      ],
+      "grammar_focus": "bn-eta-ota",
+      "vocabulary": [
+        {
+          "id": "bn-en-s01-u05-v01",
+          "bengali": "eta",
+          "script": "এটা",
+          "english": "this",
+          "part_of_speech": "pronoun"
+        },
+        {
+          "id": "bn-en-s01-u05-v02",
+          "bengali": "ota",
+          "script": "ওটা",
+          "english": "that",
+          "part_of_speech": "pronoun"
+        },
+        {
+          "id": "bn-en-s01-u05-v03",
+          "bengali": "bari",
+          "script": "বাড়ি",
+          "english": "house, home",
+          "part_of_speech": "noun",
+          "emoji": "🏠"
+        },
+        {
+          "id": "bn-en-s01-u05-v04",
+          "bengali": "boi",
+          "script": "বই",
+          "english": "book",
+          "part_of_speech": "noun",
+          "emoji": "📖"
+        },
+        {
+          "id": "bn-en-s01-u05-v05",
+          "bengali": "chabi",
+          "script": "চাবি",
+          "english": "key",
+          "part_of_speech": "noun",
+          "emoji": "🔑"
+        },
+        {
+          "id": "bn-en-s01-u05-v06",
+          "bengali": "ghor",
+          "script": "ঘর",
+          "english": "room",
+          "part_of_speech": "noun",
+          "emoji": "🚪"
+        },
+        {
+          "id": "bn-en-s01-u05-v07",
+          "bengali": "shundor",
+          "script": "সুন্দর",
+          "english": "beautiful",
+          "part_of_speech": "adjective"
+        },
+        {
+          "id": "bn-en-s01-u05-v08",
+          "bengali": "notun",
+          "script": "নতুন",
+          "english": "new",
+          "part_of_speech": "adjective"
+        }
+      ],
+      "phrase_patterns": [
+        {
+          "id": "p-u04-l02-simple-questions-01",
+          "bengali": "eta ki?",
+          "script": "এটা কী?",
+          "english": "what is this?"
+        },
+        {
+          "id": "p-u03-l02-hungry-and-thirsty-04",
+          "bengali": "eta bhalo",
+          "script": "এটা ভালো",
+          "english": "this is good"
+        },
+        {
+          "id": "bn-en-s01-u05-p03",
+          "bengali": "ota ki?",
+          "script": "ওটা কী?",
+          "english": "what is that?"
+        },
+        {
+          "id": "bn-en-s01-u05-p04",
+          "bengali": "eta amar boi",
+          "script": "এটা আমার বই",
+          "english": "this is my book"
+        },
+        {
+          "id": "bn-en-s01-u05-p05",
+          "bengali": "eta amar bari",
+          "script": "এটা আমার বাড়ি",
+          "english": "this is my house"
+        },
+        {
+          "id": "p-u06-l01-visiting-home-05",
+          "bengali": "khub shundor bari",
+          "script": "খুব সুন্দর বাড়ি",
+          "english": "a very beautiful house"
+        },
+        {
+          "id": "bn-en-s01-u05-p07",
+          "bengali": "ota tomar chabi?",
+          "script": "ওটা তোমার চাবি?",
+          "english": "is that your key?"
+        },
+        {
+          "id": "bn-en-s01-u05-p08",
+          "bengali": "amar ghor notun",
+          "script": "আমার ঘর নতুন",
+          "english": "my room is new"
+        }
+      ],
+      "notices": [
+        {
+          "id": "bn-u05-n01",
+          "title": "The missing word",
+          "examples": [
+            {
+              "bengali": "eta bhalo",
+              "english": "this is good",
+              "note": "there is no word for \"is\""
+            },
+            {
+              "bengali": "eta amar boi",
+              "english": "this is my book",
+              "note": "still no \"is\""
+            },
+            {
+              "bengali": "ami bhalo achi",
+              "english": "I am well",
+              "note": "achi is about a state, not a plain \"is\""
+            }
+          ],
+          "question": {
+            "prompt": "How do you say \"that is my house\"?",
+            "options": [
+              "ota amar bari",
+              "ota ache amar bari",
+              "ota amar bari ache"
+            ],
+            "answer": "ota amar bari",
+            "explanation": "In the present tense Bengali simply leaves \"is\" out: the subject, then what it is. ach- is for being somewhere or being in a state, not for joining two nouns together.",
+            "concepts": [
+              "bn-eta-ota"
+            ]
+          }
+        }
+      ],
+      "lesson_sequence": [
+        {
+          "lesson_index": 1,
+          "name": "Discover",
+          "goal": "Meet eta, ota and the things around the house."
+        },
+        {
+          "lesson_index": 2,
+          "name": "Notice the pattern",
+          "goal": "Work out what is missing from a Bengali sentence."
+        },
+        {
+          "lesson_index": 3,
+          "name": "Build",
+          "goal": "Say whose something is."
+        },
+        {
+          "lesson_index": 4,
+          "name": "Grammar focus",
+          "goal": "Name the near/far pattern and drill it."
+        },
+        {
+          "lesson_index": 5,
+          "name": "Unit review",
+          "goal": "Bring back everything from this unit."
+        }
+      ]
+    },
+    {
+      "id": "bn-en-s01-u06",
+      "section": 1,
+      "unit": 6,
+      "cefr": "Intro",
+      "scaffold": 4,
+      "title": "Yes, no, and sorry",
+      "objective": "Keep a conversation going when you have not quite understood.",
+      "grammar_targets": [
+        "negation"
+      ],
+      "vocabulary": [
+        {
+          "id": "bn-en-s01-u06-v01",
+          "bengali": "ache",
+          "script": "আছে",
+          "english": "there is, it is",
+          "part_of_speech": "verb"
+        },
+        {
+          "id": "bn-en-s01-u06-v02",
+          "bengali": "nei",
+          "script": "নেই",
+          "english": "there is not",
+          "part_of_speech": "verb"
+        },
+        {
+          "id": "bn-en-s01-u06-v03",
+          "bengali": "shomossha",
+          "script": "সমস্যা",
+          "english": "problem",
+          "part_of_speech": "noun"
+        },
+        {
+          "id": "bn-en-s01-u06-v04",
+          "bengali": "maf",
+          "script": "মাফ",
+          "english": "pardon",
+          "part_of_speech": "noun"
+        },
+        {
+          "id": "bn-en-s01-u06-v05",
+          "bengali": "koro",
+          "script": "করো",
+          "english": "do",
+          "part_of_speech": "verb"
+        },
+        {
+          "id": "bn-en-s01-u06-v06",
+          "bengali": "bolo",
+          "script": "বলো",
+          "english": "say",
+          "part_of_speech": "verb"
+        },
+        {
+          "id": "bn-en-s01-u06-v07",
+          "bengali": "kono",
+          "script": "কোনো",
+          "english": "any",
+          "part_of_speech": "adjective"
+        }
+      ],
+      "phrase_patterns": [
+        {
+          "id": "p-u04-l01-yes-no-replies-03",
+          "bengali": "thik ache",
+          "script": "ঠিক আছে",
+          "english": "okay"
+        },
+        {
+          "id": "p-u04-l01-yes-no-replies-04",
+          "bengali": "kono shomossha nei",
+          "script": "কোনো সমস্যা নেই",
+          "english": "no problem"
+        },
+        {
+          "id": "p-u04-l01-yes-no-replies-05",
+          "bengali": "maf koro",
+          "script": "মাফ করো",
+          "english": "sorry"
+        },
+        {
+          "id": "p-u04-l01-yes-no-replies-06",
+          "bengali": "abar bolo",
+          "script": "আবার বলো",
+          "english": "say it again"
+        },
+        {
+          "id": "p-u05-l02-asking-for-help-05",
+          "bengali": "eta abar bolo",
+          "script": "এটা আবার বলো",
+          "english": "say this again"
+        },
+        {
+          "id": "bn-en-s01-u06-p06",
+          "bengali": "amar chabi nei",
+          "script": "আমার চাবি নেই",
+          "english": "I do not have my key"
+        }
+      ],
+      "notices": [
+        {
+          "id": "bn-u06-n01",
+          "title": "ache and nei",
+          "examples": [
+            {
+              "bengali": "thik ache",
+              "english": "okay, it is fine",
+              "note": "ache = there is"
+            },
+            {
+              "bengali": "kono shomossha nei",
+              "english": "no problem",
+              "note": "nei = there is not"
+            },
+            {
+              "bengali": "amar chabi nei",
+              "english": "I do not have my key",
+              "note": "having something is \"it is to me\""
+            }
+          ],
+          "question": {
+            "prompt": "You do have your book. Which is right?",
+            "options": [
+              "amar boi ache",
+              "amar boi nei",
+              "amar boi achi"
+            ],
+            "answer": "amar boi ache",
+            "explanation": "Bengali has no verb \"to have\". It says the thing is (ache) or is not (nei) to you: amar boi ache is literally \"my book is there\".",
+            "concepts": [
+              "bn-na-negation"
+            ]
+          }
+        }
+      ],
+      "lesson_sequence": [
+        {
+          "lesson_index": 1,
+          "name": "Discover",
+          "goal": "Meet the small words that keep a conversation moving."
+        },
+        {
+          "lesson_index": 2,
+          "name": "Build",
+          "goal": "Ask someone to say it again."
+        },
+        {
+          "lesson_index": 3,
+          "name": "Notice the pattern",
+          "goal": "Work out how Bengali says you have something."
+        },
+        {
+          "lesson_index": 4,
+          "name": "Unit review",
+          "goal": "Bring back everything from this unit."
+        }
+      ]
+    },
+    {
+      "id": "bn-en-s02-u07",
+      "section": 2,
+      "unit": 7,
+      "cefr": "A1",
+      "scaffold": 3,
+      "title": "Water, tea and rice",
+      "objective": "Ask for what you want at a table.",
+      "grammar_targets": [
+        "wanting",
+        "word order"
+      ],
+      "grammar_focus": "bn-chai-wanting",
+      "vocabulary": [
+        {
+          "id": "p-u03-l01-food-and-water-04",
+          "bengali": "pani",
+          "script": "পানি",
+          "english": "water",
+          "part_of_speech": "noun",
+          "emoji": "💧"
+        },
+        {
+          "id": "p-u03-l01-food-and-water-05",
+          "bengali": "cha",
+          "script": "চা",
+          "english": "tea",
+          "part_of_speech": "noun",
+          "emoji": "🍵"
+        },
+        {
+          "id": "p-u03-l01-food-and-water-06",
+          "bengali": "bhaat",
+          "script": "ভাত",
+          "english": "rice",
+          "part_of_speech": "noun",
+          "emoji": "🍚"
+        },
+        {
+          "id": "bn-en-s02-u07-v04",
+          "bengali": "chai",
+          "script": "চাই",
+          "english": "I want",
+          "part_of_speech": "verb",
+          "context_bn": "ami pani chai",
+          "context_en": "I want water",
+          "context_script": "আমি পানি চাই"
+        },
+        {
+          "id": "bn-en-s02-u07-v05",
+          "bengali": "khabar",
+          "script": "খাবার",
+          "english": "food",
+          "part_of_speech": "noun",
+          "emoji": "🍽️"
+        },
+        {
+          "id": "bn-en-s02-u07-v06",
+          "bengali": "misti",
+          "script": "মিষ্টি",
+          "english": "sweet",
+          "part_of_speech": "noun",
+          "emoji": "🍬"
+        },
+        {
+          "id": "bn-en-s02-u07-v07",
+          "bengali": "dao",
+          "script": "দাও",
+          "english": "give",
+          "part_of_speech": "verb"
+        },
+        {
+          "id": "bn-en-s02-u07-v08",
+          "bengali": "chao",
+          "script": "চাও",
+          "english": "you want",
+          "part_of_speech": "verb"
+        }
+      ],
+      "phrase_patterns": [
+        {
+          "id": "p-u03-l01-food-and-water-01",
+          "bengali": "ami pani chai",
+          "script": "আমি পানি চাই",
+          "english": "I want water"
+        },
+        {
+          "id": "p-u03-l01-food-and-water-02",
+          "bengali": "ami cha chai",
+          "script": "আমি চা চাই",
+          "english": "I want tea"
+        },
+        {
+          "id": "p-u03-l01-food-and-water-03",
+          "bengali": "ami bhaat chai",
+          "script": "আমি ভাত চাই",
+          "english": "I want rice"
+        },
+        {
+          "id": "p-u06-l01-visiting-home-04",
+          "bengali": "ektu pani dao",
+          "script": "একটু পানি দাও",
+          "english": "give me a little water"
+        },
+        {
+          "id": "p-u03-l02-hungry-and-thirsty-06",
+          "bengali": "ami eta chai na",
+          "script": "আমি এটা চাই না",
+          "english": "I do not want this"
+        },
+        {
+          "id": "bn-en-s02-u07-p06",
+          "bengali": "tumi ki chao?",
+          "script": "তুমি কী চাও?",
+          "english": "what do you want?"
+        },
+        {
+          "id": "bn-en-s02-u07-p07",
+          "bengali": "ami misti chai",
+          "script": "আমি মিষ্টি চাই",
+          "english": "I want a sweet"
+        },
+        {
+          "id": "bn-en-s02-u07-p08",
+          "bengali": "khabar khub bhalo",
+          "script": "খাবার খুব ভালো",
+          "english": "the food is very good"
+        }
+      ],
+      "patterns": [
+        {
+          "id": "bn-u07-pat01",
+          "template": "ami {} chai",
+          "english": "I want {}",
+          "fills": [
+            {
+              "bengali": "pani",
+              "english": "water"
+            },
+            {
+              "bengali": "cha",
+              "english": "tea"
+            },
+            {
+              "bengali": "bhaat",
+              "english": "rice"
+            },
+            {
+              "bengali": "misti",
+              "english": "a sweet"
+            }
+          ],
+          "concepts": [
+            "bn-chai-wanting"
+          ]
+        }
+      ],
+      "notices": [
+        {
+          "id": "bn-u07-n01",
+          "title": "The verb comes last",
+          "examples": [
+            {
+              "bengali": "ami pani chai",
+              "english": "I want water",
+              "note": "literally: I — water — want"
+            },
+            {
+              "bengali": "ami cha chai",
+              "english": "I want tea"
+            },
+            {
+              "bengali": "ami eta chai na",
+              "english": "I do not want this",
+              "note": "and na comes after the verb"
+            }
+          ],
+          "question": {
+            "prompt": "How would you say \"I want rice\"?",
+            "options": [
+              "ami bhaat chai",
+              "ami chai bhaat",
+              "bhaat ami chai"
+            ],
+            "answer": "ami bhaat chai",
+            "explanation": "Bengali puts the verb at the end of the sentence. Say who, then what, then the verb — and once you expect that, long sentences stop being confusing.",
+            "concepts": [
+              "bn-verb-last"
+            ]
+          }
+        }
+      ],
+      "dialogues": [
+        {
+          "id": "bn-u07-d01",
+          "scenario": "A friend's mother is offering you something to eat.",
+          "turns": [
+            {
+              "prompt": {
+                "bengali": "tumi ki chao?",
+                "english": "what do you want?"
+              },
+              "reply": {
+                "bengali": "ami cha chai",
+                "english": "I want tea"
+              },
+              "distractors": [
+                "ami eta chai na",
+                "kono shomossha nei",
+                "abar bolo"
+              ],
+              "speaker": "Nadia's mother"
+            },
+            {
+              "prompt": {
+                "bengali": "khabar kemon?",
+                "english": "how is the food?"
+              },
+              "reply": {
+                "bengali": "khabar khub bhalo",
+                "english": "the food is very good"
+              },
+              "distractors": [
+                "ami pani chai",
+                "ha, dhonnobad",
+                "eta amar boi"
+              ],
+              "speaker": "Nadia's mother"
+            },
+            {
+              "prompt": {
+                "bengali": "aro kichu chao?",
+                "english": "do you want anything more?",
+                "receptive": true
+              },
+              "reply": {
+                "bengali": "ektu pani dao",
+                "english": "give me a little water"
+              },
+              "distractors": [
+                "maf koro",
+                "shuvo raat",
+                "eta amar bari"
+              ],
+              "speaker": "Nadia's mother"
+            }
+          ]
+        }
+      ],
+      "lesson_sequence": [
+        {
+          "lesson_index": 1,
+          "name": "Discover",
+          "goal": "Meet the food and drink you will ask for most."
+        },
+        {
+          "lesson_index": 2,
+          "name": "Build",
+          "goal": "Ask for something in a whole sentence."
+        },
+        {
+          "lesson_index": 3,
+          "name": "Notice the pattern",
+          "goal": "Work out where the verb goes."
+        },
+        {
+          "lesson_index": 4,
+          "name": "Grammar focus",
+          "goal": "Name the wanting pattern and drill it."
+        },
+        {
+          "lesson_index": 5,
+          "name": "Have a conversation",
+          "goal": "Accept and ask for food at someone's table."
+        },
+        {
+          "lesson_index": 6,
+          "name": "Unit review",
+          "goal": "Bring back everything from this unit."
+        }
+      ]
+    },
+    {
+      "id": "bn-en-s02-u08",
+      "section": 2,
+      "unit": 8,
+      "cefr": "A1",
+      "scaffold": 3,
+      "title": "Hungry, thirsty, full",
+      "objective": "Say how your body feels, and what you like.",
+      "grammar_targets": [
+        "feelings"
+      ],
+      "vocabulary": [
+        {
+          "id": "bn-en-s02-u08-v01",
+          "bengali": "khide",
+          "script": "খিদে",
+          "english": "hunger",
+          "part_of_speech": "noun"
+        },
+        {
+          "id": "bn-en-s02-u08-v02",
+          "bengali": "pipasha",
+          "script": "পিপাসা",
+          "english": "thirst",
+          "part_of_speech": "noun"
+        },
+        {
+          "id": "bn-en-s02-u08-v03",
+          "bengali": "peyechhe",
+          "script": "পেয়েছে",
+          "english": "has come over (me)",
+          "part_of_speech": "verb"
+        },
+        {
+          "id": "bn-en-s02-u08-v04",
+          "bengali": "pet",
+          "script": "পেট",
+          "english": "stomach",
+          "part_of_speech": "noun"
+        },
+        {
+          "id": "bn-en-s02-u08-v05",
+          "bengali": "bhore geche",
+          "script": "ভরে গেছে",
+          "english": "has filled up",
+          "part_of_speech": "verb"
+        },
+        {
+          "id": "bn-en-s02-u08-v06",
+          "bengali": "pochondo",
+          "script": "পছন্দ",
+          "english": "liking",
+          "part_of_speech": "noun"
+        },
+        {
+          "id": "bn-en-s02-u08-v07",
+          "bengali": "kori",
+          "script": "করি",
+          "english": "I do",
+          "part_of_speech": "verb"
+        },
+        {
+          "id": "bn-en-s02-u08-v08",
+          "bengali": "gorom",
+          "script": "গরম",
+          "english": "hot",
+          "part_of_speech": "adjective",
+          "emoji": "🔥"
+        }
+      ],
+      "phrase_patterns": [
+        {
+          "id": "p-u03-l02-hungry-and-thirsty-01",
+          "bengali": "amar khide peyechhe",
+          "script": "আমার খিদে পেয়েছে",
+          "english": "I am hungry"
+        },
+        {
+          "id": "p-u03-l02-hungry-and-thirsty-02",
+          "bengali": "amar pipasha peyechhe",
+          "script": "আমার পিপাসা পেয়েছে",
+          "english": "I am thirsty"
+        },
+        {
+          "id": "p-u03-l02-hungry-and-thirsty-03",
+          "bengali": "amar pet bhore geche",
+          "script": "আমার পেট ভরে গেছে",
+          "english": "I am full"
+        },
+        {
+          "id": "p-u03-l02-hungry-and-thirsty-05",
+          "bengali": "ami eta pochondo kori",
+          "script": "আমি এটা পছন্দ করি",
+          "english": "I like this"
+        },
+        {
+          "id": "bn-en-s02-u08-p05",
+          "bengali": "cha khub gorom",
+          "script": "চা খুব গরম",
+          "english": "the tea is very hot"
+        },
+        {
+          "id": "bn-en-s02-u08-p06",
+          "bengali": "ami cha pochondo kori",
+          "script": "আমি চা পছন্দ করি",
+          "english": "I like tea"
+        }
+      ],
+      "notices": [
+        {
+          "id": "bn-u08-n01",
+          "title": "Some feelings happen to you",
+          "examples": [
+            {
+              "bengali": "amar khide peyechhe",
+              "english": "I am hungry",
+              "note": "literally: hunger has come to me"
+            },
+            {
+              "bengali": "amar pipasha peyechhe",
+              "english": "I am thirsty",
+              "note": "thirst arrives the same way"
+            },
+            {
+              "bengali": "ami bhalo achi",
+              "english": "I am well",
+              "note": "but a mood stays with ami"
+            }
+          ],
+          "question": {
+            "prompt": "How do you say \"I am thirsty\"?",
+            "options": [
+              "amar pipasha peyechhe",
+              "ami pipasha achi",
+              "ami pipasha"
+            ],
+            "answer": "amar pipasha peyechhe",
+            "explanation": "Hunger and thirst are not things you are in Bengali — they are things that come over you. So they take amar, \"to me\", rather than ami.",
+            "concepts": [
+              "bn-amar-feelings"
+            ]
+          }
+        }
+      ],
+      "stories": [
+        {
+          "id": "bn-u08-s01",
+          "title": "Amar khide peyechhe",
+          "setup": "Rachel has been out all morning and comes home hungry.",
+          "lines": [
+            {
+              "bengali": "eta amar bari",
+              "english": "This is my house."
+            },
+            {
+              "bengali": "amar khide peyechhe",
+              "english": "I am hungry."
+            },
+            {
+              "bengali": "ami bhaat chai, ar ektu pani chai",
+              "english": "I want rice, and a little water."
+            },
+            {
+              "bengali": "khabar khub bhalo",
+              "english": "The food is very good."
+            },
+            {
+              "bengali": "amar pet bhore geche",
+              "english": "Now I am full."
+            }
+          ],
+          "questions": [
+            {
+              "prompt": "Why does Rachel want rice?",
+              "options": [
+                "She is hungry",
+                "She is thirsty",
+                "She is tired"
+              ],
+              "answer": "She is hungry",
+              "explanation": "amar khide peyechhe — hunger has come over me."
+            },
+            {
+              "prompt": "How does the meal end?",
+              "options": [
+                "She is full",
+                "She wants more rice",
+                "She goes out"
+              ],
+              "answer": "She is full",
+              "explanation": "amar pet bhore geche — my stomach has filled up."
+            }
+          ]
+        }
+      ],
+      "lesson_sequence": [
+        {
+          "lesson_index": 1,
+          "name": "Discover",
+          "goal": "Meet hunger, thirst and liking something."
+        },
+        {
+          "lesson_index": 2,
+          "name": "Notice the pattern",
+          "goal": "Work out why hunger takes amar and not ami."
+        },
+        {
+          "lesson_index": 3,
+          "name": "Build",
+          "goal": "Say how you feel in a whole sentence."
+        },
+        {
+          "lesson_index": 4,
+          "name": "Read a story",
+          "goal": "Follow a short scene at home. Meaning first."
+        },
+        {
+          "lesson_index": 5,
+          "name": "Unit review",
+          "goal": "Bring back everything from this unit."
+        }
+      ]
+    },
+    {
+      "id": "bn-en-s02-u09",
+      "section": 2,
+      "unit": 9,
+      "cefr": "A1",
+      "scaffold": 3,
+      "title": "Family and friends",
+      "objective": "Introduce the people around you and ask who someone is.",
+      "grammar_targets": [
+        "possessives"
+      ],
+      "vocabulary": [
+        {
+          "id": "p-u02-l02-family-words-01",
+          "bengali": "ma",
+          "script": "মা",
+          "english": "mother",
+          "part_of_speech": "noun",
+          "emoji": "👩"
+        },
+        {
+          "id": "p-u02-l02-family-words-02",
+          "bengali": "baba",
+          "script": "বাবা",
+          "english": "father",
+          "part_of_speech": "noun",
+          "emoji": "👨"
+        },
+        {
+          "id": "p-u02-l02-family-words-03",
+          "bengali": "bon",
+          "script": "বোন",
+          "english": "sister",
+          "part_of_speech": "noun"
+        },
+        {
+          "id": "p-u02-l02-family-words-04",
+          "bengali": "bhai",
+          "script": "ভাই",
+          "english": "brother",
+          "part_of_speech": "noun"
+        },
+        {
+          "id": "bn-en-s02-u09-v05",
+          "bengali": "chele",
+          "script": "ছেলে",
+          "english": "boy, son",
+          "part_of_speech": "noun"
+        },
+        {
+          "id": "bn-en-s02-u09-v06",
+          "bengali": "meye",
+          "script": "মেয়ে",
+          "english": "girl, daughter",
+          "part_of_speech": "noun"
+        },
+        {
+          "id": "bn-en-s02-u09-v07",
+          "bengali": "she",
+          "script": "সে",
+          "english": "he, she",
+          "part_of_speech": "pronoun"
+        },
+        {
+          "id": "bn-en-s02-u09-v08",
+          "bengali": "tar",
+          "script": "তার",
+          "english": "his, her",
+          "part_of_speech": "pronoun"
+        },
+        {
+          "id": "bn-en-s02-u09-v09",
+          "bengali": "bondhu",
+          "script": "বন্ধু",
+          "english": "friend",
+          "part_of_speech": "noun"
+        },
+        {
+          "id": "bn-en-s02-u09-v10",
+          "bengali": "ke",
+          "script": "কে",
+          "english": "who",
+          "part_of_speech": "question"
+        }
+      ],
+      "phrase_patterns": [
+        {
+          "id": "p-u02-l02-family-words-05",
+          "bengali": "amar ma",
+          "script": "আমার মা",
+          "english": "my mother"
+        },
+        {
+          "id": "p-u02-l02-family-words-06",
+          "bengali": "eta amar bhai",
+          "script": "এটা আমার ভাই",
+          "english": "this is my brother"
+        },
+        {
+          "id": "bn-en-s02-u09-p03",
+          "bengali": "eta amar bon",
+          "script": "এটা আমার বোন",
+          "english": "this is my sister"
+        },
+        {
+          "id": "bn-en-s02-u09-p04",
+          "bengali": "she amar bondhu",
+          "script": "সে আমার বন্ধু",
+          "english": "he is my friend"
+        },
+        {
+          "id": "bn-en-s02-u09-p05",
+          "bengali": "tar naam ki?",
+          "script": "তার নাম কী?",
+          "english": "what is his name?"
+        },
+        {
+          "id": "bn-en-s02-u09-p06",
+          "bengali": "amar baba barite achen",
+          "script": "আমার বাবা বাড়িতে আছেন",
+          "english": "my father is at home"
+        }
+      ],
+      "notices": [
+        {
+          "id": "bn-u09-n01",
+          "title": "One word for he and she",
+          "examples": [
+            {
+              "bengali": "she amar bondhu",
+              "english": "he is my friend",
+              "note": "she covers he and she alike"
+            },
+            {
+              "bengali": "tar naam ki?",
+              "english": "what is his name?",
+              "note": "and tar is his or her"
+            },
+            {
+              "bengali": "amar ma",
+              "english": "my mother",
+              "note": "amar you already know"
+            }
+          ],
+          "question": {
+            "prompt": "You want to ask what your friend's sister is called. Which is right?",
+            "options": [
+              "tar naam ki?",
+              "she naam ki?",
+              "tomar naam ki?"
+            ],
+            "answer": "tar naam ki?",
+            "explanation": "Bengali does not mark gender on its pronouns: she is he and she, and its possessive is tar for both. The change from she to tar is the same one you saw in ami → amar.",
+            "concepts": [
+              "bn-amar-tomar"
+            ]
+          }
+        }
+      ],
+      "dialogues": [
+        {
+          "id": "bn-u09-d01",
+          "scenario": "Showing a friend a photo of your family.",
+          "turns": [
+            {
+              "prompt": {
+                "bengali": "eta ke?",
+                "english": "who is this?"
+              },
+              "reply": {
+                "bengali": "eta amar bhai",
+                "english": "this is my brother"
+              },
+              "distractors": [
+                "eta amar boi",
+                "tar naam ki?",
+                "ami bhalo achi"
+              ],
+              "speaker": "Nadia"
+            },
+            {
+              "prompt": {
+                "bengali": "tar naam ki?",
+                "english": "what is his name?"
+              },
+              "reply": {
+                "bengali": "tar naam Karim",
+                "english": "his name is Karim"
+              },
+              "distractors": [
+                "amar naam Rachel",
+                "eta amar bon",
+                "she amar bondhu"
+              ],
+              "speaker": "Nadia"
+            },
+            {
+              "prompt": {
+                "bengali": "ar eta ke?",
+                "english": "and who is this?"
+              },
+              "reply": {
+                "bengali": "eta amar ma",
+                "english": "this is my mother"
+              },
+              "distractors": [
+                "eta amar bari",
+                "tar naam Karim",
+                "ami ektu Bangla boli"
+              ],
+              "speaker": "Nadia"
+            }
+          ]
+        }
+      ],
+      "lesson_sequence": [
+        {
+          "lesson_index": 1,
+          "name": "Discover",
+          "goal": "Meet the words for the people closest to you."
+        },
+        {
+          "lesson_index": 2,
+          "name": "Build",
+          "goal": "Say who someone is."
+        },
+        {
+          "lesson_index": 3,
+          "name": "Have a conversation",
+          "goal": "Talk a friend through a family photo."
+        },
+        {
+          "lesson_index": 4,
+          "name": "Notice the pattern",
+          "goal": "Work out how Bengali handles he and she."
+        },
+        {
+          "lesson_index": 5,
+          "name": "Unit review",
+          "goal": "Bring back everything from this unit."
+        }
+      ]
+    },
+    {
+      "id": "bn-en-s02-u10",
+      "section": 2,
+      "unit": 10,
+      "cefr": "A1",
+      "scaffold": 2,
+      "title": "Asking questions",
+      "objective": "Ask where, why, when and how much.",
+      "grammar_targets": [
+        "question words"
+      ],
+      "grammar_focus": "bn-question-words",
+      "vocabulary": [
+        {
+          "id": "bn-en-s02-u10-v01",
+          "bengali": "kothay",
+          "script": "কোথায়",
+          "english": "where",
+          "part_of_speech": "question"
+        },
+        {
+          "id": "bn-en-s02-u10-v02",
+          "bengali": "keno",
+          "script": "কেন",
+          "english": "why",
+          "part_of_speech": "question"
+        },
+        {
+          "id": "bn-en-s02-u10-v03",
+          "bengali": "koto",
+          "script": "কত",
+          "english": "how much",
+          "part_of_speech": "question"
+        },
+        {
+          "id": "bn-en-s02-u10-v04",
+          "bengali": "kokhon",
+          "script": "কখন",
+          "english": "when",
+          "part_of_speech": "question"
+        },
+        {
+          "id": "bn-en-s02-u10-v05",
+          "bengali": "ekhane",
+          "script": "এখানে",
+          "english": "here",
+          "part_of_speech": "adverb"
+        },
+        {
+          "id": "bn-en-s02-u10-v06",
+          "bengali": "dokan",
+          "script": "দোকান",
+          "english": "shop",
+          "part_of_speech": "noun",
+          "emoji": "🏪"
+        },
+        {
+          "id": "bn-en-s02-u10-v07",
+          "bengali": "ekhon",
+          "script": "এখন",
+          "english": "now",
+          "part_of_speech": "adverb"
+        }
+      ],
+      "phrase_patterns": [
+        {
+          "id": "p-u04-l02-simple-questions-02",
+          "bengali": "tumi kothay?",
+          "script": "তুমি কোথায়?",
+          "english": "where are you?"
+        },
+        {
+          "id": "p-u04-l02-simple-questions-03",
+          "bengali": "bathroom kothay?",
+          "script": "বাথরুম কোথায়?",
+          "english": "where is the bathroom?"
+        },
+        {
+          "id": "p-u04-l02-simple-questions-04",
+          "bengali": "keno?",
+          "script": "কেন?",
+          "english": "why?"
+        },
+        {
+          "id": "p-u04-l02-simple-questions-05",
+          "bengali": "koto?",
+          "script": "কত?",
+          "english": "how much?"
+        },
+        {
+          "id": "p-u04-l02-simple-questions-06",
+          "bengali": "ekhon?",
+          "script": "এখন?",
+          "english": "now?"
+        },
+        {
+          "id": "bn-en-s02-u10-p06",
+          "bengali": "dokan kothay?",
+          "script": "দোকান কোথায়?",
+          "english": "where is the shop?"
+        },
+        {
+          "id": "bn-en-s02-u10-p07",
+          "bengali": "eta koto?",
+          "script": "এটা কত?",
+          "english": "how much is this?"
+        },
+        {
+          "id": "bn-en-s02-u10-p08",
+          "bengali": "ami ekhane achi",
+          "script": "আমি এখানে আছি",
+          "english": "I am here"
+        }
+      ],
+      "notices": [
+        {
+          "id": "bn-u10-n01",
+          "title": "Question words stay where they are",
+          "examples": [
+            {
+              "bengali": "tomar naam ki?",
+              "english": "what is your name?",
+              "note": "ki sits where the name would go"
+            },
+            {
+              "bengali": "tumi kothay?",
+              "english": "where are you?",
+              "note": "kothay sits where the place would go"
+            },
+            {
+              "bengali": "eta koto?",
+              "english": "how much is this?",
+              "note": "and koto where the price would go"
+            }
+          ],
+          "question": {
+            "prompt": "\"The shop is over there.\" To ask where it is, where does kothay go?",
+            "options": [
+              "dokan kothay?",
+              "kothay dokan?",
+              "dokan ache kothay?"
+            ],
+            "answer": "dokan kothay?",
+            "explanation": "Bengali leaves the question word in the answer's own slot. Nothing moves to the front — the rise in your voice at the end does the rest.",
+            "concepts": [
+              "bn-question-words"
+            ]
+          }
+        }
+      ],
+      "lesson_sequence": [
+        {
+          "lesson_index": 1,
+          "name": "Discover",
+          "goal": "Meet the six words that open a question."
+        },
+        {
+          "lesson_index": 2,
+          "name": "Notice the pattern",
+          "goal": "Work out where a question word goes."
+        },
+        {
+          "lesson_index": 3,
+          "name": "Grammar focus",
+          "goal": "Name the question pattern and drill it."
+        },
+        {
+          "lesson_index": 4,
+          "name": "Build",
+          "goal": "Ask for a place and a price."
+        },
+        {
+          "lesson_index": 5,
+          "name": "Unit review",
+          "goal": "Bring back everything from this unit."
+        }
+      ]
+    },
+    {
+      "id": "bn-en-s02-u11",
+      "section": 2,
+      "unit": 11,
+      "cefr": "A1",
+      "scaffold": 2,
+      "title": "What are you doing?",
+      "objective": "Say what you are doing right now, and ask what someone else is.",
+      "grammar_targets": [
+        "present continuous"
+      ],
+      "grammar_focus": "bn-present-continuous",
+      "vocabulary": [
+        {
+          "id": "bn-en-s02-u11-v01",
+          "bengali": "korchi",
+          "script": "করছি",
+          "english": "I am doing",
+          "part_of_speech": "verb",
+          "context_bn": "ami kaj korchi",
+          "context_en": "I am working",
+          "context_script": "আমি কাজ করছি"
+        },
+        {
+          "id": "bn-en-s02-u11-v02",
+          "bengali": "korcho",
+          "script": "করছ",
+          "english": "you are doing",
+          "part_of_speech": "verb"
+        },
+        {
+          "id": "bn-en-s02-u11-v03",
+          "bengali": "korche",
+          "script": "করছে",
+          "english": "he/she is doing",
+          "part_of_speech": "verb"
+        },
+        {
+          "id": "bn-en-s02-u11-v04",
+          "bengali": "kaj",
+          "script": "কাজ",
+          "english": "work",
+          "part_of_speech": "noun",
+          "emoji": "💼"
+        },
+        {
+          "id": "bn-en-s02-u11-v05",
+          "bengali": "jachhi",
+          "script": "যাচ্ছি",
+          "english": "I am going",
+          "part_of_speech": "verb"
+        },
+        {
+          "id": "bn-en-s02-u11-v06",
+          "bengali": "khachhi",
+          "script": "খাচ্ছি",
+          "english": "I am eating",
+          "part_of_speech": "verb"
+        },
+        {
+          "id": "bn-en-s02-u11-v07",
+          "bengali": "shikhcho",
+          "script": "শিখছ",
+          "english": "you are learning",
+          "part_of_speech": "verb"
+        }
+      ],
+      "phrase_patterns": [
+        {
+          "id": "p-u08-l01-small-talk-03",
+          "bengali": "tumi ki korcho?",
+          "script": "তুমি কী করছ?",
+          "english": "what are you doing?"
+        },
+        {
+          "id": "p-u08-l01-small-talk-04",
+          "bengali": "ami kaj korchi",
+          "script": "আমি কাজ করছি",
+          "english": "I am working"
+        },
+        {
+          "id": "bn-en-s02-u11-p03",
+          "bengali": "ami bhaat khachhi",
+          "script": "আমি ভাত খাচ্ছি",
+          "english": "I am eating rice"
+        },
+        {
+          "id": "bn-en-s02-u11-p04",
+          "bengali": "ami bari jachhi",
+          "script": "আমি বাড়ি যাচ্ছি",
+          "english": "I am going home"
+        },
+        {
+          "id": "bn-en-s02-u11-p05",
+          "bengali": "she kaj korche",
+          "script": "সে কাজ করছে",
+          "english": "he is working"
+        },
+        {
+          "id": "bn-en-s02-u11-p06",
+          "bengali": "tumi ki shikhcho?",
+          "script": "তুমি কী শিখছ?",
+          "english": "what are you learning?"
+        }
+      ],
+      "notices": [
+        {
+          "id": "bn-u11-n01",
+          "title": "Add -ch- and it is happening now",
+          "examples": [
+            {
+              "bengali": "ami kaj kori",
+              "english": "I work",
+              "note": "plain: what I do in general"
+            },
+            {
+              "bengali": "ami kaj korchi",
+              "english": "I am working",
+              "note": "-ch- makes it right now"
+            },
+            {
+              "bengali": "tumi ki korcho?",
+              "english": "what are you doing?",
+              "note": "the person ending has not moved"
+            }
+          ],
+          "question": {
+            "prompt": "kori is \"I do\". How do you say \"I am doing\"?",
+            "options": [
+              "korchi",
+              "korcho",
+              "korche"
+            ],
+            "answer": "korchi",
+            "explanation": "Slip -ch- in before the ending and the action becomes something happening at this moment. The ending itself does not change: kori → korchi, koro → korcho.",
+            "concepts": [
+              "bn-present-continuous"
+            ]
+          }
+        }
+      ],
+      "dialogues": [
+        {
+          "id": "bn-u11-d01",
+          "scenario": "A friend rings while you are busy.",
+          "turns": [
+            {
+              "prompt": {
+                "bengali": "tumi kothay?",
+                "english": "where are you?"
+              },
+              "reply": {
+                "bengali": "ami barite achi",
+                "english": "I am at home"
+              },
+              "distractors": [
+                "ami kaj korchi",
+                "ami bhalo achi",
+                "dokan kothay?"
+              ],
+              "speaker": "Karim"
+            },
+            {
+              "prompt": {
+                "bengali": "tumi ki korcho?",
+                "english": "what are you doing?"
+              },
+              "reply": {
+                "bengali": "ami kaj korchi",
+                "english": "I am working"
+              },
+              "distractors": [
+                "ami barite achi",
+                "tumi kothay?",
+                "ha, dhonnobad"
+              ],
+              "speaker": "Karim"
+            },
+            {
+              "prompt": {
+                "bengali": "pore kotha hobe?",
+                "english": "shall we talk later?",
+                "receptive": true
+              },
+              "reply": {
+                "bengali": "ha, pore dekha hobe",
+                "english": "yes, see you later"
+              },
+              "distractors": [
+                "na, ami kaj korchi",
+                "ekhon?",
+                "maf koro"
+              ],
+              "speaker": "Karim"
+            }
+          ]
+        }
+      ],
+      "lesson_sequence": [
+        {
+          "lesson_index": 1,
+          "name": "Discover",
+          "goal": "Meet the doing-it-now forms."
+        },
+        {
+          "lesson_index": 2,
+          "name": "Notice the pattern",
+          "goal": "Work out what -ch- adds to a verb."
+        },
+        {
+          "lesson_index": 3,
+          "name": "Build",
+          "goal": "Say what you are doing right now."
+        },
+        {
+          "lesson_index": 4,
+          "name": "Grammar focus",
+          "goal": "Name the pattern and drill the three endings."
+        },
+        {
+          "lesson_index": 5,
+          "name": "Have a conversation",
+          "goal": "Answer the phone in Bengali."
+        },
+        {
+          "lesson_index": 6,
+          "name": "Unit review",
+          "goal": "Bring back everything from this unit."
+        }
+      ]
+    },
+    {
+      "id": "bn-en-s02-u12",
+      "section": 2,
+      "unit": 12,
+      "cefr": "A1",
+      "scaffold": 2,
+      "title": "How you feel",
+      "objective": "Say you are happy, tired or unwell.",
+      "grammar_targets": [
+        "negation"
+      ],
+      "vocabulary": [
+        {
+          "id": "bn-en-s02-u12-v01",
+          "bengali": "khushi",
+          "script": "খুশি",
+          "english": "happy",
+          "part_of_speech": "adjective",
+          "emoji": "😊"
+        },
+        {
+          "id": "bn-en-s02-u12-v02",
+          "bengali": "klanto",
+          "script": "ক্লান্ত",
+          "english": "tired",
+          "part_of_speech": "adjective",
+          "emoji": "😴"
+        },
+        {
+          "id": "bn-en-s02-u12-v03",
+          "bengali": "osustho",
+          "script": "অসুস্থ",
+          "english": "sick",
+          "part_of_speech": "adjective",
+          "emoji": "🤒"
+        },
+        {
+          "id": "bn-en-s02-u12-v04",
+          "bengali": "chinta",
+          "script": "চিন্তা",
+          "english": "worry",
+          "part_of_speech": "noun"
+        },
+        {
+          "id": "bn-en-s02-u12-v05",
+          "bengali": "matha",
+          "script": "মাথা",
+          "english": "head",
+          "part_of_speech": "noun"
+        },
+        {
+          "id": "bn-en-s02-u12-v06",
+          "bengali": "betha",
+          "script": "ব্যথা",
+          "english": "pain",
+          "part_of_speech": "noun"
+        },
+        {
+          "id": "bn-en-s02-u12-v07",
+          "bengali": "moja",
+          "script": "মজা",
+          "english": "fun",
+          "part_of_speech": "noun"
+        },
+        {
+          "id": "bn-en-s02-u12-v08",
+          "bengali": "shomoy",
+          "script": "সময়",
+          "english": "time",
+          "part_of_speech": "noun",
+          "emoji": "⏰"
+        }
+      ],
+      "phrase_patterns": [
+        {
+          "id": "p-u05-l01-basic-feelings-01",
+          "bengali": "ami khushi",
+          "script": "আমি খুশি",
+          "english": "I am happy"
+        },
+        {
+          "id": "p-u05-l01-basic-feelings-02",
+          "bengali": "ami klanto",
+          "script": "আমি ক্লান্ত",
+          "english": "I am tired"
+        },
+        {
+          "id": "p-u05-l01-basic-feelings-03",
+          "bengali": "ami osustho",
+          "script": "আমি অসুস্থ",
+          "english": "I am sick"
+        },
+        {
+          "id": "p-u05-l01-basic-feelings-04",
+          "bengali": "ami chinta korchi",
+          "script": "আমি চিন্তা করছি",
+          "english": "I am worried"
+        },
+        {
+          "id": "p-u05-l01-basic-feelings-05",
+          "bengali": "amar matha betha",
+          "script": "আমার মাথা ব্যথা",
+          "english": "my head hurts"
+        },
+        {
+          "id": "p-u05-l01-basic-feelings-06",
+          "bengali": "ami bhalo nei",
+          "script": "আমি ভালো নেই",
+          "english": "I am not well"
+        },
+        {
+          "id": "p-u08-l01-small-talk-06",
+          "bengali": "khub moja",
+          "script": "খুব মজা",
+          "english": "very fun"
+        },
+        {
+          "id": "bn-en-s02-u12-p08",
+          "bengali": "amar shomoy nei",
+          "script": "আমার সময় নেই",
+          "english": "I do not have time"
+        }
+      ],
+      "notices": [
+        {
+          "id": "bn-u12-n01",
+          "title": "nei is the negative of achi",
+          "examples": [
+            {
+              "bengali": "ami bhalo achi",
+              "english": "I am well",
+              "note": "the plain form"
+            },
+            {
+              "bengali": "ami bhalo nei",
+              "english": "I am not well",
+              "note": "not achi na — nei"
+            },
+            {
+              "bengali": "amar shomoy nei",
+              "english": "I do not have time",
+              "note": "and nei is how you say you have not got something"
+            }
+          ],
+          "question": {
+            "prompt": "How do you say \"I am not well\"?",
+            "options": [
+              "ami bhalo nei",
+              "ami bhalo achi na",
+              "ami na bhalo achi"
+            ],
+            "answer": "ami bhalo nei",
+            "explanation": "ach- is the one verb that does not take na. Its negative is a separate word, nei, and it replaces the verb entirely.",
+            "concepts": [
+              "bn-na-negation"
+            ]
+          }
+        }
+      ],
+      "stories": [
+        {
+          "id": "bn-u12-s01",
+          "title": "Ami klanto",
+          "setup": "Rachel gets home after a long day out.",
+          "lines": [
+            {
+              "bengali": "ami ekhon barite achi",
+              "english": "I am at home now."
+            },
+            {
+              "bengali": "ami khub klanto",
+              "english": "I am very tired."
+            },
+            {
+              "bengali": "amar matha betha",
+              "english": "My head hurts."
+            },
+            {
+              "bengali": "amar ma bole: ektu cha khao",
+              "english": "My mother says: have a little tea."
+            },
+            {
+              "bengali": "cha khub bhalo. ekhon ami thik achi",
+              "english": "The tea is very good. Now I am okay."
+            }
+          ],
+          "questions": [
+            {
+              "prompt": "How does Rachel feel when she gets home?",
+              "options": [
+                "Tired",
+                "Happy",
+                "Hungry"
+              ],
+              "answer": "Tired",
+              "explanation": "ami khub klanto — I am very tired."
+            },
+            {
+              "prompt": "What helps?",
+              "options": [
+                "A little tea",
+                "Going back out",
+                "A new book"
+              ],
+              "answer": "A little tea",
+              "explanation": "ektu cha — and afterwards, ami thik achi."
+            }
+          ]
+        }
+      ],
+      "lesson_sequence": [
+        {
+          "lesson_index": 1,
+          "name": "Discover",
+          "goal": "Meet the words for how you feel."
+        },
+        {
+          "lesson_index": 2,
+          "name": "Build",
+          "goal": "Say how you are in a whole sentence."
+        },
+        {
+          "lesson_index": 3,
+          "name": "Notice the pattern",
+          "goal": "Work out how ach- is made negative."
+        },
+        {
+          "lesson_index": 4,
+          "name": "Read a story",
+          "goal": "Follow a tired evening at home."
+        },
+        {
+          "lesson_index": 5,
+          "name": "Unit review",
+          "goal": "Bring back everything from this unit."
+        }
+      ]
+    },
+    {
+      "id": "bn-en-s03-u13",
+      "section": 3,
+      "unit": 13,
+      "cefr": "A1",
+      "scaffold": 2,
+      "title": "Asking for help",
+      "objective": "Ask someone to slow down, repeat, or give you a hand — politely.",
+      "grammar_targets": [
+        "politeness"
+      ],
+      "grammar_focus": "bn-tumi-apni",
+      "vocabulary": [
+        {
+          "id": "bn-en-s03-u13-v01",
+          "bengali": "shahajjo",
+          "script": "সাহায্য",
+          "english": "help",
+          "part_of_speech": "noun"
+        },
+        {
+          "id": "bn-en-s03-u13-v02",
+          "bengali": "aste",
+          "script": "আস্তে",
+          "english": "slowly",
+          "part_of_speech": "adverb"
+        },
+        {
+          "id": "bn-en-s03-u13-v03",
+          "bengali": "bujhte",
+          "script": "বুঝতে",
+          "english": "to understand",
+          "part_of_speech": "verb"
+        },
+        {
+          "id": "bn-en-s03-u13-v04",
+          "bengali": "parchi",
+          "script": "পারছি",
+          "english": "I am able",
+          "part_of_speech": "verb"
+        },
+        {
+          "id": "bn-en-s03-u13-v05",
+          "bengali": "opekkha",
+          "script": "অপেক্ষা",
+          "english": "waiting",
+          "part_of_speech": "noun"
+        },
+        {
+          "id": "bn-en-s03-u13-v06",
+          "bengali": "dhire",
+          "script": "ধীরে",
+          "english": "slowly, gently",
+          "part_of_speech": "adverb"
+        },
+        {
+          "id": "bn-en-s03-u13-v07",
+          "bengali": "amake",
+          "script": "আমাকে",
+          "english": "me",
+          "part_of_speech": "pronoun"
+        },
+        {
+          "id": "bn-en-s03-u13-v08",
+          "bengali": "korun",
+          "script": "করুন",
+          "english": "please do (respectful)",
+          "part_of_speech": "verb"
+        },
+        {
+          "id": "bn-en-s03-u13-v09",
+          "bengali": "bolun",
+          "script": "বলুন",
+          "english": "please say (respectful)",
+          "part_of_speech": "verb"
+        },
+        {
+          "id": "bn-en-s03-u13-v10",
+          "bengali": "taka",
+          "script": "টাকা",
+          "english": "taka (money)",
+          "part_of_speech": "noun",
+          "emoji": "💵"
+        }
+      ],
+      "phrase_patterns": [
+        {
+          "id": "p-u05-l02-asking-for-help-01",
+          "bengali": "amake shahajjo koro",
+          "script": "আমাকে সাহায্য করো",
+          "english": "help me"
+        },
+        {
+          "id": "p-u05-l02-asking-for-help-02",
+          "bengali": "aste bolo",
+          "script": "আস্তে বলো",
+          "english": "speak slowly"
+        },
+        {
+          "id": "p-u05-l02-asking-for-help-03",
+          "bengali": "ami bujhte parchi na",
+          "script": "আমি বুঝতে পারছি না",
+          "english": "I do not understand"
+        },
+        {
+          "id": "p-u05-l02-asking-for-help-04",
+          "bengali": "ektu opekkha koro",
+          "script": "একটু অপেক্ষা করো",
+          "english": "wait a little"
+        },
+        {
+          "id": "p-u05-l02-asking-for-help-06",
+          "bengali": "dhire dhire bolo",
+          "script": "ধীরে ধীরে বলো",
+          "english": "say it slowly"
+        },
+        {
+          "id": "bn-en-s03-u13-p06",
+          "bengali": "amake ektu shahajjo korun",
+          "script": "আমাকে একটু সাহায্য করুন",
+          "english": "please help me a little"
+        },
+        {
+          "id": "bn-en-s03-u13-p07",
+          "bengali": "aste bolun",
+          "script": "আস্তে বলুন",
+          "english": "please speak slowly"
+        },
+        {
+          "id": "p-u07-l02-transport-help-05",
+          "bengali": "ektu shahajjo korben?",
+          "script": "একটু সাহায্য করবেন?",
+          "english": "will you help a little?"
+        }
+      ],
+      "notices": [
+        {
+          "id": "bn-u13-n01",
+          "title": "Two ways to ask for the same thing",
+          "examples": [
+            {
+              "bengali": "aste bolo",
+              "english": "speak slowly",
+              "note": "to a friend"
+            },
+            {
+              "bengali": "aste bolun",
+              "english": "please speak slowly",
+              "note": "to anyone you are showing respect to"
+            },
+            {
+              "bengali": "ektu opekkha koro",
+              "english": "wait a little",
+              "note": "-o again, so this is the friendly one"
+            }
+          ],
+          "question": {
+            "prompt": "You are asking a shopkeeper you have never met to wait. Which do you say?",
+            "options": [
+              "ektu opekkha korun",
+              "ektu opekkha koro",
+              "ektu opekkha korchi"
+            ],
+            "answer": "ektu opekkha korun",
+            "explanation": "The -un ending is the respectful request; -o is for friends and family. Choosing the wrong one is the commonest way a polite sentence lands badly.",
+            "concepts": [
+              "bn-tumi-apni"
+            ]
+          }
+        }
+      ],
+      "dialogues": [
+        {
+          "id": "bn-u13-d01",
+          "scenario": "At a shop, and the Bengali is going too fast.",
+          "turns": [
+            {
+              "prompt": {
+                "bengali": "apni ki chan?",
+                "english": "what would you like?",
+                "receptive": true
+              },
+              "reply": {
+                "bengali": "ami ektu pani chai",
+                "english": "I want a little water"
+              },
+              "distractors": [
+                "ami bujhte parchi na",
+                "maf koro",
+                "dokan kothay?"
+              ],
+              "speaker": "Shopkeeper"
+            },
+            {
+              "prompt": {
+                "bengali": "eta panch taka",
+                "english": "this is five taka",
+                "receptive": true
+              },
+              "reply": {
+                "bengali": "ami bujhte parchi na. aste bolun",
+                "english": "I do not understand. Please speak slowly."
+              },
+              "distractors": [
+                "ha, thik ache",
+                "dokan kothay?",
+                "ami klanto"
+              ],
+              "speaker": "Shopkeeper"
+            },
+            {
+              "prompt": {
+                "bengali": "panch taka",
+                "english": "five taka",
+                "receptive": true
+              },
+              "reply": {
+                "bengali": "thik ache, dhonnobad",
+                "english": "okay, thank you"
+              },
+              "distractors": [
+                "ami bujhte parchi na",
+                "kono shomossha nei",
+                "ami ekhane achi"
+              ],
+              "speaker": "Shopkeeper"
+            }
+          ]
+        }
+      ],
+      "lesson_sequence": [
+        {
+          "lesson_index": 1,
+          "name": "Discover",
+          "goal": "Meet the words that get you unstuck."
+        },
+        {
+          "lesson_index": 2,
+          "name": "Build",
+          "goal": "Ask someone to slow down."
+        },
+        {
+          "lesson_index": 3,
+          "name": "Notice the pattern",
+          "goal": "Work out the difference between koro and korun."
+        },
+        {
+          "lesson_index": 4,
+          "name": "Grammar focus",
+          "goal": "Name the respect pattern and drill it."
+        },
+        {
+          "lesson_index": 5,
+          "name": "Have a conversation",
+          "goal": "Get through a shop without understanding everything."
+        },
+        {
+          "lesson_index": 6,
+          "name": "Unit review",
+          "goal": "Bring back everything from this unit."
+        }
+      ]
+    },
+    {
+      "id": "bn-en-s03-u14",
+      "section": 3,
+      "unit": 14,
+      "cefr": "A1",
+      "scaffold": 1,
+      "title": "Which way?",
+      "objective": "Give and follow simple directions.",
+      "grammar_targets": [
+        "postpositions"
+      ],
+      "grammar_focus": "bn-postpositions",
+      "vocabulary": [
+        {
+          "id": "bn-en-s03-u14-v01",
+          "bengali": "cholo",
+          "script": "চলো",
+          "english": "let's go",
+          "part_of_speech": "verb"
+        },
+        {
+          "id": "bn-en-s03-u14-v02",
+          "bengali": "jai",
+          "script": "যাই",
+          "english": "I go",
+          "part_of_speech": "verb"
+        },
+        {
+          "id": "bn-en-s03-u14-v03",
+          "bengali": "jao",
+          "script": "যাও",
+          "english": "go",
+          "part_of_speech": "verb"
+        },
+        {
+          "id": "bn-en-s03-u14-v04",
+          "bengali": "thamo",
+          "script": "থামো",
+          "english": "stop",
+          "part_of_speech": "verb"
+        },
+        {
+          "id": "bn-en-s03-u14-v05",
+          "bengali": "dan",
+          "script": "ডান",
+          "english": "right",
+          "part_of_speech": "adjective",
+          "emoji": "➡️"
+        },
+        {
+          "id": "bn-en-s03-u14-v06",
+          "bengali": "bam",
+          "script": "বাম",
+          "english": "left",
+          "part_of_speech": "adjective",
+          "emoji": "⬅️"
+        },
+        {
+          "id": "bn-en-s03-u14-v07",
+          "bengali": "dike",
+          "script": "দিকে",
+          "english": "towards, to the side of",
+          "part_of_speech": "postposition"
+        },
+        {
+          "id": "bn-en-s03-u14-v08",
+          "bengali": "shamne",
+          "script": "সামনে",
+          "english": "ahead, in front",
+          "part_of_speech": "postposition"
+        },
+        {
+          "id": "bn-en-s03-u14-v09",
+          "bengali": "dur",
+          "script": "দূর",
+          "english": "far",
+          "part_of_speech": "adjective"
+        }
+      ],
+      "phrase_patterns": [
+        {
+          "id": "p-u07-l01-getting-around-01",
+          "bengali": "cholo jai",
+          "script": "চলো যাই",
+          "english": "let's go"
+        },
+        {
+          "id": "p-u07-l01-getting-around-02",
+          "bengali": "ekhane thamo",
+          "script": "এখানে থামো",
+          "english": "stop here"
+        },
+        {
+          "id": "p-u07-l01-getting-around-03",
+          "bengali": "dan dike",
+          "script": "ডান দিকে",
+          "english": "to the right"
+        },
+        {
+          "id": "p-u07-l01-getting-around-04",
+          "bengali": "bam dike",
+          "script": "বাম দিকে",
+          "english": "to the left"
+        },
+        {
+          "id": "p-u07-l01-getting-around-05",
+          "bengali": "shamne jao",
+          "script": "সামনে যাও",
+          "english": "go straight ahead"
+        },
+        {
+          "id": "p-u07-l01-getting-around-06",
+          "bengali": "eta koto dur?",
+          "script": "এটা কত দূর?",
+          "english": "how far is it?"
+        },
+        {
+          "id": "bn-en-s03-u14-p07",
+          "bengali": "amar bari dan dike",
+          "script": "আমার বাড়ি ডান দিকে",
+          "english": "my house is to the right"
+        }
+      ],
+      "patterns": [
+        {
+          "id": "bn-u14-pat01",
+          "template": "{} dike",
+          "english": "towards {}",
+          "fills": [
+            {
+              "bengali": "dan",
+              "english": "the right"
+            },
+            {
+              "bengali": "bam",
+              "english": "the left"
+            },
+            {
+              "bengali": "bari",
+              "english": "home"
+            },
+            {
+              "bengali": "dokan",
+              "english": "the shop"
+            }
+          ],
+          "concepts": [
+            "bn-postpositions"
+          ]
+        }
+      ],
+      "notices": [
+        {
+          "id": "bn-u14-n01",
+          "title": "The position word comes after",
+          "examples": [
+            {
+              "bengali": "dan dike",
+              "english": "to the right",
+              "note": "literally: right towards"
+            },
+            {
+              "bengali": "bam dike",
+              "english": "to the left",
+              "note": "same shape, other side"
+            },
+            {
+              "bengali": "shamne jao",
+              "english": "go straight ahead",
+              "note": "and the verb still comes last"
+            }
+          ],
+          "question": {
+            "prompt": "English says \"to the shop\". What does Bengali say?",
+            "options": [
+              "dokan dike",
+              "dike dokan",
+              "dokan ache dike"
+            ],
+            "answer": "dokan dike",
+            "explanation": "Bengali puts the position word after the thing it positions — which is why they are called postpositions rather than prepositions. The rest of the sentence is unchanged.",
+            "concepts": [
+              "bn-postpositions"
+            ]
+          }
+        }
+      ],
+      "lesson_sequence": [
+        {
+          "lesson_index": 1,
+          "name": "Discover",
+          "goal": "Meet left, right, ahead and far."
+        },
+        {
+          "lesson_index": 2,
+          "name": "Build",
+          "goal": "Give someone a direction."
+        },
+        {
+          "lesson_index": 3,
+          "name": "Notice the pattern",
+          "goal": "Work out where a position word goes."
+        },
+        {
+          "lesson_index": 4,
+          "name": "Grammar focus",
+          "goal": "Name the postposition pattern and drill it."
+        },
+        {
+          "lesson_index": 5,
+          "name": "Unit review",
+          "goal": "Bring back everything from this unit."
+        }
+      ]
+    },
+    {
+      "id": "bn-en-s03-u15",
+      "section": 3,
+      "unit": 15,
+      "cefr": "A1",
+      "scaffold": 1,
+      "title": "Buses, taxis and getting lost",
+      "objective": "Get where you are going, and say so when you are lost.",
+      "grammar_targets": [
+        "future"
+      ],
+      "grammar_focus": "bn-future-bo",
+      "vocabulary": [
+        {
+          "id": "bn-en-s03-u15-v01",
+          "bengali": "bus",
+          "script": "বাস",
+          "english": "bus",
+          "part_of_speech": "noun",
+          "emoji": "🚌"
+        },
+        {
+          "id": "bn-en-s03-u15-v02",
+          "bengali": "taxi",
+          "script": "ট্যাক্সি",
+          "english": "taxi",
+          "part_of_speech": "noun",
+          "emoji": "🚕"
+        },
+        {
+          "id": "bn-en-s03-u15-v03",
+          "bengali": "station",
+          "script": "স্টেশন",
+          "english": "station",
+          "part_of_speech": "noun",
+          "emoji": "🚉"
+        },
+        {
+          "id": "bn-en-s03-u15-v04",
+          "bengali": "rasta",
+          "script": "রাস্তা",
+          "english": "road, street",
+          "part_of_speech": "noun",
+          "emoji": "🛣️"
+        },
+        {
+          "id": "bn-en-s03-u15-v05",
+          "bengali": "nambo",
+          "script": "নামব",
+          "english": "I will get off",
+          "part_of_speech": "verb"
+        },
+        {
+          "id": "bn-en-s03-u15-v06",
+          "bengali": "hariye gechi",
+          "script": "হারিয়ে গেছি",
+          "english": "I have got lost",
+          "part_of_speech": "verb"
+        }
+      ],
+      "phrase_patterns": [
+        {
+          "id": "bn-en-s03-u15-p06",
+          "bengali": "ami station jachhi",
+          "script": "আমি স্টেশন যাচ্ছি",
+          "english": "I am going to the station"
+        },
+        {
+          "id": "p-u07-l02-transport-help-06",
+          "bengali": "ami ekhane nambo",
+          "script": "আমি এখানে নামব",
+          "english": "I will get off here"
+        },
+        {
+          "id": "p-u07-l02-transport-help-04",
+          "bengali": "ami hariye gechi",
+          "script": "আমি হারিয়ে গেছি",
+          "english": "I am lost"
+        },
+        {
+          "id": "p-u07-l02-transport-help-01",
+          "bengali": "bus kothay?",
+          "script": "বাস কোথায়?",
+          "english": "where is the bus?"
+        },
+        {
+          "id": "p-u07-l02-transport-help-02",
+          "bengali": "taxi chai",
+          "script": "ট্যাক্সি চাই",
+          "english": "I want a taxi"
+        },
+        {
+          "id": "p-u07-l02-transport-help-03",
+          "bengali": "station kothay?",
+          "script": "স্টেশন কোথায়?",
+          "english": "where is the station?"
+        }
+      ],
+      "dialogues": [
+        {
+          "id": "bn-u15-d01",
+          "scenario": "In a rickshaw, trying to reach the station.",
+          "turns": [
+            {
+              "prompt": {
+                "bengali": "kothay jaben?",
+                "english": "where will you go?",
+                "receptive": true
+              },
+              "reply": {
+                "bengali": "ami station jachhi",
+                "english": "I am going to the station"
+              },
+              "distractors": [
+                "ami hariye gechi",
+                "bus kothay?",
+                "ami klanto"
+              ],
+              "speaker": "Driver"
+            },
+            {
+              "prompt": {
+                "bengali": "thik ache, cholun",
+                "english": "okay, let's go",
+                "receptive": true
+              },
+              "reply": {
+                "bengali": "dhonnobad. aste jaben",
+                "english": "thank you. please go slowly"
+              },
+              "distractors": [
+                "ami ekhane nambo",
+                "na, dhonnobad",
+                "eta koto dur?"
+              ],
+              "speaker": "Driver"
+            },
+            {
+              "prompt": {
+                "bengali": "station eshe geche",
+                "english": "we have reached the station",
+                "receptive": true
+              },
+              "reply": {
+                "bengali": "ami ekhane nambo",
+                "english": "I will get off here"
+              },
+              "distractors": [
+                "ami station jachhi",
+                "dan dike",
+                "kono shomossha nei"
+              ],
+              "speaker": "Driver"
+            }
+          ]
+        }
+      ],
+      "lesson_sequence": [
+        {
+          "lesson_index": 1,
+          "name": "Discover",
+          "goal": "Meet buses, taxis and the station."
+        },
+        {
+          "lesson_index": 2,
+          "name": "Build",
+          "goal": "Say where you are going."
+        },
+        {
+          "lesson_index": 3,
+          "name": "Grammar focus",
+          "goal": "Name the -bo ending and drill what you will do."
+        },
+        {
+          "lesson_index": 4,
+          "name": "Have a conversation",
+          "goal": "Get across town and off at the right stop."
+        },
+        {
+          "lesson_index": 5,
+          "name": "Unit review",
+          "goal": "Bring back everything from this unit."
+        }
+      ]
+    },
+    {
+      "id": "bn-en-s03-u16",
+      "section": 3,
+      "unit": 16,
+      "cefr": "A1",
+      "scaffold": 1,
+      "title": "Arriving as a guest",
+      "objective": "Arrive at someone's home, ask to come in and sit, and say when you are leaving.",
+      "grammar_targets": [
+        "future"
+      ],
+      "vocabulary": [
+        {
+          "id": "bn-en-s03-u16-v01",
+          "bengali": "eshechi",
+          "script": "এসেছি",
+          "english": "I have come",
+          "part_of_speech": "verb"
+        },
+        {
+          "id": "bn-en-s03-u16-v02",
+          "bengali": "bhitore",
+          "script": "ভিতরে",
+          "english": "inside",
+          "part_of_speech": "adverb"
+        },
+        {
+          "id": "bn-en-s03-u16-v03",
+          "bengali": "ashbo",
+          "script": "আসব",
+          "english": "I will come",
+          "part_of_speech": "verb",
+          "context_bn": "abar ashbo",
+          "context_en": "I will come again",
+          "context_script": "আবার আসব"
+        },
+        {
+          "id": "bn-en-s03-u16-v04",
+          "bengali": "boshte",
+          "script": "বসতে",
+          "english": "to sit",
+          "part_of_speech": "verb"
+        },
+        {
+          "id": "bn-en-s03-u16-v05",
+          "bengali": "pari",
+          "script": "পারি",
+          "english": "I can",
+          "part_of_speech": "verb"
+        }
+      ],
+      "phrase_patterns": [
+        {
+          "id": "p-u06-l02-politeness-at-home-04",
+          "bengali": "ami ekhon jai",
+          "script": "আমি এখন যাই",
+          "english": "I will go now"
+        },
+        {
+          "id": "p-u06-l01-visiting-home-01",
+          "bengali": "ami eshechi",
+          "script": "আমি এসেছি",
+          "english": "I have arrived"
+        },
+        {
+          "id": "p-u06-l01-visiting-home-02",
+          "bengali": "bhitore ashbo?",
+          "script": "ভিতরে আসব?",
+          "english": "may I come inside?"
+        },
+        {
+          "id": "p-u06-l01-visiting-home-03",
+          "bengali": "boshte pari?",
+          "script": "বসতে পারি?",
+          "english": "may I sit?"
+        },
+        {
+          "id": "p-u06-l02-politeness-at-home-05",
+          "bengali": "abar ashbo",
+          "script": "আবার আসব",
+          "english": "I will come again"
+        }
+      ],
+      "dialogues": [
+        {
+          "id": "bn-u16-d01",
+          "scenario": "At the door of a friend's family home.",
+          "turns": [
+            {
+              "prompt": {
+                "bengali": "assalamualaikum! bhitore ashun",
+                "english": "hello! come inside",
+                "receptive": true
+              },
+              "reply": {
+                "bengali": "dhonnobad. ami eshechi",
+                "english": "thank you. I have arrived"
+              },
+              "distractors": [
+                "ami hariye gechi",
+                "ami ekhon jai",
+                "na, dhonnobad"
+              ],
+              "speaker": "Nadia's mother"
+            },
+            {
+              "prompt": {
+                "bengali": "boshun",
+                "english": "do sit down",
+                "receptive": true
+              },
+              "reply": {
+                "bengali": "dhonnobad. khub shundor bari",
+                "english": "thank you. a very beautiful house"
+              },
+              "distractors": [
+                "ami bujhte parchi na",
+                "dan dike",
+                "ami klanto"
+              ],
+              "speaker": "Nadia's mother"
+            },
+            {
+              "prompt": {
+                "bengali": "aro ektu thakun",
+                "english": "do stay a little longer",
+                "receptive": true
+              },
+              "reply": {
+                "bengali": "maf korun, ami ekhon jai",
+                "english": "sorry, I will go now"
+              },
+              "distractors": [
+                "bhitore ashbo?",
+                "boshte pari?",
+                "ami eshechi"
+              ],
+              "speaker": "Nadia's mother"
+            }
+          ]
+        }
+      ],
+      "lesson_sequence": [
+        {
+          "lesson_index": 1,
+          "name": "Discover",
+          "goal": "Meet the words for arriving and being made welcome."
+        },
+        {
+          "lesson_index": 2,
+          "name": "Build",
+          "goal": "Ask to come in and to sit down."
+        },
+        {
+          "lesson_index": 3,
+          "name": "Have a conversation",
+          "goal": "Get yourself through someone's front door."
+        },
+        {
+          "lesson_index": 4,
+          "name": "Unit review",
+          "goal": "Bring back everything from this unit."
+        }
+      ]
+    },
+    {
+      "id": "bn-en-s03-u17",
+      "section": 3,
+      "unit": 17,
+      "cefr": "A1",
+      "scaffold": 1,
+      "title": "Tea, thanks and goodbye",
+      "objective": "Accept what you are offered and leave a home warmly.",
+      "grammar_targets": [
+        "politeness"
+      ],
+      "vocabulary": [
+        {
+          "id": "bn-en-s03-u17-v01",
+          "bengali": "legeche",
+          "script": "লেগেছে",
+          "english": "it has felt (good)",
+          "part_of_speech": "verb"
+        },
+        {
+          "id": "bn-en-s03-u17-v02",
+          "bengali": "apnake",
+          "script": "আপনাকে",
+          "english": "to you (respectful)",
+          "part_of_speech": "pronoun"
+        },
+        {
+          "id": "bn-en-s03-u17-v03",
+          "bengali": "shobai",
+          "script": "সবাই",
+          "english": "everyone",
+          "part_of_speech": "pronoun"
+        },
+        {
+          "id": "bn-en-s03-u17-v04",
+          "bengali": "thakben",
+          "script": "থাকবেন",
+          "english": "may you stay (respectful)",
+          "part_of_speech": "verb"
+        }
+      ],
+      "phrase_patterns": [
+        {
+          "id": "p-u06-l02-politeness-at-home-03",
+          "bengali": "onek bhalo legeche",
+          "script": "অনেক ভালো লেগেছে",
+          "english": "I liked it a lot"
+        },
+        {
+          "id": "p-u06-l02-politeness-at-home-06",
+          "bengali": "shobai bhalo thakben",
+          "script": "সবাই ভালো থাকবেন",
+          "english": "everyone stay well"
+        },
+        {
+          "id": "p-u06-l02-politeness-at-home-01",
+          "bengali": "ektu cha hobe?",
+          "script": "একটু চা হবে?",
+          "english": "could I have a little tea?"
+        },
+        {
+          "id": "p-u06-l02-politeness-at-home-02",
+          "bengali": "apnake dhonnobad",
+          "script": "আপনাকে ধন্যবাদ",
+          "english": "thank you (respectful)"
+        }
+      ],
+      "notices": [
+        {
+          "id": "bn-u17-n01",
+          "title": "Asking, rather than telling",
+          "examples": [
+            {
+              "bengali": "boshte pari?",
+              "english": "may I sit?",
+              "note": "literally: can I sit?"
+            },
+            {
+              "bengali": "bhitore ashbo?",
+              "english": "may I come inside?",
+              "note": "literally: shall I come in?"
+            },
+            {
+              "bengali": "ektu cha hobe?",
+              "english": "could I have a little tea?",
+              "note": "literally: will a little tea happen?"
+            }
+          ],
+          "question": {
+            "prompt": "You want to ask whether you may come in. Which is it?",
+            "options": [
+              "bhitore ashbo?",
+              "bhitore ashi",
+              "bhitore ashbo na"
+            ],
+            "answer": "bhitore ashbo?",
+            "explanation": "Bengali makes a request by asking about what will happen rather than by adding a word for \"please\": ashbo? is \"shall I come?\", and the rising tone does the asking.",
+            "concepts": [
+              "bn-future-bo"
+            ]
+          }
+        }
+      ],
+      "stories": [
+        {
+          "id": "bn-u17-s01",
+          "title": "Bondhur barite",
+          "setup": "Rachel visits her friend Nadia's family for the first time.",
+          "lines": [
+            {
+              "bengali": "assalamualaikum. ami eshechi",
+              "english": "Hello. I have arrived."
+            },
+            {
+              "bengali": "bhitore ashbo?",
+              "english": "May I come inside?"
+            },
+            {
+              "bengali": "khub shundor bari. boshte pari?",
+              "english": "A very beautiful house. May I sit?"
+            },
+            {
+              "bengali": "ektu cha hobe?",
+              "english": "Could I have a little tea?"
+            },
+            {
+              "bengali": "onek bhalo legeche. apnake dhonnobad",
+              "english": "I liked it a lot. Thank you."
+            },
+            {
+              "bengali": "ami ekhon jai. abar ashbo",
+              "english": "I will go now. I will come again."
+            }
+          ],
+          "questions": [
+            {
+              "prompt": "What does Rachel ask for first?",
+              "options": [
+                "To come inside",
+                "Some rice",
+                "The bathroom"
+              ],
+              "answer": "To come inside",
+              "explanation": "bhitore ashbo? — may I come in?"
+            },
+            {
+              "prompt": "How does she leave?",
+              "options": [
+                "Saying she will come again",
+                "Saying she is lost",
+                "Saying she is unwell"
+              ],
+              "answer": "Saying she will come again",
+              "explanation": "abar ashbo — I will come again."
+            }
+          ]
+        }
+      ],
+      "dialogues": [
+        {
+          "id": "bn-u17-d01",
+          "scenario": "Tea in the front room, and then goodbye.",
+          "turns": [
+            {
+              "prompt": {
+                "bengali": "cha khaben?",
+                "english": "will you have tea?",
+                "receptive": true
+              },
+              "reply": {
+                "bengali": "ha, ektu cha hobe?",
+                "english": "yes, could I have a little tea?"
+              },
+              "distractors": [
+                "ami ekhon jai",
+                "ami bujhte parchi na",
+                "dan dike"
+              ],
+              "speaker": "Nadia's mother"
+            },
+            {
+              "prompt": {
+                "bengali": "aro kichu chan?",
+                "english": "would you like anything more?",
+                "receptive": true
+              },
+              "reply": {
+                "bengali": "na, dhonnobad. onek bhalo legeche",
+                "english": "no, thank you. I liked it a lot"
+              },
+              "distractors": [
+                "ha, ami bhaat chai",
+                "ami klanto",
+                "abar ashbo"
+              ],
+              "speaker": "Nadia's mother"
+            },
+            {
+              "prompt": {
+                "bengali": "abar ashben",
+                "english": "do come again",
+                "receptive": true
+              },
+              "reply": {
+                "bengali": "abar ashbo. shobai bhalo thakben",
+                "english": "I will come again. Everyone stay well"
+              },
+              "distractors": [
+                "apnake dhonnobad",
+                "maf koro",
+                "ami hariye gechi"
+              ],
+              "speaker": "Nadia's mother"
+            }
+          ]
+        }
+      ],
+      "lesson_sequence": [
+        {
+          "lesson_index": 1,
+          "name": "Discover",
+          "goal": "Meet the words for thanks and a warm goodbye."
+        },
+        {
+          "lesson_index": 2,
+          "name": "Build",
+          "goal": "Accept a cup of tea properly."
+        },
+        {
+          "lesson_index": 3,
+          "name": "Read a story",
+          "goal": "Follow a first visit from the door to the goodbye."
+        },
+        {
+          "lesson_index": 4,
+          "name": "Have a conversation",
+          "goal": "Be a good guest, in Bengali."
+        },
+        {
+          "lesson_index": 5,
+          "name": "Notice the pattern",
+          "goal": "Work out how a request is made softer."
+        },
+        {
+          "lesson_index": 6,
+          "name": "Unit review",
+          "goal": "Bring back everything from this unit."
+        }
+      ]
+    },
+    {
+      "id": "bn-en-s03-u18",
+      "section": 3,
+      "unit": 18,
+      "cefr": "A1",
+      "scaffold": 1,
+      "title": "Small talk",
+      "objective": "Talk about the day, the weather and what you are up to.",
+      "grammar_targets": [
+        "word order"
+      ],
+      "vocabulary": [
+        {
+          "id": "bn-en-s03-u18-v01",
+          "bengali": "ajke",
+          "script": "আজকে",
+          "english": "today",
+          "part_of_speech": "adverb"
+        },
+        {
+          "id": "bn-en-s03-u18-v02",
+          "bengali": "abohawa",
+          "script": "আবহাওয়া",
+          "english": "weather",
+          "part_of_speech": "noun",
+          "emoji": "🌤️"
+        },
+        {
+          "id": "bn-en-s03-u18-v03",
+          "bengali": "thanda",
+          "script": "ঠান্ডা",
+          "english": "cold",
+          "part_of_speech": "adjective",
+          "emoji": "❄️"
+        },
+        {
+          "id": "bn-en-s03-u18-v04",
+          "bengali": "brishti",
+          "script": "বৃষ্টি",
+          "english": "rain",
+          "part_of_speech": "noun",
+          "emoji": "🌧️"
+        },
+        {
+          "id": "bn-en-s03-u18-v05",
+          "bengali": "din",
+          "script": "দিন",
+          "english": "day",
+          "part_of_speech": "noun"
+        }
+      ],
+      "phrase_patterns": [
+        {
+          "id": "bn-en-s03-u18-p03",
+          "bengali": "ajke khub gorom",
+          "script": "আজকে খুব গরম",
+          "english": "it is very hot today"
+        },
+        {
+          "id": "bn-en-s03-u18-p07",
+          "bengali": "din khub bhalo",
+          "script": "দিন খুব ভালো",
+          "english": "the day is very good"
+        },
+        {
+          "id": "p-u08-l01-small-talk-01",
+          "bengali": "ajke kemon?",
+          "script": "আজকে কেমন?",
+          "english": "how is today?"
+        },
+        {
+          "id": "p-u08-l01-small-talk-02",
+          "bengali": "abohawa bhalo",
+          "script": "আবহাওয়া ভালো",
+          "english": "the weather is good"
+        },
+        {
+          "id": "bn-en-s03-u18-p04",
+          "bengali": "ajke brishti",
+          "script": "আজকে বৃষ্টি",
+          "english": "it is raining today"
+        },
+        {
+          "id": "bn-en-s03-u18-p05",
+          "bengali": "ajke thanda",
+          "script": "আজকে ঠান্ডা",
+          "english": "it is cold today"
+        }
+      ],
+      "notices": [
+        {
+          "id": "bn-u18-n01",
+          "title": "Sentences with no verb at all",
+          "examples": [
+            {
+              "bengali": "ajke khub gorom",
+              "english": "it is very hot today",
+              "note": "just the day and the weather"
+            },
+            {
+              "bengali": "abohawa bhalo",
+              "english": "the weather is good",
+              "note": "nothing joins them"
+            },
+            {
+              "bengali": "ajke brishti",
+              "english": "it is raining today",
+              "note": "literally: today rain"
+            }
+          ],
+          "question": {
+            "prompt": "How would you say \"today is cold\"?",
+            "options": [
+              "ajke thanda",
+              "ajke thanda ache",
+              "ajke thanda achi"
+            ],
+            "answer": "ajke thanda",
+            "explanation": "A weather sentence is just the day and the word for the weather. Bengali puts nothing between them — this is the same missing \"is\" you met with eta bhalo.",
+            "concepts": [
+              "bn-eta-ota"
+            ]
+          }
+        }
+      ],
+      "dialogues": [
+        {
+          "id": "bn-u18-d01",
+          "scenario": "Two neighbours on the roof in the evening.",
+          "turns": [
+            {
+              "prompt": {
+                "bengali": "ajke kemon?",
+                "english": "how is today?"
+              },
+              "reply": {
+                "bengali": "ajke khub gorom",
+                "english": "it is very hot today"
+              },
+              "distractors": [
+                "ami barite achi",
+                "dokan kothay?",
+                "kono shomossha nei"
+              ],
+              "speaker": "Neighbour"
+            },
+            {
+              "prompt": {
+                "bengali": "tumi ki korcho?",
+                "english": "what are you doing?"
+              },
+              "reply": {
+                "bengali": "ami cha khachhi",
+                "english": "I am drinking tea"
+              },
+              "distractors": [
+                "ajke brishti",
+                "ami hariye gechi",
+                "shuvo raat"
+              ],
+              "speaker": "Neighbour"
+            },
+            {
+              "prompt": {
+                "bengali": "kal brishti hobe",
+                "english": "it will rain tomorrow",
+                "receptive": true
+              },
+              "reply": {
+                "bengali": "ha, ami barite thakbo",
+                "english": "yes, I will stay at home"
+              },
+              "distractors": [
+                "ami shomoy chai",
+                "na, dhonnobad",
+                "abohawa bhalo"
+              ],
+              "speaker": "Neighbour"
+            }
+          ]
+        }
+      ],
+      "lesson_sequence": [
+        {
+          "lesson_index": 1,
+          "name": "Discover",
+          "goal": "Meet the weather and the shape of a day."
+        },
+        {
+          "lesson_index": 2,
+          "name": "Build",
+          "goal": "Say what today is like."
+        },
+        {
+          "lesson_index": 3,
+          "name": "Have a conversation",
+          "goal": "Make small talk with a neighbour."
+        },
+        {
+          "lesson_index": 4,
+          "name": "Notice the pattern",
+          "goal": "Work out how a sentence can have no verb."
+        },
+        {
+          "lesson_index": 5,
+          "name": "Unit review",
+          "goal": "Bring back everything from this unit."
+        }
+      ]
+    },
+    {
+      "id": "bn-en-s03-u19",
+      "section": 3,
+      "unit": 19,
+      "cefr": "A1",
+      "scaffold": 1,
+      "title": "Care, and when it matters",
+      "objective": "Say you care, reassure someone, and get help in a hurry.",
+      "grammar_targets": [
+        "negation"
+      ],
+      "vocabulary": [
+        {
+          "id": "bn-en-s03-u19-v01",
+          "bengali": "bhalobashi",
+          "script": "ভালোবাসি",
+          "english": "I love",
+          "part_of_speech": "verb",
+          "emoji": "❤️"
+        },
+        {
+          "id": "bn-en-s03-u19-v02",
+          "bengali": "tomake",
+          "script": "তোমাকে",
+          "english": "you (as object)",
+          "part_of_speech": "pronoun"
+        },
+        {
+          "id": "bn-en-s03-u19-v03",
+          "bengali": "kheyal",
+          "script": "খেয়াল",
+          "english": "care, attention",
+          "part_of_speech": "noun"
+        },
+        {
+          "id": "bn-en-s03-u19-v04",
+          "bengali": "rakhi",
+          "script": "রাখি",
+          "english": "I keep",
+          "part_of_speech": "verb"
+        },
+        {
+          "id": "bn-en-s03-u19-v05",
+          "bengali": "daktar",
+          "script": "ডাক্তার",
+          "english": "doctor",
+          "part_of_speech": "noun",
+          "emoji": "🩺"
+        },
+        {
+          "id": "bn-en-s03-u19-v06",
+          "bengali": "dakun",
+          "script": "ডাকুন",
+          "english": "please call (respectful)",
+          "part_of_speech": "verb"
+        },
+        {
+          "id": "bn-en-s03-u19-v07",
+          "bengali": "bipod",
+          "script": "বিপদ",
+          "english": "danger, trouble",
+          "part_of_speech": "noun"
+        }
+      ],
+      "phrase_patterns": [
+        {
+          "id": "p-u08-l02-care-and-emergencies-01",
+          "bengali": "ami tomake bhalobashi",
+          "script": "আমি তোমাকে ভালোবাসি",
+          "english": "I love you"
+        },
+        {
+          "id": "p-u08-l02-care-and-emergencies-02",
+          "bengali": "ami tomar kheyal rakhi",
+          "script": "আমি তোমার খেয়াল রাখি",
+          "english": "I care about you"
+        },
+        {
+          "id": "p-u08-l02-care-and-emergencies-03",
+          "bengali": "chinta koro na",
+          "script": "চিন্তা করো না",
+          "english": "do not worry"
+        },
+        {
+          "id": "p-u08-l02-care-and-emergencies-04",
+          "bengali": "amar daktar chai",
+          "script": "আমার ডাক্তার চাই",
+          "english": "I need a doctor"
+        },
+        {
+          "id": "p-u08-l02-care-and-emergencies-05",
+          "bengali": "police dakun",
+          "script": "পুলিশ ডাকুন",
+          "english": "call the police"
+        },
+        {
+          "id": "p-u08-l02-care-and-emergencies-06",
+          "bengali": "eta emergency",
+          "script": "এটা ইমার্জেন্সি",
+          "english": "this is an emergency"
+        },
+        {
+          "id": "bn-en-s03-u19-p07",
+          "bengali": "ami bipode achi",
+          "script": "আমি বিপদে আছি",
+          "english": "I am in trouble"
+        },
+        {
+          "id": "bn-en-s03-u19-p08",
+          "bengali": "amake shahajjo korun",
+          "script": "আমাকে সাহায্য করুন",
+          "english": "please help me"
+        }
+      ],
+      "notices": [
+        {
+          "id": "bn-u19-n01",
+          "title": "na after the verb makes it a \"don't\"",
+          "examples": [
+            {
+              "bengali": "chinta koro na",
+              "english": "do not worry",
+              "note": "koro (do) + na"
+            },
+            {
+              "bengali": "ami eta chai na",
+              "english": "I do not want this",
+              "note": "the same na, after the same kind of verb"
+            },
+            {
+              "bengali": "ami bujhte parchi na",
+              "english": "I do not understand"
+            }
+          ],
+          "question": {
+            "prompt": "How do you tell a friend not to go?",
+            "options": [
+              "jao na",
+              "na jao",
+              "na jai"
+            ],
+            "answer": "jao na",
+            "explanation": "Bengali negates by putting na after the verb, and the same rule turns a command into a \"don't\": jao (go) becomes jao na (don't go).",
+            "concepts": [
+              "bn-na-negation"
+            ]
+          }
+        }
+      ],
+      "dialogues": [
+        {
+          "id": "bn-u19-d01",
+          "scenario": "A friend is unwell and you are getting help.",
+          "turns": [
+            {
+              "prompt": {
+                "bengali": "ami bhalo nei. amar matha betha",
+                "english": "I am not well. My head hurts"
+              },
+              "reply": {
+                "bengali": "chinta koro na. amar daktar chai",
+                "english": "do not worry. I need a doctor"
+              },
+              "distractors": [
+                "khub moja",
+                "ami khushi",
+                "abar dekha hobe"
+              ],
+              "speaker": "Nadia"
+            },
+            {
+              "prompt": {
+                "bengali": "daktar kothay?",
+                "english": "where is the doctor?"
+              },
+              "reply": {
+                "bengali": "hospital dan dike",
+                "english": "the hospital is to the right"
+              },
+              "distractors": [
+                "ami hariye gechi",
+                "ami cha chai",
+                "eta koto?"
+              ],
+              "speaker": "Nadia"
+            },
+            {
+              "prompt": {
+                "bengali": "dhonnobad. tumi khub bhalo bondhu",
+                "english": "thank you. you are a very good friend"
+              },
+              "reply": {
+                "bengali": "ami tomar kheyal rakhi",
+                "english": "I care about you"
+              },
+              "distractors": [
+                "ami klanto",
+                "dokan kothay?",
+                "shuvo shokal"
+              ],
+              "speaker": "Nadia"
+            }
+          ]
+        },
+        {
+          "id": "bn-u19-d02",
+          "scenario": "A whole afternoon in Bengali: arriving, tea, small talk, and home.",
+          "turns": [
+            {
+              "prompt": {
+                "bengali": "assalamualaikum, Rachel! bhitore ashun",
+                "english": "hello, Rachel! come inside",
+                "receptive": true
+              },
+              "reply": {
+                "bengali": "assalamualaikum. dhonnobad",
+                "english": "hello. thank you"
+              },
+              "distractors": [
+                "ami hariye gechi",
+                "na, dhonnobad",
+                "dan dike"
+              ],
+              "speaker": "Nadia's mother"
+            },
+            {
+              "prompt": {
+                "bengali": "tumi kemon acho?",
+                "english": "how are you?"
+              },
+              "reply": {
+                "bengali": "ami khub bhalo achi",
+                "english": "I am very well"
+              },
+              "distractors": [
+                "ami bhalo nei",
+                "ami eshechi",
+                "ajke brishti"
+              ],
+              "speaker": "Nadia"
+            },
+            {
+              "prompt": {
+                "bengali": "cha khabe?",
+                "english": "will you have tea?",
+                "receptive": true
+              },
+              "reply": {
+                "bengali": "ha, ektu cha hobe?",
+                "english": "yes, could I have a little tea?"
+              },
+              "distractors": [
+                "na, ami klanto",
+                "ami bhaat chai",
+                "shuvo raat"
+              ],
+              "speaker": "Nadia"
+            },
+            {
+              "prompt": {
+                "bengali": "ajke abohawa kemon?",
+                "english": "how is the weather today?"
+              },
+              "reply": {
+                "bengali": "ajke khub gorom",
+                "english": "it is very hot today"
+              },
+              "distractors": [
+                "ami barite achi",
+                "amar shomoy nei",
+                "eta amar boi"
+              ],
+              "speaker": "Nadia"
+            },
+            {
+              "prompt": {
+                "bengali": "tumi ki korcho ajke?",
+                "english": "what are you doing today?"
+              },
+              "reply": {
+                "bengali": "ami Bangla shikhchi",
+                "english": "I am learning Bengali"
+              },
+              "distractors": [
+                "ami hariye gechi",
+                "ami bhalo nei",
+                "station kothay?"
+              ],
+              "speaker": "Nadia"
+            },
+            {
+              "prompt": {
+                "bengali": "khub bhalo! abar esho",
+                "english": "very good! come again",
+                "receptive": true
+              },
+              "reply": {
+                "bengali": "abar ashbo. shobai bhalo thakben",
+                "english": "I will come again. Everyone stay well"
+              },
+              "distractors": [
+                "ami ekhane nambo",
+                "maf koro",
+                "koto?"
+              ],
+              "speaker": "Nadia"
+            }
+          ]
+        }
+      ],
+      "lesson_sequence": [
+        {
+          "lesson_index": 1,
+          "name": "Discover",
+          "goal": "Meet the words for caring and for trouble."
+        },
+        {
+          "lesson_index": 2,
+          "name": "Build",
+          "goal": "Reassure someone, and ask for help."
+        },
+        {
+          "lesson_index": 3,
+          "name": "Notice the pattern",
+          "goal": "Work out how a command is made negative."
+        },
+        {
+          "lesson_index": 4,
+          "name": "Have a conversation",
+          "goal": "Get a friend the help they need.",
+          "uses": {
+            "dialogues": [
+              "bn-u19-d01"
+            ]
+          }
+        },
+        {
+          "lesson_index": 5,
+          "name": "Put it together",
+          "goal": "One long conversation, start to finish.",
+          "uses": {
+            "dialogues": [
+              "bn-u19-d02"
+            ]
+          }
+        },
+        {
+          "lesson_index": 6,
+          "name": "Unit review",
+          "goal": "Bring back everything you have learned."
+        }
+      ]
+    }
+  ]
+}

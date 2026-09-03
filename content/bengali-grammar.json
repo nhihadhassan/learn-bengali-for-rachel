@@ -1,0 +1,511 @@
+{
+  "version": 1,
+  "language": "bengali",
+  "note": "One entry per grammar point the Bengali curriculum names. Each rule carries a short explanation, a generous bank of examples (so the engine can filter down to the ones a learner can actually read), and markerGroups: confusable sets such as achi/acho/achen, from which a drill blanks whichever member appears in a sentence the learner already knows and offers the rest as options. A rule with no usable sentence yet produces no drill rather than a broken one. Original data written for this app; romanization follows the course's spoken Bangladeshi standard.",
+  "rules": [
+    {
+      "id": "bn-ach-endings",
+      "targets": [
+        "ach- endings",
+        "to be present",
+        "achi acho ache"
+      ],
+      "title": "The ending of ach- tells you who",
+      "explanation": "Bengali has one word for being in a state — ach- — and its ending changes to say who you mean: achi for ami, acho for tumi, achen for apni, ache for she. The pronoun in front is optional; the ending already carries it.",
+      "examples": [
+        {
+          "target": "ami bhalo achi",
+          "english": "I am well",
+          "note": "-i goes with ami"
+        },
+        {
+          "target": "tumi kemon acho?",
+          "english": "how are you?",
+          "note": "-o goes with tumi"
+        },
+        {
+          "target": "apni kemon achen?",
+          "english": "how are you? (respectful)",
+          "note": "-en is the respectful ending"
+        },
+        {
+          "target": "ami thik achi",
+          "english": "I am okay"
+        },
+        {
+          "target": "ami khub bhalo achi",
+          "english": "I am very well"
+        }
+      ],
+      "markerGroups": [
+        [
+          "achi",
+          "acho",
+          "achen",
+          "ache"
+        ]
+      ]
+    },
+    {
+      "id": "bn-amar-tomar",
+      "targets": [
+        "possessives",
+        "amar tomar",
+        "my and your"
+      ],
+      "title": "ami becomes amar for \"my\"",
+      "explanation": "To say whose something is, the pronoun changes shape rather than taking a separate word: ami → amar (my), tumi → tomar (your), apni → apnar (your, respectful). The possessive comes first, exactly where English puts it.",
+      "examples": [
+        {
+          "target": "amar naam Rachel",
+          "english": "my name is Rachel"
+        },
+        {
+          "target": "tomar naam ki?",
+          "english": "what is your name?"
+        },
+        {
+          "target": "amar ma",
+          "english": "my mother"
+        },
+        {
+          "target": "amar bari",
+          "english": "my house"
+        },
+        {
+          "target": "tomar bhai",
+          "english": "your brother"
+        },
+        {
+          "target": "apnar naam ki?",
+          "english": "what is your name? (respectful)"
+        }
+      ],
+      "markerGroups": [
+        [
+          "amar",
+          "tomar",
+          "apnar"
+        ]
+      ]
+    },
+    {
+      "id": "bn-eta-ota",
+      "targets": [
+        "demonstratives",
+        "this and that",
+        "eta ota"
+      ],
+      "title": "eta is near you, ota is over there",
+      "explanation": "eta points at what is close — this, this one. ota points further off — that, that one. Both stand on their own as the subject of a sentence, with no word for \"is\" between them and what follows.",
+      "examples": [
+        {
+          "target": "eta ki?",
+          "english": "what is this?"
+        },
+        {
+          "target": "eta bhalo",
+          "english": "this is good"
+        },
+        {
+          "target": "eta amar bari",
+          "english": "this is my house"
+        },
+        {
+          "target": "ota ki?",
+          "english": "what is that?"
+        },
+        {
+          "target": "eta amar bhai",
+          "english": "this is my brother"
+        }
+      ],
+      "markerGroups": [
+        [
+          "eta",
+          "ota"
+        ]
+      ]
+    },
+    {
+      "id": "bn-na-negation",
+      "targets": [
+        "negation",
+        "saying no",
+        "na and nei"
+      ],
+      "title": "na comes after the verb",
+      "explanation": "To make a sentence negative, put na after the verb rather than before it: ami chai (I want) becomes ami chai na (I don't want). The one exception is ach-, which has its own negative word — nei.",
+      "examples": [
+        {
+          "target": "ami eta chai na",
+          "english": "I do not want this",
+          "note": "na follows chai"
+        },
+        {
+          "target": "ami bhalo nei",
+          "english": "I am not well",
+          "note": "ach- goes to nei, not achi na"
+        },
+        {
+          "target": "ami bujhte parchi na",
+          "english": "I do not understand"
+        },
+        {
+          "target": "chinta koro na",
+          "english": "do not worry"
+        },
+        {
+          "target": "kono shomossha nei",
+          "english": "there is no problem"
+        }
+      ],
+      "markerGroups": [
+        [
+          "na",
+          "nei"
+        ]
+      ],
+      "avoidPhrases": [
+        "na"
+      ]
+    },
+    {
+      "id": "bn-chai-wanting",
+      "targets": [
+        "wanting",
+        "chai",
+        "asking for things"
+      ],
+      "title": "Put the thing first, then chai",
+      "explanation": "Bengali says what you want before saying that you want it: pani chai is literally \"water want\". The ending of chai says who — chai for ami, chao for tumi, chan for apni.",
+      "examples": [
+        {
+          "target": "ami pani chai",
+          "english": "I want water"
+        },
+        {
+          "target": "ami cha chai",
+          "english": "I want tea"
+        },
+        {
+          "target": "ami bhaat chai",
+          "english": "I want rice"
+        },
+        {
+          "target": "tumi ki chao?",
+          "english": "what do you want?"
+        },
+        {
+          "target": "apni ki chan?",
+          "english": "what would you like? (respectful)"
+        }
+      ],
+      "markerGroups": [
+        [
+          "chai",
+          "chao",
+          "chan"
+        ]
+      ]
+    },
+    {
+      "id": "bn-question-words",
+      "targets": [
+        "question words",
+        "ki kothay keno",
+        "asking questions"
+      ],
+      "title": "The question word stays where the answer would go",
+      "explanation": "Bengali does not move anything to the front to ask a question. The question word sits in the slot the answer would fill: eta bhalo becomes eta ki?, ami barite becomes tumi kothay? Raise your voice at the end and you have a question.",
+      "examples": [
+        {
+          "target": "eta ki?",
+          "english": "what is this?"
+        },
+        {
+          "target": "tumi kothay?",
+          "english": "where are you?"
+        },
+        {
+          "target": "tomar naam ki?",
+          "english": "what is your name?"
+        },
+        {
+          "target": "eta koto dur?",
+          "english": "how far is it?"
+        },
+        {
+          "target": "tumi ki korcho?",
+          "english": "what are you doing?"
+        }
+      ],
+      "markerGroups": [
+        [
+          "ki",
+          "kothay",
+          "keno",
+          "koto",
+          "kokhon",
+          "ke"
+        ]
+      ]
+    },
+    {
+      "id": "bn-present-continuous",
+      "targets": [
+        "present continuous",
+        "doing it now",
+        "-chi -cho -che"
+      ],
+      "title": "-chi means you are doing it right now",
+      "explanation": "Slip -ch- between the verb and its ending and the action becomes something happening at this moment: kori (I do) becomes korchi (I am doing). The person ending stays where it was — korchi, korcho, korche.",
+      "examples": [
+        {
+          "target": "ami kaj korchi",
+          "english": "I am working"
+        },
+        {
+          "target": "tumi ki korcho?",
+          "english": "what are you doing?"
+        },
+        {
+          "target": "ami Bangla shikchi",
+          "english": "I am learning Bengali"
+        },
+        {
+          "target": "ami chinta korchi",
+          "english": "I am worried"
+        },
+        {
+          "target": "ami bujhte parchi na",
+          "english": "I do not understand"
+        }
+      ],
+      "markerGroups": [
+        [
+          "korchi",
+          "korcho",
+          "korche"
+        ],
+        [
+          "shikhchi",
+          "shikhcho",
+          "shikhche"
+        ]
+      ]
+    },
+    {
+      "id": "bn-tumi-apni",
+      "targets": [
+        "politeness",
+        "tumi and apni",
+        "respect endings"
+      ],
+      "title": "tumi for friends, apni for respect",
+      "explanation": "Bengali chooses a level of respect before it chooses a verb. tumi is for friends, children and family; apni is for elders, strangers and anyone you want to show respect to. The verb follows: koro becomes korun, bolo becomes bolun, dao becomes din.",
+      "examples": [
+        {
+          "target": "tumi kemon acho?",
+          "english": "how are you?"
+        },
+        {
+          "target": "apni kemon achen?",
+          "english": "how are you? (respectful)"
+        },
+        {
+          "target": "ektu opekkha koro",
+          "english": "wait a little"
+        },
+        {
+          "target": "ektu opekkha korun",
+          "english": "please wait a little (respectful)"
+        },
+        {
+          "target": "apnake dhonnobad",
+          "english": "thank you (respectful)"
+        }
+      ],
+      "markerGroups": [
+        [
+          "acho",
+          "achen"
+        ],
+        [
+          "koro",
+          "korun"
+        ],
+        [
+          "bolo",
+          "bolun"
+        ],
+        [
+          "dao",
+          "din"
+        ]
+      ]
+    },
+    {
+      "id": "bn-verb-last",
+      "targets": [
+        "word order",
+        "verb at the end",
+        "subject object verb"
+      ],
+      "title": "The verb goes last",
+      "explanation": "Bengali puts the verb at the end of the sentence, after everything it applies to: ami pani chai is \"I water want\". Once you expect the verb last, long sentences stop being confusing.",
+      "examples": [
+        {
+          "target": "ami pani chai",
+          "english": "I want water"
+        },
+        {
+          "target": "ami kaj korchi",
+          "english": "I am working"
+        },
+        {
+          "target": "ami Bangla shikchi",
+          "english": "I am learning Bengali"
+        },
+        {
+          "target": "ami eta pochondo kori",
+          "english": "I like this"
+        },
+        {
+          "target": "ami tomake bhalobashi",
+          "english": "I love you"
+        }
+      ],
+      "drill": "word-order",
+      "markerGroups": [
+        [
+          "chai",
+          "kori",
+          "korchi",
+          "achi"
+        ]
+      ]
+    },
+    {
+      "id": "bn-postpositions",
+      "targets": [
+        "postpositions",
+        "position words",
+        "dike kache"
+      ],
+      "title": "Bengali puts the position word after",
+      "explanation": "Where English says \"to the right\", Bengali says dan dike — the position word comes after the thing it positions. Same for kache (near), shathe (with) and upore (on top of).",
+      "examples": [
+        {
+          "target": "dan dike",
+          "english": "to the right"
+        },
+        {
+          "target": "bam dike",
+          "english": "to the left"
+        },
+        {
+          "target": "amar shathe",
+          "english": "with me"
+        },
+        {
+          "target": "bari kache",
+          "english": "near the house"
+        }
+      ],
+      "markerGroups": [
+        [
+          "dike",
+          "kache",
+          "shathe",
+          "upore"
+        ]
+      ]
+    },
+    {
+      "id": "bn-future-bo",
+      "targets": [
+        "future",
+        "later",
+        "-bo -be -ben"
+      ],
+      "title": "-bo is what you will do",
+      "explanation": "For something that has not happened yet, the ending becomes -bo for ami, -be for tumi and she, and -ben for apni: jai (I go) becomes jabo (I will go), ashi becomes ashbo.",
+      "examples": [
+        {
+          "target": "ami abar ashbo",
+          "english": "I will come again"
+        },
+        {
+          "target": "ami ekhane nambo",
+          "english": "I will get off here"
+        },
+        {
+          "target": "abar dekha hobe",
+          "english": "we will meet again"
+        },
+        {
+          "target": "ami ekhon jabo",
+          "english": "I will go now"
+        }
+      ],
+      "markerGroups": [
+        [
+          "ashbo",
+          "ashbe",
+          "ashben"
+        ],
+        [
+          "jabo",
+          "jabe",
+          "jaben"
+        ],
+        [
+          "nambo",
+          "nambe",
+          "namben"
+        ]
+      ]
+    },
+    {
+      "id": "bn-amar-feelings",
+      "targets": [
+        "feelings",
+        "experiencer",
+        "amar khide"
+      ],
+      "title": "Some feelings happen to you, not from you",
+      "explanation": "Hunger, thirst and aches are not things you are in Bengali — they are things that come over you. So it is amar khide peyechhe, \"to me hunger has come\", with amar rather than ami. Moods, though, stay with ami: ami khushi.",
+      "examples": [
+        {
+          "target": "amar khide peyechhe",
+          "english": "I am hungry"
+        },
+        {
+          "target": "amar pipasha peyechhe",
+          "english": "I am thirsty"
+        },
+        {
+          "target": "amar matha betha",
+          "english": "my head hurts"
+        },
+        {
+          "target": "ami khushi",
+          "english": "I am happy",
+          "note": "a mood keeps ami"
+        },
+        {
+          "target": "ami klanto",
+          "english": "I am tired",
+          "note": "a mood keeps ami"
+        }
+      ],
+      "markerGroups": [
+        [
+          "ami",
+          "amar"
+        ]
+      ]
+    }
+  ]
+}

@@ -133,7 +133,10 @@ test("sections group every unit, with an implicit group for small courses", () =
     assert.ok(sections.length > 0, `${courseId} produced no sections`);
   }
 
-  // The Spanish course carries the pack's four real sections.
+  // Courses whose packs declare sections carry those; the rest get one
+  // implicit group so the path browser has something to render either way.
   assert.equal(getCourseSections("spanish").length, 4);
-  assert.equal(getCourseSections("bengali").length, 1);
+  assert.equal(getCourseSections("bengali").length, 3);
+  assert.equal(getCourseSections("malayalam").length, 1);
+  assert.equal(getCourseSections("spanish-peru").length, 1);
 });
