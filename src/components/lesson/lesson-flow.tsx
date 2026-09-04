@@ -15,7 +15,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { Flame } from "lucide-react";
 import { checkTypedAnswer } from "@/lib/answer-checking";
 import { findFollowingLesson } from "@/lib/course-index";
-import { getCapabilities } from "@/lib/courses";
+import { getCapabilities, getTargetLanguage } from "@/lib/courses";
 import { FEATURES } from "@/lib/feature-flags";
 import {
   capitalizeDisplayText,
@@ -138,6 +138,10 @@ function PracticeLessonFlow({
   const plannedForLessonRef = useRef<string | null>(null);
   const step = steps[stepIndex];
   const lessonCurriculumId = lesson.curriculumId ?? activeCurriculumId;
+  // The typed-answer hint names the course's own language: the prompt above it
+  // already reads "Write this in Bengali.", and a Spanish placeholder under it
+  // was telling the learner to answer in a language the course does not teach.
+  const typedAnswerPlaceholder = `Write in ${getTargetLanguage(lessonCurriculumId)}…`;
   const nextLesson = findFollowingLesson(lesson.id);
   // Progress ignores the intro card, so a lesson reads 0% until real work
   // starts rather than jumping to "1 of 14" on the title screen.
@@ -831,7 +835,7 @@ function PracticeLessonFlow({
                 className="mt-2 w-full rounded-3xl border border-slate-200 bg-white px-4 py-3 text-lg font-bold text-slate-900 outline-none focus:border-violet-400 disabled:opacity-70 dark:border-white/12 dark:bg-white/[0.06] dark:text-slate-50"
                 disabled={answerState !== "idle"}
                 onChange={(event) => setTypedAnswer(event.target.value)}
-                placeholder="Escribe en español…"
+                placeholder={typedAnswerPlaceholder}
                 value={typedAnswer}
               />
             </div>

@@ -25,7 +25,7 @@ export const FEATURES = {
   /**
    * Bengali Curriculum v2 — the rebuilt Bengali course.
    *
-   * On, the path is `content/bengali-curriculum.json`: eighteen sequenced
+   * On, the path is `content/bengali-curriculum.json`: nineteen sequenced
    * units, planned cumulatively, with authored grammar, discovery cards,
    * stories and conversations. Off, it is the original eight-unit phrase book
    * in `content/learn-bengali.json`, which is never edited — so this flag is a

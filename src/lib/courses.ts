@@ -158,7 +158,7 @@ export const COURSES: CourseDescriptor[] = [
     // off: a "tap what you hear" question is only fair where a Bengali voice is
     // reliably installed, and on most desktops it is not. Dialogue needs no
     // audio at all — it is "how do you reply?" — so the rebuilt course gets it.
-    // Long enough (18 sequenced units) for cumulative planning to pay off:
+    // Long enough (19 sequenced units) for cumulative planning to pay off:
     // lessons build on each other and old units keep coming back.
     capabilities: languageCapabilities({
       script: true,

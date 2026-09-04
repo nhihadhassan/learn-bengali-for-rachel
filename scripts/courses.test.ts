@@ -14,6 +14,7 @@ import {
   getCapabilities,
   getCourse,
   getCourseNouns,
+  getTargetLanguage,
   isCourseId,
   mapCourses,
   toCourseId,
@@ -139,4 +140,26 @@ test("sections group every unit, with an implicit group for small courses", () =
   assert.equal(getCourseSections("bengali").length, 3);
   assert.equal(getCourseSections("malayalam").length, 1);
   assert.equal(getCourseSections("spanish-peru").length, 1);
+});
+
+test("learner-facing copy names each course's own language", () => {
+  // A hard-coded "Escribe en español…" placeholder once sat under a prompt
+  // reading "Write this in Bengali.", telling the learner to answer in a
+  // language the course does not teach. Both strings come from the registry
+  // now, so they cannot drift apart again.
+  for (const courseId of COURSE_IDS) {
+    const language = getTargetLanguage(courseId);
+    assert.ok(language.length > 0, `${courseId} needs a target language`);
+    assert.ok(
+      !/español|Spanish/i.test(language) || courseId.startsWith("spanish"),
+      `${courseId} should not describe itself as Spanish`,
+    );
+  }
+
+  assert.equal(getTargetLanguage("bengali"), "Bengali");
+  assert.equal(getTargetLanguage("spanish"), "Spanish");
+  // "Spanish for Peru" teaches Spanish; the short label alone would have
+  // produced "Write this in Peru."
+  assert.equal(getTargetLanguage("spanish-peru"), "Spanish");
+  assert.equal(getTargetLanguage("malayalam"), "Malayalam");
 });

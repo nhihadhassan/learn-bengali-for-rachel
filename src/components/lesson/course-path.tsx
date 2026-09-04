@@ -3,9 +3,10 @@
 /**
  * The lesson path, at two very different scales.
  *
- * Bengali has 16 lessons; the full Spanish course has 131 units and 786
- * lessons. Rendering both the same way means either a cramped small course or
- * an unusable wall of scroll for the big one, so the path picks a presentation:
+ * Malayalam has a handful of units; Bengali has 19 and the full Spanish course
+ * has 131 units and 786 lessons. Rendering them all the same way means either a
+ * cramped small course or an unusable wall of scroll for the big one, so the
+ * path picks a presentation (the cut is `LARGE_COURSE_UNIT_COUNT`):
  *
  *  - **Small courses** show every unit and lesson, as before.
  *  - **Large courses** show one section at a time, a window of units around
