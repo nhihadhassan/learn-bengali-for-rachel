@@ -20,6 +20,7 @@ import {
   toCourseId,
 } from "@/lib/courses";
 import { getCourseLessons, getCourseOutline, getCourseSections } from "@/lib/course-index";
+import { getLessonProfile, LESSON_KINDS } from "@/lib/lesson-profiles";
 import { curricula, getCurriculum, getLessonsForCurriculum } from "@/lib/content";
 
 test("registry ids are unique and match the descriptor list", () => {
@@ -162,4 +163,25 @@ test("learner-facing copy names each course's own language", () => {
   // produced "Write this in Peru."
   assert.equal(getTargetLanguage("spanish-peru"), "Spanish");
   assert.equal(getTargetLanguage("malayalam"), "Malayalam");
+});
+
+test("shared lesson copy never names one course's language", () => {
+  // The other half of the same bug: the profile table is shared by every
+  // course, so a blurb that says "how Spanish does this" is wrong on a Bengali
+  // lesson. Anything genuinely per-language belongs in the registry, reached
+  // through getTargetLanguage.
+  const LANGUAGES = COURSE_IDS.map(getTargetLanguage).concat("español");
+
+  for (const kind of LESSON_KINDS) {
+    const { blurb } = getLessonProfile(kind);
+
+    assert.ok(blurb.length > 0, `${kind} needs a blurb`);
+
+    for (const language of LANGUAGES) {
+      assert.ok(
+        !new RegExp(`\\b${language}\\b`, "i").test(blurb),
+        `the ${kind} blurb names ${language}: "${blurb}"`,
+      );
+    }
+  }
 });

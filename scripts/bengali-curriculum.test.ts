@@ -31,7 +31,11 @@ type PackUnit = {
   vocabulary: PackItem[];
   phrase_patterns: PackItem[];
   dialogues?: Array<{
-    turns: Array<{ prompt: { bengali: string; receptive?: boolean }; reply: { bengali: string } }>;
+    turns: Array<{
+      speaker?: string;
+      prompt: { bengali: string; receptive?: boolean };
+      reply: { bengali: string };
+    }>;
   }>;
   lesson_sequence: Array<{ lesson_index: number; name: string }>;
 };

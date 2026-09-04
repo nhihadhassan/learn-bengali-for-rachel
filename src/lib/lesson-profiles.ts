@@ -44,7 +44,15 @@ export const FORMAT_FALLBACKS: Record<StepFormat, StepFormat[]> = {
 
 export type LessonProfile = {
   kind: LessonKind;
-  /** Shown on the lesson intro so the learner knows what kind of work this is. */
+  /**
+   * Shown on the lesson intro so the learner knows what kind of work this is.
+   *
+   * Course-neutral: the profile table is shared by every course, so a blurb may
+   * not name a language. Two of these read "how Spanish does this" and "a short
+   * story in Spanish", which would have told a Bengali learner they were about
+   * to read Spanish. Say what the *work* is instead; the course is already on
+   * screen around it.
+   */
   blurb: string;
   /** Teach cards for the items this lesson introduces. */
   teachNewItems: boolean;
@@ -302,7 +310,7 @@ const PROFILE_ROWS: Record<LessonKind, ProfileRow> = {
    */
   notice: {
     kind: "notice",
-    blurb: "Work out how Spanish does this, before anyone explains it.",
+    blurb: "Work out the pattern for yourself, before anyone explains it.",
     teachNewItems: true,
     warmUpChecks: 1,
     formatSequence: ["recognize", "complete", "produce", "order", "translate"],
@@ -318,12 +326,12 @@ const PROFILE_ROWS: Record<LessonKind, ProfileRow> = {
   },
 
   /**
-   * Comprehensible input. A few sentences of mostly-known Spanish, heard before
+   * Comprehensible input. A few sentences of mostly-known language, heard before
    * they are read, checked for meaning rather than translated word by word.
    */
   story: {
     kind: "story",
-    blurb: "Follow a short story in Spanish. Meaning first.",
+    blurb: "Follow a short story. Meaning first.",
     teachNewItems: true,
     warmUpChecks: 1,
     formatSequence: ["listen", "recognize", "complete", "translate", "listen"],
@@ -519,6 +527,12 @@ const SCAFFOLD_OVERRIDES: Record<ScaffoldLevel, Partial<LessonProfile>> = {
   2: { showMeaningHint: false, wordBankPadding: 3 },
   1: { showMeaningHint: false, wordBankPadding: 4, allowTypedAnswers: true },
 };
+
+/**
+ * Every lesson kind the table describes, derived from the table itself so a new
+ * kind cannot be added without the tests that walk them seeing it.
+ */
+export const LESSON_KINDS = Object.keys(PROFILE_ROWS) as LessonKind[];
 
 export function getLessonProfile(
   kind: LessonKind,
