@@ -117,6 +117,13 @@ export function itemState(
  * using word banks", because by unit 7 the items in play have been produced.
  * Fallbacks below the top choice keep a lesson buildable when a one-word item
  * cannot support a sentence format.
+ *
+ * A *receptive* item climbs only the comprehension rungs. Some language exists
+ * to be understood and not said: a host's `ashun, boshun` is something a guest
+ * needs to recognise instantly and has no business being drilled on producing.
+ * Forcing every expression through both directions is what turns a course into
+ * a vocabulary list, so `receptive` is a property of the item, and the ladder
+ * simply declines to offer it a production rung.
  */
 const LADDER: Record<ItemState, StepFormat[]> = {
   // Never met — the caller teaches it rather than asking.
@@ -140,9 +147,19 @@ const BIAS_PREFERENCE: Record<LessonProfile["ladderBias"], StepFormat[]> = {
 export function formatLadder(
   state: ItemState,
   profile: LessonProfile,
+  options: { receptive?: boolean } = {},
 ): StepFormat[] {
-  const rungs = LADDER[state];
+  const rungs = options.receptive
+    ? LADDER[state].filter((format) => !isProductionFormat(format))
+    : LADDER[state];
   const preferred = BIAS_PREFERENCE[profile.ladderBias];
+
+  // A receptive item can be filtered down to nothing — `applied` and `durable`
+  // are production-only rungs. It is still worth asking about, just not worth
+  // asking the learner to say, so it falls back to being understood.
+  if (rungs.length === 0) {
+    return ["recognize"];
+  }
 
   if (preferred.length === 0) {
     return rungs;

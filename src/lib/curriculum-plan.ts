@@ -78,7 +78,30 @@ const KIND_BY_NAME: Record<string, LessonKind> = {
   "put it together": "capstone",
 };
 
-export function toLessonKind(name: string, lessonIndex: number): LessonKind {
+const LESSON_KINDS = new Set<string>(Object.values(KIND_BY_NAME));
+
+/**
+ * Which recipe a lesson runs.
+ *
+ * A pack may say so outright (`kind`), and a pack that cares what its lessons
+ * are *called* has to: the name is the title on the learner's screen, and
+ * "Your First Greeting" is a better thing to read than "Discover". Deriving the
+ * recipe from that title is what forced every unit to be a visible
+ * Discover/Build/Grammar/Listen march — the learner saw the machinery because
+ * the machinery was the only place the name could live.
+ *
+ * So `kind` decides when given. Without one, the old name table still maps the
+ * Spanish pack's labels, and position still decides after that.
+ */
+export function toLessonKind(
+  name: string,
+  lessonIndex: number,
+  kind?: string,
+): LessonKind {
+  if (kind && LESSON_KINDS.has(kind)) {
+    return kind as LessonKind;
+  }
+
   return (
     KIND_BY_NAME[name.trim().toLowerCase()] ??
     UNIT_LESSON_KINDS[lessonIndex - 1] ??

@@ -207,7 +207,7 @@ const PROFILE_ROWS: Record<LessonKind, ProfileRow> = {
 
   /**
    * Heavy audio, barely any new vocabulary, and the English prop taken away on
-   * cloze questions — the point is understanding Spanish as sound.
+   * cloze questions — the point is understanding the language as sound.
    */
   listen: {
     kind: "listen",
@@ -302,7 +302,7 @@ const PROFILE_ROWS: Record<LessonKind, ProfileRow> = {
    */
   notice: {
     kind: "notice",
-    blurb: "Work out how Spanish does this, before anyone explains it.",
+    blurb: "Work out how the language does this, before anyone explains it.",
     teachNewItems: true,
     warmUpChecks: 1,
     formatSequence: ["recognize", "complete", "produce", "order", "translate"],
@@ -318,12 +318,12 @@ const PROFILE_ROWS: Record<LessonKind, ProfileRow> = {
   },
 
   /**
-   * Comprehensible input. A few sentences of mostly-known Spanish, heard before
+   * Comprehensible input. A few sentences of mostly-known target language, heard before
    * they are read, checked for meaning rather than translated word by word.
    */
   story: {
     kind: "story",
-    blurb: "Follow a short story in Spanish. Meaning first.",
+    blurb: "Follow a short story in the language. Meaning first.",
     teachNewItems: true,
     warmUpChecks: 1,
     formatSequence: ["listen", "recognize", "complete", "translate", "listen"],

@@ -28,6 +28,16 @@ export type Phrase = {
   context?: { target: string; english: string };
   /** Meaning support that isn't a translation. Concrete nouns only. */
   emoji?: string;
+  /**
+   * Language to understand, not to say.
+   *
+   * A guest needs to recognise `ashun, boshun` the instant a host says it, and
+   * never needs to say it — hosts say it, guests answer it. Marking the item
+   * receptive keeps it in the lesson and out of the production formats, so the
+   * course can teach what a learner will *hear* without pretending they must
+   * also perform it. See `formatLadder` in `@/lib/learning-state`.
+   */
+  receptive?: boolean;
   bengaliScript?: string;
   english: string;
   pronunciation: string;

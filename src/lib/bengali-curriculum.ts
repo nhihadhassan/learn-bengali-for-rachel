@@ -77,11 +77,30 @@ type PackVocabulary = {
   part_of_speech: string;
   pronunciation?: string;
   emoji?: string;
+  /** Understood, not produced. See `Phrase.receptive`. */
+  receptive?: boolean;
+  /**
+   * Which level of address this item belongs to, or `neutral` for the words
+   * that have none (nouns, numbers, place names). Carried so the audit can
+   * prove a lesson does not teach `apni kemon achen?` and `tomar naam` in the
+   * same breath — the mixing this course exists to stop.
+   */
+  register?: BengaliRegister;
   /** A sentence, in language the learner already has, that uses the word. */
   context_bn?: string;
   context_script?: string;
   context_en?: string;
 };
+
+/**
+ * Bengali chooses a level of address in almost every sentence with a person in
+ * it, and choosing wrong is how a correct sentence lands badly. The course
+ * teaches `apni` first — it is what a learner needs for strangers, elders,
+ * shopkeepers, hosts and drivers, which is every conversation they will have
+ * before they have friends — and gives `tumi` its own unit rather than letting
+ * it leak in early.
+ */
+export type BengaliRegister = "apni" | "tumi" | "neutral";
 
 type PackPhrase = {
   id: string;
@@ -93,7 +112,14 @@ type PackPhrase = {
 
 type PackLesson = {
   lesson_index: number;
+  /** The title the learner reads. Not the recipe — see `kind`. */
   name: string;
+  /**
+   * Which lesson recipe to run. Explicit, so a lesson can be called "Your
+   * First Greeting" without the course turning into a visible march of
+   * Discover / Build / Grammar / Listen.
+   */
+  kind?: string;
   goal: string;
   uses?: { notices?: string[]; stories?: string[]; dialogues?: string[] };
 };
@@ -189,6 +215,9 @@ function vocabularyPhrase(item: PackVocabulary): Phrase {
     english: item.english,
     pronunciation: item.pronunciation ?? "",
     emoji: item.emoji,
+    // Host language, driver language, shopkeeper language: understood at speed,
+    // never performed. The ladder keeps these out of production formats.
+    receptive: item.receptive,
     // A word introduced inside a sentence the learner can already mostly read
     // is met the way words are actually met. The gloss is still there; it is
     // just no longer the whole teach card.
@@ -361,7 +390,7 @@ function adaptLesson(
     return { ...base, phrases: rotatedPhrases(unit, packLesson) };
   }
 
-  const kind = toLessonKind(packLesson.name, packLesson.lesson_index);
+  const kind = toLessonKind(packLesson.name, packLesson.lesson_index, packLesson.kind);
   const lessonGrammar = kind === "grammar" ? grammar : undefined;
 
   const dialogue = wantsDialogue(kind)
@@ -466,7 +495,7 @@ function buildUnits(): Unit[] {
     const planned = cumulativeEnabled
       ? planUnit(planUnits[index], planUnits.slice(0, index), {
           lessonKinds: unit.lesson_sequence.map((lesson) =>
-            toLessonKind(lesson.name, lesson.lesson_index),
+            toLessonKind(lesson.name, lesson.lesson_index, lesson.kind),
           ),
           sharedQueues: reviewQueues,
           resolveKnown: isKnownForm,

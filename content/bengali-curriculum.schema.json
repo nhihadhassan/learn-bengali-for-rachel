@@ -4,35 +4,75 @@
   "title": "Bengali Curriculum v2",
   "description": "The rebuilt Bengali course. Same idea as the Spanish pilot pack — vocabulary that can arrive inside a sentence, authored discovery cards, mini-stories, several dialogues per unit, sentence frames and a scaffold level — with the target text under `bengali` and the Bengali script alongside it under `script`, so pronunciation reads real Bengali rather than an English approximation of the romanization.",
   "type": "object",
-  "required": ["course_id", "version", "sections", "units"],
+  "required": [
+    "course_id",
+    "version",
+    "sections",
+    "units"
+  ],
   "properties": {
-    "course_id": { "type": "string" },
-    "version": { "type": "string" },
-    "language": { "type": "string" },
-    "register": { "type": "string" },
-    "note": { "type": "string" },
-    "legal_note": { "type": "string" },
+    "course_id": {
+      "type": "string"
+    },
+    "version": {
+      "type": "string"
+    },
+    "language": {
+      "type": "string"
+    },
+    "register": {
+      "type": "string"
+    },
+    "note": {
+      "type": "string"
+    },
+    "legal_note": {
+      "type": "string"
+    },
     "sections": {
       "type": "array",
       "items": {
         "type": "object",
-        "required": ["section", "title", "description"],
+        "required": [
+          "section",
+          "title",
+          "description"
+        ],
         "properties": {
-          "section": { "type": "integer", "minimum": 1 },
-          "title": { "type": "string" },
-          "description": { "type": "string" }
+          "section": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "title": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          }
         }
       }
     },
-    "units": { "type": "array", "items": { "$ref": "#/$defs/unit" } }
+    "units": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/unit"
+      }
+    }
   },
   "$defs": {
     "line": {
       "type": "object",
-      "required": ["bengali", "english"],
+      "required": [
+        "bengali",
+        "english"
+      ],
       "properties": {
-        "bengali": { "type": "string" },
-        "english": { "type": "string" },
+        "bengali": {
+          "type": "string"
+        },
+        "english": {
+          "type": "string"
+        },
         "receptive": {
           "type": "boolean",
           "description": "The learner only has to understand this line. Never set on a reply — the learner is never asked to produce untaught language."
@@ -45,34 +85,66 @@
     },
     "choice": {
       "type": "object",
-      "required": ["prompt", "options", "answer"],
+      "required": [
+        "prompt",
+        "options",
+        "answer"
+      ],
       "properties": {
-        "prompt": { "type": "string" },
-        "options": { "type": "array", "items": { "type": "string" } },
-        "answer": { "type": "string" },
+        "prompt": {
+          "type": "string"
+        },
+        "options": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "answer": {
+          "type": "string"
+        },
         "explanation": {
           "type": "string",
           "description": "Shown after answering. On a discovery prediction this is where the rule finally appears."
         },
-        "concepts": { "type": "array", "items": { "type": "string" } }
+        "concepts": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
       }
     },
     "vocab": {
       "type": "object",
-      "required": ["id", "bengali", "script", "english", "part_of_speech"],
+      "required": [
+        "id",
+        "bengali",
+        "script",
+        "english",
+        "part_of_speech"
+      ],
       "properties": {
         "id": {
           "type": "string",
           "description": "Reuses the v1 phrase id wherever the same item is taught, so spaced-repetition memory and the word bank carry over."
         },
-        "bengali": { "type": "string" },
-        "script": { "type": "string" },
-        "english": { "type": "string" },
+        "bengali": {
+          "type": "string"
+        },
+        "script": {
+          "type": "string"
+        },
+        "english": {
+          "type": "string"
+        },
         "part_of_speech": {
           "type": "string",
           "description": "Doubles as the semantic grouping distractor selection uses, so a noun is offered against other nouns."
         },
-        "pronunciation": { "type": "string" },
+        "pronunciation": {
+          "type": "string"
+        },
         "emoji": {
           "type": "string",
           "description": "Meaning support that is not a translation. Concrete nouns only — an emoji for an abstract word is a riddle."
@@ -81,83 +153,193 @@
           "type": "string",
           "description": "A sentence, built from language the learner already has, that uses the word. Paired with context_en."
         },
-        "context_script": { "type": "string" },
-        "context_en": { "type": "string" }
+        "context_script": {
+          "type": "string"
+        },
+        "context_en": {
+          "type": "string"
+        },
+        "receptive": {
+          "type": "boolean",
+          "description": "Language to understand, not to say. Kept out of production formats by formatLadder — a host's 'ashun, boshun' is recognised instantly and never performed by the guest."
+        },
+        "register": {
+          "enum": [
+            "apni",
+            "tumi",
+            "neutral"
+          ],
+          "description": "Level of address this item belongs to. 'neutral' is register-free (nouns, numbers). Beginners are taught apni first; tumi arrives in its own unit. Audited so a lesson cannot mix levels by accident."
+        }
       }
     },
     "phrase": {
       "type": "object",
-      "required": ["id", "bengali", "script", "english"],
+      "required": [
+        "id",
+        "bengali",
+        "script",
+        "english"
+      ],
       "properties": {
-        "id": { "type": "string" },
-        "bengali": { "type": "string" },
-        "script": { "type": "string" },
-        "english": { "type": "string" },
-        "pronunciation": { "type": "string" }
+        "id": {
+          "type": "string"
+        },
+        "bengali": {
+          "type": "string"
+        },
+        "script": {
+          "type": "string"
+        },
+        "english": {
+          "type": "string"
+        },
+        "pronunciation": {
+          "type": "string"
+        }
       }
     },
     "pattern": {
       "type": "object",
-      "required": ["id", "template", "english", "fills"],
+      "required": [
+        "id",
+        "template",
+        "english",
+        "fills"
+      ],
       "properties": {
-        "id": { "type": "string" },
+        "id": {
+          "type": "string"
+        },
         "template": {
           "type": "string",
           "description": "A frame with one {} slot, e.g. \"ami {} chai\"."
         },
-        "english": { "type": "string" },
+        "english": {
+          "type": "string"
+        },
         "fills": {
           "type": "array",
           "items": {
             "type": "object",
-            "required": ["bengali", "english"],
+            "required": [
+              "bengali",
+              "english"
+            ],
             "properties": {
-              "bengali": { "type": "string" },
-              "english": { "type": "string" }
+              "bengali": {
+                "type": "string"
+              },
+              "english": {
+                "type": "string"
+              }
             }
           }
         },
-        "concepts": { "type": "array", "items": { "type": "string" } }
+        "concepts": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
       }
     },
     "notice": {
       "type": "object",
-      "required": ["id", "title", "examples", "question"],
+      "required": [
+        "id",
+        "title",
+        "examples",
+        "question"
+      ],
       "description": "Three examples and no rule. The rule is the explanation on the prediction that follows, revealed only once the learner has committed to an answer.",
       "properties": {
-        "id": { "type": "string" },
-        "title": { "type": "string" },
-        "examples": { "type": "array", "items": { "$ref": "#/$defs/line" } },
-        "question": { "$ref": "#/$defs/choice" }
+        "id": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        },
+        "examples": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/line"
+          }
+        },
+        "question": {
+          "$ref": "#/$defs/choice"
+        }
       }
     },
     "story": {
       "type": "object",
-      "required": ["id", "title", "lines", "questions"],
+      "required": [
+        "id",
+        "title",
+        "lines",
+        "questions"
+      ],
       "properties": {
-        "id": { "type": "string" },
-        "title": { "type": "string" },
-        "setup": { "type": "string" },
-        "lines": { "type": "array", "items": { "$ref": "#/$defs/line" } },
-        "questions": { "type": "array", "items": { "$ref": "#/$defs/choice" } }
+        "id": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        },
+        "setup": {
+          "type": "string"
+        },
+        "lines": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/line"
+          }
+        },
+        "questions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/choice"
+          }
+        }
       }
     },
     "dialogue": {
       "type": "object",
-      "required": ["scenario", "turns"],
+      "required": [
+        "scenario",
+        "turns"
+      ],
       "properties": {
-        "id": { "type": "string" },
-        "scenario": { "type": "string" },
+        "id": {
+          "type": "string"
+        },
+        "scenario": {
+          "type": "string"
+        },
         "turns": {
           "type": "array",
           "items": {
             "type": "object",
-            "required": ["prompt", "reply"],
+            "required": [
+              "prompt",
+              "reply"
+            ],
             "properties": {
-              "speaker": { "type": "string" },
-              "prompt": { "$ref": "#/$defs/line" },
-              "reply": { "$ref": "#/$defs/line" },
-              "distractors": { "type": "array", "items": { "type": "string" } }
+              "speaker": {
+                "type": "string"
+              },
+              "prompt": {
+                "$ref": "#/$defs/line"
+              },
+              "reply": {
+                "$ref": "#/$defs/line"
+              },
+              "distractors": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
             }
           }
         }
@@ -165,22 +347,61 @@
     },
     "lesson": {
       "type": "object",
-      "required": ["lesson_index", "name", "goal"],
+      "required": [
+        "lesson_index",
+        "name",
+        "goal"
+      ],
       "properties": {
-        "lesson_index": { "type": "integer", "minimum": 1 },
+        "lesson_index": {
+          "type": "integer",
+          "minimum": 1
+        },
         "name": {
           "type": "string",
-          "description": "Mapped to a lesson kind by toLessonKind in @/lib/curriculum-plan. A unit names the lessons it needs; the sequence is per unit, not fixed."
+          "description": "The title the learner reads on the lesson card. Free-form: 'Your First Greeting', not 'Discover'."
         },
-        "goal": { "type": "string" },
+        "goal": {
+          "type": "string"
+        },
         "uses": {
           "type": "object",
           "description": "Which authored blocks this lesson claims. Optional — a unit with one story and one story lesson needs no wiring.",
           "properties": {
-            "notices": { "type": "array", "items": { "type": "string" } },
-            "stories": { "type": "array", "items": { "type": "string" } },
-            "dialogues": { "type": "array", "items": { "type": "string" } }
+            "notices": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "stories": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "dialogues": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
           }
+        },
+        "kind": {
+          "enum": [
+            "discover",
+            "build",
+            "grammar",
+            "listen",
+            "context",
+            "review",
+            "notice",
+            "story",
+            "scenario",
+            "capstone"
+          ],
+          "description": "Which lesson recipe to run. Explicit so the learner-facing name never has to carry the machinery. Omitted, the name is mapped and then position decides."
         }
       }
     },
@@ -198,29 +419,83 @@
         "lesson_sequence"
       ],
       "properties": {
-        "id": { "type": "string" },
-        "section": { "type": "integer", "minimum": 1 },
-        "unit": { "type": "integer", "minimum": 1 },
-        "title": { "type": "string" },
-        "cefr": { "type": "string" },
-        "objective": { "type": "string" },
+        "id": {
+          "type": "string"
+        },
+        "section": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "unit": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "title": {
+          "type": "string"
+        },
+        "cefr": {
+          "type": "string"
+        },
+        "objective": {
+          "type": "string"
+        },
         "scaffold": {
           "type": "integer",
           "minimum": 1,
           "description": "How much support this unit's lessons give: 5 (most) down to 1 (least). It must never rise as the course goes on; the audit fails a late rise."
         },
-        "grammar_targets": { "type": "array", "items": { "type": "string" } },
+        "grammar_targets": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
         "grammar_focus": {
           "type": "string",
           "description": "A rule id in content/bengali-grammar.json. A unit is not required to have one — grammar arrives when a unit has demonstrated something worth naming."
         },
-        "vocabulary": { "type": "array", "items": { "$ref": "#/$defs/vocab" } },
-        "phrase_patterns": { "type": "array", "items": { "$ref": "#/$defs/phrase" } },
-        "patterns": { "type": "array", "items": { "$ref": "#/$defs/pattern" } },
-        "notices": { "type": "array", "items": { "$ref": "#/$defs/notice" } },
-        "stories": { "type": "array", "items": { "$ref": "#/$defs/story" } },
-        "dialogues": { "type": "array", "items": { "$ref": "#/$defs/dialogue" } },
-        "lesson_sequence": { "type": "array", "items": { "$ref": "#/$defs/lesson" } }
+        "vocabulary": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/vocab"
+          }
+        },
+        "phrase_patterns": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/phrase"
+          }
+        },
+        "patterns": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/pattern"
+          }
+        },
+        "notices": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/notice"
+          }
+        },
+        "stories": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/story"
+          }
+        },
+        "dialogues": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/dialogue"
+          }
+        },
+        "lesson_sequence": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/lesson"
+          }
+        }
       }
     }
   }

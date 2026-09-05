@@ -835,12 +835,20 @@ function slotFormats(
   context: BuildContext,
   usage?: ReadonlyMap<string, number>,
 ): StepFormat[] {
-  const fallbacks = usage
+  const allFallbacks = usage
     ? fallbacksLeastUsedFirst(requested, usage)
     : [requested, ...FORMAT_FALLBACKS[requested]];
 
+  // Receptive language is understood, never performed — so the profile's
+  // request loses here even before the learner's history is consulted. Every
+  // format chain ends in `recognize`, so there is always something left to ask.
+  const fallbacks = phrase.receptive
+    ? allFallbacks.filter((format) => !isProductionFormat(format))
+    : allFallbacks;
+  const safeFallbacks = fallbacks.length > 0 ? fallbacks : (["recognize"] as StepFormat[]);
+
   if (!hasHistory(context.snapshot)) {
-    return fallbacks;
+    return safeFallbacks;
   }
 
   const state = itemState(phrase.id, context.snapshot);
@@ -851,13 +859,15 @@ function slotFormats(
   // every brand-new word a recognition question and turned a Discover lesson
   // into eight glosses in a row.
   if (state === "unseen") {
-    return fallbacks;
+    return safeFallbacks;
   }
 
-  const rungs = formatLadder(state, context.profile);
+  const rungs = formatLadder(state, context.profile, {
+    receptive: phrase.receptive,
+  });
   const ordered = rungs.includes(requested) ? [requested, ...rungs] : rungs;
 
-  return [...new Set([...ordered, ...fallbacks])];
+  return [...new Set([...ordered, ...safeFallbacks])];
 }
 
 /**
