@@ -535,6 +535,9 @@ function buildUnits(): Unit[] {
           assignedItems: unit.lesson_sequence.map(
             (lesson) => lesson.teaches ?? [],
           ),
+          // Fourteen units, not a hundred and thirty-one: this course has far
+          // fewer chances to bring a word back, so each one has to carry more.
+          interleaveScale: 3,
         })
       : undefined;
 

@@ -21,7 +21,14 @@ import { buildLessonSteps } from "@/lib/lesson-steps";
 import { isContentWord, normalizeWord, splitWords } from "@/lib/text-tokens";
 import type { Lesson } from "@/types/learning";
 
-type PackItem = { id: string; bengali: string; script: string; english: string };
+type PackItem = {
+  id: string;
+  bengali: string;
+  script: string;
+  english: string;
+  register?: string;
+  receptive?: boolean;
+};
 type PackUnit = {
   id: string;
   unit: number;
@@ -31,9 +38,19 @@ type PackUnit = {
   vocabulary: PackItem[];
   phrase_patterns: PackItem[];
   dialogues?: Array<{
-    turns: Array<{ prompt: { bengali: string; receptive?: boolean }; reply: { bengali: string } }>;
+    id?: string;
+    turns: Array<{
+      speaker?: string;
+      prompt: { bengali: string; receptive?: boolean };
+      reply: { bengali: string };
+    }>;
   }>;
-  lesson_sequence: Array<{ lesson_index: number; name: string }>;
+  lesson_sequence: Array<{
+    lesson_index: number;
+    name: string;
+    kind?: string;
+    teaches?: string[];
+  }>;
 };
 
 const pack = JSON.parse(readFileSync("content/bengali-curriculum.json", "utf8")) as {
@@ -77,22 +94,53 @@ test("every item carries the Bengali script, so pronunciation reads Bengali", ()
   }
 });
 
-test("rebuilding the course did not drop anything the old one taught", () => {
-  // The handoff constraint: v2 replaces the whole path, and a learner part-way
-  // through v1 keeps their memory of an item only if v2 still teaches it.
+test("the rebuild carries the old course's core, and says what it drops", () => {
+  // This course is a rewrite, not a re-ordering: it was rebuilt around apni
+  // rather than tumi, so a v1 entry survives on its merits and not because it
+  // existed. What must hold is the *migration* property — that the ids the two
+  // courses share still teach the same words, so a learner's spaced-repetition
+  // history keeps pointing at the language it was built from. That is asserted
+  // by "reused ids keep pointing at the same Bengali" above; this test pins how
+  // much of v1 is carried, so dropping more becomes a deliberate act.
   const taught = new Set(items.map((item) => item.id));
-  const dropped = v1.units
+  const v1Phrases = v1.units
     .flatMap((unit) => unit.lessons)
-    .flatMap((lesson) => lesson.phrases)
-    .filter((phrase) => !taught.has(phrase.id));
+    .flatMap((lesson) => lesson.phrases);
+  const carried = v1Phrases.filter((phrase) => taught.has(phrase.id));
 
-  // "ami khushi" and "amar naam..." are the two v1 entries v2 does not carry:
-  // the first is a duplicate of the same sentence in another v1 unit, and the
-  // second is a fragment ending in an ellipsis rather than a phrase.
-  assert.deepEqual(
-    dropped.map((phrase) => phrase.id).sort(),
-    ["p-u02-l01-introduce-yourself-04", "p-u06-l01-visiting-home-06"],
+  assert.ok(
+    carried.length >= 24,
+    `only ${carried.length} of ${v1Phrases.length} v1 items carried over`,
   );
+
+  // The everyday words a v1 learner is most likely to have practised — the
+  // greetings, the food, the wanting — are all still here under their old ids.
+  for (const id of [
+    "p-u01-l01-greetings-01", // assalamualaikum
+    "p-u01-l01-greetings-03", // dhonnobad
+    "p-u01-l02-how-are-you-02", // ami bhalo achi
+    "p-u03-l01-food-and-water-01", // ami pani chai
+    "p-u03-l01-food-and-water-05", // cha
+    "p-u02-l01-introduce-yourself-02", // amar naam Rachel
+  ]) {
+    assert.ok(taught.has(id), `${id} should still be taught`);
+  }
+
+  // v1's familiar forms are not lost, they are relocated: tumi belongs to the
+  // unit that contrasts it with apni rather than to the first lesson.
+  const tumiUnit = pack.units.find((unit) => unit.id === "bn-en-s01-u03");
+  const tumiIds = new Set(
+    [...(tumiUnit?.vocabulary ?? []), ...(tumiUnit?.phrase_patterns ?? [])].map(
+      (item) => item.id,
+    ),
+  );
+
+  for (const id of [
+    "p-u01-l02-how-are-you-01", // tumi kemon acho?
+    "p-u02-l01-introduce-yourself-03", // tomar naam ki?
+  ]) {
+    assert.ok(tumiIds.has(id), `${id} should be taught in the register unit`);
+  }
 });
 
 test("reused ids keep pointing at the same Bengali", () => {
@@ -324,5 +372,153 @@ test("questions are built from words worth testing", () => {
         );
       }
     }
+  }
+});
+
+test("the course teaches apni before it teaches tumi", () => {
+  // The whole point of the rebuild. A learner's first conversations are with
+  // strangers, shopkeepers, drivers and hosts, and every one of those wants
+  // apni — so meeting tumi first is not a neutral ordering choice, it is
+  // teaching the wrong sentence for the situation the learner will be in.
+  const firstAt = (register: string) => {
+    for (const unit of pack.units) {
+      const has = [...unit.vocabulary, ...unit.phrase_patterns].some(
+        (item) => item.register === register,
+      );
+
+      if (has) {
+        return unit.unit;
+      }
+    }
+
+    return Number.POSITIVE_INFINITY;
+  };
+
+  const apni = firstAt("apni");
+  const tumi = firstAt("tumi");
+
+  assert.ok(apni < tumi, `apni arrives in unit ${apni}, tumi in unit ${tumi}`);
+  assert.equal(apni, 1, "the respectful forms belong in the first unit");
+
+  // tumi is not withheld as an advanced topic; it gets the unit whose subject
+  // *is* the contrast, so the learner meets both levels together.
+  const tumiUnit = pack.units.find((unit) => unit.unit === tumi);
+  assert.ok(
+    [...(tumiUnit?.vocabulary ?? []), ...(tumiUnit?.phrase_patterns ?? [])].some(
+      (item) => item.register === "apni",
+    ),
+    "the unit that introduces tumi should show apni beside it",
+  );
+});
+
+test("every item declares the level of address it belongs to", () => {
+  for (const item of items) {
+    assert.ok(
+      item.register === "apni" || item.register === "tumi" || item.register === "neutral",
+      `${item.id} has no register`,
+    );
+  }
+});
+
+test("a receptive item is never something the learner is asked to say", () => {
+  // Host language, driver language, shopkeeper language: understood at speed,
+  // never performed. If one of these turns up in a production question the
+  // course is asking the learner to say a line only the other person says.
+  const receptive = new Set(
+    items.filter((item) => item.receptive).map((item) => item.id),
+  );
+
+  assert.ok(receptive.size > 0, "the course should mark some language receptive");
+
+  const productionTypes = new Set(["produce", "complete", "order", "translate"]);
+
+  for (const lesson of lessons) {
+    for (const step of buildLessonSteps(lesson, {})) {
+      const phraseId = (step as { phrase?: { id: string } }).phrase?.id;
+
+      if (phraseId && receptive.has(phraseId)) {
+        assert.ok(
+          !productionTypes.has(step.type),
+          `${lesson.id}: ${step.type} on receptive item ${phraseId}`,
+        );
+      }
+    }
+  }
+});
+
+test("a lesson's title is free of the machinery that builds it", () => {
+  // Deriving the recipe from the title is what forced every unit to be a
+  // visible march of Discover / Build / Grammar / Listen. Kinds are declared
+  // now, so the names can be about the language instead.
+  const machinery = /^(discover|build|grammar focus|listen and (understand|speak)|use in context|unit review|capstone|scenario|story)$/i;
+
+  for (const unit of pack.units) {
+    for (const lesson of unit.lesson_sequence) {
+      assert.ok(lesson.kind, `${unit.id}/${lesson.lesson_index} has no declared kind`);
+      assert.ok(
+        !machinery.test(lesson.name.trim()),
+        `${unit.id}/${lesson.lesson_index} is called "${lesson.name}"`,
+      );
+    }
+  }
+
+  // Nor should the course be the same six lessons fourteen times over.
+  const shapes = new Set(
+    pack.units.map((unit) =>
+      unit.lesson_sequence.map((lesson) => lesson.kind).join(">"),
+    ),
+  );
+
+  assert.ok(shapes.size > 8, `only ${shapes.size} distinct unit shapes across the course`);
+});
+
+test("a lesson teaches the items it says it teaches", () => {
+  const byId = new Map(lessons.map((lesson) => [lesson.id, lesson]));
+
+  for (const unit of pack.units) {
+    for (const packLesson of unit.lesson_sequence) {
+      const declared = packLesson.teaches ?? [];
+
+      if (declared.length === 0) {
+        continue;
+      }
+
+      const lesson = byId.get(`${unit.id}-l${packLesson.lesson_index}`);
+      assert.ok(lesson, `${unit.id}-l${packLesson.lesson_index} was not built`);
+
+      assert.deepEqual(
+        [...(lesson?.plan?.newPhraseIds ?? [])].sort(),
+        [...declared].sort(),
+        `${lesson?.id} ("${packLesson.name}") teaches something else`,
+      );
+    }
+  }
+});
+
+test("later lessons carry more old material than new", () => {
+  // The cumulative promise, measured rather than asserted: by the end of the
+  // course a lesson should be mostly retrieval.
+  const last = lessons.slice(-12);
+
+  for (const lesson of last) {
+    const fresh = lesson.plan?.newPhraseIds.length ?? 0;
+    const old = lesson.plan?.reviewPhraseIds.length ?? 0;
+
+    assert.ok(old > fresh, `${lesson.id}: ${fresh} new against ${old} revisited`);
+  }
+});
+
+test("every unit after the first brings back an earlier one", () => {
+  for (const lesson of lessons) {
+    const unitNumber = Number(lesson.id.match(/-u(\d+)-/)?.[1] ?? 0);
+
+    if (unitNumber <= 1) {
+      continue;
+    }
+
+    assert.ok(
+      (lesson.plan?.interleavedPhraseIds?.length ?? 0) > 0,
+      `${lesson.id} revisits nothing from an earlier unit`,
+    );
   }
 });

@@ -68,6 +68,16 @@ export type CourseCapabilities = {
    * Only worth the machinery for a long, sequenced course.
    */
   lessonStrategy: "simple" | "cumulative";
+  /**
+   * The most genuinely new items one lesson may introduce.
+   *
+   * Four suits a course with a long runway: the Spanish path has 131 units to
+   * spend, so a lesson can afford to be small. A fourteen-unit course covering
+   * the same functional ground has to carry a little more per lesson, and its
+   * own brief asks for three to five. Raising it beyond five is how a lesson
+   * becomes a vocabulary list.
+   */
+  maxNewItemsPerLesson: number;
 };
 
 /** The words a course uses for its own units of work. */
@@ -142,6 +152,7 @@ function languageCapabilities(
     placement: true,
     music: false,
     lessonStrategy: "simple",
+    maxNewItemsPerLesson: 4,
     ...overrides,
   };
 }
@@ -165,6 +176,9 @@ export const COURSES: CourseDescriptor[] = [
       transliteration: true,
       dialogue: true,
       lessonStrategy: "cumulative",
+      // Fourteen units for the ground Spanish covers in a hundred and
+      // thirty-one; five is the top of the range the course was specified at.
+      maxNewItemsPerLesson: 5,
     }),
     nouns: LANGUAGE_NOUNS,
     accent: {
@@ -254,6 +268,7 @@ export const COURSES: CourseDescriptor[] = [
       placement: false,
       music: false,
       lessonStrategy: "simple",
+      maxNewItemsPerLesson: 4,
     },
     nouns: HISTORY_NOUNS,
     accent: {

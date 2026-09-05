@@ -3,8 +3,8 @@
   "courses": {
     "bengali": {
       "id": "bengali",
-      "unitCount": 2,
-      "lessonCount": 5,
+      "unitCount": 14,
+      "lessonCount": 68,
       "units": [
         {
           "id": "bn-en-s01-u01",
@@ -14,7 +14,7 @@
           "section": {
             "number": 1,
             "title": "Start talking",
-            "description": "Greet someone respectfully, say who you are, and hold your first short conversation."
+            "description": "Greet someone respectfully, say who you are, talk about yourself, and meet a family."
           },
           "lessons": [
             {
@@ -29,41 +29,638 @@
               "title": "How are you?",
               "summary": "Ask how someone is, and answer three different ways.",
               "difficulty": "Intro",
-              "phraseCount": 6
+              "phraseCount": 9
             },
             {
               "id": "bn-en-s01-u01-l3",
               "title": "What's your name?",
               "summary": "Exchange names, and work out how Bengali says my and your.",
               "difficulty": "Intro",
-              "phraseCount": 6
+              "phraseCount": 11
             },
             {
               "id": "bn-en-s01-u01-l4",
               "title": "First conversation",
               "summary": "Hold the whole conversation, start to finish.",
               "difficulty": "Intro",
-              "phraseCount": 5
+              "phraseCount": 11
             }
           ]
         },
         {
           "id": "bn-en-s01-u02",
           "number": 2,
-          "title": "Tea, and asking for it",
-          "description": "Say what you want, and answer when a host offers you something.",
+          "title": "Talk about yourself",
+          "description": "Say where you live, where you are from, that you are learning Bangla, and what to do when you do not understand.",
           "section": {
             "number": 1,
             "title": "Start talking",
-            "description": "Greet someone respectfully, say who you are, and hold your first short conversation."
+            "description": "Greet someone respectfully, say who you are, talk about yourself, and meet a family."
           },
           "lessons": [
             {
               "id": "bn-en-s01-u02-l1",
-              "title": "I want tea",
-              "summary": "Ask for what you want, and turn something down politely.",
+              "title": "Where are you from?",
+              "summary": "Say where you live and where you come from.",
               "difficulty": "Intro",
-              "phraseCount": 10
+              "phraseCount": 16
+            },
+            {
+              "id": "bn-en-s01-u02-l2",
+              "title": "You're learning Bangla",
+              "summary": "Say how much Bengali you have, and ask whether someone speaks it.",
+              "difficulty": "Intro",
+              "phraseCount": 18
+            },
+            {
+              "id": "bn-en-s01-u02-l3",
+              "title": "When you don't understand",
+              "summary": "Slow someone down, and ask them to say it again.",
+              "difficulty": "Intro",
+              "phraseCount": 26
+            },
+            {
+              "id": "bn-en-s01-u02-l4",
+              "title": "The -en ending",
+              "summary": "Work out what apni does to the end of a verb.",
+              "difficulty": "Intro",
+              "phraseCount": 20
+            },
+            {
+              "id": "bn-en-s01-u02-l5",
+              "title": "Introduce yourself",
+              "summary": "Meet your landlord and tell him who you are.",
+              "difficulty": "Intro",
+              "phraseCount": 22
+            }
+          ]
+        },
+        {
+          "id": "bn-en-s01-u03",
+          "number": 3,
+          "title": "Respectful and familiar",
+          "description": "Hear the difference between apni and tumi, and choose the right one for the person in front of you.",
+          "section": {
+            "number": 1,
+            "title": "Start talking",
+            "description": "Greet someone respectfully, say who you are, talk about yourself, and meet a family."
+          },
+          "lessons": [
+            {
+              "id": "bn-en-s01-u03-l1",
+              "title": "Apni or tumi?",
+              "summary": "Work out which level of address belongs to which person.",
+              "difficulty": "Intro",
+              "phraseCount": 17
+            },
+            {
+              "id": "bn-en-s01-u03-l2",
+              "title": "Talking with a friend",
+              "summary": "Use the familiar forms with someone who has offered them.",
+              "difficulty": "Intro",
+              "phraseCount": 18
+            },
+            {
+              "id": "bn-en-s01-u03-l3",
+              "title": "Reading the room",
+              "summary": "Four people in one afternoon. Choose the level each one is owed.",
+              "difficulty": "Intro",
+              "phraseCount": 24
+            }
+          ]
+        },
+        {
+          "id": "bn-en-s01-u04",
+          "number": 4,
+          "title": "Meet the family",
+          "description": "Say who people are, how many brothers and sisters you have, and what they do.",
+          "section": {
+            "number": 1,
+            "title": "Start talking",
+            "description": "Greet someone respectfully, say who you are, talk about yourself, and meet a family."
+          },
+          "lessons": [
+            {
+              "id": "bn-en-s01-u04-l1",
+              "title": "Who is that?",
+              "summary": "Point at people and say who they are.",
+              "difficulty": "Beginner",
+              "phraseCount": 15
+            },
+            {
+              "id": "bn-en-s01-u04-l2",
+              "title": "Brothers and sisters",
+              "summary": "Say how many brothers and sisters you have, and ask back.",
+              "difficulty": "Beginner",
+              "phraseCount": 18
+            },
+            {
+              "id": "bn-en-s01-u04-l3",
+              "title": "Uni or o?",
+              "summary": "Work out which pronoun a person is owed.",
+              "difficulty": "Beginner",
+              "phraseCount": 20
+            },
+            {
+              "id": "bn-en-s01-u04-l4",
+              "title": "What do they do?",
+              "summary": "Ask what someone does, and answer.",
+              "difficulty": "Beginner",
+              "phraseCount": 18
+            },
+            {
+              "id": "bn-en-s01-u04-l5",
+              "title": "Meet my family",
+              "summary": "Look through the family photographs with Nasrin.",
+              "difficulty": "Beginner",
+              "phraseCount": 27
+            }
+          ]
+        },
+        {
+          "id": "bn-en-s02-u05",
+          "number": 5,
+          "title": "Tea, food and hospitality",
+          "description": "Ask for what you want, accept and refuse an offer, name what is on the table, and say how it tastes.",
+          "section": {
+            "number": 2,
+            "title": "Everyday Bengali",
+            "description": "Tea, money, directions, time, your day, opinions, a home visit and a doctor."
+          },
+          "lessons": [
+            {
+              "id": "bn-en-s02-u05-l1",
+              "title": "I want tea",
+              "summary": "Ask for what you want, and turn something down.",
+              "difficulty": "Beginner",
+              "phraseCount": 17
+            },
+            {
+              "id": "bn-en-s02-u05-l2",
+              "title": "Someone offers you food",
+              "summary": "Accept, refuse, and stop a host refilling your cup.",
+              "difficulty": "Beginner",
+              "phraseCount": 22
+            },
+            {
+              "id": "bn-en-s02-u05-l3",
+              "title": "What's on the table?",
+              "summary": "Name the things in front of you.",
+              "difficulty": "Beginner",
+              "phraseCount": 14
+            },
+            {
+              "id": "bn-en-s02-u05-l4",
+              "title": "Saying no",
+              "summary": "Work out where Bengali puts its 'not'.",
+              "difficulty": "Beginner",
+              "phraseCount": 20
+            },
+            {
+              "id": "bn-en-s02-u05-l5",
+              "title": "How does it taste?",
+              "summary": "Say what you like and how the food is.",
+              "difficulty": "Beginner",
+              "phraseCount": 18
+            },
+            {
+              "id": "bn-en-s02-u05-l6",
+              "title": "The tea table",
+              "summary": "Say what you like, take one more cup, and refuse the next.",
+              "difficulty": "Beginner",
+              "phraseCount": 27
+            }
+          ]
+        },
+        {
+          "id": "bn-en-s02-u06",
+          "number": 6,
+          "title": "Numbers, money and shopping",
+          "description": "Count, ask a price, bargain a little, and buy the thing.",
+          "section": {
+            "number": 2,
+            "title": "Everyday Bengali",
+            "description": "Tea, money, directions, time, your day, opinions, a home visit and a doctor."
+          },
+          "lessons": [
+            {
+              "id": "bn-en-s02-u06-l1",
+              "title": "How many?",
+              "summary": "Count to ten.",
+              "difficulty": "Beginner",
+              "phraseCount": 16
+            },
+            {
+              "id": "bn-en-s02-u06-l2",
+              "title": "Ten and beyond",
+              "summary": "Finish the numbers, and meet the ones money uses.",
+              "difficulty": "Beginner",
+              "phraseCount": 14
+            },
+            {
+              "id": "bn-en-s02-u06-l3",
+              "title": "One tea, two breads",
+              "summary": "Work out what Bengali puts between a number and a thing.",
+              "difficulty": "Beginner",
+              "phraseCount": 19
+            },
+            {
+              "id": "bn-en-s02-u06-l4",
+              "title": "How much is it?",
+              "summary": "Ask a price and understand the answer.",
+              "difficulty": "Beginner",
+              "phraseCount": 18
+            },
+            {
+              "id": "bn-en-s02-u06-l5",
+              "title": "I'll take this",
+              "summary": "Bargain a little, then buy the thing.",
+              "difficulty": "Beginner",
+              "phraseCount": 18
+            },
+            {
+              "id": "bn-en-s02-u06-l6",
+              "title": "At the market",
+              "summary": "Buy a shawl, and do not pay the first price.",
+              "difficulty": "Beginner",
+              "phraseCount": 26
+            }
+          ]
+        },
+        {
+          "id": "bn-en-s02-u07",
+          "number": 7,
+          "title": "Find your way",
+          "description": "Ask where something is, follow directions, take transport, and say you are lost.",
+          "section": {
+            "number": 2,
+            "title": "Everyday Bengali",
+            "description": "Tea, money, directions, time, your day, opinions, a home visit and a doctor."
+          },
+          "lessons": [
+            {
+              "id": "bn-en-s02-u07-l1",
+              "title": "Where is it?",
+              "summary": "Ask where something is.",
+              "difficulty": "Beginner",
+              "phraseCount": 18
+            },
+            {
+              "id": "bn-en-s02-u07-l2",
+              "title": "Left, right, straight on",
+              "summary": "Follow a direction someone gives you.",
+              "difficulty": "Beginner",
+              "phraseCount": 14
+            },
+            {
+              "id": "bn-en-s02-u07-l3",
+              "title": "Near, far, how long",
+              "summary": "Ask how far something is and how long it takes.",
+              "difficulty": "Beginner",
+              "phraseCount": 18
+            },
+            {
+              "id": "bn-en-s02-u07-l4",
+              "title": "Getting there",
+              "summary": "Hail a rickshaw, and tell the driver where to stop.",
+              "difficulty": "Beginner",
+              "phraseCount": 27
+            },
+            {
+              "id": "bn-en-s02-u07-l5",
+              "title": "I'm lost",
+              "summary": "Ask for help when you have no idea where you are.",
+              "difficulty": "Beginner",
+              "phraseCount": 27
+            }
+          ]
+        },
+        {
+          "id": "bn-en-s02-u08",
+          "number": 8,
+          "title": "Time and making plans",
+          "description": "Tell the time, name the days, and agree to meet someone.",
+          "section": {
+            "number": 2,
+            "title": "Everyday Bengali",
+            "description": "Tea, money, directions, time, your day, opinions, a home visit and a doctor."
+          },
+          "lessons": [
+            {
+              "id": "bn-en-s02-u08-l1",
+              "title": "What time is it?",
+              "summary": "Ask the time, and name the parts of the day.",
+              "difficulty": "Beginner",
+              "phraseCount": 17
+            },
+            {
+              "id": "bn-en-s02-u08-l2",
+              "title": "Today, yesterday, tomorrow",
+              "summary": "Work out how one word covers both sides of today.",
+              "difficulty": "Beginner",
+              "phraseCount": 19
+            },
+            {
+              "id": "bn-en-s02-u08-l3",
+              "title": "Days of the week",
+              "summary": "Name the days you will actually need.",
+              "difficulty": "Beginner",
+              "phraseCount": 14
+            },
+            {
+              "id": "bn-en-s02-u08-l4",
+              "title": "When shall we meet?",
+              "summary": "Agree a day and a time with someone.",
+              "difficulty": "Beginner",
+              "phraseCount": 18
+            },
+            {
+              "id": "bn-en-s02-u08-l5",
+              "title": "Make a plan",
+              "summary": "Fix a time with Nasrin, and confirm it.",
+              "difficulty": "Beginner",
+              "phraseCount": 22
+            }
+          ]
+        },
+        {
+          "id": "bn-en-s02-u09",
+          "number": 9,
+          "title": "Talk about your day",
+          "description": "Say what you do every day, what you are doing right now, and how often.",
+          "section": {
+            "number": 2,
+            "title": "Everyday Bengali",
+            "description": "Tea, money, directions, time, your day, opinions, a home visit and a doctor."
+          },
+          "lessons": [
+            {
+              "id": "bn-en-s02-u09-l1",
+              "title": "Every day",
+              "summary": "Walk through an ordinary day.",
+              "difficulty": "Elementary",
+              "phraseCount": 17
+            },
+            {
+              "id": "bn-en-s02-u09-l2",
+              "title": "Coming home",
+              "summary": "Finish the day, and say what you do every day.",
+              "difficulty": "Elementary",
+              "phraseCount": 18
+            },
+            {
+              "id": "bn-en-s02-u09-l3",
+              "title": "Right now",
+              "summary": "Work out the difference between what you do and what you are doing.",
+              "difficulty": "Elementary",
+              "phraseCount": 21
+            },
+            {
+              "id": "bn-en-s02-u09-l4",
+              "title": "Usually, sometimes, never",
+              "summary": "Say how often you do something.",
+              "difficulty": "Elementary",
+              "phraseCount": 17
+            },
+            {
+              "id": "bn-en-s02-u09-l5",
+              "title": "A day in my life",
+              "summary": "Read Rachel's day, and tell habit from happening.",
+              "difficulty": "Elementary",
+              "phraseCount": 24
+            }
+          ]
+        },
+        {
+          "id": "bn-en-s02-u10",
+          "number": 10,
+          "title": "Likes, feelings and opinions",
+          "description": "Say what you like, how you feel, and what you think.",
+          "section": {
+            "number": 2,
+            "title": "Everyday Bengali",
+            "description": "Tea, money, directions, time, your day, opinions, a home visit and a doctor."
+          },
+          "lessons": [
+            {
+              "id": "bn-en-s02-u10-l1",
+              "title": "How do you feel?",
+              "summary": "Say how you are, beyond bhalo.",
+              "difficulty": "Elementary",
+              "phraseCount": 17
+            },
+            {
+              "id": "bn-en-s02-u10-l2",
+              "title": "What do you like?",
+              "summary": "Work out how Bengali builds 'I like'.",
+              "difficulty": "Elementary",
+              "phraseCount": 17
+            },
+            {
+              "id": "bn-en-s02-u10-l3",
+              "title": "What do you think?",
+              "summary": "Give an opinion, and compare two things.",
+              "difficulty": "Elementary",
+              "phraseCount": 18
+            },
+            {
+              "id": "bn-en-s02-u10-l4",
+              "title": "Better than that one",
+              "summary": "Compare two things and say which you prefer.",
+              "difficulty": "Elementary",
+              "phraseCount": 16
+            },
+            {
+              "id": "bn-en-s02-u10-l5",
+              "title": "Choose somewhere together",
+              "summary": "Agree on a place to eat.",
+              "difficulty": "Elementary",
+              "phraseCount": 25
+            }
+          ]
+        },
+        {
+          "id": "bn-en-s02-u11",
+          "number": 11,
+          "title": "Visiting someone's home",
+          "description": "Understand a host, ask for things politely, and leave well.",
+          "section": {
+            "number": 2,
+            "title": "Everyday Bengali",
+            "description": "Tea, money, directions, time, your day, opinions, a home visit and a doctor."
+          },
+          "lessons": [
+            {
+              "id": "bn-en-s02-u11-l1",
+              "title": "Come in, sit down",
+              "summary": "Understand a host without having to say their lines back.",
+              "difficulty": "Elementary",
+              "phraseCount": 17
+            },
+            {
+              "id": "bn-en-s02-u11-l2",
+              "title": "Asking politely",
+              "summary": "Work out how a request stops being a demand.",
+              "difficulty": "Elementary",
+              "phraseCount": 18
+            },
+            {
+              "id": "bn-en-s02-u11-l3",
+              "title": "Time to leave",
+              "summary": "Leave a house the way people actually leave one.",
+              "difficulty": "Elementary",
+              "phraseCount": 18
+            },
+            {
+              "id": "bn-en-s02-u11-l4",
+              "title": "The whole visit",
+              "summary": "Arrive, sit, eat, refuse a third helping, and leave well.",
+              "difficulty": "Elementary",
+              "phraseCount": 56
+            }
+          ]
+        },
+        {
+          "id": "bn-en-s02-u12",
+          "number": 12,
+          "title": "Health and getting help",
+          "description": "Say what is wrong, ask for a doctor, and handle an emergency.",
+          "section": {
+            "number": 2,
+            "title": "Everyday Bengali",
+            "description": "Tea, money, directions, time, your day, opinions, a home visit and a doctor."
+          },
+          "lessons": [
+            {
+              "id": "bn-en-s02-u12-l1",
+              "title": "I don't feel well",
+              "summary": "Say what hurts.",
+              "difficulty": "Elementary",
+              "phraseCount": 16
+            },
+            {
+              "id": "bn-en-s02-u12-l2",
+              "title": "Fever and feeling bad",
+              "summary": "Describe an illness beyond a single ache.",
+              "difficulty": "Elementary",
+              "phraseCount": 17
+            },
+            {
+              "id": "bn-en-s02-u12-l3",
+              "title": "Want, and need",
+              "summary": "Work out when chai is not strong enough.",
+              "difficulty": "Elementary",
+              "phraseCount": 20
+            },
+            {
+              "id": "bn-en-s02-u12-l4",
+              "title": "Emergency",
+              "summary": "Get help quickly.",
+              "difficulty": "Elementary",
+              "phraseCount": 18
+            },
+            {
+              "id": "bn-en-s02-u12-l5",
+              "title": "What happened?",
+              "summary": "Stop a stranger and get yourself to a doctor.",
+              "difficulty": "Elementary",
+              "phraseCount": 27
+            }
+          ]
+        },
+        {
+          "id": "bn-en-s03-u13",
+          "number": 13,
+          "title": "Talk about yesterday",
+          "description": "Say where you went, what you have done, and how it was.",
+          "section": {
+            "number": 3,
+            "title": "From phrases to conversation",
+            "description": "Talk about yesterday and tomorrow, and hold a long conversation with several people."
+          },
+          "lessons": [
+            {
+              "id": "bn-en-s03-u13-l1",
+              "title": "Where did you go?",
+              "summary": "Say where you were and where you went.",
+              "difficulty": "Elementary",
+              "phraseCount": 17
+            },
+            {
+              "id": "bn-en-s03-u13-l2",
+              "title": "Asking about yesterday",
+              "summary": "Ask someone what they did.",
+              "difficulty": "Elementary",
+              "phraseCount": 18
+            },
+            {
+              "id": "bn-en-s03-u13-l3",
+              "title": "Saying no about the past",
+              "summary": "Work out how the past says didn't.",
+              "difficulty": "Elementary",
+              "phraseCount": 20
+            },
+            {
+              "id": "bn-en-s03-u13-l4",
+              "title": "How was it?",
+              "summary": "Say how something was, and order the parts of a day.",
+              "difficulty": "Elementary",
+              "phraseCount": 18
+            },
+            {
+              "id": "bn-en-s03-u13-l5",
+              "title": "Tell me what happened",
+              "summary": "Follow Rachel's day off, then tell it back.",
+              "difficulty": "Elementary",
+              "phraseCount": 25
+            }
+          ]
+        },
+        {
+          "id": "bn-en-s03-u14",
+          "number": 14,
+          "title": "Plans, travel and real conversation",
+          "description": "Say what you will do, handle a journey, talk about what depends on what, and hold a long conversation.",
+          "section": {
+            "number": 3,
+            "title": "From phrases to conversation",
+            "description": "Talk about yesterday and tomorrow, and hold a long conversation with several people."
+          },
+          "lessons": [
+            {
+              "id": "bn-en-s03-u14-l1",
+              "title": "I'm going to Dhaka",
+              "summary": "Say what you will do and for how long.",
+              "difficulty": "Intermediate",
+              "phraseCount": 17
+            },
+            {
+              "id": "bn-en-s03-u14-l2",
+              "title": "Airport and tickets",
+              "summary": "Get yourself through a journey.",
+              "difficulty": "Intermediate",
+              "phraseCount": 18
+            },
+            {
+              "id": "bn-en-s03-u14-l3",
+              "title": "If...",
+              "summary": "Work out the two ways Bengali says if.",
+              "difficulty": "Intermediate",
+              "phraseCount": 20
+            },
+            {
+              "id": "bn-en-s03-u14-l4",
+              "title": "A real conversation",
+              "summary": "Talk through a trip with Nasrin, start to finish.",
+              "difficulty": "Intermediate",
+              "phraseCount": 27
+            },
+            {
+              "id": "bn-en-s03-u14-l5",
+              "title": "The whole afternoon",
+              "summary": "Everything you know, in one conversation, with three different people.",
+              "difficulty": "Intermediate",
+              "phraseCount": 60
             }
           ]
         }
@@ -307,7 +904,7 @@
               "title": "Discover",
               "summary": "Meet the greetings, and hear when each one is used.",
               "difficulty": "Intro",
-              "phraseCount": 7
+              "phraseCount": 9
             },
             {
               "id": "es-en-p01-u02-l2",
@@ -321,21 +918,21 @@
               "title": "Build",
               "summary": "Put the greetings together into whole sentences.",
               "difficulty": "Intro",
-              "phraseCount": 9
+              "phraseCount": 11
             },
             {
               "id": "es-en-p01-u02-l4",
               "title": "Use in context",
               "summary": "Greet a neighbour and take your leave.",
               "difficulty": "Intro",
-              "phraseCount": 13
+              "phraseCount": 17
             },
             {
               "id": "es-en-p01-u02-l5",
               "title": "Unit review",
               "summary": "Bring back everything from this unit.",
               "difficulty": "Intro",
-              "phraseCount": 15
+              "phraseCount": 22
             }
           ]
         },
@@ -355,7 +952,7 @@
               "title": "Discover",
               "summary": "Meet the words for saying who you are.",
               "difficulty": "Intro",
-              "phraseCount": 7
+              "phraseCount": 11
             },
             {
               "id": "es-en-p01-u03-l2",
@@ -390,7 +987,7 @@
               "title": "Unit review",
               "summary": "Bring back everything from this unit.",
               "difficulty": "Intro",
-              "phraseCount": 21
+              "phraseCount": 23
             }
           ]
         },
@@ -410,7 +1007,7 @@
               "title": "Discover",
               "summary": "Meet the words for countries, cities and where you live.",
               "difficulty": "Intro",
-              "phraseCount": 7
+              "phraseCount": 11
             },
             {
               "id": "es-en-p01-u04-l2",
@@ -465,7 +1062,7 @@
               "title": "Discover",
               "summary": "Meet the words that keep a conversation friendly.",
               "difficulty": "Intro",
-              "phraseCount": 9
+              "phraseCount": 13
             },
             {
               "id": "es-en-p01-u05-l2",
@@ -513,7 +1110,7 @@
               "title": "Discover",
               "summary": "Meet what you can order, and the word for wanting it.",
               "difficulty": "Intro",
-              "phraseCount": 6
+              "phraseCount": 8
             },
             {
               "id": "es-en-p01-u06-l2",
@@ -575,7 +1172,7 @@
               "title": "Discover",
               "summary": "Meet the words for needing, speaking and understanding.",
               "difficulty": "Intro",
-              "phraseCount": 8
+              "phraseCount": 12
             },
             {
               "id": "es-en-p01-u07-l2",
@@ -637,7 +1234,7 @@
               "title": "Discover",
               "summary": "Meet the question words and hear how they open a sentence.",
               "difficulty": "Intro",
-              "phraseCount": 7
+              "phraseCount": 10
             },
             {
               "id": "es-en-p01-u08-l2",
@@ -692,7 +1289,7 @@
               "title": "Discover",
               "summary": "Meet the numbers one to ten.",
               "difficulty": "Beginner",
-              "phraseCount": 7
+              "phraseCount": 9
             },
             {
               "id": "es-en-p01-u09-l2",
@@ -754,7 +1351,7 @@
               "title": "Discover",
               "summary": "Meet the places you will need to find.",
               "difficulty": "Beginner",
-              "phraseCount": 7
+              "phraseCount": 11
             },
             {
               "id": "es-en-p01-u10-l2",
@@ -816,7 +1413,7 @@
               "title": "Discover",
               "summary": "Meet the weather words and how you say you feel.",
               "difficulty": "Beginner",
-              "phraseCount": 9
+              "phraseCount": 13
             },
             {
               "id": "es-en-p01-u11-l2",
@@ -878,7 +1475,7 @@
               "title": "Discover",
               "summary": "Meet the last few words you need.",
               "difficulty": "Beginner",
-              "phraseCount": 7
+              "phraseCount": 9
             },
             {
               "id": "es-en-p01-u12-l2",
@@ -947,7 +1544,7 @@
               "title": "Discover",
               "summary": "Recognize new words and connect form, sound, and meaning.",
               "difficulty": "Beginner",
-              "phraseCount": 7
+              "phraseCount": 10
             },
             {
               "id": "es-en-s02-u003-l2",
@@ -1002,7 +1599,7 @@
               "title": "Discover",
               "summary": "Recognize new words and connect form, sound, and meaning.",
               "difficulty": "Beginner",
-              "phraseCount": 7
+              "phraseCount": 10
             },
             {
               "id": "es-en-s02-u004-l2",
@@ -1057,7 +1654,7 @@
               "title": "Discover",
               "summary": "Recognize new words and connect form, sound, and meaning.",
               "difficulty": "Beginner",
-              "phraseCount": 7
+              "phraseCount": 11
             },
             {
               "id": "es-en-s02-u005-l2",
@@ -1112,7 +1709,7 @@
               "title": "Discover",
               "summary": "Recognize new words and connect form, sound, and meaning.",
               "difficulty": "Beginner",
-              "phraseCount": 7
+              "phraseCount": 10
             },
             {
               "id": "es-en-s02-u006-l2",
@@ -1167,7 +1764,7 @@
               "title": "Discover",
               "summary": "Recognize new words and connect form, sound, and meaning.",
               "difficulty": "Beginner",
-              "phraseCount": 7
+              "phraseCount": 11
             },
             {
               "id": "es-en-s02-u007-l2",
@@ -1222,7 +1819,7 @@
               "title": "Discover",
               "summary": "Recognize new words and connect form, sound, and meaning.",
               "difficulty": "Beginner",
-              "phraseCount": 7
+              "phraseCount": 11
             },
             {
               "id": "es-en-s02-u008-l2",
@@ -1277,7 +1874,7 @@
               "title": "Discover",
               "summary": "Recognize new words and connect form, sound, and meaning.",
               "difficulty": "Beginner",
-              "phraseCount": 7
+              "phraseCount": 10
             },
             {
               "id": "es-en-s02-u009-l2",
@@ -1332,7 +1929,7 @@
               "title": "Discover",
               "summary": "Recognize new words and connect form, sound, and meaning.",
               "difficulty": "Beginner",
-              "phraseCount": 7
+              "phraseCount": 10
             },
             {
               "id": "es-en-s02-u010-l2",
@@ -1387,7 +1984,7 @@
               "title": "Discover",
               "summary": "Recognize new words and connect form, sound, and meaning.",
               "difficulty": "Beginner",
-              "phraseCount": 7
+              "phraseCount": 8
             },
             {
               "id": "es-en-s02-u011-l2",
@@ -1442,7 +2039,7 @@
               "title": "Discover",
               "summary": "Recognize new words and connect form, sound, and meaning.",
               "difficulty": "Beginner",
-              "phraseCount": 7
+              "phraseCount": 11
             },
             {
               "id": "es-en-s02-u012-l2",
@@ -1497,7 +2094,7 @@
               "title": "Discover",
               "summary": "Recognize new words and connect form, sound, and meaning.",
               "difficulty": "Beginner",
-              "phraseCount": 7
+              "phraseCount": 10
             },
             {
               "id": "es-en-s02-u013-l2",
@@ -1552,7 +2149,7 @@
               "title": "Discover",
               "summary": "Recognize new words and connect form, sound, and meaning.",
               "difficulty": "Beginner",
-              "phraseCount": 7
+              "phraseCount": 10
             },
             {
               "id": "es-en-s02-u014-l2",
@@ -1607,7 +2204,7 @@
               "title": "Discover",
               "summary": "Recognize new words and connect form, sound, and meaning.",
               "difficulty": "Beginner",
-              "phraseCount": 7
+              "phraseCount": 11
             },
             {
               "id": "es-en-s02-u015-l2",
@@ -1662,7 +2259,7 @@
               "title": "Discover",
               "summary": "Recognize new words and connect form, sound, and meaning.",
               "difficulty": "Beginner",
-              "phraseCount": 7
+              "phraseCount": 11
             },
             {
               "id": "es-en-s02-u016-l2",
@@ -1717,7 +2314,7 @@
               "title": "Discover",
               "summary": "Recognize new words and connect form, sound, and meaning.",
               "difficulty": "Beginner",
-              "phraseCount": 7
+              "phraseCount": 11
             },
             {
               "id": "es-en-s02-u017-l2",
@@ -1772,7 +2369,7 @@
               "title": "Discover",
               "summary": "Recognize new words and connect form, sound, and meaning.",
               "difficulty": "Beginner",
-              "phraseCount": 7
+              "phraseCount": 9
             },
             {
               "id": "es-en-s02-u018-l2",
@@ -1827,7 +2424,7 @@
               "title": "Discover",
               "summary": "Recognize new words and connect form, sound, and meaning.",
               "difficulty": "Beginner",
-              "phraseCount": 7
+              "phraseCount": 10
             },
             {
               "id": "es-en-s02-u019-l2",
@@ -1882,7 +2479,7 @@
               "title": "Discover",
               "summary": "Recognize new words and connect form, sound, and meaning.",
               "difficulty": "Beginner",
-              "phraseCount": 7
+              "phraseCount": 11
             },
             {
               "id": "es-en-s02-u020-l2",
@@ -1937,7 +2534,7 @@
               "title": "Discover",
               "summary": "Recognize new words and connect form, sound, and meaning.",
               "difficulty": "Beginner",
-              "phraseCount": 7
+              "phraseCount": 11
             },
             {
               "id": "es-en-s02-u021-l2",
@@ -1992,7 +2589,7 @@
               "title": "Discover",
               "summary": "Recognize new words and connect form, sound, and meaning.",
               "difficulty": "Beginner",
-              "phraseCount": 7
+              "phraseCount": 9
             },
             {
               "id": "es-en-s02-u022-l2",
@@ -2047,7 +2644,7 @@
               "title": "Discover",
               "summary": "Recognize new words and connect form, sound, and meaning.",
               "difficulty": "Beginner",
-              "phraseCount": 7
+              "phraseCount": 11
             },
             {
               "id": "es-en-s02-u023-l2",
@@ -2102,7 +2699,7 @@
               "title": "Discover",
               "summary": "Recognize new words and connect form, sound, and meaning.",
               "difficulty": "Beginner",
-              "phraseCount": 7
+              "phraseCount": 10
             },
             {
               "id": "es-en-s02-u024-l2",
@@ -2157,7 +2754,7 @@
               "title": "Discover",
               "summary": "Recognize new words and connect form, sound, and meaning.",
               "difficulty": "Beginner",
-              "phraseCount": 7
+              "phraseCount": 11
             },
             {
               "id": "es-en-s02-u025-l2",
@@ -2212,7 +2809,7 @@
               "title": "Discover",
               "summary": "Recognize new words and connect form, sound, and meaning.",
               "difficulty": "Beginner",
-              "phraseCount": 7
+              "phraseCount": 11
             },
             {
               "id": "es-en-s02-u026-l2",
@@ -2267,7 +2864,7 @@
               "title": "Discover",
               "summary": "Recognize new words and connect form, sound, and meaning.",
               "difficulty": "Beginner",
-              "phraseCount": 7
+              "phraseCount": 11
             },
             {
               "id": "es-en-s02-u027-l2",
@@ -2322,7 +2919,7 @@
               "title": "Discover",
               "summary": "Recognize new words and connect form, sound, and meaning.",
               "difficulty": "Beginner",
-              "phraseCount": 7
+              "phraseCount": 10
             },
             {
               "id": "es-en-s02-u028-l2",
@@ -2377,7 +2974,7 @@
               "title": "Discover",
               "summary": "Recognize new words and connect form, sound, and meaning.",
               "difficulty": "Beginner",
-              "phraseCount": 7
+              "phraseCount": 10
             },
             {
               "id": "es-en-s02-u029-l2",
@@ -2432,7 +3029,7 @@
               "title": "Discover",
               "summary": "Recognize new words and connect form, sound, and meaning.",
               "difficulty": "Beginner",
-              "phraseCount": 7
+              "phraseCount": 11
             },
             {
               "id": "es-en-s02-u030-l2",
@@ -2487,7 +3084,7 @@
               "title": "Discover",
               "summary": "Recognize new words and connect form, sound, and meaning.",
               "difficulty": "Beginner",
-              "phraseCount": 7
+              "phraseCount": 10
             },
             {
               "id": "es-en-s02-u031-l2",
@@ -2542,7 +3139,7 @@
               "title": "Discover",
               "summary": "Recognize new words and connect form, sound, and meaning.",
               "difficulty": "Beginner",
-              "phraseCount": 7
+              "phraseCount": 11
             },
             {
               "id": "es-en-s03-u001-l2",
@@ -2597,7 +3194,7 @@
               "title": "Discover",
               "summary": "Recognize new words and connect form, sound, and meaning.",
               "difficulty": "Beginner",
-              "phraseCount": 7
+              "phraseCount": 11
             },
             {
               "id": "es-en-s03-u002-l2",
@@ -2652,7 +3249,7 @@
               "title": "Discover",
               "summary": "Recognize new words and connect form, sound, and meaning.",
               "difficulty": "Beginner",
-              "phraseCount": 7
+              "phraseCount": 10
             },
             {
               "id": "es-en-s03-u003-l2",
@@ -2707,7 +3304,7 @@
               "title": "Discover",
               "summary": "Recognize new words and connect form, sound, and meaning.",
               "difficulty": "Beginner",
-              "phraseCount": 7
+              "phraseCount": 10
             },
             {
               "id": "es-en-s03-u004-l2",
@@ -2762,7 +3359,7 @@
               "title": "Discover",
               "summary": "Recognize new words and connect form, sound, and meaning.",
               "difficulty": "Beginner",
-              "phraseCount": 7
+              "phraseCount": 10
             },
             {
               "id": "es-en-s03-u005-l2",
@@ -2817,7 +3414,7 @@
               "title": "Discover",
               "summary": "Recognize new words and connect form, sound, and meaning.",
               "difficulty": "Beginner",
-              "phraseCount": 7
+              "phraseCount": 11
             },
             {
               "id": "es-en-s03-u006-l2",
@@ -2872,7 +3469,7 @@
               "title": "Discover",
               "summary": "Recognize new words and connect form, sound, and meaning.",
               "difficulty": "Beginner",
-              "phraseCount": 7
+              "phraseCount": 11
             },
             {
               "id": "es-en-s03-u007-l2",
@@ -2927,7 +3524,7 @@
               "title": "Discover",
               "summary": "Recognize new words and connect form, sound, and meaning.",
               "difficulty": "Beginner",
-              "phraseCount": 7
+              "phraseCount": 10
             },
             {
               "id": "es-en-s03-u008-l2",
@@ -2982,7 +3579,7 @@
               "title": "Discover",
               "summary": "Recognize new words and connect form, sound, and meaning.",
               "difficulty": "Beginner",
-              "phraseCount": 7
+              "phraseCount": 11
             },
             {
               "id": "es-en-s03-u009-l2",
@@ -3037,7 +3634,7 @@
               "title": "Discover",
               "summary": "Recognize new words and connect form, sound, and meaning.",
               "difficulty": "Beginner",
-              "phraseCount": 7
+              "phraseCount": 11
             },
             {
               "id": "es-en-s03-u010-l2",
@@ -3092,7 +3689,7 @@
               "title": "Discover",
               "summary": "Recognize new words and connect form, sound, and meaning.",
               "difficulty": "Beginner",
-              "phraseCount": 7
+              "phraseCount": 10
             },
             {
               "id": "es-en-s03-u011-l2",
@@ -3147,7 +3744,7 @@
               "title": "Discover",
               "summary": "Recognize new words and connect form, sound, and meaning.",
               "difficulty": "Beginner",
-              "phraseCount": 7
+              "phraseCount": 10
             },
             {
               "id": "es-en-s03-u012-l2",
@@ -3202,7 +3799,7 @@
               "title": "Discover",
               "summary": "Recognize new words and connect form, sound, and meaning.",
               "difficulty": "Beginner",
-              "phraseCount": 7
+              "phraseCount": 10
             },
             {
               "id": "es-en-s03-u013-l2",
@@ -3257,7 +3854,7 @@
               "title": "Discover",
               "summary": "Recognize new words and connect form, sound, and meaning.",
               "difficulty": "Beginner",
-              "phraseCount": 7
+              "phraseCount": 10
             },
             {
               "id": "es-en-s03-u014-l2",
@@ -3312,7 +3909,7 @@
               "title": "Discover",
               "summary": "Recognize new words and connect form, sound, and meaning.",
               "difficulty": "Beginner",
-              "phraseCount": 7
+              "phraseCount": 10
             },
             {
               "id": "es-en-s03-u015-l2",
@@ -3367,7 +3964,7 @@
               "title": "Discover",
               "summary": "Recognize new words and connect form, sound, and meaning.",
               "difficulty": "Beginner",
-              "phraseCount": 7
+              "phraseCount": 9
             },
             {
               "id": "es-en-s03-u016-l2",
@@ -3422,7 +4019,7 @@
               "title": "Discover",
               "summary": "Recognize new words and connect form, sound, and meaning.",
               "difficulty": "Beginner",
-              "phraseCount": 7
+              "phraseCount": 10
             },
             {
               "id": "es-en-s03-u017-l2",
@@ -3477,7 +4074,7 @@
               "title": "Discover",
               "summary": "Recognize new words and connect form, sound, and meaning.",
               "difficulty": "Beginner",
-              "phraseCount": 7
+              "phraseCount": 10
             },
             {
               "id": "es-en-s03-u018-l2",
@@ -3532,7 +4129,7 @@
               "title": "Discover",
               "summary": "Recognize new words and connect form, sound, and meaning.",
               "difficulty": "Beginner",
-              "phraseCount": 7
+              "phraseCount": 11
             },
             {
               "id": "es-en-s03-u019-l2",
@@ -3587,7 +4184,7 @@
               "title": "Discover",
               "summary": "Recognize new words and connect form, sound, and meaning.",
               "difficulty": "Beginner",
-              "phraseCount": 7
+              "phraseCount": 11
             },
             {
               "id": "es-en-s03-u020-l2",
@@ -3642,7 +4239,7 @@
               "title": "Discover",
               "summary": "Recognize new words and connect form, sound, and meaning.",
               "difficulty": "Beginner",
-              "phraseCount": 7
+              "phraseCount": 11
             },
             {
               "id": "es-en-s03-u021-l2",
@@ -3697,7 +4294,7 @@
               "title": "Discover",
               "summary": "Recognize new words and connect form, sound, and meaning.",
               "difficulty": "Beginner",
-              "phraseCount": 7
+              "phraseCount": 9
             },
             {
               "id": "es-en-s03-u022-l2",
@@ -3752,7 +4349,7 @@
               "title": "Discover",
               "summary": "Recognize new words and connect form, sound, and meaning.",
               "difficulty": "Beginner",
-              "phraseCount": 7
+              "phraseCount": 11
             },
             {
               "id": "es-en-s03-u023-l2",
@@ -3807,7 +4404,7 @@
               "title": "Discover",
               "summary": "Recognize new words and connect form, sound, and meaning.",
               "difficulty": "Beginner",
-              "phraseCount": 7
+              "phraseCount": 10
             },
             {
               "id": "es-en-s03-u024-l2",
@@ -3862,7 +4459,7 @@
               "title": "Discover",
               "summary": "Recognize new words and connect form, sound, and meaning.",
               "difficulty": "Beginner",
-              "phraseCount": 7
+              "phraseCount": 11
             },
             {
               "id": "es-en-s03-u025-l2",
@@ -3917,7 +4514,7 @@
               "title": "Discover",
               "summary": "Recognize new words and connect form, sound, and meaning.",
               "difficulty": "Beginner",
-              "phraseCount": 7
+              "phraseCount": 11
             },
             {
               "id": "es-en-s03-u026-l2",
@@ -3972,7 +4569,7 @@
               "title": "Discover",
               "summary": "Recognize new words and connect form, sound, and meaning.",
               "difficulty": "Beginner",
-              "phraseCount": 7
+              "phraseCount": 10
             },
             {
               "id": "es-en-s03-u027-l2",
@@ -4027,7 +4624,7 @@
               "title": "Discover",
               "summary": "Recognize new words and connect form, sound, and meaning.",
               "difficulty": "Beginner",
-              "phraseCount": 7
+              "phraseCount": 11
             },
             {
               "id": "es-en-s03-u028-l2",
@@ -4082,7 +4679,7 @@
               "title": "Discover",
               "summary": "Recognize new words and connect form, sound, and meaning.",
               "difficulty": "Beginner",
-              "phraseCount": 7
+              "phraseCount": 10
             },
             {
               "id": "es-en-s03-u029-l2",
@@ -4137,7 +4734,7 @@
               "title": "Discover",
               "summary": "Recognize new words and connect form, sound, and meaning.",
               "difficulty": "Beginner",
-              "phraseCount": 7
+              "phraseCount": 10
             },
             {
               "id": "es-en-s03-u030-l2",
@@ -4192,7 +4789,7 @@
               "title": "Discover",
               "summary": "Recognize new words and connect form, sound, and meaning.",
               "difficulty": "Elementary",
-              "phraseCount": 7
+              "phraseCount": 9
             },
             {
               "id": "es-en-s04-u001-l2",
@@ -4247,7 +4844,7 @@
               "title": "Discover",
               "summary": "Recognize new words and connect form, sound, and meaning.",
               "difficulty": "Elementary",
-              "phraseCount": 7
+              "phraseCount": 9
             },
             {
               "id": "es-en-s04-u002-l2",
@@ -4302,7 +4899,7 @@
               "title": "Discover",
               "summary": "Recognize new words and connect form, sound, and meaning.",
               "difficulty": "Elementary",
-              "phraseCount": 7
+              "phraseCount": 10
             },
             {
               "id": "es-en-s04-u003-l2",
@@ -4357,7 +4954,7 @@
               "title": "Discover",
               "summary": "Recognize new words and connect form, sound, and meaning.",
               "difficulty": "Elementary",
-              "phraseCount": 7
+              "phraseCount": 10
             },
             {
               "id": "es-en-s04-u004-l2",
@@ -4412,7 +5009,7 @@
               "title": "Discover",
               "summary": "Recognize new words and connect form, sound, and meaning.",
               "difficulty": "Elementary",
-              "phraseCount": 7
+              "phraseCount": 11
             },
             {
               "id": "es-en-s04-u005-l2",
@@ -4467,7 +5064,7 @@
               "title": "Discover",
               "summary": "Recognize new words and connect form, sound, and meaning.",
               "difficulty": "Elementary",
-              "phraseCount": 7
+              "phraseCount": 10
             },
             {
               "id": "es-en-s04-u006-l2",
@@ -4522,7 +5119,7 @@
               "title": "Discover",
               "summary": "Recognize new words and connect form, sound, and meaning.",
               "difficulty": "Elementary",
-              "phraseCount": 7
+              "phraseCount": 11
             },
             {
               "id": "es-en-s04-u007-l2",
@@ -4577,7 +5174,7 @@
               "title": "Discover",
               "summary": "Recognize new words and connect form, sound, and meaning.",
               "difficulty": "Elementary",
-              "phraseCount": 7
+              "phraseCount": 11
             },
             {
               "id": "es-en-s04-u008-l2",
@@ -4632,7 +5229,7 @@
               "title": "Discover",
               "summary": "Recognize new words and connect form, sound, and meaning.",
               "difficulty": "Elementary",
-              "phraseCount": 7
+              "phraseCount": 11
             },
             {
               "id": "es-en-s04-u009-l2",
@@ -4687,7 +5284,7 @@
               "title": "Discover",
               "summary": "Recognize new words and connect form, sound, and meaning.",
               "difficulty": "Elementary",
-              "phraseCount": 7
+              "phraseCount": 10
             },
             {
               "id": "es-en-s04-u010-l2",
@@ -4742,7 +5339,7 @@
               "title": "Discover",
               "summary": "Recognize new words and connect form, sound, and meaning.",
               "difficulty": "Elementary",
-              "phraseCount": 7
+              "phraseCount": 11
             },
             {
               "id": "es-en-s04-u011-l2",
@@ -4797,7 +5394,7 @@
               "title": "Discover",
               "summary": "Recognize new words and connect form, sound, and meaning.",
               "difficulty": "Elementary",
-              "phraseCount": 7
+              "phraseCount": 10
             },
             {
               "id": "es-en-s04-u012-l2",
@@ -4852,7 +5449,7 @@
               "title": "Discover",
               "summary": "Recognize new words and connect form, sound, and meaning.",
               "difficulty": "Elementary",
-              "phraseCount": 7
+              "phraseCount": 10
             },
             {
               "id": "es-en-s04-u013-l2",
@@ -4907,7 +5504,7 @@
               "title": "Discover",
               "summary": "Recognize new words and connect form, sound, and meaning.",
               "difficulty": "Elementary",
-              "phraseCount": 7
+              "phraseCount": 10
             },
             {
               "id": "es-en-s04-u014-l2",
@@ -4962,7 +5559,7 @@
               "title": "Discover",
               "summary": "Recognize new words and connect form, sound, and meaning.",
               "difficulty": "Elementary",
-              "phraseCount": 7
+              "phraseCount": 11
             },
             {
               "id": "es-en-s04-u015-l2",
@@ -5017,7 +5614,7 @@
               "title": "Discover",
               "summary": "Recognize new words and connect form, sound, and meaning.",
               "difficulty": "Elementary",
-              "phraseCount": 7
+              "phraseCount": 10
             },
             {
               "id": "es-en-s04-u016-l2",
@@ -5072,7 +5669,7 @@
               "title": "Discover",
               "summary": "Recognize new words and connect form, sound, and meaning.",
               "difficulty": "Elementary",
-              "phraseCount": 7
+              "phraseCount": 10
             },
             {
               "id": "es-en-s04-u017-l2",
@@ -5127,7 +5724,7 @@
               "title": "Discover",
               "summary": "Recognize new words and connect form, sound, and meaning.",
               "difficulty": "Elementary",
-              "phraseCount": 7
+              "phraseCount": 10
             },
             {
               "id": "es-en-s04-u018-l2",
@@ -5182,7 +5779,7 @@
               "title": "Discover",
               "summary": "Recognize new words and connect form, sound, and meaning.",
               "difficulty": "Elementary",
-              "phraseCount": 7
+              "phraseCount": 11
             },
             {
               "id": "es-en-s04-u019-l2",
@@ -5237,7 +5834,7 @@
               "title": "Discover",
               "summary": "Recognize new words and connect form, sound, and meaning.",
               "difficulty": "Elementary",
-              "phraseCount": 7
+              "phraseCount": 10
             },
             {
               "id": "es-en-s04-u020-l2",
@@ -5292,7 +5889,7 @@
               "title": "Discover",
               "summary": "Recognize new words and connect form, sound, and meaning.",
               "difficulty": "Elementary",
-              "phraseCount": 7
+              "phraseCount": 10
             },
             {
               "id": "es-en-s04-u021-l2",
@@ -5347,7 +5944,7 @@
               "title": "Discover",
               "summary": "Recognize new words and connect form, sound, and meaning.",
               "difficulty": "Elementary",
-              "phraseCount": 7
+              "phraseCount": 11
             },
             {
               "id": "es-en-s04-u022-l2",
@@ -5402,7 +5999,7 @@
               "title": "Discover",
               "summary": "Recognize new words and connect form, sound, and meaning.",
               "difficulty": "Elementary",
-              "phraseCount": 7
+              "phraseCount": 10
             },
             {
               "id": "es-en-s04-u023-l2",
@@ -5457,7 +6054,7 @@
               "title": "Discover",
               "summary": "Recognize new words and connect form, sound, and meaning.",
               "difficulty": "Elementary",
-              "phraseCount": 7
+              "phraseCount": 10
             },
             {
               "id": "es-en-s04-u024-l2",
@@ -5512,7 +6109,7 @@
               "title": "Discover",
               "summary": "Recognize new words and connect form, sound, and meaning.",
               "difficulty": "Elementary",
-              "phraseCount": 7
+              "phraseCount": 9
             },
             {
               "id": "es-en-s04-u025-l2",
@@ -5567,7 +6164,7 @@
               "title": "Discover",
               "summary": "Recognize new words and connect form, sound, and meaning.",
               "difficulty": "Elementary",
-              "phraseCount": 7
+              "phraseCount": 11
             },
             {
               "id": "es-en-s04-u026-l2",
@@ -5622,7 +6219,7 @@
               "title": "Discover",
               "summary": "Recognize new words and connect form, sound, and meaning.",
               "difficulty": "Elementary",
-              "phraseCount": 7
+              "phraseCount": 9
             },
             {
               "id": "es-en-s04-u027-l2",
@@ -5677,7 +6274,7 @@
               "title": "Discover",
               "summary": "Recognize new words and connect form, sound, and meaning.",
               "difficulty": "Elementary",
-              "phraseCount": 7
+              "phraseCount": 11
             },
             {
               "id": "es-en-s04-u028-l2",
@@ -5732,7 +6329,7 @@
               "title": "Discover",
               "summary": "Recognize new words and connect form, sound, and meaning.",
               "difficulty": "Elementary",
-              "phraseCount": 7
+              "phraseCount": 11
             },
             {
               "id": "es-en-s04-u029-l2",
@@ -5787,7 +6384,7 @@
               "title": "Discover",
               "summary": "Recognize new words and connect form, sound, and meaning.",
               "difficulty": "Elementary",
-              "phraseCount": 7
+              "phraseCount": 11
             },
             {
               "id": "es-en-s04-u030-l2",
@@ -5842,7 +6439,7 @@
               "title": "Discover",
               "summary": "Recognize new words and connect form, sound, and meaning.",
               "difficulty": "Elementary",
-              "phraseCount": 7
+              "phraseCount": 10
             },
             {
               "id": "es-en-s04-u031-l2",
@@ -5897,7 +6494,7 @@
               "title": "Discover",
               "summary": "Recognize new words and connect form, sound, and meaning.",
               "difficulty": "Elementary",
-              "phraseCount": 7
+              "phraseCount": 10
             },
             {
               "id": "es-en-s04-u032-l2",
@@ -5952,7 +6549,7 @@
               "title": "Discover",
               "summary": "Recognize new words and connect form, sound, and meaning.",
               "difficulty": "Elementary",
-              "phraseCount": 7
+              "phraseCount": 11
             },
             {
               "id": "es-en-s04-u033-l2",
@@ -6007,7 +6604,7 @@
               "title": "Discover",
               "summary": "Recognize new words and connect form, sound, and meaning.",
               "difficulty": "Elementary",
-              "phraseCount": 7
+              "phraseCount": 11
             },
             {
               "id": "es-en-s04-u034-l2",
@@ -6062,7 +6659,7 @@
               "title": "Discover",
               "summary": "Recognize new words and connect form, sound, and meaning.",
               "difficulty": "Elementary",
-              "phraseCount": 7
+              "phraseCount": 9
             },
             {
               "id": "es-en-s04-u035-l2",
@@ -6117,7 +6714,7 @@
               "title": "Discover",
               "summary": "Recognize new words and connect form, sound, and meaning.",
               "difficulty": "Elementary",
-              "phraseCount": 7
+              "phraseCount": 10
             },
             {
               "id": "es-en-s04-u036-l2",
@@ -6172,7 +6769,7 @@
               "title": "Discover",
               "summary": "Recognize new words and connect form, sound, and meaning.",
               "difficulty": "Elementary",
-              "phraseCount": 7
+              "phraseCount": 10
             },
             {
               "id": "es-en-s04-u037-l2",
@@ -6227,7 +6824,7 @@
               "title": "Discover",
               "summary": "Recognize new words and connect form, sound, and meaning.",
               "difficulty": "Elementary",
-              "phraseCount": 7
+              "phraseCount": 10
             },
             {
               "id": "es-en-s04-u038-l2",
@@ -6282,7 +6879,7 @@
               "title": "Discover",
               "summary": "Recognize new words and connect form, sound, and meaning.",
               "difficulty": "Elementary",
-              "phraseCount": 7
+              "phraseCount": 11
             },
             {
               "id": "es-en-s04-u039-l2",
@@ -6337,7 +6934,7 @@
               "title": "Discover",
               "summary": "Recognize new words and connect form, sound, and meaning.",
               "difficulty": "Elementary",
-              "phraseCount": 7
+              "phraseCount": 11
             },
             {
               "id": "es-en-s04-u040-l2",
@@ -6392,7 +6989,7 @@
               "title": "Discover",
               "summary": "Recognize new words and connect form, sound, and meaning.",
               "difficulty": "Elementary",
-              "phraseCount": 7
+              "phraseCount": 10
             },
             {
               "id": "es-en-s04-u041-l2",
@@ -6447,7 +7044,7 @@
               "title": "Discover",
               "summary": "Recognize new words and connect form, sound, and meaning.",
               "difficulty": "Elementary",
-              "phraseCount": 7
+              "phraseCount": 11
             },
             {
               "id": "es-en-s04-u042-l2",
@@ -6502,7 +7099,7 @@
               "title": "Discover",
               "summary": "Recognize new words and connect form, sound, and meaning.",
               "difficulty": "Elementary",
-              "phraseCount": 7
+              "phraseCount": 10
             },
             {
               "id": "es-en-s04-u043-l2",
@@ -6557,7 +7154,7 @@
               "title": "Discover",
               "summary": "Recognize new words and connect form, sound, and meaning.",
               "difficulty": "Elementary",
-              "phraseCount": 7
+              "phraseCount": 10
             },
             {
               "id": "es-en-s04-u044-l2",
@@ -6612,7 +7209,7 @@
               "title": "Discover",
               "summary": "Recognize new words and connect form, sound, and meaning.",
               "difficulty": "Elementary",
-              "phraseCount": 7
+              "phraseCount": 10
             },
             {
               "id": "es-en-s04-u045-l2",
@@ -6667,7 +7264,7 @@
               "title": "Discover",
               "summary": "Recognize new words and connect form, sound, and meaning.",
               "difficulty": "Elementary",
-              "phraseCount": 7
+              "phraseCount": 10
             },
             {
               "id": "es-en-s04-u046-l2",
@@ -6722,7 +7319,7 @@
               "title": "Discover",
               "summary": "Recognize new words and connect form, sound, and meaning.",
               "difficulty": "Elementary",
-              "phraseCount": 7
+              "phraseCount": 10
             },
             {
               "id": "es-en-s04-u047-l2",
@@ -6777,7 +7374,7 @@
               "title": "Discover",
               "summary": "Recognize new words and connect form, sound, and meaning.",
               "difficulty": "Elementary",
-              "phraseCount": 7
+              "phraseCount": 10
             },
             {
               "id": "es-en-s04-u048-l2",
@@ -6832,7 +7429,7 @@
               "title": "Discover",
               "summary": "Recognize new words and connect form, sound, and meaning.",
               "difficulty": "Elementary",
-              "phraseCount": 7
+              "phraseCount": 10
             },
             {
               "id": "es-en-s04-u049-l2",
@@ -6887,7 +7484,7 @@
               "title": "Discover",
               "summary": "Recognize new words and connect form, sound, and meaning.",
               "difficulty": "Elementary",
-              "phraseCount": 7
+              "phraseCount": 10
             },
             {
               "id": "es-en-s04-u050-l2",
@@ -6942,7 +7539,7 @@
               "title": "Discover",
               "summary": "Recognize new words and connect form, sound, and meaning.",
               "difficulty": "Elementary",
-              "phraseCount": 7
+              "phraseCount": 10
             },
             {
               "id": "es-en-s04-u051-l2",
@@ -6997,7 +7594,7 @@
               "title": "Discover",
               "summary": "Recognize new words and connect form, sound, and meaning.",
               "difficulty": "Elementary",
-              "phraseCount": 7
+              "phraseCount": 10
             },
             {
               "id": "es-en-s04-u052-l2",
@@ -7052,7 +7649,7 @@
               "title": "Discover",
               "summary": "Recognize new words and connect form, sound, and meaning.",
               "difficulty": "Elementary",
-              "phraseCount": 7
+              "phraseCount": 10
             },
             {
               "id": "es-en-s04-u053-l2",
@@ -7107,7 +7704,7 @@
               "title": "Discover",
               "summary": "Recognize new words and connect form, sound, and meaning.",
               "difficulty": "Elementary",
-              "phraseCount": 7
+              "phraseCount": 11
             },
             {
               "id": "es-en-s04-u054-l2",
@@ -7162,7 +7759,7 @@
               "title": "Discover",
               "summary": "Recognize new words and connect form, sound, and meaning.",
               "difficulty": "Elementary",
-              "phraseCount": 7
+              "phraseCount": 10
             },
             {
               "id": "es-en-s04-u055-l2",
@@ -7217,7 +7814,7 @@
               "title": "Discover",
               "summary": "Recognize new words and connect form, sound, and meaning.",
               "difficulty": "Elementary",
-              "phraseCount": 7
+              "phraseCount": 10
             },
             {
               "id": "es-en-s04-u056-l2",
@@ -7272,7 +7869,7 @@
               "title": "Discover",
               "summary": "Recognize new words and connect form, sound, and meaning.",
               "difficulty": "Elementary",
-              "phraseCount": 7
+              "phraseCount": 11
             },
             {
               "id": "es-en-s04-u057-l2",
@@ -7327,7 +7924,7 @@
               "title": "Discover",
               "summary": "Recognize new words and connect form, sound, and meaning.",
               "difficulty": "Elementary",
-              "phraseCount": 7
+              "phraseCount": 10
             },
             {
               "id": "es-en-s04-u058-l2",
@@ -7382,7 +7979,7 @@
               "title": "Discover",
               "summary": "Recognize new words and connect form, sound, and meaning.",
               "difficulty": "Elementary",
-              "phraseCount": 7
+              "phraseCount": 11
             },
             {
               "id": "es-en-s04-u059-l2",
@@ -7437,7 +8034,7 @@
               "title": "Discover",
               "summary": "Recognize new words and connect form, sound, and meaning.",
               "difficulty": "Elementary",
-              "phraseCount": 7
+              "phraseCount": 11
             },
             {
               "id": "es-en-s04-u060-l2",

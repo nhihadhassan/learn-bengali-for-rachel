@@ -506,6 +506,54 @@
           "amar"
         ]
       ]
+    },
+    {
+      "id": "bn-past-tense",
+      "targets": [
+        "past",
+        "yesterday",
+        "-chi -lam",
+        "perfect"
+      ],
+      "title": "Two ways of talking about what is over",
+      "explanation": "Bengali has one ending for something finished but still relevant — kheyechi, I have eaten — and another for something placed in the past — gechilam, I went. Both drop na for the negative and fuse -ni on the end instead: jaini, I didn't go.",
+      "examples": [
+        {
+          "target": "ami kheyechi",
+          "english": "I have eaten",
+          "note": "-echi, done and still true"
+        },
+        {
+          "target": "ami bazare gechilam",
+          "english": "I went to the market",
+          "note": "-chilam, placed in the past"
+        },
+        {
+          "target": "goto kal ami bari chilam",
+          "english": "yesterday I was at home",
+          "note": "chilam is the past of achi"
+        },
+        {
+          "target": "ami jaini",
+          "english": "I didn't go",
+          "note": "-ni, never na"
+        }
+      ],
+      "markerGroups": [
+        [
+          "kheyechi",
+          "dekhechi",
+          "korechi"
+        ],
+        [
+          "gechilam",
+          "chilam"
+        ],
+        [
+          "jaini",
+          "bujhini"
+        ]
+      ]
     }
   ]
 }

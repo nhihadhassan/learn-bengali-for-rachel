@@ -796,8 +796,14 @@ function rankCandidates(
   usage: ReadonlyMap<string, number>,
 ): Phrase[] {
   const minWords = FORMAT_MIN_WORDS[format];
+  // `slotFormats` picks a format for an item; this picks an item for a format,
+  // and the receptive rule has to hold on both paths — otherwise a production
+  // slot simply reaches past the ladder and helps itself to the host's line.
+  const eligible = isProductionFormat(format)
+    ? queue.filter((phrase) => !phrase.receptive)
+    : queue;
 
-  return queue
+  return eligible
     .map((phrase, index) => {
       const fits = splitWords(phrase.romanized).length >= minWords;
       const timesUsed = usage.get(phrase.id) ?? 0;
@@ -1066,6 +1072,14 @@ function buildFormatStep(
   context: BuildContext,
   attempted: Set<StepFormat> = new Set(),
 ): LessonStep | null {
+  // Every step that pairs a format with an item comes through here — the
+  // ladder, the cold path, mistake recycling and the late downgrade — so this
+  // is the one place that can promise a receptive item is never asked for as
+  // production. Guarding the callers instead means guarding them all, forever.
+  if (phrase.receptive && isProductionFormat(format)) {
+    return buildFormatStep("recognize", phrase, context, attempted);
+  }
+
   if (attempted.has(format)) {
     return null;
   }

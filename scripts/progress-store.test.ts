@@ -80,7 +80,7 @@ test("saved per-course progress round-trips, including newer fields", () => {
       spanish: baseProgress({
         xp: 90,
         gems: 50,
-        completedLessons: ["es-en-s01-u001-l1"],
+        completedLessons: ["es-en-p01-u01-l1"],
         phraseMemory: {
           "es-en-s01-u001-v1": {
             box: 3,
@@ -217,12 +217,12 @@ test("mistakes saved before they recorded a phrase still load", () => {
     activeCurriculumId: "spanish",
     byCurriculum: {
       spanish: {
-        completedLessons: ["es-en-s01-u001-l1"],
+        completedLessons: ["es-en-p01-u01-l1"],
         mistakes: [
           {
             id: "old-1",
-            exerciseId: "es-en-s01-u001-l1-recognize-x",
-            lessonId: "es-en-s01-u001-l1",
+            exerciseId: "es-en-p01-u01-l1-recognize-x",
+            lessonId: "es-en-p01-u01-l1",
             prompt: "What does this mean?",
             correctAnswer: "coffee",
             wrongAnswer: "tea",

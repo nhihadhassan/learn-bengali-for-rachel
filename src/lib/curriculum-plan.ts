@@ -276,6 +276,14 @@ export function newItemWeight(kind: LessonKind): number {
 const SPACED_UNIT_DISTANCES = [1, 2, 4, 8, 16];
 
 /**
+ * How much of the previous unit a new unit opens by bringing back.
+ *
+ * Enough that the seam between two units is a step rather than a jump; small
+ * enough that the opening lesson is still about its own material.
+ */
+const CARRY_OVER_ITEMS = 4;
+
+/**
  * Content words in `text`, with slash variants split apart.
  *
  * Vocabulary entries write gendered pairs as one token — `pequeño/pequeña`,
@@ -571,6 +579,18 @@ export type PlanUnitOptions = {
    * fall out automatically.
    */
   assignedItems?: ReadonlyArray<readonly string[]>;
+  /**
+   * How hard this course reaches back for interleaved review, as a multiplier
+   * on `REVIEW_LOAD.fromEarlierUnits`.
+   *
+   * The default suits a long course: across 131 units, three interleaved items
+   * a lesson is plenty, because every unit gets many later units to resurface
+   * it. A fourteen-unit course has to do the same recycling in a tenth of the
+   * opportunities, and at the default a third of its vocabulary is introduced
+   * and then never seen again — which is the phrase-book failure the cumulative
+   * model exists to prevent.
+   */
+  interleaveScale?: number;
 };
 
 export function planUnit(
@@ -582,6 +602,7 @@ export function planUnit(
     resolveKnown,
     grammarWords = [],
     assignedItems = [],
+    interleaveScale = 1,
   }: PlanUnitOptions = {},
 ): PlannedLesson[] {
   const vocabulary = unit.items.filter((item) => item.kind === "vocabulary");
@@ -633,7 +654,6 @@ export function planUnit(
           const [item] = remainingPhrases.splice(fromPhrases, 1);
           newIds.push(item.id);
           addWords(knownWords, item.text);
-          introduced.push(item.id);
 
           if (demonstrates(item.text, grammarWords)) {
             patternShown = true;
@@ -650,7 +670,6 @@ export function planUnit(
           const [item] = remainingVocabulary.splice(fromVocabulary, 1);
           newIds.push(item.id);
           addWords(knownWords, item.text);
-          introduced.push(item.id);
         }
       }
     }
@@ -790,15 +809,35 @@ export function planUnit(
     // Most recently introduced first: the previous lesson's material is what
     // needs consolidating, and older items in the unit have already had turns.
     const fromUnit = [...introduced].reverse().slice(0, reviewLoad.fromUnit);
-    const interleaved = interleaver.take(reviewLoad.fromEarlierUnits, {
-      nearestOnly: kind === "discover",
-    });
+    const interleaved = interleaver.take(
+      Math.round(reviewLoad.fromEarlierUnits * interleaveScale),
+      {
+        // A unit's opening lesson has nothing of its own to look back on, so
+        // everything it retrieves comes from earlier units. Drawing that from
+        // the unit just finished is what makes a new unit feel like the next
+        // one rather than a fresh start.
+        nearestOnly: kind === "discover" || index === 0,
+      },
+    );
+
+    // A unit's first lesson has nothing of its own to consolidate, and the
+    // rotating queue may hand it items the learner last saw several units ago
+    // — so a new unit could open sharing almost nothing with the lesson right
+    // before it, which is what a unit boundary should least feel like. Opening
+    // with the tail of the previous unit is the join.
+    const carriedOver =
+      index === 0 && priorUnits.length > 0
+        ? priorUnits[priorUnits.length - 1].items
+            .slice(-CARRY_OVER_ITEMS)
+            .map((item) => item.id)
+            .filter((id) => !interleaved.includes(id))
+        : [];
 
     plans.push({
       kind,
       newPhraseIds: newIds,
-      reviewPhraseIds: [...fromUnit, ...interleaved],
-      interleavedPhraseIds: interleaved,
+      reviewPhraseIds: [...fromUnit, ...carriedOver, ...interleaved],
+      interleavedPhraseIds: [...carriedOver, ...interleaved],
     });
 
     introduced.push(...newIds);
@@ -890,6 +929,9 @@ function createInterleaver(
 
       const rungs = nearestOnly ? queues.slice(0, 1) : queues;
       const picked: string[] = [];
+      // The rungs may come round a second time, never a third: past that the
+      // lesson genuinely has nothing left to offer and should ask for less.
+      let recycled = false;
 
       // One item per rung per round, so a lesson that wants three old items
       // reaches three *different* units rather than draining the nearest one.
@@ -920,7 +962,36 @@ function createInterleaver(
         }
 
         if (!tookAny) {
-          break;
+          // Everything these rungs hold has already been interleaved once
+          // somewhere in the course. On a long path that is the end of it —
+          // there is always another unit to reach into. On a short one it
+          // means later lessons get nothing at all, which is worse than
+          // showing a word twice: the cursor already guarantees that
+          // everything else has had its turn first, so let the rungs come
+          // round again rather than handing back an empty list.
+          const exhausted = rungs.every((queue) =>
+            queue.items.every((item) => taken.has(item.id)),
+          );
+
+          if (!exhausted || recycled) {
+            break;
+          }
+
+          recycled = true;
+
+          for (const queue of rungs) {
+            for (const item of queue.items) {
+              taken.delete(item.id);
+            }
+          }
+
+          // Anything already chosen for *this* lesson stays off the table, so
+          // a lesson can never list the same item twice.
+          for (const id of picked) {
+            taken.add(id);
+          }
+
+          continue;
         }
       }
 

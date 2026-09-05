@@ -431,7 +431,8 @@ function audit(course: CourseAudit): Finding[] {
       1,
       teachingLessonCount(unitLessons.get(lesson.unitId) ?? []),
     );
-    const unitCapacity = teachingLessons * MAX_NEW_ITEMS_PER_LESSON;
+    const maxNew = getCapabilities(course.courseId).maxNewItemsPerLesson ?? MAX_NEW_ITEMS_PER_LESSON;
+    const unitCapacity = teachingLessons * maxNew;
     const unitItems = unitNewItemCount.get(lesson.unitId) ?? 0;
     // A lesson may also go one over for each word one of *its own* new
     // sentences needs. The planner deliberately breaks the ceiling rather than
@@ -440,8 +441,8 @@ function audit(course: CourseAudit): Finding[] {
     const forced = forcedVocabularyCount(lesson, phraseById, knownWords, isKnownForm);
     const allowed =
       (unitItems > unitCapacity
-        ? MAX_NEW_ITEMS_PER_LESSON + Math.ceil((unitItems - unitCapacity) / teachingLessons)
-        : MAX_NEW_ITEMS_PER_LESSON) + forced;
+        ? maxNew + Math.ceil((unitItems - unitCapacity) / teachingLessons)
+        : maxNew) + forced;
 
     if (plan.newPhraseIds.length > allowed) {
       add(
@@ -604,7 +605,20 @@ function audit(course: CourseAudit): Finding[] {
         // statement back.
         const asksForInformation = informationQuestion.test(turn.prompt.target);
 
-        if (asksForInformation && turn.reply.target.includes("?")) {
+        // "Ami bhalo achi. Ar apni?" answers the question and then hands it
+        // back, which is not dodging it — it is the single most ordinary move
+        // in a conversation. What the rule is really looking for is a reply
+        // that is *only* a question, so a reply carrying a statement anywhere
+        // in it has already done its job.
+        const answersBeforeAsking = turn.reply.target
+          .split(/[.!]/)
+          .some((clause) => clause.trim().length > 0 && !clause.includes("?"));
+
+        if (
+          asksForInformation &&
+          turn.reply.target.includes("?") &&
+          !answersBeforeAsking
+        ) {
           add(
             lesson,
             "dialogue-relation",
