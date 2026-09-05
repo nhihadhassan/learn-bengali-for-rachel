@@ -1,7 +1,7 @@
 # Learning for Rachel
 
 A Duolingo-style learning platform. It started as a Bengali app for one learner
-and is now **multi-course**: a rebuilt 19-unit Bengali course, Spanish for Peru,
+and is now **multi-course**: a rebuilt 14-unit Bengali course, Spanish for Peru,
 a full 131-unit research-grounded Spanish course, Malayalam, and bite-size
 History chapters. Bengali is one course among several, not the identity of the
 app.
@@ -35,10 +35,13 @@ app.
   items and keeps retrieving earlier ones, the lesson types do genuinely
   different work, grammar is explained then drilled, and mistakes come back
   later in a different format (see HANDOFF §5a)
-- **Bengali, rebuilt**: 19 sequenced units and 96 lessons with named grammar,
-  discovery cards, mini-stories and thirteen conversations, in colloquial
-  Bangladeshi Bengali that teaches `tumi` and `apni` as the different things
-  they are (HANDOFF §5c)
+- **Bengali, rebuilt around `apni`**: 14 sequenced units and 68 lessons in
+  colloquial Bangladeshi Bengali. The respectful forms come first, because a
+  learner's first conversations are with strangers, shopkeepers, drivers and
+  hosts; familiar `tumi` gets the unit where the contrast *is* the lesson.
+  Vocabulary is met inside sentences, patterns are worked out before they are
+  explained, and host language is taught to be understood rather than performed
+  (HANDOFF §5c)
 - Spaced repetition, mistake review, unit checkpoints, word bank — surfaced in
   one Practice hub
 - Progress built on real signals: completion, phrases in memory, recall

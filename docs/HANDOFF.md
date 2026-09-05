@@ -53,7 +53,7 @@ missed.
 
 | id             | Label            | Source                                   | Notes |
 |----------------|------------------|------------------------------------------|-------|
-| `bengali`      | Bengali          | `content/bengali-curriculum.json`        | **19 units / 96 lessons** (§5c). Default course. Script + transliteration + dialogue; cumulative. |
+| `bengali`      | Bengali          | `content/bengali-curriculum.json`        | **14 units / 68 lessons** (§5c). Default course. Script + transliteration + dialogue; cumulative, `apni` first. |
 | `spanish-peru` | Spanish for Peru | `content/learn-spanish-peru.json`        | Travel Spanish. |
 | `spanish`      | Spanish          | `content/spanish-curriculum.json`        | **131 units / 786 lessons** (§4). Listening + dialogue capable. |
 | `malayalam`    | Malayalam        | `content/learn-malayalam.json`           | Transliteration. |
@@ -623,29 +623,74 @@ conversation, no reason for lesson 2 to feel different from lesson 1. It was a
 phrase list with a progress bar. The learner could finish it and still not be
 able to say anything she had not been shown verbatim.
 
-Not a *bad* phrase book — the phrases were well chosen and the register was
-right. But the machinery built for Spanish (cumulative planning, a real lexicon,
-declared grammar, discovery cards, stories, conversations, a step-level audit)
-applied here with no pedagogical argument against it, and the reason it had not
-been applied was that the engine had Spanish written into it in three places.
+The phrases were well chosen, but the register was not right, and that was the
+deeper problem. The old course taught `tumi kemon acho?` in lesson 2 and left
+`apni` for later — which is backwards. Bengali picks a level of address in
+almost every sentence with a person in it, and a learner's first hundred
+conversations are with strangers, shopkeepers, drivers, hosts and elders. All of
+them want `apni`. Teaching the familiar form first does not produce a friendly
+beginner; it produces one who is subtly rude to everyone she meets and cannot
+hear why.
 
 ### What it is now
 
 | | Before | Now |
 |---|---|---|
-| Size | 8 units, 16 lessons | 19 units, 96 lessons, 3 sections |
-| Lesson sequence | the same two, every unit | 4 to 6 lessons, chosen per unit |
+| Size | 8 units, 16 lessons | 14 units, 68 lessons, 3 sections |
+| Register | `tumi` first, `apni` later | `apni` from unit 1; `tumi` in unit 3, taught *against* it |
+| Lesson sequence | the same two, every unit | 3 to 6 lessons, chosen per unit |
+| Lesson names | "Discover", "Build" | "Your first greeting", "Saying no", "The whole visit" |
 | Review | none | every lesson retrieves earlier material along the spaced ladder |
-| Grammar | none | 12 authored rules; 8 units name one, the rest discover theirs |
+| Grammar | none | 13 rules; **3** units name one, the rest work theirs out from a discovery card |
 | New words | `pani = water`, then "what does pani mean?" | met inside a sentence the learner can already read, with an emoji where a noun has an obvious one |
-| Conversation | none | 13 authored dialogues, ending in a six-turn capstone |
+| Conversation | none | 20 authored dialogues, ending in a ten-turn capstone with three speakers |
+| Receptive language | everything was production | host and driver language is taught to be understood, never performed |
 | Support | fixed | a scaffold level per unit, 5 down to 1 |
-| Audit | none | all 96 lessons gate `npm run audit:curriculum` |
+| Audit | none | all 68 lessons gate `npm run audit:curriculum` |
 
-Authored deliberately, not generated: sixteen discovery cards, three
-mini-stories, thirteen dialogues, three sentence frames, twelve grammar rules
-and the lesson sequences themselves. Cloze, ordering, recall, review selection
-and spacing stay system-driven, exactly as in Spanish.
+Authored deliberately, not generated: thirteen discovery cards, two
+mini-stories, twenty dialogues, the sentence frames, thirteen grammar rules and
+the lesson sequences themselves. Cloze, ordering, recall, review selection and
+spacing stay system-driven, exactly as in Spanish.
+
+### The three ideas the rebuild added to the engine
+
+**A lesson can say what it teaches.** The planner divides a unit's items across
+its lessons by weight, which is right for a 131-unit pack nobody hand-sequences
+and wrong for a unit whose lessons have titles — "Your first greeting" opened by
+teaching `khub bhalo`, and the greetings turned up a lesson later. A lesson may
+now name its items (`lesson_sequence[].teaches`) and then teaches exactly those.
+
+**A lesson can say how long it runs.** `lesson_sequence[].shape` carries three
+numbers: how many turns of its conversation to play (a unit's closing exchange
+is what the unit was *for*, and the three turns that suit an ordinary lesson
+stop it halfway through saying hello), how much retrieval it carries, and how
+much practice. Five greetings are five atomic expressions with no word order to
+arrange and no blank worth filling, so a practice block sized for sentences
+collapses into "which one means hello?" seven times over.
+
+**A lesson's name is not its recipe.** `kind` is declared, so the title on the
+learner's screen is free to be about the language. That is the whole reason the
+course no longer reads as Discover / Build / Grammar / Listen, fourteen times.
+
+### The migration
+
+Lesson ids changed, so completion had to be handled. `normalizeStore` filters
+each course's `completedLessons` against the ids that course currently has, and
+clears `lastLessonId` when it points at a lesson that is gone. It runs per
+course and only ever removes ids that course does not have — the buckets are
+separate, so Spanish, Malayalam, Peru and History cannot be touched by it.
+
+`phraseMemory` is deliberately **not** cleared. It is keyed by phrase id, and 52
+of the old course's 96 items keep theirs, so a learner's spaced-repetition
+history carries straight over for every word both courses teach. Memory for
+dropped words is simply never scheduled again, which costs nothing. Reused ids
+are held to a test: an id that survives must still point at the same Bengali, or
+the learner's memory of a word is being quietly reassigned to a different one.
+
+v1's familiar forms are not lost. `tumi kemon acho?` and `tomar naam ki?` keep
+their original ids and move to unit 3, the unit that now exists to contrast
+them with `apni`.
 
 ### Where it lives
 
@@ -704,8 +749,10 @@ voice is reliably installed, and on most desktops it is not. A silent listening
 step is worse than no listening step.
 
 Dialogue needs no audio at all — it is "how do you reply?" — so the course
-declares `dialogue: true` and has thirteen conversations. `npm test` asserts that
-no Bengali lesson ever produces a `listen` step.
+declares `dialogue: true` and has twenty conversations. `npm test` asserts that
+no Bengali lesson ever produces a `listen` step, and the recognition questions
+say "Read the phrase" rather than "Listen to the phrase" on a course with no
+audio to listen to.
 
 ### What had to be generalized to get here
 

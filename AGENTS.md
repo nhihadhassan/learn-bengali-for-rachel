@@ -3,7 +3,7 @@
 ## Project
 
 **Learning for Rachel** is a Next.js App Router learning platform. It began as a
-Bengali app for one learner and now hosts several courses — a rebuilt 19-unit
+Bengali app for one learner and now hosts several courses — a rebuilt 14-unit
 Bengali course, Spanish for Peru, a full 131-unit Spanish course, Malayalam, and
 History chapters. Bengali is one course, not the identity of the app.
 
@@ -153,15 +153,27 @@ still supported for older content. Put new recorded files under
   finding fails the run. It also builds every lesson's real steps, twice, and
   fails on recognition dominance, low format variety, a lesson with no
   production, or repeated prompt wording — for the Spanish pilot's 12 units and
-  all 19 Bengali units. The rest of the Spanish course reports the same findings
+  all 14 Bengali units. The rest of the Spanish course reports the same findings
   as *advisory*: a map of what to migrate next, not a gate. A course that
   declares `lessonStrategy: "cumulative"` with no `COURSE_AUDITS` entry fails
   the run outright.
-- **Bengali is one course, in one register.** Colloquial Bangladeshi Bengali,
-  `tumi` by default and `apni` taught explicitly. `npm test` fails if a speaker
-  switches level inside a conversation, or if a reply answers in a different
-  level from the question. Different speakers using different levels is correct
-  and is allowed.
+- **Bengali teaches `apni` first, and says which level every item belongs to.**
+  Colloquial Bangladeshi Bengali. A learner's first hundred conversations are
+  with strangers, shopkeepers, drivers, hosts and elders, and every one of them
+  wants `apni` — so `apni kemon achen?` is unit 1 and `tumi` gets unit 3, where
+  the contrast is the lesson rather than a footnote. Every vocabulary and phrase
+  entry carries `register` (`apni` / `tumi` / `neutral`). `npm test` fails if
+  the first `tumi` arrives before the first `apni`, if a speaker switches level
+  inside a conversation, or if a reply answers in a different level from the
+  question. Different speakers using different levels is correct and allowed.
+- **Some language is understood, not said.** An item marked `receptive` — a
+  host's `ashun, boshun`, a driver's `kothay jaben?` — is never put in a
+  production format. Every path that pairs a format with an item goes through
+  `buildFormatStep`, which is the one place that enforces it; do not add a
+  second path.
+- **A lesson's name is not its recipe.** `lesson_sequence[].kind` says which
+  profile runs; `name` is the title the learner reads. Deriving one from the
+  other is what made every unit a visible Discover / Build / Grammar march.
 - **Never give Bengali a listening step.** There is no reliable Bengali voice on
   most desktops; the course carries the script for pronunciation but declares
   `listening: false`, and `npm test` asserts no Bengali lesson builds one.

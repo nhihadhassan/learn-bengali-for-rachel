@@ -8,6 +8,7 @@ import assert from "node:assert/strict";
 import test from "node:test";
 import { applyPracticeDay, normalizeStore } from "@/lib/progress-store";
 import { COURSE_IDS } from "@/lib/courses";
+import { getCourseLessonIds } from "@/lib/course-index";
 import {
   localDayKey,
   previousDayKey,
@@ -265,4 +266,58 @@ test("a mistake that records its phrase round-trips", () => {
   });
 
   assert.equal(store.byCurriculum.spanish.mistakes[0].phraseId, "es-en-s01-u001-v03");
+});
+
+test("rebuilding a course drops its stale completion and nothing else", () => {
+  // A learner part-way through the old Bengali path has completions naming
+  // lessons the rebuilt course no longer has. Left in place they inflate the
+  // count and can mark units finished that were never opened — so they go, and
+  // only they: the buckets are per course, and a course whose ids did not
+  // change must not lose a thing.
+  const [bengaliLesson] = [...getCourseLessonIds("bengali")];
+  const [spanishLesson] = [...getCourseLessonIds("spanish")];
+
+  const store = normalizeStore({
+    activeCurriculumId: "bengali",
+    byCurriculum: {
+      bengali: baseProgress({
+        // Two from the old path, one that still exists.
+        completedLessons: ["bn-l01", "bn-l02", bengaliLesson],
+        lastLessonId: "bn-l02",
+        lastStepIndex: 7,
+        xp: 340,
+        phraseMemory: {
+          // Reused id: the learner's history for this word survives.
+          "p-u01-l01-greetings-01": {
+            box: 3,
+            dueAt: "2026-02-01T00:00:00.000Z",
+            lastSeenAt: "2026-01-01T00:00:00.000Z",
+          },
+        },
+      }),
+      spanish: baseProgress({
+        completedLessons: [spanishLesson],
+        lastLessonId: spanishLesson,
+        lastStepIndex: 4,
+        xp: 120,
+      }),
+    },
+  });
+
+  const bengali = store.byCurriculum.bengali;
+
+  assert.deepEqual(bengali.completedLessons, [bengaliLesson]);
+  // "Continue where you left off" must not point at a lesson that is gone.
+  assert.equal(bengali.lastLessonId, null);
+  assert.equal(bengali.lastStepIndex, 0);
+  // Everything that is not lesson-shaped is untouched.
+  assert.equal(bengali.xp, 340);
+  assert.equal(bengali.phraseMemory["p-u01-l01-greetings-01"].box, 3);
+
+  // The other courses cannot be disturbed by any of this.
+  const spanish = store.byCurriculum.spanish;
+  assert.deepEqual(spanish.completedLessons, [spanishLesson]);
+  assert.equal(spanish.lastLessonId, spanishLesson);
+  assert.equal(spanish.lastStepIndex, 4);
+  assert.equal(spanish.xp, 120);
 });

@@ -1,8 +1,10 @@
 # Spoken Bengali Curriculum Summary
 
 Romanized spoken Bengali for one learner, in the register she will actually
-hear: colloquial Bangladeshi Bengali, `tumi` by default, with `apni` taught
-explicitly as the respectful level rather than left as a surprise.
+need: colloquial Bangladeshi Bengali, taught `apni` first. A learner's first
+hundred conversations are with strangers, shopkeepers, drivers, hosts and
+elders, and all of them want the respectful forms; familiar `tumi` gets unit 3,
+where the contrast with `apni` is the lesson rather than a footnote.
 
 The pack is `content/bengali-curriculum.json`; the shape it has to keep is in
 `content/bengali-curriculum.schema.json`. The eight-unit v1 phrase book
@@ -11,12 +13,16 @@ The pack is `content/bengali-curriculum.json`; the shape it has to keep is in
 
 ## Scope
 
-- 3 sections, 19 sequenced units, 96 lessons
-- 264 items: 143 vocabulary entries and 121 phrase patterns
-- 12 named grammar rules (`content/bengali-grammar.json`), 8 of them taught in a
-  Grammar focus lesson; the rest of the course discovers its patterns instead
-- 16 discovery cards, 3 mini-stories, 13 conversations including a six-turn
-  capstone, and 3 authored sentence frames
+- 3 sections, 14 sequenced units, 68 lessons
+- 289 items: 205 vocabulary entries and 84 phrase patterns
+- Every item declares its level of address (`apni` / `tumi` / `neutral`), and 8
+  are marked receptive: host and driver language, taught to be understood and
+  never asked for as production
+- 13 named grammar rules (`content/bengali-grammar.json`), only 3 of which a
+  unit stops to explain; the rest of the course works its patterns out from a
+  discovery card first
+- 13 discovery cards, 2 mini-stories, 20 conversations including a ten-turn
+  capstone with three speakers, and 18 authored sentence frames
 - Learner-facing text stays romanized. Every item also carries the Bengali
   script, which is what goes to pronunciation — so the audio is real Bengali
   rather than an English reading of a transliteration.
@@ -46,7 +52,7 @@ running the same six every time, support falls away from scaffold 5 to scaffold
 1 across the course, and grammar is named only once the unit's own sentences have
 demonstrated it.
 
-`npm run audit:curriculum` holds all 96 lessons to that: a sentence the learner
+`npm run audit:curriculum` holds all 68 lessons to that: a sentence the learner
 is asked to build must be fully readable when it appears, a pattern must have
 been met before it is explained, a dialogue reply may never use untaught
 language, and nothing may be introduced and then never seen again.
