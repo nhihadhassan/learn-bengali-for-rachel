@@ -196,6 +196,32 @@
         },
         "pronunciation": {
           "type": "string"
+        },
+        "receptive": {
+          "type": "boolean",
+          "description": "Language to understand, not to say. Kept out of production formats by formatLadder — a host's 'ashun, boshun' is recognised instantly and never performed by the guest."
+        },
+        "register": {
+          "enum": [
+            "apni",
+            "tumi",
+            "neutral"
+          ],
+          "description": "Level of address this item belongs to. 'neutral' is register-free (nouns, numbers). Beginners are taught apni first; tumi arrives in its own unit. Audited so a lesson cannot mix levels by accident."
+        },
+        "context_bn": {
+          "type": "string",
+          "description": "A sentence, built from language the learner already has, that uses the word. Paired with context_en."
+        },
+        "context_script": {
+          "type": "string"
+        },
+        "context_en": {
+          "type": "string"
+        },
+        "emoji": {
+          "type": "string",
+          "description": "Meaning support that is not a translation. Concrete nouns only — an emoji for an abstract word is a riddle."
         }
       }
     },
@@ -402,6 +428,35 @@
             "capstone"
           ],
           "description": "Which lesson recipe to run. Explicit so the learner-facing name never has to carry the machinery. Omitted, the name is mapped and then position decides."
+        },
+        "teaches": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Vocabulary and phrase ids this lesson introduces. A lesson that names them teaches exactly those, so a lesson called 'Your first greeting' actually opens with the greetings. Omit to let the planner schedule the lesson."
+        },
+        "shape": {
+          "type": "object",
+          "additionalProperties": false,
+          "description": "Narrow per-lesson adjustments to the lesson profile. Use sparingly: the profile describes a kind of lesson, and that is almost always the right unit.",
+          "properties": {
+            "dialogue_turns": {
+              "type": "integer",
+              "minimum": 1,
+              "description": "How many turns of the authored conversation to play. A unit's closing conversation is what the unit was for; the three turns that suit an ordinary lesson stop it halfway through saying hello."
+            },
+            "review_questions": {
+              "type": "integer",
+              "minimum": 0,
+              "description": "How many previously-met items to drill. The course's first lessons have no backlog, so the profile default just re-drills what they introduced four screens ago."
+            },
+            "practice_questions": {
+              "type": "integer",
+              "minimum": 0,
+              "description": "How many practice slots to use. Material that cannot be built with — five atomic greetings, say — collapses a sentence-sized practice block into repeated 'which one means hello?'. Such a lesson should be short and let its conversations carry it."
+            }
+          }
         }
       }
     },

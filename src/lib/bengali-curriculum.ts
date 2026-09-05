@@ -108,6 +108,14 @@ type PackPhrase = {
   script: string;
   english: string;
   pronunciation?: string;
+  emoji?: string;
+  /** Understood, not produced. See `Phrase.receptive`. */
+  receptive?: boolean;
+  /** Which level of address this phrase belongs to. See `BengaliRegister`. */
+  register?: BengaliRegister;
+  context_bn?: string;
+  context_script?: string;
+  context_en?: string;
 };
 
 type PackLesson = {
@@ -121,6 +129,17 @@ type PackLesson = {
    */
   kind?: string;
   goal: string;
+  /**
+   * The items this lesson introduces, by id. A lesson that names them teaches
+   * exactly those; one that does not is scheduled by the planner.
+   */
+  teaches?: string[];
+  /** Narrow per-lesson profile adjustments. See `LessonShape`. */
+  shape?: {
+    dialogue_turns?: number;
+    review_questions?: number;
+    practice_questions?: number;
+  };
   uses?: { notices?: string[]; stories?: string[]; dialogues?: string[] };
 };
 
@@ -238,6 +257,12 @@ function patternPhrase(item: PackPhrase): Phrase {
     bengaliScript: item.script,
     english: item.english,
     pronunciation: item.pronunciation ?? "",
+    emoji: item.emoji,
+    receptive: item.receptive,
+    context:
+      item.context_bn && item.context_en
+        ? { target: item.context_bn, english: item.context_en }
+        : undefined,
     category: "phrase",
   };
 }
@@ -419,6 +444,13 @@ function adaptLesson(
     stories,
     band: CEFR_BANDS[unit.cefr],
     scaffold: unit.scaffold,
+    shape: packLesson.shape
+      ? {
+          maxDialogueTurns: packLesson.shape.dialogue_turns,
+          reviewQuestionTarget: packLesson.shape.review_questions,
+          practiceQuestions: packLesson.shape.practice_questions,
+        }
+      : undefined,
   });
 
   return {
@@ -500,6 +532,9 @@ function buildUnits(): Unit[] {
           sharedQueues: reviewQueues,
           resolveKnown: isKnownForm,
           grammarWords: grammarWordsFor(unit),
+          assignedItems: unit.lesson_sequence.map(
+            (lesson) => lesson.teaches ?? [],
+          ),
         })
       : undefined;
 

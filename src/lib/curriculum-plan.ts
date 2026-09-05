@@ -563,6 +563,14 @@ export type PlanUnitOptions = {
    * lesson. Without this, a unit could explain "me gusta" having used it once.
    */
   grammarWords?: readonly string[];
+  /**
+   * The item ids each lesson teaches, indexed by lesson position.
+   *
+   * An empty (or missing) entry leaves that lesson to the planner's own
+   * choosing, so a unit can hand-place its opening lessons and let the rest
+   * fall out automatically.
+   */
+  assignedItems?: ReadonlyArray<readonly string[]>;
 };
 
 export function planUnit(
@@ -573,6 +581,7 @@ export function planUnit(
     sharedQueues = createReviewQueues(),
     resolveKnown,
     grammarWords = [],
+    assignedItems = [],
   }: PlanUnitOptions = {},
 ): PlannedLesson[] {
   const vocabulary = unit.items.filter((item) => item.kind === "vocabulary");
@@ -603,6 +612,49 @@ export function planUnit(
     const grammarNeeded = grammarLesson >= 0 && index <= grammarLesson;
     const newIds: string[] = [];
 
+    // A lesson may name the items it teaches, and then it teaches exactly
+    // those.
+    //
+    // The heuristic below is good at "which sentence can the learner read
+    // next", which is the right question for a long pack nobody hand-sequences.
+    // It is the wrong question for a unit whose lessons have titles: a lesson
+    // called "Your first greeting" that opens by teaching `khub bhalo` is not
+    // a scheduling imperfection, it is the lesson being about the wrong thing.
+    // Authored assignment wins outright where it is given, per lesson, so a
+    // unit can hand-place the four lessons that matter and leave the rest to
+    // the planner.
+    const assigned = assignedItems[index];
+
+    if (assigned && assigned.length > 0) {
+      for (const id of assigned) {
+        const fromPhrases = remainingPhrases.findIndex((item) => item.id === id);
+
+        if (fromPhrases >= 0) {
+          const [item] = remainingPhrases.splice(fromPhrases, 1);
+          newIds.push(item.id);
+          addWords(knownWords, item.text);
+          introduced.push(item.id);
+
+          if (demonstrates(item.text, grammarWords)) {
+            patternShown = true;
+          }
+
+          continue;
+        }
+
+        const fromVocabulary = remainingVocabulary.findIndex(
+          (item) => item.id === id,
+        );
+
+        if (fromVocabulary >= 0) {
+          const [item] = remainingVocabulary.splice(fromVocabulary, 1);
+          newIds.push(item.id);
+          addWords(knownWords, item.text);
+          introduced.push(item.id);
+        }
+      }
+    }
+
     // Phrases are chosen first, then the vocabulary they need.
     //
     // Doing it the other way round let a lesson commit to "Vivo en un
@@ -616,8 +668,10 @@ export function planUnit(
     }
 
     const chosenPhrases: PlanItem[] = [];
+    const phraseLoad = assigned && assigned.length > 0 ? 0 : load.phrases;
+    const vocabularyLoad = assigned && assigned.length > 0 ? 0 : load.vocabulary;
 
-    for (let taken = 0; taken < load.phrases; taken += 1) {
+    for (let taken = 0; taken < phraseLoad; taken += 1) {
       if (remainingPhrases.length === 0) break;
 
       // Last chance: the grammar lesson must not name a pattern this unit has
@@ -679,7 +733,7 @@ export function planUnit(
     // sentence arrived and `adiós` did not. A lesson one item over its share is
     // a much smaller problem than a sentence containing a word the course has
     // never shown.
-    for (let taken = 0; taken < load.vocabulary || needed.size > 0; taken += 1) {
+    for (let taken = 0; taken < vocabularyLoad || needed.size > 0; taken += 1) {
       if (remainingVocabulary.length === 0) break;
 
       // Matched through the resolver, not by string equality: the sentence
@@ -698,7 +752,7 @@ export function planUnit(
       // Past the lesson's share, only a word one of its sentences needs is
       // worth taking. Nothing supplies the rest — a name, or a word this unit
       // simply does not teach — so stop rather than pull the whole unit in.
-      if (taken >= load.vocabulary && supplies < 0) {
+      if (taken >= vocabularyLoad && supplies < 0) {
         break;
       }
 
@@ -880,7 +934,14 @@ export function toLessonPlan(
   planned: PlannedLesson,
   extras: Pick<
     LessonPlan,
-    "grammar" | "dialogue" | "patterns" | "notices" | "stories" | "band" | "scaffold"
+    | "grammar"
+    | "dialogue"
+    | "patterns"
+    | "notices"
+    | "stories"
+    | "band"
+    | "scaffold"
+    | "shape"
   > = {},
 ): LessonPlan {
   return {

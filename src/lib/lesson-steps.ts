@@ -404,7 +404,7 @@ function buildPlannedLessonSteps(
   // A practice session over a planned lesson teaches nothing: everything in the
   // working set is treated as material to retrieve.
   const kind = reviewMode ? "strengthen" : plan.kind;
-  const profile = getLessonProfile(kind, plan.band, plan.scaffold);
+  const profile = getLessonProfile(kind, plan.band, plan.scaffold, plan.shape);
   const rng = makeRng(`${lesson.id}-${kind}`);
   const byId = new Map(lesson.phrases.map((phrase) => [phrase.id, phrase]));
   const resolve = (ids: readonly string[]): Phrase[] =>
