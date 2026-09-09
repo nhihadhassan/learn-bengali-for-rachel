@@ -53,7 +53,7 @@ missed.
 
 | id             | Label            | Source                                   | Notes |
 |----------------|------------------|------------------------------------------|-------|
-| `bengali`      | Bengali          | `content/learn-bengali.json`             | Original course; default. Script + transliteration. |
+| `bengali`      | Bengali          | `content/bengali-curriculum.json`        | **14 units / 68 lessons** (§5c). Default course. Script + transliteration + dialogue; cumulative, `apni` first. |
 | `spanish-peru` | Spanish for Peru | `content/learn-spanish-peru.json`        | Travel Spanish. |
 | `spanish`      | Spanish          | `content/spanish-curriculum.json`        | **131 units / 786 lessons** (§4). Listening + dialogue capable. |
 | `malayalam`    | Malayalam        | `content/learn-malayalam.json`           | Transliteration. |
@@ -265,8 +265,10 @@ answer, and audio steps appearing only where capabilities allow.
 ## 5a. Cumulative lessons (the Spanish course)
 
 Courses declare a **lesson strategy** in the registry
-(`src/lib/courses.ts`). Spanish is `"cumulative"`; Bengali, Spanish for Peru and
-Malayalam are `"simple"` and keep the original engine exactly as it was.
+(`src/lib/courses.ts`). Spanish and Bengali are `"cumulative"`; Spanish for Peru
+and Malayalam are `"simple"` and keep the original engine exactly as it was.
+This section describes the Spanish course, which is where the machinery was
+built; §5c is the same machinery applied to Bengali.
 
 ### What was wrong
 
@@ -607,6 +609,225 @@ variety.
 
 ---
 
+## 5c. Bengali Curriculum v2 — the whole course, rebuilt
+
+The Spanish work (§5a, §5b) established a set of methods. This is those methods
+applied to Bengali, which was the app's original course and had been left as it
+began.
+
+### What was wrong
+
+Eight units, sixteen lessons, ninety-six phrases. Each lesson taught its own six
+items and then never mentioned them again: no cumulative review, no grammar, no
+conversation, no reason for lesson 2 to feel different from lesson 1. It was a
+phrase list with a progress bar. The learner could finish it and still not be
+able to say anything she had not been shown verbatim.
+
+The phrases were well chosen, but the register was not right, and that was the
+deeper problem. The old course taught `tumi kemon acho?` in lesson 2 and left
+`apni` for later — which is backwards. Bengali picks a level of address in
+almost every sentence with a person in it, and a learner's first hundred
+conversations are with strangers, shopkeepers, drivers, hosts and elders. All of
+them want `apni`. Teaching the familiar form first does not produce a friendly
+beginner; it produces one who is subtly rude to everyone she meets and cannot
+hear why.
+
+### What it is now
+
+| | Before | Now |
+|---|---|---|
+| Size | 8 units, 16 lessons | 14 units, 68 lessons, 3 sections |
+| Register | `tumi` first, `apni` later | `apni` from unit 1; `tumi` in unit 3, taught *against* it |
+| Lesson sequence | the same two, every unit | 3 to 6 lessons, chosen per unit |
+| Lesson names | "Discover", "Build" | "Your first greeting", "Saying no", "The whole visit" |
+| Review | none | every lesson retrieves earlier material along the spaced ladder |
+| Grammar | none | 13 rules; **3** units name one, the rest work theirs out from a discovery card |
+| New words | `pani = water`, then "what does pani mean?" | met inside a sentence the learner can already read, with an emoji where a noun has an obvious one |
+| Conversation | none | 20 authored dialogues, ending in a ten-turn capstone with three speakers |
+| Receptive language | everything was production | host and driver language is taught to be understood, never performed |
+| Support | fixed | a scaffold level per unit, 5 down to 1 |
+| Audit | none | all 68 lessons gate `npm run audit:curriculum` |
+
+Authored deliberately, not generated: thirteen discovery cards, two
+mini-stories, twenty dialogues, the sentence frames, thirteen grammar rules and
+the lesson sequences themselves. Cloze, ordering, recall, review selection and
+spacing stay system-driven, exactly as in Spanish.
+
+### The three ideas the rebuild added to the engine
+
+**A lesson can say what it teaches.** The planner divides a unit's items across
+its lessons by weight, which is right for a 131-unit pack nobody hand-sequences
+and wrong for a unit whose lessons have titles — "Your first greeting" opened by
+teaching `khub bhalo`, and the greetings turned up a lesson later. A lesson may
+now name its items (`lesson_sequence[].teaches`) and then teaches exactly those.
+
+**A lesson can say how long it runs.** `lesson_sequence[].shape` carries three
+numbers: how many turns of its conversation to play (a unit's closing exchange
+is what the unit was *for*, and the three turns that suit an ordinary lesson
+stop it halfway through saying hello), how much retrieval it carries, and how
+much practice. Five greetings are five atomic expressions with no word order to
+arrange and no blank worth filling, so a practice block sized for sentences
+collapses into "which one means hello?" seven times over.
+
+**A lesson's name is not its recipe.** `kind` is declared, so the title on the
+learner's screen is free to be about the language. That is the whole reason the
+course no longer reads as Discover / Build / Grammar / Listen, fourteen times.
+
+### The migration
+
+Lesson ids changed, so completion had to be handled. `normalizeStore` filters
+each course's `completedLessons` against the ids that course currently has, and
+clears `lastLessonId` when it points at a lesson that is gone. It runs per
+course and only ever removes ids that course does not have — the buckets are
+separate, so Spanish, Malayalam, Peru and History cannot be touched by it.
+
+`phraseMemory` is deliberately **not** cleared. It is keyed by phrase id, and 52
+of the old course's 96 items keep theirs, so a learner's spaced-repetition
+history carries straight over for every word both courses teach. Memory for
+dropped words is simply never scheduled again, which costs nothing. Reused ids
+are held to a test: an id that survives must still point at the same Bengali, or
+the learner's memory of a word is being quietly reassigned to a different one.
+
+v1's familiar forms are not lost. `tumi kemon acho?` and `tomar naam ki?` keep
+their original ids and move to unit 3, the unit that now exists to contrast
+them with `apni`.
+
+### Where it lives
+
+- `content/bengali-curriculum.json` — the pack, with its own schema
+  (`content/bengali-curriculum.schema.json`), checked by
+  `npm run validate:curriculum` alongside the two Spanish packs.
+- `content/bengali-grammar.json` — one entry per named rule, with `markerGroups`
+  so the drills work: `["achi","acho","achen","ache"]`, `["koro","korun"]`,
+  `["korchi","korcho","korche"]`.
+- `content/bengali-lexicon.json` + `src/lib/bengali-lexicon.ts` — what counts as
+  already known.
+- `src/lib/bengali-curriculum.ts` — the adapter.
+
+**`content/learn-bengali.json` is never edited.** `FEATURES.bengaliCurriculumV2 =
+false` restores the original eight units byte for byte, which is what makes the
+flag a real rollback rather than a hiding place.
+
+### The register is a teaching decision, not an accident
+
+Colloquial Bangladeshi Bengali. `tumi` is the default level of address and `apni`
+is **taught explicitly** in unit 4 and drilled as a grammar focus in unit 13 —
+because choosing the wrong one is the most common way a grammatically correct
+Bengali sentence lands badly, and a course that quietly teaches only `tumi`
+leaves the learner to discover that in front of someone's grandmother.
+
+`npm test` enforces it: no speaker switches level inside a conversation, and a
+reply answers in the level it was asked in. A scene where a friend's mother uses
+`apni` and the friend uses `tumi` is *right*, so the check is per speaker, not
+per dialogue — a check on the whole exchange would have forbidden the most
+realistic thing in the course.
+
+### The lexicon is where the languages genuinely differ
+
+`spanish-lexicon.ts` authors irregular verb stems and computes the regular
+morphology. `bengali-lexicon.ts` does the same job with the line in a different
+place, because Bengali hides almost no irregularity in its endings: `-e`, `-r`,
+`-ke`, `-gulo` on a noun and `-i`, `-o`, `-chi`, `-bo`, `-lam` on a verb are
+near-perfectly regular and stack, so the rules do most of the work and the
+authored file is short.
+
+What has to be authored is the handful of genuinely suppletive stems the course
+teaches — `acha` present `ach-` against past `chil-`, `jaowa` present `ja-`
+against perfect `ge-`, `asha` against `eshechi` — and the pronoun table
+(`ami` → `amar` → `amake`), where a suffix rule would produce confident
+nonsense. Pronouns resolve **in both directions**: a unit that teaches
+`amar naam` before it ever teaches the bare `ami` is normal, so `ami` counts as
+met once `amar` has been.
+
+### Listening stays off; dialogue is on
+
+Every item carries the Bengali script, and that is what goes to pronunciation —
+so the audio is real Bengali rather than an English voice reading a
+transliteration. That is a genuine improvement and it still is not enough to
+turn listening on: "tap what you hear" is only a fair question where a Bengali
+voice is reliably installed, and on most desktops it is not. A silent listening
+step is worse than no listening step.
+
+Dialogue needs no audio at all — it is "how do you reply?" — so the course
+declares `dialogue: true` and has twenty conversations. `npm test` asserts that
+no Bengali lesson ever produces a `listen` step, and the recognition questions
+say "Read the phrase" rather than "Listen to the phrase" on a course with no
+audio to listen to.
+
+### What had to be generalized to get here
+
+Three places had Spanish written into them. None of them needed to.
+
+- **`grammar-drills.ts`** imported `content/spanish-grammar.json` directly. Rules
+  now carry a `language` tag and live in one registry, and every lookup that
+  could widen its search is scoped — otherwise a Spanish unit could pick up
+  `bn-na-negation` because "na" appeared in one of its sentences.
+- **`lesson-steps.ts`** imported `isKnownForm` from the Spanish lexicon and said
+  "Write this in Spanish." `src/lib/known-forms.ts` is now the one table mapping
+  a course to its resolver, and prompts carry a `{language}` placeholder filled
+  from the registry's `targetLanguage` — which is not the label, because
+  "Spanish for Peru" teaches Spanish and its short label would have produced
+  "Write this in Peru."
+- **`spanish-curriculum.ts`** held the grammar-focus choice, the authored-block
+  hand-out and the JSON-to-app conversions. Those are now
+  `src/lib/cumulative-adapter.ts`, on a neutral `{ target, english }` shape that
+  both adapters map into. Only the field names ever differed.
+
+### One engine change, and it improved every course
+
+A Bengali Discover lesson was coming out four-sevenths "what does this mean?".
+The cause was not Bengali: the `discover` profile asks for two `listen` slots,
+`listen` falls back to `recognize`, and in a course with no audio *both* of them
+became recognition on top of the two the profile already wanted.
+
+Falling back to `recognize` is right when one item cannot be heard and wrong when
+the whole course has no audio. `fallbacksLeastUsedFirst` now orders a fallback
+chain by what the lesson has used least, keeping the requested format at the
+head and breaking ties on the authored order. Recognition share in the Bengali
+Discover lessons went from 0.6 to under 0.5 and the finding disappeared from
+twenty-five lessons at once; the Spanish course is unchanged, because nothing
+there was falling back.
+
+### The audit now walks both courses
+
+`scripts/curriculum-audit.ts` takes a `CourseAudit` per course — the lexicon,
+the grammar language, the question-word pattern for the "answered a question
+with a question" check, and which units gate. It **fails if a course declares
+`lessonStrategy: "cumulative"` and has no entry**, so the next language cannot
+quietly escape the whole file.
+
+All 96 Bengali lessons gate, since the whole course was authored in one pass.
+The Spanish split is unchanged: the pilot's 74 gate, the other 714 are advisory.
+Both report clean.
+
+Four things the audit caught that review had not, all of them real:
+
+- A unit-15 grammar lesson explaining the `-bo` future before any `-bo` form had
+  appeared — the rule's `markerGroups` were missing `nambo`, the very form the
+  unit teaches.
+- Four items introduced in units 16-18 and then never seen again. Unit 16 held
+  eighteen items three units from the end of the course, which is more than the
+  ladder behind it can recycle. Splitting it in two and moving
+  `amar shomoy nei` back to the unit about `nei` fixed it — and both are better
+  teaching than what they replaced.
+- Eleven lessons whose questions came in only two formats, which is what led to
+  the fallback change above.
+- A missing `answer` on unit 11's discovery card, caught by schema validation
+  before the audit even ran.
+
+### Known gaps
+
+- Emoji only; no image layer, same as the Spanish pilot.
+- The three-section shape stops at A1. A B1 band means adding a row to
+  `BAND_OVERRIDES`, not touching the engine.
+- The v1 lesson ids stay in storage, inert. Two v1 items are deliberately not
+  carried over: a sentence duplicated across two v1 units, and
+  `amar naam...` — a fragment ending in an ellipsis, which cannot be a word-bank
+  answer. `npm test` pins that list, so a third disappearance is a failure
+  rather than a discovery.
+
+---
+
 ### Feature flags (`src/lib/feature-flags.ts`)
 
 Unfinished features ship "dark" and flip on via a flag:
@@ -614,6 +835,7 @@ Unfinished features ship "dark" and flip on via a flag:
 - `explainMyAnswer: true` — live.
 - `cumulativeLessons: true` — live; the rollback switch for §5a.
 - `spanishPilotV2: true` — live; the rollback switch for §5b.
+- `bengaliCurriculumV2: true` — live; the rollback switch for §5c.
 - `listening: false`, `dialogue: false` — the **global** flags. Per-course
   support is no longer an id check: it comes from the course's capabilities in
   `src/lib/courses.ts` (the Spanish course declares `listening` and `dialogue`;

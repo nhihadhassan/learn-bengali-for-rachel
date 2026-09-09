@@ -78,7 +78,30 @@ const KIND_BY_NAME: Record<string, LessonKind> = {
   "put it together": "capstone",
 };
 
-export function toLessonKind(name: string, lessonIndex: number): LessonKind {
+const LESSON_KINDS = new Set<string>(Object.values(KIND_BY_NAME));
+
+/**
+ * Which recipe a lesson runs.
+ *
+ * A pack may say so outright (`kind`), and a pack that cares what its lessons
+ * are *called* has to: the name is the title on the learner's screen, and
+ * "Your First Greeting" is a better thing to read than "Discover". Deriving the
+ * recipe from that title is what forced every unit to be a visible
+ * Discover/Build/Grammar/Listen march — the learner saw the machinery because
+ * the machinery was the only place the name could live.
+ *
+ * So `kind` decides when given. Without one, the old name table still maps the
+ * Spanish pack's labels, and position still decides after that.
+ */
+export function toLessonKind(
+  name: string,
+  lessonIndex: number,
+  kind?: string,
+): LessonKind {
+  if (kind && LESSON_KINDS.has(kind)) {
+    return kind as LessonKind;
+  }
+
   return (
     KIND_BY_NAME[name.trim().toLowerCase()] ??
     UNIT_LESSON_KINDS[lessonIndex - 1] ??
@@ -251,6 +274,14 @@ export function newItemWeight(kind: LessonKind): number {
  * 3, 5, 9 and 17 — rather than being revisited once and forgotten.
  */
 const SPACED_UNIT_DISTANCES = [1, 2, 4, 8, 16];
+
+/**
+ * How much of the previous unit a new unit opens by bringing back.
+ *
+ * Enough that the seam between two units is a step rather than a jump; small
+ * enough that the opening lesson is still about its own material.
+ */
+const CARRY_OVER_ITEMS = 4;
 
 /**
  * Content words in `text`, with slash variants split apart.
@@ -540,6 +571,26 @@ export type PlanUnitOptions = {
    * lesson. Without this, a unit could explain "me gusta" having used it once.
    */
   grammarWords?: readonly string[];
+  /**
+   * The item ids each lesson teaches, indexed by lesson position.
+   *
+   * An empty (or missing) entry leaves that lesson to the planner's own
+   * choosing, so a unit can hand-place its opening lessons and let the rest
+   * fall out automatically.
+   */
+  assignedItems?: ReadonlyArray<readonly string[]>;
+  /**
+   * How hard this course reaches back for interleaved review, as a multiplier
+   * on `REVIEW_LOAD.fromEarlierUnits`.
+   *
+   * The default suits a long course: across 131 units, three interleaved items
+   * a lesson is plenty, because every unit gets many later units to resurface
+   * it. A fourteen-unit course has to do the same recycling in a tenth of the
+   * opportunities, and at the default a third of its vocabulary is introduced
+   * and then never seen again — which is the phrase-book failure the cumulative
+   * model exists to prevent.
+   */
+  interleaveScale?: number;
 };
 
 export function planUnit(
@@ -550,6 +601,8 @@ export function planUnit(
     sharedQueues = createReviewQueues(),
     resolveKnown,
     grammarWords = [],
+    assignedItems = [],
+    interleaveScale = 1,
   }: PlanUnitOptions = {},
 ): PlannedLesson[] {
   const vocabulary = unit.items.filter((item) => item.kind === "vocabulary");
@@ -580,6 +633,47 @@ export function planUnit(
     const grammarNeeded = grammarLesson >= 0 && index <= grammarLesson;
     const newIds: string[] = [];
 
+    // A lesson may name the items it teaches, and then it teaches exactly
+    // those.
+    //
+    // The heuristic below is good at "which sentence can the learner read
+    // next", which is the right question for a long pack nobody hand-sequences.
+    // It is the wrong question for a unit whose lessons have titles: a lesson
+    // called "Your first greeting" that opens by teaching `khub bhalo` is not
+    // a scheduling imperfection, it is the lesson being about the wrong thing.
+    // Authored assignment wins outright where it is given, per lesson, so a
+    // unit can hand-place the four lessons that matter and leave the rest to
+    // the planner.
+    const assigned = assignedItems[index];
+
+    if (assigned && assigned.length > 0) {
+      for (const id of assigned) {
+        const fromPhrases = remainingPhrases.findIndex((item) => item.id === id);
+
+        if (fromPhrases >= 0) {
+          const [item] = remainingPhrases.splice(fromPhrases, 1);
+          newIds.push(item.id);
+          addWords(knownWords, item.text);
+
+          if (demonstrates(item.text, grammarWords)) {
+            patternShown = true;
+          }
+
+          continue;
+        }
+
+        const fromVocabulary = remainingVocabulary.findIndex(
+          (item) => item.id === id,
+        );
+
+        if (fromVocabulary >= 0) {
+          const [item] = remainingVocabulary.splice(fromVocabulary, 1);
+          newIds.push(item.id);
+          addWords(knownWords, item.text);
+        }
+      }
+    }
+
     // Phrases are chosen first, then the vocabulary they need.
     //
     // Doing it the other way round let a lesson commit to "Vivo en un
@@ -593,8 +687,10 @@ export function planUnit(
     }
 
     const chosenPhrases: PlanItem[] = [];
+    const phraseLoad = assigned && assigned.length > 0 ? 0 : load.phrases;
+    const vocabularyLoad = assigned && assigned.length > 0 ? 0 : load.vocabulary;
 
-    for (let taken = 0; taken < load.phrases; taken += 1) {
+    for (let taken = 0; taken < phraseLoad; taken += 1) {
       if (remainingPhrases.length === 0) break;
 
       // Last chance: the grammar lesson must not name a pattern this unit has
@@ -656,7 +752,7 @@ export function planUnit(
     // sentence arrived and `adiós` did not. A lesson one item over its share is
     // a much smaller problem than a sentence containing a word the course has
     // never shown.
-    for (let taken = 0; taken < load.vocabulary || needed.size > 0; taken += 1) {
+    for (let taken = 0; taken < vocabularyLoad || needed.size > 0; taken += 1) {
       if (remainingVocabulary.length === 0) break;
 
       // Matched through the resolver, not by string equality: the sentence
@@ -675,7 +771,7 @@ export function planUnit(
       // Past the lesson's share, only a word one of its sentences needs is
       // worth taking. Nothing supplies the rest — a name, or a word this unit
       // simply does not teach — so stop rather than pull the whole unit in.
-      if (taken >= load.vocabulary && supplies < 0) {
+      if (taken >= vocabularyLoad && supplies < 0) {
         break;
       }
 
@@ -713,15 +809,35 @@ export function planUnit(
     // Most recently introduced first: the previous lesson's material is what
     // needs consolidating, and older items in the unit have already had turns.
     const fromUnit = [...introduced].reverse().slice(0, reviewLoad.fromUnit);
-    const interleaved = interleaver.take(reviewLoad.fromEarlierUnits, {
-      nearestOnly: kind === "discover",
-    });
+    const interleaved = interleaver.take(
+      Math.round(reviewLoad.fromEarlierUnits * interleaveScale),
+      {
+        // A unit's opening lesson has nothing of its own to look back on, so
+        // everything it retrieves comes from earlier units. Drawing that from
+        // the unit just finished is what makes a new unit feel like the next
+        // one rather than a fresh start.
+        nearestOnly: kind === "discover" || index === 0,
+      },
+    );
+
+    // A unit's first lesson has nothing of its own to consolidate, and the
+    // rotating queue may hand it items the learner last saw several units ago
+    // — so a new unit could open sharing almost nothing with the lesson right
+    // before it, which is what a unit boundary should least feel like. Opening
+    // with the tail of the previous unit is the join.
+    const carriedOver =
+      index === 0 && priorUnits.length > 0
+        ? priorUnits[priorUnits.length - 1].items
+            .slice(-CARRY_OVER_ITEMS)
+            .map((item) => item.id)
+            .filter((id) => !interleaved.includes(id))
+        : [];
 
     plans.push({
       kind,
       newPhraseIds: newIds,
-      reviewPhraseIds: [...fromUnit, ...interleaved],
-      interleavedPhraseIds: interleaved,
+      reviewPhraseIds: [...fromUnit, ...carriedOver, ...interleaved],
+      interleavedPhraseIds: [...carriedOver, ...interleaved],
     });
 
     introduced.push(...newIds);
@@ -813,6 +929,9 @@ function createInterleaver(
 
       const rungs = nearestOnly ? queues.slice(0, 1) : queues;
       const picked: string[] = [];
+      // The rungs may come round a second time, never a third: past that the
+      // lesson genuinely has nothing left to offer and should ask for less.
+      let recycled = false;
 
       // One item per rung per round, so a lesson that wants three old items
       // reaches three *different* units rather than draining the nearest one.
@@ -843,7 +962,36 @@ function createInterleaver(
         }
 
         if (!tookAny) {
-          break;
+          // Everything these rungs hold has already been interleaved once
+          // somewhere in the course. On a long path that is the end of it —
+          // there is always another unit to reach into. On a short one it
+          // means later lessons get nothing at all, which is worse than
+          // showing a word twice: the cursor already guarantees that
+          // everything else has had its turn first, so let the rungs come
+          // round again rather than handing back an empty list.
+          const exhausted = rungs.every((queue) =>
+            queue.items.every((item) => taken.has(item.id)),
+          );
+
+          if (!exhausted || recycled) {
+            break;
+          }
+
+          recycled = true;
+
+          for (const queue of rungs) {
+            for (const item of queue.items) {
+              taken.delete(item.id);
+            }
+          }
+
+          // Anything already chosen for *this* lesson stays off the table, so
+          // a lesson can never list the same item twice.
+          for (const id of picked) {
+            taken.add(id);
+          }
+
+          continue;
         }
       }
 
@@ -857,7 +1005,14 @@ export function toLessonPlan(
   planned: PlannedLesson,
   extras: Pick<
     LessonPlan,
-    "grammar" | "dialogue" | "patterns" | "notices" | "stories" | "band" | "scaffold"
+    | "grammar"
+    | "dialogue"
+    | "patterns"
+    | "notices"
+    | "stories"
+    | "band"
+    | "scaffold"
+    | "shape"
   > = {},
 ): LessonPlan {
   return {

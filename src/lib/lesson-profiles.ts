@@ -17,7 +17,7 @@
  * in it.
  */
 
-import type { LessonKind, ScaffoldLevel } from "@/types/learning";
+import type { LessonKind, LessonShape, ScaffoldLevel } from "@/types/learning";
 
 /** The question formats a profile can ask for. */
 export type StepFormat =
@@ -207,7 +207,7 @@ const PROFILE_ROWS: Record<LessonKind, ProfileRow> = {
 
   /**
    * Heavy audio, barely any new vocabulary, and the English prop taken away on
-   * cloze questions — the point is understanding Spanish as sound.
+   * cloze questions — the point is understanding the language as sound.
    */
   listen: {
     kind: "listen",
@@ -302,7 +302,7 @@ const PROFILE_ROWS: Record<LessonKind, ProfileRow> = {
    */
   notice: {
     kind: "notice",
-    blurb: "Work out how Spanish does this, before anyone explains it.",
+    blurb: "Work out how the language does this, before anyone explains it.",
     teachNewItems: true,
     warmUpChecks: 1,
     formatSequence: ["recognize", "complete", "produce", "order", "translate"],
@@ -318,12 +318,12 @@ const PROFILE_ROWS: Record<LessonKind, ProfileRow> = {
   },
 
   /**
-   * Comprehensible input. A few sentences of mostly-known Spanish, heard before
+   * Comprehensible input. A few sentences of mostly-known target language, heard before
    * they are read, checked for meaning rather than translated word by word.
    */
   story: {
     kind: "story",
-    blurb: "Follow a short story in Spanish. Meaning first.",
+    blurb: "Follow a short story in the language. Meaning first.",
     teachNewItems: true,
     warmUpChecks: 1,
     formatSequence: ["listen", "recognize", "complete", "translate", "listen"],
@@ -524,17 +524,37 @@ export function getLessonProfile(
   kind: LessonKind,
   band?: CefrBand,
   scaffold?: ScaffoldLevel,
+  shape?: LessonShape,
 ): LessonProfile {
   const base = PROFILES[kind] ?? PROFILES.build;
   const banded = band ? { ...base, ...BAND_OVERRIDES[band]?.[kind] } : base;
 
   // A review or capstone keeps its own padding: those lessons are the check,
   // and softening them at a high scaffold level would defeat the point.
-  if (!scaffold || kind === "review" || kind === "capstone") {
-    return banded;
+  const scaffolded =
+    !scaffold || kind === "review" || kind === "capstone"
+      ? banded
+      : { ...banded, ...SCAFFOLD_OVERRIDES[scaffold] };
+
+  if (!shape) {
+    return scaffolded;
   }
 
-  return { ...banded, ...SCAFFOLD_OVERRIDES[scaffold] };
+  // The lesson's own word is last, because it is the most specific thing said
+  // about it: this conversation, this much retrieval, this much practice.
+  const { practiceQuestions, ...direct } = shape;
+  const shaped = { ...scaffolded, ...definedOnly(direct) };
+
+  return practiceQuestions === undefined
+    ? shaped
+    : { ...shaped, formatSequence: shaped.formatSequence.slice(0, practiceQuestions) };
+}
+
+/** Spread-safe: an absent key must not overwrite the profile with undefined. */
+function definedOnly(shape: Omit<LessonShape, "practiceQuestions">): Partial<LessonProfile> {
+  return Object.fromEntries(
+    Object.entries(shape).filter(([, value]) => value !== undefined),
+  ) as Partial<LessonProfile>;
 }
 
 export function allLessonProfiles(): LessonProfile[] {

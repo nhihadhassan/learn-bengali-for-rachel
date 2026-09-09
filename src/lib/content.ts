@@ -17,7 +17,9 @@ import {
   malayalamContent,
   spanishPeruContent,
 } from "@/lib/core-content";
+import { bengaliCurriculumUnits } from "@/lib/bengali-curriculum";
 import { COURSES, defaultCourseId, type CourseId } from "@/lib/courses";
+import { FEATURES } from "@/lib/feature-flags";
 import { spanishCurriculumUnits } from "@/lib/spanish-curriculum";
 import type {
   Curriculum,
@@ -54,7 +56,10 @@ export { historyContent, malayalamContent, spanishPeruContent };
  * a registry entry in `@/lib/courses` plus one line here.
  */
 const UNIT_SOURCES: Record<CourseId, (locale: string, id: CourseId) => Unit[]> = {
-  bengali: (locale, id) => withCurriculum(bengaliContent, id, locale),
+  bengali: (locale, id) =>
+    FEATURES.bengaliCurriculumV2
+      ? bengaliCurriculumUnits
+      : withCurriculum(bengaliContent, id, locale),
   "spanish-peru": (locale, id) => withCurriculum(spanishPeruContent, id, locale),
   spanish: () => spanishCurriculumUnits,
   malayalam: (locale, id) => withCurriculum(malayalamContent, id, locale),

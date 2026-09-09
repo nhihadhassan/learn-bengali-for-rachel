@@ -11,7 +11,14 @@ import { readFileSync } from "node:fs";
 import { join } from "node:path";
 import test from "node:test";
 import { buildCourseIndex, courseIndexPath } from "./course-index-source";
-import { getCourseLessonIds, locateLesson, findFollowingLesson } from "@/lib/course-index";
+import {
+  getCourseLessonIds,
+  getCourseSections,
+  isLargeCourse,
+  locateLesson,
+  findFollowingLesson,
+} from "@/lib/course-index";
+import type { CourseId } from "@/lib/courses";
 import { getLessonsForCurriculum } from "@/lib/content";
 
 test("the committed course index is up to date with content", () => {
@@ -69,4 +76,35 @@ test("course lesson id sets match content exactly", () => {
   for (const id of fromContent) {
     assert.ok(ids.has(id), `${id} missing from the index`);
   }
+});
+
+test("the path stays browsable as a course grows", () => {
+  // Three presentations, and which one a course gets follows from its size
+  // rather than from its name. Bengali crossed from "show me everything" to
+  // "show me where I am" when it went from sixteen lessons to sixty-eight;
+  // nothing else moved.
+  const shape = (courseId: CourseId) => {
+    const units = getCourseSections(courseId).flatMap((section) => section.units);
+    const lessons = units.reduce((total, unit) => total + unit.lessons.length, 0);
+
+    return { units: units.length, lessons };
+  };
+
+  assert.equal(isLargeCourse("spanish"), true, "131 units needs the window");
+  assert.equal(isLargeCourse("bengali"), false, "14 units does not");
+
+  // The small courses stay small enough to read in one scroll.
+  for (const courseId of ["malayalam", "spanish-peru", "history"] as const) {
+    assert.ok(
+      shape(courseId).lessons <= 24,
+      `${courseId} would now collapse its units`,
+    );
+  }
+
+  // Bengali is past that, so its path opens the current unit rather than all
+  // fourteen. If this ever fails the course shrank, and the wall is back.
+  assert.ok(
+    shape("bengali").lessons > 24,
+    "Bengali should be past the browsable-at-a-glance size",
+  );
 });

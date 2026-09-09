@@ -369,6 +369,19 @@ export function LearnStep({
             )}
             {formatRomanizedDisplay(step.phrase.romanized)}
           </h2>
+          {/* The native script, under the romanization the learner actually
+              reads from. It is here to be recognised on a shop sign and to make
+              the pronunciation honest — never to be decoded, and never required
+              to move on, which is why it sits below and smaller rather than
+              competing for the headword. */}
+          {step.phrase.bengaliScript && (
+            <p
+              lang="bn"
+              className="mt-2 text-2xl font-semibold text-slate-500 dark:text-slate-400"
+            >
+              {step.phrase.bengaliScript}
+            </p>
+          )}
         </div>
         <SpeakerButton
           audioFile={step.phrase.audioFile}

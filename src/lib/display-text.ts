@@ -25,12 +25,19 @@ export function formatRomanizedDisplay(value: string) {
     return capitalizeDisplayText(value);
   }
 
-  return value.replace(/\p{L}[\p{L}'’]*/gu, (word) => {
+  return value.replace(/(-?)(\p{L}[\p{L}'’]*)/gu, (_match, hyphen: string, word: string) => {
+    // A hyphen joins a clitic to its host, and a clitic is not a word: Bengali
+    // `ami-o` ("me too") is one spoken word carrying one stress, so "Ami-O"
+    // reads as two. Leave what follows a hyphen alone.
+    if (hyphen) {
+      return `${hyphen}${word}`;
+    }
+
     if (word.length <= 2 && word === word.toUpperCase()) {
       return word;
     }
 
-    return `${word.slice(0, 1).toLocaleUpperCase("en-US")}${word.slice(1)}`;
+    return `${hyphen}${word.slice(0, 1).toLocaleUpperCase("en-US")}${word.slice(1)}`;
   });
 }
 

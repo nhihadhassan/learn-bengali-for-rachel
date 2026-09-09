@@ -1,12 +1,13 @@
 /**
- * Pedagogical audit of the generated Spanish course.
+ * Pedagogical audit of the cumulative courses.
  *
  *   npm run audit:curriculum
  *
- * `validate:curriculum` checks that the pack is *well-formed*. This checks that
- * the course it produces is *teachable* — a much easier thing to get wrong, and
- * one that nothing else in the repo would notice. It walks the real lessons the
- * app builds (`getLessonsForCurriculum("spanish")`, plans and all) and reports:
+ * `validate:curriculum` checks that the packs are *well-formed*. This checks
+ * that the courses they produce are *teachable* — a much easier thing to get
+ * wrong, and one that nothing else in the repo would notice. It walks the real
+ * lessons the app builds (plans and all) for every course that declares
+ * `lessonStrategy: "cumulative"`, and reports:
  *
  *   - a phrase introduced before the words it is made of
  *   - a grammar target with no authored rule behind it
@@ -16,12 +17,17 @@
  *   - an item that disappears for a long stretch
  *   - an authored dialogue whose reply has nothing to do with its prompt
  *
- * Section 1 is hand-sequenced, so findings there are **errors** and fail the
- * run. The rest of the course is generated from the pack as shipped, so its
- * findings are **warnings**: a signal for future content work, not a gate.
+ * Plan-level findings are errors everywhere. Step-level findings gate only the
+ * hand-authored units — the Spanish pilot's twelve and all eighteen Bengali
+ * units — and are advisory for the 119 Spanish units the pilot has not reached,
+ * which have never been held to that bar. The advisory list is a map of what to
+ * migrate next, not a claim that the pack shipped broken.
  */
 
+import { isKnownForm as isKnownBengaliForm } from "../src/lib/bengali-lexicon";
+import { bengaliCurriculumUnits } from "../src/lib/bengali-curriculum";
 import { getLessonsForCurriculum } from "../src/lib/content";
+import { COURSE_IDS, getCapabilities, getCourse, type CourseId } from "../src/lib/courses";
 import {
   MAX_NEW_ITEMS_PER_LESSON,
   coverage,
@@ -29,13 +35,15 @@ import {
   taughtWordSet,
   unknownWords,
 } from "../src/lib/curriculum-plan";
-import { isKnownForm } from "../src/lib/spanish-lexicon";
+import { isKnownForm as isKnownSpanishForm } from "../src/lib/spanish-lexicon";
 import {
   allGrammarRules,
   countPatternEncounters,
   findGrammarRule,
   getGrammarRule,
+  type GrammarLanguage,
 } from "../src/lib/grammar-drills";
+import type { KnownWordResolver } from "../src/lib/curriculum-plan";
 import { isContentWord, normalizeWord, splitWords } from "../src/lib/text-tokens";
 import {
   buildLessonSteps,
@@ -108,8 +116,52 @@ const MAX_IDENTICAL_PROMPTS = 4;
 /** Step types where the learner assembles Spanish rather than picking meaning. */
 const PRODUCTION_STEPS = new Set(["produce", "complete", "order", "translate"]);
 
-/** A question opening with a question word expects a statement in reply. */
-const INFORMATION_QUESTION = /¿\s*(qué|quién|dónde|cómo|cuánto|cuánta|cuántos|cuántas|cuándo|cuál|por qué)/i;
+/** A question containing a question word expects a statement in reply. */
+const INFORMATION_QUESTIONS: Record<GrammarLanguage, RegExp> = {
+  spanish: /¿\s*(qué|quién|dónde|cómo|cuánto|cuánta|cuántos|cuántas|cuándo|cuál|por qué)/i,
+  // Bengali leaves its question word in the answer's slot rather than fronting
+  // it, so there is no opening marker to anchor on — the word itself is the
+  // signal, and word boundaries keep "ki" out of "kichu".
+  bengali: /\b(ki|kothay|keno|koto|kokhon|ke|kemon|kon)\b/i,
+};
+
+/**
+ * What the audit needs to know about a course to hold it to this bar.
+ *
+ * Everything else in this file is language-agnostic; branching on a course id
+ * anywhere below would be the bug this table exists to prevent.
+ */
+type CourseAudit = {
+  courseId: CourseId;
+  label: string;
+  /** Which language's grammar rules its units may declare. */
+  language: GrammarLanguage;
+  /** How to decide a word is covered by something already taught. */
+  resolveKnown: KnownWordResolver;
+  /**
+   * Units whose *step-level* findings gate the run. Everything else in the
+   * course reports those findings as advisory.
+   */
+  authoredUnitIds: ReadonlySet<string>;
+};
+
+const COURSE_AUDITS: CourseAudit[] = [
+  {
+    courseId: "spanish",
+    label: "Spanish",
+    language: "spanish",
+    resolveKnown: isKnownSpanishForm,
+    authoredUnitIds: new Set(pilotUnits.map((unit) => unit.id)),
+  },
+  {
+    courseId: "bengali",
+    label: "Bengali",
+    language: "bengali",
+    resolveKnown: isKnownBengaliForm,
+    // The whole Bengali course was authored in one pass, so all of it gates.
+    authoredUnitIds: new Set(bengaliCurriculumUnits.map((unit) => unit.id)),
+  },
+];
 
 /**
  * An item must come back *outside* the unit that introduced it. Measuring a gap
@@ -132,6 +184,7 @@ function forcedVocabularyCount(
   lesson: Lesson,
   phraseById: ReadonlyMap<string, Phrase>,
   knownWords: ReadonlySet<string>,
+  isKnownForm: KnownWordResolver,
 ): number {
   const ids = lesson.plan?.newPhraseIds ?? [];
   const items = ids
@@ -175,16 +228,15 @@ function forcedVocabularyCount(
  * advance. Where a check would have forced worse teaching it was dropped
  * rather than satisfied — see `docs/HANDOFF.md` §5b.
  */
-function auditPilotLessons(lessons: readonly Lesson[]): Finding[] {
+function auditLessonSteps(course: CourseAudit, lessons: readonly Lesson[]): Finding[] {
   const findings: Finding[] = [];
-  const pilotIds = new Set(pilotUnits.map((unit) => unit.id));
 
-  // Every lesson is checked; only the pilot's gate the build. Running the same
-  // questions over the rest of the course is what tells us whether migrating
-  // more units is worth doing, and which ones to take first.
-  const pilot = lessons.filter((lesson) => lesson.plan);
+  // Every lesson is checked; only the authored units gate the build. Running
+  // the same questions over the rest of a course is what tells us whether
+  // migrating more units is worth doing, and which ones to take first.
+  const planned = lessons.filter((lesson) => lesson.plan);
 
-  if (pilot.length === 0) {
+  if (planned.length === 0) {
     return findings;
   }
 
@@ -193,7 +245,7 @@ function auditPilotLessons(lessons: readonly Lesson[]): Finding[] {
       lessonId: lesson.id,
       rule,
       detail,
-      advisory: !pilotIds.has(lesson.unitId),
+      advisory: !course.authoredUnitIds.has(lesson.unitId),
     });
 
   /** A learner who has met everything up to this lesson, some of it produced. */
@@ -224,7 +276,7 @@ function auditPilotLessons(lessons: readonly Lesson[]): Finding[] {
   /** Scaffold level per unit, for the "support falls away" check. */
   const scaffoldOf = new Map<string, number>();
 
-  for (const lesson of pilot) {
+  for (const lesson of planned) {
     const builds = [
       buildLessonSteps(lesson),
       buildLessonSteps(lesson, { learner: snapshotBefore(lesson) }),
@@ -296,17 +348,24 @@ function auditPilotLessons(lessons: readonly Lesson[]): Finding[] {
     });
   }
 
-  // --- support falls away across the pilot ----------------------------------
-  const scaffolds = pilotUnits
-    .map((unit) => scaffoldOf.get(unit.id))
-    .filter((level): level is number => level !== undefined);
+  // --- support falls away across the authored units -------------------------
+  //
+  // In path order, so a course whose scaffold goes back up mid-course is caught
+  // wherever the rise happens.
+  const authored = planned
+    .filter((lesson) => course.authoredUnitIds.has(lesson.unitId))
+    .map((lesson) => lesson.unitId);
+  const authoredUnitOrder = [...new Set(authored)];
+  const scaffolds = authoredUnitOrder
+    .map((unitId) => ({ unitId, level: scaffoldOf.get(unitId) }))
+    .filter((entry): entry is { unitId: string; level: number } => entry.level !== undefined);
 
   for (let index = 1; index < scaffolds.length; index += 1) {
-    if (scaffolds[index] > scaffolds[index - 1]) {
+    if (scaffolds[index].level > scaffolds[index - 1].level) {
       findings.push({
-        lessonId: pilotUnits[index].id,
+        lessonId: scaffolds[index].unitId,
         rule: "late-scaffolding",
-        detail: `scaffold rises from ${scaffolds[index - 1]} to ${scaffolds[index]}`,
+        detail: `scaffold rises from ${scaffolds[index - 1].level} to ${scaffolds[index].level}`,
       });
     }
   }
@@ -314,8 +373,10 @@ function auditPilotLessons(lessons: readonly Lesson[]): Finding[] {
   return findings;
 }
 
-function audit(): Finding[] {
-  const lessons = getLessonsForCurriculum("spanish");
+function audit(course: CourseAudit): Finding[] {
+  const lessons = getLessonsForCurriculum(course.courseId);
+  const isKnownForm = course.resolveKnown;
+  const informationQuestion = INFORMATION_QUESTIONS[course.language];
   const findings: Finding[] = [];
   const add = (lesson: Lesson, rule: string, detail: string) =>
     findings.push({ lessonId: lesson.id, rule, detail });
@@ -370,17 +431,18 @@ function audit(): Finding[] {
       1,
       teachingLessonCount(unitLessons.get(lesson.unitId) ?? []),
     );
-    const unitCapacity = teachingLessons * MAX_NEW_ITEMS_PER_LESSON;
+    const maxNew = getCapabilities(course.courseId).maxNewItemsPerLesson ?? MAX_NEW_ITEMS_PER_LESSON;
+    const unitCapacity = teachingLessons * maxNew;
     const unitItems = unitNewItemCount.get(lesson.unitId) ?? 0;
     // A lesson may also go one over for each word one of *its own* new
     // sentences needs. The planner deliberately breaks the ceiling rather than
     // show a sentence containing a word it has not taught; the audit has to
     // agree with that trade or it just reports the fix as a fault.
-    const forced = forcedVocabularyCount(lesson, phraseById, knownWords);
+    const forced = forcedVocabularyCount(lesson, phraseById, knownWords, isKnownForm);
     const allowed =
       (unitItems > unitCapacity
-        ? MAX_NEW_ITEMS_PER_LESSON + Math.ceil((unitItems - unitCapacity) / teachingLessons)
-        : MAX_NEW_ITEMS_PER_LESSON) + forced;
+        ? maxNew + Math.ceil((unitItems - unitCapacity) / teachingLessons)
+        : maxNew) + forced;
 
     if (plan.newPhraseIds.length > allowed) {
       add(
@@ -485,7 +547,8 @@ function audit(): Finding[] {
         }
 
         // The pattern has to have been visible before it gets a name.
-        const rule = findGrammarRule(plan.grammar.id) ?? getGrammarRule(plan.grammar.id);
+        const rule =
+          findGrammarRule(plan.grammar.id, course.language) ?? getGrammarRule(plan.grammar.id);
 
         // The adapter enforces the fuller rule (an authored focus must be
         // attested in its own unit; a rotation pick needs three sightings).
@@ -540,9 +603,22 @@ function audit(): Finding[] {
         // ("Anything else?" / "Could you bring us water?"). Only an information
         // question — one opening with a question word — genuinely needs a
         // statement back.
-        const asksForInformation = INFORMATION_QUESTION.test(turn.prompt.target);
+        const asksForInformation = informationQuestion.test(turn.prompt.target);
 
-        if (asksForInformation && turn.reply.target.includes("?")) {
+        // "Ami bhalo achi. Ar apni?" answers the question and then hands it
+        // back, which is not dodging it — it is the single most ordinary move
+        // in a conversation. What the rule is really looking for is a reply
+        // that is *only* a question, so a reply carrying a statement anywhere
+        // in it has already done its job.
+        const answersBeforeAsking = turn.reply.target
+          .split(/[.!]/)
+          .some((clause) => clause.trim().length > 0 && !clause.includes("?"));
+
+        if (
+          asksForInformation &&
+          turn.reply.target.includes("?") &&
+          !answersBeforeAsking
+        ) {
           add(
             lesson,
             "dialogue-relation",
@@ -583,7 +659,7 @@ function audit(): Finding[] {
     }
   }
 
-  findings.push(...auditPilotLessons(lessons));
+  findings.push(...auditLessonSteps(course, lessons));
 
   // --- every declared grammar target has a rule -----------------------------
   const targets = new Set(
@@ -591,7 +667,7 @@ function audit(): Finding[] {
   );
 
   for (const target of targets) {
-    if (!findGrammarRule(target)) {
+    if (!findGrammarRule(target, course.language)) {
       findings.push({
         lessonId: "-",
         rule: "grammar-coverage",
@@ -612,17 +688,58 @@ function unitCount(lessons: ReadonlyMap<string, Lesson>): number {
   return new Set([...lessons.values()].map((lesson) => lesson.unitId)).size;
 }
 
+/**
+ * Every course the audit applies to, checked against the registry.
+ *
+ * A course that declares `lessonStrategy: "cumulative"` and has no entry in
+ * `COURSE_AUDITS` would silently escape the whole file, which is exactly the
+ * kind of gap this audit exists to catch — so that is an error, not a skip.
+ */
+function auditedCourses(): CourseAudit[] {
+  const configured = new Set(COURSE_AUDITS.map((course) => course.courseId));
+  const missing = COURSE_IDS.filter(
+    (id) => getCapabilities(id).lessonStrategy === "cumulative" && !configured.has(id),
+  );
+
+  if (missing.length > 0) {
+    console.error(
+      `✗ These courses plan cumulatively but are not audited: ${missing.join(", ")}.`,
+    );
+    console.error("  Add them to COURSE_AUDITS in scripts/curriculum-audit.ts.");
+    process.exit(1);
+  }
+
+  return COURSE_AUDITS;
+}
+
 function main(): void {
-  const findings = audit();
+  let errorCount = 0;
+
+  for (const course of auditedCourses()) {
+    errorCount += report(course);
+  }
+
+  if (errorCount > 0) {
+    console.error("\n✗ The curriculum must be clean before shipping.");
+    process.exit(1);
+  }
+
+  console.log("\n✓ No errors. Advisories are a map of what to migrate next, not a gate.");
+}
+
+/** Audit one course and print its findings. Returns how many gate the run. */
+function report(course: CourseAudit): number {
+  const findings = audit(course);
   const lessonsById = new Map(
-    getLessonsForCurriculum("spanish").map((lesson) => [lesson.id, lesson]),
+    getLessonsForCurriculum(course.courseId).map((lesson) => [lesson.id, lesson]),
   );
 
   const errors = findings.filter((finding) => !finding.advisory);
   const warnings = findings.filter((finding) => finding.advisory);
 
   console.log(
-    `Audited ${lessonsById.size} Spanish lessons against ${allGrammarRules().length} grammar rules.`,
+    `\n${getCourse(course.courseId).label}: audited ${lessonsById.size} lessons against ` +
+      `${allGrammarRules(course.language).length} grammar rules.`,
   );
 
   const summarize = (label: string, list: Finding[]) => {
@@ -650,20 +767,15 @@ function main(): void {
   };
 
   summarize("errors", errors);
-  summarize("advisory (units the pilot has not reached)", warnings);
+  summarize("advisory (units not yet authored to this bar)", warnings);
 
   if (warnings.length > 0) {
     console.log(
-      `\n  ${advisoryUnitCount(warnings)} of the ${unitCount(lessonsById)} units carry an advisory finding.`,
+      `  ${advisoryUnitCount(warnings)} of the ${unitCount(lessonsById)} units carry an advisory finding.`,
     );
   }
 
-  if (errors.length > 0) {
-    console.error("\n✗ The curriculum must be clean before shipping.");
-    process.exit(1);
-  }
-
-  console.log("\n✓ No errors. Advisories are a map of what to migrate next, not a gate.");
+  return errors.length;
 }
 
 main();

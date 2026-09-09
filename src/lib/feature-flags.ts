@@ -22,6 +22,17 @@ export const FEATURES = {
    * this flag is a complete rollback and not merely a hiding place.
    */
   spanishPilotV2: true,
+  /**
+   * Bengali Curriculum v2 — the rebuilt Bengali course.
+   *
+   * On, the path is `content/bengali-curriculum.json`: fourteen sequenced
+   * units taught `apni` first, planned cumulatively, with authored grammar,
+   * discovery cards, stories and conversations. Off, it is the original
+   * eight-unit phrase book
+   * in `content/learn-bengali.json`, which is never edited — so this flag is a
+   * complete rollback and not merely a hiding place.
+   */
+  bengaliCurriculumV2: true,
   listening: false,
   dialogue: false,
   aiRoleplay: false,

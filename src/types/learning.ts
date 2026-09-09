@@ -28,6 +28,16 @@ export type Phrase = {
   context?: { target: string; english: string };
   /** Meaning support that isn't a translation. Concrete nouns only. */
   emoji?: string;
+  /**
+   * Language to understand, not to say.
+   *
+   * A guest needs to recognise `ashun, boshun` the instant a host says it, and
+   * never needs to say it — hosts say it, guests answer it. Marking the item
+   * receptive keeps it in the lesson and out of the production formats, so the
+   * course can teach what a learner will *hear* without pretending they must
+   * also perform it. See `formatLadder` in `@/lib/learning-state`.
+   */
+  receptive?: boolean;
   bengaliScript?: string;
   english: string;
   pronunciation: string;
@@ -343,6 +353,37 @@ export type LessonPlan = {
    * `BAND_OVERRIDES` in `@/lib/lesson-profiles`.
    */
   band?: "Intro" | "A1" | "A2" | "B1";
+  /** Per-lesson adjustments to the profile; see `LessonShape`. */
+  shape?: LessonShape;
+};
+
+/**
+ * The handful of profile numbers a single lesson may set for itself.
+ *
+ * A profile describes a *kind* of lesson, and that is the right unit almost
+ * always. The exceptions are real, though: a unit's closing conversation is the
+ * thing the unit was for, and truncating it at the three turns that suit an
+ * ordinary "use in context" lesson stops it halfway through saying hello. And a
+ * course's very first lesson has no backlog to retrieve, so asking it for five
+ * review questions just drills the five things it introduced four screens ago.
+ *
+ * Deliberately narrow: a lesson may adjust how long its conversation runs and
+ * how much retrieval it carries. Anything wider and the pack starts
+ * reimplementing the profile table one lesson at a time.
+ */
+export type LessonShape = {
+  maxDialogueTurns?: number;
+  reviewQuestionTarget?: number;
+  /**
+   * How many slots of the profile's practice block to use.
+   *
+   * Some material cannot be built with. Five greetings are five atomic
+   * expressions — there is no word order to arrange and no blank worth
+   * filling — so a practice block sized for sentences collapses into "which
+   * one means hello?" seven times. Such a lesson should be short and let its
+   * conversations do the work, which is what this says.
+   */
+  practiceQuestions?: number;
 };
 
 export type UnitMetadata = {

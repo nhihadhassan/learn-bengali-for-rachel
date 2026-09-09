@@ -139,11 +139,66 @@ function isProgressStore(value: unknown): value is Partial<ProgressStore> {
  * carried through untouched rather than dropped, so a course that is
  * temporarily unregistered doesn't cost a learner their history.
  */
+/**
+ * Drop completion for lessons a course no longer has.
+ *
+ * Rebuilding a course changes its lesson ids, and a learner who finished
+ * `bn-l03` in the old Bengali path has a completion referring to a lesson that
+ * no longer exists. Left alone those ids sit in `completedLessons` forever:
+ * they inflate "lessons completed", they can mark a unit finished that the
+ * learner has never opened, and nothing ever cleans them up.
+ *
+ * So completion is filtered against the course's current lesson ids. It is
+ * done per course and only ever removes ids that course does not have, which
+ * is what makes it safe: a course whose ids did not change loses nothing, and
+ * no course can affect another — the buckets are separate.
+ *
+ * What deliberately survives is `phraseMemory`, keyed by *phrase* id rather
+ * than lesson id. The rebuilt Bengali course reuses the old ids wherever it
+ * teaches the same words, so the learner's spaced-repetition history for those
+ * words carries straight over; memory for words the new course dropped is
+ * simply never scheduled again, which costs nothing.
+ */
+function dropCompletionForMissingLessons(
+  courseId: CurriculumId,
+  progress: ProgressState,
+): ProgressState {
+  const lessonIds = new Set(getCourseLessonIds(courseId));
+
+  if (lessonIds.size === 0) {
+    return progress;
+  }
+
+  const completedLessons = progress.completedLessons.filter((id) =>
+    lessonIds.has(id),
+  );
+  const lastLessonValid =
+    progress.lastLessonId !== null && lessonIds.has(progress.lastLessonId);
+
+  if (
+    completedLessons.length === progress.completedLessons.length &&
+    (progress.lastLessonId === null || lastLessonValid)
+  ) {
+    return progress;
+  }
+
+  return {
+    ...progress,
+    completedLessons,
+    // "Continue where you left off" must not point at a lesson that is gone.
+    lastLessonId: lastLessonValid ? progress.lastLessonId : null,
+    lastStepIndex: lastLessonValid ? progress.lastStepIndex : 0,
+  };
+}
+
 export function normalizeStore(value: unknown): ProgressStore {
   if (isProgressStore(value)) {
     const byCurriculum = (value.byCurriculum ?? {}) as Record<string, unknown>;
     const known = mapCourses((courseId) =>
-      normalizeProgress(byCurriculum[courseId]),
+      dropCompletionForMissingLessons(
+        courseId,
+        normalizeProgress(byCurriculum[courseId]),
+      ),
     );
     const unknownBuckets = Object.fromEntries(
       Object.entries(byCurriculum).filter(([key]) => !isCourseId(key)),

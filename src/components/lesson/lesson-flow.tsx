@@ -15,7 +15,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { Flame } from "lucide-react";
 import { checkTypedAnswer } from "@/lib/answer-checking";
 import { findFollowingLesson } from "@/lib/course-index";
-import { getCapabilities } from "@/lib/courses";
+import { getCapabilities, getTargetLanguage } from "@/lib/courses";
 import { FEATURES } from "@/lib/feature-flags";
 import {
   capitalizeDisplayText,
@@ -138,6 +138,15 @@ function PracticeLessonFlow({
   const plannedForLessonRef = useRef<string | null>(null);
   const step = steps[stepIndex];
   const lessonCurriculumId = lesson.curriculumId ?? activeCurriculumId;
+  // The typed-answer hint names the course's own language: the prompt above it
+  // already reads "Write this in Bengali.", and a Spanish placeholder under it
+  // was telling the learner to answer in a language the course does not teach.
+  const typedAnswerPlaceholder = `Write in ${getTargetLanguage(lessonCurriculumId)}…`;
+  // A course without reliable speech should not open a question by telling the
+  // learner to listen. The phrase is written on the card either way; on Bengali
+  // the audio is a bonus, not the prompt.
+  const hasListening =
+    FEATURES.listening || getCapabilities(lessonCurriculumId).listening;
   const nextLesson = findFollowingLesson(lesson.id);
   // Progress ignores the intro card, so a lesson reads 0% until real work
   // starts rather than jumping to "1 of 14" on the title screen.
@@ -652,7 +661,9 @@ function PracticeLessonFlow({
             {formatPromptDisplay(step.prompt)}
           </h2>
           <p className="mt-1 hidden text-sm font-semibold text-slate-600 dark:text-slate-300 sm:block">
-            Listen to the phrase, then choose the English meaning.
+            {hasListening
+              ? "Listen to the phrase, then choose the English meaning."
+              : "Read the phrase, then choose the English meaning."}
           </p>
           <div className="mt-3 flex items-center justify-between rounded-3xl border border-cyan-100 bg-cyan-50 p-3 shadow-inner dark:border-cyan-300/20 dark:bg-cyan-400/12 sm:mt-4 sm:p-4">
             <p className="text-2xl font-black sm:text-3xl">
@@ -831,7 +842,7 @@ function PracticeLessonFlow({
                 className="mt-2 w-full rounded-3xl border border-slate-200 bg-white px-4 py-3 text-lg font-bold text-slate-900 outline-none focus:border-violet-400 disabled:opacity-70 dark:border-white/12 dark:bg-white/[0.06] dark:text-slate-50"
                 disabled={answerState !== "idle"}
                 onChange={(event) => setTypedAnswer(event.target.value)}
-                placeholder="Escribe en español…"
+                placeholder={typedAnswerPlaceholder}
                 value={typedAnswer}
               />
             </div>

@@ -1,9 +1,10 @@
 # Learning for Rachel
 
 A Duolingo-style learning platform. It started as a Bengali app for one learner
-and is now **multi-course**: Bengali, Spanish for Peru, a full 131-unit
-research-grounded Spanish course, Malayalam, and bite-size History chapters.
-Bengali is one course among several, not the identity of the app.
+and is now **multi-course**: a rebuilt 14-unit Bengali course, Spanish for Peru,
+a full 131-unit research-grounded Spanish course, Malayalam, and bite-size
+History chapters. Bengali is one course among several, not the identity of the
+app.
 
 > The repo directory and the localStorage key still say "bengali" for historical
 > reasons. See the handoff doc before renaming anything — the storage key must
@@ -30,10 +31,17 @@ Bengali is one course among several, not the identity of the app.
 - Distraction-free lessons: exit, progress, exercise, audio — nothing else
 - Generated exercises (recognize, produce, word-bank, cloze, ordering,
   listening, dialogue, grammar) driven by per-course capabilities
-- **Cumulative Spanish course**: each lesson introduces a few new items and
-  keeps retrieving earlier ones, the six lesson types do genuinely different
-  work, grammar is explained then drilled, and mistakes come back later in a
-  different format (see HANDOFF §5a)
+- **Cumulative courses (Spanish and Bengali)**: each lesson introduces a few new
+  items and keeps retrieving earlier ones, the lesson types do genuinely
+  different work, grammar is explained then drilled, and mistakes come back
+  later in a different format (see HANDOFF §5a)
+- **Bengali, rebuilt around `apni`**: 14 sequenced units and 68 lessons in
+  colloquial Bangladeshi Bengali. The respectful forms come first, because a
+  learner's first conversations are with strangers, shopkeepers, drivers and
+  hosts; familiar `tumi` gets the unit where the contrast *is* the lesson.
+  Vocabulary is met inside sentences, patterns are worked out before they are
+  explained, and host language is taught to be understood rather than performed
+  (HANDOFF §5c)
 - Spaced repetition, mistake review, unit checkpoints, word bank — surfaced in
   one Practice hub
 - Progress built on real signals: completion, phrases in memory, recall
@@ -49,14 +57,15 @@ npm test        # progress migration, streaks, registry, review policy, lesson e
 npm run build   # if SWC fails locally, use the WASM fallback in docs/HANDOFF.md §2
 ```
 
-## Curriculum pipeline (Spanish)
+## Curriculum pipeline
 
 ```bash
-npm run validate:curriculum        # validate content/spanish-curriculum.json
+npm run validate:curriculum        # validate every curriculum pack against its schema
 npm run seed:curriculum            # build the DB-ready seed bundle (db/seed/)
 npm run build:course-index         # regenerate the lightweight navigation index
 npm run test:exercise-generation   # exercise-generator tests
-npm run audit:curriculum           # pedagogical audit of the generated course
+npm run audit:curriculum           # pedagogical audit of both cumulative courses
+npm run dump:lesson <lessonId>     # print the steps a learner actually sees
 ```
 
 ## Local progress

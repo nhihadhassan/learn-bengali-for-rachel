@@ -3,11 +3,14 @@
 /**
  * The lesson path, at two very different scales.
  *
- * Bengali has 16 lessons; the full Spanish course has 131 units and 786
- * lessons. Rendering both the same way means either a cramped small course or
- * an unusable wall of scroll for the big one, so the path picks a presentation:
+ * Malayalam has three units; Bengali has 14 and 68 lessons, and the full
+ * Spanish course has 131 units and 788. Rendering them all the same way means
+ * either a cramped small course or an unusable wall of scroll for the big one,
+ * so the path picks a presentation (the cut is `LARGE_COURSE_UNIT_COUNT`):
  *
- *  - **Small courses** show every unit and lesson, as before.
+ *  - **Small courses** show every unit, and open them all only while the whole
+ *    course still reads at a glance (`BROWSABLE_LESSON_COUNT`); past that only
+ *    the unit the learner is in starts open.
  *  - **Large courses** show one section at a time, a window of units around
  *    where the learner is, the current unit expanded, and a jump box — so
  *    "continue", "where am I", "look around" and "skip ahead" are all one tap.
@@ -42,6 +45,13 @@ import { HistoryIcon } from "@/components/lesson/history-icon";
 /** How many units of a large course are listed at once. */
 const UNIT_WINDOW = 8;
 
+/**
+ * Up to this many lessons, a course is worth showing open: the learner can see
+ * the whole shape of it in one scroll. Bengali crossed this when it went from
+ * sixteen lessons to sixty-eight.
+ */
+const BROWSABLE_LESSON_COUNT = 24;
+
 export function CoursePath({
   completedLessonIds,
   courseId,
@@ -65,20 +75,32 @@ export function CoursePath({
     );
   }
 
+  // A short course is easier to read all at once — three units of four is a
+  // list, not a wall. Past that, opening everything buries the one lesson the
+  // learner came for under sixty others, so only the current unit starts open.
+  const units = sections.flatMap((section) => section.units);
+  const lessonCount = units.reduce((total, unit) => total + unit.lessons.length, 0);
+  const openEverything = lessonCount <= BROWSABLE_LESSON_COUNT;
+  const currentUnitIndex = units.findIndex((unit) =>
+    unit.lessons.some((lesson) => lesson.id === currentLessonId),
+  );
+
   return (
     <div className="space-y-4">
-      {sections.flatMap((section) =>
-        section.units.map((unit) => (
-          <UnitCard
-            key={unit.id}
-            completedLessonIds={completedLessonIds}
-            courseId={courseId}
-            currentLessonId={currentLessonId}
-            defaultOpen
-            unit={unit}
-          />
-        )),
-      )}
+      {units.map((unit, index) => (
+        <UnitCard
+          key={unit.id}
+          completedLessonIds={completedLessonIds}
+          courseId={courseId}
+          currentLessonId={currentLessonId}
+          defaultOpen={
+            openEverything ||
+            // Nothing started yet: open the first unit, which is where they are.
+            index === (currentUnitIndex >= 0 ? currentUnitIndex : 0)
+          }
+          unit={unit}
+        />
+      ))}
     </div>
   );
 }

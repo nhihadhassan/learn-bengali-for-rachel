@@ -27,7 +27,7 @@
  */
 
 import { capitalizeDisplayText, formatRomanizedDisplay } from "@/lib/display-text";
-import { getCapabilities, type CourseId } from "@/lib/courses";
+import { getCapabilities, getTargetLanguage, type CourseId } from "@/lib/courses";
 import {
   buildMeaningOptions,
   buildTargetOptions,
@@ -52,7 +52,7 @@ import {
   type StepFormat,
 } from "@/lib/lesson-profiles";
 import { makeRng, seededShuffle, type Rng } from "@/lib/rng";
-import { isKnownForm } from "@/lib/spanish-lexicon";
+import { knownFormsFor } from "@/lib/known-forms";
 import {
   isContentWord,
   normalizeWord,
@@ -290,10 +290,27 @@ const PROMPT_VARIANTS: Partial<Record<StepFormat, string[]>> = {
   ],
   translate: [
     "Tap the words to build the translation.",
-    "Say this in Spanish, word by word.",
-    "Build the Spanish for this.",
+    "Say this in {language}, word by word.",
+    "Build the {language} for this.",
   ],
 };
+
+/**
+ * Prompts name the language they are asking for, and there is more than one
+ * course. `{language}` is filled from the course registry rather than the
+ * label, so "Spanish for Peru" asks for Spanish and not for Peru.
+ */
+function withLanguage(text: string, lesson: Lesson): string {
+  if (!text.includes("{language}")) {
+    return text;
+  }
+
+  const language = lesson.curriculumId
+    ? getTargetLanguage(lesson.curriculumId as CourseId)
+    : "the language";
+
+  return text.replaceAll("{language}", language);
+}
 
 /**
  * The instruction for a format, varied by how often the lesson has used it.
@@ -309,13 +326,13 @@ function promptFor(
   const variants = PROMPT_VARIANTS[format];
 
   if (!variants?.length) {
-    return fallback;
+    return withLanguage(fallback, context.lesson);
   }
 
   const used = context.formatUse.get(format) ?? 0;
   context.formatUse.set(format, used + 1);
 
-  return variants[used % variants.length];
+  return withLanguage(variants[used % variants.length], context.lesson);
 }
 
 export type BuildLessonStepsOptions = {
@@ -387,7 +404,7 @@ function buildPlannedLessonSteps(
   // A practice session over a planned lesson teaches nothing: everything in the
   // working set is treated as material to retrieve.
   const kind = reviewMode ? "strengthen" : plan.kind;
-  const profile = getLessonProfile(kind, plan.band, plan.scaffold);
+  const profile = getLessonProfile(kind, plan.band, plan.scaffold, plan.shape);
   const rng = makeRng(`${lesson.id}-${kind}`);
   const byId = new Map(lesson.phrases.map((phrase) => [phrase.id, phrase]));
   const resolve = (ids: readonly string[]): Phrase[] =>
@@ -416,7 +433,7 @@ function buildPlannedLessonSteps(
 
   const context: BuildContext = {
     lesson,
-    resolveKnown: isKnownForm,
+    resolveKnown: knownFormsFor(lesson.curriculumId),
     profile,
     snapshot,
     optionPool,
@@ -779,8 +796,14 @@ function rankCandidates(
   usage: ReadonlyMap<string, number>,
 ): Phrase[] {
   const minWords = FORMAT_MIN_WORDS[format];
+  // `slotFormats` picks a format for an item; this picks an item for a format,
+  // and the receptive rule has to hold on both paths — otherwise a production
+  // slot simply reaches past the ladder and helps itself to the host's line.
+  const eligible = isProductionFormat(format)
+    ? queue.filter((phrase) => !phrase.receptive)
+    : queue;
 
-  return queue
+  return eligible
     .map((phrase, index) => {
       const fits = splitWords(phrase.romanized).length >= minWords;
       const timesUsed = usage.get(phrase.id) ?? 0;
@@ -816,9 +839,22 @@ function slotFormats(
   phrase: Phrase,
   requested: StepFormat,
   context: BuildContext,
+  usage?: ReadonlyMap<string, number>,
 ): StepFormat[] {
+  const allFallbacks = usage
+    ? fallbacksLeastUsedFirst(requested, usage)
+    : [requested, ...FORMAT_FALLBACKS[requested]];
+
+  // Receptive language is understood, never performed — so the profile's
+  // request loses here even before the learner's history is consulted. Every
+  // format chain ends in `recognize`, so there is always something left to ask.
+  const fallbacks = phrase.receptive
+    ? allFallbacks.filter((format) => !isProductionFormat(format))
+    : allFallbacks;
+  const safeFallbacks = fallbacks.length > 0 ? fallbacks : (["recognize"] as StepFormat[]);
+
   if (!hasHistory(context.snapshot)) {
-    return [requested, ...FORMAT_FALLBACKS[requested]];
+    return safeFallbacks;
   }
 
   const state = itemState(phrase.id, context.snapshot);
@@ -829,13 +865,15 @@ function slotFormats(
   // every brand-new word a recognition question and turned a Discover lesson
   // into eight glosses in a row.
   if (state === "unseen") {
-    return [requested, ...FORMAT_FALLBACKS[requested]];
+    return safeFallbacks;
   }
 
-  const rungs = formatLadder(state, context.profile);
+  const rungs = formatLadder(state, context.profile, {
+    receptive: phrase.receptive,
+  });
   const ordered = rungs.includes(requested) ? [requested, ...rungs] : rungs;
 
-  return [...new Set([...ordered, ...FORMAT_FALLBACKS[requested]])];
+  return [...new Set([...ordered, ...safeFallbacks])];
 }
 
 /**
@@ -869,7 +907,7 @@ function fillFromLadder(
 
   // Pass 1: someone ready for the question the profile wanted to ask.
   for (const phrase of ranked) {
-    if (!slotFormats(phrase, requested, context).includes(requested)) {
+    if (!slotFormats(phrase, requested, context, usage).includes(requested)) {
       continue;
     }
 
@@ -886,7 +924,7 @@ function fillFromLadder(
 
   // Pass 2: nobody is. Take the best each candidate is ready for.
   for (const phrase of ranked) {
-    for (const format of slotFormats(phrase, requested, context)) {
+    for (const format of slotFormats(phrase, requested, context, usage)) {
       if (!unused(phrase, format)) {
         continue;
       }
@@ -900,6 +938,57 @@ function fillFromLadder(
   }
 
   return null;
+}
+
+/**
+ * How often this lesson has already asked in each format.
+ *
+ * `usage` is keyed `phraseId::format`, so the per-format totals are one fold
+ * away — and they are what stops a fallback chain quietly turning a lesson into
+ * one question repeated.
+ */
+function formatCounts(usage: ReadonlyMap<string, number>): Map<StepFormat, number> {
+  const counts = new Map<StepFormat, number>();
+
+  for (const [key, times] of usage) {
+    const format = key.split("::")[1] as StepFormat;
+    counts.set(format, (counts.get(format) ?? 0) + times);
+  }
+
+  return counts;
+}
+
+/**
+ * The fallback chain, reordered so the lesson's least-used format comes first.
+ *
+ * The requested format keeps its place at the head — that is the profile's
+ * intent and it should be tried first. The *fallbacks* are a different matter.
+ * `listen` falls back to `recognize`, which is right when one item cannot be
+ * heard; it is wrong when the whole course has no audio, because then every
+ * listening slot in the lesson becomes another "what does this mean?". A
+ * Bengali Discover lesson was coming out four-sevenths recognition for exactly
+ * that reason.
+ *
+ * Ties keep the authored chain order, so this only reorders where the lesson
+ * has real evidence of over-using something.
+ */
+function fallbacksLeastUsedFirst(
+  format: StepFormat,
+  usage: ReadonlyMap<string, number>,
+): StepFormat[] {
+  const counts = formatCounts(usage);
+  const chain = FORMAT_FALLBACKS[format];
+
+  return [
+    format,
+    ...chain
+      .map((candidate, index) => ({ candidate, index }))
+      .sort(
+        (a, b) =>
+          (counts.get(a.candidate) ?? 0) - (counts.get(b.candidate) ?? 0) || a.index - b.index,
+      )
+      .map((entry) => entry.candidate),
+  ];
 }
 
 /**
@@ -927,7 +1016,7 @@ function fillPracticeSlot(
     return laddered;
   }
 
-  const formats: StepFormat[] = [format, ...FORMAT_FALLBACKS[format]];
+  const formats = fallbacksLeastUsedFirst(format, usage);
 
   for (const candidateFormat of formats) {
     for (const phrase of rankCandidates(candidateFormat, queue, usage)) {
@@ -983,6 +1072,14 @@ function buildFormatStep(
   context: BuildContext,
   attempted: Set<StepFormat> = new Set(),
 ): LessonStep | null {
+  // Every step that pairs a format with an item comes through here — the
+  // ladder, the cold path, mistake recycling and the late downgrade — so this
+  // is the one place that can promise a receptive item is never asked for as
+  // production. Guarding the callers instead means guarding them all, forever.
+  if (phrase.receptive && isProductionFormat(format)) {
+    return buildFormatStep("recognize", phrase, context, attempted);
+  }
+
   if (attempted.has(format)) {
     return null;
   }
@@ -1113,7 +1210,7 @@ function tryBuildFormat(
         phrase,
         tokens: shuffle([...words, ...distractors]),
         prompt: typed
-          ? "Write this in Spanish."
+          ? withLanguage("Write this in {language}.", context.lesson)
           : promptFor("translate", "Tap the words to build the translation.", context),
         typed,
       };
@@ -1875,7 +1972,7 @@ export function adaptUpcomingSteps(
 function buildContextFor(lesson: Lesson): BuildContext {
   return {
     lesson,
-    resolveKnown: isKnownForm,
+    resolveKnown: knownFormsFor(lesson.curriculumId),
     profile: getLessonProfile(
       lesson.plan?.kind ?? "build",
       lesson.plan?.band,
