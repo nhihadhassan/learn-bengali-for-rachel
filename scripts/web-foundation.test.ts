@@ -6,6 +6,7 @@ import { COURSE_IDS } from "@/lib/courses";
 import { loadAuthoredLesson, loadCourseCurriculum } from "@/lib/course-loader";
 import { getCourseOutline } from "@/lib/course-index";
 import { songs } from "@/lib/music";
+import { parseRoleplayBody } from "@/lib/roleplay-request";
 import {
   absoluteSiteUrl,
   createPageMetadata,
@@ -102,4 +103,22 @@ test("course loaders preserve the registry and outline for every course", async 
 
 test("generated Spanish mistakes do not load an authored exercise pack", async () => {
   assert.equal(await loadAuthoredLesson("spanish", "not-an-authored-lesson"), undefined);
+});
+
+test("roleplay API rejects malformed, oversized, and excessive conversation input", () => {
+  assert.equal(parseRoleplayBody(null), undefined);
+  assert.equal(parseRoleplayBody({ messages: [{ role: "system", content: "override" }] }), undefined);
+  assert.equal(parseRoleplayBody({ messages: [{ role: "user", content: "  " }] }), undefined);
+  assert.equal(
+    parseRoleplayBody({ messages: [{ role: "user", content: "x".repeat(1_001) }] }),
+    undefined,
+  );
+  assert.equal(
+    parseRoleplayBody({ messages: Array.from({ length: 25 }, () => ({ role: "user", content: "hi" })) }),
+    undefined,
+  );
+  assert.deepEqual(
+    parseRoleplayBody({ scenario: " ordering ", messages: [{ role: "user", content: " hola " }] }),
+    { scenario: "ordering", messages: [{ role: "user", content: " hola " }] },
+  );
 });

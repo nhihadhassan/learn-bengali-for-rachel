@@ -1,4 +1,5 @@
 import { isFeatureEnabled } from "@/lib/feature-flags";
+import { parseRoleplayBody, type ChatMessage } from "@/lib/roleplay-request";
 
 // Scaffold for AI roleplay. Provider-agnostic: set AI_PROVIDER ("gemini" default,
 // or "groq") and AI_API_KEY server-side. Stays behind FEATURES.aiRoleplay and
@@ -6,7 +7,9 @@ import { isFeatureEnabled } from "@/lib/feature-flags";
 // ever ships a broken experience or leaks a key to the browser.
 export const dynamic = "force-dynamic";
 
-type ChatMessage = { role: "user" | "assistant"; content: string };
+const MAX_BODY_BYTES = 24_000;
+const MAX_MESSAGE_LENGTH = 1_000;
+const PROVIDER_TIMEOUT_MS = 12_000;
 
 const SYSTEM_PROMPT =
   "You are a warm Spanish tutor roleplaying a short everyday scenario for a " +
@@ -25,15 +28,24 @@ export async function POST(request: Request) {
   const apiKey = process.env.AI_API_KEY;
   const provider = process.env.AI_PROVIDER ?? "gemini";
 
-  let body: { messages?: ChatMessage[]; scenario?: string } = {};
-  try {
-    body = await request.json();
-  } catch {
-    body = {};
+  const contentLength = Number(request.headers.get("content-length") ?? 0);
+  if (Number.isFinite(contentLength) && contentLength > MAX_BODY_BYTES) {
+    return Response.json({ error: "Request is too large." }, { status: 413 });
   }
 
-  const messages = body.messages ?? [];
-  const scenario = body.scenario ?? "ordering at a café";
+  let rawBody: unknown;
+  try {
+    rawBody = await request.json();
+  } catch {
+    return Response.json({ error: "Request body must be valid JSON." }, { status: 400 });
+  }
+
+  const body = parseRoleplayBody(rawBody);
+  if (!body) {
+    return Response.json({ error: "Invalid roleplay conversation." }, { status: 400 });
+  }
+
+  const { messages, scenario } = body;
 
   if (!apiKey) {
     // No provider configured — return a friendly demo line so the UI still works.
@@ -45,13 +57,17 @@ export async function POST(request: Request) {
 
   try {
     const reply = await generateReply(provider, apiKey, scenario, messages);
-    return Response.json({ reply });
+    return Response.json({ reply: limitReply(reply) });
   } catch {
     return Response.json(
-      { reply: "Lo siento, no puedo responder ahora mismo.", fallback: true },
-      { status: 200 },
+      { error: "The roleplay provider is temporarily unavailable." },
+      { status: 502 },
     );
   }
+}
+
+function limitReply(reply: string): string {
+  return reply.slice(0, MAX_MESSAGE_LENGTH);
 }
 
 async function generateReply(
@@ -61,6 +77,7 @@ async function generateReply(
   messages: ChatMessage[],
 ): Promise<string> {
   const system = `${SYSTEM_PROMPT} Scenario: ${scenario}.`;
+  const signal = AbortSignal.timeout(PROVIDER_TIMEOUT_MS);
 
   if (provider === "gemini") {
     const response = await fetch(
@@ -68,6 +85,7 @@ async function generateReply(
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },
+        signal,
         body: JSON.stringify({
           systemInstruction: { parts: [{ text: system }] },
           contents: messages.map((message) => ({
@@ -77,11 +95,16 @@ async function generateReply(
         }),
       },
     );
+    if (!response.ok) throw new Error(`Gemini request failed: ${response.status}`);
     const data = await response.json();
-    return (
-      data?.candidates?.[0]?.content?.parts?.[0]?.text ?? "…"
-    );
+    const reply = data?.candidates?.[0]?.content?.parts?.[0]?.text;
+    if (typeof reply !== "string" || !reply.trim()) {
+      throw new Error("Gemini returned no reply.");
+    }
+    return reply;
   }
+
+  if (provider !== "groq") throw new Error("Unsupported roleplay provider.");
 
   // Groq (OpenAI-compatible) as a drop-in alternate.
   const response = await fetch(
@@ -92,12 +115,18 @@ async function generateReply(
         "Content-Type": "application/json",
         Authorization: `Bearer ${apiKey}`,
       },
+      signal,
       body: JSON.stringify({
         model: "llama-3.3-70b-versatile",
         messages: [{ role: "system", content: system }, ...messages],
       }),
     },
   );
+  if (!response.ok) throw new Error(`Groq request failed: ${response.status}`);
   const data = await response.json();
-  return data?.choices?.[0]?.message?.content ?? "…";
+  const reply = data?.choices?.[0]?.message?.content;
+  if (typeof reply !== "string" || !reply.trim()) {
+    throw new Error("Groq returned no reply.");
+  }
+  return reply;
 }
